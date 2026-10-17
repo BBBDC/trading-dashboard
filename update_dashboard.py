@@ -95,6 +95,13 @@ def run_pipeline(force_download=False, skip_download=False, git_push=False):
         print("=" * 65)
         print(f"Dashboard verfügbar unter: file://{DASHBOARD_HTML.resolve()}\n")
 
+        # iOS Alerts versenden
+        try:
+            from notifications import send_scan_summary_notification
+            send_scan_summary_notification(db)
+        except Exception as e:
+            print(f"Benachrichtigungs-Fehler: {e}")
+
 
 def git_sync_dashboard():
     stage_banner("STUFE 5: Git-Hosting Synchronisation")

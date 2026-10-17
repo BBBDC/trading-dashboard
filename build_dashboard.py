@@ -22,8 +22,23 @@ html_content = f"""<!DOCTYPE html>
 <html lang="de" class="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>TradingView Super-Analyst Dashboard</title>
+
+  <!-- App Icons & Favicon -->
+  <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="icons/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <link rel="apple-touch-icon-precomposed" href="icons/apple-touch-icon.png">
+
+  <!-- iOS Standalone Web App Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Super-Analyst">
+  <meta name="theme-color" content="#0b0f19">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.json">
+
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,42 +75,89 @@ html_content = f"""<!DOCTYPE html>
 </head>
 <body class="bg-[#0b0f19] text-slate-100 min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
 
+  <!-- Pull-Down-to-Refresh Visual Indicator (Touch & iOS) -->
+  <div id="pull-refresh-indicator" class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center pointer-events-none transition-transform duration-200 -translate-y-full">
+    <div class="mt-3 px-4 py-2 rounded-full bg-[#0d1322]/95 border border-indigo-500/50 shadow-2xl backdrop-blur-md flex items-center gap-2.5 text-xs font-semibold text-slate-100">
+      <svg id="pull-icon" class="w-4 h-4 text-indigo-400 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+      <span id="pull-text">Nach unten ziehen zum Aktualisieren</span>
+    </div>
+  </div>
+
+  <!-- Toast Notification Notification Banner -->
+  <div id="toast-banner" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="px-4 py-3 rounded-xl bg-slate-900/95 border border-emerald-500/50 text-white text-xs font-semibold shadow-2xl flex items-center gap-2 backdrop-blur-md">
+      <span class="text-emerald-400 text-base">✓</span>
+      <span id="toast-message">Dashboard erfolgreich aktualisiert!</span>
+    </div>
+  </div>
+
   <!-- Top Navigation Header -->
-  <header class="border-b border-slate-800/80 bg-[#0d1322]/90 backdrop-blur sticky top-0 z-40 px-6 py-4">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+  <header class="border-b border-slate-800/80 bg-[#0d1322]/90 backdrop-blur sticky top-0 z-40 px-4 sm:px-6 py-3.5">
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3.5">
+      
+      <!-- Brand & Title -->
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 font-bold text-lg text-white">
-          TV
+        <div class="w-10 h-10 rounded-xl bg-slate-900 border border-indigo-500/40 p-1 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+          <img src="icons/favicon.svg" alt="TV" class="w-8 h-8">
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="font-bold text-xl tracking-tight text-white">Super-Analyst Dashboard</h1>
-            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">MCP Live Feed</span>
+            <h1 class="font-bold text-lg sm:text-xl tracking-tight text-white">Super-Analyst Dashboard</h1>
+            <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">24/7 Raspberry Pi</span>
           </div>
-          <p class="text-xs text-slate-400">Multi-Timeframe Confluence (4h · 8h · 1D) | SMC (FVG/OB) · Wyckoff VSA · RSI Divergenzen · Golden Pocket</p>
+          <p class="text-xs text-slate-400">Multi-Timeframe Confluence (4h · 8h · 1D) | SMC · Wyckoff VSA · RSI Divs · Golden Pocket</p>
         </div>
       </div>
 
-      <!-- Quick Metrics -->
-      <div class="flex items-center gap-2 sm:gap-4 overflow-x-auto pb-1 md:pb-0">
-        <div class="px-3 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/50 flex items-center gap-2">
-          <span class="text-xs text-slate-400">Gescannt:</span>
-          <span class="font-mono font-bold text-sm text-white" id="stat-total">55</span>
+      <!-- Action & Metrics Controls -->
+      <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+        
+        <!-- Next Scan Live Countdown Timer -->
+        <div class="px-3 py-1.5 rounded-xl bg-indigo-950/40 border border-indigo-500/30 flex items-center gap-2 shadow-sm" title="Scanzyklus: alle 4 Stunden (01:05, 05:05, 09:05, 13:05, 17:05, 21:05 UTC)">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+          </span>
+          <div class="flex flex-col">
+            <span class="text-[9px] uppercase font-semibold tracking-wider text-slate-400 leading-none">Nächster Scan:</span>
+            <span class="font-mono font-bold text-xs text-indigo-300 leading-tight mt-0.5" id="next-scan-countdown">Berechne...</span>
+          </div>
         </div>
-        <div class="px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span class="text-xs text-emerald-300">Longs:</span>
-          <span class="font-mono font-bold text-sm text-emerald-400" id="stat-long">14</span>
+
+        <!-- Manual Refresh Button -->
+        <button id="btn-manual-refresh" onclick="triggerManualRefresh()" class="px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer" title="Jetzt aktualisieren oder am Handy nach unten ziehen">
+          <svg id="refresh-icon" class="w-3.5 h-3.5 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          <span id="refresh-label">Refresh</span>
+        </button>
+
+        <!-- iOS Alerts Info Button -->
+        <button onclick="openAlertsModal()" class="px-3 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer" title="iOS Lockscreen Push-Alerts">
+          <span class="text-sm">🔔</span>
+          <span class="hidden sm:inline">iOS Alerts</span>
+        </button>
+
+        <!-- Quick Metrics -->
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          <div class="px-2.5 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/50 flex items-center gap-1.5" title="Gesamt gescannte Werte">
+            <span class="text-[11px] text-slate-400">Total:</span>
+            <span class="font-mono font-bold text-xs text-white" id="stat-total">58</span>
+          </div>
+          <div class="px-2.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-1.5" title="High-Conviction Longs">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-[11px] text-emerald-300">L:</span>
+            <span class="font-mono font-bold text-xs text-emerald-400" id="stat-long">14</span>
+          </div>
+          <div class="px-2.5 py-1.5 rounded-lg bg-rose-500/10 border border-rose-500/30 flex items-center gap-1.5" title="Short / Erschöpfung">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+            <span class="text-[11px] text-rose-300">S:</span>
+            <span class="font-mono font-bold text-xs text-rose-400" id="stat-short">20</span>
+          </div>
         </div>
-        <div class="px-3 py-1.5 rounded-lg bg-rose-500/10 border border-rose-500/30 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-rose-400"></span>
-          <span class="text-xs text-rose-300">Shorts:</span>
-          <span class="font-mono font-bold text-sm text-rose-400" id="stat-short">20</span>
-        </div>
-        <div class="px-3 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/50 flex items-center gap-2">
-          <span class="text-xs text-slate-400">Neutral:</span>
-          <span class="font-mono font-bold text-sm text-slate-300" id="stat-neutral">21</span>
-        </div>
+
       </div>
     </div>
   </header>
@@ -901,15 +963,229 @@ html_content = f"""<!DOCTYPE html>
       document.getElementById('detail-modal').classList.add('hidden');
     }}
 
-    // Tastatur-Esc schließt Modal
+    // ==========================================
+    // 🔔 Alerts Modal Handlers
+    // ==========================================
+    function openAlertsModal() {{
+      const m = document.getElementById('alerts-modal');
+      if (m) m.classList.remove('hidden');
+    }}
+
+    function closeAlertsModal() {{
+      const m = document.getElementById('alerts-modal');
+      if (m) m.classList.add('hidden');
+    }}
+
+    // Tastatur-Esc schließt Modals
     window.addEventListener('keydown', (e) => {{
-      if (e.key === 'Escape') closeDetailModal();
+      if (e.key === 'Escape') {{
+        closeDetailModal();
+        closeAlertsModal();
+      }}
     }});
+
+    // ==========================================
+    // ⏱️ Nächster Scan Countdown (Cron: 01:05, 05:05, 09:05, 13:05, 17:05, 21:05 UTC)
+    // ==========================================
+    function updateNextScanCountdown() {{
+      const now = new Date();
+      const nowUtc = now.getTime();
+      const cronHours = [1, 5, 9, 13, 17, 21];
+      let nextSlot = null;
+
+      for (let dayOffset = 0; dayOffset <= 2; dayOffset++) {{
+        for (const h of cronHours) {{
+          const candidate = new Date();
+          candidate.setUTCDate(candidate.getUTCDate() + dayOffset);
+          candidate.setUTCHours(h, 5, 0, 0);
+          if (candidate.getTime() > nowUtc) {{
+            nextSlot = candidate;
+            break;
+          }}
+        }}
+        if (nextSlot) break;
+      }}
+
+      if (!nextSlot) return;
+
+      const diff = Math.max(0, nextSlot.getTime() - nowUtc);
+      const totalSec = Math.floor(diff / 1000);
+      const hours = Math.floor(totalSec / 3600);
+      const mins = Math.floor((totalSec % 3600) / 60);
+      const secs = totalSec % 60;
+
+      const pad = (n) => String(n).padStart(2, '0');
+      const el = document.getElementById('next-scan-countdown');
+
+      if (totalSec <= 0) {{
+        if (el) el.innerText = 'Scan läuft... 🔄';
+      }} else {{
+        if (el) el.innerText = `${{pad(hours)}}h ${{pad(mins)}}m ${{pad(secs)}}s`;
+      }}
+    }}
+    setInterval(updateNextScanCountdown, 1000);
+    updateNextScanCountdown();
+
+    // ==========================================
+    // 🔄 Refresh-Funktion & Toast-Banner
+    // ==========================================
+    let isRefreshing = false;
+    function showToast(msg) {{
+      const banner = document.getElementById('toast-banner');
+      const text = document.getElementById('toast-message');
+      if (banner && text) {{
+        text.innerText = msg;
+        banner.classList.remove('translate-y-24', 'opacity-0');
+        setTimeout(() => {{
+          banner.classList.add('translate-y-24', 'opacity-0');
+        }}, 3000);
+      }}
+    }}
+
+    function triggerManualRefresh() {{
+      if (isRefreshing) return;
+      isRefreshing = true;
+
+      const icon = document.getElementById('refresh-icon');
+      const label = document.getElementById('refresh-label');
+      if (icon) icon.classList.add('animate-spin');
+      if (label) label.innerText = 'Lädt...';
+
+      fetch('market_analysis_db.json?nocache=' + Date.now())
+        .then(res => res.json())
+        .then(newData => {{
+          currentData = newData;
+          updateStats();
+          applyFilters();
+          showToast('Dashboard erfolgreich aktualisiert!');
+        }})
+        .catch(err => {{
+          console.warn('Live-Fetch nicht möglich, lade Seite neu...', err);
+          window.location.reload();
+        }})
+        .finally(() => {{
+          setTimeout(() => {{
+            if (icon) icon.classList.remove('animate-spin');
+            if (label) label.innerText = 'Refresh';
+            isRefreshing = false;
+          }}, 600);
+        }});
+    }}
+
+    // ==========================================
+    // 📱 Pull-down to Refresh (Touch / iOS)
+    // ==========================================
+    function setupPullToRefresh() {{
+      let startY = 0;
+      let currentY = 0;
+      let isPulling = false;
+      const threshold = 65;
+      const indicator = document.getElementById('pull-refresh-indicator');
+      const pullIcon = document.getElementById('pull-icon');
+      const pullText = document.getElementById('pull-text');
+
+      window.addEventListener('touchstart', (e) => {{
+        if (window.scrollY === 0) {{
+          startY = e.touches[0].clientY;
+          isPulling = true;
+        }} else {{
+          isPulling = false;
+        }}
+      }}, {{ passive: true }});
+
+      window.addEventListener('touchmove', (e) => {{
+        if (!isPulling) return;
+        currentY = e.touches[0].clientY;
+        const pullDist = currentY - startY;
+
+        if (pullDist > 0 && window.scrollY === 0) {{
+          const damped = Math.min(pullDist * 0.45, 90);
+          if (indicator) {{
+            indicator.style.transform = `translateY(${{damped}}px)`;
+          }}
+          if (pullDist >= threshold) {{
+            if (pullIcon) pullIcon.style.transform = 'rotate(180deg)';
+            if (pullText) pullText.innerText = 'Loslassen zum Aktualisieren';
+          }} else {{
+            if (pullIcon) pullIcon.style.transform = 'rotate(0deg)';
+            if (pullText) pullText.innerText = 'Nach unten ziehen...';
+          }}
+        }}
+      }}, {{ passive: true }});
+
+      window.addEventListener('touchend', () => {{
+        if (!isPulling) return;
+        isPulling = false;
+        const pullDist = currentY - startY;
+
+        if (pullDist >= threshold && window.scrollY === 0) {{
+          if (pullText) pullText.innerText = 'Aktualisiere Daten...';
+          if (pullIcon) pullIcon.classList.add('animate-spin');
+          triggerManualRefresh();
+          setTimeout(() => {{
+            if (indicator) indicator.style.transform = 'translateY(-100%)';
+            if (pullIcon) {{
+              pullIcon.classList.remove('animate-spin');
+              pullIcon.style.transform = 'rotate(0deg)';
+            }}
+          }}, 800);
+        }} else {{
+          if (indicator) indicator.style.transform = 'translateY(-100%)';
+        }}
+        startY = 0;
+        currentY = 0;
+      }});
+    }}
+    setupPullToRefresh();
 
     // Initial render
     updateStats();
     applyFilters();
   </script>
+
+  <!-- iOS Alerts Info Modal -->
+  <div id="alerts-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="max-w-lg w-full rounded-2xl bg-[#0d1322] border border-indigo-500/40 p-6 shadow-2xl relative text-slate-200">
+      <div class="flex items-start justify-between pb-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-xl">
+            🔔
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-white">iOS Lockscreen Alerts</h3>
+            <p class="text-xs text-slate-400">Push-Benachrichtigungen direkt auf dein iPhone</p>
+          </div>
+        </div>
+        <button onclick="closeAlertsModal()" class="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition">✕</button>
+      </div>
+
+      <div class="mt-4 space-y-4 text-xs leading-relaxed">
+        <p class="text-slate-300">
+          Du kannst dir bei jedem automatischen 4h-Scan (und bei Top A+ Setups &ge; 90%) sofort eine echte iOS-Push-Mitteilung mit Ton und Sperrbildschirm-Vorschau auf dein iPhone senden lassen.
+        </p>
+
+        <div class="p-3.5 rounded-xl bg-slate-800/60 border border-slate-700/60 space-y-2">
+          <span class="font-bold text-indigo-300 block text-sm">📲 In 3 Schritten auf dem iPhone einrichten (Kostenlos via ntfy):</span>
+          <ol class="list-decimal list-inside space-y-1.5 text-slate-300">
+            <li>Installiere die kostenlose App <strong>ntfy</strong> aus dem Apple App Store auf deinem iPhone.</li>
+            <li>Öffne die App, tippe auf <strong>„+“</strong> und abonniere das Topic: <code class="px-1.5 py-0.5 rounded bg-slate-900 text-emerald-400 font-mono font-bold">bbbdc-trading-alerts</code></li>
+            <li>Fertig! Der Raspberry Pi ist bereits mit diesem Topic verbunden und sendet dir bei jedem Scan einen Push-Report.</li>
+          </ol>
+        </div>
+
+        <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-2.5">
+          <span class="text-emerald-400 text-lg">💡</span>
+          <span class="text-emerald-200 text-[11px]">Du erhältst alle 4 Stunden automatisch den Scan-Report und wirst sofort über A+ High-Conviction Setups informiert – inklusive Direktlink zum Dashboard!</span>
+        </div>
+      </div>
+
+      <div class="mt-5 flex items-center justify-end gap-2 pt-3 border-t border-slate-800">
+        <button onclick="closeAlertsModal()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition">
+          Verstanden
+        </button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
 """
