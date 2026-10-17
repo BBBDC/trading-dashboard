@@ -33,6 +33,7 @@ Dieses Dokument dient als zentrale Wissensbasis für die Qualitätskontrolle, Fe
 | 2026-10-17 | Chart-Genauigkeit | Synthetische Kerzen wichen von Realität ab | Zuvor wurden nur für BTC und MU echte Bars geladen; Bänder waren flache Linien | Alle 58 Assets werden nun über `fetch_real_ohlcv_cache.py` mit 100% echten TV-MCP-Bars versorgt. Chart-Engine v3 zeichnet dynamische EMA 233-Kurven, degencoder-Volatilitätsbänder, echte Wyckoff-Volumenbalken & RSI(14) mit echten Zeitstempeln. |
 | 2026-10-17 | Dashboard-Interaktivität | Statische Charts vs. echtes TV-Feeling | User wünscht exakte Chart-Übereinstimmung | Dual-View im Modal: Tab 1 zeigt autarkes SMC-Vektorchart (für Raspberry Pi/Offline); Tab 2 bettet das offizielle interaktive TradingView-Live-Widget ein. |
 | 2026-10-17 | Pi-Migration & Git | Umzug auf 24/7 Raspberry Pi | Sauberer Stand vor Übertragung nötig | Vor dem Transfer auf den Pi: `.gitignore` härten, dynamische Watchlist und visuelle Chart-Bilder fertigstellen, SSH-Verbindung für headless Antigravity-Workflow einrichten. |
+| 2026-10-17 | Pi 24/7 Betrieb & Git-Hosting | Inbetriebnahme auf Raspberry Pi | Git & Cron mussten eingerichtet werden | Lokales Git-Repository auf Branch main initialisiert, 24/7 Cron-Job für 4h-Zyklen eingerichtet, GitHub Pages Deploy-Workflow (`deploy-pages.yml`) & `--git-push` für automatisiertes Dashboard-Hosting integriert. |
 
 ---
 
