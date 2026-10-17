@@ -140,6 +140,12 @@ html_content = f"""<!DOCTYPE html>
           <span class="hidden sm:inline">iOS Alerts</span>
         </button>
 
+        <!-- Hypothesen Guide Info Button -->
+        <button onclick="openHypothesesModal()" class="px-3 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer" title="Setup-Hypothesen & Trade-Plan Guide">
+          <span class="text-sm">💡</span>
+          <span class="hidden sm:inline">Hypothesen-Guide</span>
+        </button>
+
         <!-- Quick Metrics -->
         <div class="flex items-center gap-1.5 sm:gap-2">
           <div class="px-2.5 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/50 flex items-center gap-1.5" title="Gesamt gescannte Werte">
@@ -289,6 +295,29 @@ html_content = f"""<!DOCTYPE html>
 
     </div>
 
+    <!-- Hypothesen Quick Guide Banner -->
+    <div class="p-4 rounded-xl bg-slate-900/80 border border-indigo-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-lg">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-sm shrink-0">
+          💡
+        </div>
+        <div class="space-y-0.5">
+          <div class="font-bold text-white flex items-center gap-2">
+            <span>Setup-Logik & Hypothesen</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-mono">3 Strategien</span>
+          </div>
+          <p class="text-slate-400 text-[11px] leading-relaxed">
+            <strong class="text-emerald-400">Hypothese 1:</strong> Reversal am Wende-Extremum (Max CRV) &bull; 
+            <strong class="text-indigo-400">Hypothese 2:</strong> Trendfolge im Pullback (Hohe Winrate) &bull; 
+            <strong class="text-amber-400">Hypothese 3:</strong> Liquidity Hunt / Range Fakeout
+          </p>
+        </div>
+      </div>
+      <button onclick="openHypothesesModal()" class="self-start sm:self-auto px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition flex items-center gap-1.5 shadow-sm shrink-0 cursor-pointer">
+        Guide & Regeln anzeigen →
+      </button>
+    </div>
+
     <!-- Filter & Navigation Control Center -->
     <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-4">
       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
@@ -399,7 +428,12 @@ html_content = f"""<!DOCTYPE html>
             <h2 id="modal-asset-name" class="text-xl font-bold text-white tracking-tight"></h2>
             <span id="modal-asset-ticker" class="text-xs font-mono text-slate-400"></span>
           </div>
-          <p id="modal-setup-title" class="text-xs text-indigo-400 font-semibold mt-1"></p>
+          <div class="flex items-center gap-2 mt-1">
+            <p id="modal-setup-title" class="text-xs text-indigo-400 font-semibold"></p>
+            <button onclick="openHypothesesModal(document.getElementById('modal-setup-title').innerText)" class="px-2 py-0.5 rounded bg-indigo-500/10 hover:bg-indigo-500/25 text-indigo-300 hover:text-white border border-indigo-500/30 text-[10px] font-semibold transition cursor-pointer flex items-center gap-1" title="Erklärung zu dieser Setup-Hypothese anzeigen">
+              💡 Setup-Logik
+            </button>
+          </div>
         </div>
         <button onclick="closeDetailModal()" class="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition">
           ✕
@@ -718,8 +752,13 @@ html_content = f"""<!DOCTYPE html>
             </div>
 
             <!-- Setup Info -->
-            <div class="mt-3 space-y-2">
-              <div class="text-xs font-semibold text-indigo-300 truncate">${{a.setup_name}}</div>
+            <div class="mt-3 space-y-1.5">
+              <div class="flex items-center justify-between gap-1">
+                <span class="text-xs font-semibold text-indigo-300 truncate">${{a.setup_name}}</span>
+                <button onclick="openHypothesesModal('${{a.setup_name}}')" class="px-1.5 py-0.5 rounded bg-indigo-500/10 hover:bg-indigo-500/30 text-indigo-300 hover:text-white border border-indigo-500/20 text-[10px] font-semibold transition shrink-0 cursor-pointer" title="Setup-Hypothese erklären">
+                  Info 💡
+                </button>
+              </div>
               <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">${{a.analyst_note}}</p>
             </div>
 
@@ -772,7 +811,12 @@ html_content = f"""<!DOCTYPE html>
           <td class="p-3 text-slate-300">${{d1 ? d1.trend : '-'}}</td>
           <td class="p-3 ${{rsiColor}}">${{rsiVal}}</td>
           <td class="p-3 max-w-xs truncate text-slate-300">
-            <span class="text-indigo-300 font-semibold">${{a.setup_name}}</span>
+            <div class="flex items-center gap-1.5">
+              <span class="text-indigo-300 font-semibold truncate">${{a.setup_name}}</span>
+              <button onclick="event.stopPropagation(); openHypothesesModal('${{a.setup_name}}')" class="px-1.5 py-0.5 rounded bg-indigo-500/10 hover:bg-indigo-500/30 text-indigo-300 hover:text-white border border-indigo-500/20 text-[9px] font-semibold transition shrink-0 cursor-pointer" title="Setup-Hypothese erklären">
+                💡 Info
+              </button>
+            </div>
             <span class="block text-[10px] text-slate-400">Entry: ${{formatNumber(a.entry_range[0])}} | SL: ${{formatNumber(a.stop_loss)}}</span>
           </td>
           <td class="p-3 text-emerald-400 font-bold">${{a.crv}}:1</td>
@@ -992,11 +1036,61 @@ html_content = f"""<!DOCTYPE html>
       if (m) m.classList.add('hidden');
     }}
 
+    // ==========================================
+    // 💡 Hypothesen Guide Modal Handlers
+    // ==========================================
+    function openHypothesesModal(highlight) {{
+      const m = document.getElementById('hypotheses-modal');
+      if (m) {{
+        m.classList.remove('hidden');
+        if (highlight) {{
+          const hStr = String(highlight);
+          if (hStr.includes('Hypothese 1') || hStr.includes('Reversal')) filterHypothesisModal('h1');
+          else if (hStr.includes('Hypothese 2') || hStr.includes('Continuation') || hStr.includes('Hidden')) filterHypothesisModal('h2');
+          else if (hStr.includes('Hypothese 3') || hStr.includes('Fakeout') || hStr.includes('Wyckoff')) filterHypothesisModal('h3');
+          else filterHypothesisModal('all');
+        }} else {{
+          filterHypothesisModal('all');
+        }}
+      }}
+    }}
+
+    function closeHypothesesModal() {{
+      const m = document.getElementById('hypotheses-modal');
+      if (m) m.classList.add('hidden');
+    }}
+
+    function filterHypothesisModal(mode) {{
+      const pills = document.querySelectorAll('.hypo-filter-pill');
+      pills.forEach(p => {{
+        p.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm');
+        p.classList.add('bg-slate-800', 'text-slate-300');
+      }});
+      const activePill = document.getElementById('hypo-pill-' + mode);
+      if (activePill) {{
+        activePill.classList.remove('bg-slate-800', 'text-slate-300');
+        activePill.classList.add('bg-indigo-600', 'text-white', 'shadow-sm');
+      }}
+
+      const cards = ['h1', 'h2', 'h3'];
+      cards.forEach(c => {{
+        const el = document.getElementById('hypo-card-' + c);
+        if (el) {{
+          if (mode === 'all' || mode === c) {{
+            el.classList.remove('hidden');
+          }} else {{
+            el.classList.add('hidden');
+          }}
+        }}
+      }});
+    }}
+
     // Tastatur-Esc schließt Modals
     window.addEventListener('keydown', (e) => {{
       if (e.key === 'Escape') {{
         closeDetailModal();
         closeAlertsModal();
+        closeHypothesesModal();
       }}
     }});
 
@@ -1200,6 +1294,226 @@ html_content = f"""<!DOCTYPE html>
           Verstanden
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- Setup Hypotheses Guide Modal -->
+  <div id="hypotheses-modal" onclick="if(event.target === this) closeHypothesesModal()" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-5">
+    <div class="max-w-3xl w-full max-h-[92vh] overflow-y-auto rounded-2xl bg-[#0d1322] border border-indigo-500/40 p-5 sm:p-6 shadow-2xl relative text-slate-200 space-y-5">
+      
+      <!-- Modal Header -->
+      <div class="flex items-start justify-between pb-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-xl shrink-0">
+            💡
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="font-bold text-lg text-white">Setup-Hypothesen & Trade-Plan Guide</h3>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Strategy Rules</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">Verstehe die institutionelle Logik hinter jedem Signal (SMC, Wyckoff VSA, RSI & Fibonacci)</p>
+          </div>
+        </div>
+        <button onclick="closeHypothesesModal()" class="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition shrink-0">✕</button>
+      </div>
+
+      <!-- Quick Filter Switcher within Modal -->
+      <div class="flex flex-wrap items-center gap-2">
+        <button onclick="filterHypothesisModal('all')" id="hypo-pill-all" class="hypo-filter-pill px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-indigo-600 text-white shadow-sm cursor-pointer">
+          Alle 3 im Überblick
+        </button>
+        <button onclick="filterHypothesisModal('h1')" id="hypo-pill-h1" class="hypo-filter-pill px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-slate-800 text-slate-300 hover:text-white cursor-pointer">
+          🔄 Hypothese 1 (Reversal)
+        </button>
+        <button onclick="filterHypothesisModal('h2')" id="hypo-pill-h2" class="hypo-filter-pill px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-slate-800 text-slate-300 hover:text-white cursor-pointer">
+          📈 Hypothese 2 (Trendfolge)
+        </button>
+        <button onclick="filterHypothesisModal('h3')" id="hypo-pill-h3" class="hypo-filter-pill px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-slate-800 text-slate-300 hover:text-white cursor-pointer">
+          🎯 Hypothese 3 (Liquidity Trap)
+        </button>
+      </div>
+
+      <!-- Cards Container -->
+      <div class="space-y-4 text-xs leading-relaxed">
+        
+        <!-- Hypothese 1 Card -->
+        <div id="hypo-card-h1" class="p-4 rounded-xl bg-slate-900/90 border border-emerald-500/40 space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <h4 class="font-bold text-sm text-white">Hypothese 1: SMC Golden Confluence Reversal</h4>
+            </div>
+            <div class="flex items-center gap-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-semibold">Antizyklisch / Wende</span>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">CRV: 3:1 bis 5:1</span>
+            </div>
+          </div>
+
+          <p class="text-slate-300">
+            <strong>Ziel:</strong> Einstieg direkt am institutionellen Wendepunkt einer überdehnten Bewegung – maximales Gewinnpotenzial bei minimalem Risiko.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 pt-1">
+            <div class="p-3 rounded-lg bg-slate-950/80 border border-slate-800 space-y-1">
+              <span class="text-emerald-300 font-bold block text-[11px]">📍 Chart-Kontext & Zonen:</span>
+              <ul class="list-disc list-inside space-y-1 text-slate-300 text-[11px]">
+                <li>Kurs läuft in offenes <strong>Fair Value Gap (FVG)</strong> oder unmitigierten <strong>Order Block</strong>.</li>
+                <li>Sitzt exakt im <strong>Fibonacci Golden Pocket (0.618 – 0.65)</strong>.</li>
+                <li>Überdehnung über das äußere <strong>degencoder-Kanalband</strong> (Oversold/Overbought).</li>
+              </ul>
+            </div>
+
+            <div class="p-3 rounded-lg bg-slate-950/80 border border-slate-800 space-y-1">
+              <span class="text-emerald-300 font-bold block text-[11px]">⚡ Signal-Trigger & Bestätigung:</span>
+              <ul class="list-disc list-inside space-y-1 text-slate-300 text-[11px]">
+                <li><strong>Reguläre RSI-Divergenz:</strong> Kurs macht neues Extremum, RSI divergiert bereits (Gegenkraft formt sich).</li>
+                <li><strong>VSA Wyckoff:</strong> Climax-Volumen gefolgt von <strong>Stopping Volume</strong> (Verkaufs-/Kaufdruck versiegt).</li>
+                <li><strong>SL:</strong> Super eng direkt hinter der Wendezone / dem Docht.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-[11px] flex items-center gap-2">
+            <span>💡</span>
+            <span><strong>Merksatz:</strong> <em>„Der Markt dreht hier um.“</em> (Perfekter Einstieg am Tief/Hoch, Maximum CRV).</span>
+          </div>
+        </div>
+
+        <!-- Hypothese 2 Card -->
+        <div id="hypo-card-h2" class="p-4 rounded-xl bg-slate-900/90 border border-indigo-500/40 space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-indigo-400 animate-pulse"></span>
+              <h4 class="font-bold text-sm text-white">Hypothese 2: Trend Continuation & Hidden Div</h4>
+            </div>
+            <div class="flex items-center gap-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 font-semibold">Prozyklisch / Trendfolge</span>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">Winrate: &ge; 60%</span>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">CRV: 2:1 bis 3.5:1</span>
+            </div>
+          </div>
+
+          <p class="text-slate-300">
+            <strong>Ziel:</strong> Hohe Trefferquote durch Einstieg in den intakten Haupttrend nach einem gesunden, temporären Rücksetzer (Dip).
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 pt-1">
+            <div class="p-3 rounded-lg bg-slate-950/80 border border-slate-800 space-y-1">
+              <span class="text-indigo-300 font-bold block text-[11px]">📍 Chart-Kontext & Zonen:</span>
+              <ul class="list-disc list-inside space-y-1 text-slate-300 text-[11px]">
+                <li>Übergeordneter Trend (1D/8h) intakt (Kurs über/unter <strong>EMA 233</strong> & geneigter Kanal).</li>
+                <li>Rücklauf (Pullback) in ein frisch entstandenes <strong>Fair Value Gap</strong> oder an die dynamischen Trendbänder.</li>
+                <li>Kein Bruch der Marktstruktur, sondern gesunde Atempause.</li>
+              </ul>
+            </div>
+
+            <div class="p-3 rounded-lg bg-slate-950/80 border border-slate-800 space-y-1">
+              <span class="text-indigo-300 font-bold block text-[11px]">⚡ Signal-Trigger & Bestätigung:</span>
+              <ul class="list-disc list-inside space-y-1 text-slate-300 text-[11px]">
+                <li><strong>Versteckte (Hidden) RSI-Divergenz:</strong> Kurs formt höheres Tief (Higher Low), RSI formt tieferes Tief (Lower Low = voller Momentum-Reset).</li>
+                <li><strong>VSA Wyckoff:</strong> <strong>„No Supply“</strong> (Volumen trocknet beim Dip aus = kein institutioneller Verkaufsdruck).</li>
+                <li><strong>SL:</strong> Knapp unter dem FVG / dem Korrekturtief.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="p-2.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-[11px] flex items-center gap-2">
+            <span>💡</span>
+            <span><strong>Merksatz:</strong> <em>„Der Trend macht nur Pause und zieht gleich weiter.“</em> (Hohe Trefferquote, Dip kaufen).</span>
+          </div>
+        </div>
+
+        <!-- Hypothese 3 Card -->
+        <div id="hypo-card-h3" class="p-4 rounded-xl bg-slate-900/90 border border-amber-500/40 space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+              <h4 class="font-bold text-sm text-white">Hypothese 3: Wyckoff Liquidity Hunt & Range Fakeout</h4>
+            </div>
+            <div class="flex items-center gap-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 font-semibold">Trap Trading / Fakeout</span>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">CRV: 2.5:1 bis 4:1</span>
+            </div>
+          </div>
+
+          <p class="text-slate-300">
+            <strong>Ziel:</strong> Schnelle Gewinne durch Abfangen von institutionellen Stop-Runs (Spring / Upthrust) und gefangenen Ausbruchs-Tradern.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 pt-1">
+            <div class="p-3 rounded-lg bg-slate-950/80 border border-slate-800 space-y-1">
+              <span class="text-amber-300 font-bold block text-[11px]">📍 Chart-Kontext & Zonen:</span>
+              <ul class="list-disc list-inside space-y-1 text-slate-300 text-[11px]">
+                <li>Deutliche Range-Struktur oder markantes lokales Swing-High / Swing-Low (Key Liquidity Pool).</li>
+                <li>Kurs bricht kurz über/unter die Begrenzung aus und überdehnt das Band.</li>
+              </ul>
+            </div>
+
+            <div class="p-3 rounded-lg bg-slate-950/80 border border-slate-800 space-y-1">
+              <span class="text-amber-300 font-bold block text-[11px]">⚡ Signal-Trigger & Bestätigung:</span>
+              <ul class="list-disc list-inside space-y-1 text-slate-300 text-[11px]">
+                <li><strong>Spring / Upthrust:</strong> Schnelle Ablehnung (Rejection / Dochtbildung) und sofortige Rückkehr in die Range.</li>
+                <li><strong>VSA Volume Spike:</strong> Riesiges Climax-Volumen am Ausbruch, das sofort verpufft (Liquidity Trap).</li>
+                <li><strong>SL:</strong> Über dem Ausbruchs-Docht. <strong>TP:</strong> Gegenüberliegende Range-Grenze.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 text-[11px] flex items-center gap-2">
+            <span>💡</span>
+            <span><strong>Merksatz:</strong> <em>„Gefangene Trader – Stops wurden geholt, jetzt folgt der Gegenschlag.“</em></span>
+          </div>
+        </div>
+
+        <!-- Summary Table -->
+        <div class="rounded-xl border border-slate-800 overflow-hidden">
+          <table class="w-full text-left text-[11px]">
+            <thead class="bg-slate-950 text-slate-400 font-mono text-[10px] uppercase">
+              <tr>
+                <th class="p-2.5">Hypothese</th>
+                <th class="p-2.5">Handelsansatz</th>
+                <th class="p-2.5">Kern-Trigger</th>
+                <th class="p-2.5">CRV</th>
+                <th class="p-2.5">Hauptstärke</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60 font-mono text-slate-300">
+              <tr class="hover:bg-slate-800/30">
+                <td class="p-2.5 font-bold text-emerald-400">Hypothese 1</td>
+                <td class="p-2.5">Reversal (Wende)</td>
+                <td class="p-2.5">Golden Pocket + Reguläre RSI Div + Stopping Vol</td>
+                <td class="p-2.5 text-white font-bold">3:1 – 5:1</td>
+                <td class="p-2.5 text-slate-200">Maximales CRV, Reversal am Extrempunkt</td>
+              </tr>
+              <tr class="hover:bg-slate-800/30">
+                <td class="p-2.5 font-bold text-indigo-400">Hypothese 2</td>
+                <td class="p-2.5">Trendfolge (Pullback)</td>
+                <td class="p-2.5">FVG Retest + Versteckte RSI Div + VSA No Supply</td>
+                <td class="p-2.5 text-white font-bold">2:1 – 3.5:1</td>
+                <td class="p-2.5 text-slate-200">Hohe Winrate (&ge;60%), Dip im Trend kaufen</td>
+              </tr>
+              <tr class="hover:bg-slate-800/30">
+                <td class="p-2.5 font-bold text-amber-400">Hypothese 3</td>
+                <td class="p-2.5">Range Fakeout / Trap</td>
+                <td class="p-2.5">Spring / Upthrust an Range-Limit + Volume Climax</td>
+                <td class="p-2.5 text-white font-bold">2.5:1 – 4:1</td>
+                <td class="p-2.5 text-slate-200">Schnelle Gegenzüge nach Stop-Runs</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- Footer Actions -->
+      <div class="flex items-center justify-between pt-3 border-t border-slate-800 text-xs">
+        <span class="text-slate-500 font-mono text-[11px]">TradingView Super-Analyst Strategy Engine</span>
+        <button onclick="closeHypothesesModal()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition cursor-pointer">
+          Verstanden
+        </button>
+      </div>
+
     </div>
   </div>
 </body>
