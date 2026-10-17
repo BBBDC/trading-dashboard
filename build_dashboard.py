@@ -144,17 +144,22 @@ html_content = f"""<!DOCTYPE html>
         <div class="flex items-center gap-1.5 sm:gap-2">
           <div class="px-2.5 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/50 flex items-center gap-1.5" title="Gesamt gescannte Werte">
             <span class="text-[11px] text-slate-400">Total:</span>
-            <span class="font-mono font-bold text-xs text-white" id="stat-total">58</span>
+            <span class="font-mono font-bold text-xs text-white" id="stat-total">{db_data.get('total_analyzed', 0)}</span>
           </div>
           <div class="px-2.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-1.5" title="High-Conviction Longs">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
             <span class="text-[11px] text-emerald-300">L:</span>
-            <span class="font-mono font-bold text-xs text-emerald-400" id="stat-long">14</span>
+            <span class="font-mono font-bold text-xs text-emerald-400" id="stat-long">{db_data.get('long_count', 0)}</span>
           </div>
           <div class="px-2.5 py-1.5 rounded-lg bg-rose-500/10 border border-rose-500/30 flex items-center gap-1.5" title="Short / Erschöpfung">
             <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
             <span class="text-[11px] text-rose-300">S:</span>
-            <span class="font-mono font-bold text-xs text-rose-400" id="stat-short">20</span>
+            <span class="font-mono font-bold text-xs text-rose-400" id="stat-short">{db_data.get('short_count', 0)}</span>
+          </div>
+          <div class="px-2.5 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/50 flex items-center gap-1.5" title="Neutral / Watchlist">
+            <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+            <span class="text-[11px] text-slate-400">N:</span>
+            <span class="font-mono font-bold text-xs text-slate-300" id="stat-neutral">{db_data.get('neutral_count', 0)}</span>
           </div>
         </div>
 
@@ -521,15 +526,20 @@ html_content = f"""<!DOCTYPE html>
       }});
 
     function updateStats() {{
-      document.getElementById('stat-total').innerText = currentData.total_analyzed;
-      document.getElementById('stat-long').innerText = currentData.long_count;
-      document.getElementById('stat-short').innerText = currentData.short_count;
-      document.getElementById('stat-neutral').innerText = currentData.neutral_count;
+      const setVal = (id, val) => {{
+        const el = document.getElementById(id);
+        if (el && val !== undefined && val !== null) el.innerText = val;
+      }};
 
-      document.getElementById('count-all').innerText = currentData.total_analyzed;
-      document.getElementById('count-long').innerText = currentData.long_count;
-      document.getElementById('count-short').innerText = currentData.short_count;
-      document.getElementById('count-neutral').innerText = currentData.neutral_count;
+      setVal('stat-total', currentData.total_analyzed);
+      setVal('stat-long', currentData.long_count);
+      setVal('stat-short', currentData.short_count);
+      setVal('stat-neutral', currentData.neutral_count);
+
+      setVal('count-all', currentData.total_analyzed);
+      setVal('count-long', currentData.long_count);
+      setVal('count-short', currentData.short_count);
+      setVal('count-neutral', currentData.neutral_count);
     }}
 
     function setDirectionFilter(dir) {{
@@ -585,8 +595,12 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     function applyFilters() {{
-      const query = document.getElementById('search-input').value.toLowerCase().trim();
-      const sortMode = document.getElementById('sort-select').value;
+      const searchEl = document.getElementById('search-input');
+      const sortEl = document.getElementById('sort-select');
+      const countEl = document.getElementById('results-count');
+
+      const query = searchEl ? searchEl.value.toLowerCase().trim() : '';
+      const sortMode = sortEl ? sortEl.value : 'score_desc';
 
       filteredAssets = currentData.assets.filter(a => {{
         // Direction
@@ -615,7 +629,9 @@ html_content = f"""<!DOCTYPE html>
         return 0;
       }});
 
-      document.getElementById('results-count').innerText = `Zeige ${{filteredAssets.length}} von ${{currentData.assets.length}} Setups`;
+      if (countEl) {{
+        countEl.innerText = `Zeige ${{filteredAssets.length}} von ${{currentData.assets.length}} Setups`;
+      }}
       renderAssets();
     }}
 
