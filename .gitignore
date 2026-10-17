@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Sensitive Tokens & Credentials (CRITICAL: Never commit to Git!)
+.mcp_tokens.json
+.env
+.env.*
+mcp_oauth_tokens.json
+*.pem
+*.key
+
+# Temporary Cache & Logs
+*.log
+.DS_Store
+.AppleDouble
+.LSOverride
+knowledge_base/ohlcv_cache/*.json
+!knowledge_base/live_watchlists.json
+
+# Browser & Test Profiles
+tradingview_profile/
+test_*.png
+clean_chart.png
+current_chart_setup.png
+
+# Antigravity IDE local data
+.gemini/
