@@ -256,62 +256,68 @@ def evaluate_quantitative_confluence(d_1d, d_8h, d_4h, asset_info):
     elif "Ultra-High" in curr_vsa or "Climax" in curr_vsa:
         reasons.append("VSA: Climax-Volumen Spike")
 
-    # Sonderregeln für bekannte Benchmarks
-    sym = asset_info["symbol"]
-    if sym == "NASDAQ:MU":
-        signal = "LONG"
-        score = 98
-        setup_name = "Hypothese 1: SMC Golden Confluence Reversal"
-        entry_low, entry_high = round(p * 0.99, 2), round(p * 1.005, 2)
-        sl = round(p * 0.97, 2)
-        tp1, tp2 = round(p * 1.05, 2), round(p * 1.10, 2)
-        crv = 3.3
-        analyst_note = "TOP OPPORTUNITY: 1D Kurs sitzt im Fibonacci Golden Pocket 0.618. Gleichzeitig Überdehnung unter das untere degencoder-Kanalband (Oversold). 8h/4h RSI tief überverkauft mit aktiver bullischer Divergenz. VSA zeigt Austrocknen des Verkaufsdrucks (Stopping Volume)."
+    # ========================================================
+    # STRENGSTE INSTITUTIONELLE RISK-MANAGER FILTERREGELN:
+    # 70-80% aller Märkte gehören ins "NEUTRAL (Beobachten)".
+    # "LONG" und "SHORT" erfordern kompromisslose Multi-Timeframe Konfluenz.
+    # ========================================================
+    long_cand_valid = (
+        bull_points >= 65 and
+        bull_points > bear_points + 25 and
+        curr_rsi <= 60 and
+        not (d_1d and "Overbought" in d_1d.get("channel_position", "")) and
+        (
+            (d_1d and d_1d.get("in_golden_pocket")) or
+            any("Bullische" in d for d in all_divs) or
+            ("No Supply" in curr_vsa or "Stopping" in curr_vsa)
+        )
+    )
 
-    elif sym == "COINBASE:BTCUSD":
-        signal = "LONG"
-        score = 94
-        setup_name = "Hypothese 2: Trend Continuation & Breakout Watch"
-        entry_low, entry_high = round(p * 0.99, 2), round(p * 1.005, 2)
-        sl = round(p * 0.97, 2)
-        tp1, tp2 = round(p * 1.03, 2), round(p * 1.06, 2)
-        crv = 3.1
-        analyst_note = "Makro-Trend über 1D EMA 233 intakt. 8h bullische Divergenz aktiv. VSA zeigt No-Supply. Long-Einstieg bei Bestätigung über der lokalen Konsolidierung mit Zielen am nächsten FVG / Golden Pocket."
+    short_cand_valid = (
+        bear_points >= 65 and
+        bear_points > bull_points + 25 and
+        curr_rsi >= 40 and
+        not (d_1d and "Oversold" in d_1d.get("channel_position", "")) and
+        (
+            (d_1d and "Overbought" in d_1d.get("channel_position", "")) or
+            any("Bärische" in d for d in all_divs)
+        )
+    )
 
-    elif bull_points >= 40 and bull_points > bear_points + 15:
+    if long_cand_valid:
         signal = "LONG"
-        score = min(96, 50 + bull_points)
-        setup_name = "Hypothese 1: SMC Golden Confluence Reversal" if (d_1d and d_1d["in_golden_pocket"]) else ("Hypothese 2: Trend Continuation & Hidden Div" if any("Versteckte Bullische" in d for d in all_divs) else "Hypothese 1: SMC Reversal / Oversold Bounce")
+        score = min(96, 75 + (bull_points - 65) // 2)
+        setup_name = "Hypothese 1: SMC Golden Confluence Reversal" if (d_1d and d_1d.get("in_golden_pocket")) else ("Hypothese 2: Trend Continuation & Hidden Div" if any("Versteckte Bullische" in d for d in all_divs) else "Hypothese 1: SMC Support Reversal")
         entry_low = round(p * 0.992, 2)
         entry_high = round(p * 1.002, 2)
-        sl = round(p * 0.965, 2) if asset_info.get("asset_type") != "Crypto" else round(p * 0.955, 2)
+        sl = round(p * 0.965, 2) if asset_info.get("asset_type") != "Crypto" else round(p * 0.95, 2)
         tp1 = round(p + (p - sl) * 1.8, 2)
         tp2 = round(p + (p - sl) * 3.2, 2)
         crv = 3.2
-        analyst_note = f"Bullische Confluence ({score}%): {reasons[0] if reasons else 'Support-Level erreicht'}. VSA und RSI bestätigen nachlassenden Verkaufsdruck."
+        analyst_note = f"Strikte bullische Konfluenz ({score}%): Multi-Timeframe Support verifiziert ({reasons[0] if reasons else 'HTF Support'}). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur."
 
-    elif bear_points >= 40 and bear_points > bull_points + 15:
+    elif short_cand_valid:
         signal = "SHORT"
-        score = min(95, 50 + bear_points)
-        setup_name = "Hypothese 3: Wyckoff Range Fakeout / Top Exhaustion" if (d_1d and "Overbought" in d_1d["channel_position"]) else "Hypothese 1: Bearish Confluence Reversal"
+        score = min(95, 75 + (bear_points - 65) // 2)
+        setup_name = "Hypothese 3: Wyckoff Range Fakeout / Top Exhaustion" if (d_1d and "Overbought" in d_1d.get("channel_position", "")) else "Hypothese 1: Bearish Confluence Reversal"
         entry_low = round(p * 0.998, 2)
         entry_high = round(p * 1.008, 2)
-        sl = round(p * 1.035, 2) if asset_info.get("asset_type") != "Crypto" else round(p * 1.045, 2)
+        sl = round(p * 1.035, 2) if asset_info.get("asset_type") != "Crypto" else round(p * 1.05, 2)
         tp1 = round(p - (sl - p) * 1.8, 2)
         tp2 = round(p - (sl - p) * 3.2, 2)
         crv = 3.2
-        analyst_note = f"Bärische Erschöpfung ({score}%): {reasons[0] if reasons else 'Widerstandszone erreicht'}. Überdehnung oder bärische Divergenz im Momentum."
+        analyst_note = f"Strikte bärische Erschöpfung ({score}%): Überhitzung an HTF-Widerstandszone ({reasons[0] if reasons else 'HTF Resistance'}). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial."
 
     else:
         signal = "NEUTRAL"
         net_diff = abs(bull_points - bear_points)
-        score = min(60, max(45, 50 + net_diff // 4))
-        setup_name = "Beobachten / Warten auf Trigger"
+        score = min(58, max(42, 50 + (bull_points - bear_points) // 4))
+        setup_name = "Beobachten / Warten auf HTF-Trigger"
         entry_low, entry_high = p, p
         sl = round(p * 0.97, 2)
         tp1, tp2 = round(p * 1.03, 2), round(p * 1.06, 2)
         crv = 2.0
-        analyst_note = "Konsolidierungsphase / Signal-Konflikt: Bullische und bärische Faktoren halten sich die Waage. Auf klaren Ausbruch oder Bestätigung an den Key-Levels warten."
+        analyst_note = "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet."
 
     return {
         "signal": signal,
@@ -409,10 +415,10 @@ def analyze_all_markets(use_gemini=True):
 
     # Falls Gemini aktiv ist: Batches an Gemini Kaskade senden
     last_tier_used = "quantitative_confluence"
+    ai_success_count = 0
     if has_gemini and gemini_batch:
         batch_size = gemini_conf.get("batch_size", 8)
         print(f"\nSende {len(gemini_batch)} Assets in Batches von {batch_size} an KI-Kaskade...")
-        ai_success_count = 0
 
         # Mapping für schnelles Update
         asset_map = {a["symbol"]: a for a in analyzed_assets}

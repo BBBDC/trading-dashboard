@@ -113,7 +113,7 @@ def extract_json_from_text(raw_text):
         return None
 
 
-def call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=50):
+def call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=85):
     """
     Ruft das Google Gemini Modell direkt über das angemeldete Google Pro-Abo (agy CLI) auf.
     Benötigt KEINEN separaten API-Key und nutzt das aktive Pro-Kontingent.
@@ -121,10 +121,19 @@ def call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=50):
     if not AGY_BIN.exists():
         return None, f"agy CLI unter {AGY_BIN} nicht gefunden."
 
+    # Modell-Mapping für die agy CLI
+    cli_model = model
+    if "flash" in model.lower() and ("2.5" in model or "low" in model or "fallback" in model):
+        cli_model = "gemini-3.8-flash-low"
+    elif "medium" in model.lower():
+        cli_model = "gemini-3.8-flash-medium"
+    elif "3.8" in model or "pro" in model or "high" in model or "4" in model:
+        cli_model = "gemini-3.8-flash-high"
+
     cmd = [
         str(AGY_BIN),
         "-p", prompt,
-        "--model", model,
+        "--model", cli_model,
         "--disable-slash-commands"
     ]
 
@@ -132,73 +141,109 @@ def call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=50):
         res = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
         if res.returncode != 0:
             err = res.stderr.strip() or f"CLI Exit-Code {res.returncode}"
-            return None, f"Pro CLI Fehler ({model}): {err[:180]}"
+            return None, f"Pro CLI Fehler ({cli_model}): {err[:180]}"
 
         parsed = extract_json_from_text(res.stdout)
         if parsed:
             return parsed, None
         else:
-            return None, f"Antwort von {model} konnte nicht als JSON geparst werden."
+            return None, f"Antwort von {cli_model} konnte nicht als JSON geparst werden."
 
     except subprocess.TimeoutExpired:
-        return None, f"Pro CLI Timeout ({timeout}s) bei {model}."
+        return None, f"Pro CLI Timeout ({timeout}s) bei {cli_model}."
     except Exception as e:
         return None, f"Pro CLI Ausführungsfehler: {e}"
 
 
-def call_gemini_via_rest_api(prompt, model="gemini-2.5-flash", api_key=None, timeout=30):
+def call_gemini_via_rest_api(prompt, model="gemini-2.5-pro", api_key=None, timeout=40):
     """
-    Ruft die offizielle Google Gemini REST API über einen API-Key auf.
+    Ruft die Google Gemini REST API über einen API-Key auf (z.B. von einem separaten Pro-Account).
     Schlank, extrem schnell und standardbibliothek-basiert.
+    Falls ein Modellname (z.B. gemini-3.8-flash-high) auf der REST-API nicht direkt existiert,
+    nutzt sie automatisch die passenden REST-Pendants (z.B. gemini-2.5-pro oder gemini-2.5-flash).
     """
     if not api_key:
         api_key = get_api_key()
     if not api_key:
         return None, "Kein GEMINI_API_KEY für REST-API verfügbar."
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
+    # Modell-Mapping für Google AI Studio REST API
+    target_model = model
+    if "3.8" in model or "high" in model or "4" in model or "pro" in model:
+        target_model = "gemini-2.5-pro"
+    elif "flash" in model or "low" in model or "medium" in model:
+        target_model = "gemini-2.5-flash"
 
-    payload = {
-        "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {
-            "temperature": 0.2,
-            "responseMimeType": "application/json"
+    models_to_try = [target_model]
+    if target_model != "gemini-2.5-pro":
+        models_to_try.append("gemini-2.5-pro")
+    if target_model != "gemini-2.5-flash":
+        models_to_try.append("gemini-2.5-flash")
+
+    last_err = None
+    for cur_model in models_to_try:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{cur_model}:generateContent?key={api_key}"
+        payload = {
+            "contents": [{"parts": [{"text": prompt}]}],
+            "generationConfig": {
+                "temperature": 0.15,
+                "responseMimeType": "application/json"
+            }
         }
-    }
+        req = urllib.request.Request(
+            url,
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST"
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+                candidates = data.get("candidates", [])
+                if not candidates:
+                    continue
+                txt = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+                parsed = extract_json_from_text(txt)
+                if parsed:
+                    return parsed, None
+        except urllib.error.HTTPError as e:
+            last_err = f"HTTP {e.code} ({cur_model})"
+            if e.code == 404:
+                continue
+            break
+        except Exception as e:
+            last_err = str(e)
+            break
 
-    req = urllib.request.Request(
-        url,
-        data=json.dumps(payload).encode("utf-8"),
-        headers={"Content-Type": "application/json"},
-        method="POST"
-    )
-
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-            candidates = data.get("candidates", [])
-            if not candidates:
-                return None, "Keine Kandidaten von Gemini REST API erhalten."
-            txt = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
-            parsed = extract_json_from_text(txt)
-            if parsed:
-                return parsed, None
-            return None, "Gemini REST API: Ungültiges JSON in Antwort."
-    except urllib.error.HTTPError as e:
-        err = e.read().decode("utf-8", errors="ignore")[:160]
-        return None, f"HTTP {e.code} bei {model}: {err}"
-    except Exception as e:
-        return None, f"REST API Verbindungsfehler ({model}): {e}"
+    return None, f"REST API Fehler: {last_err}"
 
 
 def build_analysis_prompt(assets_batch):
-    return f"""Du bist der "TradingView Super-Analyst", ein institutioneller Multi-Timeframe Krypto- & Aktien-Trading-Experte.
-Deine Strategie basiert auf:
-1. Smart Money Concepts (SMC): Fair Value Gaps (FVG), Order Blocks (OB), Liquidity Sweeps
-2. Fibonacci Golden Pocket (0.618 - 0.650 Retracement)
-3. degencoder Trend- & Volatilitätsbänder (13 EMA, 1.8 ATR, 233 EMA Trendfilter)
-4. Wyckoff Volume Spread Analysis (VSA): Climax, Absorption, No Supply / No Demand
-5. Multi-Timeframe RSI Divergenzen (1D, 8h, 4h)
+    return f"""Du bist der Chef-Risikomanager und Head-Trader eines institutionellen Prop-Trading-Desks ("TradingView Super-Analyst").
+Dein oberstes Dogma lautet: KAPITALERHALT. Ein schlechter Trade vernichtet echtes Geld; ein verpasster Trade kostet absolut gar nichts.
+Du bist extrem selektiv, konservativ und anspruchsvoll. Dein Ziel sind nachhaltige, hochqualitative Setups mit maximaler Trefferwahrscheinlichkeit.
+
+STRENGSTE INSTITUTIONELLE FILTERREGELN (BITTE GENAUESTENS EINHALTEN):
+1. STANDARD-EINSTUFUNG IST ZWINGEND "NEUTRAL":
+   - 70–80 % aller Märkte befinden sich in Konsolidierungen, Seitwärtsphasen oder widersprüchlichen Strukturen.
+   - Im Zweifel MUSS das Signal IMMER "NEUTRAL" sein (Score 40–55%, Setup: "Beobachten / Warten auf HTF-Key-Level").
+   - Vergebe "LONG" oder "SHORT" NUR dann, wenn ausnahmslos alle Timeframes (1D, 8h, 4h) und Indikatoren perfekt harmonieren!
+
+2. KRITERIEN FÜR EIN ECHTES "LONG"-SIGNAL (SEHR STRIKT):
+   - Multi-Timeframe Trend-Konflikt = SOFORTIGES VETO: Niemals Long, wenn der 1D-Trend unter der 233 EMA liegt, AUSSER der Kurs sitzt exakt im 1D Fibonacci Golden Pocket (0.618 - 0.650) mit bestätigter Wyckoff-Absorption (Stopping Volume).
+   - Kein Chasing: Niemals Long gehen, wenn der Kurs bereits am oberen degencoder-Band (Overbought) oder der RSI > 60 ist.
+   - Konfluenz-Nachweis: Es muss mindestens eine aktive bullische Divergenz ODER Wyckoff "Stopping Volume / No Supply" vorliegen.
+   - Mindest-CRV (Chance-Risiko-Verhältnis) >= 2.5:1 zum nächsten signifikanten FVG / Widerstand.
+   - Score >= 88 % wird NUR bei makelloser 3-facher Konfluenz vergeben.
+
+3. KRITERIEN FÜR EIN ECHTES "SHORT"-SIGNAL (SEHR STRIKT):
+   - Niemals Short gegen einen starken intakten 1D-Bullenmarkt (über 233 EMA ohne Top-Erschöpfung).
+   - Short nur bei klarer Erschöpfung am oberen Kanalband (Overbought) oder Abprall an starkem bärischen HTF Order Block / FVG mit bärischer RSI-Divergenz.
+   - Mindest-CRV >= 2.5:1.
+
+4. STOP-LOSS & TARGETS:
+   - Der Stop-Loss muss strukturell begründet sein (knapp unterhalb des Golden Pocket / Swing-Lows / FVG), niemals willkürlich.
+   - Take Profit 1 & 2 müssen an echten Liquiditätszonen oder gegnerischen FVGs liegen.
 
 Hier sind die aktuellen Marktdaten und technischen Messungen für {len(assets_batch)} Assets:
 
@@ -213,19 +258,19 @@ Antworte AUSSCHLIESSLICH als JSON-Array von Objekten mit exakt diesem Schema:
   {{
     "symbol": "TICKER (exakt wie im Input)",
     "signal": "LONG" | "SHORT" | "NEUTRAL",
-    "score": 0 bis 100 (Conviction-Score. >85% nur bei echter High-Conviction Confluence!),
-    "setup_name": "z.B. Hypothese 1: SMC Golden Confluence Reversal | Hypothese 2: Trend Continuation | Hypothese 3: Wyckoff Fakeout | Beobachten",
+    "score": 0 bis 100 (Streng konservativ! >85% nur für absolute Top-Tier Setups),
+    "setup_name": "z.B. Hypothese 1: SMC Golden Confluence Reversal | Hypothese 2: Trend Continuation | Beobachten / Konsolidierung",
     "crv": 2.5,
     "entry_range": [min_entry, max_entry],
     "stop_loss": stop_loss_kurs,
     "take_profit_1": ziel1,
     "take_profit_2": ziel2,
     "reasons": [
-      "Stichpunkt 1 mit Indikator-Fakt",
-      "Stichpunkt 2 mit SMC/GP Level",
-      "Stichpunkt 3 mit RSI/VSA Bestätigung"
+      "Strikte Begründung 1 (HTF Struktur)",
+      "Strikte Begründung 2 (SMC / FVG / GP Level)",
+      "Strikte Begründung 3 (VSA / Divergenz)"
     ],
-    "analyst_note": "Prägnante, professionelle deutsche Chart-Interpretation der KI für das Dashboard (2-4 Sätze)."
+    "analyst_note": "Fundierte, professionelle deutsche Chart-Interpretation mit Fokus auf Risiko, Validierung und Trigger-Level (2-4 Sätze)."
   }}
 ]
 """

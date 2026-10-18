@@ -18,6 +18,20 @@ with open(DB_FILE, "r", encoding="utf-8") as f:
 
 json_str = json.dumps(db_data, ensure_ascii=False)
 
+raw_engine = db_data.get("evaluation_engine", "Gemini 3.8 Flash (High) · Pro Abo")
+if "3.8" in raw_engine:
+    engine_display = "Gemini 3.8 High · Pro"
+elif "gemini-4" in raw_engine.lower():
+    engine_display = "Gemini 4 · Pro"
+elif "2.5-pro" in raw_engine.lower():
+    engine_display = "Gemini 2.5 Pro · Pro"
+elif "2.5-flash" in raw_engine.lower():
+    engine_display = "Gemini 2.5 Flash · Fallback"
+elif "quantitative" in raw_engine.lower() or "confluence" in raw_engine.lower():
+    engine_display = "SMC Confluence · Math Core"
+else:
+    engine_display = raw_engine
+
 html_content = f"""<!DOCTYPE html>
 <html lang="de" class="dark">
 <head>
@@ -106,9 +120,9 @@ html_content = f"""<!DOCTYPE html>
           <div class="flex items-center gap-2">
             <h1 class="font-bold text-lg sm:text-xl tracking-tight text-white">Super-Analyst Dashboard</h1>
             <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">24/7 Raspberry Pi</span>
-            <span class="hidden sm:inline-flex px-2 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 items-center gap-1.5" title="Aktives KI-Modell / Kaskade">
+            <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 items-center gap-1.5" title="Aktive Analyse-Engine / Kaskade">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              {db_data.get('evaluation_engine', 'Gemini Pro / Confluence')}
+              {engine_display}
             </span>
           </div>
           <p class="text-xs text-slate-400">Multi-Timeframe Confluence (4h · 8h · 1D) | SMC · Wyckoff VSA · RSI Divs · Golden Pocket</p>
