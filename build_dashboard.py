@@ -146,6 +146,12 @@ html_content = f"""<!DOCTYPE html>
           <span class="hidden sm:inline">Hypothesen-Guide</span>
         </button>
 
+        <!-- Signal-Historie Link Button -->
+        <a href="history.html" class="px-3 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer" title="Signal- & Benachrichtigungs-Historie">
+          <span class="text-sm">📜</span>
+          <span class="hidden sm:inline">Historie</span>
+        </a>
+
         <!-- Quick Metrics -->
         <div class="flex items-center gap-1.5 sm:gap-2">
           <div class="px-2.5 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/50 flex items-center gap-1.5" title="Gesamt gescannte Werte">
@@ -1251,6 +1257,15 @@ html_content = f"""<!DOCTYPE html>
     // Initial render
     updateStats();
     applyFilters();
+
+    // Deep-Link aus Historie (?asset=SYMBOL oder ?symbol=SYMBOL)
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetAsset = urlParams.get('asset') || urlParams.get('symbol');
+    if (targetAsset) {{
+      setTimeout(() => {{
+        openDetailModal(targetAsset);
+      }}, 350);
+    }}
   </script>
 
   <!-- iOS Alerts Info Modal -->
@@ -1536,4 +1551,11 @@ try:
         print(f"-> Artifact: {OUT_ARTIFACT}")
 except Exception:
     pass
+
+# Auch die separate Historie-Webseite aktualisieren
+try:
+    from build_history import generate_history_html
+    generate_history_html()
+except Exception as e:
+    print(f"Hinweis: Historie-Seite konnte nicht aktualisiert werden ({e})")
 

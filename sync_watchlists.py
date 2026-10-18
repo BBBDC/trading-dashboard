@@ -57,7 +57,7 @@ def load_live_watchlists():
     return []
 
 
-def sync_watchlists(live_wls=None):
+def sync_watchlists(live_wls=None, rebuild=False):
     if live_wls is None:
         live_wls = load_live_watchlists()
 
@@ -228,10 +228,11 @@ def sync_watchlists(live_wls=None):
     print(f"LONG: {db['long_count']} | SHORT: {db['short_count']} | NEUTRAL: {db['neutral_count']}")
     print("=" * 55 + "\n")
 
-    # 7. Baue Dashboard und Artifact neu
-    import subprocess
-    subprocess.run([sys.executable, str(BASE_DIR / "build_dashboard.py")], check=True)
+    # 7. Baue Dashboard und Artifact neu (optional)
+    if rebuild:
+        import subprocess
+        subprocess.run([sys.executable, str(BASE_DIR / "build_dashboard.py")], check=True)
 
 
 if __name__ == "__main__":
-    sync_watchlists()
+    sync_watchlists(rebuild=True)

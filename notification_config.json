@@ -1,19 +1,20 @@
 {
   "enabled": true,
   "provider": "ntfy",
+  "only_on_change": true,
+  "min_score_filter": 85,
   "ntfy": {
     "topic": "bbbdc-trading-alerts",
     "server": "https://ntfy.sh",
     "priority": "high",
     "tags": [
       "chart_with_upwards_trend",
-      "rocket"
+      "bell"
     ],
-    "click_url": "https://bbbdc.github.io/trading-dashboard/"
+    "click_url": "https://bbbdc.github.io/trading-dashboard/history.html"
   },
   "telegram": {
     "bot_token": "",
     "chat_id": ""
-  },
-  "min_score_filter": 90
+  }
 }

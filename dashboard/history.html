@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="de" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Signal- & Benachrichtigungs-Historie | TradingView Super-Analyst</title>
+
+  <!-- App Icons & Favicon -->
+  <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="icons/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TV Historie">
+  <meta name="theme-color" content="#0b0f19">
+
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    .glow-emerald {
+      box-shadow: 0 0 20px -3px rgba(16, 185, 129, 0.25);
+    }
+    .glow-rose {
+      box-shadow: 0 0 20px -3px rgba(244, 63, 94, 0.25);
+    }
+  </style>
+</head>
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
+
+  <!-- Top Navigation Header -->
+  <header class="border-b border-slate-800/80 bg-[#0d1322]/90 backdrop-blur sticky top-0 z-40 px-4 sm:px-6 py-3.5">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3.5">
+      
+      <!-- Brand & Back Button -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm" title="Zurück zur Marktübersicht">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          <span>Dashboard</span>
+        </a>
+
+        <div class="h-6 w-px bg-slate-800"></div>
+
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-bold text-base sm:text-lg tracking-tight text-white flex items-center gap-2">
+              <span>📜 Signal- & Benachrichtigungs-Historie</span>
+            </h1>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Nur bei Änderungen</span>
+          </div>
+          <p class="text-xs text-slate-400">Chronologisches Protokoll aller gesendeten iOS-Push-Alerts & KI-Einstufungswechsel</p>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex items-center gap-2">
+        <button onclick="refreshHistory()" class="px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer">
+          <svg id="refresh-icon" class="w-3.5 h-3.5 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          <span>Aktualisieren</span>
+        </button>
+
+        <a href="https://ntfy.sh/bbbdc-trading-alerts" target="_blank" rel="noopener" class="px-3 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm">
+          <span>🔔</span>
+          <span class="hidden sm:inline">ntfy Feed</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+    <!-- KPI Overview Cards -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      
+      <div class="rounded-xl bg-[#0d1322]/80 border border-slate-800/80 p-4">
+        <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Archivierte Alerts</div>
+        <div class="mt-1 flex items-baseline gap-2">
+          <span class="text-2xl font-bold font-mono text-white" id="stat-total-events">-</span>
+          <span class="text-xs text-indigo-400">Events</span>
+        </div>
+      </div>
+
+      <div class="rounded-xl bg-[#0d1322]/80 border border-slate-800/80 p-4">
+        <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Benachrichtigungs-Modus</div>
+        <div class="mt-1 flex items-baseline gap-2">
+          <span class="text-sm font-bold text-emerald-400 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Smart Delta
+          </span>
+        </div>
+        <div class="text-[10px] text-slate-500 mt-0.5">Kein Spam bei unveränderten Kursen</div>
+      </div>
+
+      <div class="rounded-xl bg-[#0d1322]/80 border border-slate-800/80 p-4">
+        <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Überwachte Märkte</div>
+        <div class="mt-1 flex items-baseline gap-2">
+          <span class="text-2xl font-bold font-mono text-white">58</span>
+          <span class="text-xs text-slate-400">Aktien & Krypto</span>
+        </div>
+      </div>
+
+      <div class="rounded-xl bg-[#0d1322]/80 border border-slate-800/80 p-4">
+        <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Scan-Intervall</div>
+        <div class="mt-1 flex items-baseline gap-2">
+          <span class="text-lg font-bold font-mono text-indigo-300">Alle 4 Stunden</span>
+        </div>
+        <div class="text-[10px] text-slate-500 mt-0.5">01:05, 05:05, 09:05, 13:05, 17:05, 21:05 UTC</div>
+      </div>
+
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="flex flex-wrap items-center justify-between gap-3 p-2 rounded-xl bg-[#0d1322]/60 border border-slate-800/80">
+      <div class="flex flex-wrap items-center gap-1.5">
+        <button onclick="setFilter('ALL')" id="filter-btn-all" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white transition cursor-pointer">
+          Alle Ereignisse
+        </button>
+        <button onclick="setFilter('LONG')" id="filter-btn-long" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800/60 hover:bg-slate-700/60 text-slate-300 transition cursor-pointer flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Nur Long
+        </button>
+        <button onclick="setFilter('SHORT')" id="filter-btn-short" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800/60 hover:bg-slate-700/60 text-slate-300 transition cursor-pointer flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+          Nur Short
+        </button>
+        <button onclick="setFilter('REVERSAL')" id="filter-btn-reversal" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800/60 hover:bg-slate-700/60 text-slate-300 transition cursor-pointer flex items-center gap-1.5">
+          <span>🔄</span>
+          Nur Signalwechsel
+        </button>
+      </div>
+
+      <div class="text-xs text-slate-400 px-2" id="event-counter-text">
+        Lade Historie...
+      </div>
+    </div>
+
+    <!-- Timeline Container -->
+    <div id="timeline-container" class="space-y-4">
+      <!-- Dynamisch befüllt durch JavaScript -->
+    </div>
+
+  </main>
+
+  <script>
+    let initialEvents = [{"id": "evt_20261018_122912", "timestamp": "2026-10-18T12:29:12.074874+00:00", "timestamp_display": "18.10.2026 12:29 UTC", "title": "🔔 TV-Signaländerung: 1 Asset aktualisiert", "type": "SIGNAL_UPDATE", "change_count": 1, "changes": [{"symbol": "BINANCE:AVAXUSDT", "name": "Avalanche", "category": "Crypto", "change_type": "SETUP_UPDATE", "old_signal": "LONG", "new_signal": "LONG", "old_score": 96, "new_score": 96, "price": 9.78, "setup_name": "Hypothese 2: Trend Continuation & Hidden Div", "entry_range": [9.7, 9.8], "stop_loss": 9.34, "take_profit_2": 11.19, "note": "Bullische Confluence (96%): 1D Trend über EMA 233 bullisch. VSA und RSI bestätigen nachlassenden Verkaufsdruck."}], "notification_sent": true, "provider": "ntfy", "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n🟢 Avalanche (AVAXUSDT):\n   Score-Sprung: 96% ➔ 96% (LONG)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 9.70 | SL: 9.34 | TP2: 11.19\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"}, {"id": "evt_20261018_122823", "timestamp": "2026-10-18T12:28:23.027061+00:00", "timestamp_display": "18.10.2026 12:28 UTC", "title": "🔔 TV-Signaländerung: 7 Assets aktualisiert", "type": "SIGNAL_UPDATE", "change_count": 7, "changes": [{"symbol": "BINANCE:ETHFIUSDT", "name": "ether.fi", "category": "Crypto", "change_type": "SETUP_UPDATE", "old_signal": "LONG", "new_signal": "LONG", "old_score": 96, "new_score": 96, "price": 0.6649, "setup_name": "Hypothese 2: Trend Continuation & Hidden Div", "entry_range": [0.66, 0.67], "stop_loss": 0.63, "take_profit_2": 0.78, "note": "Bullische Confluence (96%): 1D Trend über EMA 233 bullisch. VSA und RSI bestätigen nachlassenden Verkaufsdruck."}, {"symbol": "NYMEX:CL1!", "name": "WTI Rohöl Future", "category": "Energie", "change_type": "SIGNAL_CHANGE", "old_signal": "NEUTRAL", "new_signal": "LONG", "old_score": 51, "new_score": 96, "price": 99.02, "setup_name": "Hypothese 2: Trend Continuation & Hidden Div", "entry_range": [98.23, 99.22], "stop_loss": 95.55, "take_profit_2": 110.12, "note": "Bullische Confluence (96%): 1D Trend über EMA 233 bullisch. VSA und RSI bestätigen nachlassenden Verkaufsdruck."}, {"symbol": "TVC:DJI", "name": "DJI", "category": "Indizes / Devisen", "change_type": "SIGNAL_CHANGE", "old_signal": "NEUTRAL", "new_signal": "SHORT", "old_score": 53, "new_score": 95, "price": 52007.21, "setup_name": "Hypothese 1: Bearish Confluence Reversal", "entry_range": [51903.2, 52423.27], "stop_loss": 53827.46, "take_profit_2": 46182.41, "note": "Bärische Erschöpfung (95%): 1D Trend unter EMA 233 bärisch. Überdehnung oder bärische Divergenz im Momentum."}, {"symbol": "BINANCE:ZECUSDT", "name": "Zcash", "category": "Crypto", "change_type": "SIGNAL_CHANGE", "old_signal": "NEUTRAL", "new_signal": "SHORT", "old_score": 53, "new_score": 95, "price": 1132.08, "setup_name": "Hypothese 1: Bearish Confluence Reversal", "entry_range": [1129.82, 1141.14], "stop_loss": 1183.02, "take_profit_2": 969.07, "note": "Bärische Erschöpfung (95%): 1D Trend unter EMA 233 bärisch. Überdehnung oder bärische Divergenz im Momentum."}, {"symbol": "TVC:PALLADIUM", "name": "Palladium (Spot)", "category": "Edelmetalle", "change_type": "SIGNAL_CHANGE", "old_signal": "NEUTRAL", "new_signal": "SHORT", "old_score": 51, "new_score": 95, "price": 1111.58, "setup_name": "Hypothese 1: Bearish Confluence Reversal", "entry_range": [1109.36, 1120.47], "stop_loss": 1150.49, "take_profit_2": 987.07, "note": "Bärische Erschöpfung (95%): 1D Trend unter EMA 233 bärisch. Überdehnung oder bärische Divergenz im Momentum."}, {"symbol": "COINBASE:CRVUSD", "name": "Curve DAO", "category": "Crypto", "change_type": "SIGNAL_CHANGE", "old_signal": "SHORT", "new_signal": "NEUTRAL", "old_score": 95, "new_score": 53, "price": 0.3404, "setup_name": "Beobachten / Warten auf Trigger", "entry_range": [0.3404, 0.3404], "stop_loss": 0.33, "take_profit_2": 0.36, "note": "Konsolidierungsphase / Signal-Konflikt: Bullische und bärische Faktoren halten sich die Waage. Auf klaren Ausbruch oder Bestätigung an den Key-Levels warten."}, {"symbol": "NASDAQ:AAPL", "name": "Apple", "category": "Big Tech", "change_type": "SIGNAL_CHANGE", "old_signal": "SHORT", "new_signal": "NEUTRAL", "old_score": 95, "new_score": 53, "price": 343.46, "setup_name": "Beobachten / Warten auf Trigger", "entry_range": [343.46, 343.46], "stop_loss": 333.16, "take_profit_2": 364.07, "note": "Konsolidierungsphase / Signal-Konflikt: Bullische und bärische Faktoren halten sich die Waage. Auf klaren Ausbruch oder Bestätigung an den Key-Levels warten."}], "notification_sent": true, "provider": "ntfy", "raw_message": "🔄 Folgende 7 Einstufungen haben sich geändert:\n\n🟢 ether.fi (ETHFIUSDT):\n   Score-Sprung: 96% ➔ 96% (LONG)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 0.66 | SL: 0.63 | TP2: 0.78\n\n🟢 WTI Rohöl Future (CL1!):\n   Einstufung: NEUTRAL ➔ LONG (Score: 96%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 98.23 | SL: 95.55 | TP2: 110.12\n\n🔴 DJI (DJI):\n   Einstufung: NEUTRAL ➔ SHORT (Score: 95%)\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 51,903.20 | SL: 53,827.46 | TP2: 46,182.41\n\n🔴 Zcash (ZECUSDT):\n   Einstufung: NEUTRAL ➔ SHORT (Score: 95%)\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 1,129.82 | SL: 1,183.02 | TP2: 969.07\n\n🔴 Palladium (Spot) (PALLADIUM):\n   Einstufung: NEUTRAL ➔ SHORT (Score: 95%)\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 1,109.36 | SL: 1,150.49 | TP2: 987.07\n\n⚪ Curve DAO (CRVUSD):\n   Einstufung: SHORT ➔ NEUTRAL (Score: 53%)\n   Setup: Beobachten / Warten auf Trigger\n\n... und 1 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"}, {"id": "evt_20261018_122802", "timestamp": "2026-10-18T12:28:02.716918+00:00", "timestamp_display": "18.10.2026 12:28 UTC", "title": "🔔 TV-Signaländerung: 7 Assets aktualisiert", "type": "SIGNAL_UPDATE", "change_count": 7, "changes": [{"symbol": "COINBASE:CRVUSD", "name": "Curve DAO", "category": "Crypto", "change_type": "SIGNAL_CHANGE", "old_signal": "LONG", "new_signal": "SHORT", "old_score": 96, "new_score": 95, "price": 0.3404, "setup_name": "Hypothese 1: Bearish Confluence Reversal", "entry_range": [0.34, 0.34], "stop_loss": 0.36, "take_profit_2": 0.28, "note": "Bärische Erschöpfung (95%): 1D Trend unter EMA 233 bärisch. Überdehnung oder bärische Divergenz im Momentum."}, {"symbol": "CRYPTOCAP:TOTAL", "name": "Total Crypto Market Cap", "category": "Krypto-Makro", "change_type": "SIGNAL_CHANGE", "old_signal": "LONG", "new_signal": "NEUTRAL", "old_score": 96, "new_score": 53, "price": 2714959759028, "setup_name": "Beobachten / Warten auf Trigger", "entry_range": [2714959759028, 2714959759028], "stop_loss": 2633510966257.16, "take_profit_2": 2877857344569.68, "note": "Konsolidierungsphase / Signal-Konflikt: Bullische und bärische Faktoren halten sich die Waage. Auf klaren Ausbruch oder Bestätigung an den Key-Levels warten."}, {"symbol": "NYSE:UBER", "name": "Uber", "category": "Mobility / Tech", "change_type": "SIGNAL_CHANGE", "old_signal": "LONG", "new_signal": "NEUTRAL", "old_score": 96, "new_score": 53, "price": 70.35, "setup_name": "Beobachten / Warten auf Trigger", "entry_range": [70.35, 70.35], "stop_loss": 68.24, "take_profit_2": 74.57, "note": "Konsolidierungsphase / Signal-Konflikt: Bullische und bärische Faktoren halten sich die Waage. Auf klaren Ausbruch oder Bestätigung an den Key-Levels warten."}, {"symbol": "NYSE:UAA", "name": "Under Armour", "category": "Consumer", "change_type": "SIGNAL_CHANGE", "old_signal": "SHORT", "new_signal": "NEUTRAL", "old_score": 95, "new_score": 53, "price": 4.74, "setup_name": "Beobachten / Warten auf Trigger", "entry_range": [4.74, 4.74], "stop_loss": 4.6, "take_profit_2": 5.02, "note": "Konsolidierungsphase / Signal-Konflikt: Bullische und bärische Faktoren halten sich die Waage. Auf klaren Ausbruch oder Bestätigung an den Key-Levels warten."}, {"symbol": "COMEX:HG1!", "name": "Kupfer Future", "category": "Industriemetalle", "change_type": "SIGNAL_CHANGE", "old_signal": "SHORT", "new_signal": "NEUTRAL", "old_score": 95, "new_score": 53, "price": 6.57, "setup_name": "Beobachten / Warten auf Trigger", "entry_range": [6.57, 6.57], "stop_loss": 6.37, "take_profit_2": 6.96, "note": "Konsolidierungsphase / Signal-Konflikt: Bullische und bärische Faktoren halten sich die Waage. Auf klaren Ausbruch oder Bestätigung an den Key-Levels warten."}, {"symbol": "TVC:DJI", "name": "DJI", "category": "Indizes / Devisen", "change_type": "SIGNAL_CHANGE", "old_signal": "SHORT", "new_signal": "NEUTRAL", "old_score": 95, "new_score": 53, "price": 52007.21, "setup_name": "Beobachten / Warten auf Trigger", "entry_range": [52007.21, 52007.21], "stop_loss": 50446.99, "take_profit_2": 55127.64, "note": "Konsolidierungsphase / Signal-Konflikt: Bullische und bärische Faktoren halten sich die Waage. Auf klaren Ausbruch oder Bestätigung an den Key-Levels warten."}, {"symbol": "TVC:PALLADIUM", "name": "Palladium (Spot)", "category": "Edelmetalle", "change_type": "SIGNAL_CHANGE", "old_signal": "SHORT", "new_signal": "NEUTRAL", "old_score": 95, "new_score": 51, "price": 1111.58, "setup_name": "Beobachten / Warten auf Trigger", "entry_range": [1111.58, 1111.58], "stop_loss": 1078.23, "take_profit_2": 1178.27, "note": "Konsolidierungsphase / Signal-Konflikt: Bullische und bärische Faktoren halten sich die Waage. Auf klaren Ausbruch oder Bestätigung an den Key-Levels warten."}], "notification_sent": true, "provider": "ntfy", "raw_message": "🔄 Folgende 7 Einstufungen haben sich geändert:\n\n🔴 Curve DAO (CRVUSD):\n   Einstufung: LONG ➔ SHORT (Score: 95%)\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 0.34 | SL: 0.36 | TP2: 0.28\n\n⚪ Total Crypto Market Cap (TOTAL):\n   Einstufung: LONG ➔ NEUTRAL (Score: 53%)\n   Setup: Beobachten / Warten auf Trigger\n\n⚪ Uber (UBER):\n   Einstufung: LONG ➔ NEUTRAL (Score: 53%)\n   Setup: Beobachten / Warten auf Trigger\n\n⚪ Under Armour (UAA):\n   Einstufung: SHORT ➔ NEUTRAL (Score: 53%)\n   Setup: Beobachten / Warten auf Trigger\n\n⚪ Kupfer Future (HG1!):\n   Einstufung: SHORT ➔ NEUTRAL (Score: 53%)\n   Setup: Beobachten / Warten auf Trigger\n\n⚪ DJI (DJI):\n   Einstufung: SHORT ➔ NEUTRAL (Score: 53%)\n   Setup: Beobachten / Warten auf Trigger\n\n... und 1 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"}, {"id": "evt_20261018_122754", "timestamp": "2026-10-18T12:27:54.305955+00:00", "timestamp_display": "18.10.2026 12:27 UTC", "title": "🔔 TV-Signaländerung: 7 Assets aktualisiert", "type": "SIGNAL_UPDATE", "change_count": 7, "changes": [{"symbol": "COINBASE:CRVUSD", "name": "Curve DAO", "category": "Crypto", "change_type": "SIGNAL_CHANGE", "old_signal": "SHORT", "new_signal": "LONG", "old_score": 95, "new_score": 96, "price": 0.3404, "setup_name": "Hypothese 2: Trend Continuation & Hidden Div", "entry_range": [0.34, 0.34], "stop_loss": 0.33, "take_profit_2": 0.37, "note": "Bullische Confluence (96%): 1D Trend unter EMA 233 bärisch. VSA und RSI bestätigen nachlassenden Verkaufsdruck."}, {"symbol": "CRYPTOCAP:TOTAL", "name": "Total Crypto Market Cap", "category": "Krypto-Makro", "change_type": "SIGNAL_CHANGE", "old_signal": "NEUTRAL", "new_signal": "LONG", "old_score": 53, "new_score": 96, "price": 2714959759028, "setup_name": "Hypothese 2: Trend Continuation & Hidden Div", "entry_range": [2693240080955.78, 2720389678546.06], "stop_loss": 2619936167462.02, "take_profit_2": 3019035252039.14, "note": "Bullische Confluence (96%): 1D Trend über EMA 233 bullisch. VSA und RSI bestätigen nachlassenden Verkaufsdruck."}, {"symbol": "NYSE:UBER", "name": "Uber", "category": "Mobility / Tech", "change_type": "SIGNAL_CHANGE", "old_signal": "NEUTRAL", "new_signal": "LONG", "old_score": 53, "new_score": 96, "price": 70.35, "setup_name": "Hypothese 2: Trend Continuation & Hidden Div", "entry_range": [69.79, 70.49], "stop_loss": 67.89, "take_profit_2": 78.22, "note": "Bullische Confluence (96%): 1D Trend unter EMA 233 bärisch. VSA und RSI bestätigen nachlassenden Verkaufsdruck."}, {"symbol": "NYSE:UAA", "name": "Under Armour", "category": "Consumer", "change_type": "SIGNAL_CHANGE", "old_signal": "NEUTRAL", "new_signal": "SHORT", "old_score": 53, "new_score": 95, "price": 4.74, "setup_name": "Hypothese 1: Bearish Confluence Reversal", "entry_range": [4.73, 4.78], "stop_loss": 4.91, "take_profit_2": 4.2, "note": "Bärische Erschöpfung (95%): 1D Trend unter EMA 233 bärisch. Überdehnung oder bärische Divergenz im Momentum."}, {"symbol": "COMEX:HG1!", "name": "Kupfer Future", "category": "Industriemetalle", "change_type": "SIGNAL_CHANGE", "old_signal": "NEUTRAL", "new_signal": "SHORT", "old_score": 53, "new_score": 95, "price": 6.57, "setup_name": "Hypothese 1: Bearish Confluence Reversal", "entry_range": [6.56, 6.62], "stop_loss": 6.8, "take_profit_2": 5.83, "note": "Bärische Erschöpfung (95%): 1D Trend unter EMA 233 bärisch. Überdehnung oder bärische Divergenz im Momentum."}, {"symbol": "TVC:DJI", "name": "DJI", "category": "Indizes / Devisen", "change_type": "SIGNAL_CHANGE", "old_signal": "NEUTRAL", "new_signal": "SHORT", "old_score": 53, "new_score": 95, "price": 52007.21, "setup_name": "Hypothese 1: Bearish Confluence Reversal", "entry_range": [51903.2, 52423.27], "stop_loss": 53827.46, "take_profit_2": 46182.41, "note": "Bärische Erschöpfung (95%): 1D Trend unter EMA 233 bärisch. Überdehnung oder bärische Divergenz im Momentum."}, {"symbol": "TVC:PALLADIUM", "name": "Palladium (Spot)", "category": "Edelmetalle", "change_type": "SIGNAL_CHANGE", "old_signal": "NEUTRAL", "new_signal": "SHORT", "old_score": 51, "new_score": 95, "price": 1111.58, "setup_name": "Hypothese 1: Bearish Confluence Reversal", "entry_range": [1109.36, 1120.47], "stop_loss": 1150.49, "take_profit_2": 987.07, "note": "Bärische Erschöpfung (95%): 1D Trend unter EMA 233 bärisch. Überdehnung oder bärische Divergenz im Momentum."}], "notification_sent": true, "provider": "ntfy", "raw_message": "🔄 Folgende 7 Einstufungen haben sich geändert:\n\n🟢 Curve DAO (CRVUSD):\n   Einstufung: SHORT ➔ LONG (Score: 96%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 0.34 | SL: 0.33 | TP2: 0.37\n\n🟢 Total Crypto Market Cap (TOTAL):\n   Einstufung: NEUTRAL ➔ LONG (Score: 96%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 2,693,240,080,955.78 | SL: 2,619,936,167,462.02 | TP2: 3,019,035,252,039.14\n\n🟢 Uber (UBER):\n   Einstufung: NEUTRAL ➔ LONG (Score: 96%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 69.79 | SL: 67.89 | TP2: 78.22\n\n🔴 Under Armour (UAA):\n   Einstufung: NEUTRAL ➔ SHORT (Score: 95%)\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 4.73 | SL: 4.91 | TP2: 4.20\n\n🔴 Kupfer Future (HG1!):\n   Einstufung: NEUTRAL ➔ SHORT (Score: 95%)\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 6.56 | SL: 6.80 | TP2: 5.83\n\n🔴 DJI (DJI):\n   Einstufung: NEUTRAL ➔ SHORT (Score: 95%)\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 51,903.20 | SL: 53,827.46 | TP2: 46,182.41\n\n... und 1 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"}, {"id": "evt_20261018_122452", "timestamp": "2026-10-18T12:24:52.108800+00:00", "timestamp_display": "18.10.2026 12:24 UTC", "title": "System-Start: Baseline-Scan initialisiert", "type": "SYSTEM_INIT", "change_count": 0, "changes": [], "summary": "Initialisierung abgeschlossen. 58 Assets im 4h-Überwachungszyklus aktiv (16 Longs, 18 Shorts). Zukünftige Signalwechsel werden automatisch erfasst.", "notification_sent": false}];
+    let currentFilter = 'ALL';
+
+    function timeAgo(dateString) {
+      const date = new Date(dateString);
+      const now = new Date();
+      const seconds = Math.floor((now - date) / 1000);
+      if (seconds < 60) return "Gerade eben";
+      const minutes = Math.floor(seconds / 60);
+      if (minutes < 60) return "vor " + minutes + " Min.";
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return "vor " + hours + " Std.";
+      const days = Math.floor(hours / 24);
+      return "vor " + days + " Tagen";
+    }
+
+    function renderEvents(events) {
+      const container = document.getElementById('timeline-container');
+      const statTotal = document.getElementById('stat-total-events');
+      const counterText = document.getElementById('event-counter-text');
+
+      statTotal.textContent = events.length;
+
+      if (!events || events.length === 0) {
+        container.innerHTML = `
+          <div class="rounded-2xl bg-[#0d1322]/80 border border-slate-800/80 p-8 text-center space-y-3">
+            <div class="w-12 h-12 mx-auto rounded-full bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-xl">
+              🔔
+            </div>
+            <h3 class="text-base font-bold text-white">Noch keine Benachrichtigungen erfasst</h3>
+            <p class="text-xs text-slate-400 max-w-md mx-auto">
+              Sobald der 4-stündige Scan eine relevante Signaländerung (z.B. Wechsel von Neutral auf Long) erkennt, wird sie hier mit allen Details archiviert.
+            </p>
+          </div>
+        `;
+        counterText.textContent = "0 Ereignisse";
+        return;
+      }
+
+      // Filter anwenden
+      let filtered = events.filter(evt => {
+        if (currentFilter === 'ALL') return true;
+        if (!evt.changes || evt.changes.length === 0) return currentFilter === 'ALL';
+        if (currentFilter === 'LONG') {
+          return evt.changes.some(c => c.new_signal === 'LONG');
+        }
+        if (currentFilter === 'SHORT') {
+          return evt.changes.some(c => c.new_signal === 'SHORT');
+        }
+        if (currentFilter === 'REVERSAL') {
+          return evt.changes.some(c => c.old_signal !== c.new_signal);
+        }
+        return true;
+      });
+
+      counterText.textContent = filtered.length + " von " + events.length + " Ereignissen angezeigt";
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="rounded-2xl bg-[#0d1322]/80 border border-slate-800/80 p-8 text-center text-slate-400 text-xs">
+            Keine Ereignisse für den ausgewählten Filter ("${currentFilter}").
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      filtered.forEach((evt, idx) => {
+        const isInit = (evt.type === 'SYSTEM_INIT');
+        const relativeTime = evt.timestamp ? timeAgo(evt.timestamp) : '';
+        const displayTime = evt.timestamp_display || (evt.timestamp ? new Date(evt.timestamp).toLocaleString('de-DE') : '');
+        const changes = evt.changes || [];
+
+        html += `
+          <div class="rounded-2xl bg-[#0d1322]/90 border border-slate-800/80 p-5 space-y-4 hover:border-slate-700/80 transition">
+            
+            <!-- Event Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-800/60 pb-3.5">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg ${isInit ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'} flex items-center justify-center text-sm font-bold">
+                  ${isInit ? '⚙️' : '🔔'}
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-white tracking-tight">${evt.title || 'Signal-Update'}</h3>
+                  <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                    <span>${displayTime}</span>
+                    <span>•</span>
+                    <span class="text-indigo-400 font-medium">${relativeTime}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                ${evt.notification_sent ? `
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                    Push gesendet (ntfy)
+                  </span>
+                ` : `
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-800 text-slate-400 border border-slate-700">
+                    Protokolliert
+                  </span>
+                `}
+              </div>
+            </div>
+        `;
+
+        if (isInit) {
+          html += `
+            <div class="p-3.5 rounded-xl bg-indigo-950/20 border border-indigo-500/20 text-xs text-indigo-200">
+              ${evt.summary || 'Baseline-Initialisierung des Marktes durchgeführt.'}
+            </div>
+          `;
+        } else if (changes.length > 0) {
+          html += `<div class="grid grid-cols-1 md:grid-cols-2 gap-3">`;
+
+          changes.forEach(c => {
+            const isLong = c.new_signal === 'LONG';
+            const isShort = c.new_signal === 'SHORT';
+            const sigColor = isLong ? 'emerald' : (isShort ? 'rose' : 'slate');
+            const ticker = c.symbol.split(':').pop();
+
+            html += `
+              <div class="rounded-xl bg-slate-900/80 border border-slate-800 p-3.5 space-y-2.5">
+                <div class="flex items-start justify-between gap-2">
+                  <div>
+                    <div class="flex items-center gap-1.5">
+                      <span class="text-xs font-bold text-white">${c.name}</span>
+                      <span class="text-[10px] font-mono text-slate-400">(${ticker})</span>
+                    </div>
+                    <div class="text-[10px] text-slate-500">${c.category || 'Asset'}</div>
+                  </div>
+
+                  <!-- Transition Badge -->
+                  <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-bold font-mono bg-${sigColor}-500/10 text-${sigColor}-400 border border-${sigColor}-500/30">
+                    <span>${c.old_signal}</span>
+                    <span>➔</span>
+                    <span>${c.new_signal}</span>
+                    <span>(${c.new_score}%)</span>
+                  </div>
+                </div>
+
+                <div class="text-[11px] text-slate-300 font-medium bg-slate-950/40 px-2.5 py-1.5 rounded-lg border border-slate-800/60">
+                  <span class="text-indigo-400 font-semibold">Setup:</span> ${c.setup_name}
+                </div>
+
+                ${c.entry_range && c.entry_range.length > 0 ? `
+                  <div class="grid grid-cols-3 gap-1.5 text-center text-[10px] font-mono pt-1">
+                    <div class="bg-slate-950/60 p-1.5 rounded border border-slate-800/80">
+                      <span class="text-slate-400 block text-[9px] uppercase">Entry</span>
+                      <span class="font-bold text-white">${c.entry_range[0].toLocaleString('de-DE', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                    </div>
+                    <div class="bg-slate-950/60 p-1.5 rounded border border-slate-800/80">
+                      <span class="text-rose-400 block text-[9px] uppercase">Stop Loss</span>
+                      <span class="font-bold text-rose-300">${c.stop_loss.toLocaleString('de-DE', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                    </div>
+                    <div class="bg-slate-950/60 p-1.5 rounded border border-slate-800/80">
+                      <span class="text-emerald-400 block text-[9px] uppercase">Ziel (TP2)</span>
+                      <span class="font-bold text-emerald-300">${c.take_profit_2.toLocaleString('de-DE', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                    </div>
+                  </div>
+                ` : ''}
+
+                ${c.note ? `
+                  <p class="text-[11px] text-slate-400 italic border-l-2 border-indigo-500/40 pl-2 py-0.5">
+                    ${c.note}
+                  </p>
+                ` : ''}
+
+                <div class="pt-1 text-right">
+                  <a href="index.html?asset=${encodeURIComponent(c.symbol)}" class="text-[11px] text-indigo-400 hover:text-indigo-300 font-semibold inline-flex items-center gap-1">
+                    <span>Chart & Setup im Dashboard öffnen</span>
+                    <span>→</span>
+                  </a>
+                </div>
+              </div>
+            `;
+          });
+
+          html += `</div>`;
+        }
+
+        html += `</div>`;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      ['all', 'long', 'short', 'reversal'].forEach(f => {
+        const btn = document.getElementById('filter-btn-' + f);
+        if (btn) {
+          if (f.toUpperCase() === filter) {
+            btn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white transition cursor-pointer";
+          } else {
+            btn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800/60 hover:bg-slate-700/60 text-slate-300 transition cursor-pointer flex items-center gap-1.5";
+          }
+        }
+      });
+      renderEvents(initialEvents);
+    }
+
+    function refreshHistory() {
+      const icon = document.getElementById('refresh-icon');
+      if (icon) icon.classList.add('animate-spin');
+      fetch('history.json?nocache=' + Date.now())
+        .then(res => res.json())
+        .then(data => {
+          initialEvents = data;
+          renderEvents(initialEvents);
+          if (icon) icon.classList.remove('animate-spin');
+        })
+        .catch(err => {
+          console.warn("Konnte history.json nicht nachladen, nutze gecachte Daten:", err);
+          if (icon) icon.classList.remove('animate-spin');
+        });
+    }
+
+    // Initial render
+    renderEvents(initialEvents);
+  </script>
+</body>
+</html>

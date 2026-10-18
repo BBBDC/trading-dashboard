@@ -47,21 +47,26 @@ def run_pipeline(force_download=False, skip_download=False, git_push=False):
     else:
         print("Überspringe OHLCV-Download (Cache wird verwendet).")
 
-    # STAGE 3: Charts generieren
-    stage_banner("STUFE 3: Vektor-Charts mit echten Kerzen & Indikatoren rendern")
+    # STAGE 3: Multi-Timeframe-Marktanalyse & KI-Interpretation
+    stage_banner("STUFE 3: Multi-Timeframe-Analyse & KI-Interpretation (Gemini / SMC)")
+    from market_evaluator import analyze_all_markets
+    analyze_all_markets()
+
+    # STAGE 4: Charts generieren
+    stage_banner("STUFE 4: Vektor-Charts mit echten Kerzen & Indikatoren rendern")
     from generate_all_charts import CHARTS_DIR as CD
     import subprocess
     subprocess.run([sys.executable, str(BASE_DIR / "generate_all_charts.py")], check=True)
 
-    # STAGE 4: Dashboard kompilieren
-    stage_banner("STUFE 4: HTML-Dashboard & Live-Widget aktualisieren")
+    # STAGE 5: Dashboard & Historie kompilieren
+    stage_banner("STUFE 5: HTML-Dashboard & Live-Historie aktualisieren")
     subprocess.run([sys.executable, str(BASE_DIR / "build_dashboard.py")], check=True)
 
-    # STAGE 5: Git-Hosting Synchronisation (optional / bei --git-push)
+    # STAGE 6: Git-Hosting Synchronisation (optional / bei --git-push)
     if git_push:
         git_sync_dashboard()
 
-    # STAGE 6: Executive Summary
+    # STAGE 7: Executive Summary & Smart Alerts
     elapsed = round(time.time() - start_time, 1)
     stage_banner(f"✅ PIPELINE ERFOLGREICH ABGESCHLOSSEN ({elapsed}s)")
 
@@ -104,7 +109,7 @@ def run_pipeline(force_download=False, skip_download=False, git_push=False):
 
 
 def git_sync_dashboard():
-    stage_banner("STUFE 5: Git-Hosting Synchronisation")
+    stage_banner("STUFE 6: Git-Hosting Synchronisation")
     import subprocess
     try:
         res = subprocess.run(["git", "rev-parse", "--is-inside-work-tree"], cwd=str(BASE_DIR), capture_output=True, text=True)

@@ -83,6 +83,7 @@ with open(DB_FILE, "w", encoding="utf-8") as f:
 
 print(f"\nErfolgreich! {total_generated} echte SVG-Charts in {CHARTS_DIR} und Artifact-Ordner generiert.")
 
-# Recompile Dashboard
-import subprocess
-subprocess.run([sys.executable, str(BASE_DIR / "build_dashboard.py")], check=True)
+# Recompile Dashboard (falls direkt als Skript ausgeführt)
+if __name__ == "__main__":
+    import subprocess
+    subprocess.run([sys.executable, str(BASE_DIR / "build_dashboard.py")], check=True)
