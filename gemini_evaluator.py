@@ -155,12 +155,10 @@ def call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=85):
         return None, f"Pro CLI Ausführungsfehler: {e}"
 
 
-def call_gemini_via_rest_api(prompt, model="gemini-2.5-pro", api_key=None, timeout=40):
+def call_gemini_via_rest_api(prompt, model="gemini-3.8-flash-high", api_key=None, timeout=40):
     """
-    Ruft die Google Gemini REST API über einen API-Key auf (z.B. von einem separaten Pro-Account).
-    Schlank, extrem schnell und standardbibliothek-basiert.
-    Falls ein Modellname (z.B. gemini-3.8-flash-high) auf der REST-API nicht direkt existiert,
-    nutzt sie automatisch die passenden REST-Pendants (z.B. gemini-2.5-pro oder gemini-2.5-flash).
+    Ruft die Google Gemini REST API über einen API-Key auf (z.B. aus Google AI Studio eines Pro-Accounts).
+    Unterstützt Gemini 3.8 Flash mit nativer Thinking-Konfiguration (High / Low Reasoning).
     """
     if not api_key:
         api_key = get_api_key()
@@ -168,27 +166,31 @@ def call_gemini_via_rest_api(prompt, model="gemini-2.5-pro", api_key=None, timeo
         return None, "Kein GEMINI_API_KEY für REST-API verfügbar."
 
     # Modell-Mapping für Google AI Studio REST API
-    target_model = model
-    if "3.8" in model or "high" in model or "4" in model or "pro" in model:
-        target_model = "gemini-2.5-pro"
-    elif "flash" in model or "low" in model or "medium" in model:
-        target_model = "gemini-2.5-flash"
+    target_model = "gemini-3.8-flash"
+    
+    # Thinking Budget: High (4096) für tiefe Multi-Timeframe-Analysen, Low (1024) für Fallbacks
+    is_high = any(x in model.lower() for x in ["high", "pro", "3.8"])
+    budget = 4096 if is_high else 1024
 
-    models_to_try = [target_model]
-    if target_model != "gemini-2.5-pro":
-        models_to_try.append("gemini-2.5-pro")
-    if target_model != "gemini-2.5-flash":
-        models_to_try.append("gemini-2.5-flash")
+    models_to_try = [
+        (target_model, budget),
+        (target_model, 0),       # Fallback ohne explizites Thinking
+        ("gemini-2.5-flash", None)
+    ]
 
     last_err = None
-    for cur_model in models_to_try:
+    for cur_model, cur_budget in models_to_try:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{cur_model}:generateContent?key={api_key}"
+        gen_config = {
+            "temperature": 0.15,
+            "responseMimeType": "application/json"
+        }
+        if cur_budget is not None and cur_budget > 0:
+            gen_config["thinkingConfig"] = {"thinkingBudget": cur_budget}
+
         payload = {
             "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {
-                "temperature": 0.15,
-                "responseMimeType": "application/json"
-            }
+            "generationConfig": gen_config
         }
         req = urllib.request.Request(
             url,
@@ -204,11 +206,12 @@ def call_gemini_via_rest_api(prompt, model="gemini-2.5-pro", api_key=None, timeo
                     continue
                 txt = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
                 parsed = extract_json_from_text(txt)
-                if parsed:
+                if parsed and isinstance(parsed, list) and len(parsed) > 0:
                     return parsed, None
         except urllib.error.HTTPError as e:
-            last_err = f"HTTP {e.code} ({cur_model})"
-            if e.code == 404:
+            err_body = e.read().decode("utf-8", errors="ignore")[:200]
+            last_err = f"HTTP {e.code} ({cur_model}): {err_body}"
+            if e.code in (404, 400):
                 continue
             break
         except Exception as e:
@@ -312,7 +315,8 @@ def evaluate_batch_with_cascade(assets_batch):
         err = "Weder API-Key noch Pro-Subscription konfiguriert."
 
     if res and isinstance(res, list) and len(res) > 0:
-        return res, None, f"{primary_model} [Pro Abo]"
+        source_tag = "[AI Studio Pro Key]" if api_key else "[Pro Abo]"
+        return res, None, f"{primary_model} {source_tag}"
 
     # ========================================================
     # STUFE 2: Fallback-KI (Gemini 2.5 Flash)
