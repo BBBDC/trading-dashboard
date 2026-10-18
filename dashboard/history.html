@@ -311,8 +311,9 @@
                   </div>
                 </div>
 
-                <div class="text-[11px] text-slate-300 font-medium bg-slate-950/40 px-2.5 py-1.5 rounded-lg border border-slate-800/60">
-                  <span class="text-indigo-400 font-semibold">Setup:</span> ${c.setup_name}
+                <div class="text-[11px] text-slate-300 font-medium bg-slate-950/40 px-2.5 py-1.5 rounded-lg border border-slate-800/60 flex items-center justify-between">
+                  <div><span class="text-indigo-400 font-semibold">Setup:</span> ${c.setup_name}</div>
+                  ${c.evaluated_by ? `<span class="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">🤖 ${c.evaluated_by}</span>` : ''}
                 </div>
 
                 ${c.entry_range && c.entry_range.length > 0 ? `

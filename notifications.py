@@ -198,7 +198,8 @@ def detect_signal_changes(current_assets):
                     "entry_range": a.get("entry_range", []),
                     "stop_loss": a.get("stop_loss", 0),
                     "take_profit_2": a.get("take_profit_2", 0),
-                    "note": a.get("analyst_note", "")
+                    "note": a.get("analyst_note", ""),
+                    "evaluated_by": a.get("evaluated_by", "Confluence")
                 })
             continue
 
@@ -228,7 +229,8 @@ def detect_signal_changes(current_assets):
                 "entry_range": a.get("entry_range", []),
                 "stop_loss": a.get("stop_loss", 0),
                 "take_profit_2": a.get("take_profit_2", 0),
-                "note": a.get("analyst_note", "")
+                "note": a.get("analyst_note", ""),
+                "evaluated_by": a.get("evaluated_by", "Confluence")
             })
 
     return changes, new_state, is_initial_run

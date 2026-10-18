@@ -106,6 +106,10 @@ html_content = f"""<!DOCTYPE html>
           <div class="flex items-center gap-2">
             <h1 class="font-bold text-lg sm:text-xl tracking-tight text-white">Super-Analyst Dashboard</h1>
             <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">24/7 Raspberry Pi</span>
+            <span class="hidden sm:inline-flex px-2 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 items-center gap-1.5" title="Aktives KI-Modell / Kaskade">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              {db_data.get('evaluation_engine', 'Gemini Pro / Confluence')}
+            </span>
           </div>
           <p class="text-xs text-slate-400">Multi-Timeframe Confluence (4h · 8h · 1D) | SMC · Wyckoff VSA · RSI Divs · Golden Pocket</p>
         </div>

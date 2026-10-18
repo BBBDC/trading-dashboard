@@ -1,8 +1,12 @@
 {
   "enabled": true,
-  "api_key": "DEIN_GOOGLE_AI_STUDIO_API_KEY_HIER",
-  "model": "gemini-2.5-flash",
+  "primary_model": "gemini-3.8-flash-high",
+  "fallback_model": "gemini-2.5-flash",
+  "use_pro_subscription": true,
+  "api_key": "",
   "temperature": 0.2,
   "batch_size": 8,
-  "comment": "Trage hier deinen kostenlosen Google AI Studio API-Key ein (oder setze die Umgebungsvariable GEMINI_API_KEY)."
+  "timeout_seconds": 45,
+  "cascade_fallback_to_math": true,
+  "comment": "primary_model: 'gemini-3.8-flash-high' oder 'gemini-4'. use_pro_subscription: nutzt automatisch dein angemeldetes Google Pro-Abo via CLI. api_key: optional, falls du einen Google AI Studio Key hinterlegen möchtest."
 }

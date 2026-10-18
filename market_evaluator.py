@@ -15,7 +15,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 from fetch_real_ohlcv_cache import get_real_bars
-from gemini_evaluator import evaluate_batch_with_gemini, get_api_key
+from gemini_evaluator import evaluate_batch_with_cascade, load_config as load_gemini_config
 
 BASE_DIR = Path(__file__).resolve().parent
 DB_FILE = BASE_DIR / "dashboard" / "market_analysis_db.json"
@@ -343,11 +343,15 @@ def analyze_all_markets(use_gemini=True):
     assets = db.get("assets", [])
     print(f"\nStarte Live-Marktanalyse für {len(assets)} Assets...")
 
-    has_gemini = False
-    api_key = get_api_key()
-    if use_gemini and api_key:
-        print("🤖 Google Gemini KI-Modell aktiv für Setup-Interpretation!")
-        has_gemini = True
+    gemini_conf = load_gemini_config()
+    has_gemini = use_gemini and gemini_conf.get("enabled", True)
+    if has_gemini:
+        p_mod = gemini_conf.get("primary_model", "gemini-3.8-flash-high")
+        f_mod = gemini_conf.get("fallback_model", "gemini-2.5-flash")
+        print("🤖 Gemini KI-Kaskade aktiv:")
+        print(f"   • Stufe 1 (Primary Pro): {p_mod}")
+        print(f"   • Stufe 2 (Fallback AI): {f_mod}")
+        print(f"   • Stufe 3 (Math Core)  : Quantitative SMC & Wyckoff-Engine")
     else:
         print("ℹ️ Verwende quantitative Confluence-Engine (SMC & Wyckoff VSA).")
 
@@ -386,7 +390,7 @@ def analyze_all_markets(use_gemini=True):
             }
         }
 
-        # Basis quantitative Auswertung durchführen
+        # Basis quantitative Auswertung durchführen (dient gleichzeitig als Stufe-3-Basis)
         quant_res = evaluate_quantitative_confluence(d_1d, d_8h, d_4h, asset_snapshot)
         if quant_res:
             asset_snapshot.update(quant_res)
@@ -403,10 +407,11 @@ def analyze_all_markets(use_gemini=True):
                 "4h": {"trend": d_4h["trend"] if d_4h else "N/A", "rsi": d_4h["rsi"] if d_4h else 50, "vsa": d_4h["vsa_class"] if d_4h else "N/A", "divs": d_4h["divergences"] if d_4h else []}
             })
 
-    # Falls Gemini aktiv ist: Batches an Gemini senden
+    # Falls Gemini aktiv ist: Batches an Gemini Kaskade senden
+    last_tier_used = "quantitative_confluence"
     if has_gemini and gemini_batch:
-        batch_size = 8
-        print(f"\nSende {len(gemini_batch)} Assets in Batches von {batch_size} an Gemini KI...")
+        batch_size = gemini_conf.get("batch_size", 8)
+        print(f"\nSende {len(gemini_batch)} Assets in Batches von {batch_size} an KI-Kaskade...")
         ai_success_count = 0
 
         # Mapping für schnelles Update
@@ -414,9 +419,10 @@ def analyze_all_markets(use_gemini=True):
 
         for i in range(0, len(gemini_batch), batch_size):
             chunk = gemini_batch[i:i + batch_size]
-            print(f"  [KI-Batch {i // batch_size + 1}/{(len(gemini_batch) + batch_size - 1) // batch_size}] Analysiere {len(chunk)} Werte mit Gemini...", end="", flush=True)
+            print(f"  [KI-Batch {i // batch_size + 1}/{(len(gemini_batch) + batch_size - 1) // batch_size}] Analysiere {len(chunk)} Werte...", end="", flush=True)
 
-            ai_results, err = evaluate_batch_with_gemini(chunk)
+            ai_results, err, tier_used = evaluate_batch_with_cascade(chunk)
+            last_tier_used = tier_used
             if ai_results and isinstance(ai_results, list):
                 for item in ai_results:
                     s = item.get("symbol")
@@ -434,14 +440,14 @@ def analyze_all_markets(use_gemini=True):
                             target["analyst_note"] = item.get("analyst_note")
                         if item.get("reasons"):
                             target["reasons"] = item.get("reasons")
-                        target["evaluated_by"] = "gemini-2.5-flash"
+                        target["evaluated_by"] = tier_used
                         ai_success_count += 1
-                print(" ✅ OK")
+                print(f" ✅ OK ({tier_used})")
             else:
-                print(f" ⚠️ Fallback ({err})")
-            time.sleep(0.5)
+                print(f" ℹ️ Math-Fallback ({tier_used})")
+            time.sleep(0.3)
 
-        print(f"Gemini KI-Auswertung abgeschlossen: {ai_success_count}/{len(gemini_batch)} Assets erfolgreich durch KI bewertet.")
+        print(f"KI-Kaskadenauswertung abgeschlossen: {ai_success_count}/{len(gemini_batch)} Assets erfolgreich durch KI bewertet.")
 
     # Sortieren nach Score
     analyzed_assets.sort(key=lambda x: x.get("score", 0), reverse=True)
@@ -456,7 +462,7 @@ def analyze_all_markets(use_gemini=True):
     db["short_count"] = short_c
     db["neutral_count"] = neutral_c
     db["assets"] = analyzed_assets
-    db["evaluation_engine"] = "gemini-2.5-flash" if has_gemini else "quantitative_confluence"
+    db["evaluation_engine"] = last_tier_used if (has_gemini and ai_success_count > 0) else "quantitative_confluence"
 
     with open(DB_FILE, "w", encoding="utf-8") as f:
         json.dump(db, f, indent=2, ensure_ascii=False)
