@@ -16,21 +16,58 @@ OUT_ARTIFACT = ARTIFACT_DIR / "dashboard.html"
 with open(DB_FILE, "r", encoding="utf-8") as f:
     db_data = json.load(f)
 
+# Quota Tracker Status für den konfigurierten API-Key abfragen
+try:
+    from gemini_quota_tracker import get_quota_summary_for_dashboard
+    quota_info = get_quota_summary_for_dashboard()
+except Exception:
+    quota_info = db_data.get("gemini_quota", {
+        "api_key_masked": "AQ.Ab8...Ww",
+        "model": "gemini-3.8-flash",
+        "daily_limit": 20,
+        "requests_used_today": 0,
+        "requests_remaining": 20,
+        "percent_used": 0.0,
+        "tokens_used_today": 0,
+        "status": "ACTIVE",
+        "is_exhausted": False,
+        "reset_countdown": "00:00 UTC",
+        "last_error": None
+    })
+
+db_data["gemini_quota"] = quota_info
 json_str = json.dumps(db_data, ensure_ascii=False)
 
-raw_engine = db_data.get("evaluation_engine", "Gemini 3.8 Flash (High) · Pro Abo")
-if "3.8" in raw_engine:
-    engine_display = "Gemini 3.8 Flash (High) · Pro Abo"
-elif "gemini-4" in raw_engine.lower():
-    engine_display = "Gemini 4 · Pro Abo"
-elif "2.5-pro" in raw_engine.lower():
-    engine_display = "Gemini 2.5 Pro · Pro Abo"
-elif "2.5-flash" in raw_engine.lower():
-    engine_display = "Gemini 2.5 Flash · Pro Abo"
+raw_engine = db_data.get("evaluation_engine", "Gemini 3.8 Flash (API-Key)")
+if "key" in raw_engine.lower() or "flash" in raw_engine.lower() or "3.8" in raw_engine:
+    engine_display = "Gemini 3.8 Flash · API-Key"
+elif "pro" in raw_engine.lower():
+    engine_display = "Gemini 3.8 Flash · Pro Abo"
 elif "quantitative" in raw_engine.lower() or "confluence" in raw_engine.lower():
-    engine_display = "Gemini 3.8 Flash (High) · Math Core"
+    engine_display = "Gemini 3.8 Flash · Math Core"
 else:
     engine_display = raw_engine
+
+quota_used = quota_info.get("requests_used_today", 0)
+quota_limit = quota_info.get("daily_limit", 20)
+quota_pct = quota_info.get("percent_used", 0.0)
+quota_remaining = quota_info.get("requests_remaining", 0)
+quota_countdown = quota_info.get("reset_countdown", "in wenigen Stunden")
+quota_exhausted = quota_info.get("is_exhausted", False)
+quota_tokens = quota_info.get("tokens_used_today", 0)
+
+if quota_exhausted:
+    quota_badge_class = "bg-rose-500/15 text-rose-300 border border-rose-500/30 hover:bg-rose-500/25"
+    quota_num_class = "text-rose-200"
+    quota_status_text = f"Reset {quota_countdown}"
+    quota_bar_color = "bg-rose-500"
+    engine_dot_class = "bg-amber-400"
+else:
+    quota_badge_class = "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/25"
+    quota_num_class = "text-emerald-200"
+    quota_status_text = f"{quota_remaining} frei"
+    quota_bar_color = "bg-emerald-500"
+    engine_dot_class = "bg-emerald-400"
 
 html_content = f"""<!DOCTYPE html>
 <html lang="de" class="dark">
@@ -117,15 +154,21 @@ html_content = f"""<!DOCTYPE html>
           <img src="icons/favicon.svg" alt="TV" class="w-8 h-8">
         </div>
         <div>
-          <div class="flex items-center gap-2">
+          <div class="flex flex-wrap items-center gap-2">
             <h1 class="font-bold text-lg sm:text-xl tracking-tight text-white">Super-Analyst Dashboard</h1>
             <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">24/7 Raspberry Pi</span>
-            <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 items-center gap-1.5" title="Aktive Analyse-Engine / Kaskade">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              {engine_display}
+            <span class="inline-flex px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-indigo-500/15 text-indigo-200 border border-indigo-500/30 items-center gap-1.5 shadow-sm" title="Aktive Analyse-Engine: Gemini 3.8 Flash über Nutzer-API-Key">
+              <span class="w-2 h-2 rounded-full {engine_dot_class}"></span>
+              <span class="text-slate-400">KI:</span>
+              <span class="font-bold text-white">{engine_display}</span>
             </span>
+            <button onclick="openQuotaModal()" class="inline-flex px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold {quota_badge_class} items-center gap-1.5 shadow-sm cursor-pointer transition active:scale-95" title="Google AI Studio API-Key Kontingent & Status anzeigen">
+              <span>🔑</span>
+              <span>Quota: <strong class="{quota_num_class}">{quota_used}/{quota_limit}</strong> ({quota_pct}%)</span>
+              <span class="text-[9px] opacity-80">· {quota_status_text}</span>
+            </button>
           </div>
-          <p class="text-xs text-slate-400">Multi-Timeframe Confluence (4h · 8h · 1D) | SMC · Wyckoff VSA · RSI Divs · Golden Pocket</p>
+          <p class="text-xs text-slate-400 mt-1">Multi-Timeframe Confluence (4h · 8h · 1D) | SMC · Wyckoff VSA · RSI Divs · Golden Pocket</p>
         </div>
       </div>
 
@@ -181,6 +224,12 @@ html_content = f"""<!DOCTYPE html>
           <span class="text-sm">📜</span>
           <span class="hidden sm:inline">Historie</span>
         </a>
+
+        <!-- API Quota Info Button -->
+        <button onclick="openQuotaModal()" class="px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-xs font-semibold text-slate-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer" title="Google Gemini API-Key Quota & Status">
+          <span class="text-sm">🔑</span>
+          <span class="hidden sm:inline">API-Quota</span>
+        </button>
 
         <!-- Quick Metrics -->
         <div class="flex items-center gap-1.5 sm:gap-2">
@@ -1446,6 +1495,7 @@ html_content = f"""<!DOCTYPE html>
                     <span class="text-[10px] text-slate-500 font-mono">${{t.setup_name || 'SMC Confluence'}}</span>
                   </div>
                   <div class="flex items-center gap-1.5">
+                    ${{(t.tranches && t.tranches > 1) ? `<span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30" title="Position bei Signalverstärkung aufgestockt">Tranche ${{t.tranches}}/3</span>` : ''}}
                     <span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-${{sigColor}}-500/10 text-${{sigColor}}-400 border border-${{sigColor}}-500/30">
                       ${{t.direction}}
                     </span>
@@ -1533,19 +1583,58 @@ html_content = f"""<!DOCTYPE html>
     // ==========================================
     let currentPosDirection = 'LONG';
 
+    // 1. Bereinige Altlasten (z.B. Demo BTC-Position aus früheren Versionen)
+    try {{
+      const legacyRaw = localStorage.getItem('tv_user_positions');
+      if (legacyRaw) {{
+        let legacyList = JSON.parse(legacyRaw);
+        legacyList = legacyList.filter(p => {{
+          if (!p || !p.symbol) return false;
+          const id = (p.id || '').toLowerCase();
+          const note = (p.note || '').toLowerCase();
+          if (id.includes('dummy') || id.includes('sample') || note.includes('beispiel') || note.includes('initialer demo-trade')) return false;
+          return true;
+        }});
+        localStorage.setItem('tv_user_positions', JSON.stringify(legacyList));
+      }}
+    }} catch (e) {{}}
+
     function getUserPositions() {{
       let positions = [];
+      let deleted = [];
+      try {{
+        deleted = JSON.parse(localStorage.getItem('tv_deleted_positions') || '[]');
+      }} catch (e) {{}}
+
       try {{
         const stored = localStorage.getItem('tv_user_positions');
         if (stored) positions = JSON.parse(stored);
       }} catch (e) {{}}
 
-      // Mit den vom Raspberry Pi evaluierten Positionen mergen
+      // Filtere gelöschte & Dummy-Positionen aus dem lokalen Speicher
+      positions = positions.filter(p => {{
+        if (!p || !p.symbol) return false;
+        if (deleted.includes(p.id) || deleted.includes(p.symbol)) return false;
+        const note = (p.note || '').toLowerCase();
+        const id = (p.id || '').toLowerCase();
+        if (id.includes('dummy') || id.includes('sample') || note.includes('beispiel') || note.includes('initialer demo-trade')) return false;
+        return true;
+      }});
+
+      // Mit Raspberry Pi Server-Positionen mergen (falls vorhanden, aber gelöschte ignorieren)
       if (currentData.user_positions && Array.isArray(currentData.user_positions)) {{
-        const localMap = new Map(positions.map(p => [p.symbol, p]));
-        currentData.user_positions.forEach(p => {{
-          localMap.set(p.symbol, p);
+        const validServerPositions = currentData.user_positions.filter(p => {{
+          if (!p || !p.symbol) return false;
+          if (deleted.includes(p.id) || deleted.includes(p.symbol)) return false;
+          const note = (p.note || '').toLowerCase();
+          const id = (p.id || '').toLowerCase();
+          if (id.includes('dummy') || id.includes('sample') || note.includes('beispiel') || note.includes('initialer demo-trade')) return false;
+          return true;
         }});
+
+        const localMap = new Map();
+        validServerPositions.forEach(p => localMap.set(p.symbol, p));
+        positions.forEach(p => localMap.set(p.symbol, p));
         positions = Array.from(localMap.values());
       }}
       return positions;
@@ -1565,15 +1654,15 @@ html_content = f"""<!DOCTYPE html>
 
       if (positions.length === 0) {{
         container.innerHTML = `
-          <div class="col-span-full p-6 rounded-2xl bg-slate-950/60 border border-slate-800 text-center space-y-3">
-            <div class="w-10 h-10 rounded-full bg-indigo-500/10 text-indigo-400 mx-auto flex items-center justify-center text-lg">
+          <div class="col-span-full p-8 rounded-2xl bg-slate-950/60 border border-slate-800 text-center space-y-3">
+            <div class="w-12 h-12 rounded-full bg-indigo-500/10 text-indigo-400 mx-auto flex items-center justify-center text-xl">
               👤
             </div>
             <div>
               <h4 class="text-sm font-bold text-white">Noch keine eigenen Positionen hinterlegt</h4>
-              <p class="text-xs text-slate-400 mt-1">Trage hier deine Trades ein, um sie 24/7 durch den Raspberry Pi überwachen zu lassen.</p>
+              <p class="text-xs text-slate-400 mt-1 max-w-md mx-auto">Trage hier deine Trades ein, um sie 24/7 durch den Raspberry Pi überwachen zu lassen und Live-Handlungsempfehlungen zu erhalten.</p>
             </div>
-            <button onclick="openPositionsModal()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-md shadow-indigo-600/30">
+            <button onclick="openPositionsModal()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-md shadow-indigo-600/30 cursor-pointer">
               + Jetzt erste Position eintragen
             </button>
           </div>
@@ -1587,11 +1676,27 @@ html_content = f"""<!DOCTYPE html>
         const sigColor = isLong ? 'emerald' : 'rose';
         const lev = Number(pos.leverage) || 1;
         const entry = Number(pos.entry_price) || 0;
-        const curr = Number(pos.current_price) || entry;
-        const pnl = Number(pos.pnl_pct) || 0;
-        const levPnl = Number(pos.pnl_leveraged_pct) || (pnl * lev);
+        
+        // Aktuellen Live-Kurs aus den gescannten Assets ziehen
+        const matched = (currentData.assets || []).find(a => 
+          a.symbol === sym || 
+          a.symbol.endsWith(':' + sym) || 
+          a.symbol.toUpperCase() === sym.toUpperCase() ||
+          a.symbol.split(':').pop().toUpperCase() === sym.toUpperCase()
+        );
+        const curr = matched ? Number(matched.price) : (Number(pos.current_price) || entry);
+        
+        // Live-PnL frisch berechnen
+        const rawPnl = isLong 
+          ? (entry > 0 ? ((curr - entry) / entry) * 100 : 0)
+          : (entry > 0 ? ((entry - curr) / entry) * 100 : 0);
+        const levPnl = rawPnl * lev;
         const pnlColor = levPnl >= 0 ? 'text-emerald-400' : 'text-rose-400';
-        const rec = pos.recommendation || {{ action: 'BEOBACHTEN', title: 'Position aktiv', message: 'Keine akute Intervention nötig.', badge_color: 'indigo' }};
+        
+        let rec = pos.recommendation;
+        if (!rec || !rec.action) {{
+          rec = {{ action: 'BEOBACHTEN', title: 'Position aktiv', message: '24/7 Raspberry Pi Überwachung läuft.', badge_color: 'indigo' }};
+        }}
         const ticker = sym.split(':').pop();
 
         return `
@@ -1629,12 +1734,12 @@ html_content = f"""<!DOCTYPE html>
               </div>
               <div class="pt-1 border-t border-slate-800/80 col-span-2 flex items-center justify-between">
                 <div>
-                  <span class="text-[10px] text-slate-400 block">Performance:</span>
+                  <span class="text-[10px] text-slate-400 block">Performance (${{lev}}x Hebel):</span>
                   <span class="${{pnlColor}} font-extrabold text-base">${{levPnl >= 0 ? '+' : ''}}${{levPnl.toFixed(2)}}%</span>
                 </div>
                 <div class="text-right">
                   <span class="text-[10px] text-slate-400 block">Ungehebelt:</span>
-                  <span class="text-slate-300 font-semibold text-xs">${{pnl >= 0 ? '+' : ''}}${{pnl.toFixed(2)}}%</span>
+                  <span class="text-slate-300 font-semibold text-xs">${{rawPnl >= 0 ? '+' : ''}}${{rawPnl.toFixed(2)}}%</span>
                 </div>
               </div>
             </div>
@@ -1650,7 +1755,7 @@ html_content = f"""<!DOCTYPE html>
 
             <div class="flex items-center justify-between text-[11px] text-slate-500 pt-1">
               <span>24/7 Scan aktiv</span>
-              <button onclick="openDetailModal('${{sym}}')" class="text-indigo-400 hover:text-indigo-300 font-semibold">Chart & Indikatoren →</button>
+              <button onclick="openDetailModal('${{sym}}')" class="text-indigo-400 hover:text-indigo-300 font-semibold cursor-pointer">Chart & Indikatoren →</button>
             </div>
           </div>
         `;
@@ -1710,65 +1815,169 @@ html_content = f"""<!DOCTYPE html>
       const levInp = document.getElementById('pos-leverage-val');
       const noteInp = document.getElementById('pos-note');
 
-      let symbol = customInp && customInp.value.trim() ? customInp.value.trim() : (sel ? sel.value : '');
-      if (!symbol) {{
+      let rawSymbol = (customInp && customInp.value.trim()) ? customInp.value.trim() : (sel ? sel.value : '');
+      if (!rawSymbol) {{
         alert('Bitte wähle ein Symbol aus oder gib ein Kürzel ein.');
         return;
       }}
 
-      const entryPrice = parseFloat(priceInp.value);
+      const rawPriceStr = (priceInp ? priceInp.value : '').trim().replace(',', '.');
+      const entryPrice = parseFloat(rawPriceStr);
       if (isNaN(entryPrice) || entryPrice <= 0) {{
         alert('Bitte gib einen gültigen Einstiegskurs ein.');
         return;
       }}
 
-      const leverage = parseFloat(levInp.value) || 1.0;
+      const leverage = parseFloat(levInp ? levInp.value : 1) || 1.0;
       const note = noteInp ? noteInp.value.trim() : '';
 
       // Match asset data
-      const matched = currentData.assets.find(a => a.symbol === symbol || a.symbol.endsWith(':' + symbol));
+      const matched = (currentData.assets || []).find(a => 
+        a.symbol === rawSymbol || 
+        a.symbol.endsWith(':' + rawSymbol) || 
+        a.symbol.toUpperCase() === rawSymbol.toUpperCase() ||
+        a.symbol.split(':').pop().toUpperCase() === rawSymbol.toUpperCase()
+      );
+      const symbol = matched ? matched.symbol : rawSymbol.toUpperCase();
       const assetName = matched ? matched.name : symbol;
-      const currPrice = matched ? matched.price : entryPrice;
+      const currPrice = matched ? Number(matched.price) : entryPrice;
+
+      // Performance & Empfehlung kalkulieren
+      const isLong = currentPosDirection === 'LONG';
+      const rawPnl = isLong 
+        ? ((currPrice - entryPrice) / entryPrice) * 100
+        : ((entryPrice - currPrice) / entryPrice) * 100;
+      const levPnl = rawPnl * leverage;
+
+      let recAction = 'BEOBACHTEN';
+      let recTitle = 'Position aktiv';
+      let recMsg = '24/7 Raspberry Pi Überwachung läuft.';
+      let recColor = 'indigo';
+
+      if (matched) {{
+        const sig = (matched.signal || '').toUpperCase();
+        if (isLong) {{
+          if (sig.includes('BUY')) {{
+            recAction = 'HALTEN / LAUFEN LASSEN';
+            recTitle = 'Bullisches Signal bestätigt';
+            recMsg = `Marktsignal steht auf ${{matched.signal}} (${{matched.score}}% Score). Setup intakt, Gewinne laufen lassen.`;
+            recColor = 'emerald';
+          }} else if (sig.includes('SELL')) {{
+            recAction = 'VORSICHT / STOP NACHZIEHEN';
+            recTitle = 'Bärischer Signalwechsel';
+            recMsg = `Achtung: Marktsignal drehte auf ${{matched.signal}} (${{matched.score}}% Score). Stop-Loss eng nachziehen oder Teilgewinne sichern!`;
+            recColor = 'rose';
+          }}
+        }} else {{
+          if (sig.includes('SELL')) {{
+            recAction = 'HALTEN / SHORT PROFITIEREN';
+            recTitle = 'Bärisches Signal bestätigt';
+            recMsg = `Marktsignal steht auf ${{matched.signal}} (${{matched.score}}% Score). Short-Setup intakt.`;
+            recColor = 'emerald';
+          }} else if (sig.includes('BUY')) {{
+            recAction = 'VORSICHT / SHORT ABSICHERN';
+            recTitle = 'Bullischer Signalwechsel';
+            recMsg = `Achtung: Marktsignal drehte auf ${{matched.signal}} (${{matched.score}}% Score). Aufwärtsreversal möglich – Short absichern!`;
+            recColor = 'rose';
+          }}
+        }}
+      }}
 
       const newPos = {{
-        id: 'pos_' + symbol.replace(':', '_') + '_' + Date.now(),
+        id: 'pos_' + symbol.replace(/[^a-zA-Z0-9]/g, '_') + '_' + Date.now(),
         symbol: symbol,
         name: assetName,
         direction: currentPosDirection,
         entry_price: entryPrice,
         current_price: currPrice,
         leverage: leverage,
+        pnl_pct: Math.round(rawPnl * 100) / 100,
+        pnl_leveraged_pct: Math.round(levPnl * 100) / 100,
         note: note,
+        recommendation: {{
+          action: recAction,
+          title: recTitle,
+          message: recMsg,
+          badge_color: recColor
+        }},
         created_at: new Date().toISOString()
       }};
 
-      // 1. Lokal in Browser speichern
-      const currentList = getUserPositions();
-      const filtered = currentList.filter(p => p.symbol !== symbol);
-      filtered.unshift(newPos);
-      saveUserPositionsLocally(filtered);
-
-      // 2. An lokalen Raspberry Pi Micro-API-Endpunkt senden (falls erreichbar)
+      // Aus tv_deleted_positions entfernen (falls das Symbol vorher gelöscht wurde)
       try {{
-        fetch('http://localhost:8085/api/positions', {{
-          method: 'POST',
-          headers: {{ 'Content-Type': 'application/json' }},
-          body: JSON.stringify(newPos)
-        }}).catch(() => {{}});
+        let deleted = JSON.parse(localStorage.getItem('tv_deleted_positions') || '[]');
+        deleted = deleted.filter(d => d !== symbol && d !== newPos.id);
+        localStorage.setItem('tv_deleted_positions', JSON.stringify(deleted));
       }} catch (err) {{}}
 
+      // 1. In localStorage speichern
+      let storedList = [];
+      try {{
+        const raw = localStorage.getItem('tv_user_positions');
+        if (raw) storedList = JSON.parse(raw);
+      }} catch (err) {{}}
+      storedList = storedList.filter(p => p.symbol !== symbol && p.id !== newPos.id);
+      storedList.unshift(newPos);
+      saveUserPositionsLocally(storedList);
+
+      // 2. Auch in currentData.user_positions in-memory ablegen
+      if (!currentData.user_positions || !Array.isArray(currentData.user_positions)) {{
+        currentData.user_positions = [];
+      }}
+      currentData.user_positions = currentData.user_positions.filter(p => p.symbol !== symbol && p.id !== newPos.id);
+      currentData.user_positions.unshift(newPos);
+
+      // Formular zurücksetzen & Modal schließen
+      const form = document.getElementById('position-form');
+      if (form) form.reset();
       closePositionsModal();
+
+      // Sofort neu rendern & Toast anzeigen
       renderUserPositions();
       showToast('Position für ' + assetName + ' erfolgreich gespeichert!');
     }}
 
     function deleteUserPosition(id) {{
       if (!confirm('Möchtest du diese Position wirklich schließen / entfernen?')) return;
-      const currentList = getUserPositions();
-      const filtered = currentList.filter(p => p.id !== id && p.symbol !== id);
-      saveUserPositionsLocally(filtered);
+      
+      // 1. Tombstone in localStorage anlegen, damit gelöschte Positionen nie wieder auftauchen
+      try {{
+        let deleted = JSON.parse(localStorage.getItem('tv_deleted_positions') || '[]');
+        if (!deleted.includes(id)) deleted.push(id);
+        const currentList = getUserPositions();
+        const found = currentList.find(p => p.id === id || p.symbol === id);
+        if (found && !deleted.includes(found.symbol)) {{
+          deleted.push(found.symbol);
+        }}
+        localStorage.setItem('tv_deleted_positions', JSON.stringify(deleted));
+      }} catch (e) {{}}
+
+      // 2. Aus localStorage entfernen
+      try {{
+        let stored = JSON.parse(localStorage.getItem('tv_user_positions') || '[]');
+        stored = stored.filter(p => p.id !== id && p.symbol !== id);
+        localStorage.setItem('tv_user_positions', JSON.stringify(stored));
+      }} catch (e) {{}}
+
+      // 3. Aus currentData.user_positions im RAM entfernen
+      if (currentData.user_positions && Array.isArray(currentData.user_positions)) {{
+        currentData.user_positions = currentData.user_positions.filter(p => p.id !== id && p.symbol !== id);
+      }}
+
+      // 4. Neu rendern & Feedback
       renderUserPositions();
       showToast('Position entfernt.');
+    }}
+
+    // Quota Modal Funktionen
+    function openQuotaModal() {{
+      const m = document.getElementById('quota-modal');
+      if (m) m.classList.remove('hidden');
+    }}
+
+    function closeQuotaModal() {{
+      const m = document.getElementById('quota-modal');
+      if (m) m.classList.add('hidden');
     }}
 
     // Initial render
@@ -1848,6 +2057,70 @@ html_content = f"""<!DOCTYPE html>
           <button type="submit" class="px-5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-lg shadow-indigo-600/30">Speichern & Tracken</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- API Quota Modal -->
+  <div id="quota-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="max-w-lg w-full rounded-2xl bg-[#0d1322] border border-indigo-500/40 p-6 shadow-2xl relative text-slate-200 space-y-4">
+      <div class="flex items-start justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-xl">
+            🔑
+          </div>
+          <div>
+            <h3 class="font-bold text-base text-white">Google Gemini API-Key Status</h3>
+            <p class="text-xs text-slate-400">Google AI Studio Free Tier Kontingent</p>
+          </div>
+        </div>
+        <button onclick="closeQuotaModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition">✕</button>
+      </div>
+
+      <div class="space-y-3.5 text-xs">
+        <div class="grid grid-cols-2 gap-2.5">
+          <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block font-semibold">Aktives KI-Modell</span>
+            <span class="text-white font-mono font-bold text-sm block mt-0.5">gemini-3.8-flash</span>
+            <span class="text-[10px] text-emerald-400">High Reasoning Thinking Core</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block font-semibold">Konfigurierter Key</span>
+            <span class="text-white font-mono font-bold text-sm block mt-0.5">AQ.Ab8...Ww</span>
+            <span class="text-[10px] text-indigo-300">Google AI Studio</span>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-300">Tägliches Kontingent (Free Tier)</span>
+            <span class="font-mono font-bold text-xs {quota_num_class}">{quota_used} / {quota_limit} Requests ({quota_pct}%)</span>
+          </div>
+          <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
+            <div class="h-2.5 rounded-full {quota_bar_color}" style="width: {min(100.0, quota_pct)}%"></div>
+          </div>
+          <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1">
+            <span>Verbleibend: <strong class="text-white font-mono">{quota_remaining}</strong></span>
+            <span>Nächster Reset: <strong class="text-white font-mono">{quota_countdown}</strong></span>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-indigo-950/30 border border-indigo-500/30 space-y-1.5 text-[11px] leading-relaxed text-slate-300">
+          <div class="font-bold text-indigo-300 flex items-center gap-1.5">
+            <span>🛡️</span>
+            <span>Automatischer Schutz & Confluence Math</span>
+          </div>
+          <p>
+            Google AI Studio gewährt im Free Tier für das Spitzenmodell <code class="px-1 py-0.5 rounded bg-slate-900 text-indigo-300 font-mono">gemini-3.8-flash</code> maximal <strong>20 Requests pro Tag</strong>.
+          </p>
+          <p>
+            Um dein Kontingent optimal zu schonen, analysiert das System Assets in großen Batches. Sobald das tägliche 20-Request-Limit erreicht ist, übernimmt nahtlos die <strong>mathematische 3-Timeframe Confluence-Engine</strong> (SMC, Wyckoff VSA, RSI-Divergenzen, Golden Pocket) auf dem Raspberry Pi. Es entstehen <strong>keinerlei Zusatzkosten</strong> und kein Scanzyklus fällt aus.
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-2 flex justify-end">
+        <button onclick="closeQuotaModal()" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition">Schließen</button>
+      </div>
     </div>
   </div>
 

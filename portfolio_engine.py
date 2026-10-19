@@ -214,11 +214,64 @@ def update_autonomous_portfolio(db_assets):
             elif curr_sig == "NEUTRAL" and holding_hours >= 24 and raw_pnl_pct < -1.5:
                 exit_triggered = True
                 exit_reason = f"Vorzeitiger Kapitalschutz: Setup nach {holding_days} Tagen invalidiert (Signal NEUTRAL)."
-            # Trailing-Stop nach TP1: Falls Kurs TP1 erreicht hat, SL auf Break-Even anheben
             elif direction == "LONG" and tp1 > 0 and curr_price >= tp1 and t.get("tp1_reached") is not True:
                 t["tp1_reached"] = True
                 t["stop_loss"] = entry_price  # Stop-Loss auf Break-Even nachziehen!
                 t["trailing_active"] = True
+            elif direction == "SHORT" and tp1 > 0 and curr_price <= tp1 and t.get("tp1_reached") is not True:
+                t["tp1_reached"] = True
+                t["stop_loss"] = entry_price  # Stop-Loss auf Break-Even nachziehen!
+                t["trailing_active"] = True
+
+        # D) AUTONOME POSITIONSERWEITERUNG (PYRAMIDING) BEI VERSTÄRKTEN SIGNALEN
+        if not exit_triggered:
+            curr_score = a.get("score", 0)
+            initial_score = t.get("initial_score", t.get("score", 88))
+            tranches = t.get("tranches", 1)
+            max_tranches = 3
+
+            # Kriterien für Erweiterung:
+            # 1. Position ist im Gewinn (mindestens +1.0% Basis-Gewinn) - NIEMALS Verlierer aufstocken!
+            # 2. Aktuelles Signal bestätigt die Richtung (z.B. LONG bleibt LONG)
+            # 3. Score hat sich signifikant verstärkt (z.B. >= 92% oder Anstieg um >= 3 Punkte)
+            # 4. Maximal 3 Tranchen
+            score_strengthened = (curr_score >= 92) or (curr_score >= initial_score + 3)
+            is_in_profit = raw_pnl_pct >= 1.0
+
+            if is_in_profit and a.get("signal") == direction and score_strengthened and tranches < max_tranches:
+                last_expand_price = t.get("last_expansion_price", entry_price)
+                price_moved_favorable = (curr_price > last_expand_price) if direction == "LONG" else (curr_price < last_expand_price)
+
+                if price_moved_favorable:
+                    new_tranches = tranches + 1
+                    old_cap = t.get("allocated_capital", 1000.0)
+                    add_cap = 1000.0  # Feste Einheitsallokation pro Tranche
+                    new_cap = old_cap + add_cap
+
+                    # Neuer Mischkurs berechnen
+                    blended_entry = ((entry_price * old_cap) + (curr_price * add_cap)) / new_cap
+
+                    # Stop-Loss risikominimierend nachziehen (mindestens auf vorherigen Einstiegskurs!)
+                    old_sl = t.get("stop_loss", 0.0)
+                    new_sl = max(old_sl, entry_price) if direction == "LONG" else min(old_sl, entry_price)
+
+                    t["tranches"] = new_tranches
+                    t["allocated_capital"] = new_cap
+                    t["entry_price"] = round(blended_entry, 4)
+                    t["last_expansion_price"] = curr_price
+                    t["stop_loss"] = round(new_sl, 4)
+                    t["score"] = curr_score
+
+                    exp_note = f"Tranche {new_tranches} add @ {curr_price:,.2f} ({curr_score}% Score)"
+                    t.setdefault("expansion_history", []).append({
+                        "tranche": new_tranches,
+                        "time": now_iso,
+                        "price": curr_price,
+                        "score": curr_score,
+                        "reason": f"Signal verstärkt ({curr_score}% Score). Tranche {new_tranches} hinzugefügt. Stop-Loss auf {new_sl:,.2f} angehoben."
+                    })
+                    t["entry_reason"] += f" | {exp_note}"
+                    print(f"   📈 [PYRAMIDING] Position {t['name']} ({sym}) erweitert: Tranche {new_tranches} @ {curr_price:,.2f} | Neuer Mischkurs: {blended_entry:,.2f} | SL nachgezogen: {new_sl:,.2f}")
 
         if exit_triggered:
             # Trade abschließen

@@ -483,6 +483,12 @@ def analyze_all_markets(use_gemini=True):
     except Exception as pe:
         print(f"   ⚠️ Portfolio-Update Warnung: {pe}")
 
+    try:
+        from gemini_quota_tracker import get_quota_summary_for_dashboard
+        db["gemini_quota"] = get_quota_summary_for_dashboard()
+    except Exception:
+        pass
+
     with open(DB_FILE, "w", encoding="utf-8") as f:
         json.dump(db, f, indent=2, ensure_ascii=False)
 

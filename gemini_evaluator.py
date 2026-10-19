@@ -168,21 +168,17 @@ def call_gemini_via_rest_api(prompt, model="gemini-3.8-flash-high", api_key=None
     # Modell-Mapping für Google AI Studio REST API
     target_model = "gemini-3.8-flash"
     
-    # Thinking Budget: High (4096) für tiefe Multi-Timeframe-Analysen, Low (1024) für Fallbacks
-    is_high = any(x in model.lower() for x in ["high", "pro", "3.8"])
-    budget = 4096 if is_high else 1024
-
+    # Thinking Budget: 1024 für schnelle & präzise Marktanalysen
     models_to_try = [
-        (target_model, budget),
-        (target_model, 0),       # Fallback ohne explizites Thinking
-        ("gemini-2.5-flash", None)
+        (target_model, 1024),
+        (target_model, 0)       # Fallback ohne explizites Thinking
     ]
 
     last_err = None
     for cur_model, cur_budget in models_to_try:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{cur_model}:generateContent?key={api_key}"
         gen_config = {
-            "temperature": 0.15,
+            "temperature": 0.2,
             "responseMimeType": "application/json"
         }
         if cur_budget is not None and cur_budget > 0:
@@ -201,6 +197,14 @@ def call_gemini_via_rest_api(prompt, model="gemini-3.8-flash-high", api_key=None
         try:
             with urllib.request.urlopen(req, timeout=timeout) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
+                usage = data.get("usageMetadata", {})
+                tokens = usage.get("totalTokenCount", 0)
+                try:
+                    from gemini_quota_tracker import record_successful_request
+                    record_successful_request(tokens)
+                except Exception:
+                    pass
+
                 candidates = data.get("candidates", [])
                 if not candidates:
                     continue
@@ -209,8 +213,19 @@ def call_gemini_via_rest_api(prompt, model="gemini-3.8-flash-high", api_key=None
                 if parsed and isinstance(parsed, list) and len(parsed) > 0:
                     return parsed, None
         except urllib.error.HTTPError as e:
-            err_body = e.read().decode("utf-8", errors="ignore")[:200]
+            raw_body = e.read().decode("utf-8", errors="ignore")
+            err_body = raw_body[:300]
             last_err = f"HTTP {e.code} ({cur_model}): {err_body}"
+            if e.code == 429:
+                try:
+                    import re
+                    from gemini_quota_tracker import record_quota_exhausted
+                    m_delay = re.search(r"retryDelay\":\s*\"?(\d+)", raw_body)
+                    sec = int(m_delay.group(1)) if m_delay else 38000
+                    record_quota_exhausted(err_body, retry_seconds=sec)
+                except Exception:
+                    pass
+                break
             if e.code in (404, 400):
                 continue
             break
@@ -310,47 +325,29 @@ def evaluate_batch_with_cascade(assets_batch):
     prompt = build_analysis_prompt(assets_batch)
 
     # ========================================================
-    # STUFE 1: Primäres Pro-Modell (Gemini 3.8 High / Gemini 4)
+    # STUFE 1: Primäres Modell über Nutzer API-Key
     # ========================================================
-    print(f" (Stufe 1: {primary_model})...", end="", flush=True)
+    print(f" (API-Key REST: {primary_model})...", end="", flush=True)
 
     res = None
     err = None
 
-    # Zuerst Pro-Abo via CLI versuchen (oder via REST falls API-Key da ist)
     if api_key:
         res, err = call_gemini_via_rest_api(prompt, model=primary_model, api_key=api_key, timeout=timeout)
-        if not res and use_pro_sub:
-            print(" (REST fehlgeschlagen -> Nutze Pro-Abo CLI)...", end="", flush=True)
-            res, err = call_gemini_via_pro_cli(prompt, model=primary_model, timeout=timeout)
-    elif use_pro_sub:
+        if res and isinstance(res, list) and len(res) > 0:
+            return res, None, f"{primary_model} [Key: {api_key[:6]}...{api_key[-4:]}]"
+
+    # Falls Pro-Subscription explizit erlaubt ist (Standard: False, da Nutzer 'nutze auch nur diesen Key' verlangt)
+    if use_pro_sub:
+        print(" (Fallback auf Pro-Abo CLI)...", end="", flush=True)
         res, err = call_gemini_via_pro_cli(prompt, model=primary_model, timeout=timeout)
-    else:
-        err = "Weder API-Key noch Pro-Subscription konfiguriert."
-
-    if res and isinstance(res, list) and len(res) > 0:
-        source_tag = "[AI Studio Pro Key]" if api_key and "REST" not in str(err) else "[Pro Abo]"
-        return res, None, f"{primary_model} {source_tag}"
-
-    # ========================================================
-    # STUFE 2: Fallback-KI (Gemini 2.5 Flash)
-    # ========================================================
-    print(f"\n      ⚠️ Stufe 1 ({primary_model}) nicht erfolgreich ({err}) -> Aktiviere Stufe 2 ({fallback_model})...", end="", flush=True)
-
-    if api_key:
-        res, err = call_gemini_via_rest_api(prompt, model=fallback_model, api_key=api_key, timeout=25)
-        if not res and use_pro_sub:
-            res, err = call_gemini_via_pro_cli(prompt, model=fallback_model, timeout=40)
-    elif use_pro_sub:
-        res, err = call_gemini_via_pro_cli(prompt, model=fallback_model, timeout=40)
-
-    if res and isinstance(res, list) and len(res) > 0:
-        return res, None, f"{fallback_model} [Fallback AI]"
+        if res and isinstance(res, list) and len(res) > 0:
+            return res, None, f"{primary_model} [Pro Abo]"
 
     # ========================================================
     # STUFE 3: Fallback auf quantitative Confluence-Engine
     # ========================================================
-    print(f"\n      ⚠️ Stufe 2 ({fallback_model}) ebenfalls nicht verfügbar ({err}) -> Aktiviere Stufe 3 (Mathematische Confluence-Engine)...", end="", flush=True)
+    print(f"\n      ⚠️ API-Key Kontingent erschöpft ({err}) -> Aktiviere Stufe 3 (Mathematische Confluence-Engine)...", end="", flush=True)
     return None, err, "quantitative_confluence [Math Core]"
 
 
