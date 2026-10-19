@@ -8598,7 +8598,7 @@
       "evaluated_by": "quantitative_engine"
     }
   ],
-  "evaluation_engine": "Gemini 3.8 Flash [API-Key]",
+  "evaluation_engine": "Gemini 3.8 Flash [2x Key Pool]",
   "portfolio": {
     "created_at": "2026-10-19T19:56:18.496361+00:00",
     "base_capital_per_trade": 1000.0,
@@ -8714,16 +8714,48 @@
   },
   "user_positions": [],
   "gemini_quota": {
-    "api_key_masked": "AQ.Ab8...Ww",
     "model": "gemini-3.8-flash",
-    "daily_limit": 20,
-    "requests_used_today": 20,
-    "requests_remaining": 0,
-    "percent_used": 100.0,
-    "tokens_used_today": 0,
-    "status": "EXHAUSTED",
-    "is_exhausted": true,
-    "reset_countdown": "in 10h 24m",
-    "last_error": "Free Tier 20 RPD Limit erreicht"
+    "pool_mode": "MULTI_KEY_FAILOVER",
+    "total_keys_count": 2,
+    "active_keys_count": 1,
+    "daily_limit": 40,
+    "requests_used_today": 21,
+    "requests_remaining": 19,
+    "percent_used": 52.5,
+    "tokens_used_today": 123,
+    "status": "ACTIVE",
+    "is_exhausted": false,
+    "reset_countdown": "in 10h 20m",
+    "active_key_masked": "AQ.Ab8...pOzg",
+    "keys_detail": [
+      {
+        "id": "key_1",
+        "name": "API-Key #1",
+        "masked": "AQ.Ab8...kcWw",
+        "daily_limit": 20,
+        "requests_used": 20,
+        "requests_remaining": 0,
+        "percent_used": 100.0,
+        "tokens_used": 0,
+        "status": "EXHAUSTED",
+        "is_exhausted": true,
+        "reset_countdown": "in 10h 20m",
+        "last_error": "Free Tier 20 RPD Limit erreicht"
+      },
+      {
+        "id": "key_2",
+        "name": "API-Key #2",
+        "masked": "AQ.Ab8...pOzg",
+        "daily_limit": 20,
+        "requests_used": 1,
+        "requests_remaining": 19,
+        "percent_used": 5.0,
+        "tokens_used": 123,
+        "status": "ACTIVE",
+        "is_exhausted": false,
+        "reset_countdown": "in 3h 6m",
+        "last_error": null
+      }
+    ]
   }
 }

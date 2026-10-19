@@ -155,23 +155,24 @@ def call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=85):
         return None, f"Pro CLI Ausführungsfehler: {e}"
 
 
-def call_gemini_via_rest_api(prompt, model="gemini-3.8-flash-high", api_key=None, timeout=40):
+def call_gemini_via_rest_api(prompt, model="gemini-3.8-flash", api_key=None, timeout=40):
     """
-    Ruft die Google Gemini REST API über einen API-Key auf (z.B. aus Google AI Studio eines Pro-Accounts).
-    Unterstützt Gemini 3.8 Flash mit nativer Thinking-Konfiguration (High / Low Reasoning).
+    Ruft die Google Gemini REST API über einen konkreten API-Key auf.
+    Unterstützt Gemini 3.8 Flash mit nativer Thinking-Konfiguration (Budget 1024).
     """
     if not api_key:
-        api_key = get_api_key()
+        try:
+            from gemini_quota_tracker import get_active_api_key
+            api_key, _ = get_active_api_key()
+        except Exception:
+            api_key = get_api_key()
     if not api_key:
         return None, "Kein GEMINI_API_KEY für REST-API verfügbar."
 
-    # Modell-Mapping für Google AI Studio REST API
     target_model = "gemini-3.8-flash"
-    
-    # Thinking Budget: 1024 für schnelle & präzise Marktanalysen
     models_to_try = [
         (target_model, 1024),
-        (target_model, 0)       # Fallback ohne explizites Thinking
+        (target_model, 0)
     ]
 
     last_err = None
@@ -201,7 +202,7 @@ def call_gemini_via_rest_api(prompt, model="gemini-3.8-flash-high", api_key=None
                 tokens = usage.get("totalTokenCount", 0)
                 try:
                     from gemini_quota_tracker import record_successful_request
-                    record_successful_request(tokens)
+                    record_successful_request(api_key, tokens)
                 except Exception:
                     pass
 
@@ -222,7 +223,7 @@ def call_gemini_via_rest_api(prompt, model="gemini-3.8-flash-high", api_key=None
                     from gemini_quota_tracker import record_quota_exhausted
                     m_delay = re.search(r"retryDelay\":\s*\"?(\d+)", raw_body)
                     sec = int(m_delay.group(1)) if m_delay else 38000
-                    record_quota_exhausted(err_body, retry_seconds=sec)
+                    record_quota_exhausted(api_key, err_body, retry_seconds=sec)
                 except Exception:
                     pass
                 break
@@ -234,6 +235,35 @@ def call_gemini_via_rest_api(prompt, model="gemini-3.8-flash-high", api_key=None
             break
 
     return None, f"REST API Fehler: {last_err}"
+
+
+def call_gemini_via_key_pool(prompt, model="gemini-3.8-flash", timeout=40):
+    """
+    Intelligenter Multi-Key Pool Aufruf:
+    Iteriert durch alle verfügbaren API-Keys im Pool.
+    Tritt bei einem Key ein HTTP 429 (Quota Limit) auf, wird dieser Key
+    als erschöpft markiert und der nächste Key im Pool wird SOFORT ausprobiert.
+    """
+    try:
+        from gemini_quota_tracker import get_all_available_keys_in_pool
+        keys_pool = get_all_available_keys_in_pool()
+    except Exception:
+        k = get_api_key()
+        keys_pool = [(k, f"{k[:6]}...{k[-4:]}")] if k else []
+
+    if not keys_pool:
+        return None, "Keine API-Keys im Pool konfiguriert.", "no_keys"
+
+    last_err = None
+    for key_str, masked in keys_pool:
+        print(f" (Key: {masked})...", end="", flush=True)
+        res, err = call_gemini_via_rest_api(prompt, model=model, api_key=key_str, timeout=timeout)
+        if res and isinstance(res, list) and len(res) > 0:
+            return res, None, masked
+        last_err = err
+        print(f" [Failover auf nächsten Key]...", end="", flush=True)
+
+    return None, last_err, "exhausted"
 
 
 def build_analysis_prompt(assets_batch):
@@ -325,17 +355,13 @@ def evaluate_batch_with_cascade(assets_batch):
     prompt = build_analysis_prompt(assets_batch)
 
     # ========================================================
-    # STUFE 1: Primäres Modell über Nutzer API-Key
+    # STUFE 1: Primäres Modell über Multi-Key Pool (REST)
     # ========================================================
-    print(f" (API-Key REST: {primary_model})...", end="", flush=True)
+    print(f" (Multi-Key Pool REST: {primary_model})...", end="", flush=True)
 
-    res = None
-    err = None
-
-    if api_key:
-        res, err = call_gemini_via_rest_api(prompt, model=primary_model, api_key=api_key, timeout=timeout)
-        if res and isinstance(res, list) and len(res) > 0:
-            return res, None, f"{primary_model} [Key: {api_key[:6]}...{api_key[-4:]}]"
+    res, err, used_key_info = call_gemini_via_key_pool(prompt, model=primary_model, timeout=timeout)
+    if res and isinstance(res, list) and len(res) > 0:
+        return res, None, f"{primary_model} [{used_key_info}]"
 
     # Falls Pro-Subscription explizit erlaubt ist (Standard: False, da Nutzer 'nutze auch nur diesen Key' verlangt)
     if use_pro_sub:

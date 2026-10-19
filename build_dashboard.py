@@ -38,18 +38,14 @@ except Exception:
 db_data["gemini_quota"] = quota_info
 json_str = json.dumps(db_data, ensure_ascii=False)
 
-raw_engine = db_data.get("evaluation_engine", "Gemini 3.8 Flash (API-Key)")
-if "key" in raw_engine.lower() or "flash" in raw_engine.lower() or "3.8" in raw_engine:
-    engine_display = "Gemini 3.8 Flash · API-Key"
-elif "pro" in raw_engine.lower():
-    engine_display = "Gemini 3.8 Flash · Pro Abo"
-elif "quantitative" in raw_engine.lower() or "confluence" in raw_engine.lower():
-    engine_display = "Gemini 3.8 Flash · Math Core"
-else:
-    engine_display = raw_engine
+total_keys_count = quota_info.get("total_keys_count", 2)
+active_keys_count = quota_info.get("active_keys_count", 1)
+active_key_masked = quota_info.get("active_key_masked", "AQ.Ab8...zg")
+
+engine_display = f"Gemini 3.8 Flash · {total_keys_count}x Key Pool"
 
 quota_used = quota_info.get("requests_used_today", 0)
-quota_limit = quota_info.get("daily_limit", 20)
+quota_limit = quota_info.get("daily_limit", 40)
 quota_pct = quota_info.get("percent_used", 0.0)
 quota_remaining = quota_info.get("requests_remaining", 0)
 quota_countdown = quota_info.get("reset_countdown", "in wenigen Stunden")
@@ -61,13 +57,55 @@ if quota_exhausted:
     quota_num_class = "text-rose-200"
     quota_status_text = f"Reset {quota_countdown}"
     quota_bar_color = "bg-rose-500"
-    engine_dot_class = "bg-amber-400"
+    engine_dot_class = "bg-rose-400"
 else:
     quota_badge_class = "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/25"
     quota_num_class = "text-emerald-200"
-    quota_status_text = f"{quota_remaining} frei"
+    quota_status_text = f"{quota_remaining} frei ({active_keys_count}/{total_keys_count} Keys)"
     quota_bar_color = "bg-emerald-500"
-    engine_dot_class = "bg-emerald-400"
+    engine_dot_class = "bg-emerald-400 animate-pulse"
+
+keys_detail = quota_info.get("keys_detail", [])
+keys_cards_html = ""
+for kd in keys_detail:
+    k_is_exh = kd.get("is_exhausted", False)
+    k_badge = "bg-rose-500/20 text-rose-300 border border-rose-500/40" if k_is_exh else "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
+    k_dot = "bg-rose-400" if k_is_exh else "bg-emerald-400 animate-pulse"
+    k_bar = "bg-rose-500" if k_is_exh else "bg-emerald-500"
+    k_name = kd.get("name", "Key")
+    k_masked = kd.get("masked", "AQ.***")
+    k_used = kd.get("requests_used", 0)
+    k_lim = kd.get("daily_limit", 20)
+    k_pct = kd.get("percent_used", 0.0)
+    k_rem = kd.get("requests_remaining", 0)
+    k_reset = kd.get("reset_countdown", "00:00 UTC")
+    k_status_label = "Erschöpft" if k_is_exh else f"Aktiv ({k_rem} frei)"
+
+    keys_cards_html += f"""
+        <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800/90 space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full {k_dot}"></span>
+              <span class="font-bold text-white text-xs">{k_name}</span>
+              <span class="font-mono text-[10px] text-slate-400">({k_masked})</span>
+            </div>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono {k_badge}">{k_status_label}</span>
+          </div>
+          <div class="space-y-1">
+            <div class="flex items-center justify-between text-[11px]">
+              <span class="text-slate-400">Verbrauch:</span>
+              <span class="font-mono font-bold text-slate-200">{k_used} / {k_lim} ({k_pct}%)</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+              <div class="h-1.5 rounded-full {k_bar}" style="width: {min(100.0, k_pct)}%"></div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between text-[10px] text-slate-500 font-mono">
+            <span>Verbleibend: {k_rem} Anfragen</span>
+            <span>Reset: {k_reset}</span>
+          </div>
+        </div>
+    """
 
 html_content = f"""<!DOCTYPE html>
 <html lang="de" class="dark">
@@ -2069,8 +2107,8 @@ html_content = f"""<!DOCTYPE html>
             🔑
           </div>
           <div>
-            <h3 class="font-bold text-base text-white">Google Gemini API-Key Status</h3>
-            <p class="text-xs text-slate-400">Google AI Studio Free Tier Kontingent</p>
+            <h3 class="font-bold text-base text-white">Google Gemini API-Key Pool</h3>
+            <p class="text-xs text-slate-400">Intelligentes Multi-Key Management & Failover</p>
           </div>
         </div>
         <button onclick="closeQuotaModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition">✕</button>
@@ -2081,45 +2119,57 @@ html_content = f"""<!DOCTYPE html>
           <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
             <span class="text-[10px] text-slate-400 block font-semibold">Aktives KI-Modell</span>
             <span class="text-white font-mono font-bold text-sm block mt-0.5">gemini-3.8-flash</span>
-            <span class="text-[10px] text-emerald-400">High Reasoning Thinking Core</span>
+            <span class="text-[10px] text-emerald-400">High Reasoning Core</span>
           </div>
           <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block font-semibold">Konfigurierter Key</span>
-            <span class="text-white font-mono font-bold text-sm block mt-0.5">AQ.Ab8...Ww</span>
-            <span class="text-[10px] text-indigo-300">Google AI Studio</span>
+            <span class="text-[10px] text-slate-400 block font-semibold">Aktiver Primär-Key</span>
+            <span class="text-white font-mono font-bold text-sm block mt-0.5">{active_key_masked}</span>
+            <span class="text-[10px] text-indigo-300">{active_keys_count} von {total_keys_count} Keys aktiv</span>
           </div>
         </div>
 
-        <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+        <!-- Gesamt-Pool Übersicht -->
+        <div class="p-4 rounded-xl bg-slate-900/90 border border-indigo-500/30 space-y-2">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold text-slate-300">Tägliches Kontingent (Free Tier)</span>
+            <div class="flex items-center gap-1.5">
+              <span class="text-xs font-bold text-white">Gesamt-Pool Kontingent</span>
+              <span class="px-1.5 py-0.2 rounded text-[10px] bg-indigo-500/20 text-indigo-300 font-mono">2x Keys</span>
+            </div>
             <span class="font-mono font-bold text-xs {quota_num_class}">{quota_used} / {quota_limit} Requests ({quota_pct}%)</span>
           </div>
-          <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
-            <div class="h-2.5 rounded-full {quota_bar_color}" style="width: {min(100.0, quota_pct)}%"></div>
+          <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+            <div class="h-2 rounded-full {quota_bar_color}" style="width: {min(100.0, quota_pct)}%"></div>
           </div>
-          <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1">
-            <span>Verbleibend: <strong class="text-white font-mono">{quota_remaining}</strong></span>
-            <span>Nächster Reset: <strong class="text-white font-mono">{quota_countdown}</strong></span>
+          <div class="flex items-center justify-between text-[11px] text-slate-400 pt-0.5">
+            <span>Verbleibend: <strong class="text-white font-mono">{quota_remaining} Requests</strong></span>
+            <span>Status: <strong class="text-emerald-400 font-mono">Aktiv (24/7)</strong></span>
+          </div>
+        </div>
+
+        <!-- Einzel-Keys Aufschlüsselung -->
+        <div class="space-y-2">
+          <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Einzel-Key Status & Kontingente:</span>
+          <div class="space-y-2">
+            {keys_cards_html}
           </div>
         </div>
 
         <div class="p-3.5 rounded-xl bg-indigo-950/30 border border-indigo-500/30 space-y-1.5 text-[11px] leading-relaxed text-slate-300">
           <div class="font-bold text-indigo-300 flex items-center gap-1.5">
             <span>🛡️</span>
-            <span>Automatischer Schutz & Confluence Math</span>
+            <span>Intelligentes Failover & Lastverteilung</span>
           </div>
           <p>
-            Google AI Studio gewährt im Free Tier für das Spitzenmodell <code class="px-1 py-0.5 rounded bg-slate-900 text-indigo-300 font-mono">gemini-3.8-flash</code> maximal <strong>20 Requests pro Tag</strong>.
+            Beide Google AI Studio API-Keys werden intelligent im Verbund betrieben. Sobald Key #1 sein Tageslimit (20 Requests) erreicht, wechselt der Raspberry Pi <strong>vollautomatisch und ohne Scanunterbrechung</strong> auf Key #2.
           </p>
           <p>
-            Um dein Kontingent optimal zu schonen, analysiert das System Assets in großen Batches. Sobald das tägliche 20-Request-Limit erreicht ist, übernimmt nahtlos die <strong>mathematische 3-Timeframe Confluence-Engine</strong> (SMC, Wyckoff VSA, RSI-Divergenzen, Golden Pocket) auf dem Raspberry Pi. Es entstehen <strong>keinerlei Zusatzkosten</strong> und kein Scanzyklus fällt aus.
+            Dadurch verdoppelt sich dein kostenfreies Kontingent auf <strong>40 KI-Analysen pro Tag</strong>. Sollten beide Keys temporär voll sein, sichert die mathematische 3-Timeframe Confluence-Engine weiterhin lückenlos jeden 4-Stunden-Scanzyklus ab.
           </p>
         </div>
       </div>
 
       <div class="pt-2 flex justify-end">
-        <button onclick="closeQuotaModal()" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition">Schließen</button>
+        <button onclick="closeQuotaModal()" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition cursor-pointer">Schließen</button>
       </div>
     </div>
   </div>
