@@ -117,7 +117,7 @@ def git_sync_dashboard():
             print("Kein Git-Repository gefunden.")
             return
 
-        subprocess.run(["git", "add", "dashboard/", "knowledge_base/live_watchlists.json"], cwd=str(BASE_DIR), check=True)
+        subprocess.run(["git", "add", "dashboard/", "knowledge_base/live_watchlists.json", "knowledge_base/autonomous_portfolio.json", "knowledge_base/trade_memory.json", "knowledge_base/user_positions.json"], cwd=str(BASE_DIR), check=True)
 
         diff_res = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=str(BASE_DIR))
         if diff_res.returncode == 0:

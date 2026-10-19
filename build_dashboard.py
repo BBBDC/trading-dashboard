@@ -20,15 +20,15 @@ json_str = json.dumps(db_data, ensure_ascii=False)
 
 raw_engine = db_data.get("evaluation_engine", "Gemini 3.8 Flash (High) · Pro Abo")
 if "3.8" in raw_engine:
-    engine_display = "Gemini 3.8 High · Pro"
+    engine_display = "Gemini 3.8 Flash (High) · Pro Abo"
 elif "gemini-4" in raw_engine.lower():
-    engine_display = "Gemini 4 · Pro"
+    engine_display = "Gemini 4 · Pro Abo"
 elif "2.5-pro" in raw_engine.lower():
-    engine_display = "Gemini 2.5 Pro · Pro"
+    engine_display = "Gemini 2.5 Pro · Pro Abo"
 elif "2.5-flash" in raw_engine.lower():
-    engine_display = "Gemini 2.5 Flash · Fallback"
+    engine_display = "Gemini 2.5 Flash · Pro Abo"
 elif "quantitative" in raw_engine.lower() or "confluence" in raw_engine.lower():
-    engine_display = "SMC Confluence · Math Core"
+    engine_display = "Gemini 3.8 Flash (High) · Math Core"
 else:
     engine_display = raw_engine
 
@@ -163,6 +163,18 @@ html_content = f"""<!DOCTYPE html>
           <span class="text-sm">💡</span>
           <span class="hidden sm:inline">Hypothesen-Guide</span>
         </button>
+
+        <!-- KI-Portfolio Jump Button -->
+        <a href="#portfolio-section" class="px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-xs font-semibold text-emerald-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer" title="Autonomes Modell-Portfolio & Gedächtnis">
+          <span class="text-sm">🏛️</span>
+          <span class="hidden sm:inline">KI-Portfolio</span>
+        </a>
+
+        <!-- Meine Positionen Jump Button -->
+        <a href="#user-positions-section" class="px-3 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer" title="Eigene Positionen eintragen & tracken">
+          <span class="text-sm">👤</span>
+          <span class="hidden sm:inline">Meine Positionen</span>
+        </a>
 
         <!-- Signal-Historie Link Button -->
         <a href="history.html" class="px-3 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer" title="Signal- & Benachrichtigungs-Historie">
@@ -341,6 +353,103 @@ html_content = f"""<!DOCTYPE html>
         Guide & Regeln anzeigen →
       </button>
     </div>
+
+    <!-- 👤 EIGENE NUTZER-POSITIONEN & SMARTE HANDLUNGSEMPFEHLUNGEN -->
+    <section id="user-positions-section" class="rounded-2xl bg-gradient-to-br from-slate-900/90 via-[#0d1322] to-slate-900 border border-indigo-500/30 p-5 shadow-xl space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3.5">
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+              <span>👤 Meine Positionen</span>
+            </h2>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">24/7 Raspberry Pi Überwachung</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">Eigene Trades mit Hebel tracken &bull; Automatische Handlungsempfehlungen bei Divergenzen & TP-Zonen</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="openPositionsModal()" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/30 active:scale-95 cursor-pointer">
+            <span>+</span>
+            <span>Position hinzufügen</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Container für Nutzer-Positionen -->
+      <div id="user-positions-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+        <!-- Dynamisch gerendert durch JS -->
+      </div>
+    </section>
+
+    <!-- 🏛️ KI HIGH-CONVICTION MODELL-PORTFOLIO & GEDÄCHTNIS -->
+    <section id="portfolio-section" class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-emerald-950/20 to-slate-900 border border-emerald-500/30 p-5 shadow-xl space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3.5">
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+              <span>🏛️ KI High-Conviction Modell-Portfolio</span>
+            </h2>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Autonom & Lernend
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">Nur sicherste Setups (Score ≥ 88%) &bull; Identischer Einheitsbetrag (1.000 €) für relative Performance &bull; Hebel (max 10x) durch KI &bull; Permanenter Erfahrungsspeicher</p>
+        </div>
+
+        <!-- Portfolio Performance KPIs -->
+        <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+          <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block uppercase">Gehebelt</span>
+            <span class="font-bold text-sm text-emerald-400" id="port-metric-lev-pnl">+0.0%</span>
+          </div>
+          <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block uppercase">Basis (1x)</span>
+            <span class="font-bold text-sm text-white" id="port-metric-raw-pnl">+0.0%</span>
+          </div>
+          <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block uppercase">Win-Rate</span>
+            <span class="font-bold text-sm text-indigo-300" id="port-metric-winrate">0.0%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aktive Trades des KI-Portfolios -->
+      <div>
+        <div class="flex items-center justify-between mb-2.5">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+            <span>Aktuell laufende Trades</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-300 font-mono" id="port-active-count">0</span>
+          </h3>
+          <span class="text-[11px] text-slate-500 font-mono">Multi-Day Exit nach SMC/CRV-Regeln</span>
+        </div>
+        <div id="portfolio-active-trades" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+          <!-- Dynamisch via JS -->
+        </div>
+      </div>
+
+      <!-- Trade Memory & Erfahrungs-Gedächtnis (Accordion) -->
+      <div class="border-t border-slate-800/80 pt-4">
+        <button onclick="toggleMemoryAccordion()" class="w-full flex items-center justify-between p-3 rounded-xl bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800 text-left transition cursor-pointer">
+          <div class="flex items-center gap-2.5">
+            <span class="text-base">🧠</span>
+            <div>
+              <span class="text-xs font-bold text-slate-200">Trade-Gedächtnis & Post-Mortem Lerneinheiten</span>
+              <span class="block text-[10px] text-slate-400" id="memory-status-summary">Lade Erfahrungsspeicher...</span>
+            </div>
+          </div>
+          <span id="memory-accordion-icon" class="text-slate-400 text-xs font-mono transition">▼</span>
+        </button>
+
+        <div id="memory-accordion-content" class="hidden mt-3 space-y-3">
+          <div id="memory-learnings-list" class="space-y-2">
+            <!-- Dynamisch via JS -->
+          </div>
+          <div id="portfolio-closed-trades" class="space-y-2">
+            <!-- Dynamisch via JS -->
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Filter & Navigation Control Center -->
     <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-4">
@@ -1272,9 +1381,401 @@ html_content = f"""<!DOCTYPE html>
     }}
     setupPullToRefresh();
 
+    // ==========================================
+    // 🏛️ KI High-Conviction Modell-Portfolio
+    // ==========================================
+    function renderPortfolioSection() {{
+      const port = currentData.portfolio || {{}};
+      const metrics = port.metrics || {{}};
+      const activeTrades = port.active_trades || [];
+      const closedTrades = port.closed_trades || [];
+      const memory = currentData.trade_memory || {{}};
+      const learnings = memory.learnings || [];
+
+      // KPIs
+      const levPnl = metrics.total_leveraged_pnl_pct || 0;
+      const rawPnl = metrics.total_pnl_pct || 0;
+      const winRate = metrics.win_rate_pct || 0;
+
+      const levElem = document.getElementById('port-metric-lev-pnl');
+      if (levElem) {{
+        levElem.textContent = (levPnl >= 0 ? '+' : '') + levPnl.toFixed(1) + '%';
+        levElem.className = 'font-bold text-sm ' + (levPnl >= 0 ? 'text-emerald-400' : 'text-rose-400');
+      }}
+
+      const rawElem = document.getElementById('port-metric-raw-pnl');
+      if (rawElem) {{
+        rawElem.textContent = (rawPnl >= 0 ? '+' : '') + rawPnl.toFixed(1) + '%';
+        rawElem.className = 'font-bold text-sm ' + (rawPnl >= 0 ? 'text-slate-200' : 'text-rose-300');
+      }}
+
+      const wrElem = document.getElementById('port-metric-winrate');
+      if (wrElem) {{
+        wrElem.textContent = winRate.toFixed(1) + '% (' + (metrics.win_count || 0) + 'W / ' + (metrics.loss_count || 0) + 'L)';
+      }}
+
+      const cntElem = document.getElementById('port-active-count');
+      if (cntElem) cntElem.textContent = activeTrades.length;
+
+      // Active Trades Cards
+      const activeContainer = document.getElementById('portfolio-active-trades');
+      if (activeContainer) {{
+        if (activeTrades.length === 0) {{
+          activeContainer.innerHTML = `
+            <div class="col-span-full p-4 rounded-xl bg-slate-950/40 border border-slate-800 text-center text-xs text-slate-400">
+              Aktuell keine Positionen im KI-Portfolio. Neue Trades werden vollautomatisch bei High-Conviction-Setups (Score ≥ 88%) eröffnet.
+            </div>
+          `;
+        }} else {{
+          activeContainer.innerHTML = activeTrades.map(t => {{
+            const isLong = t.direction === 'LONG';
+            const sigColor = isLong ? 'emerald' : 'rose';
+            const pnl = t.unrealized_pnl_pct || 0;
+            const levPnl = t.unrealized_pnl_leveraged_pct || 0;
+            const pnlColor = levPnl >= 0 ? 'text-emerald-400' : 'text-rose-400';
+            const ticker = t.symbol.split(':').pop();
+
+            return `
+              <div class="rounded-xl bg-slate-950/80 border border-slate-800/80 p-4 space-y-3 hover:border-slate-700 transition">
+                <div class="flex items-start justify-between">
+                  <div>
+                    <div class="flex items-center gap-1.5">
+                      <span class="text-sm font-bold text-white">${{t.name}}</span>
+                      <span class="text-xs font-mono text-slate-400">(${{ticker}})</span>
+                    </div>
+                    <span class="text-[10px] text-slate-500 font-mono">${{t.setup_name || 'SMC Confluence'}}</span>
+                  </div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-${{sigColor}}-500/10 text-${{sigColor}}-400 border border-${{sigColor}}-500/30">
+                      ${{t.direction}}
+                    </span>
+                    <span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                      ${{t.leverage}}x Hebel
+                    </span>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 text-xs font-mono bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/60">
+                  <div>
+                    <span class="text-[10px] text-slate-400 block">Einstieg:</span>
+                    <span class="text-slate-200 font-semibold">${{Number(t.entry_price).toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}}</span>
+                  </div>
+                  <div class="text-right">
+                    <span class="text-[10px] text-slate-400 block">Aktueller Kurs:</span>
+                    <span class="text-white font-bold">${{Number(t.current_price).toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}}</span>
+                  </div>
+                  <div class="pt-1 border-t border-slate-800/80">
+                    <span class="text-[10px] text-slate-400 block">Performance:</span>
+                    <span class="${{pnlColor}} font-extrabold text-sm">${{levPnl >= 0 ? '+' : ''}}${{levPnl.toFixed(2)}}%</span>
+                    <span class="text-[10px] text-slate-400 block">(${{pnl >= 0 ? '+' : ''}}${{pnl.toFixed(2)}}% Basis)</span>
+                  </div>
+                  <div class="pt-1 border-t border-slate-800/80 text-right">
+                    <span class="text-[10px] text-slate-400 block">Haltedauer:</span>
+                    <span class="text-indigo-300 font-semibold">${{t.holding_days ? t.holding_days + ' Tage' : (t.holding_hours || 0) + ' Std.'}}</span>
+                  </div>
+                </div>
+
+                <div class="text-[11px] text-slate-300 bg-slate-900/40 p-2.5 rounded-lg border border-slate-800/40">
+                  <span class="text-emerald-400 font-semibold block text-[10px] uppercase">Einstiegsgrund:</span>
+                  <p class="leading-relaxed text-[11px]">${{t.entry_reason || t.analyst_note || 'Multi-Timeframe SMC-Konfluenz'}}</p>
+                </div>
+
+                <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-slate-800/60">
+                  <span>SL: ${{Number(t.stop_loss).toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}}</span>
+                  <span>TP2: ${{Number(t.take_profit_2).toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}}</span>
+                  <button onclick="openDetailModal('${{t.symbol}}')" class="text-indigo-400 hover:text-indigo-300 font-bold transition">Chart →</button>
+                </div>
+              </div>
+            `;
+          }}).join('');
+        }}
+      }}
+
+      // Gedächtnis Summary & Accordion
+      const memSum = document.getElementById('memory-status-summary');
+      if (memSum) {{
+        memSum.textContent = learnings.length + ' Lerneinheiten im Gedächtnis &bull; ' + closedTrades.length + ' geschlossene Trades historisch';
+      }}
+
+      const learnList = document.getElementById('memory-learnings-list');
+      if (learnList) {{
+        if (learnings.length === 0) {{
+          learnList.innerHTML = `<p class="text-xs text-slate-400 italic">Noch keine geschlossenen Trades. Das System lernt automatisch aus jedem Trade-Ausstieg.</p>`;
+        }} else {{
+          learnList.innerHTML = learnings.map(l => `
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-slate-300 space-y-1">
+              <div class="flex items-center justify-between">
+                <span class="font-bold font-mono ${{l.result === 'WIN' ? 'text-emerald-400' : 'text-rose-400'}}">${{l.result === 'WIN' ? '✅ Erfolg' : '❌ Verlust'}} (${{l.pnl_leveraged >= 0 ? '+' : ''}}${{l.pnl_leveraged}}%)</span>
+                <span class="text-[10px] text-slate-500 font-mono">${{l.setup_name || 'Trade'}}</span>
+              </div>
+              <p class="text-[11px] leading-relaxed text-slate-300">${{l.text}}</p>
+            </div>
+          `).join('');
+        }}
+      }}
+    }}
+
+    function toggleMemoryAccordion() {{
+      const content = document.getElementById('memory-accordion-content');
+      const icon = document.getElementById('memory-accordion-icon');
+      if (!content) return;
+      if (content.classList.contains('hidden')) {{
+        content.classList.remove('hidden');
+        if (icon) icon.textContent = '▲';
+      }} else {{
+        content.classList.add('hidden');
+        if (icon) icon.textContent = '▼';
+      }}
+    }}
+
+    // ==========================================
+    // 👤 Eigene Nutzer-Positionen Management
+    // ==========================================
+    let currentPosDirection = 'LONG';
+
+    function getUserPositions() {{
+      let positions = [];
+      try {{
+        const stored = localStorage.getItem('tv_user_positions');
+        if (stored) positions = JSON.parse(stored);
+      }} catch (e) {{}}
+
+      // Mit den vom Raspberry Pi evaluierten Positionen mergen
+      if (currentData.user_positions && Array.isArray(currentData.user_positions)) {{
+        const localMap = new Map(positions.map(p => [p.symbol, p]));
+        currentData.user_positions.forEach(p => {{
+          localMap.set(p.symbol, p);
+        }});
+        positions = Array.from(localMap.values());
+      }}
+      return positions;
+    }}
+
+    function saveUserPositionsLocally(positions) {{
+      try {{
+        localStorage.setItem('tv_user_positions', JSON.stringify(positions));
+      }} catch (e) {{}}
+    }}
+
+    function renderUserPositions() {{
+      const container = document.getElementById('user-positions-container');
+      if (!container) return;
+
+      const positions = getUserPositions();
+
+      if (positions.length === 0) {{
+        container.innerHTML = `
+          <div class="col-span-full p-6 rounded-2xl bg-slate-950/60 border border-slate-800 text-center space-y-3">
+            <div class="w-10 h-10 rounded-full bg-indigo-500/10 text-indigo-400 mx-auto flex items-center justify-center text-lg">
+              👤
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white">Noch keine eigenen Positionen hinterlegt</h4>
+              <p class="text-xs text-slate-400 mt-1">Trage hier deine Trades ein, um sie 24/7 durch den Raspberry Pi überwachen zu lassen.</p>
+            </div>
+            <button onclick="openPositionsModal()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-md shadow-indigo-600/30">
+              + Jetzt erste Position eintragen
+            </button>
+          </div>
+        `;
+        return;
+      }}
+
+      container.innerHTML = positions.map(pos => {{
+        const sym = pos.symbol;
+        const isLong = pos.direction === 'LONG';
+        const sigColor = isLong ? 'emerald' : 'rose';
+        const lev = Number(pos.leverage) || 1;
+        const entry = Number(pos.entry_price) || 0;
+        const curr = Number(pos.current_price) || entry;
+        const pnl = Number(pos.pnl_pct) || 0;
+        const levPnl = Number(pos.pnl_leveraged_pct) || (pnl * lev);
+        const pnlColor = levPnl >= 0 ? 'text-emerald-400' : 'text-rose-400';
+        const rec = pos.recommendation || {{ action: 'BEOBACHTEN', title: 'Position aktiv', message: 'Keine akute Intervention nötig.', badge_color: 'indigo' }};
+        const ticker = sym.split(':').pop();
+
+        return `
+          <div class="rounded-xl bg-slate-950/80 border border-slate-800/90 p-4 space-y-3.5 hover:border-slate-700 transition">
+            <div class="flex items-start justify-between">
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-sm font-bold text-white">${{pos.name || sym}}</span>
+                  <span class="text-xs font-mono text-slate-400">(${{ticker}})</span>
+                </div>
+                <span class="text-[10px] text-slate-500 font-mono">${{sym}}</span>
+              </div>
+
+              <div class="flex items-center gap-1.5">
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-${{sigColor}}-500/10 text-${{sigColor}}-400 border border-${{sigColor}}-500/30">
+                  ${{pos.direction}}
+                </span>
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                  ${{lev}}x
+                </span>
+                <button onclick="deleteUserPosition('${{pos.id || sym}}')" title="Position schließen / löschen" class="w-6 h-6 rounded bg-slate-900 hover:bg-rose-500/20 text-slate-400 hover:text-rose-400 flex items-center justify-center text-xs transition cursor-pointer">
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 text-xs font-mono bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/60">
+              <div>
+                <span class="text-[10px] text-slate-400 block">Einstieg:</span>
+                <span class="text-slate-200 font-semibold">${{entry.toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}}</span>
+              </div>
+              <div class="text-right">
+                <span class="text-[10px] text-slate-400 block">Live-Kurs:</span>
+                <span class="text-white font-bold">${{curr.toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}}</span>
+              </div>
+              <div class="pt-1 border-t border-slate-800/80 col-span-2 flex items-center justify-between">
+                <div>
+                  <span class="text-[10px] text-slate-400 block">Performance:</span>
+                  <span class="${{pnlColor}} font-extrabold text-base">${{levPnl >= 0 ? '+' : ''}}${{levPnl.toFixed(2)}}%</span>
+                </div>
+                <div class="text-right">
+                  <span class="text-[10px] text-slate-400 block">Ungehebelt:</span>
+                  <span class="text-slate-300 font-semibold text-xs">${{pnl >= 0 ? '+' : ''}}${{pnl.toFixed(2)}}%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Handlungsempfehlung Box -->
+            <div class="p-3 rounded-lg border bg-${{rec.badge_color || 'indigo'}}-500/10 border-${{rec.badge_color || 'indigo'}}-500/30 text-xs space-y-1">
+              <div class="flex items-center gap-1.5 font-bold text-${{rec.badge_color || 'indigo'}}-400">
+                <span>💡</span>
+                <span>${{rec.action || 'EMPFEHLUNG'}}</span>
+              </div>
+              <p class="text-[11px] text-slate-300 leading-relaxed font-medium">${{rec.message || rec.title || 'Position beobachten.'}}</p>
+            </div>
+
+            <div class="flex items-center justify-between text-[11px] text-slate-500 pt-1">
+              <span>24/7 Scan aktiv</span>
+              <button onclick="openDetailModal('${{sym}}')" class="text-indigo-400 hover:text-indigo-300 font-semibold">Chart & Indikatoren →</button>
+            </div>
+          </div>
+        `;
+      }}).join('');
+    }}
+
+    function openPositionsModal() {{
+      const m = document.getElementById('positions-modal');
+      if (!m) return;
+
+      // Dropdown mit allen gescannten Assets befüllen
+      const sel = document.getElementById('pos-symbol-select');
+      if (sel && sel.options.length <= 1) {{
+        sel.innerHTML = '<option value="">-- Wähle aus überwachten Assets --</option>' + 
+          currentData.assets.map(a => `<option value="${{a.symbol}}" data-price="${{a.price}}" data-name="${{a.name}}">${{a.name}} (${{a.symbol.split(':').pop()}}) - ${{Number(a.price).toLocaleString('de-DE', {{minimumFractionDigits: 2}})}}</option>`).join('');
+      }}
+
+      m.classList.remove('hidden');
+    }}
+
+    function closePositionsModal() {{
+      const m = document.getElementById('positions-modal');
+      if (m) m.classList.add('hidden');
+    }}
+
+    function selectPosDirection(dir) {{
+      currentPosDirection = dir;
+      const btnLong = document.getElementById('pos-btn-long');
+      const btnShort = document.getElementById('pos-btn-short');
+      if (dir === 'LONG') {{
+        btnLong.className = 'py-1.5 rounded-md font-bold text-center bg-emerald-600 text-white';
+        btnShort.className = 'py-1.5 rounded-md font-bold text-center text-slate-400 hover:text-white';
+      }} else {{
+        btnShort.className = 'py-1.5 rounded-md font-bold text-center bg-rose-600 text-white';
+        btnLong.className = 'py-1.5 rounded-md font-bold text-center text-slate-400 hover:text-white';
+      }}
+    }}
+
+    function onAssetSelectChange() {{
+      const sel = document.getElementById('pos-symbol-select');
+      const customInp = document.getElementById('pos-symbol-custom');
+      const priceInp = document.getElementById('pos-entry-price');
+      if (!sel || !sel.value) return;
+
+      const opt = sel.options[sel.selectedIndex];
+      if (opt && opt.dataset.price && priceInp) {{
+        priceInp.value = opt.dataset.price;
+      }}
+      if (customInp) customInp.value = '';
+    }}
+
+    function saveUserPosition(e) {{
+      e.preventDefault();
+      const sel = document.getElementById('pos-symbol-select');
+      const customInp = document.getElementById('pos-symbol-custom');
+      const priceInp = document.getElementById('pos-entry-price');
+      const levInp = document.getElementById('pos-leverage-val');
+      const noteInp = document.getElementById('pos-note');
+
+      let symbol = customInp && customInp.value.trim() ? customInp.value.trim() : (sel ? sel.value : '');
+      if (!symbol) {{
+        alert('Bitte wähle ein Symbol aus oder gib ein Kürzel ein.');
+        return;
+      }}
+
+      const entryPrice = parseFloat(priceInp.value);
+      if (isNaN(entryPrice) || entryPrice <= 0) {{
+        alert('Bitte gib einen gültigen Einstiegskurs ein.');
+        return;
+      }}
+
+      const leverage = parseFloat(levInp.value) || 1.0;
+      const note = noteInp ? noteInp.value.trim() : '';
+
+      // Match asset data
+      const matched = currentData.assets.find(a => a.symbol === symbol || a.symbol.endsWith(':' + symbol));
+      const assetName = matched ? matched.name : symbol;
+      const currPrice = matched ? matched.price : entryPrice;
+
+      const newPos = {{
+        id: 'pos_' + symbol.replace(':', '_') + '_' + Date.now(),
+        symbol: symbol,
+        name: assetName,
+        direction: currentPosDirection,
+        entry_price: entryPrice,
+        current_price: currPrice,
+        leverage: leverage,
+        note: note,
+        created_at: new Date().toISOString()
+      }};
+
+      // 1. Lokal in Browser speichern
+      const currentList = getUserPositions();
+      const filtered = currentList.filter(p => p.symbol !== symbol);
+      filtered.unshift(newPos);
+      saveUserPositionsLocally(filtered);
+
+      // 2. An lokalen Raspberry Pi Micro-API-Endpunkt senden (falls erreichbar)
+      try {{
+        fetch('http://localhost:8085/api/positions', {{
+          method: 'POST',
+          headers: {{ 'Content-Type': 'application/json' }},
+          body: JSON.stringify(newPos)
+        }}).catch(() => {{}});
+      }} catch (err) {{}}
+
+      closePositionsModal();
+      renderUserPositions();
+      showToast('Position für ' + assetName + ' erfolgreich gespeichert!');
+    }}
+
+    function deleteUserPosition(id) {{
+      if (!confirm('Möchtest du diese Position wirklich schließen / entfernen?')) return;
+      const currentList = getUserPositions();
+      const filtered = currentList.filter(p => p.id !== id && p.symbol !== id);
+      saveUserPositionsLocally(filtered);
+      renderUserPositions();
+      showToast('Position entfernt.');
+    }}
+
     // Initial render
     updateStats();
     applyFilters();
+    renderPortfolioSection();
+    renderUserPositions();
 
     // Deep-Link aus Historie (?asset=SYMBOL oder ?symbol=SYMBOL)
     const urlParams = new URLSearchParams(window.location.search);
@@ -1285,6 +1786,70 @@ html_content = f"""<!DOCTYPE html>
       }}, 350);
     }}
   </script>
+
+  <!-- User Positions Modal -->
+  <div id="positions-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="max-w-md w-full rounded-2xl bg-[#0d1322] border border-indigo-500/40 p-6 shadow-2xl relative text-slate-200 space-y-4">
+      <div class="flex items-start justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-lg">
+            👤
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white tracking-tight">Eigene Position eintragen</h3>
+            <p class="text-xs text-slate-400">Wird mit 24/7 Live-Indikatoren überwacht</p>
+          </div>
+        </div>
+        <button onclick="closePositionsModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition">✕</button>
+      </div>
+
+      <form id="position-form" onsubmit="saveUserPosition(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block text-slate-400 font-semibold mb-1">Asset / Symbol auswählen:</label>
+          <select id="pos-symbol-select" onchange="onAssetSelectChange()" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700/80 text-white font-mono focus:outline-none focus:border-indigo-500">
+            <!-- Dynamisch befüllt mit allen 58 Assets -->
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-slate-400 font-semibold mb-1">Oder alternatives Symbol eingeben:</label>
+          <input type="text" id="pos-symbol-custom" placeholder="z.B. BINANCE:SOLUSDT oder NASDAQ:TSLA" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700/80 text-white font-mono focus:outline-none focus:border-indigo-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-400 font-semibold mb-1">Richtung:</label>
+            <div class="grid grid-cols-2 gap-1.5 p-1 rounded-lg bg-slate-950 border border-slate-800">
+              <button type="button" id="pos-btn-long" onclick="selectPosDirection('LONG')" class="py-1.5 rounded-md font-bold text-center bg-emerald-600 text-white">LONG</button>
+              <button type="button" id="pos-btn-short" onclick="selectPosDirection('SHORT')" class="py-1.5 rounded-md font-bold text-center text-slate-400 hover:text-white">SHORT</button>
+            </div>
+          </div>
+          <div>
+            <label class="block text-slate-400 font-semibold mb-1">Hebel (1x - 10x):</label>
+            <div class="flex items-center gap-2">
+              <input type="range" id="pos-leverage-slider" min="1" max="10" step="0.5" value="3" oninput="document.getElementById('pos-leverage-val').value = this.value" class="w-full accent-indigo-500 cursor-pointer">
+              <input type="number" id="pos-leverage-val" min="1" max="10" step="0.5" value="3" oninput="document.getElementById('pos-leverage-slider').value = this.value" class="w-16 px-2 py-1.5 rounded-lg bg-slate-950 border border-slate-700/80 text-white font-mono text-center">
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-400 font-semibold mb-1">Einstiegskurs:</label>
+          <input type="number" step="any" id="pos-entry-price" required placeholder="z.B. 182.50" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700/80 text-white font-mono focus:outline-none focus:border-indigo-500">
+        </div>
+
+        <div>
+          <label class="block text-slate-400 font-semibold mb-1">Optionale Notiz:</label>
+          <input type="text" id="pos-note" placeholder="z.B. Ausbruch über 1D Golden Pocket" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700/80 text-white focus:outline-none focus:border-indigo-500">
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2.5">
+          <button type="button" onclick="closePositionsModal()" class="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 font-semibold transition">Abbrechen</button>
+          <button type="submit" class="px-5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-lg shadow-indigo-600/30">Speichern & Tracken</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- iOS Alerts Info Modal -->
   <div id="alerts-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">

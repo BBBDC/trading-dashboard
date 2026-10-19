@@ -470,6 +470,19 @@ def analyze_all_markets(use_gemini=True):
     db["assets"] = analyzed_assets
     db["evaluation_engine"] = last_tier_used if (has_gemini and ai_success_count > 0) else "quantitative_confluence"
 
+    # Autonomes Portfolio, Gedächtnis & Nutzer-Positionen aktualisieren
+    try:
+        from portfolio_engine import update_autonomous_portfolio, evaluate_user_positions
+        portfolio_data, memory_data = update_autonomous_portfolio(analyzed_assets)
+        user_pos_data = evaluate_user_positions(analyzed_assets)
+        db["portfolio"] = portfolio_data
+        db["trade_memory"] = memory_data
+        db["user_positions"] = user_pos_data.get("positions", [])
+        print(f"   🏛️ Autonomes Portfolio aktualisiert: {len(portfolio_data.get('active_trades', []))} offene Trades ({portfolio_data.get('metrics', {}).get('win_rate_pct', 0)}% Win-Rate)")
+        print(f"   👤 Eigene Nutzer-Positionen getrackt: {len(user_pos_data.get('positions', []))} Positionen")
+    except Exception as pe:
+        print(f"   ⚠️ Portfolio-Update Warnung: {pe}")
+
     with open(DB_FILE, "w", encoding="utf-8") as f:
         json.dump(db, f, indent=2, ensure_ascii=False)
 

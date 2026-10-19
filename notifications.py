@@ -198,6 +198,8 @@ def detect_signal_changes(current_assets):
                     "entry_range": a.get("entry_range", []),
                     "stop_loss": a.get("stop_loss", 0),
                     "take_profit_2": a.get("take_profit_2", 0),
+                    "reasons": a.get("reasons", []),
+                    "change_reason": f"Neues aktives Setup ({curr_sig}) mit {curr_score}% Konfluenz.",
                     "note": a.get("analyst_note", ""),
                     "evaluated_by": a.get("evaluated_by", "Confluence")
                 })
@@ -215,6 +217,22 @@ def detect_signal_changes(current_assets):
 
         if signal_changed or (curr_sig != "NEUTRAL" and (score_jump or crossed_threshold or setup_changed)):
             change_type = "SIGNAL_CHANGE" if signal_changed else ("SCORE_JUMP" if score_jump else "SETUP_UPDATE")
+            
+            # Konkrete Begründung ermitteln
+            reasons = a.get("reasons", [])
+            primary_reason = reasons[0] if reasons else a.get("analyst_note", "")
+            if signal_changed:
+                if old_sig == "NEUTRAL" and curr_sig in ("LONG", "SHORT"):
+                    change_reason = f"Einstiegssignal: 3-fache Konfluenz bestätigt ({primary_reason})."
+                elif old_sig in ("LONG", "SHORT") and curr_sig == "NEUTRAL":
+                    change_reason = f"Ausstieg/Invalidierung: Setup nicht mehr aktiv ({primary_reason or 'Struktur verloren'})."
+                else:
+                    change_reason = f"Signal-Drehung ({old_sig} ➔ {curr_sig}): Marktstruktur hat gedreht ({primary_reason})."
+            elif score_jump:
+                change_reason = f"Konfluenz-Veränderung: Score springt von {old_score}% auf {curr_score}% ({primary_reason})."
+            else:
+                change_reason = f"Setup-Update: Wechsel auf '{curr_setup}' ({primary_reason})."
+
             changes.append({
                 "symbol": sym,
                 "name": a["name"],
@@ -229,6 +247,8 @@ def detect_signal_changes(current_assets):
                 "entry_range": a.get("entry_range", []),
                 "stop_loss": a.get("stop_loss", 0),
                 "take_profit_2": a.get("take_profit_2", 0),
+                "reasons": reasons,
+                "change_reason": change_reason,
                 "note": a.get("analyst_note", ""),
                 "evaluated_by": a.get("evaluated_by", "Confluence")
             })
@@ -238,7 +258,8 @@ def detect_signal_changes(current_assets):
 
 def format_change_notification(changes, click_url):
     """
-    Formatiert eine kristallklare Benachrichtigung, die AUSSCHLIESSLICH die geänderten Assets enthält.
+    Formatiert eine kristallklare Benachrichtigung, die AUSSCHLIESSLICH die geänderten Assets
+    und die exakte Begründung für den Signalwechsel enthält.
     """
     count = len(changes)
     unit_str = "Asset" if count == 1 else "Assets"
@@ -259,9 +280,18 @@ def format_change_notification(changes, click_url):
 
         lines.append(f"{icon} {name} ({ticker}):")
         if old_s != new_s:
-            lines.append(f"   Einstufung: {old_s} ➔ {new_s} (Score: {score}%)")
+            lines.append(f"   Signalwechsel: {old_s} ➔ {new_s} (Score: {score}%)")
         else:
             lines.append(f"   Score-Sprung: {c['old_score']}% ➔ {score}% ({new_s})")
+
+        # Ausführliche Begründung für den Nutzer
+        if c.get("change_reason"):
+            lines.append(f"   💡 Grund: {c['change_reason']}")
+        elif c.get("reasons"):
+            lines.append(f"   💡 Grund: {' | '.join(c['reasons'][:2])}")
+        
+        if c.get("note") and len(c.get("note")) > 10:
+            lines.append(f"   📝 KI-Rationale: {c['note'][:130]}...")
 
         lines.append(f"   Setup: {c['setup_name']}")
         if sig != "NEUTRAL" and c["entry_range"]:

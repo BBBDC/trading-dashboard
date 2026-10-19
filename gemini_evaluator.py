@@ -222,6 +222,17 @@ def call_gemini_via_rest_api(prompt, model="gemini-3.8-flash-high", api_key=None
 
 
 def build_analysis_prompt(assets_batch):
+    try:
+        from portfolio_engine import get_memory_summary_for_ai_prompt
+        mem_ctx = get_memory_summary_for_ai_prompt()
+    except Exception:
+        mem_ctx = ""
+
+    memory_block = f"""
+5. HISTORISCHES GEDÄCHTNIS & AUS VERGANGENEN TRADES GELERNT:
+{mem_ctx}
+""" if mem_ctx else ""
+
     return f"""Du bist der Chef-Risikomanager und Head-Trader eines institutionellen Prop-Trading-Desks ("TradingView Super-Analyst").
 Dein oberstes Dogma lautet: KAPITALERHALT. Ein schlechter Trade vernichtet echtes Geld; ein verpasster Trade kostet absolut gar nichts.
 Du bist extrem selektiv, konservativ und anspruchsvoll. Dein Ziel sind nachhaltige, hochqualitative Setups mit maximaler Trefferwahrscheinlichkeit.
@@ -247,7 +258,7 @@ STRENGSTE INSTITUTIONELLE FILTERREGELN (BITTE GENAUESTENS EINHALTEN):
 4. STOP-LOSS & TARGETS:
    - Der Stop-Loss muss strukturell begründet sein (knapp unterhalb des Golden Pocket / Swing-Lows / FVG), niemals willkürlich.
    - Take Profit 1 & 2 müssen an echten Liquiditätszonen oder gegnerischen FVGs liegen.
-
+{memory_block}
 Hier sind die aktuellen Marktdaten und technischen Messungen für {len(assets_batch)} Assets:
 
 {json.dumps(assets_batch, indent=2, ensure_ascii=False)}
@@ -292,7 +303,7 @@ def evaluate_batch_with_cascade(assets_batch):
 
     primary_model = conf.get("primary_model", "gemini-3.8-flash-high")
     fallback_model = conf.get("fallback_model", "gemini-2.5-flash")
-    timeout = conf.get("timeout_seconds", 45)
+    timeout = conf.get("timeout_seconds", 90)
     use_pro_sub = conf.get("use_pro_subscription", True)
     api_key = get_api_key()
 
@@ -309,13 +320,16 @@ def evaluate_batch_with_cascade(assets_batch):
     # Zuerst Pro-Abo via CLI versuchen (oder via REST falls API-Key da ist)
     if api_key:
         res, err = call_gemini_via_rest_api(prompt, model=primary_model, api_key=api_key, timeout=timeout)
+        if not res and use_pro_sub:
+            print(" (REST fehlgeschlagen -> Nutze Pro-Abo CLI)...", end="", flush=True)
+            res, err = call_gemini_via_pro_cli(prompt, model=primary_model, timeout=timeout)
     elif use_pro_sub:
         res, err = call_gemini_via_pro_cli(prompt, model=primary_model, timeout=timeout)
     else:
         err = "Weder API-Key noch Pro-Subscription konfiguriert."
 
     if res and isinstance(res, list) and len(res) > 0:
-        source_tag = "[AI Studio Pro Key]" if api_key else "[Pro Abo]"
+        source_tag = "[AI Studio Pro Key]" if api_key and "REST" not in str(err) else "[Pro Abo]"
         return res, None, f"{primary_model} {source_tag}"
 
     # ========================================================
@@ -325,8 +339,10 @@ def evaluate_batch_with_cascade(assets_batch):
 
     if api_key:
         res, err = call_gemini_via_rest_api(prompt, model=fallback_model, api_key=api_key, timeout=25)
+        if not res and use_pro_sub:
+            res, err = call_gemini_via_pro_cli(prompt, model=fallback_model, timeout=40)
     elif use_pro_sub:
-        res, err = call_gemini_via_pro_cli(prompt, model=fallback_model, timeout=30)
+        res, err = call_gemini_via_pro_cli(prompt, model=fallback_model, timeout=40)
 
     if res and isinstance(res, list) and len(res) > 0:
         return res, None, f"{fallback_model} [Fallback AI]"

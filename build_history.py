@@ -342,6 +342,13 @@ def generate_history_html():
                   ${{c.evaluated_by ? `<span class="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">🤖 ${{c.evaluated_by}}</span>` : ''}}
                 </div>
 
+                ${{c.change_reason ? `
+                  <div class="text-[11px] text-amber-200/95 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1.5 rounded-lg flex items-start gap-1.5">
+                    <span class="text-amber-400 font-bold shrink-0">💡 Grund:</span>
+                    <span class="leading-relaxed">${{c.change_reason}}</span>
+                  </div>
+                ` : ''}}
+
                 ${{c.entry_range && c.entry_range.length > 0 ? `
                   <div class="grid grid-cols-3 gap-1.5 text-center text-[10px] font-mono pt-1">
                     <div class="bg-slate-950/60 p-1.5 rounded border border-slate-800/80">
