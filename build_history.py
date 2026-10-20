@@ -40,6 +40,25 @@ def generate_history_html():
   <meta name="apple-mobile-web-app-title" content="TV Historie">
   <meta name="theme-color" content="#0b0f19">
 
+  <!-- Immediate Theme Application to prevent FOUC / flickering -->
+  <script>
+    (function() {{
+      const saved = localStorage.getItem('tv_theme_mode') || 'auto';
+      let effective = saved;
+      if (saved === 'auto') {{
+        const hour = new Date().getHours();
+        effective = (hour >= 7 && hour < 19) ? 'light' : 'dark';
+      }}
+      if (effective === 'light') {{
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+      }} else {{
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+      }}
+    }})();
+  </script>
+
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,6 +70,122 @@ def generate_history_html():
     .font-mono {{
       font-family: 'JetBrains Mono', monospace;
     }}
+
+    /* =========================================================================
+       THEME SYSTEM: LIGHT & DARK MODE SUPPORT
+       ========================================================================= */
+    :root {{
+      --theme-name: dark;
+    }}
+    html.light {{
+      --theme-name: light;
+      color-scheme: light;
+    }}
+    html.dark {{
+      --theme-name: dark;
+      color-scheme: dark;
+    }}
+
+    /* Light Theme Palette & Overrides */
+    html.light body {{
+      background-color: #f8fafc !important;
+      color: #0f172a !important;
+    }}
+    html.light header {{
+      background-color: rgba(255, 255, 255, 0.95) !important;
+      border-color: #e2e8f0 !important;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    }}
+    html.light [class*="bg-[#0b0f19]"] {{
+      background-color: #f8fafc !important;
+    }}
+    html.light [class*="bg-[#0d1322]"],
+    html.light [class*="bg-[#0f172a]"] {{
+      background-color: #ffffff !important;
+    }}
+    html.light .bg-slate-900,
+    html.light [class*="bg-slate-900/"] {{
+      background-color: #ffffff !important;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+    }}
+    html.light .bg-slate-950,
+    html.light [class*="bg-slate-950/"] {{
+      background-color: #f1f5f9 !important;
+    }}
+    html.light .bg-slate-800,
+    html.light [class*="bg-slate-800/"] {{
+      background-color: #f1f5f9 !important;
+      color: #334155 !important;
+    }}
+    html.light .bg-slate-700,
+    html.light [class*="bg-slate-700/"] {{
+      background-color: #e2e8f0 !important;
+      color: #1e293b !important;
+    }}
+    html.light .border-slate-800,
+    html.light [class*="border-slate-800/"],
+    html.light .border-slate-700,
+    html.light [class*="border-slate-700/"] {{
+      border-color: #e2e8f0 !important;
+    }}
+
+    /* Light Mode Typography */
+    html.light .text-white {{
+      color: #0f172a !important;
+    }}
+    html.light .text-slate-100,
+    html.light .text-slate-200 {{
+      color: #1e293b !important;
+    }}
+    html.light .text-slate-300 {{
+      color: #334155 !important;
+    }}
+    html.light .text-slate-400 {{
+      color: #64748b !important;
+    }}
+    html.light .text-slate-500 {{
+      color: #94a3b8 !important;
+    }}
+
+    /* Status & Badges in Light Mode */
+    html.light .text-emerald-400,
+    html.light .text-emerald-300 {{
+      color: #059669 !important;
+    }}
+    html.light .text-rose-400,
+    html.light .text-rose-300 {{
+      color: #e11d48 !important;
+    }}
+    html.light .text-indigo-400,
+    html.light .text-indigo-300,
+    html.light .text-indigo-200 {{
+      color: #4f46e5 !important;
+    }}
+    html.light .text-amber-400,
+    html.light .text-amber-300 {{
+      color: #d97706 !important;
+    }}
+
+    html.light [class*="bg-emerald-500/"],
+    html.light [class*="bg-emerald-600/"] {{
+      background-color: #ecfdf5 !important;
+      border-color: #a7f3d0 !important;
+      color: #047857 !important;
+    }}
+    html.light [class*="bg-rose-500/"] {{
+      background-color: #fff1f2 !important;
+      border-color: #fecdd3 !important;
+      color: #be123c !important;
+    }}
+    html.light [class*="bg-indigo-500/"],
+    html.light [class*="bg-indigo-600/"],
+    html.light [class*="bg-indigo-950/"] {{
+      background-color: #eef2ff !important;
+      border-color: #c7d2fe !important;
+      color: #4338ca !important;
+    }}
+
+    /* Custom Scrollbar */
     ::-webkit-scrollbar {{
       width: 8px;
       height: 8px;
@@ -65,22 +200,46 @@ def generate_history_html():
     ::-webkit-scrollbar-thumb:hover {{
       background: #475569;
     }}
+    html.light ::-webkit-scrollbar-track {{
+      background: #f1f5f9;
+    }}
+    html.light ::-webkit-scrollbar-thumb {{
+      background: #cbd5e1;
+    }}
+    html.light ::-webkit-scrollbar-thumb:hover {{
+      background: #94a3b8;
+    }}
+
     .glow-emerald {{
       box-shadow: 0 0 20px -3px rgba(16, 185, 129, 0.25);
     }}
     .glow-rose {{
       box-shadow: 0 0 20px -3px rgba(244, 63, 94, 0.25);
     }}
+    html.light .glow-emerald {{
+      box-shadow: 0 4px 15px -2px rgba(16, 185, 129, 0.2);
+    }}
+    html.light .glow-rose {{
+      box-shadow: 0 4px 15px -2px rgba(244, 63, 94, 0.2);
+    }}
+
+    .no-scrollbar::-webkit-scrollbar {{
+      display: none;
+    }}
+    .no-scrollbar {{
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }}
   </style>
 </head>
 <body class="bg-[#0b0f19] text-slate-100 min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
 
   <!-- Top Navigation Header -->
-  <header class="border-b border-slate-800/80 bg-[#0d1322]/90 backdrop-blur sticky top-0 z-40 px-4 sm:px-6 py-3.5">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3.5">
+  <header class="border-b border-slate-800/80 bg-[#0d1322]/90 backdrop-blur sticky top-0 z-40 px-3 sm:px-6 py-2.5 sm:py-3.5">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
       
       <!-- Brand & Back Button -->
-      <div class="flex items-center gap-3">
+      <div class="flex items-center justify-between sm:justify-start gap-3 w-full sm:w-auto">
         <a href="index.html" class="px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm" title="Zurück zur Marktübersicht">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -88,21 +247,43 @@ def generate_history_html():
           <span>Dashboard</span>
         </a>
 
-        <div class="h-6 w-px bg-slate-800"></div>
+        <div class="h-6 w-px bg-slate-800 hidden sm:block"></div>
 
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="font-bold text-base sm:text-lg tracking-tight text-white flex items-center gap-2">
-              <span>📜 Signal- & Benachrichtigungs-Historie</span>
+            <h1 class="font-bold text-sm sm:text-lg tracking-tight text-white flex items-center gap-1.5">
+              <span>📜 Signal-Historie</span>
             </h1>
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Nur bei Änderungen</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Live-Log</span>
           </div>
-          <p class="text-xs text-slate-400">Chronologisches Protokoll aller gesendeten iOS-Push-Alerts & KI-Einstufungswechsel</p>
+          <p class="hidden sm:block text-xs text-slate-400">Chronologisches Protokoll aller Push-Alerts & KI-Signalwechsel</p>
+        </div>
+
+        <!-- Mobile Theme Control -->
+        <div class="sm:hidden flex items-center">
+          <div class="inline-flex p-0.5 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs font-semibold shrink-0" role="group">
+            <button type="button" onclick="setThemeMode('auto')" id="theme-btn-auto-m" class="px-2 py-1 rounded-lg text-[10px] font-bold">⏰</button>
+            <button type="button" onclick="setThemeMode('light')" id="theme-btn-light-m" class="px-2 py-1 rounded-lg text-[10px] font-bold">☀️</button>
+            <button type="button" onclick="setThemeMode('dark')" id="theme-btn-dark-m" class="px-2 py-1 rounded-lg text-[10px] font-bold">🌙</button>
+          </div>
         </div>
       </div>
 
-      <!-- Controls -->
-      <div class="flex items-center gap-2">
+      <!-- Controls & Desktop Theme Switcher -->
+      <div class="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto">
+        <!-- Desktop Theme Switcher -->
+        <div class="hidden sm:inline-flex p-0.5 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs font-semibold shrink-0 shadow-sm" role="group">
+          <button type="button" onclick="setThemeMode('auto')" id="theme-btn-auto" class="px-2.5 py-1.5 rounded-lg transition active:scale-95 cursor-pointer text-[11px] font-bold" title="Automatisch nach Tageszeit">
+            <span>⏰</span><span class="ml-1">Auto</span>
+          </button>
+          <button type="button" onclick="setThemeMode('light')" id="theme-btn-light" class="px-2.5 py-1.5 rounded-lg transition active:scale-95 cursor-pointer text-[11px] font-bold" title="Heller Modus">
+            <span>☀️</span><span class="ml-1">Hell</span>
+          </button>
+          <button type="button" onclick="setThemeMode('dark')" id="theme-btn-dark" class="px-2.5 py-1.5 rounded-lg transition active:scale-95 cursor-pointer text-[11px] font-bold" title="Dunkler Modus">
+            <span>🌙</span><span class="ml-1">Dunkel</span>
+          </button>
+        </div>
+
         <button onclick="refreshHistory()" class="px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer">
           <svg id="refresh-icon" class="w-3.5 h-3.5 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -422,7 +603,92 @@ def generate_history_html():
         }});
     }}
 
+    // ==========================================
+    // 🎨 Theme Manager: Light / Dark Mode & Tageszeit-Automatik
+    // ==========================================
+    function getThemeMode() {{
+      return localStorage.getItem('tv_theme_mode') || 'auto';
+    }}
+
+    function computeEffectiveTheme(mode) {{
+      if (mode === 'light') return 'light';
+      if (mode === 'dark') return 'dark';
+      // 'auto': Tagmodus von 07:00 bis 19:00 Uhr
+      const hour = new Date().getHours();
+      return (hour >= 7 && hour < 19) ? 'light' : 'dark';
+    }}
+
+    function applyTheme(mode, persist = false) {{
+      if (persist) {{
+        localStorage.setItem('tv_theme_mode', mode);
+      }}
+      const effective = computeEffectiveTheme(mode);
+      const root = document.documentElement;
+
+      if (effective === 'light') {{
+        root.classList.remove('dark');
+        root.classList.add('light');
+      }} else {{
+        root.classList.remove('light');
+        root.classList.add('dark');
+      }}
+
+      // Dynamic theme-color for iOS / Android mobile browser chrome
+      const metaTheme = document.querySelector('meta[name="theme-color"]');
+      if (metaTheme) {{
+        metaTheme.setAttribute('content', effective === 'light' ? '#f8fafc' : '#0b0f19');
+      }}
+
+      updateThemeToggleUI(mode, effective);
+    }}
+
+    function updateThemeToggleUI(mode, effective) {{
+      const btnAuto = document.getElementById('theme-btn-auto');
+      const btnLight = document.getElementById('theme-btn-light');
+      const btnDark = document.getElementById('theme-btn-dark');
+
+      const btnAutoM = document.getElementById('theme-btn-auto-m');
+      const btnLightM = document.getElementById('theme-btn-light-m');
+      const btnDarkM = document.getElementById('theme-btn-dark-m');
+
+      const activeClass = 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/20';
+      const inactiveClass = 'text-slate-400 hover:text-white';
+
+      [btnAuto, btnLight, btnDark].forEach(btn => {{
+        if (!btn) return;
+        btn.className = 'px-2.5 py-1.5 rounded-lg transition active:scale-95 cursor-pointer text-[11px] font-bold ' + inactiveClass;
+      }});
+
+      [btnAutoM, btnLightM, btnDarkM].forEach(btn => {{
+        if (!btn) return;
+        btn.className = 'px-2 py-1 rounded-lg text-[10px] font-bold ' + inactiveClass;
+      }});
+
+      if (mode === 'auto') {{
+        if (btnAuto) btnAuto.className = 'px-2.5 py-1.5 rounded-lg transition active:scale-95 cursor-pointer text-[11px] font-bold ' + activeClass;
+        if (btnAutoM) btnAutoM.className = 'px-2 py-1 rounded-lg text-[10px] font-bold ' + activeClass;
+      }} else if (mode === 'light') {{
+        if (btnLight) btnLight.className = 'px-2.5 py-1.5 rounded-lg transition active:scale-95 cursor-pointer text-[11px] font-bold ' + activeClass;
+        if (btnLightM) btnLightM.className = 'px-2 py-1 rounded-lg text-[10px] font-bold ' + activeClass;
+      }} else if (mode === 'dark') {{
+        if (btnDark) btnDark.className = 'px-2.5 py-1.5 rounded-lg transition active:scale-95 cursor-pointer text-[11px] font-bold ' + activeClass;
+        if (btnDarkM) btnDarkM.className = 'px-2 py-1 rounded-lg text-[10px] font-bold ' + activeClass;
+      }}
+    }}
+
+    function setThemeMode(mode) {{
+      applyTheme(mode, true);
+    }}
+
+    setInterval(() => {{
+      const currentMode = getThemeMode();
+      if (currentMode === 'auto') {{
+        applyTheme('auto', false);
+      }}
+    }}, 60000);
+
     // Initial render
+    applyTheme(getThemeMode(), false);
     renderEvents(initialEvents);
   </script>
 </body>

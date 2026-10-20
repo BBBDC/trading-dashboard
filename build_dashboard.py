@@ -128,6 +128,25 @@ html_content = f"""<!DOCTYPE html>
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="manifest" href="manifest.json">
 
+  <!-- Immediate Theme Application to prevent FOUC / flickering -->
+  <script>
+    (function() {{
+      const saved = localStorage.getItem('tv_theme_mode') || 'auto';
+      let effective = saved;
+      if (saved === 'auto') {{
+        const hour = new Date().getHours();
+        effective = (hour >= 7 && hour < 19) ? 'light' : 'dark';
+      }}
+      if (effective === 'light') {{
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+      }} else {{
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+      }}
+    }})();
+  </script>
+
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -139,6 +158,168 @@ html_content = f"""<!DOCTYPE html>
     .font-mono {{
       font-family: 'JetBrains Mono', monospace;
     }}
+
+    /* =========================================================================
+       THEME SYSTEM: LIGHT & DARK MODE SUPPORT
+       ========================================================================= */
+    :root {{
+      --theme-name: dark;
+    }}
+    html.light {{
+      --theme-name: light;
+      color-scheme: light;
+    }}
+    html.dark {{
+      --theme-name: dark;
+      color-scheme: dark;
+    }}
+
+    /* Light Theme Palette & Overrides */
+    html.light body {{
+      background-color: #f8fafc !important;
+      color: #0f172a !important;
+    }}
+    html.light header {{
+      background-color: rgba(255, 255, 255, 0.95) !important;
+      border-color: #e2e8f0 !important;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    }}
+    html.light [class*="bg-[#0b0f19]"] {{
+      background-color: #f8fafc !important;
+    }}
+    html.light [class*="bg-[#0d1322]"],
+    html.light [class*="bg-[#0f172a]"] {{
+      background-color: #ffffff !important;
+    }}
+    html.light .bg-slate-900,
+    html.light [class*="bg-slate-900/"] {{
+      background-color: #ffffff !important;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+    }}
+    html.light .bg-slate-950,
+    html.light [class*="bg-slate-950/"] {{
+      background-color: #f1f5f9 !important;
+    }}
+    html.light .bg-slate-800,
+    html.light [class*="bg-slate-800/"] {{
+      background-color: #f1f5f9 !important;
+      color: #334155 !important;
+    }}
+    html.light .bg-slate-700,
+    html.light [class*="bg-slate-700/"] {{
+      background-color: #e2e8f0 !important;
+      color: #1e293b !important;
+    }}
+    html.light .border-slate-800,
+    html.light [class*="border-slate-800/"],
+    html.light .border-slate-700,
+    html.light [class*="border-slate-700/"] {{
+      border-color: #e2e8f0 !important;
+    }}
+
+    /* Light Mode Typography */
+    html.light .text-white {{
+      color: #0f172a !important;
+    }}
+    html.light .text-slate-100,
+    html.light .text-slate-200 {{
+      color: #1e293b !important;
+    }}
+    html.light .text-slate-300 {{
+      color: #334155 !important;
+    }}
+    html.light .text-slate-400 {{
+      color: #64748b !important;
+    }}
+    html.light .text-slate-500 {{
+      color: #94a3b8 !important;
+    }}
+
+    /* Status & Badges in Light Mode */
+    html.light .text-emerald-400,
+    html.light .text-emerald-300 {{
+      color: #059669 !important;
+    }}
+    html.light .text-rose-400,
+    html.light .text-rose-300 {{
+      color: #e11d48 !important;
+    }}
+    html.light .text-indigo-400,
+    html.light .text-indigo-300,
+    html.light .text-indigo-200 {{
+      color: #4f46e5 !important;
+    }}
+    html.light .text-cyan-400 {{
+      color: #0891b2 !important;
+    }}
+    html.light .text-amber-400,
+    html.light .text-amber-300 {{
+      color: #d97706 !important;
+    }}
+
+    html.light [class*="bg-emerald-500/"],
+    html.light [class*="bg-emerald-600/"] {{
+      background-color: #ecfdf5 !important;
+      border-color: #a7f3d0 !important;
+      color: #047857 !important;
+    }}
+    html.light [class*="bg-rose-500/"] {{
+      background-color: #fff1f2 !important;
+      border-color: #fecdd3 !important;
+      color: #be123c !important;
+    }}
+    html.light [class*="bg-indigo-500/"],
+    html.light [class*="bg-indigo-600/"],
+    html.light [class*="bg-indigo-950/"] {{
+      background-color: #eef2ff !important;
+      border-color: #c7d2fe !important;
+      color: #4338ca !important;
+    }}
+
+    /* Gradients in Light Mode */
+    html.light [class*="from-emerald-950"] {{
+      background-image: linear-gradient(to bottom right, #f0fdf4, #ffffff, #ffffff) !important;
+    }}
+    html.light [class*="from-indigo-950"] {{
+      background-image: linear-gradient(to bottom right, #eef2ff, #ffffff, #ffffff) !important;
+    }}
+    html.light [class*="from-slate-900"] {{
+      background-image: linear-gradient(to bottom right, #ffffff, #f8fafc) !important;
+    }}
+
+    /* Modals in Light Mode */
+    html.light #quota-modal,
+    html.light #positions-modal,
+    html.light #alerts-modal,
+    html.light #hypotheses-modal,
+    html.light #detail-modal {{
+      background-color: rgba(15, 23, 42, 0.65) !important;
+    }}
+    html.light #quota-modal > div,
+    html.light #positions-modal > div,
+    html.light #alerts-modal > div,
+    html.light #hypotheses-modal > div,
+    html.light #detail-modal > div {{
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      color: #0f172a !important;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+    }}
+    html.light #quota-modal .border-slate-800,
+    html.light #positions-modal .border-slate-800,
+    html.light #alerts-modal .border-slate-800,
+    html.light #hypotheses-modal .border-slate-800,
+    html.light #detail-modal .border-slate-800 {{
+      border-color: #e2e8f0 !important;
+    }}
+    html.light input[type="text"],
+    html.light input[type="number"],
+    html.light select {{
+      background-color: #f8fafc !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }}
+
     /* Custom Scrollbar */
     ::-webkit-scrollbar {{
       width: 8px;
@@ -154,11 +335,41 @@ html_content = f"""<!DOCTYPE html>
     ::-webkit-scrollbar-thumb:hover {{
       background: #475569;
     }}
+    html.light ::-webkit-scrollbar-track {{
+      background: #f1f5f9;
+    }}
+    html.light ::-webkit-scrollbar-thumb {{
+      background: #cbd5e1;
+    }}
+    html.light ::-webkit-scrollbar-thumb:hover {{
+      background: #94a3b8;
+    }}
+
     .glow-emerald {{
       box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.3);
     }}
     .glow-rose {{
       box-shadow: 0 0 25px -5px rgba(244, 63, 94, 0.3);
+    }}
+    html.light .glow-emerald {{
+      box-shadow: 0 4px 20px -2px rgba(16, 185, 129, 0.2);
+    }}
+    html.light .glow-rose {{
+      box-shadow: 0 4px 20px -2px rgba(244, 63, 94, 0.2);
+    }}
+
+    /* Mobile Utilities & Touch Enhancements */
+    .no-scrollbar::-webkit-scrollbar {{
+      display: none;
+    }}
+    .no-scrollbar {{
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }}
+    @media (max-width: 640px) {{
+      input, select, textarea {{
+        font-size: 16px !important; /* Prevents iOS auto-zoom on input focus */
+      }}
     }}
   </style>
 </head>
@@ -174,7 +385,7 @@ html_content = f"""<!DOCTYPE html>
     </div>
   </div>
 
-  <!-- Toast Notification Notification Banner -->
+  <!-- Toast Notification Banner -->
   <div id="toast-banner" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
     <div class="px-4 py-3 rounded-xl bg-slate-900/95 border border-emerald-500/50 text-white text-xs font-semibold shadow-2xl flex items-center gap-2 backdrop-blur-md">
       <span class="text-emerald-400 text-base">✓</span>
@@ -183,112 +394,137 @@ html_content = f"""<!DOCTYPE html>
   </div>
 
   <!-- Top Navigation Header -->
-  <header class="border-b border-slate-800/80 bg-[#0d1322]/90 backdrop-blur sticky top-0 z-40 px-4 sm:px-6 py-3.5">
-    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3.5">
+  <header class="border-b border-slate-800/80 bg-[#0d1322]/90 backdrop-blur sticky top-0 z-40 px-3 sm:px-6 py-2.5 sm:py-3.5">
+    <div class="max-w-7xl mx-auto flex flex-col gap-3">
       
-      <!-- Brand & Title -->
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-slate-900 border border-indigo-500/40 p-1 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-          <img src="icons/favicon.svg" alt="TV" class="w-8 h-8">
+      <!-- Top Row: Brand & Theme Mode Switcher -->
+      <div class="flex items-center justify-between gap-3">
+        
+        <!-- Brand & Engine Badge -->
+        <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-900 border border-indigo-500/40 p-1 flex items-center justify-center shadow-lg shadow-indigo-500/20 shrink-0">
+            <img src="icons/favicon.svg" alt="TV" class="w-7 h-7 sm:w-8 sm:h-8">
+          </div>
+          <div class="min-w-0">
+            <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+              <h1 class="font-bold text-base sm:text-lg tracking-tight text-white truncate">Super-Analyst</h1>
+              <span class="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">24/7 Pi</span>
+              <span class="hidden md:inline-flex px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-500/15 text-indigo-200 border border-indigo-500/30 items-center gap-1.5 shadow-sm">
+                <span class="w-1.5 h-1.5 rounded-full {engine_dot_class}"></span>
+                <span class="text-slate-400">KI:</span>
+                <span class="font-bold text-white">{engine_display}</span>
+              </span>
+              <button onclick="openQuotaModal()" class="inline-flex px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold {quota_badge_class} items-center gap-1 shadow-sm cursor-pointer transition active:scale-95 shrink-0" title="Google AI Studio API-Key Kontingent & Status">
+                <span>🔑</span>
+                <span>Quota: <strong class="{quota_num_class}">{quota_used}/{quota_limit}</strong></span>
+                <span class="hidden sm:inline text-[9px] opacity-80">· {quota_status_text}</span>
+              </button>
+            </div>
+            <p class="hidden sm:block text-[11px] text-slate-400 mt-0.5">Multi-Timeframe Confluence (4h · 8h · 1D) | SMC · Wyckoff VSA · RSI Divs</p>
+          </div>
         </div>
-        <div>
-          <div class="flex flex-wrap items-center gap-2">
-            <h1 class="font-bold text-lg sm:text-xl tracking-tight text-white">Super-Analyst Dashboard</h1>
-            <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">24/7 Raspberry Pi</span>
-            <span class="inline-flex px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-indigo-500/15 text-indigo-200 border border-indigo-500/30 items-center gap-1.5 shadow-sm" title="Aktive Analyse-Engine: Gemini 3.8 Flash über Nutzer-API-Key">
-              <span class="w-2 h-2 rounded-full {engine_dot_class}"></span>
-              <span class="text-slate-400">KI:</span>
-              <span class="font-bold text-white">{engine_display}</span>
-            </span>
-            <button onclick="openQuotaModal()" class="inline-flex px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold {quota_badge_class} items-center gap-1.5 shadow-sm cursor-pointer transition active:scale-95" title="Google AI Studio API-Key Kontingent & Status anzeigen">
-              <span>🔑</span>
-              <span>Quota: <strong class="{quota_num_class}">{quota_used}/{quota_limit}</strong> ({quota_pct}%)</span>
-              <span class="text-[9px] opacity-80">· {quota_status_text}</span>
+
+        <!-- Right Side: Segmented Theme Control (Auto/Tageszeit, Hell, Dunkel) -->
+        <div class="flex items-center gap-2 shrink-0">
+          <div class="inline-flex p-0.5 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs font-semibold shrink-0 shadow-sm" id="theme-segmented-control" role="group" aria-label="Theme Modus">
+            <button type="button" onclick="setThemeMode('auto')" id="theme-btn-auto" class="px-2 py-1 rounded-lg transition active:scale-95 cursor-pointer text-[10px] sm:text-[11px] font-bold" title="Automatisch nach Tageszeit (07:00-19:00 Hell, danach Dunkel)">
+              <span>⏰</span><span class="ml-1 hidden xs:inline sm:inline">Auto</span>
+            </button>
+            <button type="button" onclick="setThemeMode('light')" id="theme-btn-light" class="px-2 py-1 rounded-lg transition active:scale-95 cursor-pointer text-[10px] sm:text-[11px] font-bold" title="Heller Modus dauerhaft aktiv">
+              <span>☀️</span><span class="ml-1 hidden xs:inline sm:inline">Hell</span>
+            </button>
+            <button type="button" onclick="setThemeMode('dark')" id="theme-btn-dark" class="px-2 py-1 rounded-lg transition active:scale-95 cursor-pointer text-[10px] sm:text-[11px] font-bold" title="Dunkler Modus dauerhaft aktiv">
+              <span>🌙</span><span class="ml-1 hidden xs:inline sm:inline">Dunkel</span>
             </button>
           </div>
-          <p class="text-xs text-slate-400 mt-1">Multi-Timeframe Confluence (4h · 8h · 1D) | SMC · Wyckoff VSA · RSI Divs · Golden Pocket</p>
         </div>
+
       </div>
 
-      <!-- Action & Metrics Controls -->
-      <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      <!-- Action & Navigation Bar: Smooth Horizontal Swipe on Mobile -->
+      <div class="flex items-center justify-between gap-2 pt-1 border-t border-slate-800/60 overflow-hidden">
         
-        <!-- Next Scan Live Countdown Timer -->
-        <div class="px-3 py-1.5 rounded-xl bg-indigo-950/40 border border-indigo-500/30 flex items-center gap-2 shadow-sm" title="Scanzyklus: alle 4 Stunden (01:05, 05:05, 09:05, 13:05, 17:05, 21:05 UTC)">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-          </span>
-          <div class="flex flex-col">
-            <span class="text-[9px] uppercase font-semibold tracking-wider text-slate-400 leading-none">Nächster Scan:</span>
-            <span class="font-mono font-bold text-xs text-indigo-300 leading-tight mt-0.5" id="next-scan-countdown">Berechne...</span>
+        <!-- Navigation Buttons Strip (Horizontal Scroll on Mobile) -->
+        <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-1 shrink min-w-0 touch-pan-x">
+          
+          <!-- Next Scan Live Countdown Timer -->
+          <div class="px-2.5 py-1.5 rounded-xl bg-indigo-950/40 border border-indigo-500/30 flex items-center gap-1.5 shadow-sm shrink-0" title="Scanzyklus: alle 4 Stunden">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+            </span>
+            <div class="flex items-baseline gap-1">
+              <span class="text-[9px] uppercase font-semibold text-slate-400">Scan:</span>
+              <span class="font-mono font-bold text-xs text-indigo-300 leading-tight" id="next-scan-countdown">--:--</span>
+            </div>
           </div>
+
+          <!-- Manual Refresh Button -->
+          <button id="btn-manual-refresh" onclick="triggerManualRefresh()" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer shrink-0" title="Jetzt manuell aktualisieren">
+            <svg id="refresh-icon" class="w-3.5 h-3.5 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            <span id="refresh-label">Refresh</span>
+          </button>
+
+          <!-- KI-Portfolio Jump Button -->
+          <a href="#portfolio-section" class="px-2.5 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-xs font-semibold text-emerald-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer shrink-0">
+            <span>🏛️</span>
+            <span>Portfolio</span>
+          </a>
+
+          <!-- Meine Positionen Jump Button -->
+          <a href="#user-positions-section" class="px-2.5 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer shrink-0">
+            <span>👤</span>
+            <span class="whitespace-nowrap">Positionen</span>
+          </a>
+
+          <!-- Signal-Historie Link Button -->
+          <a href="history.html" class="px-2.5 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer shrink-0">
+            <span>📜</span>
+            <span>Historie</span>
+          </a>
+
+          <!-- iOS Alerts Info Button -->
+          <button onclick="openAlertsModal()" class="px-2.5 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer shrink-0">
+            <span>🔔</span>
+            <span>Alerts</span>
+          </button>
+
+          <!-- Hypothesen Guide Info Button -->
+          <button onclick="openHypothesesModal()" class="px-2.5 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer shrink-0">
+            <span>💡</span>
+            <span>Guide</span>
+          </button>
+
+          <!-- API Quota Info Button -->
+          <button onclick="openQuotaModal()" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-xs font-semibold text-slate-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer shrink-0">
+            <span>🔑</span>
+            <span>Pool</span>
+          </button>
+
         </div>
 
-        <!-- Manual Refresh Button -->
-        <button id="btn-manual-refresh" onclick="triggerManualRefresh()" class="px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer" title="Jetzt aktualisieren oder am Handy nach unten ziehen">
-          <svg id="refresh-icon" class="w-3.5 h-3.5 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-          </svg>
-          <span id="refresh-label">Refresh</span>
-        </button>
-
-        <!-- iOS Alerts Info Button -->
-        <button onclick="openAlertsModal()" class="px-3 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer" title="iOS Lockscreen Push-Alerts">
-          <span class="text-sm">🔔</span>
-          <span class="hidden sm:inline">iOS Alerts</span>
-        </button>
-
-        <!-- Hypothesen Guide Info Button -->
-        <button onclick="openHypothesesModal()" class="px-3 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer" title="Setup-Hypothesen & Trade-Plan Guide">
-          <span class="text-sm">💡</span>
-          <span class="hidden sm:inline">Hypothesen-Guide</span>
-        </button>
-
-        <!-- KI-Portfolio Jump Button -->
-        <a href="#portfolio-section" class="px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-xs font-semibold text-emerald-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer" title="Autonomes Modell-Portfolio & Gedächtnis">
-          <span class="text-sm">🏛️</span>
-          <span class="hidden sm:inline">KI-Portfolio</span>
-        </a>
-
-        <!-- Meine Positionen Jump Button -->
-        <a href="#user-positions-section" class="px-3 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer" title="Eigene Positionen eintragen & tracken">
-          <span class="text-sm">👤</span>
-          <span class="hidden sm:inline">Meine Positionen</span>
-        </a>
-
-        <!-- Signal-Historie Link Button -->
-        <a href="history.html" class="px-3 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer" title="Signal- & Benachrichtigungs-Historie">
-          <span class="text-sm">📜</span>
-          <span class="hidden sm:inline">Historie</span>
-        </a>
-
-        <!-- API Quota Info Button -->
-        <button onclick="openQuotaModal()" class="px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-xs font-semibold text-slate-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer" title="Google Gemini API-Key Quota & Status">
-          <span class="text-sm">🔑</span>
-          <span class="hidden sm:inline">API-Quota</span>
-        </button>
-
-        <!-- Quick Metrics -->
-        <div class="flex items-center gap-1.5 sm:gap-2">
-          <div class="px-2.5 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/50 flex items-center gap-1.5" title="Gesamt gescannte Werte">
-            <span class="text-[11px] text-slate-400">Total:</span>
-            <span class="font-mono font-bold text-xs text-white" id="stat-total">{db_data.get('total_analyzed', 0)}</span>
+        <!-- Quick Metrics Counter -->
+        <div class="flex items-center gap-1 sm:gap-1.5 shrink-0 pl-1 border-l border-slate-800/60">
+          <div class="px-2 py-1 rounded-lg bg-slate-800/60 border border-slate-700/50 flex items-center gap-1 text-[11px]" title="Gesamt">
+            <span class="text-slate-400 hidden sm:inline">Tot:</span>
+            <span class="font-mono font-bold text-white" id="stat-total">{db_data.get('total_analyzed', 0)}</span>
           </div>
-          <div class="px-2.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-1.5" title="High-Conviction Longs">
+          <div class="px-2 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-1 text-[11px]" title="Longs">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span class="text-[11px] text-emerald-300">L:</span>
-            <span class="font-mono font-bold text-xs text-emerald-400" id="stat-long">{db_data.get('long_count', 0)}</span>
+            <span class="text-emerald-300 hidden sm:inline">L:</span>
+            <span class="font-mono font-bold text-emerald-400" id="stat-long">{db_data.get('long_count', 0)}</span>
           </div>
-          <div class="px-2.5 py-1.5 rounded-lg bg-rose-500/10 border border-rose-500/30 flex items-center gap-1.5" title="Short / Erschöpfung">
+          <div class="px-2 py-1 rounded-lg bg-rose-500/10 border border-rose-500/30 flex items-center gap-1 text-[11px]" title="Shorts">
             <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
-            <span class="text-[11px] text-rose-300">S:</span>
+            <span class="text-rose-300 hidden sm:inline">S:</span>
             <span class="font-mono font-bold text-xs text-rose-400" id="stat-short">{db_data.get('short_count', 0)}</span>
           </div>
-          <div class="px-2.5 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/50 flex items-center gap-1.5" title="Neutral / Watchlist">
+          <div class="hidden sm:flex px-2 py-1 rounded-lg bg-slate-800/60 border border-slate-700/50 items-center gap-1 text-[11px]" title="Neutral">
             <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
-            <span class="text-[11px] text-slate-400">N:</span>
-            <span class="font-mono font-bold text-xs text-slate-300" id="stat-neutral">{db_data.get('neutral_count', 0)}</span>
+            <span class="text-slate-400">N:</span>
+            <span class="font-mono font-bold text-slate-300" id="stat-neutral">{db_data.get('neutral_count', 0)}</span>
           </div>
         </div>
 
@@ -637,8 +873,8 @@ html_content = f"""<!DOCTYPE html>
   </main>
 
   <!-- Multi-Timeframe Inspection Modal -->
-  <div id="detail-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-[#0f172a] border border-slate-700/80 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 space-y-6">
+  <div id="detail-modal" onclick="if(event.target === this) closeDetailModal()" ontouchend="if(event.target === this) {{ event.preventDefault(); closeDetailModal(); }}" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+    <div class="bg-[#0f172a] border border-slate-700/80 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-4 sm:p-6 space-y-5 my-auto">
       
       <!-- Modal Header -->
       <div class="flex items-start justify-between pb-4 border-b border-slate-800">
@@ -655,7 +891,7 @@ html_content = f"""<!DOCTYPE html>
             </button>
           </div>
         </div>
-        <button onclick="closeDetailModal()" class="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition">
+        <button onclick="closeDetailModal()" aria-label="Schließen" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer text-lg font-bold">
           ✕
         </button>
       </div>
@@ -1237,10 +1473,13 @@ html_content = f"""<!DOCTYPE html>
       document.getElementById('modal-tv-link').href = `https://www.tradingview.com/chart/?symbol=${{encodeURIComponent(a.symbol)}}`;
 
       document.getElementById('detail-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
     }}
 
     function closeDetailModal() {{
-      document.getElementById('detail-modal').classList.add('hidden');
+      const m = document.getElementById('detail-modal');
+      if (m) m.classList.add('hidden');
+      if (!isAnyModalOpen()) document.body.style.overflow = '';
     }}
 
     // ==========================================
@@ -1248,12 +1487,16 @@ html_content = f"""<!DOCTYPE html>
     // ==========================================
     function openAlertsModal() {{
       const m = document.getElementById('alerts-modal');
-      if (m) m.classList.remove('hidden');
+      if (m) {{
+        m.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }}
     }}
 
     function closeAlertsModal() {{
       const m = document.getElementById('alerts-modal');
       if (m) m.classList.add('hidden');
+      if (!isAnyModalOpen()) document.body.style.overflow = '';
     }}
 
     // ==========================================
@@ -1263,6 +1506,7 @@ html_content = f"""<!DOCTYPE html>
       const m = document.getElementById('hypotheses-modal');
       if (m) {{
         m.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
         if (highlight) {{
           const hStr = String(highlight);
           if (hStr.includes('Hypothese 1') || hStr.includes('Reversal')) filterHypothesisModal('h1');
@@ -1278,6 +1522,7 @@ html_content = f"""<!DOCTYPE html>
     function closeHypothesesModal() {{
       const m = document.getElementById('hypotheses-modal');
       if (m) m.classList.add('hidden');
+      if (!isAnyModalOpen()) document.body.style.overflow = '';
     }}
 
     function filterHypothesisModal(mode) {{
@@ -1415,6 +1660,10 @@ html_content = f"""<!DOCTYPE html>
       const pullText = document.getElementById('pull-text');
 
       window.addEventListener('touchstart', (e) => {{
+        if (isAnyModalOpen()) {{
+          isPulling = false;
+          return;
+        }}
         if (window.scrollY === 0) {{
           startY = e.touches[0].clientY;
           isPulling = true;
@@ -1812,11 +2061,13 @@ html_content = f"""<!DOCTYPE html>
       }}
 
       m.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
     }}
 
     function closePositionsModal() {{
       const m = document.getElementById('positions-modal');
       if (m) m.classList.add('hidden');
+      if (!isAnyModalOpen()) document.body.style.overflow = '';
     }}
 
     function selectPosDirection(dir) {{
@@ -2007,22 +2258,124 @@ html_content = f"""<!DOCTYPE html>
       showToast('Position entfernt.');
     }}
 
+    // Modal Management Helpers
+    function isAnyModalOpen() {{
+      const ids = ['quota-modal', 'positions-modal', 'detail-modal', 'alerts-modal', 'hypotheses-modal'];
+      return ids.some(id => {{
+        const el = document.getElementById(id);
+        return el && !el.classList.contains('hidden');
+      }});
+    }}
+
+    function closeAllModals() {{
+      ['quota-modal', 'positions-modal', 'detail-modal', 'alerts-modal', 'hypotheses-modal'].forEach(id => {{
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+      }});
+      document.body.style.overflow = '';
+    }}
+
+    window.addEventListener('keydown', (e) => {{
+      if (e.key === 'Escape') closeAllModals();
+    }});
+
     // Quota Modal Funktionen
     function openQuotaModal() {{
       const m = document.getElementById('quota-modal');
-      if (m) m.classList.remove('hidden');
+      if (m) {{
+        m.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }}
     }}
 
     function closeQuotaModal() {{
       const m = document.getElementById('quota-modal');
       if (m) m.classList.add('hidden');
+      if (!isAnyModalOpen()) document.body.style.overflow = '';
     }}
+
+    // ==========================================
+    // 🎨 Theme Manager: Light / Dark Mode & Tageszeit-Automatik
+    // ==========================================
+    function getThemeMode() {{
+      return localStorage.getItem('tv_theme_mode') || 'auto';
+    }}
+
+    function computeEffectiveTheme(mode) {{
+      if (mode === 'light') return 'light';
+      if (mode === 'dark') return 'dark';
+      // 'auto': Tagmodus von 07:00 bis 19:00 Uhr
+      const hour = new Date().getHours();
+      return (hour >= 7 && hour < 19) ? 'light' : 'dark';
+    }}
+
+    function applyTheme(mode, persist = false) {{
+      if (persist) {{
+        localStorage.setItem('tv_theme_mode', mode);
+      }}
+      const effective = computeEffectiveTheme(mode);
+      const root = document.documentElement;
+
+      if (effective === 'light') {{
+        root.classList.remove('dark');
+        root.classList.add('light');
+      }} else {{
+        root.classList.remove('light');
+        root.classList.add('dark');
+      }}
+
+      // Dynamic theme-color for iOS / Android mobile browser chrome
+      const metaTheme = document.querySelector('meta[name="theme-color"]');
+      if (metaTheme) {{
+        metaTheme.setAttribute('content', effective === 'light' ? '#f8fafc' : '#0b0f19');
+      }}
+
+      updateThemeToggleUI(mode, effective);
+    }}
+
+    function updateThemeToggleUI(mode, effective) {{
+      const btnAuto = document.getElementById('theme-btn-auto');
+      const btnLight = document.getElementById('theme-btn-light');
+      const btnDark = document.getElementById('theme-btn-dark');
+
+      const activeClass = 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/20';
+      const inactiveClass = 'text-slate-400 hover:text-white';
+
+      [btnAuto, btnLight, btnDark].forEach(btn => {{
+        if (!btn) return;
+        btn.className = 'px-2 py-1 rounded-lg transition active:scale-95 cursor-pointer text-[10px] sm:text-[11px] font-bold ' + inactiveClass;
+      }});
+
+      if (mode === 'auto' && btnAuto) {{
+        btnAuto.className = 'px-2 py-1 rounded-lg transition active:scale-95 cursor-pointer text-[10px] sm:text-[11px] font-bold ' + activeClass;
+        btnAuto.innerHTML = `<span>⏰</span><span class="ml-1 hidden xs:inline sm:inline">Auto (${{effective === 'light' ? 'Tag' : 'Nacht'}})</span>`;
+      }} else if (mode === 'light' && btnLight) {{
+        btnLight.className = 'px-2 py-1 rounded-lg transition active:scale-95 cursor-pointer text-[10px] sm:text-[11px] font-bold ' + activeClass;
+      }} else if (mode === 'dark' && btnDark) {{
+        btnDark.className = 'px-2 py-1 rounded-lg transition active:scale-95 cursor-pointer text-[10px] sm:text-[11px] font-bold ' + activeClass;
+      }}
+    }}
+
+    function setThemeMode(mode) {{
+      applyTheme(mode, true);
+      const label = mode === 'auto' ? 'Automatisch an Tageszeit angepasst' : (mode === 'light' ? 'Heller Modus aktiviert' : 'Dunkler Modus aktiviert');
+      if (typeof showToast === 'function') showToast(label);
+    }}
+
+    // Check daylight every 60s if in auto mode
+    setInterval(() => {{
+      const currentMode = getThemeMode();
+      if (currentMode === 'auto') {{
+        applyTheme('auto', false);
+      }}
+    }}, 60000);
 
     // Initial render
     updateStats();
     applyFilters();
     renderPortfolioSection();
     renderUserPositions();
+    applyTheme(getThemeMode(), false);
 
     // Deep-Link aus Historie (?asset=SYMBOL oder ?symbol=SYMBOL)
     const urlParams = new URLSearchParams(window.location.search);
@@ -2035,11 +2388,11 @@ html_content = f"""<!DOCTYPE html>
   </script>
 
   <!-- User Positions Modal -->
-  <div id="positions-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="max-w-md w-full rounded-2xl bg-[#0d1322] border border-indigo-500/40 p-6 shadow-2xl relative text-slate-200 space-y-4">
-      <div class="flex items-start justify-between pb-3 border-b border-slate-800">
+  <div id="positions-modal" onclick="if(event.target === this) closePositionsModal()" ontouchend="if(event.target === this) {{ event.preventDefault(); closePositionsModal(); }}" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+    <div class="max-w-md w-full max-h-[88vh] flex flex-col rounded-2xl bg-[#0d1322] border border-indigo-500/40 shadow-2xl relative text-slate-200 my-auto overflow-hidden">
+      <div class="flex items-center justify-between p-4 sm:p-5 pb-3 border-b border-slate-800 bg-[#0d1322] shrink-0">
         <div class="flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-lg">
+          <div class="w-9 h-9 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-lg shrink-0">
             👤
           </div>
           <div>
@@ -2047,10 +2400,10 @@ html_content = f"""<!DOCTYPE html>
             <p class="text-xs text-slate-400">Wird mit 24/7 Live-Indikatoren überwacht</p>
           </div>
         </div>
-        <button onclick="closePositionsModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition">✕</button>
+        <button onclick="closePositionsModal()" aria-label="Schließen" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer text-lg font-bold">✕</button>
       </div>
 
-      <form id="position-form" onsubmit="saveUserPosition(event)" class="space-y-3.5 text-xs">
+      <form id="position-form" onsubmit="saveUserPosition(event)" class="p-4 sm:p-5 overflow-y-auto space-y-3.5 text-xs flex-1 overscroll-contain">
         <div>
           <label class="block text-slate-400 font-semibold mb-1">Asset / Symbol auswählen:</label>
           <select id="pos-symbol-select" onchange="onAssetSelectChange()" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700/80 text-white font-mono focus:outline-none focus:border-indigo-500">
@@ -2089,21 +2442,21 @@ html_content = f"""<!DOCTYPE html>
           <label class="block text-slate-400 font-semibold mb-1">Optionale Notiz:</label>
           <input type="text" id="pos-note" placeholder="z.B. Ausbruch über 1D Golden Pocket" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700/80 text-white focus:outline-none focus:border-indigo-500">
         </div>
-
-        <div class="pt-2 flex items-center justify-end gap-2.5">
-          <button type="button" onclick="closePositionsModal()" class="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 font-semibold transition">Abbrechen</button>
-          <button type="submit" class="px-5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-lg shadow-indigo-600/30">Speichern & Tracken</button>
-        </div>
       </form>
+
+      <div class="p-3 sm:p-4 border-t border-slate-800 bg-[#0d1322] flex items-center justify-end gap-2.5 shrink-0">
+        <button type="button" onclick="closePositionsModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 font-semibold transition cursor-pointer active:scale-95 text-xs">Abbrechen</button>
+        <button type="submit" form="position-form" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-lg shadow-indigo-600/30 cursor-pointer active:scale-95 text-xs">Speichern & Tracken</button>
+      </div>
     </div>
   </div>
 
   <!-- API Quota Modal -->
-  <div id="quota-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="max-w-lg w-full rounded-2xl bg-[#0d1322] border border-indigo-500/40 p-6 shadow-2xl relative text-slate-200 space-y-4">
-      <div class="flex items-start justify-between pb-3 border-b border-slate-800">
+  <div id="quota-modal" onclick="if(event.target === this) closeQuotaModal()" ontouchend="if(event.target === this) {{ event.preventDefault(); closeQuotaModal(); }}" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+    <div class="max-w-lg w-full max-h-[88vh] flex flex-col rounded-2xl bg-[#0d1322] border border-indigo-500/40 shadow-2xl relative text-slate-200 my-auto overflow-hidden">
+      <div class="flex items-center justify-between p-4 sm:p-5 pb-3 border-b border-slate-800 bg-[#0d1322] shrink-0">
         <div class="flex items-center gap-2.5">
-          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-xl">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-xl shrink-0">
             🔑
           </div>
           <div>
@@ -2111,10 +2464,10 @@ html_content = f"""<!DOCTYPE html>
             <p class="text-xs text-slate-400">Intelligentes Multi-Key Management & Failover</p>
           </div>
         </div>
-        <button onclick="closeQuotaModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition">✕</button>
+        <button onclick="closeQuotaModal()" aria-label="Schließen" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer text-lg font-bold">✕</button>
       </div>
 
-      <div class="space-y-3.5 text-xs">
+      <div class="p-4 sm:p-5 overflow-y-auto space-y-3.5 text-xs flex-1 overscroll-contain">
         <div class="grid grid-cols-2 gap-2.5">
           <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
             <span class="text-[10px] text-slate-400 block font-semibold">Aktives KI-Modell</span>
@@ -2168,29 +2521,29 @@ html_content = f"""<!DOCTYPE html>
         </div>
       </div>
 
-      <div class="pt-2 flex justify-end">
-        <button onclick="closeQuotaModal()" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition cursor-pointer">Schließen</button>
+      <div class="p-3 sm:p-4 border-t border-slate-800 bg-[#0d1322] flex items-center justify-end shrink-0">
+        <button onclick="closeQuotaModal()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition cursor-pointer text-center active:scale-95">Schließen</button>
       </div>
     </div>
   </div>
 
   <!-- iOS Alerts Info Modal -->
-  <div id="alerts-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="max-w-lg w-full rounded-2xl bg-[#0d1322] border border-indigo-500/40 p-6 shadow-2xl relative text-slate-200">
-      <div class="flex items-start justify-between pb-4 border-b border-slate-800">
+  <div id="alerts-modal" onclick="if(event.target === this) closeAlertsModal()" ontouchend="if(event.target === this) {{ event.preventDefault(); closeAlertsModal(); }}" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+    <div class="max-w-lg w-full max-h-[88vh] flex flex-col rounded-2xl bg-[#0d1322] border border-indigo-500/40 shadow-2xl relative text-slate-200 my-auto overflow-hidden">
+      <div class="flex items-center justify-between p-4 sm:p-5 pb-3 border-b border-slate-800 bg-[#0d1322] shrink-0">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-xl">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-xl shrink-0">
             🔔
           </div>
           <div>
-            <h3 class="font-bold text-lg text-white">iOS Lockscreen Alerts</h3>
+            <h3 class="font-bold text-base sm:text-lg text-white">iOS Lockscreen Alerts</h3>
             <p class="text-xs text-slate-400">Push-Benachrichtigungen direkt auf dein iPhone</p>
           </div>
         </div>
-        <button onclick="closeAlertsModal()" class="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition">✕</button>
+        <button onclick="closeAlertsModal()" aria-label="Schließen" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer text-lg font-bold">✕</button>
       </div>
 
-      <div class="mt-4 space-y-4 text-xs leading-relaxed">
+      <div class="p-4 sm:p-5 overflow-y-auto space-y-4 text-xs leading-relaxed flex-1 overscroll-contain">
         <p class="text-slate-300">
           Du kannst dir bei jedem automatischen 4h-Scan (und bei Top A+ Setups &ge; 90%) sofort eine echte iOS-Push-Mitteilung mit Ton und Sperrbildschirm-Vorschau auf dein iPhone senden lassen.
         </p>
@@ -2210,37 +2563,37 @@ html_content = f"""<!DOCTYPE html>
         </div>
       </div>
 
-      <div class="mt-5 flex items-center justify-end gap-2 pt-3 border-t border-slate-800">
-        <button onclick="closeAlertsModal()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition">
-          Verstanden
+      <div class="p-3 sm:p-4 border-t border-slate-800 bg-[#0d1322] flex items-center justify-end shrink-0">
+        <button onclick="closeAlertsModal()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition cursor-pointer active:scale-95 text-center">
+          Verstanden & Schließen
         </button>
       </div>
     </div>
   </div>
 
   <!-- Setup Hypotheses Guide Modal -->
-  <div id="hypotheses-modal" onclick="if(event.target === this) closeHypothesesModal()" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-5">
-    <div class="max-w-3xl w-full max-h-[92vh] overflow-y-auto rounded-2xl bg-[#0d1322] border border-indigo-500/40 p-5 sm:p-6 shadow-2xl relative text-slate-200 space-y-5">
+  <div id="hypotheses-modal" onclick="if(event.target === this) closeHypothesesModal()" ontouchend="if(event.target === this) {{ event.preventDefault(); closeHypothesesModal(); }}" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-5 overflow-y-auto">
+    <div class="max-w-3xl w-full max-h-[90vh] flex flex-col rounded-2xl bg-[#0d1322] border border-indigo-500/40 shadow-2xl relative text-slate-200 my-auto overflow-hidden">
       
       <!-- Modal Header -->
-      <div class="flex items-start justify-between pb-4 border-b border-slate-800">
+      <div class="flex items-center justify-between p-4 sm:p-5 pb-3 border-b border-slate-800 bg-[#0d1322] shrink-0">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-xl shrink-0">
             💡
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h3 class="font-bold text-lg text-white">Setup-Hypothesen & Trade-Plan Guide</h3>
+              <h3 class="font-bold text-base sm:text-lg text-white">Setup-Hypothesen & Trade-Plan Guide</h3>
               <span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Strategy Rules</span>
             </div>
             <p class="text-xs text-slate-400 mt-0.5">Verstehe die institutionelle Logik hinter jedem Signal (SMC, Wyckoff VSA, RSI & Fibonacci)</p>
           </div>
         </div>
-        <button onclick="closeHypothesesModal()" class="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition shrink-0">✕</button>
+        <button onclick="closeHypothesesModal()" aria-label="Schließen" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer text-lg font-bold shrink-0">✕</button>
       </div>
 
       <!-- Quick Filter Switcher within Modal -->
-      <div class="flex flex-wrap items-center gap-2">
+      <div class="px-4 sm:px-5 pt-3 pb-2 flex flex-wrap items-center gap-2 shrink-0 border-b border-slate-800/60">
         <button onclick="filterHypothesisModal('all')" id="hypo-pill-all" class="hypo-filter-pill px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-indigo-600 text-white shadow-sm cursor-pointer">
           Alle 3 im Überblick
         </button>
@@ -2256,7 +2609,7 @@ html_content = f"""<!DOCTYPE html>
       </div>
 
       <!-- Cards Container -->
-      <div class="space-y-4 text-xs leading-relaxed">
+      <div class="p-4 sm:p-5 overflow-y-auto space-y-4 text-xs leading-relaxed flex-1 overscroll-contain">
         
         <!-- Hypothese 1 Card -->
         <div id="hypo-card-h1" class="p-4 rounded-xl bg-slate-900/90 border border-emerald-500/40 space-y-3">
@@ -2428,10 +2781,10 @@ html_content = f"""<!DOCTYPE html>
       </div>
 
       <!-- Footer Actions -->
-      <div class="flex items-center justify-between pt-3 border-t border-slate-800 text-xs">
-        <span class="text-slate-500 font-mono text-[11px]">TradingView Super-Analyst Strategy Engine</span>
-        <button onclick="closeHypothesesModal()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition cursor-pointer">
-          Verstanden
+      <div class="p-3 sm:p-4 border-t border-slate-800 bg-[#0d1322] flex items-center justify-between shrink-0 text-xs">
+        <span class="text-slate-500 font-mono text-[11px] hidden sm:inline">TradingView Super-Analyst Strategy Engine</span>
+        <button onclick="closeHypothesesModal()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition cursor-pointer active:scale-95 text-center">
+          Schließen
         </button>
       </div>
 
