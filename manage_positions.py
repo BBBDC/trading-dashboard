@@ -8,12 +8,36 @@ entweder über das Terminal (CLI) oder über einen sicheren lokalen REST-Endpunk
 import sys
 import json
 import argparse
+import subprocess
 from pathlib import Path
 from datetime import datetime, timezone
 
 BASE_DIR = Path(__file__).resolve().parent
 POSITIONS_FILE = BASE_DIR / "knowledge_base" / "user_positions.json"
 DB_FILE = BASE_DIR / "dashboard" / "market_analysis_db.json"
+
+
+def sync_dashboard_state(git_push=True):
+    """Aktualisiert Berechnungen, baut das Dashboard neu und pusht optional zu GitHub."""
+    try:
+        from portfolio_engine import evaluate_user_positions
+        if DB_FILE.exists():
+            with open(DB_FILE, "r", encoding="utf-8") as f:
+                db = json.load(f)
+            evaluated = evaluate_user_positions(db.get("assets", []))
+            db["user_positions"] = evaluated.get("positions", [])
+            with open(DB_FILE, "w", encoding="utf-8") as f:
+                json.dump(db, f, indent=2, ensure_ascii=False)
+        
+        # HTML neu bauen
+        subprocess.run([sys.executable, str(BASE_DIR / "build_dashboard.py")], cwd=str(BASE_DIR), check=True)
+
+        # Git Sync falls gewünscht
+        if git_push:
+            from update_dashboard import git_sync_dashboard
+            git_sync_dashboard()
+    except Exception as e:
+        print(f"Sync Dashboard Fehler: {e}")
 
 
 def load_positions():
@@ -36,14 +60,13 @@ def save_positions(positions):
         json.dump(payload, f, indent=2, ensure_ascii=False)
 
 
-def add_position(symbol, direction, entry_price, leverage=1.0, note=""):
+def add_position(symbol, direction, entry_price, leverage=1.0, note="", user_id="", user_name="", sync_db=True, git_push=True):
     positions = load_positions()
     direction = direction.upper()
     if direction not in ("LONG", "SHORT"):
         print("Fehler: Art der Position muss 'LONG' oder 'SHORT' sein.")
         return False
 
-    # Existierende Position für dasselbe Symbol aktualisieren oder neu anlegen
     pos_id = f"pos_{symbol.replace(':', '_')}_{int(datetime.now(timezone.utc).timestamp())}"
     new_pos = {
         "id": pos_id,
@@ -52,13 +75,16 @@ def add_position(symbol, direction, entry_price, leverage=1.0, note=""):
         "entry_price": float(entry_price),
         "leverage": float(leverage),
         "note": note,
+        "user_id": str(user_id) if user_id else "",
+        "user_name": str(user_name) if user_name else "",
         "created_at": datetime.now(timezone.utc).isoformat()
     }
 
-    # Falls bereits vorhanden, ersetzen
+    # Falls bereits vorhanden für denselben Nutzer & Symbol, ersetzen, sonst anhängen
     updated = False
     for i, p in enumerate(positions):
-        if p.get("symbol") == symbol:
+        same_user = (p.get("user_id") == str(user_id)) if user_id else True
+        if p.get("symbol") == symbol and same_user:
             positions[i] = new_pos
             updated = True
             break
@@ -67,27 +93,28 @@ def add_position(symbol, direction, entry_price, leverage=1.0, note=""):
 
     save_positions(positions)
     print(f"✅ Position erfolgreich {'aktualisiert' if updated else 'hinzugefügt'}:")
-    print(f"   {symbol} | {direction} | Entry: {entry_price:,.2f} | Hebel: {leverage}x")
+    print(f"   {symbol} | {direction} | Entry: {entry_price:,.2f} | Hebel: {leverage}x | User: {user_name or 'Default'}")
 
-    # Sofortige Neubewertung triggern
-    try:
-        from portfolio_engine import evaluate_user_positions
-        if DB_FILE.exists():
-            with open(DB_FILE, "r", encoding="utf-8") as f:
-                db = json.load(f)
-            evaluate_user_positions(db.get("assets", []))
-    except Exception as e:
-        print(f"Hinweis: Neubewertung wird beim nächsten Scan aktualisiert ({e})")
-    return True
+    if sync_db:
+        sync_dashboard_state(git_push=git_push)
+
+    return new_pos
 
 
-def remove_position(symbol_or_id):
+def remove_position(symbol_or_id, user_id=None, sync_db=True, git_push=True):
     positions = load_positions()
     initial_len = len(positions)
-    positions = [p for p in positions if p.get("symbol") != symbol_or_id and p.get("id") != symbol_or_id]
+    
+    if user_id:
+        positions = [p for p in positions if not ((p.get("symbol") == symbol_or_id or p.get("id") == symbol_or_id) and str(p.get("user_id")) == str(user_id))]
+    else:
+        positions = [p for p in positions if p.get("symbol") != symbol_or_id and p.get("id") != symbol_or_id]
+
     if len(positions) < initial_len:
         save_positions(positions)
         print(f"✅ Position '{symbol_or_id}' erfolgreich entfernt.")
+        if sync_db:
+            sync_dashboard_state(git_push=git_push)
         return True
     else:
         print(f"⚠️ Keine Position mit Symbol oder ID '{symbol_or_id}' gefunden.")

@@ -1920,8 +1920,8 @@ html_content = f"""<!DOCTYPE html>
         }});
 
         const localMap = new Map();
-        validServerPositions.forEach(p => localMap.set(p.symbol, p));
-        positions.forEach(p => localMap.set(p.symbol, p));
+        validServerPositions.forEach(p => localMap.set(p.id || p.symbol, p));
+        positions.forEach(p => localMap.set(p.id || p.symbol, p));
         positions = Array.from(localMap.values());
       }}
       return positions;
@@ -1990,9 +1990,10 @@ html_content = f"""<!DOCTYPE html>
           <div class="rounded-xl bg-slate-950/80 border border-slate-800/90 p-4 space-y-3.5 hover:border-slate-700 transition">
             <div class="flex items-start justify-between">
               <div>
-                <div class="flex items-center gap-1.5">
+                <div class="flex items-center gap-1.5 flex-wrap">
                   <span class="text-sm font-bold text-white">${{pos.name || sym}}</span>
                   <span class="text-xs font-mono text-slate-400">(${{ticker}})</span>
+                  ${{pos.user_name ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-medium bg-indigo-500/10 text-indigo-300 border border-indigo-500/30">👤 ${{pos.user_name}}</span>` : ''}}
                 </div>
                 <span class="text-[10px] text-slate-500 font-mono">${{sym}}</span>
               </div>

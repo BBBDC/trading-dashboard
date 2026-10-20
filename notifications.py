@@ -76,28 +76,56 @@ def send_ntfy_alert(title, message, click_url=None, priority="high", tags=None):
         return False
 
 
+TELEGRAM_CONFIG_FILE = BASE_DIR / "telegram_config.json"
+
+
 def send_telegram_alert(message):
-    conf = load_config().get("telegram", {})
-    token = conf.get("bot_token")
-    chat_id = conf.get("chat_id")
-    if not token or not chat_id:
+    token = None
+    chat_ids = set()
+
+    # 1. Aus telegram_config.json lesen (bevorzugt)
+    if TELEGRAM_CONFIG_FILE.exists():
+        try:
+            with open(TELEGRAM_CONFIG_FILE, "r", encoding="utf-8") as f:
+                tconf = json.load(f)
+                token = tconf.get("bot_token")
+                for cid in tconf.get("admin_chat_ids", []):
+                    chat_ids.add(cid)
+                for uname, udata in tconf.get("authorized_users", {}).items():
+                    if isinstance(udata, dict) and udata.get("chat_id"):
+                        chat_ids.add(udata.get("chat_id"))
+        except Exception:
+            pass
+
+    # 2. Fallback auf notification_config.json
+    if not token or not chat_ids:
+        conf = load_config().get("telegram", {})
+        token = token or conf.get("bot_token")
+        if conf.get("chat_id"):
+            chat_ids.add(conf.get("chat_id"))
+
+    if not token or not chat_ids:
         return False
 
-    url = f"https://api.telegram.org/bot{token}/sendMessage"
-    payload = urllib.parse.urlencode({
-        "chat_id": chat_id,
-        "text": message,
-        "parse_mode": "Markdown",
-        "disable_web_page_preview": "false"
-    }).encode("utf-8")
+    success = False
+    for chat_id in chat_ids:
+        url = f"https://api.telegram.org/bot{token}/sendMessage"
+        payload = urllib.parse.urlencode({
+            "chat_id": chat_id,
+            "text": message,
+            "parse_mode": "Markdown",
+            "disable_web_page_preview": "false"
+        }).encode("utf-8")
 
-    req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/x-www-form-urlencoded"})
-    try:
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            return resp.status == 200
-    except Exception as e:
-        print(f"Telegram Alert Fehler: {e}")
-        return False
+        req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/x-www-form-urlencoded"})
+        try:
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                if resp.status == 200:
+                    success = True
+        except Exception as e:
+            print(f"Telegram Alert Fehler für {chat_id}: {e}")
+
+    return success
 
 
 def load_signal_state():
