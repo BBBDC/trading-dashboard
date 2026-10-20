@@ -544,6 +544,14 @@ def evaluate_user_positions(db_assets):
     data["updated_at"] = datetime.now(timezone.utc).isoformat()
 
     save_json_file(USER_POSITIONS_FILE, data)
+
+    # Bei kritischen Statuswechseln (SL-Gefahr, Take-Profit, Reversal) Nutzer auf Telegram warnen
+    try:
+        from notifications import check_and_notify_user_positions
+        check_and_notify_user_positions(evaluated_positions)
+    except Exception as ne:
+        pass
+
     return data
 
 

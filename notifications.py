@@ -79,7 +79,7 @@ def send_ntfy_alert(title, message, click_url=None, priority="high", tags=None):
 TELEGRAM_CONFIG_FILE = BASE_DIR / "telegram_config.json"
 
 
-def send_telegram_alert(message):
+def send_telegram_alert(message, parse_mode="HTML", target_chat_ids=None):
     token = None
     chat_ids = set()
 
@@ -90,10 +90,10 @@ def send_telegram_alert(message):
                 tconf = json.load(f)
                 token = tconf.get("bot_token")
                 for cid in tconf.get("admin_chat_ids", []):
-                    chat_ids.add(cid)
+                    chat_ids.add(str(cid))
                 for uname, udata in tconf.get("authorized_users", {}).items():
                     if isinstance(udata, dict) and udata.get("chat_id"):
-                        chat_ids.add(udata.get("chat_id"))
+                        chat_ids.add(str(udata.get("chat_id")))
         except Exception:
             pass
 
@@ -102,7 +102,11 @@ def send_telegram_alert(message):
         conf = load_config().get("telegram", {})
         token = token or conf.get("bot_token")
         if conf.get("chat_id"):
-            chat_ids.add(conf.get("chat_id"))
+            chat_ids.add(str(conf.get("chat_id")))
+
+    # Falls gezielte Empfänger übergeben wurden
+    if target_chat_ids:
+        chat_ids = set(str(c) for c in target_chat_ids if str(c))
 
     if not token or not chat_ids:
         return False
@@ -113,8 +117,8 @@ def send_telegram_alert(message):
         payload = urllib.parse.urlencode({
             "chat_id": chat_id,
             "text": message,
-            "parse_mode": "Markdown",
-            "disable_web_page_preview": "false"
+            "parse_mode": parse_mode,
+            "disable_web_page_preview": "true"
         }).encode("utf-8")
 
         req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/x-www-form-urlencoded"})
@@ -284,6 +288,131 @@ def detect_signal_changes(current_assets):
     return changes, new_state, is_initial_run
 
 
+def format_telegram_change_notification(changes, click_url):
+    """
+    Formatiert eine kristallklare HTML-Benachrichtigung für Telegram mit Emojis,
+    Fettungen und direkten Setup-Kennzahlen.
+    """
+    count = len(changes)
+    unit_str = "Asset" if count == 1 else "Assets"
+
+    lines = [
+        f"🔔 <b>TradingView Signal-Update: {count} {unit_str} aktualisiert</b>\n",
+        f"<i>Echte Signal- & Einstufungswechsel:</i>\n"
+    ]
+
+    for c in changes[:6]:
+        sig = c["new_signal"]
+        icon = "🟢" if sig == "LONG" else ("🔴" if sig == "SHORT" else "⚪")
+        name = c["name"]
+        ticker = c["symbol"].split(":")[-1]
+        old_s = c["old_signal"]
+        new_s = c["new_signal"]
+        score = c["new_score"]
+
+        lines.append(f"{icon} <b>{name}</b> (<code>{ticker}</code>)")
+        if old_s != new_s:
+            lines.append(f"   • <b>Signalwechsel:</b> {old_s} ➔ <b>{new_s}</b> (Score: <b>{score}%</b>)")
+        else:
+            lines.append(f"   • <b>Score-Sprung:</b> {c['old_score']}% ➔ <b>{score}%</b> ({new_s})")
+
+        if c.get("change_reason"):
+            lines.append(f"   • 💡 <b>Grund:</b> {c['change_reason']}")
+        elif c.get("reasons"):
+            lines.append(f"   • 💡 <b>Grund:</b> {' | '.join(c['reasons'][:2])}")
+
+        if c.get("note") and len(c.get("note")) > 10:
+            lines.append(f"   • 📝 <i>KI: {c['note'][:130]}...</i>")
+
+        if sig != "NEUTRAL" and c.get("entry_range"):
+            entry_fmt = f"{c['entry_range'][0]:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            sl_fmt = f"{c['stop_loss']:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            tp_fmt = f"{c['take_profit_2']:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            lines.append(f"   • 🎯 <b>Setup:</b> {c['setup_name']}")
+            lines.append(f"   • 📍 <b>Entry:</b> {entry_fmt} $ | <b>SL:</b> {sl_fmt} $ | <b>TP2:</b> {tp_fmt} $")
+        lines.append("")
+
+    if count > 6:
+        lines.append(f"<i>... und {count - 6} weitere Änderungen.</i>\n")
+
+    lines.append(f"📜 <a href=\"{click_url}\">Signal-Historie & Live-Charts im Web öffnen</a>")
+    return "\n".join(lines)
+
+
+USER_POS_ALERT_STATE = BASE_DIR / "knowledge_base" / "user_pos_alert_state.json"
+
+
+def check_and_notify_user_positions(evaluated_positions):
+    """
+    Prüft alle Nutzerpositionen und sendet eine gezielte Push-Warnung, wenn:
+    - SL-Gefahr / Liquidationsrisiko besteht (CRITICAL)
+    - Take-Profit erreicht ist / Teilgewinne anstehen (TAKE_PROFIT)
+    - Reversal-Divergenzen gegen die Position vorliegen (WARNING)
+    Benachrichtigt nur einmal pro Statuswechsel (kein Spam).
+    """
+    if not evaluated_positions:
+        return
+
+    prev_state = {}
+    if USER_POS_ALERT_STATE.exists():
+        try:
+            with open(USER_POS_ALERT_STATE, "r", encoding="utf-8") as f:
+                prev_state = json.load(f)
+        except Exception:
+            pass
+
+    new_state = dict(prev_state)
+
+    for pos in evaluated_positions:
+        pos_id = pos.get("id") or pos.get("symbol")
+        rec = pos.get("recommendation", {})
+        status = rec.get("status", "NEUTRAL")
+        sym = pos.get("symbol")
+        user_id = pos.get("user_id")
+
+        if status not in ("CRITICAL", "TAKE_PROFIT", "WARNING"):
+            new_state[pos_id] = status
+            continue
+
+        last_status = prev_state.get(pos_id)
+        if last_status == status:
+            continue
+
+        new_state[pos_id] = status
+
+        sig = pos.get("direction", "LONG")
+        sig_icon = "🟢" if sig == "LONG" else "🔴"
+        lev = pos.get("leverage", 1.0)
+        pnl = pos.get("pnl_leveraged_pct", 0.0)
+        pnl_sign = "+" if pnl >= 0 else ""
+
+        if status == "CRITICAL":
+            alert_header = f"🚨 <b>Dringende Warnung bei deinem Trade {sym}</b>"
+        elif status == "TAKE_PROFIT":
+            alert_header = f"🎯 <b>Gewinnmitnahme empfohlen bei {sym}</b>"
+        else:
+            alert_header = f"⚠️ <b>Achtung bei deiner Position {sym}</b>"
+
+        msg_lines = [
+            alert_header,
+            "",
+            f"• <b>Position:</b> {sig_icon} <b>{sym}</b> ({sig} | {lev:g}x Hebel)",
+            f"• <b>Aktuelle Performance:</b> <b>{pnl_sign}{pnl:.2f}%</b>",
+            f"• 💡 <b>Empfehlung:</b> <b>[{rec.get('action')}]</b> {rec.get('title')}",
+            f"• <i>{rec.get('message')}</i>",
+            "",
+            "👉 Öffne den Bot oder das Dashboard, um deinen Stop-Loss anzupassen oder den Trade zu schließen."
+        ]
+        alert_msg = "\n".join(msg_lines)
+
+        target_ids = [user_id] if user_id else None
+        send_telegram_alert(alert_msg, parse_mode="HTML", target_chat_ids=target_ids)
+
+    USER_POS_ALERT_STATE.parent.mkdir(parents=True, exist_ok=True)
+    with open(USER_POS_ALERT_STATE, "w", encoding="utf-8") as f:
+        json.dump(new_state, f, indent=2, ensure_ascii=False)
+
+
 def format_change_notification(changes, click_url):
     """
     Formatiert eine kristallklare Benachrichtigung, die AUSSCHLIESSLICH die geänderten Assets
@@ -398,8 +527,11 @@ def send_scan_summary_notification(db_data, force_send=False):
             print(f"✅ iOS Alert via ntfy erfolgreich versendet! ({len(changes)} Änderungen gemeldet)")
 
     if provider in ("telegram", "all"):
-        tg_msg = f"*{title}*\n\n{message}"
-        if send_telegram_alert(tg_msg):
+        if changes:
+            tg_msg = format_telegram_change_notification(changes, click_url)
+        else:
+            tg_msg = f"<b>{title}</b>\n\n{message}"
+        if send_telegram_alert(tg_msg, parse_mode="HTML"):
             print("✅ Telegram Alert erfolgreich versendet!")
             success = True
 
