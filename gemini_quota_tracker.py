@@ -304,7 +304,7 @@ def get_quota_summary_for_dashboard():
 if __name__ == "__main__":
     summary = get_quota_summary_for_dashboard()
     print("=" * 65)
-    print("  GEMINI MULTI-KEY POOL STATUS (2x API-KEYS INTEGRIERT)")
+    print(f"  GEMINI MULTI-KEY POOL STATUS ({summary['total_keys_count']}x API-KEYS INTEGRIERT)")
     print("=" * 65)
     print(f"Modell              : {summary['model']}")
     print(f"Aktiver Key         : {summary['active_key_masked']}")

@@ -2486,7 +2486,7 @@ html_content = f"""<!DOCTYPE html>
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-1.5">
               <span class="text-xs font-bold text-white">Gesamt-Pool Kontingent</span>
-              <span class="px-1.5 py-0.2 rounded text-[10px] bg-indigo-500/20 text-indigo-300 font-mono">2x Keys</span>
+              <span class="px-1.5 py-0.2 rounded text-[10px] bg-indigo-500/20 text-indigo-300 font-mono">{total_keys_count}x Keys</span>
             </div>
             <span class="font-mono font-bold text-xs {quota_num_class}">{quota_used} / {quota_limit} Requests ({quota_pct}%)</span>
           </div>
@@ -2513,10 +2513,10 @@ html_content = f"""<!DOCTYPE html>
             <span>Intelligentes Failover & Lastverteilung</span>
           </div>
           <p>
-            Beide Google AI Studio API-Keys werden intelligent im Verbund betrieben. Sobald Key #1 sein Tageslimit (20 Requests) erreicht, wechselt der Raspberry Pi <strong>vollautomatisch und ohne Scanunterbrechung</strong> auf Key #2.
+            Alle <strong>{total_keys_count} Google AI Studio API-Keys</strong> werden intelligent im Verbund betrieben. Sobald ein Key sein Tageslimit (20 Requests) erreicht, wechselt der Raspberry Pi <strong>vollautomatisch und ohne Scanunterbrechung</strong> auf den nächsten Key im Pool.
           </p>
           <p>
-            Dadurch verdoppelt sich dein kostenfreies Kontingent auf <strong>40 KI-Analysen pro Tag</strong>. Sollten beide Keys temporär voll sein, sichert die mathematische 3-Timeframe Confluence-Engine weiterhin lückenlos jeden 4-Stunden-Scanzyklus ab.
+            Dadurch multipliziert sich dein kostenfreies Kontingent auf <strong>{quota_limit} KI-Analysen pro Tag</strong>. Sollten alle Keys temporär voll sein, sichert die mathematische 3-Timeframe Confluence-Engine weiterhin lückenlos jeden 4-Stunden-Scanzyklus ab.
           </p>
         </div>
       </div>
