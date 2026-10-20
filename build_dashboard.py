@@ -130,6 +130,57 @@ for kd in keys_detail:
         </div>
     """
 
+# Top Longs & Shorts für Tab 2 (Top-Setups)
+def render_top_picks_html(candidates, sig_type="LONG"):
+    if not candidates:
+        return '<p class="text-xs text-slate-500 italic p-3 text-center">Aktuell keine Setups in dieser Kategorie.</p>'
+    out = ""
+    for c in candidates:
+        badge_border = "border-emerald-500/30" if sig_type == "LONG" else "border-rose-500/30"
+        score_color = "text-emerald-400" if sig_type == "LONG" else "text-rose-400"
+        sym = c.get("symbol", "")
+        name = c.get("name", sym)
+        score = c.get("score", 0)
+        setup = c.get("setup_name", "Setup")
+        price = c.get("price", 0)
+        entry = c.get("entry_range", "-")
+        sl = c.get("stop_loss", "-")
+        tp2 = c.get("take_profit_2", "-")
+        crv = c.get("crv", "-")
+
+        out += f"""
+        <div class="p-3.5 rounded-xl bg-slate-950/70 border {badge_border} hover:border-slate-600 transition flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <div class="min-w-0">
+              <span class="font-bold text-white text-xs sm:text-sm truncate block">{name}</span>
+              <span class="font-mono text-[10px] text-slate-400">{sym}</span>
+            </div>
+            <div class="text-right shrink-0">
+              <span class="font-mono font-bold text-xs {score_color}">{score}% Score</span>
+              <span class="block text-[10px] font-mono text-slate-400">{price:,.2f} $</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-1.5 text-[10px] font-mono bg-slate-900/60 p-2 rounded-lg border border-slate-800">
+            <div><span class="text-slate-500 block">Entry:</span><span class="text-slate-200 font-semibold truncate block">{entry}</span></div>
+            <div><span class="text-slate-500 block">SL:</span><span class="text-rose-400 font-semibold truncate block">{sl}</span></div>
+            <div><span class="text-slate-500 block">TP2 / CRV:</span><span class="text-cyan-400 font-semibold truncate block">{tp2} ({crv})</span></div>
+          </div>
+          <div class="flex items-center justify-between pt-1 border-t border-slate-800/60">
+            <span class="text-[10px] text-slate-400 truncate max-w-[220px]">{setup}</span>
+            <button onclick="openDetailModal('{sym}')" class="text-[11px] font-bold text-indigo-400 hover:text-indigo-300 flex items-center gap-1 transition cursor-pointer">
+              Multi-Timeframe Details →
+            </button>
+          </div>
+        </div>
+        """
+    return out
+
+raw_assets = db_data.get("assets", [])
+top_long_candidates = sorted([a for a in raw_assets if a.get("signal") == "LONG"], key=lambda x: x.get("score", 0), reverse=True)[:3]
+top_short_candidates = sorted([a for a in raw_assets if a.get("signal") == "SHORT"], key=lambda x: x.get("score", 0), reverse=True)[:3]
+top_longs_cards_html = render_top_picks_html(top_long_candidates, "LONG")
+top_shorts_cards_html = render_top_picks_html(top_short_candidates, "SHORT")
+
 html_content = f"""<!DOCTYPE html>
 <html lang="de" class="dark">
 <head>
@@ -499,16 +550,20 @@ html_content = f"""<!DOCTYPE html>
             <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
               <h1 class="font-bold text-base sm:text-lg tracking-tight text-white truncate">Super-Analyst</h1>
               <span class="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">24/7 Pi</span>
-              <span class="hidden md:inline-flex px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-500/15 text-indigo-200 border border-indigo-500/30 items-center gap-1.5 shadow-sm">
+              <span id="header-engine-badge" class="hidden md:inline-flex px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-500/15 text-indigo-200 border border-indigo-500/30 items-center gap-1.5 shadow-sm">
                 <span class="w-1.5 h-1.5 rounded-full {engine_dot_class}"></span>
                 <span class="text-slate-400">KI:</span>
                 <span class="font-bold text-white">{engine_display}</span>
               </span>
-              <button onclick="openQuotaModal()" class="inline-flex px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold {quota_badge_class} items-center gap-1 shadow-sm cursor-pointer transition active:scale-95 shrink-0" title="Google AI Studio API-Key Kontingent & Status">
+              <button id="header-quota-badge" onclick="switchDashboardTab('admin')" class="inline-flex px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold {quota_badge_class} items-center gap-1 shadow-sm cursor-pointer transition active:scale-95 shrink-0" title="Google AI Studio API-Key Kontingent & Status">
                 <span>🔑</span>
                 <span>Quota: <strong class="{quota_num_class}">{quota_used}/{quota_limit}</strong></span>
                 <span class="hidden sm:inline text-[9px] opacity-80">· {quota_status_text}</span>
               </button>
+              <span id="header-trader-badge" class="hidden inline-flex px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>System Online (24/7 Pi)</span>
+              </span>
             </div>
             <p class="hidden sm:block text-[11px] text-slate-400 mt-0.5">Multi-Timeframe Confluence (4h · 8h · 1D) | SMC · Wyckoff VSA · RSI Divs</p>
           </div>
@@ -545,9 +600,31 @@ html_content = f"""<!DOCTYPE html>
 
       </div>
 
-      <!-- Action & Navigation Bar: Smooth Horizontal Swipe on Mobile -->
+      <!-- Action & Navigation Bar: Desktop Tabs & Quick Actions -->
       <div class="flex items-center justify-between gap-2 pt-1 border-t border-slate-800/60 overflow-hidden">
         
+        <!-- Desktop Segment Navigation Bar -->
+        <div id="desktop-tab-navigation" class="hidden md:flex items-center gap-1 p-1 rounded-xl bg-slate-900/90 border border-slate-800 shrink-0">
+          <button id="nav-tab-positions" onclick="switchDashboardTab('positions')" class="dashboard-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-indigo-600 text-white shadow-md shadow-indigo-600/30 cursor-pointer">
+            <span>👤</span>
+            <span>Positionen</span>
+            <span id="nav-badge-positions" class="hidden ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-white/20 text-white font-mono">0</span>
+          </button>
+          <button id="nav-tab-topsetups" onclick="switchDashboardTab('topsetups')" class="dashboard-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer">
+            <span>🎯</span>
+            <span>Top-Setups</span>
+          </button>
+          <button id="nav-tab-scanner" onclick="switchDashboardTab('scanner')" class="dashboard-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer">
+            <span>🚀</span>
+            <span>Markt-Scanner</span>
+            <span class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-slate-800 text-slate-300 font-mono">55</span>
+          </button>
+          <button id="nav-tab-admin" onclick="switchDashboardTab('admin')" class="dashboard-nav-btn hidden flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition border border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 cursor-pointer">
+            <span>⚙️</span>
+            <span>Admin-Zentrale</span>
+          </button>
+        </div>
+
         <!-- Navigation Buttons Strip (Horizontal Scroll on Mobile) -->
         <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-1 shrink min-w-0 touch-pan-x">
           
@@ -563,30 +640,18 @@ html_content = f"""<!DOCTYPE html>
             </div>
           </div>
 
-          <!-- Manual Refresh Button -->
-          <button id="btn-manual-refresh" onclick="triggerManualRefresh()" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer shrink-0" title="Jetzt manuell aktualisieren">
+          <!-- Smart Refresh Button (Admin triggers Pi scan, Trader re-reads data) -->
+          <button id="btn-manual-refresh" onclick="triggerSmartRefresh()" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer shrink-0" title="Aktualisieren">
             <svg id="refresh-icon" class="w-3.5 h-3.5 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
             <span id="refresh-label">Refresh</span>
           </button>
 
-          <!-- KI-Portfolio Jump Button -->
-          <a href="#portfolio-section" class="px-2.5 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-xs font-semibold text-emerald-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer shrink-0">
-            <span>🏛️</span>
-            <span>Portfolio</span>
-          </a>
-
-          <!-- Meine Positionen Jump Button -->
-          <a href="#user-positions-section" class="px-2.5 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer shrink-0">
-            <span>👤</span>
-            <span class="whitespace-nowrap">Positionen</span>
-          </a>
-
           <!-- Signal-Historie Link Button -->
           <a href="history.html" class="px-2.5 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer shrink-0">
             <span>📜</span>
-            <span>Historie</span>
+            <span class="whitespace-nowrap">Historie</span>
           </a>
 
           <!-- iOS Alerts Info Button -->
@@ -599,12 +664,6 @@ html_content = f"""<!DOCTYPE html>
           <button onclick="openHypothesesModal()" class="px-2.5 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer shrink-0">
             <span>💡</span>
             <span>Guide</span>
-          </button>
-
-          <!-- API Quota Info Button -->
-          <button onclick="openQuotaModal()" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-xs font-semibold text-slate-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer shrink-0">
-            <span>🔑</span>
-            <span>Pool</span>
           </button>
 
         </div>
@@ -633,345 +692,568 @@ html_content = f"""<!DOCTYPE html>
         </div>
 
       </div>
+
+        <!-- Quick Metrics Counter -->
+        <div class="flex items-center gap-1 sm:gap-1.5 shrink-0 pl-1 border-l border-slate-800/60">
+          <div class="px-2 py-1 rounded-lg bg-slate-800/60 border border-slate-700/50 flex items-center gap-1 text-[11px]" title="Gesamt">
+            <span class="text-slate-400 hidden sm:inline">Tot:</span>
+            <span class="font-mono font-bold text-white" id="stat-total">{db_data.get('total_analyzed', 0)}</span>
+          </div>
+          <div class="px-2 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-1 text-[11px]" title="Longs">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-emerald-300 hidden sm:inline">L:</span>
+            <span class="font-mono font-bold text-emerald-400" id="stat-long">{db_data.get('long_count', 0)}</span>
+          </div>
+          <div class="px-2 py-1 rounded-lg bg-rose-500/10 border border-rose-500/30 flex items-center gap-1 text-[11px]" title="Shorts">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+            <span class="text-rose-300 hidden sm:inline">S:</span>
+            <span class="font-mono font-bold text-xs text-rose-400" id="stat-short">{db_data.get('short_count', 0)}</span>
+          </div>
+          <div class="hidden sm:flex px-2 py-1 rounded-lg bg-slate-800/60 border border-slate-700/50 items-center gap-1 text-[11px]" title="Neutral">
+            <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+            <span class="text-slate-400">N:</span>
+            <span class="font-mono font-bold text-slate-300" id="stat-neutral">{db_data.get('neutral_count', 0)}</span>
+          </div>
+        </div>
+
+      </div>
     </div>
   </header>
 
-  <!-- Main Container -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+  <!-- Main Container with Tab Views -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 py-5 space-y-6 pb-28 md:pb-12">
 
-    <!-- Highlight Opportunity Hero: Micron (MU) & Bitcoin (BTC) -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <!-- =========================================================================
+         TAB 1: EIGENE POSITIONEN (COCKPIT)
+         ========================================================================= -->
+    <div id="tab-content-positions" class="tab-pane space-y-6">
+      <!-- 👤 EIGENE NUTZER-POSITIONEN & SMARTE HANDLUNGSEMPFEHLUNGEN -->
+      <section id="user-positions-section" class="rounded-2xl bg-gradient-to-br from-slate-900/90 via-[#0d1322] to-slate-900 border border-indigo-500/30 p-5 shadow-xl space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3.5">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+                <span>👤 Meine Positionen</span>
+              </h2>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">24/7 Raspberry Pi Überwachung</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">Eigene Trades mit Hebel tracken &bull; Automatische Handlungsempfehlungen bei Divergenzen & TP-Zonen</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="openPositionsModal()" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/30 active:scale-95 cursor-pointer">
+              <span>+</span>
+              <span>Position hinzufügen</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Container für Nutzer-Positionen -->
+        <div id="user-positions-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+          <!-- Dynamisch gerendert durch JS -->
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================================================================
+         TAB 2: TOP-SETUPS & HERO CHANCEN
+         ========================================================================= -->
+    <div id="tab-content-topsetups" class="tab-pane hidden space-y-6">
       
-      <!-- Top Pick: Micron Technology (MU) -->
-      <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-950/40 via-slate-900/90 to-slate-900 border border-emerald-500/30 p-5 glow-emerald">
-        <div class="absolute -right-12 -top-12 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="flex items-start justify-between">
-          <div class="flex items-center gap-3">
-            <span class="px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider bg-emerald-500 text-slate-950">
-              Top Opportunity
-            </span>
-            <span class="text-xs font-mono text-emerald-400 font-semibold">98% Score · Golden Confluence</span>
-          </div>
-          <span class="font-mono text-xs text-slate-400">NASDAQ:MU</span>
-        </div>
-
-        <div class="mt-3 flex items-baseline justify-between">
-          <div>
-            <h3 class="text-2xl font-bold text-white tracking-tight">Micron Technology</h3>
-            <p class="text-xs text-slate-400">Halbleiter · Watchlist Aktien</p>
-          </div>
-          <div class="text-right">
-            <span class="font-mono text-2xl font-extrabold text-emerald-400">878.84 USD</span>
-            <span class="block text-xs font-mono text-emerald-300/80">Im 0.618 Golden Pocket</span>
-          </div>
-        </div>
-
-        <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono">
-          <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
-            <span class="text-slate-400 block text-[11px]">Setup</span>
-            <span class="text-emerald-300 font-semibold truncate block">Hypothese 1 (SMC)</span>
-          </div>
-          <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
-            <span class="text-slate-400 block text-[11px]">Entry Zone</span>
-            <span class="text-white font-semibold">868 - 880 $</span>
-          </div>
-          <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
-            <span class="text-slate-400 block text-[11px]">Stop-Loss</span>
-            <span class="text-rose-400 font-semibold">852.00 $ (-2.9%)</span>
-          </div>
-          <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
-            <span class="text-slate-400 block text-[11px]">Take-Profit 2</span>
-            <span class="text-cyan-400 font-semibold">965.00 $ (3.3 CRV)</span>
-          </div>
-        </div>
-
-        <p class="mt-3 text-xs text-slate-300 leading-relaxed">
-          <strong>Super-Analyst Rationale:</strong> Kurs sitzt exakt im 1D Fibonacci Golden Pocket (867-879 USD). Gleichzeitig Überdehnung unter das untere degencoder-Band. RSI im 4h/8h extrem überverkauft (26.6) mit aktiver bullischer Divergenz. VSA signalisiert stopping volume.
-        </p>
-
-        <div class="mt-4 flex items-center justify-between pt-3 border-t border-slate-800/80">
-          <button onclick="openDetailModal('NASDAQ:MU')" class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition">
-            Multi-Timeframe Details (4h, 8h, 1D) →
-          </button>
-          <a href="https://www.tradingview.com/chart/?symbol=NASDAQ:MU" target="_blank" class="text-xs text-slate-400 hover:text-white transition flex items-center gap-1">
-            TradingView Chart ↗
-          </a>
-        </div>
-      </div>
-
-      <!-- Bitcoin (BTC) -->
-      <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-950/40 via-slate-900/90 to-slate-900 border border-indigo-500/30 p-5 glow-emerald">
-        <div class="absolute -right-12 -top-12 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="flex items-start justify-between">
-          <div class="flex items-center gap-3">
-            <span class="px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider bg-indigo-500 text-white">
-              Krypto Leitwolf
-            </span>
-            <span class="text-xs font-mono text-indigo-400 font-semibold">94% Score · Breakout Watch</span>
-          </div>
-          <span class="font-mono text-xs text-slate-400">COINBASE:BTCUSD</span>
-        </div>
-
-        <div class="mt-3 flex items-baseline justify-between">
-          <div>
-            <h3 class="text-2xl font-bold text-white tracking-tight">Bitcoin</h3>
-            <p class="text-xs text-slate-400">Krypto · Watchlist Crypto</p>
-          </div>
-          <div class="text-right">
-            <span class="font-mono text-2xl font-extrabold text-indigo-300">81,529 USD</span>
-            <span class="block text-xs font-mono text-slate-400">Über EMA 233 (75.7k)</span>
-          </div>
-        </div>
-
-        <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono">
-          <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
-            <span class="text-slate-400 block text-[11px]">Setup</span>
-            <span class="text-indigo-300 font-semibold truncate block">Hypothese 2 (Breakout)</span>
-          </div>
-          <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
-            <span class="text-slate-400 block text-[11px]">Trigger-Level</span>
-            <span class="text-white font-semibold">> 82,320 $</span>
-          </div>
-          <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
-            <span class="text-slate-400 block text-[11px]">Stop-Loss</span>
-            <span class="text-rose-400 font-semibold">79,400 $</span>
-          </div>
-          <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
-            <span class="text-slate-400 block text-[11px]">Take-Profit 2</span>
-            <span class="text-cyan-400 font-semibold">84,850 $ (3.1 CRV)</span>
-          </div>
-        </div>
-
-        <p class="mt-3 text-xs text-slate-300 leading-relaxed">
-          <strong>Super-Analyst Rationale:</strong> 1D Makro-Aufwärtstrend intakt. 8h reguläre bullische Divergenz aktiv. VSA zeigt extreme Austrocknung des Verkaufsdrucks (No Supply, Ratio 0.12). 4h-Bruch über den Bearish Order Block (82.320 USD) aktiviert den Impuls zur FVG-Magnetzone (84.3k-84.8k).
-        </p>
-
-        <div class="mt-4 flex items-center justify-between pt-3 border-t border-slate-800/80">
-          <button onclick="openDetailModal('COINBASE:BTCUSD')" class="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center gap-1 transition">
-            Multi-Timeframe Details (4h, 8h, 1D) →
-          </button>
-          <a href="https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD" target="_blank" class="text-xs text-slate-400 hover:text-white transition flex items-center gap-1">
-            TradingView Chart ↗
-          </a>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Hypothesen Quick Guide Banner -->
-    <div class="p-4 rounded-xl bg-slate-900/80 border border-indigo-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-lg">
-      <div class="flex items-center gap-3">
-        <div class="w-8 h-8 rounded-lg bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-sm shrink-0">
-          💡
-        </div>
-        <div class="space-y-0.5">
-          <div class="font-bold text-white flex items-center gap-2">
-            <span>Setup-Logik & Hypothesen</span>
-            <span class="text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-mono">3 Strategien</span>
-          </div>
-          <p class="text-slate-400 text-[11px] leading-relaxed">
-            <strong class="text-emerald-400">Hypothese 1:</strong> Reversal am Wende-Extremum (Max CRV) &bull; 
-            <strong class="text-indigo-400">Hypothese 2:</strong> Trendfolge im Pullback (Hohe Winrate) &bull; 
-            <strong class="text-amber-400">Hypothese 3:</strong> Liquidity Hunt / Range Fakeout
-          </p>
-        </div>
-      </div>
-      <button onclick="openHypothesesModal()" class="self-start sm:self-auto px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition flex items-center gap-1.5 shadow-sm shrink-0 cursor-pointer">
-        Guide & Regeln anzeigen →
-      </button>
-    </div>
-
-    <!-- 👤 EIGENE NUTZER-POSITIONEN & SMARTE HANDLUNGSEMPFEHLUNGEN -->
-    <section id="user-positions-section" class="rounded-2xl bg-gradient-to-br from-slate-900/90 via-[#0d1322] to-slate-900 border border-indigo-500/30 p-5 shadow-xl space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3.5">
+      <!-- Top-Setups Header Banner -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-indigo-500/30">
         <div>
           <div class="flex items-center gap-2">
-            <h2 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
-              <span>👤 Meine Positionen</span>
-            </h2>
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">24/7 Raspberry Pi Überwachung</span>
+            <span class="text-xl">🎯</span>
+            <h2 class="text-base sm:text-lg font-bold text-white tracking-tight">High-Conviction Top-Setups</h2>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Score ≥ 85%</span>
           </div>
-          <p class="text-xs text-slate-400 mt-0.5">Eigene Trades mit Hebel tracken &bull; Automatische Handlungsempfehlungen bei Divergenzen & TP-Zonen</p>
+          <p class="text-xs text-slate-400 mt-0.5">Handverlesene Setup-Chancen mit maximalem CRV &bull; Multi-Timeframe Confluence (4h · 8h · 1D)</p>
         </div>
-        <div class="flex items-center gap-2">
-          <button onclick="openPositionsModal()" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/30 active:scale-95 cursor-pointer">
-            <span>+</span>
-            <span>Position hinzufügen</span>
-          </button>
-        </div>
+        <button onclick="openHypothesesModal()" class="self-start sm:self-auto px-3 py-1.5 rounded-lg bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/40 text-indigo-200 text-xs font-semibold transition cursor-pointer">
+          Hypothesen-Guide 💡
+        </button>
       </div>
 
-      <!-- Container für Nutzer-Positionen -->
-      <div id="user-positions-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
-        <!-- Dynamisch gerendert durch JS -->
-      </div>
-    </section>
-
-    <!-- 🏛️ KI HIGH-CONVICTION MODELL-PORTFOLIO & GEDÄCHTNIS -->
-    <section id="portfolio-section" class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-emerald-950/20 to-slate-900 border border-emerald-500/30 p-5 shadow-xl space-y-5">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3.5">
-        <div>
-          <div class="flex items-center gap-2">
-            <h2 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
-              <span>🏛️ KI High-Conviction Modell-Portfolio</span>
-            </h2>
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              Autonom & Lernend
-            </span>
+      <!-- Highlight Opportunity Hero: Micron (MU) & Bitcoin (BTC) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        
+        <!-- Top Pick: Micron Technology (MU) -->
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-950/40 via-slate-900/90 to-slate-900 border border-emerald-500/30 p-5 glow-emerald">
+          <div class="absolute -right-12 -top-12 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-3">
+              <span class="px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider bg-emerald-500 text-slate-950">
+                Top Opportunity
+              </span>
+              <span class="text-xs font-mono text-emerald-400 font-semibold">98% Score · Golden Confluence</span>
+            </div>
+            <span class="font-mono text-xs text-slate-400">NASDAQ:MU</span>
           </div>
-          <p class="text-xs text-slate-400 mt-0.5">Nur sicherste Setups (Score ≥ 88%) &bull; Identischer Einheitsbetrag (1.000 €) für relative Performance &bull; Hebel (max 10x) durch KI &bull; Permanenter Erfahrungsspeicher</p>
-        </div>
 
-        <!-- Portfolio Performance KPIs -->
-        <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
-          <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">Gehebelt</span>
-            <span class="font-bold text-sm text-emerald-400" id="port-metric-lev-pnl">+0.0%</span>
-          </div>
-          <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">Basis (1x)</span>
-            <span class="font-bold text-sm text-white" id="port-metric-raw-pnl">+0.0%</span>
-          </div>
-          <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">Win-Rate</span>
-            <span class="font-bold text-sm text-indigo-300" id="port-metric-winrate">0.0%</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Aktive Trades des KI-Portfolios -->
-      <div>
-        <div class="flex items-center justify-between mb-2.5">
-          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-            <span>Aktuell laufende Trades</span>
-            <span class="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-300 font-mono" id="port-active-count">0</span>
-          </h3>
-          <span class="text-[11px] text-slate-500 font-mono">Multi-Day Exit nach SMC/CRV-Regeln</span>
-        </div>
-        <div id="portfolio-active-trades" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
-          <!-- Dynamisch via JS -->
-        </div>
-      </div>
-
-      <!-- Trade Memory & Erfahrungs-Gedächtnis (Accordion) -->
-      <div class="border-t border-slate-800/80 pt-4">
-        <button onclick="toggleMemoryAccordion()" class="w-full flex items-center justify-between p-3 rounded-xl bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800 text-left transition cursor-pointer">
-          <div class="flex items-center gap-2.5">
-            <span class="text-base">🧠</span>
+          <div class="mt-3 flex items-baseline justify-between">
             <div>
-              <span class="text-xs font-bold text-slate-200">Trade-Gedächtnis & Post-Mortem Lerneinheiten</span>
-              <span class="block text-[10px] text-slate-400" id="memory-status-summary">Lade Erfahrungsspeicher...</span>
+              <h3 class="text-2xl font-bold text-white tracking-tight">Micron Technology</h3>
+              <p class="text-xs text-slate-400">Halbleiter · Watchlist Aktien</p>
+            </div>
+            <div class="text-right">
+              <span class="font-mono text-2xl font-extrabold text-emerald-400">878.84 USD</span>
+              <span class="block text-xs font-mono text-emerald-300/80">Im 0.618 Golden Pocket</span>
             </div>
           </div>
-          <span id="memory-accordion-icon" class="text-slate-400 text-xs font-mono transition">▼</span>
-        </button>
 
-        <div id="memory-accordion-content" class="hidden mt-3 space-y-3">
-          <div id="memory-learnings-list" class="space-y-2">
-            <!-- Dynamisch via JS -->
+          <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono">
+            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
+              <span class="text-slate-400 block text-[11px]">Setup</span>
+              <span class="text-emerald-300 font-semibold truncate block">Hypothese 1 (SMC)</span>
+            </div>
+            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
+              <span class="text-slate-400 block text-[11px]">Entry Zone</span>
+              <span class="text-white font-semibold">868 - 880 $</span>
+            </div>
+            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
+              <span class="text-slate-400 block text-[11px]">Stop-Loss</span>
+              <span class="text-rose-400 font-semibold">852.00 $ (-2.9%)</span>
+            </div>
+            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
+              <span class="text-slate-400 block text-[11px]">Take-Profit 2</span>
+              <span class="text-cyan-400 font-semibold">965.00 $ (3.3 CRV)</span>
+            </div>
           </div>
-          <div id="portfolio-closed-trades" class="space-y-2">
-            <!-- Dynamisch via JS -->
+
+          <p class="mt-3 text-xs text-slate-300 leading-relaxed">
+            <strong>Super-Analyst Rationale:</strong> Kurs sitzt exakt im 1D Fibonacci Golden Pocket (867-879 USD). Gleichzeitig Überdehnung unter das untere degencoder-Band. RSI im 4h/8h extrem überverkauft (26.6) mit aktiver bullischer Divergenz. VSA signalisiert stopping volume.
+          </p>
+
+          <div class="mt-4 flex items-center justify-between pt-3 border-t border-slate-800/80">
+            <button onclick="openDetailModal('NASDAQ:MU')" class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition cursor-pointer">
+              Multi-Timeframe Details (4h, 8h, 1D) →
+            </button>
+            <a href="https://www.tradingview.com/chart/?symbol=NASDAQ:MU" target="_blank" class="text-xs text-slate-400 hover:text-white transition flex items-center gap-1">
+              TradingView Chart ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Bitcoin (BTC) -->
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-950/40 via-slate-900/90 to-slate-900 border border-indigo-500/30 p-5 glow-emerald">
+          <div class="absolute -right-12 -top-12 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-3">
+              <span class="px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider bg-indigo-500 text-white">
+                Krypto Leitwolf
+              </span>
+              <span class="text-xs font-mono text-indigo-400 font-semibold">94% Score · Breakout Watch</span>
+            </div>
+            <span class="font-mono text-xs text-slate-400">COINBASE:BTCUSD</span>
+          </div>
+
+          <div class="mt-3 flex items-baseline justify-between">
+            <div>
+              <h3 class="text-2xl font-bold text-white tracking-tight">Bitcoin</h3>
+              <p class="text-xs text-slate-400">Krypto · Watchlist Crypto</p>
+            </div>
+            <div class="text-right">
+              <span class="font-mono text-2xl font-extrabold text-indigo-300">81,529 USD</span>
+              <span class="block text-xs font-mono text-slate-400">Über EMA 233 (75.7k)</span>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono">
+            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
+              <span class="text-slate-400 block text-[11px]">Setup</span>
+              <span class="text-indigo-300 font-semibold truncate block">Hypothese 2 (Breakout)</span>
+            </div>
+            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
+              <span class="text-slate-400 block text-[11px]">Trigger-Level</span>
+              <span class="text-white font-semibold">> 82,320 $</span>
+            </div>
+            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
+              <span class="text-slate-400 block text-[11px]">Stop-Loss</span>
+              <span class="text-rose-400 font-semibold">79,400 $</span>
+            </div>
+            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
+              <span class="text-slate-400 block text-[11px]">Take-Profit 2</span>
+              <span class="text-cyan-400 font-semibold">84,850 $ (3.1 CRV)</span>
+            </div>
+          </div>
+
+          <p class="mt-3 text-xs text-slate-300 leading-relaxed">
+            <strong>Super-Analyst Rationale:</strong> 1D Makro-Aufwärtstrend intakt. 8h reguläre bullische Divergenz aktiv. VSA zeigt extreme Austrocknung des Verkaufsdrucks (No Supply, Ratio 0.12). 4h-Bruch über den Bearish Order Block (82.320 USD) aktiviert den Impuls zur FVG-Magnetzone (84.3k-84.8k).
+          </p>
+
+          <div class="mt-4 flex items-center justify-between pt-3 border-t border-slate-800/80">
+            <button onclick="openDetailModal('COINBASE:BTCUSD')" class="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center gap-1 transition cursor-pointer">
+              Multi-Timeframe Details (4h, 8h, 1D) →
+            </button>
+            <a href="https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD" target="_blank" class="text-xs text-slate-400 hover:text-white transition flex items-center gap-1">
+              TradingView Chart ↗
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Top 3 Longs & Top 3 Shorts Ranking Cards Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <!-- Top 3 Longs Card -->
+        <div class="rounded-2xl bg-gradient-to-br from-slate-900/90 via-[#0d1322] to-slate-900 border border-emerald-500/30 p-4 sm:p-5 shadow-xl space-y-3">
+          <div class="flex items-center justify-between pb-2.5 border-b border-slate-800">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <h3 class="font-bold text-white text-sm">🟢 Top Long Setups</h3>
+            </div>
+            <span class="text-[11px] font-mono text-emerald-400">Beste Long Confluence</span>
+          </div>
+          <div class="space-y-2.5">
+            {top_longs_cards_html}
+          </div>
+        </div>
+
+        <!-- Top Short Setups Card -->
+        <div class="rounded-2xl bg-gradient-to-br from-slate-900/90 via-[#0d1322] to-slate-900 border border-rose-500/30 p-4 sm:p-5 shadow-xl space-y-3">
+          <div class="flex items-center justify-between pb-2.5 border-b border-slate-800">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
+              <h3 class="font-bold text-white text-sm">🔴 Top Short Setups</h3>
+            </div>
+            <span class="text-[11px] font-mono text-rose-400">Stärkste Reversal-Divergenzen</span>
+          </div>
+          <div class="space-y-2.5">
+            {top_shorts_cards_html}
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- Filter & Navigation Control Center -->
-    <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-4">
-      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-        
-        <!-- Direction Filter Pills -->
-        <div class="flex flex-wrap items-center gap-2">
-          <button onclick="setDirectionFilter('ALL')" id="filter-dir-ALL" class="filter-dir-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-indigo-600 text-white shadow-sm shadow-indigo-500/20">
-            Alle (<span id="count-all">55</span>)
-          </button>
-          <button onclick="setDirectionFilter('LONG')" id="filter-dir-LONG" class="filter-dir-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700">
-            🟢 Long Setups (<span id="count-long">14</span>)
-          </button>
-          <button onclick="setDirectionFilter('SHORT')" id="filter-dir-SHORT" class="filter-dir-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700">
-            🔴 Short Setups (<span id="count-short">20</span>)
-          </button>
-          <button onclick="setDirectionFilter('NEUTRAL')" id="filter-dir-NEUTRAL" class="filter-dir-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700">
-            ⚪ Neutral / Watchlist (<span id="count-neutral">21</span>)
-          </button>
-        </div>
-
-        <!-- Search Bar -->
-        <div class="relative w-full lg:w-72">
-          <input type="text" id="search-input" oninput="applyFilters()" placeholder="Symbol oder Name suchen..." class="w-full px-3.5 py-2 rounded-lg bg-slate-950 border border-slate-700/80 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition">
-          <span class="absolute right-3 top-2.5 text-xs text-slate-500 pointer-events-none">🔍</span>
-        </div>
-
-      </div>
-
-      <!-- Secondary Filter Row: Asset Class, Sorting, View Toggle -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-3 border-t border-slate-800/80">
-        
-        <!-- Category Buttons -->
-        <div class="flex flex-wrap items-center gap-1.5 text-xs">
-          <span class="text-slate-400 mr-1 text-[11px] uppercase tracking-wider font-semibold">Klasse:</span>
-          <button onclick="setCategoryFilter('ALL')" id="filter-cat-ALL" class="filter-cat-btn px-2.5 py-1 rounded-md transition bg-slate-700 text-white font-medium">Alle</button>
-          <button onclick="setCategoryFilter('Crypto')" id="filter-cat-Crypto" class="filter-cat-btn px-2.5 py-1 rounded-md transition text-slate-400 hover:text-white hover:bg-slate-800 font-medium">Crypto</button>
-          <button onclick="setCategoryFilter('Stock')" id="filter-cat-Stock" class="filter-cat-btn px-2.5 py-1 rounded-md transition text-slate-400 hover:text-white hover:bg-slate-800 font-medium">Aktien</button>
-          <button onclick="setCategoryFilter('Commodity')" id="filter-cat-Commodity" class="filter-cat-btn px-2.5 py-1 rounded-md transition text-slate-400 hover:text-white hover:bg-slate-800 font-medium">Rohstoffe</button>
-          <button onclick="setCategoryFilter('Macro')" id="filter-cat-Macro" class="filter-cat-btn px-2.5 py-1 rounded-md transition text-slate-400 hover:text-white hover:bg-slate-800 font-medium">Makro/Indizes</button>
-        </div>
-
-        <!-- Sort & View Controls -->
+      <!-- Hypothesen Quick Guide Banner -->
+      <div class="p-4 rounded-xl bg-slate-900/80 border border-indigo-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-lg">
         <div class="flex items-center gap-3">
-          <div class="flex items-center gap-2">
-            <span class="text-xs text-slate-400">Sortierung:</span>
-            <select id="sort-select" onchange="applyFilters()" class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700/80 text-xs text-white focus:outline-none focus:border-indigo-500">
-              <option value="score_desc">Höchster Score</option>
-              <option value="crv_desc">Höchstes CRV</option>
-              <option value="rsi_asc">RSI Überverkauft (Low)</option>
-              <option value="rsi_desc">RSI Überkauft (High)</option>
-              <option value="name_asc">Name (A-Z)</option>
-            </select>
+          <div class="w-8 h-8 rounded-lg bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-sm shrink-0">
+            💡
+          </div>
+          <div class="space-y-0.5">
+            <div class="font-bold text-white flex items-center gap-2">
+              <span>Setup-Logik & Hypothesen</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-mono">3 Strategien</span>
+            </div>
+            <p class="text-slate-400 text-[11px] leading-relaxed">
+              <strong class="text-emerald-400">Hypothese 1:</strong> Reversal am Wende-Extremum (Max CRV) &bull; 
+              <strong class="text-indigo-400">Hypothese 2:</strong> Trendfolge im Pullback (Hohe Winrate) &bull; 
+              <strong class="text-amber-400">Hypothese 3:</strong> Liquidity Hunt / Range Fakeout
+            </p>
+          </div>
+        </div>
+        <button onclick="openHypothesesModal()" class="self-start sm:self-auto px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition flex items-center gap-1.5 shadow-sm shrink-0 cursor-pointer">
+          Guide & Regeln anzeigen →
+        </button>
+      </div>
+
+    </div>
+
+    <!-- =========================================================================
+         TAB 3: MARKT-SCANNER (58 ASSET MATRIX & FILTER)
+         ========================================================================= -->
+    <div id="tab-content-scanner" class="tab-pane hidden space-y-6">
+
+      <!-- Filter & Navigation Control Center -->
+      <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-4">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          
+          <!-- Direction Filter Pills -->
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="setDirectionFilter('ALL')" id="filter-dir-ALL" class="filter-dir-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-indigo-600 text-white shadow-sm shadow-indigo-500/20 cursor-pointer">
+              Alle (<span id="count-all">55</span>)
+            </button>
+            <button onclick="setDirectionFilter('LONG')" id="filter-dir-LONG" class="filter-dir-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 cursor-pointer">
+              🟢 Long Setups (<span id="count-long">14</span>)
+            </button>
+            <button onclick="setDirectionFilter('SHORT')" id="filter-dir-SHORT" class="filter-dir-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 cursor-pointer">
+              🔴 Short Setups (<span id="count-short">20</span>)
+            </button>
+            <button onclick="setDirectionFilter('NEUTRAL')" id="filter-dir-NEUTRAL" class="filter-dir-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 cursor-pointer">
+              ⚪ Neutral / Watchlist (<span id="count-neutral">21</span>)
+            </button>
           </div>
 
-          <!-- View Toggle (Grid vs Table) -->
-          <div class="flex items-center bg-slate-950 p-1 rounded-lg border border-slate-800">
-            <button onclick="setViewMode('grid')" id="view-grid-btn" class="px-2 py-1 rounded text-xs font-semibold bg-indigo-600 text-white">Cards</button>
-            <button onclick="setViewMode('table')" id="view-table-btn" class="px-2 py-1 rounded text-xs font-semibold text-slate-400 hover:text-white">Tabelle</button>
+          <!-- Search Bar -->
+          <div class="relative w-full lg:w-72">
+            <input type="text" id="search-input" oninput="applyFilters()" placeholder="Symbol oder Name suchen..." class="w-full px-3.5 py-2 rounded-lg bg-slate-950 border border-slate-700/80 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition">
+            <span class="absolute right-3 top-2.5 text-xs text-slate-500 pointer-events-none">🔍</span>
+          </div>
+
+        </div>
+
+        <!-- Secondary Filter Row: Asset Class, Sorting, View Toggle -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-3 border-t border-slate-800/80">
+          
+          <!-- Category Buttons -->
+          <div class="flex flex-wrap items-center gap-1.5 text-xs">
+            <span class="text-slate-400 mr-1 text-[11px] uppercase tracking-wider font-semibold">Klasse:</span>
+            <button onclick="setCategoryFilter('ALL')" id="filter-cat-ALL" class="filter-cat-btn px-2.5 py-1 rounded-md transition bg-slate-700 text-white font-medium cursor-pointer">Alle</button>
+            <button onclick="setCategoryFilter('Crypto')" id="filter-cat-Crypto" class="filter-cat-btn px-2.5 py-1 rounded-md transition text-slate-400 hover:text-white hover:bg-slate-800 font-medium cursor-pointer">Crypto</button>
+            <button onclick="setCategoryFilter('Stock')" id="filter-cat-Stock" class="filter-cat-btn px-2.5 py-1 rounded-md transition text-slate-400 hover:text-white hover:bg-slate-800 font-medium cursor-pointer">Aktien</button>
+            <button onclick="setCategoryFilter('Commodity')" id="filter-cat-Commodity" class="filter-cat-btn px-2.5 py-1 rounded-md transition text-slate-400 hover:text-white hover:bg-slate-800 font-medium cursor-pointer">Rohstoffe</button>
+            <button onclick="setCategoryFilter('Macro')" id="filter-cat-Macro" class="filter-cat-btn px-2.5 py-1 rounded-md transition text-slate-400 hover:text-white hover:bg-slate-800 font-medium cursor-pointer">Makro/Indizes</button>
+          </div>
+
+          <!-- Sort & View Controls -->
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-slate-400">Sortierung:</span>
+              <select id="sort-select" onchange="applyFilters()" class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700/80 text-xs text-white focus:outline-none focus:border-indigo-500">
+                <option value="score_desc">Höchster Score</option>
+                <option value="crv_desc">Höchstes CRV</option>
+                <option value="rsi_asc">RSI Überverkauft (Low)</option>
+                <option value="rsi_desc">RSI Überkauft (High)</option>
+                <option value="name_asc">Name (A-Z)</option>
+              </select>
+            </div>
+
+            <!-- View Toggle (Grid vs Table) -->
+            <div class="flex items-center bg-slate-950 p-1 rounded-lg border border-slate-800">
+              <button onclick="setViewMode('grid')" id="view-grid-btn" class="px-2 py-1 rounded text-xs font-semibold bg-indigo-600 text-white cursor-pointer">Cards</button>
+              <button onclick="setViewMode('table')" id="view-table-btn" class="px-2 py-1 rounded text-xs font-semibold text-slate-400 hover:text-white cursor-pointer">Tabelle</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Active Filter Indicators -->
+      <div id="results-count" class="text-xs text-slate-400 font-medium">
+        Zeige 55 Setups
+      </div>
+
+      <!-- Cards Grid View -->
+      <div id="assets-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <!-- Dynamisch gerendert via JS -->
+      </div>
+
+      <!-- Table View (Hidden by default) -->
+      <div id="assets-table-container" class="hidden overflow-x-auto rounded-xl border border-slate-800 bg-slate-900/60">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="border-b border-slate-800 bg-slate-950/80 text-slate-400 font-mono uppercase text-[11px]">
+              <th class="p-3">Asset</th>
+              <th class="p-3">Signal</th>
+              <th class="p-3">Score</th>
+              <th class="p-3">Kurs</th>
+              <th class="p-3">1D Trend</th>
+              <th class="p-3">4h RSI</th>
+              <th class="p-3">Setup & Trade Plan</th>
+              <th class="p-3">CRV</th>
+              <th class="p-3 text-right">Details</th>
+            </tr>
+          </thead>
+          <tbody id="assets-table-body" class="divide-y divide-slate-800/60 font-mono">
+            <!-- Dynamisch via JS -->
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- =========================================================================
+         TAB 4: MASTER-ADMIN ZENTRALE (STRENG VERTRAULICH)
+         ========================================================================= -->
+    <div id="tab-content-admin" class="tab-pane hidden space-y-6">
+
+      <!-- Admin Top Banner -->
+      <div class="p-5 rounded-2xl bg-gradient-to-r from-amber-950/40 via-slate-900 to-slate-900 border border-amber-500/40 shadow-xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-2xl shrink-0">
+            ⚙️
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-base sm:text-lg font-bold text-white tracking-tight">Master-Admin Kontrollzentrum</h2>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">STRENG VERTRAULICH</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">Google AI Studio API-Key Quota Pool &bull; KI High-Conviction Modell-Portfolio &bull; Benutzerverwaltung &bull; Pi Engine</p>
           </div>
         </div>
 
+        <button onclick="triggerManualRefresh()" class="self-start sm:self-auto px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition flex items-center gap-2 shadow-lg shadow-amber-500/20 active:scale-95 cursor-pointer shrink-0">
+          <span>⚡</span>
+          <span>Master Live-Scan starten (Pi)</span>
+        </button>
       </div>
-    </div>
 
-    <!-- Active Filter Indicators -->
-    <div id="results-count" class="text-xs text-slate-400 font-medium">
-      Zeige 55 Setups
-    </div>
+      <!-- Card A: Google Gemini API-Key Pool -->
+      <section class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-[#0d1322] to-slate-900 border border-indigo-500/30 p-5 shadow-xl space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+          <div class="flex items-center gap-2.5">
+            <span class="text-xl">🔑</span>
+            <div>
+              <h3 class="font-bold text-white text-base">Google Gemini API-Key Quota Pool</h3>
+              <p class="text-xs text-slate-400">Intelligentes Failover & Multi-Key Lastverteilung ({total_keys_count}x AI Studio Keys)</p>
+            </div>
+          </div>
+          <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+            Modell: gemini-3.8-flash
+          </span>
+        </div>
 
-    <!-- Cards Grid View -->
-    <div id="assets-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-      <!-- Dynamisch gerendert via JS -->
-    </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block uppercase">Gesamt-Verbrauch</span>
+            <span class="font-bold text-base {quota_num_class}">{quota_used} / {quota_limit} Requests</span>
+            <span class="block text-[10px] text-slate-500 mt-0.5">{quota_pct}% des Tageslimits</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block uppercase">Verbleibend</span>
+            <span class="font-bold text-base text-emerald-400">{quota_remaining} Requests</span>
+            <span class="block text-[10px] text-slate-500 mt-0.5">{active_keys_count} von {total_keys_count} Keys aktiv</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block uppercase">Tages-Reset</span>
+            <span class="font-bold text-base text-indigo-300">{quota_countdown}</span>
+            <span class="block text-[10px] text-slate-500 mt-0.5">00:00 UTC</span>
+          </div>
+        </div>
 
-    <!-- Table View (Hidden by default) -->
-    <div id="assets-table-container" class="hidden overflow-x-auto rounded-xl border border-slate-800 bg-slate-900/60">
-      <table class="w-full text-left text-xs border-collapse">
-        <thead>
-          <tr class="border-b border-slate-800 bg-slate-950/80 text-slate-400 font-mono uppercase text-[11px]">
-            <th class="p-3">Asset</th>
-            <th class="p-3">Signal</th>
-            <th class="p-3">Score</th>
-            <th class="p-3">Kurs</th>
-            <th class="p-3">1D Trend</th>
-            <th class="p-3">4h RSI</th>
-            <th class="p-3">Setup & Trade Plan</th>
-            <th class="p-3">CRV</th>
-            <th class="p-3 text-right">Details</th>
-          </tr>
-        </thead>
-        <tbody id="assets-table-body" class="divide-y divide-slate-800/60 font-mono">
-          <!-- Dynamisch via JS -->
-        </tbody>
-      </table>
+        <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+          <div class="h-2 rounded-full {quota_bar_color}" style="width: {min(100.0, quota_pct)}%"></div>
+        </div>
+
+        <!-- Einzel-Keys Breakdown Grid -->
+        <div class="space-y-2 pt-2">
+          <span class="text-xs font-bold text-slate-300 uppercase tracking-wider block">Einzel-Key Status & Kontingente:</span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {keys_cards_html}
+          </div>
+        </div>
+      </section>
+
+      <!-- Card B: Autonomes KI High-Conviction Modell-Portfolio & Gedächtnis -->
+      <section id="portfolio-section" class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-emerald-950/20 to-slate-900 border border-emerald-500/30 p-5 shadow-xl space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3.5">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+                <span>🏛️ KI High-Conviction Modell-Portfolio</span>
+              </h2>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                Autonom & Lernend
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">Nur sicherste Setups (Score ≥ 88%) &bull; Identischer Einheitsbetrag (1.000 €) für relative Performance &bull; Hebel (max 10x) durch KI &bull; Permanenter Erfahrungsspeicher</p>
+          </div>
+
+          <!-- Portfolio Performance KPIs -->
+          <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+            <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-[10px] text-slate-400 block uppercase">Gehebelt</span>
+              <span class="font-bold text-sm text-emerald-400" id="port-metric-lev-pnl">+0.0%</span>
+            </div>
+            <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-[10px] text-slate-400 block uppercase">Basis (1x)</span>
+              <span class="font-bold text-sm text-white" id="port-metric-raw-pnl">+0.0%</span>
+            </div>
+            <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-[10px] text-slate-400 block uppercase">Win-Rate</span>
+              <span class="font-bold text-sm text-indigo-300" id="port-metric-winrate">0.0%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aktive Trades des KI-Portfolios -->
+        <div>
+          <div class="flex items-center justify-between mb-2.5">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+              <span>Aktuell laufende Trades</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-300 font-mono" id="port-active-count">0</span>
+            </h3>
+            <span class="text-[11px] text-slate-500 font-mono">Multi-Day Exit nach SMC/CRV-Regeln</span>
+          </div>
+          <div id="portfolio-active-trades" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+            <!-- Dynamisch via JS -->
+          </div>
+        </div>
+
+        <!-- Trade Memory & Erfahrungs-Gedächtnis (Accordion) -->
+        <div class="border-t border-slate-800/80 pt-4">
+          <button onclick="toggleMemoryAccordion()" class="w-full flex items-center justify-between p-3 rounded-xl bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800 text-left transition cursor-pointer">
+            <div class="flex items-center gap-2.5">
+              <span class="text-base">🧠</span>
+              <div>
+                <span class="text-xs font-bold text-slate-200">Trade-Gedächtnis & Post-Mortem Lerneinheiten</span>
+                <span class="block text-[10px] text-slate-400" id="memory-status-summary">Lade Erfahrungsspeicher...</span>
+              </div>
+            </div>
+            <span id="memory-accordion-icon" class="text-slate-400 text-xs font-mono transition">▼</span>
+          </button>
+
+          <div id="memory-accordion-content" class="hidden mt-3 space-y-3">
+            <div id="memory-learnings-list" class="space-y-2">
+              <!-- Dynamisch via JS -->
+            </div>
+            <div id="portfolio-closed-trades" class="space-y-2">
+              <!-- Dynamisch via JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Card C: Autorisierte Benutzer & Rollenverwaltung -->
+      <section class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-[#0d1322] to-slate-900 border border-slate-800 p-5 shadow-xl space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+          <div class="flex items-center gap-2.5">
+            <span class="text-xl">👥</span>
+            <div>
+              <h3 class="font-bold text-white text-base">Autorisierte Benutzer & Rollen</h3>
+              <p class="text-xs text-slate-400">Verwaltet über Telegram-Bot (@aitradeanalystbot) und telegram_config.json</p>
+            </div>
+          </div>
+          <span class="px-2.5 py-1 rounded-full text-[10px] font-mono bg-slate-800 text-slate-300">
+            Gesichert durch Pi
+          </span>
+        </div>
+
+        <div id="admin-users-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Dynamisch via JS gefüllt -->
+        </div>
+      </section>
+
+      <!-- Card D: Raspberry Pi 24/7 Engine Status -->
+      <section class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-[#0d1322] to-slate-900 border border-slate-800 p-5 shadow-xl space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+          <div class="flex items-center gap-2.5">
+            <span class="text-xl">🍓</span>
+            <div>
+              <h3 class="font-bold text-white text-base">Raspberry Pi 24/7 Engine Status</h3>
+              <p class="text-xs text-slate-400">Autonomer Scan- und Überwachungs-Daemon</p>
+            </div>
+          </div>
+          <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+            ● 24/7 System Online
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block uppercase">Scan-Intervall</span>
+            <span class="font-bold text-white block mt-0.5">Alle 4 Stunden</span>
+            <span class="text-[10px] text-indigo-300">Crontab gesteuert</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block uppercase">TradingView MCP</span>
+            <span class="font-bold text-white block mt-0.5">Bridge Aktiv</span>
+            <span class="text-[10px] text-emerald-400">Live Kerzen 4h/8h/1D</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block uppercase">Telegram Bot</span>
+            <span class="font-bold text-white block mt-0.5">Service Active</span>
+            <span class="text-[10px] text-emerald-400">Systemd Daemon</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block uppercase">Auto-Deploy</span>
+            <span class="font-bold text-white block mt-0.5">GitHub Pages</span>
+            <span class="text-[10px] text-cyan-400">bbbdc.github.io</span>
+          </div>
+        </div>
+      </section>
+
     </div>
 
   </main>
@@ -2092,6 +2374,136 @@ html_content = f"""<!DOCTYPE html>
 
     window.onTelegramAuth = window.handleTelegramLogin;
 
+    function switchDashboardTab(tabId) {{
+      const user = getAuthenticatedUser();
+      const isAdmin = user && (user.role === 'admin' || checkUserRole(user) === 'admin');
+
+      if (tabId === 'admin' && !isAdmin) {{
+        tabId = 'positions';
+      }}
+
+      const tabs = ['positions', 'topsetups', 'scanner', 'admin'];
+      tabs.forEach(t => {{
+        const pane = document.getElementById('tab-content-' + t);
+        if (pane) {{
+          if (t === tabId) {{
+            pane.classList.remove('hidden');
+          }} else {{
+            pane.classList.add('hidden');
+          }}
+        }}
+
+        // Desktop nav button state
+        const deskBtn = document.getElementById('nav-tab-' + t);
+        if (deskBtn) {{
+          if (t === tabId) {{
+            if (t === 'admin') {{
+              deskBtn.className = 'dashboard-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 cursor-pointer';
+            }} else {{
+              deskBtn.className = 'dashboard-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-indigo-600 text-white shadow-md shadow-indigo-600/30 cursor-pointer';
+            }}
+          }} else {{
+            if (t === 'admin') {{
+              deskBtn.className = 'dashboard-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition border border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 cursor-pointer';
+            }} else {{
+              deskBtn.className = 'dashboard-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer';
+            }}
+          }}
+        }}
+
+        // Mobile bottom nav button state
+        const mobBtn = document.getElementById('mob-tab-' + t);
+        if (mobBtn) {{
+          if (t === tabId) {{
+            mobBtn.className = t === 'admin'
+              ? 'mob-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition text-amber-400 font-bold active:scale-95 bg-amber-500/10 cursor-pointer'
+              : 'mob-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition text-indigo-400 font-bold active:scale-95 bg-indigo-500/10 cursor-pointer';
+          }} else {{
+            mobBtn.className = t === 'admin'
+              ? 'mob-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition text-amber-300/60 active:scale-95 cursor-pointer'
+              : 'mob-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition text-slate-400 active:scale-95 cursor-pointer';
+          }}
+        }}
+      }});
+
+      try {{
+        sessionStorage.setItem('active_tab', tabId);
+      }} catch (e) {{}}
+
+      window.scrollTo({{ top: 0, behavior: 'smooth' }});
+    }}
+
+    function triggerSmartRefresh() {{
+      const user = getAuthenticatedUser();
+      const isAdmin = user && (user.role === 'admin' || checkUserRole(user) === 'admin');
+      if (isAdmin) {{
+        triggerManualRefresh();
+      }} else {{
+        // Trader: Instant UI Refresh from loaded data
+        const label = document.getElementById('refresh-label');
+        const icon = document.getElementById('refresh-icon');
+        if (icon) icon.classList.add('animate-spin');
+        if (label) label.innerText = 'Lade...';
+        setTimeout(() => {{
+          renderUserPositions();
+          applyFilters();
+          if (icon) icon.classList.remove('animate-spin');
+          if (label) label.innerText = 'Aktuell';
+          if (typeof showToast === 'function') showToast('Dashboard erfolgreich aktualisiert!');
+          setTimeout(() => {{ if (label) label.innerText = 'Refresh'; }}, 2000);
+        }}, 350);
+      }}
+    }}
+
+    function renderAdminUsersList() {{
+      const container = document.getElementById('admin-users-list');
+      if (!container || !currentData || !currentData.auth_config) return;
+      const cfg = currentData.auth_config;
+      const users = cfg.authorized_users || {{}};
+      const admins = cfg.admin_usernames || ['Bdc_Gumb_Drop'];
+      let html = '';
+
+      admins.forEach(adm => {{
+        html += `
+          <div class="p-3.5 rounded-xl bg-slate-950/80 border border-amber-500/30 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center text-sm font-bold">👑</span>
+              <div>
+                <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                  <span>@${{adm}}</span>
+                  <span class="px-1.5 py-0.2 rounded text-[9px] bg-amber-500/20 text-amber-300 font-mono font-bold">MASTER-ADMIN</span>
+                </div>
+                <span class="text-[10px] text-slate-400">Vollzugriff: Quota Pool, Modell-Portfolio, Pi Live-Scan</span>
+              </div>
+            </div>
+            <span class="text-[10px] font-mono text-emerald-400 font-bold">Aktiv</span>
+          </div>
+        `;
+      }});
+
+      Object.keys(users).forEach(uname => {{
+        if (admins.map(a => a.toLowerCase()).includes(uname.toLowerCase())) return;
+        const udata = users[uname];
+        html += `
+          <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-300 flex items-center justify-center text-sm font-bold">👤</span>
+              <div>
+                <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                  <span>@${{uname}}</span>
+                  <span class="px-1.5 py-0.2 rounded text-[9px] bg-indigo-500/20 text-indigo-300 font-mono font-bold">${{(udata.role || 'TRADER').toUpperCase()}}</span>
+                </div>
+                <span class="text-[10px] text-slate-400">Chat-ID: ${{udata.chat_id || 'unbekannt'}} &bull; Eigene Trades & Marktsignale</span>
+              </div>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400 font-bold">Autorisiert</span>
+          </div>
+        `;
+      }});
+
+      container.innerHTML = html;
+    }}
+
     function applyAuthenticatedState(user) {{
       const gate = document.getElementById('telegram-auth-gate');
       if (gate) gate.classList.add('hidden');
@@ -2108,7 +2520,7 @@ html_content = f"""<!DOCTYPE html>
         if (roleEl) {{
           roleEl.innerText = (user.role || 'TRADER').toUpperCase();
           if (user.role === 'admin') {{
-            roleEl.className = 'px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+            roleEl.className = 'px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30';
           }} else {{
             roleEl.className = 'px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30';
           }}
@@ -2120,18 +2532,54 @@ html_content = f"""<!DOCTYPE html>
         }}
       }}
 
+      // Admin vs Trader Visibility Control
+      const isAdmin = user.role === 'admin';
+      const navTabAdmin = document.getElementById('nav-tab-admin');
+      const mobTabAdmin = document.getElementById('mob-tab-admin');
+      const headerQuota = document.getElementById('header-quota-badge');
+      const headerEngine = document.getElementById('header-engine-badge');
+      const headerTrader = document.getElementById('header-trader-badge');
+
+      if (isAdmin) {{
+        if (navTabAdmin) navTabAdmin.classList.remove('hidden');
+        if (mobTabAdmin) mobTabAdmin.classList.remove('hidden');
+        if (headerQuota) headerQuota.classList.remove('hidden');
+        if (headerEngine) headerEngine.classList.remove('hidden');
+        if (headerTrader) headerTrader.classList.add('hidden');
+        renderAdminUsersList();
+      }} else {{
+        if (navTabAdmin) navTabAdmin.classList.add('hidden');
+        if (mobTabAdmin) mobTabAdmin.classList.add('hidden');
+        if (headerQuota) headerQuota.classList.add('hidden');
+        if (headerEngine) headerEngine.classList.add('hidden');
+        if (headerTrader) headerTrader.classList.remove('hidden');
+
+        // Falls Trader auf admin-Tab steht, zurücksetzen
+        const curTab = sessionStorage.getItem('active_tab') || 'positions';
+        if (curTab === 'admin') {{
+          sessionStorage.setItem('active_tab', 'positions');
+        }}
+      }}
+
+      const savedTab = sessionStorage.getItem('active_tab') || 'positions';
+      switchDashboardTab(savedTab);
       renderUserPositions();
     }}
 
     function logoutTelegram() {{
       try {{
         localStorage.removeItem('tg_user');
+        sessionStorage.removeItem('active_tab');
       }} catch (e) {{}}
       currentAuthUser = null;
       const badge = document.getElementById('auth-user-badge');
       if (badge) badge.classList.add('hidden');
       const errBox = document.getElementById('tg-auth-error');
       if (errBox) errBox.classList.add('hidden');
+      const navTabAdmin = document.getElementById('nav-tab-admin');
+      if (navTabAdmin) navTabAdmin.classList.add('hidden');
+      const mobTabAdmin = document.getElementById('mob-tab-admin');
+      if (mobTabAdmin) mobTabAdmin.classList.add('hidden');
       const gate = document.getElementById('telegram-auth-gate');
       if (gate) gate.classList.remove('hidden');
     }}
@@ -2295,6 +2743,17 @@ html_content = f"""<!DOCTYPE html>
           displayPositions = allPositions.filter(p => (p.user_name || '').toLowerCase() === myUname);
         }} else if (currentAdminPosFilter !== 'all') {{
           displayPositions = allPositions.filter(p => (p.user_name || '').toLowerCase() === currentAdminPosFilter.toLowerCase());
+        }}
+      }}
+
+      // Positionen-Badge in der Segment-Navigation aktualisieren
+      const navBadge = document.getElementById('nav-badge-positions');
+      if (navBadge) {{
+        if (displayPositions.length > 0) {{
+          navBadge.innerText = displayPositions.length;
+          navBadge.classList.remove('hidden');
+        }} else {{
+          navBadge.classList.add('hidden');
         }}
       }}
 
@@ -3177,6 +3636,26 @@ html_content = f"""<!DOCTYPE html>
 
     </div>
   </div>
+
+  <!-- Mobile Sticky Bottom Navigation Bar -->
+  <nav id="mobile-bottom-nav" class="fixed bottom-0 left-0 right-0 z-40 bg-[#0d1322]/95 backdrop-blur-lg border-t border-slate-800/80 px-3 py-2 flex items-center justify-around md:hidden shadow-2xl safe-area-pb">
+    <button id="mob-tab-positions" onclick="switchDashboardTab('positions')" class="mob-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition text-indigo-400 font-bold active:scale-95 bg-indigo-500/10 cursor-pointer">
+      <span class="text-xl">👤</span>
+      <span class="text-[10px] tracking-tight mt-0.5">Positionen</span>
+    </button>
+    <button id="mob-tab-topsetups" onclick="switchDashboardTab('topsetups')" class="mob-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition text-slate-400 active:scale-95 cursor-pointer">
+      <span class="text-xl">🎯</span>
+      <span class="text-[10px] tracking-tight mt-0.5">Top-Setups</span>
+    </button>
+    <button id="mob-tab-scanner" onclick="switchDashboardTab('scanner')" class="mob-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition text-slate-400 active:scale-95 cursor-pointer">
+      <span class="text-xl">🚀</span>
+      <span class="text-[10px] tracking-tight mt-0.5">Scanner</span>
+    </button>
+    <button id="mob-tab-admin" onclick="switchDashboardTab('admin')" class="mob-nav-btn hidden flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition text-amber-400 active:scale-95 cursor-pointer">
+      <span class="text-xl">⚙️</span>
+      <span class="text-[10px] tracking-tight mt-0.5">Admin</span>
+    </button>
+  </nav>
 </body>
 </html>
 """

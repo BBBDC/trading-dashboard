@@ -164,29 +164,40 @@ class TelegramAPI:
 # 3. KACHEL-MENÜS & UI-KOMPONENTEN (INLINE KEYBOARDS)
 # ==============================================================================
 def get_main_menu_keyboard(role="trader"):
-    kb = [
-        [
-            {"text": "➕ Neuer Trade", "callback_data": "menu_new_trade"},
-            {"text": "📊 Meine Trades", "callback_data": "menu_my_trades"}
-        ],
-        [
-            {"text": "🏛️ Modell-Portfolio", "callback_data": "menu_model_portfolio"},
-            {"text": "🚀 Marktanalyse", "callback_data": "menu_market_scan"}
-        ]
-    ]
     if role == "admin":
-        kb.append([
-            {"text": "👥 Benutzer", "callback_data": "menu_users"},
-            {"text": "🌐 Web-Dashboard", "callback_data": "menu_dashboard_links"}
-        ])
+        kb = [
+            [
+                {"text": "➕ Neuer Trade", "callback_data": "menu_new_trade"},
+                {"text": "📊 Meine Trades", "callback_data": "menu_my_trades"}
+            ],
+            [
+                {"text": "🎯 Top-Setups", "callback_data": "menu_top_setups"},
+                {"text": "🚀 Marktübersicht", "callback_data": "menu_market_scan"}
+            ],
+            [
+                {"text": "⚙️ Admin-Zentrale", "callback_data": "menu_admin_hub"},
+                {"text": "🌐 Web-Dashboard", "callback_data": "menu_dashboard_links"}
+            ],
+            [
+                {"text": "🔄 Aktualisieren", "callback_data": "menu_refresh"}
+            ]
+        ]
     else:
-        kb.append([
-            {"text": "🌐 Web-Dashboard", "callback_data": "menu_dashboard_links"}
-        ])
-
-    kb.append([
-        {"text": "🔄 Aktualisieren", "callback_data": "menu_refresh"}
-    ])
+        # Reguläre Trader: Kein Modellportfolio und keine Admin-Zentrale
+        kb = [
+            [
+                {"text": "➕ Neuer Trade", "callback_data": "menu_new_trade"},
+                {"text": "📊 Meine Trades", "callback_data": "menu_my_trades"}
+            ],
+            [
+                {"text": "🎯 Top-Setups", "callback_data": "menu_top_setups"},
+                {"text": "🚀 Marktübersicht", "callback_data": "menu_market_scan"}
+            ],
+            [
+                {"text": "🌐 Web-Dashboard", "callback_data": "menu_dashboard_links"},
+                {"text": "🔄 Aktualisieren", "callback_data": "menu_refresh"}
+            ]
+        ]
     return {"inline_keyboard": kb}
 
 
@@ -347,7 +358,7 @@ def find_asset_price(symbol):
     return None
 
 
-def get_market_overview():
+def get_market_overview(role="trader"):
     """Gibt eine kurze Zusammenfassung des letzten Scans zurück."""
     if not DB_FILE.exists():
         return "⚠️ Noch keine Marktdatenbank vorhanden. Bitte starte einen Scan."
@@ -360,12 +371,14 @@ def get_market_overview():
         longs = db.get("long_count", 0)
         shorts = db.get("short_count", 0)
         neutrals = db.get("neutral_count", 0)
-        engine = db.get("evaluation_engine", "Unbekannt")
+        engine = db.get("evaluation_engine", "Raspberry Pi 24/7 Confluence Engine")
 
-        # Top 3 Longs nach Confluence Score
+        engine_text = engine if role == "admin" else "24/7 Pi Confluence Multi-Timeframe"
+
+        # Top 3 Longs & Shorts nach Confluence Score
         assets = db.get("assets", [])
-        long_candidates = sorted([a for a in assets if a.get("signal") == "LONG"], key=lambda x: x.get("confluence_score", 0), reverse=True)[:3]
-        short_candidates = sorted([a for a in assets if a.get("signal") == "SHORT"], key=lambda x: x.get("confluence_score", 0), reverse=True)[:3]
+        long_candidates = sorted([a for a in assets if a.get("signal") == "LONG"], key=lambda x: x.get("score", x.get("confluence_score", 0)), reverse=True)[:3]
+        short_candidates = sorted([a for a in assets if a.get("signal") == "SHORT"], key=lambda x: x.get("score", x.get("confluence_score", 0)), reverse=True)[:3]
 
         text = (
             f"📊 <b>Marktanalyse Status</b>\n"
@@ -374,24 +387,256 @@ def get_market_overview():
             f"• 🟢 <b>Long Signale:</b> {longs}\n"
             f"• 🔴 <b>Short Signale:</b> {shorts}\n"
             f"• ⚪ <b>Neutral:</b> {neutrals}\n"
-            f"• 🧠 <b>Engine:</b> {engine}\n\n"
+            f"• 🧠 <b>Engine:</b> {engine_text}\n\n"
         )
 
         if long_candidates:
             text += "<b>Top Long Setups:</b>\n"
             for a in long_candidates:
-                text += f"  🟢 <b>{a.get('name', a.get('symbol'))}</b> (Score: {a.get('confluence_score')}%) | {a.get('price'):,.2f} $\n"
+                score = a.get("score", a.get("confluence_score", 0))
+                text += f"  🟢 <b>{a.get('name', a.get('symbol'))}</b> (Score: {score}%) | {a.get('price', 0):,.2f} $\n"
             text += "\n"
 
         if short_candidates:
             text += "<b>Top Short Setups:</b>\n"
             for a in short_candidates:
-                text += f"  🔴 <b>{a.get('name', a.get('symbol'))}</b> (Score: {a.get('confluence_score')}%) | {a.get('price'):,.2f} $\n"
+                score = a.get("score", a.get("confluence_score", 0))
+                text += f"  🔴 <b>{a.get('name', a.get('symbol'))}</b> (Score: {score}%) | {a.get('price', 0):,.2f} $\n"
             text += "\n"
 
         return text
     except Exception as e:
         return f"Fehler beim Lesen der Marktdatenbank: {e}"
+
+
+def get_top_setups_text_and_markup():
+    """Erstellt eine detaillierte Top-Setups Übersicht für Chat-Nutzer."""
+    if not DB_FILE.exists():
+        return "⚠️ Noch keine Marktdaten vorhanden.", None
+    try:
+        with open(DB_FILE, "r", encoding="utf-8") as f:
+            db = json.load(f)
+
+        ts = db.get("timestamp", "Unbekannt")
+        assets = db.get("assets", [])
+
+        long_candidates = sorted([a for a in assets if a.get("signal") == "LONG"], key=lambda x: x.get("score", 0), reverse=True)[:3]
+        short_candidates = sorted([a for a in assets if a.get("signal") == "SHORT"], key=lambda x: x.get("score", 0), reverse=True)[:3]
+
+        lines = [
+            f"🎯 <b>High-Conviction Top-Setups</b>",
+            f"<i>Stand: {ts} · Multi-Timeframe Confluence</i>\n"
+        ]
+
+        if long_candidates:
+            lines.append("🟢 <b>TOP LONG CHANCEN:</b>")
+            for a in long_candidates:
+                sym = a.get("symbol", "")
+                name = a.get("name", sym)
+                score = a.get("score", 0)
+                setup = a.get("setup_name", "Trend-Setup")
+                price = a.get("price", 0)
+                entry = a.get("entry_range", "-")
+                sl = a.get("stop_loss", "-")
+                tp2 = a.get("take_profit_2", "-")
+                crv = a.get("crv", "-")
+
+                lines.append(
+                    f"• <b>{name}</b> (<code>{sym}</code>) – <b>{score}% Score</b>\n"
+                    f"   <i>{setup}</i>\n"
+                    f"   Kurs: {price:,.2f} $ | Entry: {entry}\n"
+                    f"   SL: {sl} | TP2: {tp2} (CRV: {crv})"
+                )
+            lines.append("")
+
+        if short_candidates:
+            lines.append("🔴 <b>TOP SHORT CHANCEN:</b>")
+            for a in short_candidates:
+                sym = a.get("symbol", "")
+                name = a.get("name", sym)
+                score = a.get("score", 0)
+                setup = a.get("setup_name", "Reversal-Setup")
+                price = a.get("price", 0)
+                entry = a.get("entry_range", "-")
+                sl = a.get("stop_loss", "-")
+                tp2 = a.get("take_profit_2", "-")
+                crv = a.get("crv", "-")
+
+                lines.append(
+                    f"• <b>{name}</b> (<code>{sym}</code>) – <b>{score}% Score</b>\n"
+                    f"   <i>{setup}</i>\n"
+                    f"   Kurs: {price:,.2f} $ | Entry: {entry}\n"
+                    f"   SL: {sl} | TP2: {tp2} (CRV: {crv})"
+                )
+            lines.append("")
+
+        kb = {
+            "inline_keyboard": [
+                [{"text": "➕ Eigenen Trade anlegen", "callback_data": "menu_new_trade"}],
+                [{"text": "🌐 Charts im Web-Dashboard öffnen", "url": "https://bbbdc.github.io/trading-dashboard/"}],
+                [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
+            ]
+        }
+        return "\n".join(lines), kb
+    except Exception as e:
+        return f"Fehler bei Top-Setups: {e}", None
+
+
+def get_admin_hub_text_and_markup():
+    """Generiert die Übersicht für das Master-Admin Kontrollzentrum."""
+    try:
+        from gemini_quota_tracker import get_quota_summary_for_dashboard
+        quota = get_quota_summary_for_dashboard()
+    except Exception:
+        quota = {
+            "total_keys_count": 4, "active_keys_count": 4, "requests_used_today": 0,
+            "daily_limit": 80, "percent_used": 0.0, "requests_remaining": 80,
+            "reset_countdown": "00:00 UTC", "active_key_masked": "AQ.Ab8...Ww"
+        }
+
+    port_active = 0
+    win_rate = 0.0
+    lev_pnl = 0.0
+    if PORTFOLIO_FILE.exists():
+        try:
+            with open(PORTFOLIO_FILE, "r", encoding="utf-8") as f:
+                pdata = json.load(f)
+            port_active = len(pdata.get("active_trades", []))
+            metrics = pdata.get("metrics", {})
+            win_rate = metrics.get("win_rate_pct", 0.0)
+            lev_pnl = metrics.get("total_leveraged_pnl_pct", 0.0)
+        except Exception:
+            pass
+
+    cfg = load_config()
+    auth_users = cfg.get("authorized_users", {})
+
+    used = quota.get("requests_used_today", 0)
+    limit = quota.get("daily_limit", 80)
+    pct = quota.get("percent_used", 0.0)
+    rem = quota.get("requests_remaining", 80)
+    act_cnt = quota.get("active_keys_count", 4)
+    tot_cnt = quota.get("total_keys_count", 4)
+    masked = quota.get("active_key_masked", "AQ.***")
+    reset_cd = quota.get("reset_countdown", "in wenigen Stunden")
+
+    text = (
+        f"⚙️ <b>Master-Admin Kontrollzentrum</b>\n"
+        f"<i>Raspberry Pi 24/7 Trading Engine</i>\n\n"
+        f"🔑 <b>Google Gemini API-Key Pool:</b>\n"
+        f"• Keys aktiv: <b>{act_cnt} von {tot_cnt} Keys</b> ({masked})\n"
+        f"• Verbrauch: <b>{used} / {limit} Anfragen</b> ({pct:.1f}%)\n"
+        f"• Frei: <b>{rem} Anfragen</b> | Reset: <code>{reset_cd}</code>\n\n"
+        f"🏛️ <b>Autonomes KI-Portfolio:</b>\n"
+        f"• Win-Rate: <b>{win_rate}%</b> | Offene Trades: <b>{port_active}</b>\n"
+        f"• Gehebelter Gesamt-PnL: <b>{lev_pnl:+.1f}%</b>\n\n"
+        f"👥 <b>Benutzer:</b> {len(auth_users)} autorisiert\n"
+        f"⚡ <b>Hintergrund-Dienst:</b> Systemd 24/7 aktiv\n"
+    )
+
+    kb = {
+        "inline_keyboard": [
+            [
+                {"text": "🔑 API-Quota Details", "callback_data": "admin_quota_details"},
+                {"text": "🏛️ Modell-Portfolio", "callback_data": "admin_model_portfolio"}
+            ],
+            [
+                {"text": "👥 Benutzerverwaltung", "callback_data": "menu_users"},
+                {"text": "⚡ Live Master-Scan", "callback_data": "action_trigger_scan"}
+            ],
+            [
+                {"text": "🔙 Hauptmenü", "callback_data": "menu_main"}
+            ]
+        ]
+    }
+    return text, kb
+
+
+def get_admin_quota_details_text_and_markup():
+    """Detaillierte Aufschlüsselung aller API-Keys im Multi-Key Pool."""
+    try:
+        from gemini_quota_tracker import get_quota_summary_for_dashboard
+        quota = get_quota_summary_for_dashboard()
+    except Exception:
+        quota = {}
+
+    keys_detail = quota.get("keys_detail", [])
+    used = quota.get("requests_used_today", 0)
+    limit = quota.get("daily_limit", 80)
+    pct = quota.get("percent_used", 0.0)
+
+    lines = [
+        f"🔑 <b>Google Gemini Multi-Key Quota Pool</b>\n",
+        f"<b>Gesamt-Verbrauch:</b> {used} / {limit} Requests ({pct:.1f}%)\n",
+        f"<b>Einzel-Key Status:</b>"
+    ]
+
+    for idx, kd in enumerate(keys_detail, 1):
+        name = kd.get("name", f"Key {idx}")
+        masked = kd.get("masked", "AQ.***")
+        k_used = kd.get("requests_used", 0)
+        k_lim = kd.get("daily_limit", 20)
+        k_pct = kd.get("percent_used", 0.0)
+        k_rem = kd.get("requests_remaining", 0)
+        k_exh = kd.get("is_exhausted", False)
+        status_sym = "🔴 Erschöpft" if k_exh else f"🟢 Aktiv ({k_rem} frei)"
+
+        lines.append(
+            f"• <b>{name}</b> (<code>{masked}</code>):\n"
+            f"   Status: {status_sym}\n"
+            f"   Verbrauch: {k_used} / {k_lim} ({k_pct:.0f}%)\n"
+        )
+
+    lines.append("🛡️ <i>Automatisches Failover: Sobald ein Key voll ist, switcht der Pi ohne Pause auf den nächsten Key.</i>")
+
+    kb = {
+        "inline_keyboard": [
+            [{"text": "🔙 Zurück zur Admin-Zentrale", "callback_data": "menu_admin_hub"}]
+        ]
+    }
+    return "\n".join(lines), kb
+
+
+def get_admin_model_portfolio_text_and_markup():
+    """Zeigt das autonome Modell-Portfolio streng für Admins an."""
+    if not PORTFOLIO_FILE.exists():
+        return "🏛️ Noch kein Modell-Portfolio vorhanden.", {"inline_keyboard": [[{"text": "🔙 Admin-Zentrale", "callback_data": "menu_admin_hub"}]]}
+
+    try:
+        with open(PORTFOLIO_FILE, "r", encoding="utf-8") as f:
+            port = json.load(f)
+    except Exception as e:
+        return f"Fehler beim Lesen des Portfolios: {e}", None
+
+    active = port.get("active_trades", [])
+    metrics = port.get("metrics", {})
+    win_rate = metrics.get("win_rate_pct", 0)
+    lev_pnl = metrics.get("total_leveraged_pnl_pct", 0.0)
+    closed = port.get("closed_trades", [])
+
+    lines = [
+        f"🏛️ <b>Autonomes KI-High-Conviction Modell-Portfolio</b>\n",
+        f"• <b>Win-Rate:</b> {win_rate}%",
+        f"• <b>Offene Trades:</b> {len(active)}",
+        f"• <b>Geschlossene Trades:</b> {len(closed)}",
+        f"• <b>Gehebelter PnL:</b> {lev_pnl:+.2f}%\n"
+    ]
+
+    if active:
+        lines.append("<b>Aktive Modell-Positionen:</b>")
+        for t in active[:5]:
+            sig_icon = "🟢" if t.get("direction") == "LONG" else "🔴"
+            pnl = t.get("pnl_leveraged_pct", 0.0)
+            lines.append(f"• {sig_icon} <b>{t.get('symbol')}</b> (Entry: {t.get('entry_price'):,.2f} $) | PnL: <b>{pnl:+.2f}%</b>")
+        lines.append("")
+
+    kb = {
+        "inline_keyboard": [
+            [{"text": "🌐 Im Web-Dashboard ansehen", "url": "https://bbbdc.github.io/trading-dashboard/"}],
+            [{"text": "🔙 Zurück zur Admin-Zentrale", "callback_data": "menu_admin_hub"}]
+        ]
+    }
+    return "\n".join(lines), kb
 
 
 def get_user_positions_text_and_markup(user_id=None, username=None):
@@ -656,51 +901,61 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
         api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
         return
 
-    if data == "menu_model_portfolio":
-        # Modellportfolio aus autonomous_portfolio.json anzeigen
-        if not PORTFOLIO_FILE.exists():
-            api.edit_message_text(chat_id, message_id, "🏛️ Noch kein Modell-Portfolio generiert.", reply_markup=get_main_menu_keyboard(role))
+    if data == "menu_top_setups":
+        text, kb = get_top_setups_text_and_markup()
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
+
+    if data == "menu_admin_hub":
+        if role != "admin":
+            api.edit_message_text(chat_id, message_id, "⚠️ Diese Funktion ist dem Master-Admin vorbehalten.", reply_markup=get_main_menu_keyboard(role))
             return
-        with open(PORTFOLIO_FILE, "r", encoding="utf-8") as f:
-            port = json.load(f)
-        active = port.get("active_trades", [])
-        metrics = port.get("metrics", {})
-        win_rate = metrics.get("win_rate_pct", 0)
+        text, kb = get_admin_hub_text_and_markup()
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
 
-        p_text = (
-            f"🏛️ <b>Autonomes KI-Modell-Portfolio</b>\n\n"
-            f"• <b>Win-Rate:</b> {win_rate}%\n"
-            f"• <b>Offene Modell-Positionen:</b> {len(active)}\n"
-            f"• <b>Bisher geschlossene Trades:</b> {len(port.get('closed_trades', []))}\n\n"
-        )
-        if active:
-            p_text += "<b>Aktive Modell-Trades:</b>\n"
-            for t in active[:5]:
-                sig_icon = "🟢" if t.get("direction") == "LONG" else "🔴"
-                p_text += f"  {sig_icon} <b>{t.get('symbol')}</b> (Entry: {t.get('entry_price'):,.2f} $) | PnL: {t.get('pnl_leveraged_pct', 0):+.2f}%\n"
+    if data == "admin_quota_details":
+        if role != "admin":
+            api.edit_message_text(chat_id, message_id, "⚠️ Diese Funktion ist dem Master-Admin vorbehalten.", reply_markup=get_main_menu_keyboard(role))
+            return
+        text, kb = get_admin_quota_details_text_and_markup()
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
 
-        kb = {
-            "inline_keyboard": [
-                [{"text": "🌐 Im Web-Dashboard ansehen", "url": "https://bbbdc.github.io/trading-dashboard/"}],
-                [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
-            ]
-        }
-        api.edit_message_text(chat_id, message_id, p_text, reply_markup=kb)
+    if data == "admin_model_portfolio" or data == "menu_model_portfolio":
+        if role != "admin":
+            api.edit_message_text(chat_id, message_id, "⚠️ Diese Funktion ist dem Master-Admin vorbehalten.", reply_markup=get_main_menu_keyboard(role))
+            return
+        text, kb = get_admin_model_portfolio_text_and_markup()
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
         return
 
     if data == "menu_market_scan":
-        summary = get_market_overview()
-        kb = {
-            "inline_keyboard": [
-                [{"text": "⚡ Jetzt Live-Scan starten", "callback_data": "action_trigger_scan"}],
-                [{"text": "🌐 Web-Dashboard öffnen", "url": "https://bbbdc.github.io/trading-dashboard/"}],
-                [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
-            ]
-        }
+        summary = get_market_overview(role=role)
+        if role == "admin":
+            kb = {
+                "inline_keyboard": [
+                    [{"text": "⚡ Jetzt Live-Scan starten", "callback_data": "action_trigger_scan"}],
+                    [{"text": "🎯 Top-Setups ansehen", "callback_data": "menu_top_setups"}],
+                    [{"text": "🌐 Web-Dashboard öffnen", "url": "https://bbbdc.github.io/trading-dashboard/"}],
+                    [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
+                ]
+            }
+        else:
+            kb = {
+                "inline_keyboard": [
+                    [{"text": "🎯 Top-Setups ansehen", "callback_data": "menu_top_setups"}],
+                    [{"text": "🌐 Web-Dashboard öffnen", "url": "https://bbbdc.github.io/trading-dashboard/"}],
+                    [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
+                ]
+            }
         api.edit_message_text(chat_id, message_id, summary, reply_markup=kb)
         return
 
     if data == "action_trigger_scan":
+        if role != "admin":
+            api.edit_message_text(chat_id, message_id, "⚠️ Der Live Master-Scan ist dem Master-Admin vorbehalten.", reply_markup=get_main_menu_keyboard(role))
+            return
         trigger_background_scan(api, chat_id)
         return
 
