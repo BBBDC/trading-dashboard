@@ -395,6 +395,20 @@ html_content = f"""<!DOCTYPE html>
       }}
     }}
   </style>
+  <script>
+    // Globaler Callback für Telegram Widget (wird aufgerufen sobald der Login erfolgt)
+    window.onTelegramAuth = function(user) {{
+      console.log('Telegram Auth Callback empfangen:', user);
+      if (typeof handleTelegramLogin === 'function') {{
+        handleTelegramLogin(user);
+      }} else {{
+        try {{
+          localStorage.setItem('tg_user', JSON.stringify(user));
+        }} catch(e) {{}}
+        window.location.reload();
+      }}
+    }};
+  </script>
 </head>
 <body class="bg-[#0b0f19] text-slate-100 min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
 
@@ -422,10 +436,27 @@ html_content = f"""<!DOCTYPE html>
                 data-size="large" 
                 data-radius="12" 
                 data-onauth="onTelegramAuth(user)" 
+                data-auth-url="https://bbbdc.github.io/trading-dashboard/index.html"
                 data-request-access="write"></script>
       </div>
 
       <div id="tg-auth-error" class="hidden text-left"></div>
+
+      <!-- Schnell-Login / Fallback Toggle -->
+      <div class="pt-1">
+        <button type="button" onclick="toggleFallbackLogin()" class="text-[11px] text-slate-500 hover:text-indigo-400 transition cursor-pointer underline">
+          Alternative: Über Nutzernamen anmelden
+        </button>
+        <div id="fallback-login-container" class="hidden mt-3 p-3 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2 text-left">
+          <label class="block text-[11px] text-slate-400">Telegram Benutzername:</label>
+          <div class="flex gap-2">
+            <input type="text" id="fallback-username-input" placeholder="z. B. Bdc_Gumb_Drop" class="flex-1 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500">
+            <button type="button" onclick="submitFallbackLogin()" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition cursor-pointer shadow-md">
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
 
       <div class="pt-3 border-t border-slate-800 text-[11px] text-slate-500 space-y-1">
         <p>Zugriff nur für autorisierte Telegram-Nutzer.</p>
@@ -2027,8 +2058,8 @@ html_content = f"""<!DOCTYPE html>
       return null;
     }}
 
-    window.onTelegramAuth = function(user) {{
-      if (!user || !user.id) return;
+    window.handleTelegramLogin = function(user) {{
+      if (!user) return;
       const role = checkUserRole(user);
       user.role = role;
 
@@ -2040,7 +2071,7 @@ html_content = f"""<!DOCTYPE html>
             <div class="font-bold text-rose-400 flex items-center gap-1.5">
               <span>⛔</span> Zugriff nicht freigeschaltet
             </div>
-            <p>Dein Telegram-Account <strong>@${{user.username || user.first_name}}</strong> (ID: <code>${{user.id}}</code>) ist in diesem System noch nicht autorisiert.</p>
+            <p>Dein Telegram-Account <strong>@${{user.username || user.first_name || 'Unbekannt'}}</strong> ist in diesem System noch nicht autorisiert.</p>
             <p class="text-[11px] text-slate-400">Bitte öffne <a href="https://t.me/aitradeanalystbot" target="_blank" class="text-indigo-400 font-bold underline">@aitradeanalystbot</a> in Telegram und sende <code>/start</code>. Sobald der Administrator dich freigeschaltet hat, lade diese Seite neu.</p>
             <button onclick="logoutTelegram()" class="mt-2 w-full py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition cursor-pointer">
               Mit anderem Account anmelden
@@ -2058,6 +2089,8 @@ html_content = f"""<!DOCTYPE html>
 
       applyAuthenticatedState(user);
     }};
+
+    window.onTelegramAuth = window.handleTelegramLogin;
 
     function applyAuthenticatedState(user) {{
       const gate = document.getElementById('telegram-auth-gate');
@@ -2108,9 +2141,61 @@ html_content = f"""<!DOCTYPE html>
       renderUserPositions();
     }}
 
+    function toggleFallbackLogin() {{
+      const c = document.getElementById('fallback-login-container');
+      if (c) c.classList.toggle('hidden');
+    }}
+
+    function submitFallbackLogin() {{
+      const inp = document.getElementById('fallback-username-input');
+      if (!inp) return;
+      const raw = inp.value.trim().replace(/^@/, '');
+      if (!raw) return;
+
+      const dummyUser = {{
+        id: 'user_' + raw,
+        username: raw,
+        first_name: raw
+      }};
+
+      const role = checkUserRole(dummyUser);
+      if (!role) {{
+        const errBox = document.getElementById('tg-auth-error');
+        if (errBox) {{
+          errBox.className = 'p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs space-y-1 mt-2 text-left';
+          errBox.innerHTML = `Der Nutzername <strong>@${{raw}}</strong> ist nicht autorisiert. Bitte öffne <a href="https://t.me/aitradeanalystbot" target="_blank" class="text-indigo-400 underline font-bold">@aitradeanalystbot</a> in Telegram.`;
+          errBox.classList.remove('hidden');
+        }}
+        return;
+      }}
+
+      dummyUser.role = role;
+      window.handleTelegramLogin(dummyUser);
+    }}
+
     function initAuthOnLoad() {{
+      // 1. Erst URL Query-Parameter prüfen (Telegram redirect Mode)
+      try {{
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('id') || urlParams.get('username')) {{
+          const qUser = {{
+            id: urlParams.get('id') || ('user_' + urlParams.get('username')),
+            first_name: urlParams.get('first_name') || urlParams.get('username') || 'Trader',
+            last_name: urlParams.get('last_name') || '',
+            username: urlParams.get('username') || '',
+            photo_url: urlParams.get('photo_url') || '',
+            auth_date: urlParams.get('auth_date') || '',
+            hash: urlParams.get('hash') || ''
+          }};
+          window.handleTelegramLogin(qUser);
+          window.history.replaceState({{}}, document.title, window.location.pathname);
+          return;
+        }}
+      }} catch (e) {{}}
+
+      // 2. Gespeicherten Nutzer prüfen
       const user = getAuthenticatedUser();
-      if (user && user.id) {{
+      if (user && (user.id || user.username)) {{
         const role = checkUserRole(user);
         if (role) {{
           user.role = role;
@@ -2118,6 +2203,8 @@ html_content = f"""<!DOCTYPE html>
           return;
         }}
       }}
+
+      // Nicht eingeloggt -> Gate sichtbar halten
       const gate = document.getElementById('telegram-auth-gate');
       if (gate) gate.classList.remove('hidden');
     }}
