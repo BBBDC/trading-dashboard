@@ -405,8 +405,24 @@ def check_and_notify_user_positions(evaluated_positions):
         ]
         alert_msg = "\n".join(msg_lines)
 
-        target_ids = [user_id] if user_id else None
-        send_telegram_alert(alert_msg, parse_mode="HTML", target_chat_ids=target_ids)
+        # 1. An den jeweiligen Trade-Inhaber senden
+        if user_id:
+            send_telegram_alert(alert_msg, parse_mode="HTML", target_chat_ids=[user_id])
+
+        # 2. Master-Admin erhält IMMER Benachrichtigungen zu ALLEN Positionen
+        admin_cids = []
+        if TELEGRAM_CONFIG_FILE.exists():
+            try:
+                with open(TELEGRAM_CONFIG_FILE, "r", encoding="utf-8") as f:
+                    admin_cids = json.load(f).get("admin_chat_ids", [])
+            except Exception:
+                pass
+
+        admin_targets = [str(acid) for acid in admin_cids if str(acid) != str(user_id)]
+        if admin_targets:
+            uname = pos.get("user_name") or f"User_{user_id}"
+            admin_msg = f"👤 <b>Nutzer-Trade (@{uname}):</b>\n\n{alert_msg}"
+            send_telegram_alert(admin_msg, parse_mode="HTML", target_chat_ids=admin_targets)
 
     USER_POS_ALERT_STATE.parent.mkdir(parents=True, exist_ok=True)
     with open(USER_POS_ALERT_STATE, "w", encoding="utf-8") as f:

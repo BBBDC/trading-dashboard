@@ -1,6 +1,6 @@
 {
   "timestamp": "2026-10-20 09:37:23 UTC",
-  "total_analyzed": 58,
+  "total_analyzed": 59,
   "long_count": 9,
   "short_count": 2,
   "neutral_count": 47,
@@ -8549,6 +8549,114 @@
       ],
       "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
       "evaluated_by": "quantitative_engine"
+    },
+    {
+      "symbol": "BINANCE:BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Krypto",
+      "asset_type": "Crypto",
+      "price": 81372.97,
+      "charts": {
+        "4h": "charts/BINANCE_BTCUSDT_4h.svg",
+        "8h": "charts/BINANCE_BTCUSDT_8h.svg",
+        "1D": "charts/BINANCE_BTCUSDT_1D.svg"
+      },
+      "timeframes": {
+        "1D": {
+          "name": "Bitcoin",
+          "price": 81520.01,
+          "rsi": 46.41,
+          "trend": "BULLISH",
+          "ema_fast": 82325.82,
+          "ema_trend": 80547.44,
+          "upper_band": 85890.95,
+          "lower_band": 78760.7,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.4,
+          "vsa_class": "Low",
+          "fvgs": [],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 87395.67,
+          "swing_low": 74967.97,
+          "golden_pocket": [
+            79317.66,
+            79715.35
+          ],
+          "in_golden_pocket": false
+        },
+        "8h": {
+          "name": "Bitcoin",
+          "price": 81372.97,
+          "rsi": 43.48,
+          "trend": "BEARISH",
+          "ema_fast": 81938.89,
+          "ema_trend": 82749.13,
+          "upper_band": 84000.61,
+          "lower_band": 79877.17,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.73,
+          "vsa_class": "Low",
+          "fvgs": [],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 87220,
+          "swing_low": 79800,
+          "golden_pocket": [
+            84385.56,
+            84623.0
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "Bitcoin",
+          "price": 81372.97,
+          "rsi": 43.9,
+          "trend": "BEARISH",
+          "ema_fast": 81846.59,
+          "ema_trend": 82218.06,
+          "upper_band": 83160.68,
+          "lower_band": 80532.49,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.72,
+          "vsa_class": "Low",
+          "fvgs": [],
+          "divergences": [
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 84352,
+          "swing_low": 79800,
+          "golden_pocket": [
+            82613.14,
+            82758.8
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "signal": "LONG",
+      "score": 96,
+      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
+      "crv": 3.2,
+      "entry_range": [
+        80867.85,
+        81683.05
+      ],
+      "stop_loss": 77444.01,
+      "take_profit_1": 88856.81,
+      "take_profit_2": 94563.21,
+      "reasons": [
+        "1D Trend über EMA 233 bullisch",
+        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+        "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
+        "Aktiv: Reguläre Bullische Divergenz (Reversal)"
+      ],
+      "analyst_note": "Strikte bullische Konfluenz (96%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
+      "evaluated_by": "quantitative_engine"
     }
   ],
   "evaluation_engine": "quantitative_confluence [Math Core]",
@@ -8807,18 +8915,18 @@
       "user_id": "15231751",
       "user_name": "Bdc_Gumb_Drop",
       "created_at": "2026-10-20T09:39:12.632729+00:00",
-      "name": "BINANCE:BTCUSDT",
-      "current_price": 82723.0,
-      "pnl_pct": 0.0,
-      "pnl_leveraged_pct": 0.0,
+      "name": "Bitcoin",
+      "current_price": 81372.97,
+      "pnl_pct": 1.63,
+      "pnl_leveraged_pct": 14.69,
       "recommendation": {
-        "status": "NEUTRAL",
-        "badge_color": "slate",
-        "action": "HALTEN",
-        "title": "Keine Live-Kerzendaten",
-        "message": "Dieses Symbol wird aktuell nicht im 4h-Hauptscan überwacht. Manuelle Kursprüfung empfohlen."
+        "status": "WARNING",
+        "badge_color": "amber",
+        "action": "STOP NACHZIEHEN",
+        "title": "⚠️ Bullische Divergenz im 4h-Chart",
+        "message": "Es formiert sich eine bullische Divergenz gegen deinen Short. Reversal-Gefahr! Stop-Loss eng nachziehen."
       },
-      "updated_at": "2026-10-20T09:39:12.650115+00:00"
+      "updated_at": "2026-10-20T09:59:01.335593+00:00"
     }
   ],
   "gemini_quota": {

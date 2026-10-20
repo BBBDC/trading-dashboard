@@ -95,6 +95,13 @@ def add_position(symbol, direction, entry_price, leverage=1.0, note="", user_id=
     print(f"✅ Position erfolgreich {'aktualisiert' if updated else 'hinzugefügt'}:")
     print(f"   {symbol} | {direction} | Entry: {entry_price:,.2f} | Hebel: {leverage}x | User: {user_name or 'Default'}")
 
+    # Ad-hoc Einzel-Scan & Chart-Generierung für dieses Asset sofort ausführen
+    try:
+        from single_asset_rescan import rescan_and_evaluate_asset
+        rescan_and_evaluate_asset(symbol, user_pos=new_pos)
+    except Exception as re:
+        print(f"Hinweis: Ad-hoc Einzelscan fehlgeschlagen ({re})")
+
     if sync_db:
         sync_dashboard_state(git_push=git_push)
 

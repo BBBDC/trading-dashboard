@@ -99,7 +99,7 @@ def format_timestamp(ts, tf):
         return ""
 
 
-def generate_svg_chart(bars, analysis_data, timeframe="4h", width=920, height=520):
+def generate_svg_chart(bars, analysis_data, timeframe="4h", width=920, height=520, user_position=None):
     """
     Rendert ein realistisches, hochauflösendes Chart mit echten Kerzen und dynamischen Indikatorkurven.
     """
@@ -155,6 +155,15 @@ def generate_svg_chart(bars, analysis_data, timeframe="4h", width=920, height=52
         if gp:
             all_highs.append(max(gp))
             all_lows.append(min(gp))
+
+    if user_position:
+        try:
+            ep = float(user_position.get("entry_price", 0.0))
+            if ep > 0:
+                all_highs.append(ep)
+                all_lows.append(ep)
+        except Exception:
+            pass
 
     min_p = min(all_lows)
     max_p = max(all_highs)
@@ -290,6 +299,28 @@ def generate_svg_chart(bars, analysis_data, timeframe="4h", width=920, height=52
     svg.append(f'<line x1="{margin_left}" y1="{y_last:.1f}" x2="{margin_left + chart_width}" y2="{y_last:.1f}" stroke="#f8fafc" stroke-width="1.2" stroke-dasharray="2,2"/>')
     svg.append(f'<rect x="{margin_left + chart_width + 4}" y="{y_last - 10:.1f}" width="72" height="20" fill="#f8fafc" rx="4"/>')
     svg.append(f'<text x="{margin_left + chart_width + 40}" y="{y_last + 4:.1f}" fill="#070a13" font-size="10" font-weight="bold" text-anchor="middle">{last_c:,.2f}</text>')
+
+    # 6b. Nutzer-Position visuell im Chart einzeichnen (Einstiegskurs, Richtung & Hebel)
+    if user_position:
+        try:
+            entry_p = float(user_position.get("entry_price", 0.0))
+            if entry_p > 0 and min_p <= entry_p <= max_p:
+                y_ent = y_price(entry_p)
+                p_dir = user_position.get("direction", "LONG").upper()
+                p_col = "#10b981" if p_dir == "LONG" else "#f43f5e"
+                p_lev = user_position.get("leverage", 1.0)
+                p_user = user_position.get("user_name", "")
+                user_suffix = f" · @{p_user}" if p_user else ""
+
+                # Horizontale gestrichelte Einstiegslinie
+                svg.append(f'<line x1="{margin_left}" y1="{y_ent:.1f}" x2="{margin_left + chart_width}" y2="{y_ent:.1f}" stroke="{p_col}" stroke-dasharray="6,4" stroke-width="2"/>')
+
+                # Prominentes Badge
+                badge_w = 230
+                svg.append(f'<rect x="{margin_left + chart_width - badge_w - 6}" y="{y_ent - 11:.1f}" width="{badge_w}" height="22" fill="{p_col}" rx="4" opacity="0.95"/>')
+                svg.append(f'<text x="{margin_left + chart_width - (badge_w / 2) - 6}" y="{y_ent + 4:.1f}" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">📍 DEIN EINSTIEG: {entry_p:,.2f} $ ({p_dir} {p_lev:g}x{user_suffix})</text>')
+        except Exception:
+            pass
 
     # 7. Wyckoff VSA Volumen Panel
     svg.append(f'<text x="{margin_left + 8}" y="{y_vol_top + 14}" fill="#64748b" font-size="9" font-weight="bold">VSA WYCKOFF VOLUMEN</text>')

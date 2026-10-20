@@ -35,6 +35,29 @@ except Exception:
         "last_error": None
     })
 
+# Telegram Auth-Metadaten für Rollenbasierte Website-Freigabe
+TELEGRAM_CONFIG = BASE_DIR / "telegram_config.json"
+auth_config = {
+    "admin_usernames": ["Bdc_Gumb_Drop", "bdc_gumb_drop"],
+    "admin_chat_ids": ["15231751"],
+    "authorized_users": {}
+}
+if TELEGRAM_CONFIG.exists():
+    try:
+        with open(TELEGRAM_CONFIG, "r", encoding="utf-8") as f:
+            tcfg = json.load(f)
+            auth_config["admin_usernames"] = tcfg.get("admin_usernames", auth_config["admin_usernames"])
+            auth_config["admin_chat_ids"] = [str(x) for x in tcfg.get("admin_chat_ids", auth_config["admin_chat_ids"])]
+            for uname, udata in tcfg.get("authorized_users", {}).items():
+                if isinstance(udata, dict):
+                    auth_config["authorized_users"][uname] = {
+                        "role": udata.get("role", "trader"),
+                        "chat_id": str(udata.get("chat_id", ""))
+                    }
+    except Exception:
+        pass
+
+db_data["auth_config"] = auth_config
 db_data["gemini_quota"] = quota_info
 json_str = json.dumps(db_data, ensure_ascii=False)
 
@@ -375,6 +398,42 @@ html_content = f"""<!DOCTYPE html>
 </head>
 <body class="bg-[#0b0f19] text-slate-100 min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
 
+  <!-- Telegram Authentication Gate Overlay -->
+  <div id="telegram-auth-gate" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#070a13]/95 backdrop-blur-xl p-4 transition-all duration-300">
+    <div class="w-full max-w-md rounded-2xl bg-slate-900/95 border border-indigo-500/30 p-6 sm:p-8 shadow-2xl text-center space-y-5 relative overflow-hidden">
+      <div class="absolute -top-24 -left-24 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center mx-auto text-3xl shadow-lg shadow-indigo-500/20">
+        🔐
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold text-white tracking-tight">Privater Systemzugang</h2>
+        <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
+          TradingView Super-Analyst auf Raspberry Pi. Bitte authentifiziere dich über Telegram, um Zugriff auf deine Trades und Live-Marktanalysen zu erhalten.
+        </p>
+      </div>
+
+      <!-- Telegram Official Login Widget -->
+      <div id="tg-widget-mount" class="py-2 flex flex-col items-center justify-center min-h-[50px]">
+        <script async src="https://telegram.org/js/telegram-widget.js?22" 
+                data-telegram-login="aitradeanalystbot" 
+                data-size="large" 
+                data-radius="12" 
+                data-onauth="onTelegramAuth(user)" 
+                data-request-access="write"></script>
+      </div>
+
+      <div id="tg-auth-error" class="hidden text-left"></div>
+
+      <div class="pt-3 border-t border-slate-800 text-[11px] text-slate-500 space-y-1">
+        <p>Zugriff nur für autorisierte Telegram-Nutzer.</p>
+        <p>Noch nicht freigeschaltet? Öffne <a href="https://t.me/aitradeanalystbot" target="_blank" class="text-indigo-400 hover:text-indigo-300 font-semibold underline">@aitradeanalystbot</a> und sende <code class="bg-slate-800 px-1 py-0.5 rounded">/start</code>.</p>
+      </div>
+    </div>
+  </div>
+
   <!-- Pull-Down-to-Refresh Visual Indicator (Touch & iOS) -->
   <div id="pull-refresh-indicator" class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center pointer-events-none transition-transform duration-200 -translate-y-full">
     <div class="mt-3 px-4 py-2 rounded-full bg-[#0d1322]/95 border border-indigo-500/50 shadow-2xl backdrop-blur-md flex items-center gap-2.5 text-xs font-semibold text-slate-100">
@@ -424,8 +483,22 @@ html_content = f"""<!DOCTYPE html>
           </div>
         </div>
 
-        <!-- Right Side: Segmented Theme Control (Auto/Tageszeit, Hell, Dunkel) -->
+        <!-- Right Side: Telegram User Profile & Theme Control -->
         <div class="flex items-center gap-2 shrink-0">
+
+          <!-- User Profile Pill (Visible when authenticated) -->
+          <div id="auth-user-badge" class="hidden flex items-center gap-1.5 p-1 pl-2 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs shrink-0 shadow-sm">
+            <div class="flex items-center gap-1.5">
+              <img id="auth-user-photo" src="" alt="" class="w-5 h-5 rounded-full object-cover hidden">
+              <span id="auth-user-avatar-fallback" class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center text-[10px] font-bold">👤</span>
+              <span id="auth-user-name" class="font-bold text-slate-200 text-[11px]">User</span>
+              <span id="auth-user-role-badge" class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-indigo-500/20 text-indigo-300">TRADER</span>
+            </div>
+            <button onclick="logoutTelegram()" title="Abmelden" class="w-6 h-6 rounded-lg bg-slate-900/60 hover:bg-rose-500/20 text-slate-400 hover:text-rose-400 flex items-center justify-center text-xs transition cursor-pointer">
+              ✕
+            </button>
+          </div>
+
           <div class="inline-flex p-0.5 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs font-semibold shrink-0 shadow-sm" id="theme-segmented-control" role="group" aria-label="Theme Modus">
             <button type="button" onclick="setThemeMode('auto')" id="theme-btn-auto" class="px-2 py-1 rounded-lg transition active:scale-95 cursor-pointer text-[10px] sm:text-[11px] font-bold" title="Automatisch nach Tageszeit (07:00-19:00 Hell, danach Dunkel)">
               <span>⏰</span><span class="ml-1 hidden xs:inline sm:inline">Auto</span>
@@ -895,6 +968,9 @@ html_content = f"""<!DOCTYPE html>
           ✕
         </button>
       </div>
+
+      <!-- Active User Position Highlight Banner (if user has open trade) -->
+      <div id="modal-user-pos-box" class="hidden"></div>
 
       <!-- Trade Plan Banner -->
       <div id="modal-trade-plan" class="p-4 rounded-xl bg-slate-900 border border-slate-800 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
@@ -1406,6 +1482,56 @@ html_content = f"""<!DOCTYPE html>
         badge.className = 'px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-slate-800 text-slate-300 border border-slate-700';
       }}
 
+      // Active Position Check & Highlight in Modal
+      const userPositions = getUserPositions();
+      const authUser = getAuthenticatedUser();
+      const activePos = userPositions.find(p => {{
+        const match = (p.symbol === symbol || p.symbol.endsWith(':' + symbol) || symbol.endsWith(':' + p.symbol));
+        if (!match) return false;
+        if (authUser && authUser.role !== 'admin') {{
+          return (p.user_name && p.user_name.toLowerCase() === (authUser.username || '').toLowerCase()) || (p.user_id && String(p.user_id) === String(authUser.id));
+        }}
+        return true;
+      }});
+
+      const posBox = document.getElementById('modal-user-pos-box');
+      if (posBox) {{
+        if (activePos) {{
+          const isL = activePos.direction === 'LONG';
+          const levP = Number(activePos.leverage) || 1;
+          const entP = Number(activePos.entry_price) || a.price;
+          const curP = Number(a.price) || entP;
+          const rawP = isL ? ((curP - entP) / entP) * 100 : ((entP - curP) / entP) * 100;
+          const lPnl = rawP * levP;
+          const pCol = lPnl >= 0 ? 'text-emerald-400' : 'text-rose-400';
+          const bCol = isL ? 'emerald' : 'rose';
+          const recAction = (activePos.recommendation && activePos.recommendation.action) || 'HALTEN';
+
+          posBox.innerHTML = `
+            <div class="p-3.5 rounded-xl bg-indigo-950/70 border border-indigo-500/50 flex flex-wrap items-center justify-between gap-3 shadow-lg shadow-indigo-950/40">
+              <div class="flex items-center gap-2.5 flex-wrap">
+                <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-${{bCol}}-500/20 text-${{bCol}}-400 border border-${{bCol}}-500/40 flex items-center gap-1">
+                  <span>📍</span>
+                  <span>DEINE POSITION: ${{activePos.direction}} ${{levP}}x</span>
+                </span>
+                <span class="text-xs font-mono text-slate-300">Einstieg: <strong class="text-white">${{entP.toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}} $</strong></span>
+                <span class="text-xs font-mono text-slate-400">Live: <strong class="text-white">${{curP.toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}} $</strong></span>
+                ${{activePos.user_name ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-indigo-300 border border-slate-700">👤 @${{activePos.user_name}}</span>` : ''}}
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-mono font-bold ${{pCol}}">PnL: ${{lPnl >= 0 ? '+' : ''}}${{lPnl.toFixed(2)}}%</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                  ${{recAction}}
+                </span>
+              </div>
+            </div>
+          `;
+          posBox.classList.remove('hidden');
+        }} else {{
+          posBox.classList.add('hidden');
+        }}
+      }}
+
       // Trade Plan Banner
       const plan = document.getElementById('modal-trade-plan');
       plan.innerHTML = `
@@ -1869,6 +1995,132 @@ html_content = f"""<!DOCTYPE html>
     // 👤 Eigene Nutzer-Positionen Management
     // ==========================================
     let currentPosDirection = 'LONG';
+    let currentAuthUser = null;
+    let currentAdminPosFilter = 'all';
+
+    function getAuthenticatedUser() {{
+      if (currentAuthUser) return currentAuthUser;
+      try {{
+        const raw = localStorage.getItem('tg_user');
+        if (raw) currentAuthUser = JSON.parse(raw);
+      }} catch (e) {{}}
+      return currentAuthUser;
+    }}
+
+    function checkUserRole(user) {{
+      if (!user) return null;
+      const admins = (currentData.auth_config && currentData.auth_config.admin_usernames) || ['Bdc_Gumb_Drop', 'bdc_gumb_drop'];
+      const adminIds = (currentData.auth_config && currentData.auth_config.admin_chat_ids) || ['15231751'];
+      const uname = (user.username || '').toLowerCase();
+      const uid = String(user.id || '');
+
+      if (admins.some(a => a.toLowerCase() === uname) || adminIds.includes(uid)) {{
+        return 'admin';
+      }}
+
+      const authUsers = (currentData.auth_config && currentData.auth_config.authorized_users) || {{}};
+      for (const [k, udata] of Object.entries(authUsers)) {{
+        if (k.toLowerCase() === uname || String(udata.chat_id) === uid) {{
+          return udata.role || 'trader';
+        }}
+      }}
+      return null;
+    }}
+
+    window.onTelegramAuth = function(user) {{
+      if (!user || !user.id) return;
+      const role = checkUserRole(user);
+      user.role = role;
+
+      if (!role) {{
+        const errBox = document.getElementById('tg-auth-error');
+        if (errBox) {{
+          errBox.className = 'p-3.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs space-y-2 mt-3 text-left';
+          errBox.innerHTML = `
+            <div class="font-bold text-rose-400 flex items-center gap-1.5">
+              <span>⛔</span> Zugriff nicht freigeschaltet
+            </div>
+            <p>Dein Telegram-Account <strong>@${{user.username || user.first_name}}</strong> (ID: <code>${{user.id}}</code>) ist in diesem System noch nicht autorisiert.</p>
+            <p class="text-[11px] text-slate-400">Bitte öffne <a href="https://t.me/aitradeanalystbot" target="_blank" class="text-indigo-400 font-bold underline">@aitradeanalystbot</a> in Telegram und sende <code>/start</code>. Sobald der Administrator dich freigeschaltet hat, lade diese Seite neu.</p>
+            <button onclick="logoutTelegram()" class="mt-2 w-full py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition cursor-pointer">
+              Mit anderem Account anmelden
+            </button>
+          `;
+          errBox.classList.remove('hidden');
+        }}
+        return;
+      }}
+
+      currentAuthUser = user;
+      try {{
+        localStorage.setItem('tg_user', JSON.stringify(user));
+      }} catch (e) {{}}
+
+      applyAuthenticatedState(user);
+    }};
+
+    function applyAuthenticatedState(user) {{
+      const gate = document.getElementById('telegram-auth-gate');
+      if (gate) gate.classList.add('hidden');
+
+      const badge = document.getElementById('auth-user-badge');
+      if (badge) {{
+        badge.classList.remove('hidden');
+        const nameEl = document.getElementById('auth-user-name');
+        const roleEl = document.getElementById('auth-user-role-badge');
+        const photoEl = document.getElementById('auth-user-photo');
+        const fallbackEl = document.getElementById('auth-user-avatar-fallback');
+
+        if (nameEl) nameEl.innerText = user.username ? '@' + user.username : (user.first_name || 'Trader');
+        if (roleEl) {{
+          roleEl.innerText = (user.role || 'TRADER').toUpperCase();
+          if (user.role === 'admin') {{
+            roleEl.className = 'px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+          }} else {{
+            roleEl.className = 'px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30';
+          }}
+        }}
+        if (user.photo_url && photoEl) {{
+          photoEl.src = user.photo_url;
+          photoEl.classList.remove('hidden');
+          if (fallbackEl) fallbackEl.classList.add('hidden');
+        }}
+      }}
+
+      renderUserPositions();
+    }}
+
+    function logoutTelegram() {{
+      try {{
+        localStorage.removeItem('tg_user');
+      }} catch (e) {{}}
+      currentAuthUser = null;
+      const badge = document.getElementById('auth-user-badge');
+      if (badge) badge.classList.add('hidden');
+      const errBox = document.getElementById('tg-auth-error');
+      if (errBox) errBox.classList.add('hidden');
+      const gate = document.getElementById('telegram-auth-gate');
+      if (gate) gate.classList.remove('hidden');
+    }}
+
+    function setAdminPosFilter(f) {{
+      currentAdminPosFilter = f;
+      renderUserPositions();
+    }}
+
+    function initAuthOnLoad() {{
+      const user = getAuthenticatedUser();
+      if (user && user.id) {{
+        const role = checkUserRole(user);
+        if (role) {{
+          user.role = role;
+          applyAuthenticatedState(user);
+          return;
+        }}
+      }}
+      const gate = document.getElementById('telegram-auth-gate');
+      if (gate) gate.classList.remove('hidden');
+    }}
 
     // 1. Bereinige Altlasten (z.B. Demo BTC-Position aus früheren Versionen)
     try {{
@@ -1937,17 +2189,61 @@ html_content = f"""<!DOCTYPE html>
       const container = document.getElementById('user-positions-container');
       if (!container) return;
 
-      const positions = getUserPositions();
+      const allPositions = getUserPositions();
+      const authUser = getAuthenticatedUser();
+      let displayPositions = allPositions;
 
-      if (positions.length === 0) {{
-        container.innerHTML = `
+      // Filterung nach Nutzer
+      if (authUser && authUser.role !== 'admin') {{
+        const myUname = (authUser.username || '').toLowerCase();
+        const myUid = String(authUser.id || '');
+        displayPositions = allPositions.filter(p => {{
+          const pUname = (p.user_name || '').toLowerCase();
+          const pUid = String(p.user_id || '');
+          return (pUname && pUname === myUname) || (pUid && pUid === myUid);
+        }});
+      }} else if (authUser && authUser.role === 'admin') {{
+        if (currentAdminPosFilter === 'mine') {{
+          const myUname = (authUser.username || '').toLowerCase();
+          displayPositions = allPositions.filter(p => (p.user_name || '').toLowerCase() === myUname);
+        }} else if (currentAdminPosFilter !== 'all') {{
+          displayPositions = allPositions.filter(p => (p.user_name || '').toLowerCase() === currentAdminPosFilter.toLowerCase());
+        }}
+      }}
+
+      // Admin Filter Bar
+      let adminFilterHtml = '';
+      if (authUser && authUser.role === 'admin' && allPositions.length > 0) {{
+        const userSet = new Set();
+        allPositions.forEach(p => {{ if (p.user_name) userSet.add(p.user_name); }});
+
+        adminFilterHtml = `
+          <div class="col-span-full flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 text-xs">
+            <span class="text-[11px] text-slate-400 font-mono">Ansicht:</span>
+            <button onclick="setAdminPosFilter('all')" class="px-2.5 py-1 rounded-lg font-semibold transition cursor-pointer ${{currentAdminPosFilter === 'all' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-300 hover:text-white'}}">
+              Alle Trades (${{allPositions.length}})
+            </button>
+            <button onclick="setAdminPosFilter('mine')" class="px-2.5 py-1 rounded-lg font-semibold transition cursor-pointer ${{currentAdminPosFilter === 'mine' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-300 hover:text-white'}}">
+              Nur meine
+            </button>
+            ${{Array.from(userSet).map(u => `
+              <button onclick="setAdminPosFilter('${{u}}')" class="px-2.5 py-1 rounded-lg font-semibold transition cursor-pointer ${{currentAdminPosFilter.toLowerCase() === u.toLowerCase() ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-300 hover:text-white'}}">
+                @${{u}}
+              </button>
+            `).join('')}}
+          </div>
+        `;
+      }}
+
+      if (displayPositions.length === 0) {{
+        container.innerHTML = adminFilterHtml + `
           <div class="col-span-full p-8 rounded-2xl bg-slate-950/60 border border-slate-800 text-center space-y-3">
             <div class="w-12 h-12 rounded-full bg-indigo-500/10 text-indigo-400 mx-auto flex items-center justify-center text-xl">
               👤
             </div>
             <div>
-              <h4 class="text-sm font-bold text-white">Noch keine eigenen Positionen hinterlegt</h4>
-              <p class="text-xs text-slate-400 mt-1 max-w-md mx-auto">Trage hier deine Trades ein, um sie 24/7 durch den Raspberry Pi überwachen zu lassen und Live-Handlungsempfehlungen zu erhalten.</p>
+              <h4 class="text-sm font-bold text-white">Keine aktiven Positionen gefunden</h4>
+              <p class="text-xs text-slate-400 mt-1 max-w-md mx-auto">Du hast aktuell keine offenen Trades hinterlegt. Trage hier oder im Telegram-Bot neue Positionen ein, um sie 24/7 überwachen zu lassen.</p>
             </div>
             <button onclick="openPositionsModal()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-md shadow-indigo-600/30 cursor-pointer">
               + Jetzt erste Position eintragen
@@ -1957,7 +2253,7 @@ html_content = f"""<!DOCTYPE html>
         return;
       }}
 
-      container.innerHTML = positions.map(pos => {{
+      const cardsHtml = displayPositions.map(pos => {{
         const sym = pos.symbol;
         const isLong = pos.direction === 'LONG';
         const sigColor = isLong ? 'emerald' : 'rose';
@@ -2048,6 +2344,8 @@ html_content = f"""<!DOCTYPE html>
           </div>
         `;
       }}).join('');
+
+      container.innerHTML = adminFilterHtml + cardsHtml;
     }}
 
     function openPositionsModal() {{
@@ -2372,6 +2670,7 @@ html_content = f"""<!DOCTYPE html>
     }}, 60000);
 
     // Initial render
+    initAuthOnLoad();
     updateStats();
     applyFilters();
     renderPortfolioSection();
