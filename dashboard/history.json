@@ -1,5 +1,486 @@
 [
   {
+    "id": "evt_20261021_111022",
+    "timestamp": "2026-10-21T11:10:22.374529+00:00",
+    "timestamp_display": "21.10.2026 11:10 UTC",
+    "title": "🔔 TV-Signaländerung: 18 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 18,
+    "changes": [
+      {
+        "symbol": "XETR:ADS",
+        "name": "Adidas",
+        "category": "Consumer / DAX",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 48,
+        "new_score": 82,
+        "price": 162.6,
+        "setup_name": "Hypothese 3: HTF Exhaustion Climax Short",
+        "entry_range": [
+          162.0,
+          163.5
+        ],
+        "stop_loss": 167.2,
+        "take_profit_2": 145.5,
+        "reasons": [
+          "1D am oberen Band extrem überdehnt mit RSI 71.96",
+          "4h VSA zeigt klares 'Ultra-High / Climax' Volumen bei RSI 76.75",
+          "Bestätigte reguläre bärische Reversal-Divergenz auf 4h im Erschöpfungsbereich"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D am oberen Band extrem überdehnt mit RSI 71.96).",
+        "note": "Adidas hat das obere Band unseres Trendkanals mit einem extremen Kauf-Klimax (Ultra-High Volume) angelaufen und bildet auf 4h eine saubere bärische Divergenz aus. Dies entspricht institutionaler Distribution. Mit einem Stop knapp über dem Swing-High bietet die antizyklische Rückkehr zur Kanalmitte ein hervorragendes CRV von 2.85:1.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...pOzg]"
+      },
+      {
+        "symbol": "NASDAQ:AVGO",
+        "name": "Broadcom",
+        "category": "Halbleiter",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 46,
+        "new_score": 78,
+        "price": 334.37,
+        "setup_name": "Hypothese 2: Trend Continuation & 4h Hidden Div",
+        "entry_range": [
+          334.37,
+          338.5
+        ],
+        "stop_loss": 349.5,
+        "take_profit_2": 292.0,
+        "reasons": [
+          "Konfluenter Abwärtstrend auf 1D und 4h vollständig intakt",
+          "4h bestätigt Fortsetzung über Versteckte Bärische Divergenz bei niedrigem Erholungsvolumen",
+          "RSI auf beiden Zeitebenen stabil unter 40 ohne Gegen-Divergenzen"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (Konfluenter Abwärtstrend auf 1D und 4h vollständig intakt).",
+        "note": "Broadcom weist eine saubere bärische Struktur über Tages- und 4-Stunden-Ebene auf. Die versteckte bärische Divergenz im 4h-Chart signalisiert die Erschöpfung temporärer Pullbacks. Das CRV von über 2.8:1 zum nächsten HTF-Liquiditätspool rechtfertigt eine konservativ bemessene Short-Position.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "BINANCE:BTCUSDT",
+        "name": "Bitcoin",
+        "category": "Krypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 52,
+        "price": 83513.8,
+        "setup_name": "Beobachten / RSI-Überdehnung & Divergenz-Konflikt",
+        "entry_range": [
+          82000.0,
+          83500.0
+        ],
+        "stop_loss": 79800.0,
+        "take_profit_2": 92000.0,
+        "reasons": [
+          "4h RSI liegt bei 62.27 (Regelverstoß: kein Long bei RSI > 60 wegen Chasing-Gefahr).",
+          "Gleichzeitiges Auftreten von regulärer bullischer und bärischer Divergenz auf 4h indiziert hohe Volatilität und Uneinigkeit.",
+          "Kurs befindet sich nicht im HTF Golden Pocket, sondern mitten in der Kanalspanne."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (4h RSI liegt bei 62.27 (Regelverstoß: kein Long bei RSI > 60 wegen Chasing-Gefahr).).",
+        "note": "Obwohl der übergeordnete Trend intakt ist, verbietet das Risikoprotokoll Long-Einstiege bei 4h RSI über 60. Ein gesunder Pullback in Richtung der 81.000–82.000 USD Liquiditätszone muss abgewartet werden.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "COINBASE:BTCUSD",
+        "name": "Bitcoin",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 52,
+        "price": 83407.88,
+        "setup_name": "Beobachten / RSI-Überdehnung & Divergenz-Konflikt",
+        "entry_range": [
+          82000.0,
+          83400.0
+        ],
+        "stop_loss": 79700.0,
+        "take_profit_2": 92000.0,
+        "reasons": [
+          "4h RSI mit 62.12 über dem strikten Grenzwert von 60 für Neupositionierungen.",
+          "Bärische Reversal-Divergenz auf 4h signalisiert kurzfristiges Erschöpfungsrisiko.",
+          "Keine Wyckoff-Stopping-Volume-Bestätigung vorhanden."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (4h RSI mit 62.12 über dem strikten Grenzwert von 60 für Neupositionierungen.).",
+        "note": "Spiegelbildlich zu Binance zeigt auch Coinbase eine lokale Konsolidierungsnotwendigkeit. Wir jagen den Markt nicht am oberen Rand lokaler Swings hinterher, sondern warten auf Re-Tests vorheriger Ausbruchsniveaus.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "CRYPTOCAP:TOTAL",
+        "name": "Total Crypto Market Cap",
+        "category": "Krypto-Makro",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 80,
+        "new_score": 50,
+        "price": 2766688995589,
+        "setup_name": "Beobachten / RSI-Schwellenwert überschritten",
+        "entry_range": [
+          2680000000000,
+          2760000000000
+        ],
+        "stop_loss": 2550000000000,
+        "take_profit_2": 3100000000000,
+        "reasons": [
+          "4h RSI liegt bei 61.94 und verletzt das Chasing-Kriterium (RSI <= 60).",
+          "Versteckte bärische Divergenz auf 4h bremst den Aufwärtsimpuls.",
+          "Gesamtmarkt konsolidiert nach starkem Impuls ohne klares Golden-Pocket-Setup."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (4h RSI liegt bei 61.94 und verletzt das Chasing-Kriterium (RSI <= 60).).",
+        "note": "Der Krypto-Gesamtmarkt zeigt zwar übergeordnete Stärke, befindet sich lokal jedoch in einer Überdehnung. Das Marktrisiko für gehebelte Alts ist erhöht, weshalb Neupositionierungen defensiv gemieden werden.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "COINBASE:SOLUSD",
+        "name": "Solana",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 80,
+        "new_score": 49,
+        "price": 106.8,
+        "setup_name": "Beobachten / Volumenmangel & Versteckte Bärische Divergenz",
+        "entry_range": [
+          102.0,
+          107.0
+        ],
+        "stop_loss": 97.0,
+        "take_profit_2": 125.0,
+        "reasons": [
+          "4h VSA zeigt 'Ultra-Low / No Supply-Demand' trotz Aufwärtsbewegung.",
+          "Aktive versteckte bärische Divergenzen auf sowohl 1D als auch 4h Timeframe.",
+          "Kurs notiert fernab des 1D Fibonacci Golden Pockets."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (4h VSA zeigt 'Ultra-Low / No Supply-Demand' trotz Aufwärtsbewegung.).",
+        "note": "Solana hält den Aufwärtstrend zwar formal aufrecht, der drastische Volumeneinbruch ('Ultra-Low') mahnt jedoch zur äußersten Vorsicht. Ohne frische Nachfrage und bei vorhandenen bärischen Divergenzen droht ein Bull-Trap.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "NYSE:ORCL",
+        "name": "Oracle",
+        "category": "Enterprise Software",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 48,
+        "price": 131.14,
+        "setup_name": "Beobachten / Bärischer Trend ohne klares Short-Erschöpfungslevel",
+        "entry_range": [
+          131.0,
+          133.0
+        ],
+        "stop_loss": 136.5,
+        "take_profit_2": 118.0,
+        "reasons": [
+          "1D und 4h Trend sind bärisch, jedoch notiert der Kurs neutral im Kanal statt an der oberen Begrenzung.",
+          "Reguläre bullische Divergenz auf 4h warnt vor Short-Einstiegen am aktuellen Niveau.",
+          "VSA zeigt geringe Aktivität ('Low') ohne Bestätigung durch institutionellen Verkaufsdruck."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D und 4h Trend sind bärisch, jedoch notiert der Kurs neutral im Kanal statt an der oberen Begrenzung.).",
+        "note": "Oracle befindet sich im Abwärtstrend, bietet jedoch aufgrund der 4h-Bull-Divergenz und der Lage mitten im Kanal kein asymmetrisches CRV für Shorts. Ein Test des 136 USD Widerstandsbereichs bleibt die Voraussetzung für Neupositionierungen.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "NASDAQ:NVDA",
+        "name": "Nvidia",
+        "category": "Halbleiter",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 77,
+        "new_score": 48,
+        "price": 216.47,
+        "setup_name": "Beobachten / Überverkaufter 4h-RSI im HTF-Abwärtstrend",
+        "entry_range": [
+          214.0,
+          218.0
+        ],
+        "stop_loss": 228.0,
+        "take_profit_2": 185.0,
+        "reasons": [
+          "1D Trend ist bärisch; Longs sind per Risikoregeln untersagt.",
+          "4h RSI mit 34.44 stark abgekühlt mit regulärer bullischer Divergenz – Short-Einstieg birgt hohes Squeeze-Risiko.",
+          "VSA signalisiert geringes Momentum ('Low')."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend ist bärisch; Longs sind per Risikoregeln untersagt.).",
+        "note": "Nvidia steht auf Tagesbasis unter Druck, ist intraday jedoch reif für eine technische Erholung (4h Bull-Div). Weder Long noch Short bieten aktuell ein institutionell vertretbares Risikoprofil; strikte Beobachtung des 225 USD Widerstands.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "NYMEX:CL1!",
+        "name": "WTI Rohöl Future",
+        "category": "Energie",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 48,
+        "price": 99.83,
+        "setup_name": "Beobachten / Warten auf HTF-Key-Level",
+        "entry_range": [
+          95.0,
+          96.5
+        ],
+        "stop_loss": 93.8,
+        "take_profit_2": 105.0,
+        "reasons": [
+          "1D RSI liegt bei 63.45 (Regelverstoß gegen Long Chasing bei RSI > 60)",
+          "4h zeigt aktive reguläre bärische Divergenz gegen den Aufwärtstrend",
+          "Kein Retracement in das Golden Pocket vorhanden; VSA signalisiert No Demand"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D RSI liegt bei 63.45 (Regelverstoß gegen Long Chasing bei RSI > 60)).",
+        "note": "Rohöl notiert in einer überdehnten Zone mit bestehender bärischer Divergenz auf dem 4h-Chart. Ein Long-Einstieg verbietet sich institutionell aufgrund des erhöhten RSI (>60) und mangelnder Konfluenz. Kapitalerhalt hat Vorrang, daher wird auf ein strukturelles Retracement gewartet.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "NASDAQ:MRVL",
+        "name": "Marvell",
+        "category": "Halbleiter",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 77,
+        "new_score": 47,
+        "price": 240.42,
+        "setup_name": "Beobachten / Abwärtstrend gegen Reversal-Divergenz",
+        "entry_range": [
+          238.0,
+          242.0
+        ],
+        "stop_loss": 252.0,
+        "take_profit_2": 210.0,
+        "reasons": [
+          "1D und 4h Trends bärisch, schließen Longs kategorisch aus.",
+          "Reguläre bullische Divergenz auf 4h verbietet prozyklische Shorts mitten im Kanal.",
+          "Kein Test eines oberen bärischen Orderblocks vorliegend."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D und 4h Trends bärisch, schließen Longs kategorisch aus.).",
+        "note": "Marvell ist übergeordnet bärisch geprägt, zeigt kurzfristig aber Reversal-Tendenzen auf dem 4h-Chart. Das CRV für einen Short ist ungünstig, solange kein Fehlausbruch an der 250 USD Marke stattgefunden hat.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "COMEX:SI1!",
+        "name": "SI1!",
+        "category": "Rohstoffe & Metalle",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 80,
+        "new_score": 46,
+        "price": 57.65,
+        "setup_name": "Beobachten / Illiquider Future & Trend-Konflikt",
+        "entry_range": [
+          56.8,
+          57.7
+        ],
+        "stop_loss": 59.5,
+        "take_profit_2": 51.0,
+        "reasons": [
+          "1D und 4h Trends bärisch, aber Kurs liegt neutral im Kanal ohne Erschöpfung am oberen Band.",
+          "VSA 'Ultra-Low' zeigt mangelnde institutionelle Beteiligung.",
+          "4h Divergenzen sind widersprüchlich (versteckt bullisch vs regulär bärisch)."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D und 4h Trends bärisch, aber Kurs liegt neutral im Kanal ohne Erschöpfung am oberen Band.).",
+        "note": "Der Silber-Future befindet sich in einer zähen Abwärtskonsolidierung bei sehr dünnem Volumen. Ein Short verbietet sich mitten in der Range, während für Longs jegliche Bodenbildungsstruktur fehlt.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "BINANCE:DOTUSDT",
+        "name": "Polkadot",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 45,
+        "price": 1.16,
+        "setup_name": "Beobachten / Widersprüchliche Divergenzen & Niedriges Volumen",
+        "entry_range": [
+          1.12,
+          1.16
+        ],
+        "stop_loss": 1.05,
+        "take_profit_2": 1.35,
+        "reasons": [
+          "Widersprüchliche Divergenzen: 1D und 4h zeigen simultan versteckte bärische Signale.",
+          "VSA auf 4h ist 'Low', was auf fehlendes institutionelles Interesse hindeutet.",
+          "Keine Konfluenz mit dem Golden Pocket."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Widersprüchliche Divergenzen: 1D und 4h zeigen simultan versteckte bärische Signale.).",
+        "note": "Polkadot bewegt sich in einer indifferenten Seitwärtsphase ohne signifikanten Volumenzufluss. Die Präsenz versteckter bärischer Divergenzen mahnt zur Geduld; Kapital bleibt an der Seitenlinie.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "TVC:SILVER",
+        "name": "Silber (Spot)",
+        "category": "Edelmetalle",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 80,
+        "new_score": 45,
+        "price": 57.55,
+        "setup_name": "Beobachten / Range-Mitte ohne Setup-Konfluenz",
+        "entry_range": [
+          56.7,
+          57.6
+        ],
+        "stop_loss": 59.4,
+        "take_profit_2": 51.0,
+        "reasons": [
+          "1D Trend bärisch mit versteckter bärischer Divergenz.",
+          "VSA 'Ultra-Low' warnt vor Fehlausbrüchen.",
+          "Kein Anlaufen von HTF-Key-Levels erkennbar."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend bärisch mit versteckter bärischer Divergenz.).",
+        "note": "Silber-Spot spiegelt das Bild des Futures wider: Mangelndes Volumen und unklare Lokalisierung im Kanal machen jeden Trade zu einem unkalkulierbaren Risiko. Wir warten auf signifikante Swings.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "COINBASE:AAVEUSD",
+        "name": "Aave",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 85,
+        "new_score": 44,
+        "price": 155.88,
+        "setup_name": "Beobachten / Divergenz-Konflikt & Schwaches Volumen",
+        "entry_range": [
+          150.0,
+          155.0
+        ],
+        "stop_loss": 142.0,
+        "take_profit_2": 185.0,
+        "reasons": [
+          "1D reguläre bärische Divergenz kollidiert mit der versteckten bullischen Divergenz.",
+          "4h VSA zeigt 'Low' – fehlende institutionelle Nachfrage.",
+          "Kein Golden Pocket Touchpoint zur Risikominimierung."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D reguläre bärische Divergenz kollidiert mit der versteckten bullischen Divergenz.).",
+        "note": "Aave zeigt gemischte Signale auf Tagesbasis bei abnehmender Marktaktivität. Solange die bärische 1D-Divergenz nicht durchbrochen oder bereinigt wird, besteht Abwärtsrisiko bis in den 145 USD Support-Bereich.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "BINANCE:AVAXUSDT",
+        "name": "Avalanche",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 85,
+        "new_score": 43,
+        "price": 9.74,
+        "setup_name": "Beobachten / Multi-Timeframe Trend-Konflikt",
+        "entry_range": [
+          9.4,
+          9.75
+        ],
+        "stop_loss": 9.1,
+        "take_profit_2": 11.2,
+        "reasons": [
+          "1D Trend bullisch, 4h Trend bärisch – struktureller Trendkonflikt.",
+          "4h VSA ist 'Low' mit versteckter bärischer Divergenz.",
+          "Kurs notiert abseits relevanter HTF-Key-Levels."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend bullisch, 4h Trend bärisch – struktureller Trendkonflikt.).",
+        "note": "AVAX leidet unter abgleitendem 4h-Momentum bei gleichzeitigem Trendkonflikt zum Tageschart. Ohne Rückkehr über den 4h-EMA-Fächer und Validierung des Supports bei 9.40 USD bleibt die Position neutral.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "BINANCE:GMXUSDT",
+        "name": "GMX",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 96,
+        "new_score": 42,
+        "price": 8.23,
+        "setup_name": "Beobachten / Multi-Timeframe Trend-Konflikt",
+        "entry_range": [
+          8.1,
+          8.25
+        ],
+        "stop_loss": 7.85,
+        "take_profit_2": 9.2,
+        "reasons": [
+          "Multi-Timeframe-Konflikt: 1D bullisch steht gegen bärischen 4h-Trend.",
+          "Vorangegangener Verlusttrade mahnt zur strikten Zurückhaltung bei unklarer Struktur.",
+          "Kein Golden Pocket Support und VSA zeigt lediglich durchschnittliches Volumen ohne institutionelle Absorption."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Multi-Timeframe-Konflikt: 1D bullisch steht gegen bärischen 4h-Trend.).",
+        "note": "Nach dem jüngsten Stop-Loss-Event bleibt Kapitalerhalt oberste Priorität. Der Bruch des 4h-Trends erfordert zwingend eine Bodenbildung oberhalb von 8.10 USD mit klarer Wyckoff-Akkumulation, bevor ein Re-Entry evaluiert werden kann.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "ICEEUR:BRN1!",
+        "name": "Brent Öl Future",
+        "category": "Energie",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 85,
+        "new_score": 40,
+        "price": 110.7,
+        "setup_name": "Beobachten / Stark Überkauft & Bärische 4h-Divergenz",
+        "entry_range": [
+          108.0,
+          110.5
+        ],
+        "stop_loss": 105.0,
+        "take_profit_2": 124.0,
+        "reasons": [
+          "1D RSI liegt bei 66.92 – deutlicher Verstoß gegen die Anti-Chasing-Regel (RSI > 60).",
+          "4h zeigt eine reguläre bärische Divergenz, die eine Korrektur ankündigt.",
+          "Kein Short erlaubt gegen den starken intakten 1D-Trend ohne klares Top-Signal."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D RSI liegt bei 66.92 – deutlicher Verstoß gegen die Anti-Chasing-Regel (RSI > 60).).",
+        "note": "Brent-Öl ist auf Tagesbasis stark überhitzt, was Longs strikt ausschließt. Gleichzeitig verbietet das Regelwerk Shorts gegen den parabolischen Trend. Zwingendes Abwarten einer mean-reversion Phase.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "KRAKEN:KSMUSD",
+        "name": "Kusama",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 80,
+        "new_score": 38,
+        "price": 4.33,
+        "setup_name": "Beobachten / Starker Abwärtstrend & Liquiditätsmangel",
+        "entry_range": [
+          4.2,
+          4.35
+        ],
+        "stop_loss": 4.65,
+        "take_profit_2": 3.5,
+        "reasons": [
+          "Übergeordnet bärischer Trend auf 1D und 4h.",
+          "VSA zeigt 'Ultra-Low / No Supply-Demand' – extremes Illiquiditätsrisiko.",
+          "Reguläre bullische 4h-Divergenz verhindert sauberes Short-CRV mitten im Kanal."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Übergeordnet bärischer Trend auf 1D und 4h.).",
+        "note": "Kusama leidet unter absolutem Liquiditätsmangel und intaktem Abwärtstrend. Weder für Longs noch für Shorts existieren valide institutionelle Anhaltspunkte. Kein Handlungsbedarf.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 18 Einstufungen haben sich geändert:\n\n🔴 Adidas (ADS):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 82%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D am oberen Band extrem überdehnt mit RSI 71.96).\n   📝 KI-Rationale: Adidas hat das obere Band unseres Trendkanals mit einem extremen Kauf-Klimax (Ultra-High Volume) angelaufen und bildet auf 4h eine...\n   Setup: Hypothese 3: HTF Exhaustion Climax Short\n   Entry: 162.00 | SL: 167.20 | TP2: 145.50\n\n🔴 Broadcom (AVGO):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 78%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (Konfluenter Abwärtstrend auf 1D und 4h vollständig intakt).\n   📝 KI-Rationale: Broadcom weist eine saubere bärische Struktur über Tages- und 4-Stunden-Ebene auf. Die versteckte bärische Divergenz im 4h-Chart s...\n   Setup: Hypothese 2: Trend Continuation & 4h Hidden Div\n   Entry: 334.37 | SL: 349.50 | TP2: 292.00\n\n⚪ Bitcoin (BTCUSDT):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (4h RSI liegt bei 62.27 (Regelverstoß: kein Long bei RSI > 60 wegen Chasing-Gefahr).).\n   📝 KI-Rationale: Obwohl der übergeordnete Trend intakt ist, verbietet das Risikoprotokoll Long-Einstiege bei 4h RSI über 60. Ein gesunder Pullback ...\n   Setup: Beobachten / RSI-Überdehnung & Divergenz-Konflikt\n\n⚪ Bitcoin (BTCUSD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (4h RSI mit 62.12 über dem strikten Grenzwert von 60 für Neupositionierungen.).\n   📝 KI-Rationale: Spiegelbildlich zu Binance zeigt auch Coinbase eine lokale Konsolidierungsnotwendigkeit. Wir jagen den Markt nicht am oberen Rand ...\n   Setup: Beobachten / RSI-Überdehnung & Divergenz-Konflikt\n\n⚪ Total Crypto Market Cap (TOTAL):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 50%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (4h RSI liegt bei 61.94 und verletzt das Chasing-Kriterium (RSI <= 60).).\n   📝 KI-Rationale: Der Krypto-Gesamtmarkt zeigt zwar übergeordnete Stärke, befindet sich lokal jedoch in einer Überdehnung. Das Marktrisiko für geheb...\n   Setup: Beobachten / RSI-Schwellenwert überschritten\n\n⚪ Solana (SOLUSD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 49%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (4h VSA zeigt 'Ultra-Low / No Supply-Demand' trotz Aufwärtsbewegung.).\n   📝 KI-Rationale: Solana hält den Aufwärtstrend zwar formal aufrecht, der drastische Volumeneinbruch ('Ultra-Low') mahnt jedoch zur äußersten Vorsic...\n   Setup: Beobachten / Volumenmangel & Versteckte Bärische Divergenz\n\n... und 12 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261021_072335",
     "timestamp": "2026-10-21T07:23:35.661555+00:00",
     "timestamp_display": "21.10.2026 07:23 UTC",
