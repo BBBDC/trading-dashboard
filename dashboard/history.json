@@ -1,5 +1,226 @@
 [
   {
+    "id": "evt_20261022_031250",
+    "timestamp": "2026-10-22T03:12:50.080153+00:00",
+    "timestamp_display": "22.10.2026 03:12 UTC",
+    "title": "🔔 TV-Signaländerung: 8 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 8,
+    "changes": [
+      {
+        "symbol": "NYSE:IBM",
+        "name": "IBM",
+        "category": "Enterprise Tech",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 90,
+        "new_score": 52,
+        "price": 251.46,
+        "setup_name": "Beobachten / Überhitztes HTF-Top",
+        "entry_range": [
+          251.0,
+          254.0
+        ],
+        "stop_loss": 257.5,
+        "take_profit_2": 235.0,
+        "reasons": [
+          "1D-Kanalband massiv überkauft (Overbought), RSI 4h bei 78.82 mit bärischer Divergenz.",
+          "4h VSA zeigt 'Stopping Volume', deutet auf institutionelle Gewinnmitnahmen hin.",
+          "Ein Short gegen den starken 1D-Bullenmarkt verletzt die Risikoregeln ohne bestätigten Trendbruch."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Kanalband massiv überkauft (Overbought), RSI 4h bei 78.82 mit bärischer Divergenz.).",
+        "note": "IBM ist technisch stark überdehnt und zeigt klares Stopping Volume im 4h-Bereich, was eine Korrektur wahrscheinlich macht. Ein direkter Short verbietet sich jedoch im starken 1D-Bullenmarkt, während ein Long-Einstieg hier fahrlässiges Chasing wäre. Abwarten, bis sich die Struktur abkühlt.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "COINBASE:BCHUSD",
+        "name": "Bitcoin Cash",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 85,
+        "new_score": 48,
+        "price": 280.53,
+        "setup_name": "Beobachten / Divergenz-Konflikt am Hoch",
+        "entry_range": [
+          265.0,
+          272.0
+        ],
+        "stop_loss": 255.0,
+        "take_profit_2": 325.0,
+        "reasons": [
+          "1D bullisch, aber 4h zeigt reguläre bärische Divergenz bei hohem Volumen.",
+          "Gefahr einer lokalen Top-Bildung verhindert Pro-Trend Longs auf aktuellem Niveau.",
+          "Kein Test einer HTF-Demandzone oder des Golden Pockets erfolgt."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D bullisch, aber 4h zeigt reguläre bärische Divergenz bei hohem Volumen.).",
+        "note": "Obwohl Bitcoin Cash übergeordnet bullisch läuft, signalisiert die bärische Divergenz auf 4h zusammen mit hohem Volumen potenziellen Verkaufsdruck. Ein Einstieg erfordert zwingend einen Rücklauf in tiefe FVG-Zonen. Aus den jüngsten Krypto-Verlusten lernen wir: Keine Positionen ohne glasklaren Discount.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "NASDAQ:MRVL",
+        "name": "Marvell",
+        "category": "Halbleiter",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 85,
+        "new_score": 47,
+        "price": 244.76,
+        "setup_name": "Beobachten / Multi-Timeframe Trend-Konflikt",
+        "entry_range": [
+          235.0,
+          240.0
+        ],
+        "stop_loss": 228.0,
+        "take_profit_2": 268.0,
+        "reasons": [
+          "Klassischer MTF-Konflikt: 1D bullisch vs. 4h bärisch.",
+          "4h-Volumen ist extrem niedrig ('Ultra-Low'), keine dynamische Reversal-Bestätigung.",
+          "Einstieg im Kanalzentrum bietet unzureichendes CRV."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Klassischer MTF-Konflikt: 1D bullisch vs. 4h bärisch.).",
+        "note": "Marvell leidet unter einem direkten Trendkonflikt zwischen 1D und 4h. Gemäß unseren Leitlinien erzwingt dies ein sofortiges Veto für Direktpositionen. Erst nach Klärung des 4h-Trends an validen Supportzonen wird das Setup neu bewertet.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "NYSE:UBER",
+        "name": "Uber",
+        "category": "Mobility / Tech",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 92,
+        "new_score": 46,
+        "price": 67.62,
+        "setup_name": "Beobachten / Warten auf HTF-Key-Level",
+        "entry_range": [
+          64.5,
+          66.0
+        ],
+        "stop_loss": 62.5,
+        "take_profit_2": 74.5,
+        "reasons": [
+          "1D und 4h Trends sind bärisch unter relevanten Durchschnitten.",
+          "Widersprüchliche Divergenzen auf 4h (reguläre bärische vs. versteckte bullische Divergenz).",
+          "Keine Wyckoff-Akkumulation oder Golden Pocket Bestätigung vorhanden."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D und 4h Trends sind bärisch unter relevanten Durchschnitten.).",
+        "note": "UBER zeigt zwar erste bullische Divergenzen auf Tagesbasis, doch der Abwärtstrend ist auf beiden Timeframes intakt. Zudem signalisiert das gemischte Divergenzbild auf 4h anhaltende Unsicherheit. Wir warten auf einen klaren Wyckoff-Boden oder Rückeroberung der HTF-EMA.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "TVC:GOLD",
+        "name": "Gold (Spot)",
+        "category": "Edelmetalle",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 87,
+        "new_score": 45,
+        "price": 4110.52,
+        "setup_name": "Beobachten / No Supply-Demand Konsolidierung",
+        "entry_range": [
+          4050.0,
+          4080.0
+        ],
+        "stop_loss": 4010.0,
+        "take_profit_2": 4240.0,
+        "reasons": [
+          "Übergeordneter 1D-Trend bärisch korrigierend, kein GP-Support.",
+          "4h VSA zeigt 'Ultra-Low / No Supply-Demand', was für fehlende Marktteilnahme spricht.",
+          "Gleichzeitiges Vorliegen bullischer und bärischer Divergenzen auf 4h belegt Directional Indecision."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Übergeordneter 1D-Trend bärisch korrigierend, kein GP-Support.).",
+        "note": "Gold konsolidiert bei extrem niedrigem Volumen im 4h-Chart ohne klare Dominanz von Käufern oder Verkäufern. Die widersprüchlichen Signale und der übergeordnete bärische Trend verbieten eine Direktive. Geduld bis zur Liquiditätsabfischung an den Extremen.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "COMEX:GC1!",
+        "name": "GC1!",
+        "category": "Rohstoffe & Metalle",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 87,
+        "new_score": 45,
+        "price": 4131.3,
+        "setup_name": "Beobachten / Mangelnde HTF-Konfluenz",
+        "entry_range": [
+          4070.0,
+          4100.0
+        ],
+        "stop_loss": 4030.0,
+        "take_profit_2": 4260.0,
+        "reasons": [
+          "1D-Trend verharrt im Abwärtsmodus, Kurs nicht im Golden Pocket.",
+          "Identische No-Demand-Struktur auf 4h mit interferierenden Divergenzen.",
+          "Mindest-Konfluenz für Longs oder valide Rejection für Shorts fehlt."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Trend verharrt im Abwärtsmodus, Kurs nicht im Golden Pocket.).",
+        "note": "Wie am Spotmarkt zeigt der GC1! Future ein Patt im Niemandsland des Trendkanals. Ohne klares Reversal-Muster an institutionellen FVG-Zonen besteht kein statistischer Vorteil. Wir verharren diszipliniert an der Seitenlinie.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "TVC:PLATINUM",
+        "name": "Platin (Spot)",
+        "category": "Edelmetalle",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 87,
+        "new_score": 42,
+        "price": 1597.63,
+        "setup_name": "Beobachten / Trendfolge Abwärts",
+        "entry_range": [
+          1560.0,
+          1580.0
+        ],
+        "stop_loss": 1630.0,
+        "take_profit_2": 1480.0,
+        "reasons": [
+          "1D und 4h Strukturen sind klar bärisch ausgerichtet.",
+          "Kein Erreichen eines signifikanten HTF Golden Pockets.",
+          "Geringes 4h-Volumen deutet auf mangelndes institutionelles Kaufinteresse hin."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D und 4h Strukturen sind klar bärisch ausgerichtet.).",
+        "note": "Platin befindet sich in einem ungebrochenen Abwärtstrend ohne Anzeichen einer institutionellen Absorption. Die 1D-Bull-Divergenz verhungert mangels Volumen, während der 4h-RSI schwach bleibt. Kein Setup, striktes Cash-Management.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "TVC:SILVER",
+        "name": "Silber (Spot)",
+        "category": "Edelmetalle",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 80,
+        "new_score": 40,
+        "price": 56.6,
+        "setup_name": "Beobachten / Bärische Dominanz",
+        "entry_range": [
+          54.0,
+          55.0
+        ],
+        "stop_loss": 58.5,
+        "take_profit_2": 49.5,
+        "reasons": [
+          "Sowohl 1D als auch 4h im Abwärtstrend verankert.",
+          "Versteckte bärische Divergenz auf 1D stützt die Fortsetzung des Abverkaufs.",
+          "Widersprüchliche Divergenzen auf 4h verbieten auch Trendfolge-Shorts mitten im Kanal."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Sowohl 1D als auch 4h im Abwärtstrend verankert.).",
+        "note": "Silber bleibt strukturell schwach mit bärischen Trendfolge-Signalen auf Tagesbasis. Gleichzeitig liefert das 4h-Bild inkonsistente Divergenzen bei ausgetrocknetem Volumen. Hier Kapital zu binden widerspricht dem Grundsatz des Kapitalerhalts.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 8 Einstufungen haben sich geändert:\n\n⚪ IBM (IBM):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Kanalband massiv überkauft (Overbought), RSI 4h bei 78.82 mit bärischer Divergenz.).\n   📝 KI-Rationale: IBM ist technisch stark überdehnt und zeigt klares Stopping Volume im 4h-Bereich, was eine Korrektur wahrscheinlich macht. Ein dir...\n   Setup: Beobachten / Überhitztes HTF-Top\n\n⚪ Bitcoin Cash (BCHUSD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D bullisch, aber 4h zeigt reguläre bärische Divergenz bei hohem Volumen.).\n   📝 KI-Rationale: Obwohl Bitcoin Cash übergeordnet bullisch läuft, signalisiert die bärische Divergenz auf 4h zusammen mit hohem Volumen potenzielle...\n   Setup: Beobachten / Divergenz-Konflikt am Hoch\n\n⚪ Marvell (MRVL):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 47%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Klassischer MTF-Konflikt: 1D bullisch vs. 4h bärisch.).\n   📝 KI-Rationale: Marvell leidet unter einem direkten Trendkonflikt zwischen 1D und 4h. Gemäß unseren Leitlinien erzwingt dies ein sofortiges Veto f...\n   Setup: Beobachten / Multi-Timeframe Trend-Konflikt\n\n⚪ Uber (UBER):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 46%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D und 4h Trends sind bärisch unter relevanten Durchschnitten.).\n   📝 KI-Rationale: UBER zeigt zwar erste bullische Divergenzen auf Tagesbasis, doch der Abwärtstrend ist auf beiden Timeframes intakt. Zudem signalis...\n   Setup: Beobachten / Warten auf HTF-Key-Level\n\n⚪ Gold (Spot) (GOLD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 45%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Übergeordneter 1D-Trend bärisch korrigierend, kein GP-Support.).\n   📝 KI-Rationale: Gold konsolidiert bei extrem niedrigem Volumen im 4h-Chart ohne klare Dominanz von Käufern oder Verkäufern. Die widersprüchlichen ...\n   Setup: Beobachten / No Supply-Demand Konsolidierung\n\n⚪ GC1! (GC1!):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 45%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Trend verharrt im Abwärtsmodus, Kurs nicht im Golden Pocket.).\n   📝 KI-Rationale: Wie am Spotmarkt zeigt der GC1! Future ein Patt im Niemandsland des Trendkanals. Ohne klares Reversal-Muster an institutionellen F...\n   Setup: Beobachten / Mangelnde HTF-Konfluenz\n\n... und 2 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261021_231521",
     "timestamp": "2026-10-21T23:15:21.798930+00:00",
     "timestamp_display": "21.10.2026 23:15 UTC",
