@@ -629,7 +629,7 @@ html_content = f"""<!DOCTYPE html>
         <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-1 shrink min-w-0 touch-pan-x">
           
           <!-- Next Scan Live Countdown Timer -->
-          <div class="px-2.5 py-1.5 rounded-xl bg-indigo-950/40 border border-indigo-500/30 flex items-center gap-1.5 shadow-sm shrink-0" title="Scanzyklus: alle 4 Stunden">
+          <div class="px-2.5 py-1.5 rounded-xl bg-indigo-950/40 border border-indigo-500/30 flex items-center gap-1.5 shadow-sm shrink-0" title="Market Gatekeeper: Dynamischer Check jede Stunde (:05)">
             <span class="relative flex h-2 w-2">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
@@ -1233,8 +1233,8 @@ html_content = f"""<!DOCTYPE html>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
           <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
             <span class="text-[10px] text-slate-400 block uppercase">Scan-Intervall</span>
-            <span class="font-bold text-white block mt-0.5">Alle 4 Stunden</span>
-            <span class="text-[10px] text-indigo-300">Crontab gesteuert</span>
+            <span class="font-bold text-white block mt-0.5">Dynamisch / Stündlich</span>
+            <span class="text-[10px] text-indigo-300">Market Gatekeeper</span>
           </div>
           <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
             <span class="text-[10px] text-slate-400 block uppercase">TradingView MCP</span>
@@ -1265,10 +1265,11 @@ html_content = f"""<!DOCTYPE html>
       <!-- Modal Header -->
       <div class="flex items-start justify-between pb-4 border-b border-slate-800">
         <div>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 flex-wrap">
             <span id="modal-signal-badge" class="px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider"></span>
             <h2 id="modal-asset-name" class="text-xl font-bold text-white tracking-tight"></h2>
             <span id="modal-asset-ticker" class="text-xs font-mono text-slate-400"></span>
+            <span id="modal-market-state" class="inline-flex items-center"></span>
           </div>
           <div class="flex items-center gap-2 mt-1">
             <p id="modal-setup-title" class="text-xs text-indigo-400 font-semibold"></p>
@@ -1564,6 +1565,17 @@ html_content = f"""<!DOCTYPE html>
         const hasBullDiv = divs.some(d => d.includes('Bullische'));
         const hasBearDiv = divs.some(d => d.includes('Bärische'));
 
+        // Market Gatekeeper Badge
+        const mState = a.market_state || {{ status: 'OPEN', status_text: 'Aktiv', session_name: 'Markt aktiv' }};
+        let marketBadgeHtml = '';
+        if (mState.status === 'OPEN') {{
+          marketBadgeHtml = `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-emerald-500/15 text-emerald-300 border border-emerald-500/30" title="${{mState.session_name || 'Markt geöffnet'}}"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>${{mState.status_text || 'Offen'}}</span>`;
+        }} else if (mState.status === 'PRE_MARKET') {{
+          marketBadgeHtml = `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-amber-500/15 text-amber-300 border border-amber-500/30" title="${{mState.session_name || 'Vorbörse aktiv'}}"><span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>${{mState.status_text || 'Vorbörse'}}</span>`;
+        }} else {{
+          marketBadgeHtml = `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-slate-800/90 text-slate-400 border border-slate-700/60" title="${{mState.session_name || 'Markt pausiert / geschlossen'}}"><span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span>${{mState.status_text || 'Pausiert'}}</span>`;
+        }}
+
         // Grid Card
         const card = document.createElement('div');
         card.className = `p-4 rounded-xl bg-slate-900/90 border border-slate-800/90 transition shadow-sm hover:shadow-lg ${{cardBorder}} flex flex-col justify-between space-y-4`;
@@ -1576,7 +1588,10 @@ html_content = f"""<!DOCTYPE html>
                   <span class="font-bold text-white text-base tracking-tight">${{a.name}}</span>
                   <span class="text-xs font-mono text-slate-400">${{a.symbol.split(':')[1] || a.symbol}}</span>
                 </div>
-                <span class="text-[11px] text-slate-400">${{a.category}}</span>
+                <div class="flex items-center gap-2 mt-1">
+                  <span class="text-[11px] text-slate-400">${{a.category}}</span>
+                  ${{marketBadgeHtml}}
+                </div>
               </div>
               <div class="text-right">
                 <span class="px-2 py-0.5 rounded text-xs font-mono font-bold border ${{badgeColor}}">
@@ -1645,7 +1660,10 @@ html_content = f"""<!DOCTYPE html>
         }};
         tr.innerHTML = `
           <td class="p-3">
-            <div class="font-bold text-white text-xs">${{a.name}}</div>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-white text-xs">${{a.name}}</span>
+              ${{marketBadgeHtml}}
+            </div>
             <div class="text-[10px] text-slate-400">${{a.symbol}}</div>
           </td>
           <td class="p-3">
@@ -1793,6 +1811,22 @@ html_content = f"""<!DOCTYPE html>
         badge.className = 'px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-rose-500/20 text-rose-400 border border-rose-500/40';
       }} else {{
         badge.className = 'px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-slate-800 text-slate-300 border border-slate-700';
+      }}
+
+      // Market State in Modal Header
+      const mState = a.market_state || {{ status: 'OPEN', status_text: 'Aktiv', session_name: 'Markt aktiv' }};
+      const mStateElem = document.getElementById('modal-market-state');
+      if (mStateElem) {{
+        if (mState.status === 'OPEN') {{
+          mStateElem.className = 'inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-mono font-medium bg-emerald-500/15 text-emerald-300 border border-emerald-500/30';
+          mStateElem.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>${{mState.session_name || 'Offen'}}`;
+        }} else if (mState.status === 'PRE_MARKET') {{
+          mStateElem.className = 'inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-mono font-medium bg-amber-500/15 text-amber-300 border border-amber-500/30';
+          mStateElem.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>${{mState.session_name || 'Vorbörse'}}`;
+        }} else {{
+          mStateElem.className = 'inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-mono font-medium bg-slate-800 text-slate-400 border border-slate-700/60';
+          mStateElem.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span>${{mState.session_name || 'Pausiert (Geschlossen)'}}`;
+        }}
       }}
 
       // Active Position Check & Highlight in Modal
@@ -1999,33 +2033,22 @@ html_content = f"""<!DOCTYPE html>
     }});
 
     // ==========================================
-    // ⏱️ Nächster Scan Countdown (Cron: 01:05, 05:05, 09:05, 13:05, 17:05, 21:05 UTC)
+    // ⏱️ Nächster Scan Countdown (Stündlicher Market Gatekeeper: Minute :05)
     // ==========================================
     function updateNextScanCountdown() {{
       const now = new Date();
-      const nowUtc = now.getTime();
-      const cronHours = [1, 5, 9, 13, 17, 21];
-      let nextSlot = null;
+      const candidate = new Date(now.getTime());
 
-      for (let dayOffset = 0; dayOffset <= 2; dayOffset++) {{
-        for (const h of cronHours) {{
-          const candidate = new Date();
-          candidate.setUTCDate(candidate.getUTCDate() + dayOffset);
-          candidate.setUTCHours(h, 5, 0, 0);
-          if (candidate.getTime() > nowUtc) {{
-            nextSlot = candidate;
-            break;
-          }}
-        }}
-        if (nextSlot) break;
+      if (candidate.getMinutes() < 5) {{
+        candidate.setMinutes(5, 0, 0);
+      }} else {{
+        candidate.setHours(candidate.getHours() + 1);
+        candidate.setMinutes(5, 0, 0);
       }}
 
-      if (!nextSlot) return;
-
-      const diff = Math.max(0, nextSlot.getTime() - nowUtc);
+      const diff = Math.max(0, candidate.getTime() - now.getTime());
       const totalSec = Math.floor(diff / 1000);
-      const hours = Math.floor(totalSec / 3600);
-      const mins = Math.floor((totalSec % 3600) / 60);
+      const mins = Math.floor(totalSec / 60);
       const secs = totalSec % 60;
 
       const pad = (n) => String(n).padStart(2, '0');
@@ -2034,7 +2057,7 @@ html_content = f"""<!DOCTYPE html>
       if (totalSec <= 0) {{
         if (el) el.innerText = 'Scan läuft... 🔄';
       }} else {{
-        if (el) el.innerText = `${{pad(hours)}}h ${{pad(mins)}}m ${{pad(secs)}}s`;
+        if (el) el.innerText = `${{pad(mins)}}m ${{pad(secs)}}s`;
       }}
     }}
     setInterval(updateNextScanCountdown, 1000);

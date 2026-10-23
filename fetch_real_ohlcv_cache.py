@@ -13,6 +13,7 @@ import urllib.request
 import urllib.parse
 from pathlib import Path
 from datetime import datetime, timezone
+from typing import List, Dict, Any, Optional
 
 BASE_DIR = Path(__file__).resolve().parent
 TOKEN_FILE = BASE_DIR / ".mcp_tokens.json"
@@ -202,8 +203,58 @@ def get_real_bars(symbol, interval="1D"):
         return fetch_bars_direct(symbol, interval=interval, count=cnt)
 
 
-def sync_all_real_data(limit=None):
-    """Lädt echte Kerzen für alle Assets in der Datenbank herunter und cacht sie."""
+def fetch_premarket_batch_data(symbols: List[str]) -> Dict[str, Dict[str, Any]]:
+    """Holt vorbörsliche Snapshot-Daten (premarket_close, premarket_gap, premarket_volume) in Batches."""
+    if not symbols:
+        return {}
+    token = get_token()
+    if not token:
+        return {}
+
+    url = "https://mcp.tradingview.com/mcp"
+    results = {}
+
+    # In Blöcken von 40 Symbolen abfragen
+    for i in range(0, len(symbols), 40):
+        chunk = symbols[i:i + 40]
+        req_data = {
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "tools/call",
+            "params": {
+                "name": "mcp-tv-get-symbol-data-batch",
+                "arguments": {
+                    "symbols": chunk,
+                    "columns": ["close", "premarket_close", "premarket_change", "premarket_gap", "premarket_volume"]
+                }
+            }
+        }
+        try:
+            headers = {
+                "Authorization": f"Bearer {token}",
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+            req = urllib.request.Request(url, data=json.dumps(req_data).encode("utf-8"), headers=headers)
+            with urllib.request.urlopen(req, timeout=12) as resp:
+                res = json.loads(resp.read().decode("utf-8"))
+                if "result" in res and "content" in res["result"]:
+                    txt = res["result"]["content"][0].get("text", "{}")
+                    parsed = json.loads(txt)
+                    data_map = parsed.get("data", {})
+                    results.update(data_map)
+        except Exception as e:
+            print(f"Fehler bei Premarket-Abfrage für {len(chunk)} Symbole: {e}", file=sys.stderr)
+
+    return results
+
+
+def sync_all_real_data(due_symbols=None, limit=None):
+    """
+    Lädt echte Kerzen für fällige Assets herunter und cacht sie.
+    - due_symbols: Optionales Set oder Liste von Symbolen (z. B. vom Market Gatekeeper).
+      Ist due_symbols angegeben, werden geschlossene/gepauste Assets übersprungen.
+    """
     if not DB_FILE.exists():
         print(f"Datenbank {DB_FILE} nicht gefunden!")
         return
@@ -211,16 +262,29 @@ def sync_all_real_data(limit=None):
     with open(DB_FILE, "r", encoding="utf-8") as f:
         db = json.load(f)
 
-    assets = db.get("assets", [])
+    all_assets = db.get("assets", [])
     if limit:
-        assets = assets[:limit]
+        all_assets = all_assets[:limit]
 
-    print(f"\nStarte echten OHLCV-Download für {len(assets)} Assets über TradingView MCP...")
+    # Filter auf fällige Symbole anwenden
+    if due_symbols is not None:
+        due_set = set(due_symbols)
+        assets_to_fetch = [a for a in all_assets if a["symbol"] in due_set]
+        skipped_count = len(all_assets) - len(assets_to_fetch)
+        print(f"\nGatekeeper aktiv: {len(assets_to_fetch)} Assets fällig ({skipped_count} geschlossene/aktuelle pausiert).")
+    else:
+        assets_to_fetch = all_assets
+
+    if not assets_to_fetch:
+        print("Keine fälligen Assets zum Herunterladen.")
+        return
+
+    print(f"Starte echten OHLCV-Download für {len(assets_to_fetch)} Assets über TradingView MCP...")
     success_count = 0
 
-    for idx, a in enumerate(assets, 1):
+    for idx, a in enumerate(assets_to_fetch, 1):
         sym = a["symbol"]
-        print(f"[{idx}/{len(assets)}] Lade echte Kerzen für {a['name']} ({sym})...", end="", flush=True)
+        print(f"[{idx}/{len(assets_to_fetch)}] Lade echte Kerzen für {a['name']} ({sym})...", end="", flush=True)
 
         b_1d = get_real_bars(sym, interval="1D")
         b_4h = get_real_bars(sym, interval="4h")
@@ -234,7 +298,7 @@ def sync_all_real_data(limit=None):
 
         time.sleep(0.12)
 
-    print(f"\nDownload abgeschlossen: {success_count}/{len(assets)} Assets mit echten TradingView-Daten versorgt!")
+    print(f"\nDownload abgeschlossen: {success_count}/{len(assets_to_fetch)} Assets aktualisiert!")
 
 
 if __name__ == "__main__":

@@ -9,6 +9,7 @@ Echter Multi-Timeframe Chart-Generator (v3).
 import os
 import sys
 import json
+import argparse
 from pathlib import Path
 from fetch_real_ohlcv_cache import get_real_bars
 from chart_generator import generate_svg_chart
@@ -17,6 +18,10 @@ BASE_DIR = Path(__file__).resolve().parent
 DB_FILE = BASE_DIR / "dashboard" / "market_analysis_db.json"
 CHARTS_DIR = BASE_DIR / "dashboard" / "charts"
 ARTIFACT_CHARTS = Path("/Users/maximilianmayer/.gemini/antigravity/brain/eeb75350-6985-4121-862b-6a5bd07b0cf8/charts")
+
+parser = argparse.ArgumentParser(description="Chart Generator")
+parser.add_argument("--symbols", type=str, default="", help="Kommagetrennte Liste von Symbolen zur selektiven Chart-Generierung")
+args, _ = parser.parse_known_args()
 
 CHARTS_DIR.mkdir(parents=True, exist_ok=True)
 has_artifact_charts = False
@@ -34,8 +39,14 @@ if not DB_FILE.exists():
 with open(DB_FILE, "r", encoding="utf-8") as f:
     db = json.load(f)
 
-assets = db.get("assets", [])
-print(f"Starte Chart-Generierung mit ECHTEN Daten für {len(assets)} Assets (4h, 8h, 1D)...")
+all_assets = db.get("assets", [])
+if args.symbols:
+    filter_set = set(s.strip() for s in args.symbols.split(",") if s.strip())
+    assets = [a for a in all_assets if a["symbol"] in filter_set]
+    print(f"Starte selektive Chart-Generierung für {len(assets)}/{len(all_assets)} fällige Assets...")
+else:
+    assets = all_assets
+    print(f"Starte Chart-Generierung mit ECHTEN Daten für alle {len(assets)} Assets (4h, 8h, 1D)...")
 
 total_generated = 0
 for idx, asset in enumerate(assets, 1):

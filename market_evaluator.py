@@ -16,6 +16,7 @@ from datetime import datetime, timezone
 
 from fetch_real_ohlcv_cache import get_real_bars
 from gemini_evaluator import evaluate_batch_with_cascade, load_config as load_gemini_config
+from market_schedule import get_market_state
 
 BASE_DIR = Path(__file__).resolve().parent
 DB_FILE = BASE_DIR / "dashboard" / "market_analysis_db.json"
@@ -334,10 +335,12 @@ def evaluate_quantitative_confluence(d_1d, d_8h, d_4h, asset_info):
     }
 
 
-def analyze_all_markets(use_gemini=True):
+def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):
     """
-    Hauptfunktion: Liest alle Assets, lädt frische Kerzen, berechnet Indikatoren,
+    Hauptfunktion: Liest alle Assets, lädt frische Kerzen für fällige Märkte, berechnet Indikatoren,
     interpretiert Setups (via Gemini AI oder mathematisches Regelwerk) und speichert DB.
+    - due_symbols: Optionales Set/Liste von Symbolen, die aktualisiert werden sollen.
+      Nicht fällige Assets behalten ihre vorherige Auswertung und sparen API-Quoten.
     """
     if not DB_FILE.exists():
         print(f"Fehler: {DB_FILE} nicht gefunden!")
@@ -347,7 +350,12 @@ def analyze_all_markets(use_gemini=True):
         db = json.load(f)
 
     assets = db.get("assets", [])
-    print(f"\nStarte Live-Marktanalyse für {len(assets)} Assets...")
+    due_set = set(due_symbols) if due_symbols is not None else None
+
+    if due_set is not None:
+        print(f"\nStarte Marktanalyse: {len(due_set)}/{len(assets)} fällige Assets werden aktiv berechnet...")
+    else:
+        print(f"\nStarte Live-Marktanalyse für alle {len(assets)} Assets...")
 
     gemini_conf = load_gemini_config()
     has_gemini = use_gemini and gemini_conf.get("enabled", True)
@@ -363,10 +371,19 @@ def analyze_all_markets(use_gemini=True):
 
     analyzed_assets = []
     gemini_batch = []
+    now_utc = datetime.now(timezone.utc)
 
     for idx, asset in enumerate(assets, 1):
         sym = asset["symbol"]
         name = asset["name"]
+        m_state = get_market_state(sym, now_utc)
+
+        # Wenn Asset nicht fällig ist: Vorherige Analyse beibehalten
+        if due_set is not None and sym not in due_set:
+            cached_asset = dict(asset)
+            cached_asset["market_state"] = m_state
+            analyzed_assets.append(cached_asset)
+            continue
 
         # Echte Kerzen aus Cache holen
         b_1d = get_real_bars(sym, interval="1D")
@@ -389,6 +406,8 @@ def analyze_all_markets(use_gemini=True):
             "asset_type": asset.get("asset_type", "Stock"),
             "price": current_price,
             "charts": charts_info,
+            "last_analyzed": now_utc.isoformat(),
+            "market_state": m_state,
             "timeframes": {
                 "1D": d_1d,
                 "8h": d_8h,

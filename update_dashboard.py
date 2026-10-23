@@ -30,7 +30,7 @@ def stage_banner(title):
     print("=" * 65)
 
 
-def run_pipeline(force_download=False, skip_download=False, git_push=False):
+def run_pipeline(force_download=False, skip_download=False, git_push=False, force_all=False):
     start_time = time.time()
     stage_banner("🚀 STARTE TRADINGVIEW SUPER-ANALYST MASTER PIPELINE")
 
@@ -39,24 +39,49 @@ def run_pipeline(force_download=False, skip_download=False, git_push=False):
     from sync_watchlists import sync_watchlists
     sync_watchlists()
 
+    # STAGE 1.5: Market Gatekeeper (Smarte Markt-Sessions)
+    from market_schedule import filter_assets_for_run
+    with open(DB_FILE, "r", encoding="utf-8") as f:
+        db = json.load(f)
+    all_assets = db.get("assets", [])
+
+    due_assets, skipped_assets, stats = filter_assets_for_run(all_assets, force_all=force_all)
+    due_symbols = [a["symbol"] for a in due_assets]
+
+    print("\n" + "-" * 65)
+    print("  🛡️ MARKET GATEKEEPER: Status der Markt-Sessions")
+    print("-" * 65)
+    for cat, c_data in stats["categories"].items():
+        print(f"  • {cat:<20}: Offen={c_data['open']:>2} | Geschlossen={c_data['closed']:>2} | Fällig={c_data['due']:>2}")
+    print("-" * 65)
+    print(f"  Ergebnis: {len(due_symbols)}/{len(all_assets)} Assets fällig zur Aktualisierung.")
+    print("-" * 65)
+
+    if not due_symbols and not force_all:
+        print("\nℹ️ Keine Märkte fällig. Dashboard und Daten sind auf dem aktuellsten Stand.")
+        print("Pipeline wird vorzeitig beendet (0 API-Calls, 0 KI-Tokens verbraucht).")
+        return
+
     # STAGE 2: Echte Marktdaten herunterladen / cachen
     if not skip_download:
         stage_banner("STUFE 2: Echte OHLCV-Marktdaten über TV MCP laden")
         from fetch_real_ohlcv_cache import sync_all_real_data
-        sync_all_real_data()
+        sync_all_real_data(due_symbols=None if force_all else due_symbols)
     else:
         print("Überspringe OHLCV-Download (Cache wird verwendet).")
 
     # STAGE 3: Multi-Timeframe-Marktanalyse & KI-Interpretation
     stage_banner("STUFE 3: Multi-Timeframe-Analyse & KI-Interpretation (Gemini / SMC)")
     from market_evaluator import analyze_all_markets
-    analyze_all_markets()
+    analyze_all_markets(due_symbols=None if force_all else due_symbols, force_all=force_all)
 
     # STAGE 4: Charts generieren
     stage_banner("STUFE 4: Vektor-Charts mit echten Kerzen & Indikatoren rendern")
-    from generate_all_charts import CHARTS_DIR as CD
     import subprocess
-    subprocess.run([sys.executable, str(BASE_DIR / "generate_all_charts.py")], check=True)
+    chart_cmd = [sys.executable, str(BASE_DIR / "generate_all_charts.py")]
+    if not force_all and due_symbols:
+        chart_cmd.extend(["--symbols", ",".join(due_symbols)])
+    subprocess.run(chart_cmd, check=True)
 
     # STAGE 5: Dashboard & Historie kompilieren
     stage_banner("STUFE 5: HTML-Dashboard & Live-Historie aktualisieren")
@@ -149,9 +174,10 @@ def main():
     parser.add_argument("--skip-download", action="store_true", help="Überspringt den MCP-Download und nutzt vorhandene gecachte Bars")
     parser.add_argument("--force-download", action="store_true", help="Erzwingt vollständigen Neuabruf aller OHLCV-Bars")
     parser.add_argument("--git-push", action="store_true", help="Committet und pusht Dashboard-Änderungen automatisch in das Git-Hosting")
+    parser.add_argument("--force", action="store_true", help="Erzwingt Voll-Scan aller 59 Assets unabhängig von Marktzeiten")
     args = parser.parse_args()
 
-    run_pipeline(force_download=args.force_download, skip_download=args.skip_download, git_push=args.git_push)
+    run_pipeline(force_download=args.force_download, skip_download=args.skip_download, git_push=args.git_push, force_all=args.force)
 
 
 if __name__ == "__main__":
