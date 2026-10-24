@@ -1,5 +1,99 @@
 [
   {
+    "id": "evt_20261024_021145",
+    "timestamp": "2026-10-24T02:11:45.611979+00:00",
+    "timestamp_display": "24.10.2026 02:11 UTC",
+    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 3,
+    "changes": [
+      {
+        "symbol": "COINBASE:BTCUSD",
+        "name": "Bitcoin",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "LONG",
+        "old_score": 56,
+        "new_score": 95,
+        "price": 80822.61,
+        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
+        "entry_range": [
+          80176.03,
+          80984.26
+        ],
+        "stop_loss": 76781.48,
+        "take_profit_2": 93754.23,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
+          "Aktiv: Reguläre Bullische Divergenz (Reversal)"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
+        "note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "BINANCE:DOTUSDT",
+        "name": "Polkadot",
+        "category": "Crypto",
+        "change_type": "SCORE_JUMP",
+        "old_signal": "LONG",
+        "new_signal": "LONG",
+        "old_score": 95,
+        "new_score": 87,
+        "price": 1.09,
+        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
+        "entry_range": [
+          1.08,
+          1.09
+        ],
+        "stop_loss": 1.04,
+        "take_profit_2": 1.25,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
+          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
+        ],
+        "change_reason": "Konfluenz-Veränderung: Score springt von 95% auf 87% (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bullische Konfluenz (87%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "COINBASE:SOLUSD",
+        "name": "Solana",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "LONG",
+        "old_score": 53,
+        "new_score": 87,
+        "price": 102.42,
+        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
+        "entry_range": [
+          101.6,
+          102.62
+        ],
+        "stop_loss": 97.3,
+        "take_profit_2": 118.8,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
+          "Aktiv: Reguläre Bullische Divergenz (Reversal)"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bullische Konfluenz (87%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
+        "evaluated_by": "quantitative_engine"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🟢 Bitcoin (BTCUSD):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 80,176.03 | SL: 76,781.48 | TP2: 93,754.23\n\n🟢 Polkadot (DOTUSDT):\n   Score-Sprung: 95% ➔ 87% (LONG)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 87% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (87%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 1.08 | SL: 1.04 | TP2: 1.25\n\n🟢 Solana (SOLUSD):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 87%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (87%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 101.60 | SL: 97.30 | TP2: 118.80\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261023_220946",
     "timestamp": "2026-10-23T22:09:46.945262+00:00",
     "timestamp_display": "23.10.2026 22:09 UTC",
