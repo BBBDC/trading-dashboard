@@ -1,5 +1,96 @@
 [
   {
+    "id": "evt_20261024_220715",
+    "timestamp": "2026-10-24T22:07:15.477588+00:00",
+    "timestamp_display": "24.10.2026 22:07 UTC",
+    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 3,
+    "changes": [
+      {
+        "symbol": "BINANCE:AVAXUSDT",
+        "name": "Avalanche",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 80,
+        "new_score": 52,
+        "price": 8.89,
+        "setup_name": "Beobachten / HTF Golden Pocket ohne Wyckoff-Volumen",
+        "entry_range": [
+          0.0,
+          0.0
+        ],
+        "stop_loss": 0.0,
+        "take_profit_2": 0.0,
+        "reasons": [
+          "Preis sitzt im 1D Golden Pocket, jedoch fehlt Stopping Volume (4h VSA ist Ultra-Low).",
+          "1D und 4h Trends sind beide klar bärisch etabliert.",
+          "Auf 4h fehlen bestätigende bullische Divergenzen für ein Reversal vollständig."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Preis sitzt im 1D Golden Pocket, jedoch fehlt Stopping Volume (4h VSA ist Ultra-Low).).",
+        "note": "Obwohl AVAX im 1D Golden Pocket liegt, verbietet das Regelwerk einen Einstieg ohne bestätigtes VSA-Stopping-Volume. Ein Reversal-Versuch in fallende Messer birgt hohes Slippage-Risiko. Erst bei bullischer Akkumulation wird ein Long validiert.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "BINANCE:ZECUSDT",
+        "name": "Zcash",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 90,
+        "new_score": 48,
+        "price": 1194.8,
+        "setup_name": "Beobachten / Multi-Timeframe Trend-Konflikt",
+        "entry_range": [
+          0.0,
+          0.0
+        ],
+        "stop_loss": 0.0,
+        "take_profit_2": 0.0,
+        "reasons": [
+          "HTF-Konflikt: 1D Trend ist bullisch, während der 4h Trend bärisch notiert.",
+          "4h VSA zeigt 'Ultra-Low / No Supply-Demand', was mangelndes institutionelles Interesse verdeutlicht.",
+          "Keine Golden Pocket Reaktionen auf 1D erkennbar; Chasing im neutralen Kanalband strikt untersagt."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Konflikt: 1D Trend ist bullisch, während der 4h Trend bärisch notiert.).",
+        "note": "Der Trend-Konflikt zwischen 1D und 4h stellt ein direktes institutionelles Veto dar. Solange das 4h-Chart keine bullische Marktstrukturbruch-Sequenz (MSB) mit Volumen zeigt, besteht erhöhtes Fehlausbruchsrisiko. Abwarten auf klare Struktur.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "COINBASE:BCHUSD",
+        "name": "Bitcoin Cash",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 90,
+        "new_score": 45,
+        "price": 273.71,
+        "setup_name": "Beobachten / Widersprüchliche Divergenzen & Bärischer HTF-Trend",
+        "entry_range": [
+          0.0,
+          0.0
+        ],
+        "stop_loss": 0.0,
+        "take_profit_2": 0.0,
+        "reasons": [
+          "1D und 4h Trend sind beide bärisch unter den relevanten EMAs.",
+          "Gleichzeitiges Vorliegen von regulären bullischen und bärischen Divergenzen signalisiert Marktunentschlossenheit.",
+          "Kein HTF Golden Pocket Support erreicht; VSA auf 4h mit niedrigem Volumen bietet keine Reversal-Bestätigung."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D und 4h Trend sind beide bärisch unter den relevanten EMAs.).",
+        "note": "BCH befindet sich in einer strukturellen Abwärtsbewegung ohne eindeutige Liquiditätsabsorption. Die widersprüchlichen Divergenzen auf Tagesbasis mahnen zur Geduld. Kapitalerhalt hat Vorrang, daher verbleibt das Asset auf der Watchlist.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n⚪ Avalanche (AVAXUSDT):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Preis sitzt im 1D Golden Pocket, jedoch fehlt Stopping Volume (4h VSA ist Ultra-Low).).\n   📝 KI-Rationale: Obwohl AVAX im 1D Golden Pocket liegt, verbietet das Regelwerk einen Einstieg ohne bestätigtes VSA-Stopping-Volume. Ein Reversal-V...\n   Setup: Beobachten / HTF Golden Pocket ohne Wyckoff-Volumen\n\n⚪ Zcash (ZECUSDT):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Konflikt: 1D Trend ist bullisch, während der 4h Trend bärisch notiert.).\n   📝 KI-Rationale: Der Trend-Konflikt zwischen 1D und 4h stellt ein direktes institutionelles Veto dar. Solange das 4h-Chart keine bullische Marktstr...\n   Setup: Beobachten / Multi-Timeframe Trend-Konflikt\n\n⚪ Bitcoin Cash (BCHUSD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 45%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D und 4h Trend sind beide bärisch unter den relevanten EMAs.).\n   📝 KI-Rationale: BCH befindet sich in einer strukturellen Abwärtsbewegung ohne eindeutige Liquiditätsabsorption. Die widersprüchlichen Divergenzen ...\n   Setup: Beobachten / Widersprüchliche Divergenzen & Bärischer HTF-Trend\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261024_181020",
     "timestamp": "2026-10-24T18:10:20.417113+00:00",
     "timestamp_display": "24.10.2026 18:10 UTC",
