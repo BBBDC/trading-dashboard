@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-10-25 22:06:46 UTC",
+  "timestamp": "2026-10-25 23:07:12 UTC",
   "total_analyzed": 59,
-  "long_count": 8,
+  "long_count": 7,
   "short_count": 2,
-  "neutral_count": 49,
+  "neutral_count": 50,
   "assets": [
     {
       "symbol": "NASDAQ:NVDA",
@@ -515,10 +515,10 @@
         "is_open": false,
         "is_premarket": false,
         "status": "CLOSED",
-        "session_name": "Wochenende (Geschlossen)",
+        "session_name": "XETRA Nachtpause",
         "min_interval_minutes": 999999,
         "badge_color": "slate",
-        "status_text": "Wochenende (Öffnet Mo 09:00 CET)"
+        "status_text": "Geschlossen (Pause bis 09:00 CET)"
       },
       "timeframes": {
         "1D": {
@@ -847,32 +847,32 @@
       "name": "DJI",
       "category": "Indizes / Devisen",
       "asset_type": "Macro",
-      "price": 52263.24,
+      "price": 52220.21,
       "charts": {
         "4h": "charts/TVC_DJI_4h.svg",
         "8h": "charts/TVC_DJI_8h.svg",
         "1D": "charts/TVC_DJI_1D.svg"
       },
-      "last_analyzed": "2026-10-23T18:06:17.727876+00:00",
+      "last_analyzed": "2026-10-25T23:05:34.873298+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Settlement Break",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Settlement Pause"
+        "status": "OPEN",
+        "session_name": "Commodities / Global Session",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Globaler Handel Aktiv"
       },
       "timeframes": {
         "1D": {
           "name": "DJI (TVC:DJI)",
-          "price": 52263.24,
-          "rsi": 53.05,
+          "price": 52220.21,
+          "rsi": 52.48,
           "trend": "BULLISH",
-          "ema_fast": 52136.52,
-          "ema_trend": 52099.06,
-          "upper_band": 53099.17,
-          "lower_band": 51173.87,
+          "ema_fast": 52130.37,
+          "ema_trend": 52097.38,
+          "upper_band": 53093.03,
+          "lower_band": 51167.72,
           "channel_position": "Neutral (Im Kanal)",
           "vsa_ratio": 1.0,
           "vsa_class": "Average / Normal",
@@ -931,13 +931,13 @@
         },
         "4h": {
           "name": "DJI (TVC:DJI)",
-          "price": 52266.22,
-          "rsi": 53.71,
+          "price": 52214.21,
+          "rsi": 52.6,
           "trend": "BULLISH",
-          "ema_fast": 52348.48,
-          "ema_trend": 52024.54,
-          "upper_band": 52967.69,
-          "lower_band": 51729.28,
+          "ema_fast": 52341.05,
+          "ema_trend": 52022.5,
+          "upper_band": 52965.8,
+          "lower_band": 51716.31,
           "channel_position": "Neutral (Im Kanal)",
           "vsa_ratio": 1.0,
           "vsa_class": "Average / Normal",
@@ -952,9 +952,9 @@
             {
               "type": "Bearish FVG",
               "top": 52685.28,
-              "bottom": 52312.22,
-              "ce_50": 52498.75,
-              "gap_pct": 0.71
+              "bottom": 52327.24,
+              "ce_50": 52506.26,
+              "gap_pct": 0.68
             }
           ],
           "divergences": [
@@ -974,12 +974,12 @@
       "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
       "crv": 3.2,
       "entry_range": [
-        51845.13,
-        52367.77
+        51802.45,
+        52324.65
       ],
-      "stop_loss": 50434.03,
-      "take_profit_1": 55555.82,
-      "take_profit_2": 58116.71,
+      "stop_loss": 50392.5,
+      "take_profit_1": 55510.09,
+      "take_profit_2": 58068.88,
       "reasons": [
         "1D Trend über EMA 233 bullisch",
         "Aktiv: Reguläre Bullische Divergenz (Reversal)",
@@ -1005,10 +1005,10 @@
         "is_open": false,
         "is_premarket": false,
         "status": "CLOSED",
-        "session_name": "Wochenende (Geschlossen)",
+        "session_name": "XETRA Nachtpause",
         "min_interval_minutes": 999999,
         "badge_color": "slate",
-        "status_text": "Wochenende (Öffnet Mo 09:00 CET)"
+        "status_text": "Geschlossen (Pause bis 09:00 CET)"
       },
       "timeframes": {
         "1D": {
@@ -1352,305 +1352,165 @@
       "evaluated_by": "quantitative_engine"
     },
     {
-      "symbol": "TVC:PLATINUM",
-      "name": "Platin (Spot)",
-      "category": "Edelmetalle",
+      "symbol": "NYMEX:NG1!",
+      "name": "Erdgas Future",
+      "category": "Energie",
       "asset_type": "Commodity",
-      "price": 1558.5,
+      "price": 2.53,
       "charts": {
-        "4h": "charts/TVC_PLATINUM_4h.svg",
-        "8h": "charts/TVC_PLATINUM_8h.svg",
-        "1D": "charts/TVC_PLATINUM_1D.svg"
+        "4h": "charts/NYMEX_NG1__4h.svg",
+        "8h": "charts/NYMEX_NG1__8h.svg",
+        "1D": "charts/NYMEX_NG1__1D.svg"
       },
-      "last_analyzed": "2026-10-23T18:06:17.727876+00:00",
+      "last_analyzed": "2026-10-25T23:05:34.873298+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Settlement Break",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Settlement Pause"
+        "status": "OPEN",
+        "session_name": "Commodities / Global Session",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Globaler Handel Aktiv"
       },
       "timeframes": {
         "1D": {
-          "name": "Platin (Spot) (TVC:PLATINUM)",
-          "price": 1558.5,
-          "rsi": 33.69,
+          "name": "Erdgas Future (NYMEX:NG1!)",
+          "price": 2.53,
+          "rsi": 28.96,
           "trend": "BEARISH",
-          "ema_fast": 1634.32,
-          "ema_trend": 1707.86,
-          "upper_band": 1723.81,
-          "lower_band": 1544.83,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.0,
-          "vsa_class": "Average / Normal",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 1680.5,
-              "bottom": 1669.4,
-              "ce_50": 1674.95,
-              "gap_pct": 0.66
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 1618.2,
-              "bottom": 1581.2,
-              "ce_50": 1599.7,
-              "gap_pct": 2.29
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 1928.6,
-          "swing_low": 1542.91,
-          "golden_pocket": [
-            1781.27,
-            1793.61
-          ],
-          "in_golden_pocket": false
-        },
-        "8h": {
-          "name": "Platin (Spot) (TVC:PLATINUM)",
-          "price": 1645.5,
-          "rsi": 45.16,
-          "trend": "BEARISH",
-          "ema_fast": 1643.65,
-          "ema_trend": 1690.56,
-          "upper_band": 1697.23,
-          "lower_band": 1590.08,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.01,
-          "vsa_class": "Average / Normal",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 1678.87,
-              "bottom": 1669.4,
-              "ce_50": 1674.13,
-              "gap_pct": 0.56
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 1844.6,
-          "swing_low": 1596.73,
-          "golden_pocket": [
-            1749.91,
-            1757.85
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "Platin (Spot) (TVC:PLATINUM)",
-          "price": 1558.53,
-          "rsi": 29.15,
-          "trend": "BEARISH",
-          "ema_fast": 1578.38,
-          "ema_trend": 1620.31,
-          "upper_band": 1613.24,
-          "lower_band": 1543.53,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.02,
+          "ema_fast": 2.91,
+          "ema_trend": 2.97,
+          "upper_band": 3.17,
+          "lower_band": 2.65,
+          "channel_position": "Oversold Band (Überdehnt Unten)",
+          "vsa_ratio": 0.01,
           "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [
             {
               "type": "Bearish FVG",
-              "top": 1649.55,
-              "bottom": 1646.4,
-              "ce_50": 1647.98,
-              "gap_pct": 0.19
+              "top": 2.96,
+              "bottom": 2.84,
+              "ce_50": 2.9,
+              "gap_pct": 4.02
             },
             {
               "type": "Bearish FVG",
-              "top": 1616.1,
-              "bottom": 1608.18,
-              "ce_50": 1612.14,
-              "gap_pct": 0.49
+              "top": 2.73,
+              "bottom": 2.55,
+              "ce_50": 2.64,
+              "gap_pct": 6.53
             }
           ],
           "divergences": [],
-          "swing_high": 1710.8,
-          "swing_low": 1540.06,
+          "swing_high": 3.33,
+          "swing_low": 2.5,
           "golden_pocket": [
-            1645.58,
-            1651.04
-          ],
-          "in_golden_pocket": false
-        }
-      },
-      "signal": "LONG",
-      "score": 75,
-      "setup_name": "Hypothese 1: SMC Support Reversal",
-      "crv": 3.2,
-      "entry_range": [
-        1546.03,
-        1561.62
-      ],
-      "stop_loss": 1503.95,
-      "take_profit_1": 1656.69,
-      "take_profit_2": 1733.06,
-      "reasons": [
-        "1D Trend unter EMA 233 bärisch",
-        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
-      ],
-      "analyst_note": "Strikte bullische Konfluenz (75%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-      "evaluated_by": "quantitative_engine"
-    },
-    {
-      "symbol": "TVC:GOLD",
-      "name": "Gold (Spot)",
-      "category": "Edelmetalle",
-      "asset_type": "Commodity",
-      "price": 3997.89,
-      "charts": {
-        "4h": "charts/TVC_GOLD_4h.svg",
-        "8h": "charts/TVC_GOLD_8h.svg",
-        "1D": "charts/TVC_GOLD_1D.svg"
-      },
-      "last_analyzed": "2026-10-23T18:06:17.727876+00:00",
-      "market_state": {
-        "is_open": false,
-        "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Settlement Break",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Settlement Pause"
-      },
-      "timeframes": {
-        "1D": {
-          "name": "Gold (Spot) (TVC:GOLD)",
-          "price": 3997.89,
-          "rsi": 33.22,
-          "trend": "BEARISH",
-          "ema_fast": 4118.93,
-          "ema_trend": 4226.01,
-          "upper_band": 4253.94,
-          "lower_band": 3983.91,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.0,
-          "vsa_class": "Average / Normal",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 4105,
-              "bottom": 4034.11,
-              "ce_50": 4069.56,
-              "gap_pct": 1.73
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 4697.07,
-          "swing_low": 3975.79,
-          "golden_pocket": [
-            4421.54,
-            4444.62
+            3.02,
+            3.04
           ],
           "in_golden_pocket": false
         },
         "8h": {
-          "name": "Gold (Spot) (TVC:GOLD)",
-          "price": 4165.02,
-          "rsi": 50.56,
+          "name": "Erdgas Future (NYMEX:NG1!)",
+          "price": 3.12,
+          "rsi": 45.26,
           "trend": "BEARISH",
-          "ema_fast": 4159.25,
-          "ema_trend": 4189.33,
-          "upper_band": 4235.3,
-          "lower_band": 4083.2,
+          "ema_fast": 3.19,
+          "ema_trend": 3.12,
+          "upper_band": 3.34,
+          "lower_band": 3.04,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.08,
-          "vsa_class": "Average / Normal",
+          "vsa_ratio": 1.53,
+          "vsa_class": "High",
           "fvgs": [
             {
               "type": "Bullish FVG",
-              "top": 4129.82,
-              "bottom": 4114.39,
-              "ce_50": 4122.11,
-              "gap_pct": 0.37
+              "top": 3.0,
+              "bottom": 2.98,
+              "ce_50": 2.99,
+              "gap_pct": 0.54
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 3.2,
+              "bottom": 3.15,
+              "ce_50": 3.18,
+              "gap_pct": 1.53
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)"
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
           ],
-          "swing_high": 4383.34,
-          "swing_low": 4066.21,
+          "swing_high": 3.33,
+          "swing_low": 2.82,
           "golden_pocket": [
-            4262.2,
-            4272.35
+            3.0,
+            3.01
           ],
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Gold (Spot) (TVC:GOLD)",
-          "price": 3997.99,
-          "rsi": 26.59,
+          "name": "Erdgas Future (NYMEX:NG1!)",
+          "price": 2.53,
+          "rsi": 16.95,
           "trend": "BEARISH",
-          "ema_fast": 4040.97,
-          "ema_trend": 4104.38,
-          "upper_band": 4093.13,
-          "lower_band": 3988.81,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.02,
+          "ema_fast": 2.72,
+          "ema_trend": 2.92,
+          "upper_band": 2.83,
+          "lower_band": 2.61,
+          "channel_position": "Oversold Band (Überdehnt Unten)",
+          "vsa_ratio": 0.13,
           "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [
             {
               "type": "Bearish FVG",
-              "top": 4166.3,
-              "bottom": 4155.27,
-              "ce_50": 4160.79,
-              "gap_pct": 0.26
+              "top": 2.91,
+              "bottom": 2.85,
+              "ce_50": 2.88,
+              "gap_pct": 2.06
             },
             {
               "type": "Bearish FVG",
-              "top": 4107.2,
-              "bottom": 4102.81,
-              "ce_50": 4105.01,
-              "gap_pct": 0.11
+              "top": 2.77,
+              "bottom": 2.77,
+              "ce_50": 2.77,
+              "gap_pct": 0.22
             },
             {
               "type": "Bearish FVG",
-              "top": 4079.2,
-              "bottom": 4064.9,
-              "ce_50": 4072.05,
-              "gap_pct": 0.35
+              "top": 2.71,
+              "bottom": 2.7,
+              "ce_50": 2.7,
+              "gap_pct": 0.37
             }
           ],
           "divergences": [],
-          "swing_high": 4217.19,
-          "swing_low": 3975.49,
+          "swing_high": 3.33,
+          "swing_low": 2.5,
           "golden_pocket": [
-            4124.86,
-            4132.59
+            3.02,
+            3.04
           ],
           "in_golden_pocket": false
         }
       },
       "signal": "LONG",
       "score": 75,
-      "setup_name": "Hypothese 1: SMC Support Reversal",
+      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
       "crv": 3.2,
       "entry_range": [
-        3965.91,
-        4005.89
+        2.51,
+        2.54
       ],
-      "stop_loss": 3857.96,
-      "take_profit_1": 4249.76,
-      "take_profit_2": 4445.67,
+      "stop_loss": 2.44,
+      "take_profit_1": 2.69,
+      "take_profit_2": 2.82,
       "reasons": [
         "1D Trend unter EMA 233 bärisch",
-        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-        "Aktiv: Reguläre Bullische Divergenz (Reversal)"
+        "1D Kurs überdehnt unteres degencoder-Band (Oversold)",
+        "Aktiv: Reguläre Bärische Divergenz (Reversal)",
+        "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
       ],
       "analyst_note": "Strikte bullische Konfluenz (75%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
       "evaluated_by": "quantitative_engine"
@@ -1660,36 +1520,44 @@
       "name": "WTI Rohöl Future",
       "category": "Energie",
       "asset_type": "Commodity",
-      "price": 103.02,
+      "price": 102.08,
       "charts": {
         "4h": "charts/NYMEX_CL1__4h.svg",
         "8h": "charts/NYMEX_CL1__8h.svg",
         "1D": "charts/NYMEX_CL1__1D.svg"
       },
-      "last_analyzed": "2026-10-23T18:06:17.727876+00:00",
+      "last_analyzed": "2026-10-25T23:05:34.873298+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Settlement Break",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Settlement Pause"
+        "status": "OPEN",
+        "session_name": "Commodities / Global Session",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Globaler Handel Aktiv"
       },
       "timeframes": {
         "1D": {
           "name": "WTI Rohöl Future (NYMEX:CL1!)",
-          "price": 103.02,
-          "rsi": 67.92,
+          "price": 102.08,
+          "rsi": 64.87,
           "trend": "BULLISH",
-          "ema_fast": 97.05,
-          "ema_trend": 92.75,
-          "upper_band": 104.46,
-          "lower_band": 89.64,
+          "ema_fast": 97.8,
+          "ema_trend": 93.11,
+          "upper_band": 104.95,
+          "lower_band": 90.64,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.89,
-          "vsa_class": "Average / Normal",
-          "fvgs": [],
+          "vsa_ratio": 0.03,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 101.54,
+              "bottom": 100.17,
+              "ce_50": 100.86,
+              "gap_pct": 1.37
+            }
+          ],
           "divergences": [
             "Versteckte Bullische Divergenz (Trendfolge)"
           ],
@@ -1725,34 +1593,25 @@
         },
         "4h": {
           "name": "WTI Rohöl Future (NYMEX:CL1!)",
-          "price": 103.02,
-          "rsi": 68.53,
+          "price": 102.08,
+          "rsi": 61.41,
           "trend": "BULLISH",
-          "ema_fast": 100.39,
-          "ema_trend": 97.73,
-          "upper_band": 103.22,
-          "lower_band": 97.55,
+          "ema_fast": 100.98,
+          "ema_trend": 98.11,
+          "upper_band": 103.8,
+          "lower_band": 98.16,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.96,
-          "vsa_class": "Very High / Stopping",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 101.81,
-              "bottom": 101.3,
-              "ce_50": 101.56,
-              "gap_pct": 0.5
-            }
-          ],
+          "vsa_ratio": 0.18,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [],
           "divergences": [
-            "Versteckte Bullische Divergenz (Trendfolge)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bullische Divergenz (Trendfolge)"
           ],
-          "swing_high": 103.32,
-          "swing_low": 89.61,
+          "swing_high": 103.92,
+          "swing_low": 89.83,
           "golden_pocket": [
-            94.41,
-            94.85
+            94.76,
+            95.21
           ],
           "in_golden_pocket": false
         }
@@ -1762,17 +1621,17 @@
       "setup_name": "Beobachten / Warten auf HTF-Trigger",
       "crv": 2.0,
       "entry_range": [
-        103.02,
-        103.02
+        102.08,
+        102.08
       ],
-      "stop_loss": 99.93,
-      "take_profit_1": 106.11,
-      "take_profit_2": 109.2,
+      "stop_loss": 99.02,
+      "take_profit_1": 105.14,
+      "take_profit_2": 108.2,
       "reasons": [
         "1D Trend über EMA 233 bullisch",
         "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
         "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
+        "VSA: Verkaufsdruck versiegt ('No Supply')"
       ],
       "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
       "evaluated_by": "quantitative_engine"
@@ -1946,160 +1805,6 @@
         "Aktiv: Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
         "Aktiv: Reguläre Bullische Divergenz (Reversal)"
-      ],
-      "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-      "evaluated_by": "quantitative_engine"
-    },
-    {
-      "symbol": "COMEX:HG1!",
-      "name": "Kupfer Future",
-      "category": "Industriemetalle",
-      "asset_type": "Commodity",
-      "price": 6.5,
-      "charts": {
-        "4h": "charts/COMEX_HG1__4h.svg",
-        "8h": "charts/COMEX_HG1__8h.svg",
-        "1D": "charts/COMEX_HG1__1D.svg"
-      },
-      "last_analyzed": "2026-10-23T18:06:17.727876+00:00",
-      "market_state": {
-        "is_open": false,
-        "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Settlement Break",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Settlement Pause"
-      },
-      "timeframes": {
-        "1D": {
-          "name": "Kupfer Future (COMEX:HG1!)",
-          "price": 6.5,
-          "rsi": 43.93,
-          "trend": "BEARISH",
-          "ema_fast": 6.57,
-          "ema_trend": 6.59,
-          "upper_band": 6.82,
-          "lower_band": 6.33,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.98,
-          "vsa_class": "Average / Normal",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 6.7,
-              "bottom": 6.64,
-              "ce_50": 6.67,
-              "gap_pct": 0.97
-            }
-          ],
-          "divergences": [
-            "Versteckte Bullische Divergenz (Trendfolge)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 6.93,
-          "swing_low": 6.34,
-          "golden_pocket": [
-            6.55,
-            6.57
-          ],
-          "in_golden_pocket": false
-        },
-        "8h": {
-          "name": "Kupfer Future (COMEX:HG1!)",
-          "price": 6.56,
-          "rsi": 41.06,
-          "trend": "BEARISH",
-          "ema_fast": 6.63,
-          "ema_trend": 6.65,
-          "upper_band": 6.76,
-          "lower_band": 6.49,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.26,
-          "vsa_class": "High",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 6.67,
-              "bottom": 6.64,
-              "ce_50": 6.66,
-              "gap_pct": 0.55
-            }
-          ],
-          "divergences": [
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 6.93,
-          "swing_low": 6.51,
-          "golden_pocket": [
-            6.77,
-            6.78
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "Kupfer Future (COMEX:HG1!)",
-          "price": 6.5,
-          "rsi": 47.91,
-          "trend": "BEARISH",
-          "ema_fast": 6.48,
-          "ema_trend": 6.56,
-          "upper_band": 6.58,
-          "lower_band": 6.38,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.72,
-          "vsa_class": "High",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 6.6,
-              "bottom": 6.6,
-              "ce_50": 6.6,
-              "gap_pct": 0.02
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 6.54,
-              "bottom": 6.53,
-              "ce_50": 6.53,
-              "gap_pct": 0.05
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 6.43,
-              "bottom": 6.41,
-              "ce_50": 6.42,
-              "gap_pct": 0.24
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 6.79,
-          "swing_low": 6.37,
-          "golden_pocket": [
-            6.63,
-            6.64
-          ],
-          "in_golden_pocket": false
-        }
-      },
-      "signal": "NEUTRAL",
-      "score": 56,
-      "setup_name": "Beobachten / Warten auf HTF-Trigger",
-      "crv": 2.0,
-      "entry_range": [
-        6.5,
-        6.5
-      ],
-      "stop_loss": 6.3,
-      "take_profit_1": 6.7,
-      "take_profit_2": 6.89,
-      "reasons": [
-        "1D Trend unter EMA 233 bärisch",
-        "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-        "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
       ],
       "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
       "evaluated_by": "quantitative_engine"
@@ -2636,321 +2341,132 @@
       "evaluated_by": "quantitative_engine"
     },
     {
-      "symbol": "NYMEX:NG1!",
-      "name": "Erdgas Future",
+      "symbol": "ICEEUR:BRN1!",
+      "name": "Brent Öl Future",
       "category": "Energie",
       "asset_type": "Commodity",
-      "price": 2.65,
+      "price": 110.6,
       "charts": {
-        "4h": "charts/NYMEX_NG1__4h.svg",
-        "8h": "charts/NYMEX_NG1__8h.svg",
-        "1D": "charts/NYMEX_NG1__1D.svg"
+        "4h": "charts/ICEEUR_BRN1__4h.svg",
+        "8h": "charts/ICEEUR_BRN1__8h.svg",
+        "1D": "charts/ICEEUR_BRN1__1D.svg"
       },
-      "last_analyzed": "2026-10-23T18:06:17.727876+00:00",
+      "last_analyzed": "2026-10-25T23:05:34.873298+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Settlement Break",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Settlement Pause"
+        "status": "OPEN",
+        "session_name": "Commodities / Global Session",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Globaler Handel Aktiv"
       },
       "timeframes": {
         "1D": {
-          "name": "Erdgas Future (NYMEX:NG1!)",
-          "price": 2.65,
-          "rsi": 32.43,
-          "trend": "BEARISH",
-          "ema_fast": 2.97,
-          "ema_trend": 2.98,
-          "upper_band": 3.23,
-          "lower_band": 2.71,
-          "channel_position": "Oversold Band (Überdehnt Unten)",
-          "vsa_ratio": 0.53,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 3.03,
-              "bottom": 3.0,
-              "ce_50": 3.02,
-              "gap_pct": 0.83
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 2.96,
-              "bottom": 2.84,
-              "ce_50": 2.9,
-              "gap_pct": 4.02
-            }
-          ],
+          "name": "Brent Öl Future (ICEEUR:BRN1!)",
+          "price": 110.6,
+          "rsi": 59.37,
+          "trend": "BULLISH",
+          "ema_fast": 108.81,
+          "ema_trend": 101.58,
+          "upper_band": 116.89,
+          "lower_band": 100.73,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.01,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [],
           "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)"
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
           ],
-          "swing_high": 3.33,
-          "swing_low": 2.62,
+          "swing_high": 117.45,
+          "swing_low": 78.11,
           "golden_pocket": [
-            2.87,
-            2.89
+            91.88,
+            93.14
           ],
           "in_golden_pocket": false
         },
         "8h": {
-          "name": "Erdgas Future (NYMEX:NG1!)",
-          "price": 3.12,
-          "rsi": 45.26,
-          "trend": "BEARISH",
-          "ema_fast": 3.19,
-          "ema_trend": 3.12,
-          "upper_band": 3.34,
-          "lower_band": 3.04,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.53,
+          "name": "Brent Öl Future (ICEEUR:BRN1!)",
+          "price": 109.95,
+          "rsi": 66.92,
+          "trend": "BULLISH",
+          "ema_fast": 106.17,
+          "ema_trend": 103.82,
+          "upper_band": 109.89,
+          "lower_band": 102.45,
+          "channel_position": "Overbought Band (Überdehnt Oben)",
+          "vsa_ratio": 1.42,
           "vsa_class": "High",
           "fvgs": [
             {
               "type": "Bullish FVG",
-              "top": 3.0,
-              "bottom": 2.98,
-              "ce_50": 2.99,
-              "gap_pct": 0.54
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 3.2,
-              "bottom": 3.15,
-              "ce_50": 3.18,
-              "gap_pct": 1.53
+              "top": 107.2,
+              "bottom": 105.94,
+              "ce_50": 106.57,
+              "gap_pct": 1.19
             }
           ],
           "divergences": [
             "Reguläre Bärische Divergenz (Reversal)",
             "Versteckte Bullische Divergenz (Trendfolge)"
           ],
-          "swing_high": 3.33,
-          "swing_low": 2.82,
+          "swing_high": 110,
+          "swing_low": 95.12,
           "golden_pocket": [
-            3.0,
-            3.01
+            100.33,
+            100.8
           ],
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Erdgas Future (NYMEX:NG1!)",
-          "price": 2.65,
-          "rsi": 22.55,
-          "trend": "BEARISH",
-          "ema_fast": 2.77,
-          "ema_trend": 2.95,
-          "upper_band": 2.87,
-          "lower_band": 2.67,
-          "channel_position": "Oversold Band (Überdehnt Unten)",
-          "vsa_ratio": 1.34,
-          "vsa_class": "High",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 2.95,
-              "bottom": 2.92,
-              "ce_50": 2.93,
-              "gap_pct": 0.98
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 2.91,
-              "bottom": 2.85,
-              "ce_50": 2.88,
-              "gap_pct": 2.06
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 2.77,
-              "bottom": 2.77,
-              "ce_50": 2.77,
-              "gap_pct": 0.22
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 3.33,
-          "swing_low": 2.64,
-          "golden_pocket": [
-            3.07,
-            3.09
-          ],
-          "in_golden_pocket": false
-        }
-      },
-      "signal": "NEUTRAL",
-      "score": 55,
-      "setup_name": "Beobachten / Warten auf HTF-Trigger",
-      "crv": 2.0,
-      "entry_range": [
-        2.65,
-        2.65
-      ],
-      "stop_loss": 2.57,
-      "take_profit_1": 2.73,
-      "take_profit_2": 2.81,
-      "reasons": [
-        "1D Trend unter EMA 233 bärisch",
-        "1D Kurs überdehnt unteres degencoder-Band (Oversold)",
-        "Aktiv: Reguläre Bärische Divergenz (Reversal)",
-        "Aktiv: Reguläre Bärische Divergenz (Reversal)"
-      ],
-      "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-      "evaluated_by": "quantitative_engine"
-    },
-    {
-      "symbol": "COMEX:GC1!",
-      "name": "GC1!",
-      "category": "Rohstoffe & Metalle",
-      "asset_type": "Commodity",
-      "price": 4011.5,
-      "charts": {
-        "4h": "charts/COMEX_GC1__4h.svg",
-        "8h": "charts/COMEX_GC1__8h.svg",
-        "1D": "charts/COMEX_GC1__1D.svg"
-      },
-      "last_analyzed": "2026-10-23T18:06:17.727876+00:00",
-      "market_state": {
-        "is_open": false,
-        "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Settlement Break",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Settlement Pause"
-      },
-      "timeframes": {
-        "1D": {
-          "name": "GC1! (COMEX:GC1!)",
-          "price": 4011.5,
-          "rsi": 30.97,
-          "trend": "BEARISH",
-          "ema_fast": 4137.85,
-          "ema_trend": 4256.85,
-          "upper_band": 4278.97,
-          "lower_band": 3996.73,
+          "name": "Brent Öl Future (ICEEUR:BRN1!)",
+          "price": 110.6,
+          "rsi": 46.12,
+          "trend": "BULLISH",
+          "ema_fast": 113.57,
+          "ema_trend": 109.85,
+          "upper_band": 117.25,
+          "lower_band": 109.89,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.09,
-          "vsa_class": "Average / Normal",
+          "vsa_ratio": 0.06,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [
             {
               "type": "Bearish FVG",
-              "top": 4122.3,
-              "bottom": 4050.2,
-              "ce_50": 4086.25,
-              "gap_pct": 1.75
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 4755,
-          "swing_low": 3989.1,
-          "golden_pocket": [
-            4462.43,
-            4486.94
-          ],
-          "in_golden_pocket": false
-        },
-        "8h": {
-          "name": "GC1! (COMEX:GC1!)",
-          "price": 4186.7,
-          "rsi": 50.01,
-          "trend": "BEARISH",
-          "ema_fast": 4181.59,
-          "ema_trend": 4216.91,
-          "upper_band": 4257.38,
-          "lower_band": 4105.79,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.24,
-          "vsa_class": "High",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 4151.6,
-              "bottom": 4128.4,
-              "ce_50": 4140.0,
-              "gap_pct": 0.56
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 4422.1,
-          "swing_low": 4091.2,
-          "golden_pocket": [
-            4295.7,
-            4306.28
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "GC1! (COMEX:GC1!)",
-          "price": 4011.5,
-          "rsi": 26.36,
-          "trend": "BEARISH",
-          "ema_fast": 4063.32,
-          "ema_trend": 4127.73,
-          "upper_band": 4119.52,
-          "lower_band": 4007.12,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.86,
-          "vsa_class": "Very High / Stopping",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 4187.4,
-              "bottom": 4174.8,
-              "ce_50": 4181.1,
-              "gap_pct": 0.3
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 4123.7,
-              "bottom": 4118.7,
-              "ce_50": 4121.2,
-              "gap_pct": 0.12
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 4095.5,
-              "bottom": 4080.1,
-              "ce_50": 4087.8,
-              "gap_pct": 0.38
+              "top": 115.84,
+              "bottom": 110.96,
+              "ce_50": 113.4,
+              "gap_pct": 4.21
             }
           ],
           "divergences": [],
-          "swing_high": 4242.3,
-          "swing_low": 3989.1,
+          "swing_high": 117.45,
+          "swing_low": 102.74,
           "golden_pocket": [
-            4145.58,
-            4153.68
+            107.89,
+            108.36
           ],
           "in_golden_pocket": false
         }
       },
       "signal": "NEUTRAL",
-      "score": 55,
+      "score": 56,
       "setup_name": "Beobachten / Warten auf HTF-Trigger",
       "crv": 2.0,
       "entry_range": [
-        4011.5,
-        4011.5
+        110.6,
+        110.6
       ],
-      "stop_loss": 3891.15,
-      "take_profit_1": 4131.85,
-      "take_profit_2": 4252.19,
+      "stop_loss": 107.28,
+      "take_profit_1": 113.92,
+      "take_profit_2": 117.24,
       "reasons": [
-        "1D Trend unter EMA 233 bärisch",
-        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-        "Aktiv: Reguläre Bullische Divergenz (Reversal)"
+        "1D Trend über EMA 233 bullisch",
+        "Aktiv: Reguläre Bärische Divergenz (Reversal)",
+        "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
+        "Aktiv: Reguläre Bärische Divergenz (Reversal)"
       ],
       "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
       "evaluated_by": "quantitative_engine"
@@ -3123,6 +2639,320 @@
       ],
       "analyst_note": "Die Bitcoin-Dominanz nähert sich potenziellen Wendepunkten, zeigt aber noch keine strukturelle Trendwende nach unten. Die widersprüchlichen Divergenzen mahnen zur Zurückhaltung bei Altcoin-Longs. Eine klare Top-Bildung in BTC.D ist abzuwarten, bevor Risiko im Krypto-Sektor hochgefahren wird.",
       "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+    },
+    {
+      "symbol": "TVC:PLATINUM",
+      "name": "Platin (Spot)",
+      "category": "Edelmetalle",
+      "asset_type": "Commodity",
+      "price": 1558.34,
+      "charts": {
+        "4h": "charts/TVC_PLATINUM_4h.svg",
+        "8h": "charts/TVC_PLATINUM_8h.svg",
+        "1D": "charts/TVC_PLATINUM_1D.svg"
+      },
+      "last_analyzed": "2026-10-25T23:05:34.873298+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "Commodities / Global Session",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Globaler Handel Aktiv"
+      },
+      "timeframes": {
+        "1D": {
+          "name": "Platin (Spot) (TVC:PLATINUM)",
+          "price": 1558.34,
+          "rsi": 34.41,
+          "trend": "BEARISH",
+          "ema_fast": 1622.48,
+          "ema_trend": 1701.73,
+          "upper_band": 1707.24,
+          "lower_band": 1537.73,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 1.0,
+          "vsa_class": "Average / Normal",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 1680.5,
+              "bottom": 1669.4,
+              "ce_50": 1674.95,
+              "gap_pct": 0.66
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 1618.2,
+              "bottom": 1581.2,
+              "ce_50": 1599.7,
+              "gap_pct": 2.29
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 1565.8,
+              "bottom": 1565.3,
+              "ce_50": 1565.55,
+              "gap_pct": 0.03
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 1928.6,
+          "swing_low": 1542.91,
+          "golden_pocket": [
+            1781.27,
+            1793.61
+          ],
+          "in_golden_pocket": false
+        },
+        "8h": {
+          "name": "Platin (Spot) (TVC:PLATINUM)",
+          "price": 1645.5,
+          "rsi": 45.16,
+          "trend": "BEARISH",
+          "ema_fast": 1643.65,
+          "ema_trend": 1690.56,
+          "upper_band": 1697.23,
+          "lower_band": 1590.08,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 1.01,
+          "vsa_class": "Average / Normal",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 1678.87,
+              "bottom": 1669.4,
+              "ce_50": 1674.13,
+              "gap_pct": 0.56
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 1844.6,
+          "swing_low": 1596.73,
+          "golden_pocket": [
+            1749.91,
+            1757.85
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "Platin (Spot) (TVC:PLATINUM)",
+          "price": 1559,
+          "rsi": 32.51,
+          "trend": "BEARISH",
+          "ema_fast": 1574.63,
+          "ema_trend": 1617.6,
+          "upper_band": 1610.72,
+          "lower_band": 1538.55,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.19,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 1649.55,
+              "bottom": 1646.4,
+              "ce_50": 1647.98,
+              "gap_pct": 0.19
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 1616.1,
+              "bottom": 1608.18,
+              "ce_50": 1612.14,
+              "gap_pct": 0.49
+            }
+          ],
+          "divergences": [],
+          "swing_high": 1710.8,
+          "swing_low": 1540.06,
+          "golden_pocket": [
+            1645.58,
+            1651.04
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "signal": "NEUTRAL",
+      "score": 53,
+      "setup_name": "Beobachten / Warten auf HTF-Trigger",
+      "crv": 2.0,
+      "entry_range": [
+        1558.34,
+        1558.34
+      ],
+      "stop_loss": 1511.59,
+      "take_profit_1": 1605.09,
+      "take_profit_2": 1651.84,
+      "reasons": [
+        "1D Trend unter EMA 233 bärisch",
+        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
+      ],
+      "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
+      "evaluated_by": "quantitative_engine"
+    },
+    {
+      "symbol": "COMEX:HG1!",
+      "name": "Kupfer Future",
+      "category": "Industriemetalle",
+      "asset_type": "Commodity",
+      "price": 6.5,
+      "charts": {
+        "4h": "charts/COMEX_HG1__4h.svg",
+        "8h": "charts/COMEX_HG1__8h.svg",
+        "1D": "charts/COMEX_HG1__1D.svg"
+      },
+      "last_analyzed": "2026-10-25T23:05:34.873298+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "Commodities / Global Session",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Globaler Handel Aktiv"
+      },
+      "timeframes": {
+        "1D": {
+          "name": "Kupfer Future (COMEX:HG1!)",
+          "price": 6.5,
+          "rsi": 44.15,
+          "trend": "BEARISH",
+          "ema_fast": 6.57,
+          "ema_trend": 6.59,
+          "upper_band": 6.8,
+          "lower_band": 6.33,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.01,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 6.7,
+              "bottom": 6.64,
+              "ce_50": 6.67,
+              "gap_pct": 0.97
+            }
+          ],
+          "divergences": [
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 6.93,
+          "swing_low": 6.34,
+          "golden_pocket": [
+            6.55,
+            6.57
+          ],
+          "in_golden_pocket": false
+        },
+        "8h": {
+          "name": "Kupfer Future (COMEX:HG1!)",
+          "price": 6.56,
+          "rsi": 41.06,
+          "trend": "BEARISH",
+          "ema_fast": 6.63,
+          "ema_trend": 6.65,
+          "upper_band": 6.76,
+          "lower_band": 6.49,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 1.26,
+          "vsa_class": "High",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 6.67,
+              "bottom": 6.64,
+              "ce_50": 6.66,
+              "gap_pct": 0.55
+            }
+          ],
+          "divergences": [
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 6.93,
+          "swing_low": 6.51,
+          "golden_pocket": [
+            6.77,
+            6.78
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "Kupfer Future (COMEX:HG1!)",
+          "price": 6.5,
+          "rsi": 48.43,
+          "trend": "BEARISH",
+          "ema_fast": 6.48,
+          "ema_trend": 6.55,
+          "upper_band": 6.58,
+          "lower_band": 6.39,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.08,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 6.6,
+              "bottom": 6.6,
+              "ce_50": 6.6,
+              "gap_pct": 0.02
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 6.54,
+              "bottom": 6.53,
+              "ce_50": 6.53,
+              "gap_pct": 0.05
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 6.43,
+              "bottom": 6.41,
+              "ce_50": 6.42,
+              "gap_pct": 0.24
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 6.79,
+          "swing_low": 6.37,
+          "golden_pocket": [
+            6.63,
+            6.64
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "signal": "NEUTRAL",
+      "score": 53,
+      "setup_name": "Beobachten / Warten auf HTF-Trigger",
+      "crv": 2.0,
+      "entry_range": [
+        6.5,
+        6.5
+      ],
+      "stop_loss": 6.3,
+      "take_profit_1": 6.7,
+      "take_profit_2": 6.89,
+      "reasons": [
+        "1D Trend unter EMA 233 bärisch",
+        "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
+        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
+      ],
+      "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:MU",
@@ -3474,32 +3304,32 @@
       "name": "US Dollar Index",
       "category": "Forex / Makro",
       "asset_type": "Macro",
-      "price": 101.81,
+      "price": 101.75,
       "charts": {
         "4h": "charts/TVC_DXY_4h.svg",
         "8h": "charts/TVC_DXY_8h.svg",
         "1D": "charts/TVC_DXY_1D.svg"
       },
-      "last_analyzed": "2026-10-23T18:06:17.727876+00:00",
+      "last_analyzed": "2026-10-25T23:05:34.873298+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Settlement Break",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Settlement Pause"
+        "status": "OPEN",
+        "session_name": "Commodities / Global Session",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Globaler Handel Aktiv"
       },
       "timeframes": {
         "1D": {
           "name": "US Dollar Index (TVC:DXY)",
-          "price": 101.81,
-          "rsi": 55.49,
+          "price": 101.75,
+          "rsi": 54.6,
           "trend": "BULLISH",
-          "ema_fast": 101.83,
-          "ema_trend": 101.02,
-          "upper_band": 102.67,
-          "lower_band": 100.99,
+          "ema_fast": 101.82,
+          "ema_trend": 101.01,
+          "upper_band": 102.66,
+          "lower_band": 100.98,
           "channel_position": "Neutral (Im Kanal)",
           "vsa_ratio": 1.0,
           "vsa_class": "Average / Normal",
@@ -3573,13 +3403,13 @@
         },
         "4h": {
           "name": "US Dollar Index (TVC:DXY)",
-          "price": 101.81,
-          "rsi": 51.87,
+          "price": 101.75,
+          "rsi": 49.28,
           "trend": "BEARISH",
           "ema_fast": 101.73,
           "ema_trend": 101.84,
-          "upper_band": 102.04,
-          "lower_band": 101.41,
+          "upper_band": 102.03,
+          "lower_band": 101.42,
           "channel_position": "Neutral (Im Kanal)",
           "vsa_ratio": 1.0,
           "vsa_class": "Average / Normal",
@@ -3602,12 +3432,12 @@
       "setup_name": "Beobachten / Warten auf HTF-Trigger",
       "crv": 2.0,
       "entry_range": [
-        101.81,
-        101.81
+        101.75,
+        101.75
       ],
-      "stop_loss": 98.76,
-      "take_profit_1": 104.86,
-      "take_profit_2": 107.92,
+      "stop_loss": 98.7,
+      "take_profit_1": 104.8,
+      "take_profit_2": 107.86,
       "reasons": [
         "1D Trend über EMA 233 bullisch",
         "Aktiv: Reguläre Bärische Divergenz (Reversal)",
@@ -3748,6 +3578,322 @@
       ],
       "analyst_note": "GMX zeigt relative Stärke im Trend, leidet jedoch unter einer aktiven bärischen Tagesdivergenz bei abnehmendem Volumen. Ein Pro-Trend-Einstieg ohne Pullback in signifikante Liquiditätszonen birgt hohes Chasing-Risiko. Wir warten auf einen sauberen Test tieferer Support-Ebenen.",
       "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+    },
+    {
+      "symbol": "TVC:GOLD",
+      "name": "Gold (Spot)",
+      "category": "Edelmetalle",
+      "asset_type": "Commodity",
+      "price": 3998.96,
+      "charts": {
+        "4h": "charts/TVC_GOLD_4h.svg",
+        "8h": "charts/TVC_GOLD_8h.svg",
+        "1D": "charts/TVC_GOLD_1D.svg"
+      },
+      "last_analyzed": "2026-10-25T23:05:34.873298+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "Commodities / Global Session",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Globaler Handel Aktiv"
+      },
+      "timeframes": {
+        "1D": {
+          "name": "Gold (Spot) (TVC:GOLD)",
+          "price": 3998.96,
+          "rsi": 33.52,
+          "trend": "BEARISH",
+          "ema_fast": 4101.48,
+          "ema_trend": 4217.09,
+          "upper_band": 4227.74,
+          "lower_band": 3975.22,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 1.0,
+          "vsa_class": "Average / Normal",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 4105,
+              "bottom": 4034.11,
+              "ce_50": 4069.56,
+              "gap_pct": 1.73
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 4021.29,
+              "bottom": 4004.1,
+              "ce_50": 4012.7,
+              "gap_pct": 0.43
+            }
+          ],
+          "divergences": [
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 4697.07,
+          "swing_low": 3975.79,
+          "golden_pocket": [
+            4421.54,
+            4444.62
+          ],
+          "in_golden_pocket": false
+        },
+        "8h": {
+          "name": "Gold (Spot) (TVC:GOLD)",
+          "price": 4165.02,
+          "rsi": 50.56,
+          "trend": "BEARISH",
+          "ema_fast": 4159.25,
+          "ema_trend": 4189.33,
+          "upper_band": 4235.3,
+          "lower_band": 4083.2,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 1.08,
+          "vsa_class": "Average / Normal",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 4129.82,
+              "bottom": 4114.39,
+              "ce_50": 4122.11,
+              "gap_pct": 0.37
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 4383.34,
+          "swing_low": 4066.21,
+          "golden_pocket": [
+            4262.2,
+            4272.35
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "Gold (Spot) (TVC:GOLD)",
+          "price": 3999.49,
+          "rsi": 27.96,
+          "trend": "BEARISH",
+          "ema_fast": 4034.72,
+          "ema_trend": 4100.18,
+          "upper_band": 4085.54,
+          "lower_band": 3983.9,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.2,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 4166.3,
+              "bottom": 4155.27,
+              "ce_50": 4160.79,
+              "gap_pct": 0.26
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 4107.2,
+              "bottom": 4102.81,
+              "ce_50": 4105.01,
+              "gap_pct": 0.11
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 4079.2,
+              "bottom": 4064.9,
+              "ce_50": 4072.05,
+              "gap_pct": 0.35
+            }
+          ],
+          "divergences": [],
+          "swing_high": 4214.21,
+          "swing_low": 3975.49,
+          "golden_pocket": [
+            4123.02,
+            4130.66
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "signal": "NEUTRAL",
+      "score": 50,
+      "setup_name": "Beobachten / Warten auf HTF-Trigger",
+      "crv": 2.0,
+      "entry_range": [
+        3998.96,
+        3998.96
+      ],
+      "stop_loss": 3878.99,
+      "take_profit_1": 4118.93,
+      "take_profit_2": 4238.9,
+      "reasons": [
+        "1D Trend unter EMA 233 bärisch",
+        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+        "RSI überverkauft (27.96)"
+      ],
+      "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
+      "evaluated_by": "quantitative_engine"
+    },
+    {
+      "symbol": "COMEX:GC1!",
+      "name": "GC1!",
+      "category": "Rohstoffe & Metalle",
+      "asset_type": "Commodity",
+      "price": 4015,
+      "charts": {
+        "4h": "charts/COMEX_GC1__4h.svg",
+        "8h": "charts/COMEX_GC1__8h.svg",
+        "1D": "charts/COMEX_GC1__1D.svg"
+      },
+      "last_analyzed": "2026-10-25T23:05:34.873298+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "Commodities / Global Session",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Globaler Handel Aktiv"
+      },
+      "timeframes": {
+        "1D": {
+          "name": "GC1! (COMEX:GC1!)",
+          "price": 4015,
+          "rsi": 31.73,
+          "trend": "BEARISH",
+          "ema_fast": 4119.86,
+          "ema_trend": 4247.34,
+          "upper_band": 4251.84,
+          "lower_band": 3987.88,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.02,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 4122.3,
+              "bottom": 4050.2,
+              "ce_50": 4086.25,
+              "gap_pct": 1.75
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 4036.8,
+              "bottom": 4017.9,
+              "ce_50": 4027.35,
+              "gap_pct": 0.47
+            }
+          ],
+          "divergences": [
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 4755,
+          "swing_low": 3989.1,
+          "golden_pocket": [
+            4462.43,
+            4486.94
+          ],
+          "in_golden_pocket": false
+        },
+        "8h": {
+          "name": "GC1! (COMEX:GC1!)",
+          "price": 4186.7,
+          "rsi": 50.01,
+          "trend": "BEARISH",
+          "ema_fast": 4181.59,
+          "ema_trend": 4216.91,
+          "upper_band": 4257.38,
+          "lower_band": 4105.79,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 1.24,
+          "vsa_class": "High",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 4151.6,
+              "bottom": 4128.4,
+              "ce_50": 4140.0,
+              "gap_pct": 0.56
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 4422.1,
+          "swing_low": 4091.2,
+          "golden_pocket": [
+            4295.7,
+            4306.28
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "GC1! (COMEX:GC1!)",
+          "price": 4015,
+          "rsi": 28.21,
+          "trend": "BEARISH",
+          "ema_fast": 4050.1,
+          "ema_trend": 4118.96,
+          "upper_band": 4100.98,
+          "lower_band": 3999.21,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.1,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 4187.4,
+              "bottom": 4174.8,
+              "ce_50": 4181.1,
+              "gap_pct": 0.3
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 4123.7,
+              "bottom": 4118.7,
+              "ce_50": 4121.2,
+              "gap_pct": 0.12
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 4095.5,
+              "bottom": 4080.1,
+              "ce_50": 4087.8,
+              "gap_pct": 0.38
+            }
+          ],
+          "divergences": [],
+          "swing_high": 4238.5,
+          "swing_low": 3989.1,
+          "golden_pocket": [
+            4143.23,
+            4151.21
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "signal": "NEUTRAL",
+      "score": 50,
+      "setup_name": "Beobachten / Warten auf HTF-Trigger",
+      "crv": 2.0,
+      "entry_range": [
+        4015,
+        4015
+      ],
+      "stop_loss": 3894.55,
+      "take_profit_1": 4135.45,
+      "take_profit_2": 4255.9,
+      "reasons": [
+        "1D Trend unter EMA 233 bärisch",
+        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+        "RSI überverkauft (28.21)"
+      ],
+      "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "COINBASE:BCHUSD",
@@ -5641,10 +5787,10 @@
         "is_open": false,
         "is_premarket": false,
         "status": "CLOSED",
-        "session_name": "Wochenende (Geschlossen)",
+        "session_name": "XETRA Nachtpause",
         "min_interval_minutes": 999999,
         "badge_color": "slate",
-        "status_text": "Wochenende (Öffnet Mo 09:00 CET)"
+        "status_text": "Geschlossen (Pause bis 09:00 CET)"
       },
       "timeframes": {
         "1D": {
@@ -5981,32 +6127,32 @@
       "name": "Palladium (Spot)",
       "category": "Edelmetalle",
       "asset_type": "Commodity",
-      "price": 1049.78,
+      "price": 1056.5,
       "charts": {
         "4h": "charts/TVC_PALLADIUM_4h.svg",
         "8h": "charts/TVC_PALLADIUM_8h.svg",
         "1D": "charts/TVC_PALLADIUM_1D.svg"
       },
-      "last_analyzed": "2026-10-23T18:06:17.727876+00:00",
+      "last_analyzed": "2026-10-25T23:05:34.873298+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Settlement Break",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Settlement Pause"
+        "status": "OPEN",
+        "session_name": "Commodities / Global Session",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Globaler Handel Aktiv"
       },
       "timeframes": {
         "1D": {
           "name": "Palladium (Spot) (TVC:PALLADIUM)",
-          "price": 1049.78,
-          "rsi": 28.36,
+          "price": 1056.5,
+          "rsi": 31.34,
           "trend": "BEARISH",
-          "ema_fast": 1110.27,
-          "ema_trend": 1210.86,
-          "upper_band": 1175.89,
-          "lower_band": 1044.64,
+          "ema_fast": 1101.65,
+          "ema_trend": 1204.4,
+          "upper_band": 1164.51,
+          "lower_band": 1038.78,
           "channel_position": "Neutral (Im Kanal)",
           "vsa_ratio": 1.0,
           "vsa_class": "Average / Normal",
@@ -6038,10 +6184,10 @@
             "Versteckte Bärische Divergenz (Trendfolge)"
           ],
           "swing_high": 1469.33,
-          "swing_low": 1042.7,
+          "swing_low": 1042.1,
           "golden_pocket": [
-            1306.35,
-            1320.01
+            1306.13,
+            1319.8
           ],
           "in_golden_pocket": false
         },
@@ -6072,15 +6218,15 @@
         },
         "4h": {
           "name": "Palladium (Spot) (TVC:PALLADIUM)",
-          "price": 1049.78,
-          "rsi": 32.88,
+          "price": 1056.5,
+          "rsi": 40.01,
           "trend": "BEARISH",
-          "ema_fast": 1060.5,
-          "ema_trend": 1097.07,
-          "upper_band": 1085.14,
-          "lower_band": 1035.86,
+          "ema_fast": 1058.99,
+          "ema_trend": 1095.19,
+          "upper_band": 1085.24,
+          "lower_band": 1032.75,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.02,
+          "vsa_ratio": 0.18,
           "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [
             {
@@ -6109,12 +6255,12 @@
       "setup_name": "Beobachten / Warten auf HTF-Trigger",
       "crv": 2.0,
       "entry_range": [
-        1049.78,
-        1049.78
+        1056.5,
+        1056.5
       ],
-      "stop_loss": 1018.29,
-      "take_profit_1": 1081.27,
-      "take_profit_2": 1112.77,
+      "stop_loss": 1024.81,
+      "take_profit_1": 1088.19,
+      "take_profit_2": 1119.89,
       "reasons": [
         "1D Trend unter EMA 233 bärisch",
         "Aktiv: Reguläre Bullische Divergenz (Reversal)",
@@ -6140,10 +6286,10 @@
         "is_open": false,
         "is_premarket": false,
         "status": "CLOSED",
-        "session_name": "Wochenende (Geschlossen)",
+        "session_name": "XETRA Nachtpause",
         "min_interval_minutes": 999999,
         "badge_color": "slate",
-        "status_text": "Wochenende (Öffnet Mo 09:00 CET)"
+        "status_text": "Geschlossen (Pause bis 09:00 CET)"
       },
       "timeframes": {
         "1D": {
@@ -6432,6 +6578,177 @@
       ],
       "analyst_note": "Solana zeigt zwar Anzeichen eines überverkauften Zustands, die 4h-Trendfolge-Divergenz deutet jedoch auf weitere Schwäche hin. Ein Long gegen den übergeordneten Trend ohne sauberes VSA-Umkehrmuster verstößt gegen unsere Risikoprinzipien. Wir bleiben neutral und schützen das Desk-Kapital.",
       "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
+    },
+    {
+      "symbol": "COMEX:SI1!",
+      "name": "SI1!",
+      "category": "Rohstoffe & Metalle",
+      "asset_type": "Commodity",
+      "price": 54.23,
+      "charts": {
+        "4h": "charts/COMEX_SI1__4h.svg",
+        "8h": "charts/COMEX_SI1__8h.svg",
+        "1D": "charts/COMEX_SI1__1D.svg"
+      },
+      "last_analyzed": "2026-10-25T23:05:34.873298+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "Commodities / Global Session",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Globaler Handel Aktiv"
+      },
+      "timeframes": {
+        "1D": {
+          "name": "SI1! (COMEX:SI1!)",
+          "price": 54.23,
+          "rsi": 30.72,
+          "trend": "BEARISH",
+          "ema_fast": 57.23,
+          "ema_trend": 61.52,
+          "upper_band": 60.9,
+          "lower_band": 53.56,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.02,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 60.4,
+              "bottom": 59.59,
+              "ce_50": 60.0,
+              "gap_pct": 1.32
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 57.05,
+              "bottom": 54.8,
+              "ce_50": 55.92,
+              "gap_pct": 3.95
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 54.53,
+              "bottom": 54.34,
+              "ce_50": 54.44,
+              "gap_pct": 0.35
+            }
+          ],
+          "divergences": [],
+          "swing_high": 72.05,
+          "swing_low": 53.08,
+          "golden_pocket": [
+            64.8,
+            65.41
+          ],
+          "in_golden_pocket": false
+        },
+        "8h": {
+          "name": "SI1! (COMEX:SI1!)",
+          "price": 57.13,
+          "rsi": 36.54,
+          "trend": "BEARISH",
+          "ema_fast": 58.04,
+          "ema_trend": 60.55,
+          "upper_band": 59.96,
+          "lower_band": 56.12,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 1.14,
+          "vsa_class": "Average / Normal",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 59.87,
+              "bottom": 59.59,
+              "ce_50": 59.73,
+              "gap_pct": 0.46
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 56.64,
+              "bottom": 56.52,
+              "ce_50": 56.58,
+              "gap_pct": 0.21
+            }
+          ],
+          "divergences": [
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 68.11,
+          "swing_low": 55.56,
+          "golden_pocket": [
+            63.31,
+            63.71
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "SI1! (COMEX:SI1!)",
+          "price": 54.23,
+          "rsi": 33.55,
+          "trend": "BEARISH",
+          "ema_fast": 54.85,
+          "ema_trend": 56.84,
+          "upper_band": 56.2,
+          "lower_band": 53.51,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.09,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 57.06,
+              "bottom": 56.6,
+              "ce_50": 56.83,
+              "gap_pct": 0.8
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 55.87,
+              "bottom": 55.6,
+              "ce_50": 55.73,
+              "gap_pct": 0.48
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 55.08,
+              "bottom": 55.02,
+              "ce_50": 55.05,
+              "gap_pct": 0.1
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 61.58,
+          "swing_low": 53.08,
+          "golden_pocket": [
+            58.33,
+            58.6
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "signal": "NEUTRAL",
+      "score": 46,
+      "setup_name": "Beobachten / Warten auf HTF-Trigger",
+      "crv": 2.0,
+      "entry_range": [
+        54.23,
+        54.23
+      ],
+      "stop_loss": 52.6,
+      "take_profit_1": 55.86,
+      "take_profit_2": 57.48,
+      "reasons": [
+        "1D Trend unter EMA 233 bärisch",
+        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: Reguläre Bullische Divergenz (Reversal)"
+      ],
+      "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "BINANCE:BTCUSDT",
@@ -6726,160 +7043,6 @@
       ],
       "analyst_note": "BTCUSD bietet aktuell kein institutionelles Setup mit ausreichendem CRV. Die vorangegangene Invalidierung ähnlicher Setups zeigt, dass Seitwärtsphasen im Downtrend oft Bullenfallen sind. Striktes Abwarten bis zur Klärung der übergeordneten Trendrichtung ist Pflicht.",
       "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
-    },
-    {
-      "symbol": "ICEEUR:BRN1!",
-      "name": "Brent Öl Future",
-      "category": "Energie",
-      "asset_type": "Commodity",
-      "price": 116.4,
-      "charts": {
-        "4h": "charts/ICEEUR_BRN1__4h.svg",
-        "8h": "charts/ICEEUR_BRN1__8h.svg",
-        "1D": "charts/ICEEUR_BRN1__1D.svg"
-      },
-      "last_analyzed": "2026-10-23T18:06:17.727876+00:00",
-      "market_state": {
-        "is_open": false,
-        "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Settlement Break",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Settlement Pause"
-      },
-      "timeframes": {
-        "1D": {
-          "name": "Brent Öl Future (ICEEUR:BRN1!)",
-          "price": 116.4,
-          "rsi": 74.28,
-          "trend": "BULLISH",
-          "ema_fast": 108.47,
-          "ema_trend": 101.22,
-          "upper_band": 116.23,
-          "lower_band": 100.71,
-          "channel_position": "Overbought Band (Überdehnt Oben)",
-          "vsa_ratio": 0.71,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 112.74,
-              "bottom": 111.32,
-              "ce_50": 112.03,
-              "gap_pct": 1.28
-            }
-          ],
-          "divergences": [
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 117.45,
-          "swing_low": 78.11,
-          "golden_pocket": [
-            91.88,
-            93.14
-          ],
-          "in_golden_pocket": false
-        },
-        "8h": {
-          "name": "Brent Öl Future (ICEEUR:BRN1!)",
-          "price": 109.95,
-          "rsi": 66.92,
-          "trend": "BULLISH",
-          "ema_fast": 106.17,
-          "ema_trend": 103.82,
-          "upper_band": 109.89,
-          "lower_band": 102.45,
-          "channel_position": "Overbought Band (Überdehnt Oben)",
-          "vsa_ratio": 1.42,
-          "vsa_class": "High",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 107.2,
-              "bottom": 105.94,
-              "ce_50": 106.57,
-              "gap_pct": 1.19
-            }
-          ],
-          "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 110,
-          "swing_low": 95.12,
-          "golden_pocket": [
-            100.33,
-            100.8
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "Brent Öl Future (ICEEUR:BRN1!)",
-          "price": 116.4,
-          "rsi": 70.3,
-          "trend": "BULLISH",
-          "ema_fast": 113.41,
-          "ema_trend": 109.49,
-          "upper_band": 116.41,
-          "lower_band": 110.41,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.68,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 110.6,
-              "bottom": 110.1,
-              "ce_50": 110.35,
-              "gap_pct": 0.45
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 112.66,
-              "bottom": 112.54,
-              "ce_50": 112.6,
-              "gap_pct": 0.11
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 115.84,
-              "bottom": 115,
-              "ce_50": 115.42,
-              "gap_pct": 0.73
-            }
-          ],
-          "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)"
-          ],
-          "swing_high": 117.45,
-          "swing_low": 102.33,
-          "golden_pocket": [
-            107.62,
-            108.11
-          ],
-          "in_golden_pocket": false
-        }
-      },
-      "signal": "NEUTRAL",
-      "score": 45,
-      "setup_name": "Beobachten / Warten auf HTF-Trigger",
-      "crv": 2.0,
-      "entry_range": [
-        116.4,
-        116.4
-      ],
-      "stop_loss": 112.91,
-      "take_profit_1": 119.89,
-      "take_profit_2": 123.38,
-      "reasons": [
-        "1D Trend über EMA 233 bullisch",
-        "1D Kurs überdehnt oberes degencoder-Band (Overbought)",
-        "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-        "Aktiv: Reguläre Bärische Divergenz (Reversal)"
-      ],
-      "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NYSE:ACN",
@@ -8668,35 +8831,35 @@
       "name": "S&P 500",
       "category": "Indizes",
       "asset_type": "Index",
-      "price": 7631.13,
+      "price": 7623.68,
       "charts": {
         "4h": "charts/SP_SPX_4h.svg",
         "8h": "charts/SP_SPX_8h.svg",
         "1D": "charts/SP_SPX_1D.svg"
       },
-      "last_analyzed": "2026-10-23T18:06:17.727876+00:00",
+      "last_analyzed": "2026-10-25T23:05:34.873298+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Settlement Break",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Settlement Pause"
+        "status": "OPEN",
+        "session_name": "Commodities / Global Session",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Globaler Handel Aktiv"
       },
       "timeframes": {
         "1D": {
           "name": "S&P 500 (SP:SPX)",
-          "price": 7631.13,
-          "rsi": 42.69,
+          "price": 7623.68,
+          "rsi": 42.16,
           "trend": "BEARISH",
-          "ema_fast": 7710.53,
-          "ema_trend": 7685.7,
-          "upper_band": 7841.32,
-          "lower_band": 7579.73,
+          "ema_fast": 7709.46,
+          "ema_trend": 7685.41,
+          "upper_band": 7840.26,
+          "lower_band": 7578.66,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.49,
-          "vsa_class": "Low",
+          "vsa_ratio": 0.92,
+          "vsa_class": "Average / Normal",
           "fvgs": [
             {
               "type": "Bearish FVG",
@@ -8764,16 +8927,16 @@
         },
         "4h": {
           "name": "S&P 500 (SP:SPX)",
-          "price": 7631.09,
-          "rsi": 38.76,
+          "price": 7623.68,
+          "rsi": 37.88,
           "trend": "BEARISH",
-          "ema_fast": 7691.09,
-          "ema_trend": 7712.11,
-          "upper_band": 7776.26,
-          "lower_band": 7605.91,
+          "ema_fast": 7690.03,
+          "ema_trend": 7711.82,
+          "upper_band": 7776.37,
+          "lower_band": 7603.68,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.07,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "vsa_ratio": 0.95,
+          "vsa_class": "Average / Normal",
           "fvgs": [
             {
               "type": "Bearish FVG",
@@ -8788,13 +8951,6 @@
               "bottom": 7664.77,
               "ce_50": 7697.86,
               "gap_pct": 0.86
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 7637.36,
-              "bottom": 7635.48,
-              "ce_50": 7636.42,
-              "gap_pct": 0.02
             }
           ],
           "divergences": [
@@ -8815,178 +8971,17 @@
       "setup_name": "Beobachten / Warten auf HTF-Trigger",
       "crv": 2.0,
       "entry_range": [
-        7631.13,
-        7631.13
+        7623.68,
+        7623.68
       ],
-      "stop_loss": 7402.2,
-      "take_profit_1": 7860.06,
-      "take_profit_2": 8089.0,
+      "stop_loss": 7394.97,
+      "take_profit_1": 7852.39,
+      "take_profit_2": 8081.1,
       "reasons": [
         "1D Trend unter EMA 233 bärisch",
         "Aktiv: Reguläre Bärische Divergenz (Reversal)",
         "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
         "Aktiv: Reguläre Bärische Divergenz (Reversal)"
-      ],
-      "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-      "evaluated_by": "quantitative_engine"
-    },
-    {
-      "symbol": "COMEX:SI1!",
-      "name": "SI1!",
-      "category": "Rohstoffe & Metalle",
-      "asset_type": "Commodity",
-      "price": 54.06,
-      "charts": {
-        "4h": "charts/COMEX_SI1__4h.svg",
-        "8h": "charts/COMEX_SI1__8h.svg",
-        "1D": "charts/COMEX_SI1__1D.svg"
-      },
-      "last_analyzed": "2026-10-23T18:06:17.727876+00:00",
-      "market_state": {
-        "is_open": false,
-        "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Settlement Break",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Settlement Pause"
-      },
-      "timeframes": {
-        "1D": {
-          "name": "SI1! (COMEX:SI1!)",
-          "price": 54.06,
-          "rsi": 29.56,
-          "trend": "BEARISH",
-          "ema_fast": 57.75,
-          "ema_trend": 61.81,
-          "upper_band": 61.67,
-          "lower_band": 53.83,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.33,
-          "vsa_class": "High",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 60.4,
-              "bottom": 59.59,
-              "ce_50": 60.0,
-              "gap_pct": 1.32
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 57.05,
-              "bottom": 54.8,
-              "ce_50": 55.92,
-              "gap_pct": 3.95
-            }
-          ],
-          "divergences": [],
-          "swing_high": 72.05,
-          "swing_low": 53.08,
-          "golden_pocket": [
-            64.8,
-            65.41
-          ],
-          "in_golden_pocket": false
-        },
-        "8h": {
-          "name": "SI1! (COMEX:SI1!)",
-          "price": 57.13,
-          "rsi": 36.54,
-          "trend": "BEARISH",
-          "ema_fast": 58.04,
-          "ema_trend": 60.55,
-          "upper_band": 59.96,
-          "lower_band": 56.12,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.14,
-          "vsa_class": "Average / Normal",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 59.87,
-              "bottom": 59.59,
-              "ce_50": 59.73,
-              "gap_pct": 0.46
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 56.64,
-              "bottom": 56.52,
-              "ce_50": 56.58,
-              "gap_pct": 0.21
-            }
-          ],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 68.11,
-          "swing_low": 55.56,
-          "golden_pocket": [
-            63.31,
-            63.71
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "SI1! (COMEX:SI1!)",
-          "price": 54.06,
-          "rsi": 30.43,
-          "trend": "BEARISH",
-          "ema_fast": 55.12,
-          "ema_trend": 57.07,
-          "upper_band": 56.59,
-          "lower_band": 53.65,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 2.11,
-          "vsa_class": "Very High / Stopping",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 57.06,
-              "bottom": 56.6,
-              "ce_50": 56.83,
-              "gap_pct": 0.8
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 55.87,
-              "bottom": 55.6,
-              "ce_50": 55.73,
-              "gap_pct": 0.48
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 55.08,
-              "bottom": 55.02,
-              "ce_50": 55.05,
-              "gap_pct": 0.1
-            }
-          ],
-          "divergences": [],
-          "swing_high": 61.74,
-          "swing_low": 53.08,
-          "golden_pocket": [
-            58.43,
-            58.71
-          ],
-          "in_golden_pocket": false
-        }
-      },
-      "signal": "NEUTRAL",
-      "score": 42,
-      "setup_name": "Beobachten / Warten auf HTF-Trigger",
-      "crv": 2.0,
-      "entry_range": [
-        54.06,
-        54.06
-      ],
-      "stop_loss": 52.44,
-      "take_profit_1": 55.68,
-      "take_profit_2": 57.3,
-      "reasons": [
-        "1D Trend unter EMA 233 bärisch",
-        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
       ],
       "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
       "evaluated_by": "quantitative_engine"
@@ -9002,26 +8997,26 @@
         "8h": "charts/TVC_SILVER_8h.svg",
         "1D": "charts/TVC_SILVER_1D.svg"
       },
-      "last_analyzed": "2026-10-23T18:06:17.727876+00:00",
+      "last_analyzed": "2026-10-25T23:05:34.873298+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Settlement Break",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Settlement Pause"
+        "status": "OPEN",
+        "session_name": "Commodities / Global Session",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Globaler Handel Aktiv"
       },
       "timeframes": {
         "1D": {
           "name": "Silber (Spot) (TVC:SILVER)",
           "price": 54.03,
-          "rsi": 31.8,
+          "rsi": 32.29,
           "trend": "BEARISH",
-          "ema_fast": 57.58,
-          "ema_trend": 61.47,
-          "upper_band": 61.34,
-          "lower_band": 53.83,
+          "ema_fast": 57.05,
+          "ema_trend": 61.18,
+          "upper_band": 60.58,
+          "lower_band": 53.52,
           "channel_position": "Neutral (Im Kanal)",
           "vsa_ratio": 1.0,
           "vsa_class": "Average / Normal",
@@ -9039,6 +9034,13 @@
               "bottom": 54.73,
               "ce_50": 55.84,
               "gap_pct": 3.88
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 54.49,
+              "bottom": 54.29,
+              "ce_50": 54.39,
+              "gap_pct": 0.37
             }
           ],
           "divergences": [
@@ -9093,15 +9095,15 @@
         },
         "4h": {
           "name": "Silber (Spot) (TVC:SILVER)",
-          "price": 54.04,
-          "rsi": 30.92,
+          "price": 54.03,
+          "rsi": 32.32,
           "trend": "BEARISH",
-          "ema_fast": 54.9,
-          "ema_trend": 56.81,
-          "upper_band": 56.28,
-          "lower_band": 53.52,
+          "ema_fast": 54.75,
+          "ema_trend": 56.69,
+          "upper_band": 56.11,
+          "lower_band": 53.38,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.03,
+          "vsa_ratio": 0.17,
           "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [
             {
@@ -9129,11 +9131,11 @@
           "divergences": [
             "Reguläre Bullische Divergenz (Reversal)"
           ],
-          "swing_high": 61.45,
+          "swing_high": 61.29,
           "swing_low": 53.01,
           "golden_pocket": [
-            58.22,
-            58.5
+            58.13,
+            58.39
           ],
           "in_golden_pocket": false
         }
@@ -9476,7 +9478,7 @@
       "evaluated_by": "gemini-3.8-flash [AQ.Ab8...kcWw]"
     }
   ],
-  "evaluation_engine": "gemini-3.8-flash [AQ.Ab8...kcWw]",
+  "evaluation_engine": "quantitative_confluence",
   "portfolio": {
     "created_at": "2026-10-19T19:56:18.496361+00:00",
     "base_capital_per_trade": 1000.0,
@@ -9505,7 +9507,7 @@
         "analyst_note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
         "unrealized_pnl_pct": 6.62,
         "unrealized_pnl_leveraged_pct": 39.72,
-        "holding_hours": 146.2,
+        "holding_hours": 147.2,
         "holding_days": 6.1,
         "tp1_reached": true,
         "trailing_active": true,
@@ -9535,7 +9537,7 @@
         "analyst_note": "Strikte bärische Erschöpfung (90%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
         "unrealized_pnl_pct": 0.07,
         "unrealized_pnl_leveraged_pct": 0.34,
-        "holding_hours": 60.1,
+        "holding_hours": 61.1,
         "holding_days": 2.5,
         "tp1_reached": false,
         "trailing_active": false,
@@ -9565,7 +9567,7 @@
         "analyst_note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": -0.31,
         "unrealized_pnl_leveraged_pct": -1.87,
-        "holding_hours": 56.9,
+        "holding_hours": 57.9,
         "holding_days": 2.4,
         "tp1_reached": false,
         "trailing_active": false,
@@ -9595,7 +9597,7 @@
         "analyst_note": "Strikte bärische Erschöpfung (92%): Überhitzung an HTF-Widerstandszone (1D Trend über EMA 233 bullisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
         "unrealized_pnl_pct": 0.0,
         "unrealized_pnl_leveraged_pct": 0.0,
-        "holding_hours": 36.0,
+        "holding_hours": 37.0,
         "holding_days": 1.5,
         "tp1_reached": false,
         "trailing_active": false,
@@ -9625,7 +9627,7 @@
         "analyst_note": "Strikte bärische Erschöpfung (90%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
         "unrealized_pnl_pct": 0.0,
         "unrealized_pnl_leveraged_pct": 0.0,
-        "holding_hours": 27.9,
+        "holding_hours": 28.9,
         "holding_days": 1.2,
         "tp1_reached": false,
         "trailing_active": false,
@@ -9655,7 +9657,7 @@
         "analyst_note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": -2.58,
         "unrealized_pnl_leveraged_pct": -7.74,
-        "holding_hours": 16.0,
+        "holding_hours": 17.0,
         "holding_days": 0.7,
         "tp1_reached": false,
         "trailing_active": false,
@@ -10304,7 +10306,7 @@
         "title": "⚠️ Bullische Divergenz im 4h-Chart",
         "message": "Es formiert sich eine bullische Divergenz gegen deinen Short. Reversal-Gefahr! Stop-Loss eng nachziehen."
       },
-      "updated_at": "2026-10-25T22:06:46.302399+00:00"
+      "updated_at": "2026-10-25T23:07:12.590172+00:00"
     }
   ],
   "gemini_quota": {
@@ -10333,7 +10335,7 @@
         "tokens_used": 9516,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 1h 53m",
+        "reset_countdown": "in 0h 52m",
         "last_error": null
       },
       {
@@ -10347,7 +10349,7 @@
         "tokens_used": 8746,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 1h 53m",
+        "reset_countdown": "in 0h 52m",
         "last_error": null
       },
       {
@@ -10361,7 +10363,7 @@
         "tokens_used": 8898,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 1h 53m",
+        "reset_countdown": "in 0h 52m",
         "last_error": null
       },
       {
@@ -10375,7 +10377,7 @@
         "tokens_used": 9119,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 1h 53m",
+        "reset_countdown": "in 0h 52m",
         "last_error": null
       }
     ]
