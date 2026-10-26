@@ -1,5 +1,72 @@
 [
   {
+    "id": "evt_20261026_131106",
+    "timestamp": "2026-10-26T13:11:06.861964+00:00",
+    "timestamp_display": "26.10.2026 13:11 UTC",
+    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 2,
+    "changes": [
+      {
+        "symbol": "NASDAQ:MSFT",
+        "name": "Microsoft",
+        "category": "Big Tech",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 48,
+        "new_score": 82,
+        "price": 524.51,
+        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
+        "entry_range": [
+          523.46,
+          528.71
+        ],
+        "stop_loss": 542.87,
+        "take_profit_2": 465.76,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
+          "Aktiv: Reguläre Bärische Divergenz (Reversal)",
+          "Aktiv: Reguläre Bärische Divergenz (Reversal)"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
+        "note": "Strikte bärische Erschöpfung (82%): Überhitzung an HTF-Widerstandszone (1D Trend über EMA 233 bullisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NYSE:ORCL",
+        "name": "Oracle",
+        "category": "Enterprise Software",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 90,
+        "new_score": 42,
+        "price": 126.16,
+        "setup_name": "Beobachten / Warten auf HTF-Trigger",
+        "entry_range": [
+          126.16,
+          126.16
+        ],
+        "stop_loss": 122.38,
+        "take_profit_2": 133.73,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
+          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
+          "Aktiv: Reguläre Bärische Divergenz (Reversal)"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
+        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
+        "evaluated_by": "quantitative_engine"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n🔴 Microsoft (MSFT):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 82%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (82%): Überhitzung an HTF-Widerstandszone (1D Trend über EMA 233 bullisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 523.46 | SL: 542.87 | TP2: 465.76\n\n⚪ Oracle (ORCL):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 42%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261026_110905",
     "timestamp": "2026-10-26T11:09:05.037778+00:00",
     "timestamp_display": "26.10.2026 11:09 UTC",
