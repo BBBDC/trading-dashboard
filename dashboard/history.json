@@ -1,5 +1,252 @@
 [
   {
+    "id": "evt_20261026_110905",
+    "timestamp": "2026-10-26T11:09:05.037778+00:00",
+    "timestamp_display": "26.10.2026 11:09 UTC",
+    "title": "🔔 TV-Signaländerung: 9 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 9,
+    "changes": [
+      {
+        "symbol": "COMEX:HG1!",
+        "name": "Kupfer Future",
+        "category": "Industriemetalle",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 53,
+        "new_score": 78,
+        "price": 6.52,
+        "setup_name": "Hypothese 2: Trend Continuation & GP Rejection",
+        "entry_range": [
+          6.48,
+          6.55
+        ],
+        "stop_loss": 6.78,
+        "take_profit_2": 5.5,
+        "reasons": [
+          "Synchroner 1D und 4h Abwärtstrend; Kurs testet exakt das 1D Fibonacci Golden Pocket",
+          "Aktive versteckte bärische Divergenz auf 1D und 4h stützt die Trendfortsetzung",
+          "4h VSA zeigt 'Ultra-Low / No Demand' am Golden Pocket, was fehlendes Kaufinteresse markiert"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (Synchroner 1D und 4h Abwärtstrend; Kurs testet exakt das 1D Fibonacci Golden Pocket).",
+        "note": "Kupfer liefert ein institutionelles Trendfortsetzungs-Setup: Der übergeordnete Bärenmarkt prallt im Golden Pocket ab, während das Kaufvolumen vollständig austrocknet (No Demand). Versteckte bärische Divergenzen auf 1D und 4h harmonieren perfekt. Stop-Loss liegt geschützt über dem Swing-High des Golden Pockets bei konservativer Hebelwahl.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...pOzg]"
+      },
+      {
+        "symbol": "NYMEX:CL1!",
+        "name": "WTI Rohöl Future",
+        "category": "Energie",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 53,
+        "price": 100.98,
+        "setup_name": "Beobachten / RSI-Überdehnung",
+        "entry_range": [
+          99.5,
+          100.98
+        ],
+        "stop_loss": 97.0,
+        "take_profit_2": 108.0,
+        "reasons": [
+          "1D RSI > 60 (62.02) – Verstoß gegen die strikte Anti-Chasing-Regel für Longs",
+          "4h Volumen ist 'Ultra-Low', womit der Ausbruchsbewegung die institutionelle Bestätigung fehlt",
+          "Kein Pullback in ein Fibonacci Golden Pocket ersichtlich"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D RSI > 60 (62.02) – Verstoß gegen die strikte Anti-Chasing-Regel für Longs).",
+        "note": "WTI Öl zeigt zwar synchrone Trends auf 1D und 4h samt versteckten bullischen Divergenzen, verletzt jedoch die strenge Risikoregel bezüglich überkaufter RSI-Stände (>60). Hinzu kommt das extrem schwache Volumen auf 4h, was auf mangelnde Anschlusskäufe hinweist. Kein Einstieg zum aktuellen Marktpreis.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...pOzg]"
+      },
+      {
+        "symbol": "ICEEUR:BRN1!",
+        "name": "Brent Öl Future",
+        "category": "Energie",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 85,
+        "new_score": 52,
+        "price": 109.88,
+        "setup_name": "Beobachten / Divergenz-Erschöpfung",
+        "entry_range": [
+          108.5,
+          109.88
+        ],
+        "stop_loss": 105.5,
+        "take_profit_2": 118.5,
+        "reasons": [
+          "1D Trend zwar bullisch, aber belastet durch reguläre bärische Divergenzen",
+          "4h VSA signalisiert 'Ultra-Low / No Supply-Demand', womit jeglicher Momentum-Impuls fehlt",
+          "Kurs notiert mitten im Kanal ohne signifikante FVG- oder Golden Pocket-Unterstützung"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend zwar bullisch, aber belastet durch reguläre bärische Divergenzen).",
+        "note": "Brent Öl konsolidiert nach einer Aufwärtsbewegung, zeigt jedoch im 4h-Chart ein extremes Austrocknen des Volumens. Zudem warnt die 1D-Bärendivergenz vor einer potenziellen Topbildung. Ein Long-Einstieg wäre reines Chasing ohne institutionelle Volumenunterstützung.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...pOzg]"
+      },
+      {
+        "symbol": "TVC:DJI",
+        "name": "DJI",
+        "category": "Indizes / Devisen",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 80,
+        "new_score": 50,
+        "price": 52220.21,
+        "setup_name": "Beobachten / Konsolidierung im Kanal",
+        "entry_range": [
+          51800.0,
+          52220.21
+        ],
+        "stop_loss": 51200.0,
+        "take_profit_2": 54000.0,
+        "reasons": [
+          "Kurs notiert im neutralen Kanalbereich ohne HTF-Konfluenz",
+          "Gemischte Divergenzlage auf 1D (sowohl versteckt bärisch als auch regulär bullisch)",
+          "Kein SMC Golden Pocket Retest auf Tagesbasis vorhanden"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Kurs notiert im neutralen Kanalbereich ohne HTF-Konfluenz).",
+        "note": "Der Dow Jones Index verweilt in einer indifferenten Mittellage des Kanals mit neutralem RSI um 52 Punkte. Trotz intakter 1D/4h Trendausrichtung fehlt die zwingend erforderliche Einstiegszone mit asymmetrischem CRV. Das Setup rechtfertigt kein institutionelles Risiko.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...pOzg]"
+      },
+      {
+        "symbol": "XETR:ADS",
+        "name": "Adidas",
+        "category": "Consumer / DAX",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 77,
+        "new_score": 48,
+        "price": 160.35,
+        "setup_name": "Beobachten / Erschöpfung am Hoch",
+        "entry_range": [
+          158.0,
+          160.35
+        ],
+        "stop_loss": 154.0,
+        "take_profit_2": 172.0,
+        "reasons": [
+          "1D RSI liegt bei 65.41 – Long-Verbot gemäß Regel 2 (RSI > 60)",
+          "Reguläre bärische Divergenzen sowohl auf 1D als auch auf 4h deuten auf Erschöpfung hin",
+          "Für ein valides Short-Setup fehlt das Erreichen des oberen degencoder-Bands"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D RSI liegt bei 65.41 – Long-Verbot gemäß Regel 2 (RSI > 60)).",
+        "note": "Adidas nähert sich einer überkauften Zone mit aktivem Long-Verbot aufgrund des erhöhten RSI (>60) und doppelter bärischer Divergenz. Für eine Short-Positionierung fehlt jedoch der definitive Abprall an einem HTF-Widerstand oder dem oberen Kanalband. Kapitalerhalt gebietet striktes Abwarten.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...pOzg]"
+      },
+      {
+        "symbol": "XETR:BAYN",
+        "name": "Bayer",
+        "category": "Pharma / DAX",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 90,
+        "new_score": 45,
+        "price": 45.34,
+        "setup_name": "Beobachten / Multi-Timeframe Trend-Konflikt",
+        "entry_range": [
+          44.8,
+          45.34
+        ],
+        "stop_loss": 43.5,
+        "take_profit_2": 49.0,
+        "reasons": [
+          "Strikter Multi-Timeframe Konflikt: 1D bärisch vs 4h bullisch ohne klares HTF-Signal",
+          "Keine Verankerung im 1D Golden Pocket bei fortlaufender Uneinigkeit der Indikatoren",
+          "Widersprüchliche Divergenzen auf 1D (bärisch und bullisch gleichzeitig aktiv)"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Strikter Multi-Timeframe Konflikt: 1D bärisch vs 4h bullisch ohne klares HTF-Signal).",
+        "note": "Bayer zeigt einen massiven Richtungsstreit zwischen dem übergeordneten 1D-Bärentrend und einer kurzfristigen 4h-Erholung. Solange kein struktureller Bruch oder ein Retest eines signifikanten HTF-Schlüsselniveaus vorliegt, bleibt das Kapital an der Seitenlinie geschützt. Ein Handeln in diese Spanne birgt signifikantes Whipsaw-Risiko.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...pOzg]"
+      },
+      {
+        "symbol": "TVC:PLATINUM",
+        "name": "Platin (Spot)",
+        "category": "Edelmetalle",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 44,
+        "price": 1541.6,
+        "setup_name": "Beobachten / Warten auf Wyckoff-Absorption",
+        "entry_range": [
+          1520.0,
+          1541.6
+        ],
+        "stop_loss": 1490.0,
+        "take_profit_2": 1640.0,
+        "reasons": [
+          "Übergeordneter 1D Trend ist intakt bärisch; Longs gegen den Trend sind hochriskant",
+          "Trotz 1D bullischer Divergenz zeigt der 4h-Chart keine Bestätigung und ein 'Ultra-Low' VSA",
+          "Kein struktureller Boden mit Stopping Volume etabliert"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Übergeordneter 1D Trend ist intakt bärisch; Longs gegen den Trend sind hochriskant).",
+        "note": "Platin versucht eine Divergenz auf Tagesbasis auszubilden, leidet jedoch unter völlig ausgetrockneter Liquidität im 4h-Bereich. Ein Einstieg gegen den etablierten Abwärtstrend ohne begleitendes Stopping Volume würde das Portfolio unnötig exponieren. Die Position bleibt unbesetzt.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...pOzg]"
+      },
+      {
+        "symbol": "XETR:NOV",
+        "name": "Novartis",
+        "category": "Pharma",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 87,
+        "new_score": 42,
+        "price": 35.02,
+        "setup_name": "Beobachten / Warten auf HTF-Key-Level",
+        "entry_range": [
+          34.5,
+          35.02
+        ],
+        "stop_loss": 33.8,
+        "take_profit_2": 37.8,
+        "reasons": [
+          "1D Trend klar bärisch, während 4h bullische Tendenzen aufweist (Konflikt)",
+          "4h VSA zeigt geringes Volumen ('Low'), was mangelnde institutionelle Beteiligung belegt",
+          "Gleichzeitige Präsenz regulärer bärischer Divergenzen auf 4h schwächt die Aufwärtsbewegung ab"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend klar bärisch, während 4h bullische Tendenzen aufweist (Konflikt)).",
+        "note": "Novartis befindet sich in einer kraftlosen Konsolidierungsphase mit geringer Marktteilnahme im 4h-Bereich. Der übergeordnete Abwärtstrend dominiert, bietet jedoch auf aktuellem Niveau kein klares Reversal- oder Fortsetzungsmuster. Es besteht kein Handlungsbedarf, strikte Neutralität ist Pflicht.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...pOzg]"
+      },
+      {
+        "symbol": "NYMEX:NG1!",
+        "name": "Erdgas Future",
+        "category": "Energie",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 40,
+        "price": 2.51,
+        "setup_name": "Beobachten / Starker Abwärtstrend ohne Reversal-Signal",
+        "entry_range": [
+          2.45,
+          2.51
+        ],
+        "stop_loss": 2.65,
+        "take_profit_2": 2.0,
+        "reasons": [
+          "Kurs im 1D Oversold-Band, was Pro-Trend-Shorts verbietet (Überdehnung)",
+          "Keinerlei bullische Divergenzen vorhanden, um einen Reversal-Long zu stützen",
+          "4h VSA zeigt 'Ultra-Low', somit keine Anzeichen von Wyckoff-Absorption"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Kurs im 1D Oversold-Band, was Pro-Trend-Shorts verbietet (Überdehnung)).",
+        "note": "Erdgas befindet sich in einem tiefen Abverkauf, notiert jedoch bereits im extrem überverkauften Bereich (1D RSI 28, 4h RSI 17). Ein Short ist hier hochgradig unrentabel und riskant, während für Longs jegliche Bestätigung durch Volumenabsorption oder Divergenzen fehlt. Reines Messerfallen ohne Trigger.",
+        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...pOzg]"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 9 Einstufungen haben sich geändert:\n\n🔴 Kupfer Future (HG1!):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 78%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (Synchroner 1D und 4h Abwärtstrend; Kurs testet exakt das 1D Fibonacci Golden Pocket).\n   📝 KI-Rationale: Kupfer liefert ein institutionelles Trendfortsetzungs-Setup: Der übergeordnete Bärenmarkt prallt im Golden Pocket ab, während das ...\n   Setup: Hypothese 2: Trend Continuation & GP Rejection\n   Entry: 6.48 | SL: 6.78 | TP2: 5.50\n\n⚪ WTI Rohöl Future (CL1!):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 53%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D RSI > 60 (62.02) – Verstoß gegen die strikte Anti-Chasing-Regel für Longs).\n   📝 KI-Rationale: WTI Öl zeigt zwar synchrone Trends auf 1D und 4h samt versteckten bullischen Divergenzen, verletzt jedoch die strenge Risikoregel ...\n   Setup: Beobachten / RSI-Überdehnung\n\n⚪ Brent Öl Future (BRN1!):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend zwar bullisch, aber belastet durch reguläre bärische Divergenzen).\n   📝 KI-Rationale: Brent Öl konsolidiert nach einer Aufwärtsbewegung, zeigt jedoch im 4h-Chart ein extremes Austrocknen des Volumens. Zudem warnt die...\n   Setup: Beobachten / Divergenz-Erschöpfung\n\n⚪ DJI (DJI):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 50%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Kurs notiert im neutralen Kanalbereich ohne HTF-Konfluenz).\n   📝 KI-Rationale: Der Dow Jones Index verweilt in einer indifferenten Mittellage des Kanals mit neutralem RSI um 52 Punkte. Trotz intakter 1D/4h Tre...\n   Setup: Beobachten / Konsolidierung im Kanal\n\n⚪ Adidas (ADS):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D RSI liegt bei 65.41 – Long-Verbot gemäß Regel 2 (RSI > 60)).\n   📝 KI-Rationale: Adidas nähert sich einer überkauften Zone mit aktivem Long-Verbot aufgrund des erhöhten RSI (>60) und doppelter bärischer Divergen...\n   Setup: Beobachten / Erschöpfung am Hoch\n\n⚪ Bayer (BAYN):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 45%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Strikter Multi-Timeframe Konflikt: 1D bärisch vs 4h bullisch ohne klares HTF-Signal).\n   📝 KI-Rationale: Bayer zeigt einen massiven Richtungsstreit zwischen dem übergeordneten 1D-Bärentrend und einer kurzfristigen 4h-Erholung. Solange ...\n   Setup: Beobachten / Multi-Timeframe Trend-Konflikt\n\n... und 3 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261026_100901",
     "timestamp": "2026-10-26T10:09:01.044572+00:00",
     "timestamp_display": "26.10.2026 10:09 UTC",
