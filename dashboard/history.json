@@ -1,5 +1,99 @@
 [
   {
+    "id": "evt_20261025_230716",
+    "timestamp": "2026-10-25T23:07:16.454028+00:00",
+    "timestamp_display": "25.10.2026 23:07 UTC",
+    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 3,
+    "changes": [
+      {
+        "symbol": "NYMEX:NG1!",
+        "name": "Erdgas Future",
+        "category": "Energie",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "LONG",
+        "old_score": 55,
+        "new_score": 75,
+        "price": 2.53,
+        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
+        "entry_range": [
+          2.51,
+          2.54
+        ],
+        "stop_loss": 2.44,
+        "take_profit_2": 2.82,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1D Kurs überdehnt unteres degencoder-Band (Oversold)",
+          "Aktiv: Reguläre Bärische Divergenz (Reversal)",
+          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bullische Konfluenz (75%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "TVC:PLATINUM",
+        "name": "Platin (Spot)",
+        "category": "Edelmetalle",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 53,
+        "price": 1558.34,
+        "setup_name": "Beobachten / Warten auf HTF-Trigger",
+        "entry_range": [
+          1558.34,
+          1558.34
+        ],
+        "stop_loss": 1511.59,
+        "take_profit_2": 1651.84,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
+        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "TVC:GOLD",
+        "name": "Gold (Spot)",
+        "category": "Edelmetalle",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 50,
+        "price": 3998.96,
+        "setup_name": "Beobachten / Warten auf HTF-Trigger",
+        "entry_range": [
+          3998.96,
+          3998.96
+        ],
+        "stop_loss": 3878.99,
+        "take_profit_2": 4238.9,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
+          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+          "RSI überverkauft (27.96)"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
+        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
+        "evaluated_by": "quantitative_engine"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🟢 Erdgas Future (NG1!):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 75%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (75%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 2.51 | SL: 2.44 | TP2: 2.82\n\n⚪ Platin (Spot) (PLATINUM):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 53%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n⚪ Gold (Spot) (GOLD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 50%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261025_140845",
     "timestamp": "2026-10-25T14:08:45.103964+00:00",
     "timestamp_display": "25.10.2026 14:08 UTC",
