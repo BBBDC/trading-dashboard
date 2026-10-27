@@ -1,5 +1,99 @@
 [
   {
+    "id": "evt_20261027_171237",
+    "timestamp": "2026-10-27T17:12:37.749988+00:00",
+    "timestamp_display": "27.10.2026 17:12 UTC",
+    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 3,
+    "changes": [
+      {
+        "symbol": "NASDAQ:TSLA",
+        "name": "Tesla",
+        "category": "EV / Auto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 43,
+        "new_score": 92,
+        "price": 406.74,
+        "setup_name": "Hypothese 3: Wyckoff Range Fakeout / Top Exhaustion",
+        "entry_range": [
+          405.93,
+          409.99
+        ],
+        "stop_loss": 420.98,
+        "take_profit_2": 361.17,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "1D Kurs überdehnt oberes degencoder-Band (Overbought)",
+          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
+          "Aktiv: Reguläre Bärische Divergenz (Reversal)"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
+        "note": "Strikte bärische Erschöpfung (92%): Überhitzung an HTF-Widerstandszone (1D Trend über EMA 233 bullisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NASDAQ:AAPL",
+        "name": "Apple",
+        "category": "Big Tech",
+        "change_type": "SETUP_UPDATE",
+        "old_signal": "LONG",
+        "new_signal": "LONG",
+        "old_score": 85,
+        "new_score": 80,
+        "price": 345.89,
+        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
+        "entry_range": [
+          343.12,
+          346.58
+        ],
+        "stop_loss": 333.78,
+        "take_profit_2": 384.64,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
+          "Aktiv: Reguläre Bärische Divergenz (Reversal)",
+          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
+        ],
+        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 2: Trend Continuation & Hidden Div' (1D Trend über EMA 233 bullisch).",
+        "note": "Strikte bullische Konfluenz (80%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NASDAQ:NVDA",
+        "name": "Nvidia",
+        "category": "Halbleiter",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 77,
+        "new_score": 56,
+        "price": 217.91,
+        "setup_name": "Beobachten / Warten auf HTF-Trigger",
+        "entry_range": [
+          217.91,
+          217.91
+        ],
+        "stop_loss": 211.37,
+        "take_profit_2": 230.98,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
+          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
+        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
+        "evaluated_by": "quantitative_engine"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🔴 Tesla (TSLA):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 92%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (92%): Überhitzung an HTF-Widerstandszone (1D Trend über EMA 233 bullisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 3: Wyckoff Range Fakeout / Top Exhaustion\n   Entry: 405.93 | SL: 420.98 | TP2: 361.17\n\n🟢 Apple (AAPL):\n   Score-Sprung: 85% ➔ 80% (LONG)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 2: Trend Continuation & Hidden Div' (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (80%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 343.12 | SL: 333.78 | TP2: 384.64\n\n⚪ Nvidia (NVDA):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 56%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261027_150738",
     "timestamp": "2026-10-27T15:07:38.479948+00:00",
     "timestamp_display": "27.10.2026 15:07 UTC",
