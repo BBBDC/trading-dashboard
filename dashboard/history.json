@@ -1,5 +1,99 @@
 [
   {
+    "id": "evt_20261026_230922",
+    "timestamp": "2026-10-26T23:09:22.017974+00:00",
+    "timestamp_display": "26.10.2026 23:09 UTC",
+    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 3,
+    "changes": [
+      {
+        "symbol": "COMEX:HG1!",
+        "name": "Kupfer Future",
+        "category": "Industriemetalle",
+        "change_type": "SCORE_JUMP",
+        "old_signal": "LONG",
+        "new_signal": "LONG",
+        "old_score": 96,
+        "new_score": 90,
+        "price": 6.55,
+        "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
+        "entry_range": [
+          6.5,
+          6.56
+        ],
+        "stop_loss": 6.32,
+        "take_profit_2": 7.29,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "Kurs im 1D Golden Pocket (6.55 - 6.57)",
+          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
+        ],
+        "change_reason": "Konfluenz-Veränderung: Score springt von 96% auf 90% (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "TVC:PLATINUM",
+        "name": "Platin (Spot)",
+        "category": "Edelmetalle",
+        "change_type": "SCORE_JUMP",
+        "old_signal": "LONG",
+        "new_signal": "LONG",
+        "old_score": 95,
+        "new_score": 75,
+        "price": 1526.19,
+        "setup_name": "Hypothese 1: SMC Support Reversal",
+        "entry_range": [
+          1513.98,
+          1529.24
+        ],
+        "stop_loss": 1472.77,
+        "take_profit_2": 1697.13,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
+          "Aktiv: Reguläre Bullische Divergenz (Reversal)"
+        ],
+        "change_reason": "Konfluenz-Veränderung: Score springt von 95% auf 75% (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bullische Konfluenz (75%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NYMEX:CL1!",
+        "name": "WTI Rohöl Future",
+        "category": "Energie",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "LONG",
+        "old_score": 58,
+        "new_score": 75,
+        "price": 101.34,
+        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
+        "entry_range": [
+          100.53,
+          101.54
+        ],
+        "stop_loss": 97.79,
+        "take_profit_2": 112.7,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
+          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
+          "VSA: Verkaufsdruck versiegt ('No Supply')"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
+        "note": "Strikte bullische Konfluenz (75%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
+        "evaluated_by": "quantitative_engine"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🟢 Kupfer Future (HG1!):\n   Score-Sprung: 96% ➔ 90% (LONG)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 96% auf 90% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 1: SMC Golden Confluence Reversal\n   Entry: 6.50 | SL: 6.32 | TP2: 7.29\n\n🟢 Platin (Spot) (PLATINUM):\n   Score-Sprung: 95% ➔ 75% (LONG)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 75% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (75%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 1,513.98 | SL: 1,472.77 | TP2: 1,697.13\n\n🟢 WTI Rohöl Future (CL1!):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 75%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (75%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 100.53 | SL: 97.79 | TP2: 112.70\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261026_220615",
     "timestamp": "2026-10-26T22:06:15.074427+00:00",
     "timestamp_display": "26.10.2026 22:06 UTC",
