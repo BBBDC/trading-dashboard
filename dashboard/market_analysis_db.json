@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-10-27 07:08:47 UTC",
+  "timestamp": "2026-10-27 08:08:41 UTC",
   "total_analyzed": 59,
   "long_count": 14,
-  "short_count": 2,
-  "neutral_count": 43,
+  "short_count": 3,
+  "neutral_count": 42,
   "assets": [
     {
       "symbol": "BINANCE:DOTUSDT",
@@ -331,35 +331,35 @@
       "name": "Bayer",
       "category": "Pharma / DAX",
       "asset_type": "Stock",
-      "price": 45.55,
+      "price": 45.56,
       "charts": {
         "4h": "charts/XETR_BAYN_4h.svg",
         "8h": "charts/XETR_BAYN_8h.svg",
         "1D": "charts/XETR_BAYN_1D.svg"
       },
-      "last_analyzed": "2026-10-26T14:05:53.132521+00:00",
+      "last_analyzed": "2026-10-27T08:05:14.835666+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "XETRA Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Geschlossen (Pause bis 09:00 CET)"
+        "status": "OPEN",
+        "session_name": "XETRA Regular Session",
+        "min_interval_minutes": 160,
+        "badge_color": "emerald",
+        "status_text": "XETRA Offen (bis 17:30 CET)"
       },
       "timeframes": {
         "1D": {
           "name": "Bayer (XETR:BAYN)",
-          "price": 45.55,
-          "rsi": 50.3,
+          "price": 45.56,
+          "rsi": 50.35,
           "trend": "BEARISH",
           "ema_fast": 44.62,
           "ema_trend": 46.05,
           "upper_band": 46.93,
           "lower_band": 42.32,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.37,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "vsa_ratio": 0.92,
+          "vsa_class": "Average / Normal",
           "fvgs": [
             {
               "type": "Bearish FVG",
@@ -431,8 +431,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bärische Divergenz (Reversal)"
           ],
           "swing_high": 51,
           "swing_low": 42.56,
@@ -444,16 +444,16 @@
         },
         "4h": {
           "name": "Bayer (XETR:BAYN)",
-          "price": 45.52,
-          "rsi": 61.7,
+          "price": 45.51,
+          "rsi": 61.47,
           "trend": "BULLISH",
-          "ema_fast": 44.42,
-          "ema_trend": 44.85,
-          "upper_band": 45.64,
-          "lower_band": 43.21,
+          "ema_fast": 44.58,
+          "ema_trend": 44.88,
+          "upper_band": 45.72,
+          "lower_band": 43.45,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.59,
-          "vsa_class": "Low",
+          "vsa_ratio": 0.32,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [
             {
               "type": "Bullish FVG",
@@ -471,14 +471,14 @@
             }
           ],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
           ],
-          "swing_high": 50.74,
+          "swing_high": 50.64,
           "swing_low": 42.56,
           "golden_pocket": [
-            47.62,
-            47.88
+            47.55,
+            47.81
           ],
           "in_golden_pocket": false
         }
@@ -488,17 +488,17 @@
       "setup_name": "Hypothese 1: Bearish Confluence Reversal",
       "crv": 3.2,
       "entry_range": [
-        45.46,
-        45.91
+        45.47,
+        45.92
       ],
-      "stop_loss": 47.14,
-      "take_profit_1": 42.69,
-      "take_profit_2": 40.46,
+      "stop_loss": 47.15,
+      "take_profit_1": 42.7,
+      "take_profit_2": 40.47,
       "reasons": [
         "1D Trend unter EMA 233 bärisch",
         "Aktiv: Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-        "Aktiv: Reguläre Bärische Divergenz (Reversal)"
+        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
       ],
       "analyst_note": "Strikte bärische Erschöpfung (90%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
       "evaluated_by": "quantitative_engine"
@@ -810,6 +810,161 @@
         "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
       ],
       "analyst_note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
+      "evaluated_by": "quantitative_engine"
+    },
+    {
+      "symbol": "XETR:DAX",
+      "name": "DAX 40",
+      "category": "Indizes",
+      "asset_type": "Index",
+      "price": 25410.84,
+      "charts": {
+        "4h": "charts/XETR_DAX_4h.svg",
+        "8h": "charts/XETR_DAX_8h.svg",
+        "1D": "charts/XETR_DAX_1D.svg"
+      },
+      "last_analyzed": "2026-10-27T08:05:14.835666+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "XETRA Regular Session",
+        "min_interval_minutes": 160,
+        "badge_color": "emerald",
+        "status_text": "XETRA Offen (bis 17:30 CET)"
+      },
+      "timeframes": {
+        "1D": {
+          "name": "DAX 40 (XETR:DAX)",
+          "price": 25410.84,
+          "rsi": 50.47,
+          "trend": "BEARISH",
+          "ema_fast": 25348.12,
+          "ema_trend": 25449.05,
+          "upper_band": 25922.12,
+          "lower_band": 24774.11,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.89,
+          "vsa_class": "Average / Normal",
+          "fvgs": [],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 26618.74,
+          "swing_low": 24792.79,
+          "golden_pocket": [
+            25921.23,
+            25979.66
+          ],
+          "in_golden_pocket": false
+        },
+        "8h": {
+          "name": "DAX 40 (XETR:DAX)",
+          "price": 25623.78,
+          "rsi": 58.07,
+          "trend": "BULLISH",
+          "ema_fast": 25363.6,
+          "ema_trend": 25485.32,
+          "upper_band": 25772.64,
+          "lower_band": 24954.56,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 1.11,
+          "vsa_class": "Average / Normal",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 25090.14,
+              "bottom": 24976.34,
+              "ce_50": 25033.24,
+              "gap_pct": 0.46
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 25570.63,
+              "bottom": 25401.15,
+              "ce_50": 25485.89,
+              "gap_pct": 0.67
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 26618.74,
+          "swing_low": 24792.79,
+          "golden_pocket": [
+            25921.23,
+            25979.66
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "DAX 40 (XETR:DAX)",
+          "price": 25439.99,
+          "rsi": 53.34,
+          "trend": "BULLISH",
+          "ema_fast": 25359.54,
+          "ema_trend": 25348.46,
+          "upper_band": 25654.63,
+          "lower_band": 25064.45,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.27,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 25594.39,
+              "bottom": 25563.13,
+              "ce_50": 25578.76,
+              "gap_pct": 0.12
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 25217.15,
+              "bottom": 25209.92,
+              "ce_50": 25213.53,
+              "gap_pct": 0.03
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 25397.93,
+              "bottom": 25155.95,
+              "ce_50": 25276.94,
+              "gap_pct": 0.96
+            }
+          ],
+          "divergences": [
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bärische Divergenz (Reversal)"
+          ],
+          "swing_high": 25706.19,
+          "swing_low": 24792.79,
+          "golden_pocket": [
+            25112.48,
+            25141.71
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "signal": "SHORT",
+      "score": 90,
+      "setup_name": "Hypothese 1: Bearish Confluence Reversal",
+      "crv": 3.2,
+      "entry_range": [
+        25360.02,
+        25614.13
+      ],
+      "stop_loss": 26300.22,
+      "take_profit_1": 23809.96,
+      "take_profit_2": 22564.82,
+      "reasons": [
+        "1D Trend unter EMA 233 bärisch",
+        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: Reguläre Bullische Divergenz (Reversal)"
+      ],
+      "analyst_note": "Strikte bärische Erschöpfung (90%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
       "evaluated_by": "quantitative_engine"
     },
     {
@@ -4690,35 +4845,35 @@
       "name": "Novartis",
       "category": "Pharma",
       "asset_type": "Stock",
-      "price": 34.88,
+      "price": 34.85,
       "charts": {
         "4h": "charts/XETR_NOV_4h.svg",
         "8h": "charts/XETR_NOV_8h.svg",
         "1D": "charts/XETR_NOV_1D.svg"
       },
-      "last_analyzed": "2026-10-26T14:05:53.132521+00:00",
+      "last_analyzed": "2026-10-27T08:05:14.835666+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "XETRA Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Geschlossen (Pause bis 09:00 CET)"
+        "status": "OPEN",
+        "session_name": "XETRA Regular Session",
+        "min_interval_minutes": 160,
+        "badge_color": "emerald",
+        "status_text": "XETRA Offen (bis 17:30 CET)"
       },
       "timeframes": {
         "1D": {
           "name": "Novartis (XETR:NOV)",
-          "price": 34.88,
-          "rsi": 48.18,
+          "price": 34.85,
+          "rsi": 47.91,
           "trend": "BEARISH",
-          "ema_fast": 34.73,
+          "ema_fast": 34.72,
           "ema_trend": 36.17,
-          "upper_band": 36.05,
+          "upper_band": 36.04,
           "lower_band": 33.4,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.32,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "vsa_ratio": 0.52,
+          "vsa_class": "Low",
           "fvgs": [
             {
               "type": "Bearish FVG",
@@ -4729,8 +4884,8 @@
             }
           ],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
           ],
           "swing_high": 42.09,
           "swing_low": 32.72,
@@ -4788,15 +4943,15 @@
         },
         "4h": {
           "name": "Novartis (XETR:NOV)",
-          "price": 34.88,
-          "rsi": 52.87,
+          "price": 34.87,
+          "rsi": 52.48,
           "trend": "BULLISH",
           "ema_fast": 34.92,
-          "ema_trend": 34.7,
-          "upper_band": 35.49,
-          "lower_band": 34.36,
+          "ema_trend": 34.71,
+          "upper_band": 35.45,
+          "lower_band": 34.38,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.31,
+          "vsa_ratio": 0.27,
           "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [
             {
@@ -4822,8 +4977,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Reguläre Bärische Divergenz (Reversal)"
           ],
           "swing_high": 35.47,
           "swing_low": 32.72,
@@ -4839,16 +4994,16 @@
       "setup_name": "Beobachten / Warten auf HTF-Trigger",
       "crv": 2.0,
       "entry_range": [
-        34.88,
-        34.88
+        34.85,
+        34.85
       ],
-      "stop_loss": 33.83,
-      "take_profit_1": 35.93,
-      "take_profit_2": 36.97,
+      "stop_loss": 33.8,
+      "take_profit_1": 35.9,
+      "take_profit_2": 36.94,
       "reasons": [
         "1D Trend unter EMA 233 bärisch",
-        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
         "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
+        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
         "Aktiv: Reguläre Bullische Divergenz (Reversal)"
       ],
       "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
@@ -6088,15 +6243,15 @@
         "8h": "charts/XETR_ADS_8h.svg",
         "1D": "charts/XETR_ADS_1D.svg"
       },
-      "last_analyzed": "2026-10-26T14:05:53.132521+00:00",
+      "last_analyzed": "2026-10-27T08:05:14.835666+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "XETRA Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Geschlossen (Pause bis 09:00 CET)"
+        "status": "OPEN",
+        "session_name": "XETRA Regular Session",
+        "min_interval_minutes": 160,
+        "badge_color": "emerald",
+        "status_text": "XETRA Offen (bis 17:30 CET)"
       },
       "timeframes": {
         "1D": {
@@ -6106,11 +6261,11 @@
           "trend": "BULLISH",
           "ema_fast": 155.76,
           "ema_trend": 153.1,
-          "upper_band": 162.17,
-          "lower_band": 149.35,
+          "upper_band": 162.25,
+          "lower_band": 149.27,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.26,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "vsa_ratio": 0.93,
+          "vsa_class": "Average / Normal",
           "fvgs": [
             {
               "type": "Bullish FVG",
@@ -6191,16 +6346,16 @@
         },
         "4h": {
           "name": "Adidas (XETR:ADS)",
-          "price": 159.85,
-          "rsi": 59.61,
+          "price": 159.47,
+          "rsi": 58.18,
           "trend": "BULLISH",
-          "ema_fast": 158.75,
-          "ema_trend": 154.42,
-          "upper_band": 162.34,
-          "lower_band": 155.15,
+          "ema_fast": 158.81,
+          "ema_trend": 154.6,
+          "upper_band": 162.3,
+          "lower_band": 155.33,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.47,
-          "vsa_class": "Low",
+          "vsa_ratio": 0.21,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [
             {
               "type": "Bullish FVG",
@@ -6225,8 +6380,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Reguläre Bärische Divergenz (Reversal)"
           ],
           "swing_high": 163.2,
           "swing_low": 138.35,
@@ -6251,8 +6406,8 @@
       "reasons": [
         "1D Trend über EMA 233 bullisch",
         "Aktiv: Reguläre Bärische Divergenz (Reversal)",
-        "Aktiv: Reguläre Bärische Divergenz (Reversal)",
-        "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
+        "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
+        "Aktiv: Reguläre Bärische Divergenz (Reversal)"
       ],
       "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
       "evaluated_by": "quantitative_engine"
@@ -7688,161 +7843,6 @@
         "1D Trend unter EMA 233 bärisch",
         "Aktiv: Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
-      ],
-      "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-      "evaluated_by": "quantitative_engine"
-    },
-    {
-      "symbol": "XETR:DAX",
-      "name": "DAX 40",
-      "category": "Indizes",
-      "asset_type": "Index",
-      "price": 25435.17,
-      "charts": {
-        "4h": "charts/XETR_DAX_4h.svg",
-        "8h": "charts/XETR_DAX_8h.svg",
-        "1D": "charts/XETR_DAX_1D.svg"
-      },
-      "last_analyzed": "2026-10-26T14:05:53.132521+00:00",
-      "market_state": {
-        "is_open": false,
-        "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "XETRA Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Geschlossen (Pause bis 09:00 CET)"
-      },
-      "timeframes": {
-        "1D": {
-          "name": "DAX 40 (XETR:DAX)",
-          "price": 25435.17,
-          "rsi": 50.93,
-          "trend": "BEARISH",
-          "ema_fast": 25351.59,
-          "ema_trend": 25450.01,
-          "upper_band": 25919.01,
-          "lower_band": 24784.17,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.33,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 26618.74,
-          "swing_low": 24792.79,
-          "golden_pocket": [
-            25921.23,
-            25979.66
-          ],
-          "in_golden_pocket": false
-        },
-        "8h": {
-          "name": "DAX 40 (XETR:DAX)",
-          "price": 25623.78,
-          "rsi": 58.07,
-          "trend": "BULLISH",
-          "ema_fast": 25363.6,
-          "ema_trend": 25485.32,
-          "upper_band": 25772.64,
-          "lower_band": 24954.56,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.11,
-          "vsa_class": "Average / Normal",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 25090.14,
-              "bottom": 24976.34,
-              "ce_50": 25033.24,
-              "gap_pct": 0.46
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 25570.63,
-              "bottom": 25401.15,
-              "ce_50": 25485.89,
-              "gap_pct": 0.67
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 26618.74,
-          "swing_low": 24792.79,
-          "golden_pocket": [
-            25921.23,
-            25979.66
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "DAX 40 (XETR:DAX)",
-          "price": 25435.17,
-          "rsi": 53.2,
-          "trend": "BULLISH",
-          "ema_fast": 25345.48,
-          "ema_trend": 25344.53,
-          "upper_band": 25654.23,
-          "lower_band": 25036.72,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.45,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 25594.39,
-              "bottom": 25563.13,
-              "ce_50": 25578.76,
-              "gap_pct": 0.12
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 25217.15,
-              "bottom": 25209.92,
-              "ce_50": 25213.53,
-              "gap_pct": 0.03
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 25407.22,
-              "bottom": 25155.95,
-              "ce_50": 25281.58,
-              "gap_pct": 1.0
-            }
-          ],
-          "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 25706.19,
-          "swing_low": 24792.79,
-          "golden_pocket": [
-            25112.48,
-            25141.71
-          ],
-          "in_golden_pocket": false
-        }
-      },
-      "signal": "NEUTRAL",
-      "score": 46,
-      "setup_name": "Beobachten / Warten auf HTF-Trigger",
-      "crv": 2.0,
-      "entry_range": [
-        25435.17,
-        25435.17
-      ],
-      "stop_loss": 24672.11,
-      "take_profit_1": 26198.23,
-      "take_profit_2": 26961.28,
-      "reasons": [
-        "1D Trend unter EMA 233 bärisch",
-        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-        "Aktiv: Reguläre Bullische Divergenz (Reversal)"
       ],
       "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
       "evaluated_by": "quantitative_engine"
@@ -9463,7 +9463,7 @@
         "analyst_note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
         "unrealized_pnl_pct": 7.98,
         "unrealized_pnl_leveraged_pct": 47.86,
-        "holding_hours": 179.2,
+        "holding_hours": 180.2,
         "holding_days": 7.5,
         "tp1_reached": true,
         "trailing_active": true,
@@ -9493,8 +9493,8 @@
         "analyst_note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 1.87,
         "unrealized_pnl_leveraged_pct": 11.2,
-        "holding_hours": 89.9,
-        "holding_days": 3.7,
+        "holding_hours": 90.9,
+        "holding_days": 3.8,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -9523,7 +9523,7 @@
         "analyst_note": "Strikte bärische Erschöpfung (92%): Überhitzung an HTF-Widerstandszone (1D Trend über EMA 233 bullisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
         "unrealized_pnl_pct": 1.14,
         "unrealized_pnl_leveraged_pct": 6.85,
-        "holding_hours": 69.0,
+        "holding_hours": 70.0,
         "holding_days": 2.9,
         "tp1_reached": false,
         "trailing_active": false,
@@ -9553,8 +9553,8 @@
         "analyst_note": "Strikte bärische Erschöpfung (90%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
         "unrealized_pnl_pct": 1.05,
         "unrealized_pnl_leveraged_pct": 5.25,
-        "holding_hours": 61.0,
-        "holding_days": 2.5,
+        "holding_hours": 62.0,
+        "holding_days": 2.6,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -9583,7 +9583,7 @@
         "analyst_note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 0.54,
         "unrealized_pnl_leveraged_pct": 2.71,
-        "holding_hours": 28.0,
+        "holding_hours": 29.0,
         "holding_days": 1.2,
         "tp1_reached": false,
         "trailing_active": false,
@@ -9613,8 +9613,8 @@
         "analyst_note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": -0.07,
         "unrealized_pnl_leveraged_pct": -0.26,
-        "holding_hours": 25.0,
-        "holding_days": 1.0,
+        "holding_hours": 26.0,
+        "holding_days": 1.1,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -9643,8 +9643,8 @@
         "analyst_note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": -1.13,
         "unrealized_pnl_leveraged_pct": -3.38,
-        "holding_hours": 25.0,
-        "holding_days": 1.0,
+        "holding_hours": 26.0,
+        "holding_days": 1.1,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -9673,8 +9673,8 @@
         "analyst_note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": -0.59,
         "unrealized_pnl_leveraged_pct": -2.37,
-        "holding_hours": 20.0,
-        "holding_days": 0.8,
+        "holding_hours": 21.0,
+        "holding_days": 0.9,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -10382,7 +10382,7 @@
         "title": "⚠️ Bullische Divergenz im 4h-Chart",
         "message": "Es formiert sich eine bullische Divergenz gegen deinen Short. Reversal-Gefahr! Stop-Loss eng nachziehen."
       },
-      "updated_at": "2026-10-27T07:08:47.980030+00:00"
+      "updated_at": "2026-10-27T08:08:41.863629+00:00"
     }
   ],
   "gemini_quota": {
@@ -10425,7 +10425,7 @@
         "tokens_used": 0,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 16h 51m",
+        "reset_countdown": "in 15h 51m",
         "last_error": null
       },
       {
@@ -10439,7 +10439,7 @@
         "tokens_used": 0,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 16h 51m",
+        "reset_countdown": "in 15h 51m",
         "last_error": null
       },
       {
@@ -10453,7 +10453,7 @@
         "tokens_used": 0,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 16h 51m",
+        "reset_countdown": "in 15h 51m",
         "last_error": null
       }
     ]
