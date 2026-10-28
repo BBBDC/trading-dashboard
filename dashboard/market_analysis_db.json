@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-10-28 15:59:04 UTC",
+  "timestamp": "2026-10-28 17:41:25 UTC",
   "total_analyzed": 125,
-  "long_count": 16,
-  "short_count": 15,
-  "neutral_count": 94,
+  "long_count": 14,
+  "short_count": 13,
+  "neutral_count": 98,
   "assets": [
     {
       "symbol": "TRADEGATE:2PP",
@@ -12,20 +12,20 @@
       "asset_type": "Stock",
       "price": 49.9,
       "signal": "LONG",
-      "score": 89,
+      "score": 88,
       "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
-      "crv": 3.1,
+      "crv": 2.85,
       "entry_range": [
-        49.3,
-        49.95
+        49.2,
+        50.1
       ],
-      "stop_loss": 47.9,
+      "stop_loss": 47.8,
       "take_profit_1": 53.8,
-      "take_profit_2": 56.2,
+      "take_profit_2": 56.5,
       "reasons": [
-        "Makro-Trend (1W & 1D) klar bullisch über 233 EMA; der 4h-Pullback ist eine gesunde Korrektur im Aufwärtstrend.",
-        "Perfekte Konfluenz: Kurs sitzt im 1D und 4h Fibonacci Golden Pocket (in_gp = true) bei moderatem RSI (46.6 auf 4h).",
-        "Starke VSA-Bestätigung durch 'No Supply' auf 4h/1h kombiniert mit aktiver regulärer und versteckter bullischer Divergenz auf 4h."
+        "1W- und 1D-Makrotrend intakt bullisch bei gleichzeitigem Sitzen im 1D & 4h Fibonacci Golden Pocket (in_gp: true).",
+        "4h zeigt No Supply / Ultra-Low Volume bei aktiver regulärer und versteckter bullischer Divergenz (Absorption des Verkaufsdrucks).",
+        "Strikte Hysterese gewahrt: Bestätigung des vorherigen LONG-Signals, da der 4h-Pullback eine Lehrbuch-Korrektur in die HTF-Demand-Zone darstellt."
       ],
       "charts": {
         "1h": "charts/TRADEGATE_2PP_1h.svg",
@@ -33,7 +33,7 @@
         "1D": "charts/TRADEGATE_2PP_1D.svg",
         "1W": "charts/TRADEGATE_2PP_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -141,8 +141,8 @@
           "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
           ],
           "swing_high": 70.78,
           "swing_low": 32.42,
@@ -153,7 +153,7 @@
           "in_golden_pocket": false
         }
       },
-      "analyst_note": "PayPal zeigt ein institutionelles Lehrbuch-Setup für einen 'Buy the Dip' im übergeordneten Bullenmarkt. Durch das Erreichen des 1D/4h Golden Pockets bei gleichzeitig austrocknendem Verkaufsvolumen (No Supply) ist das Abwärtsrisiko klar definierbar. Ein Stopp knapp unter dem Swing-Tief des GP bei 47,90 EUR bietet ein erstklassiges Chance-Risiko-Verhältnis von über 3:1.",
+      "analyst_note": "PayPal testet das übergeordnete Golden Pocket mit stark nachlassendem Abgabevolumen (No Supply). Das Setup bietet ein exzellentes CRV von knapp 2.9:1 bei klar definierter Entwertung unterhalb des Swing-Tiefs bei 47.80 EUR. Ausführung erfolgt gestaffelt in der Entry-Zone mit Fokus auf Fortsetzung des 1D-Trends.",
       "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
@@ -668,210 +668,6 @@
       "currency": "USD"
     },
     {
-      "symbol": "TRADEGATE:SAP",
-      "name": "SAP SE",
-      "category": "Tradegate / EU",
-      "asset_type": "Stock",
-      "price": 209.95,
-      "signal": "LONG",
-      "score": 81,
-      "setup_name": "Hypothese 1: SMC Support Reversal",
-      "crv": 3.2,
-      "entry_range": [
-        208.27,
-        210.37
-      ],
-      "stop_loss": 202.6,
-      "take_profit_1": 223.18,
-      "take_profit_2": 233.47,
-      "reasons": [
-        "1D Trend über EMA 233 bullisch",
-        "1W Makro-Trend bullisch bestätigt",
-        "Aktiv: 1h Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: 4h Reguläre Bärische Divergenz (Reversal)"
-      ],
-      "charts": {
-        "1h": "charts/TRADEGATE_SAP_1h.svg",
-        "4h": "charts/TRADEGATE_SAP_4h.svg",
-        "1D": "charts/TRADEGATE_SAP_1D.svg",
-        "1W": "charts/TRADEGATE_SAP_1W.svg"
-      },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "Tradegate Session",
-        "min_interval_minutes": 75,
-        "badge_color": "emerald",
-        "status_text": "Tradegate Offen (bis 22:00 CET)"
-      },
-      "timeframes": {
-        "1h": {
-          "name": "SAP SE (TRADEGATE:SAP)",
-          "price": 209.45,
-          "rsi": 34.97,
-          "trend": "BEARISH",
-          "ema_fast": 211.88,
-          "ema_trend": 212.08,
-          "upper_band": 214.5,
-          "lower_band": 209.26,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.96,
-          "vsa_class": "Average / Normal",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 211.05,
-              "bottom": 210.75,
-              "ce_50": 210.9,
-              "gap_pct": 0.14
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 216.5,
-          "swing_low": 206.35,
-          "golden_pocket": [
-            209.9,
-            210.23
-          ],
-          "in_golden_pocket": true
-        },
-        "4h": {
-          "name": "SAP SE (TRADEGATE:SAP)",
-          "price": 209.45,
-          "rsi": 50.12,
-          "trend": "BULLISH",
-          "ema_fast": 211.82,
-          "ema_trend": 205.0,
-          "upper_band": 217.19,
-          "lower_band": 206.44,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.15,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 203.7,
-              "bottom": 203.4,
-              "ce_50": 203.55,
-              "gap_pct": 0.15
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 212.65,
-              "bottom": 212.5,
-              "ce_50": 212.57,
-              "gap_pct": 0.07
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 211.8,
-              "bottom": 210.75,
-              "ce_50": 211.28,
-              "gap_pct": 0.5
-            }
-          ],
-          "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 216.5,
-          "swing_low": 183.8,
-          "golden_pocket": [
-            195.25,
-            196.29
-          ],
-          "in_golden_pocket": false
-        },
-        "1D": {
-          "name": "SAP SE (TRADEGATE:SAP)",
-          "price": 209.95,
-          "rsi": 70.69,
-          "trend": "BULLISH",
-          "ema_fast": 205.26,
-          "ema_trend": 190.12,
-          "upper_band": 215.2,
-          "lower_band": 195.32,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.33,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 190,
-              "bottom": 189.76,
-              "ce_50": 189.88,
-              "gap_pct": 0.13
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 194.04,
-              "bottom": 192.52,
-              "ce_50": 193.28,
-              "gap_pct": 0.79
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 205.2,
-              "bottom": 203.4,
-              "ce_50": 204.3,
-              "gap_pct": 0.88
-            }
-          ],
-          "divergences": [],
-          "swing_high": 216.5,
-          "swing_low": 168.14,
-          "golden_pocket": [
-            185.07,
-            186.61
-          ],
-          "in_golden_pocket": false
-        },
-        "1W": {
-          "name": "SAP SE (TRADEGATE:SAP)",
-          "price": 209.95,
-          "rsi": 68.91,
-          "trend": "BULLISH",
-          "ema_fast": 188.43,
-          "ema_trend": 183.2,
-          "upper_band": 211.3,
-          "lower_band": 165.56,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.29,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 197.38,
-              "bottom": 192.52,
-              "ce_50": 194.95,
-              "gap_pct": 2.52
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 209.65,
-              "bottom": 204,
-              "ce_50": 206.82,
-              "gap_pct": 2.77
-            }
-          ],
-          "divergences": [],
-          "swing_high": 242,
-          "swing_low": 127.52,
-          "golden_pocket": [
-            198.27,
-            201.93
-          ],
-          "in_golden_pocket": false
-        }
-      },
-      "analyst_note": "Strikte bullische Konfluenz (81%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-      "evaluated_by": "quantitative_engine"
-    },
-    {
       "symbol": "TRADEGATE:IBM",
       "name": "IBM (Tradegate)",
       "category": "Tradegate / EU",
@@ -900,7 +696,7 @@
         "1D": "charts/TRADEGATE_IBM_1D.svg",
         "1W": "charts/TRADEGATE_IBM_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -1077,8 +873,8 @@
             }
           ],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Reguläre Bärische Divergenz (Reversal)"
           ],
           "swing_high": 292.85,
           "swing_low": 175.14,
@@ -1121,7 +917,7 @@
         "1D": "charts/TRADEGATE_SPX_1D.svg",
         "1W": "charts/TRADEGATE_SPX_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -1224,8 +1020,8 @@
             }
           ],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
           ],
           "swing_high": 156.8,
           "swing_low": 91.98,
@@ -1257,8 +1053,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 194.46,
           "swing_low": 91.04,
@@ -1302,7 +1098,7 @@
         "1W": "charts/COINBASE_BTCUSD_1W.svg",
         "3D": "charts/COINBASE_BTCUSD_3D.svg"
       },
-      "last_analyzed": "2026-10-28T13:24:01.919125+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -1490,13 +1286,7 @@
         }
       },
       "analyst_note": "Strikte bullische Konfluenz (81%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Crypto",
-        "Watchlist"
-      ],
-      "source_watchlist": "Crypto",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:AMD",
@@ -1517,15 +1307,15 @@
       "take_profit_2": 623.13,
       "reasons": [
         "1D Trend über EMA 233 bullisch",
-        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: 1D Versteckte Bullische Divergenz (Trendfolge)"
       ],
       "charts": {
         "4h": "charts/NASDAQ_AMD_4h.svg",
         "1D": "charts/NASDAQ_AMD_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -1573,8 +1363,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 658.52,
           "swing_low": 502.6,
@@ -1654,15 +1444,15 @@
       "take_profit_2": 222.72,
       "reasons": [
         "1D Trend über EMA 233 bullisch",
-        "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
         "Aktiv: 4h Versteckte Bullische Divergenz (Trendfolge)",
+        "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
         "Aktiv: 1D Reguläre Bärische Divergenz (Reversal)"
       ],
       "charts": {
         "4h": "charts/NASDAQ_PLTR_4h.svg",
         "1D": "charts/NASDAQ_PLTR_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -1696,8 +1486,8 @@
             }
           ],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
           ],
           "swing_high": 212.93,
           "swing_low": 168.97,
@@ -1765,8 +1555,8 @@
       "reasons": [
         "1D Trend über EMA 233 bullisch",
         "1W Makro-Trend bullisch bestätigt",
-        "Aktiv: 1h Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: 1h Versteckte Bärische Divergenz (Trendfolge)"
+        "Aktiv: 1h Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: 1h Reguläre Bullische Divergenz (Reversal)"
       ],
       "charts": {
         "1h": "charts/TRADEGATE_CSA_1h.svg",
@@ -1774,7 +1564,7 @@
         "1D": "charts/TRADEGATE_CSA_1D.svg",
         "1W": "charts/TRADEGATE_CSA_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -1821,8 +1611,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 230,
           "swing_low": 208,
@@ -1952,8 +1742,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 250.95,
           "swing_low": 103.6,
@@ -1996,7 +1786,7 @@
         "1D": "charts/TRADEGATE_AMZ_1D.svg",
         "1W": "charts/TRADEGATE_AMZ_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -2155,123 +1945,6 @@
           ],
           "in_golden_pocket": false
         }
-      },
-      "analyst_note": "Strikte bullische Konfluenz (81%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-      "evaluated_by": "quantitative_engine"
-    },
-    {
-      "symbol": "NASDAQ:MSFT",
-      "name": "Microsoft",
-      "category": "Big Tech",
-      "asset_type": "Stock",
-      "price": 531.62,
-      "signal": "LONG",
-      "score": 81,
-      "setup_name": "Hypothese 1: SMC Support Reversal",
-      "crv": 3.2,
-      "entry_range": [
-        527.37,
-        532.68
-      ],
-      "stop_loss": 513.01,
-      "take_profit_1": 565.12,
-      "take_profit_2": 591.17,
-      "reasons": [
-        "1D Trend über EMA 233 bullisch",
-        "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
-        "Aktiv: 4h Versteckte Bullische Divergenz (Trendfolge)",
-        "Aktiv: 1D Reguläre Bärische Divergenz (Reversal)"
-      ],
-      "charts": {
-        "4h": "charts/NASDAQ_MSFT_4h.svg",
-        "1D": "charts/NASDAQ_MSFT_1D.svg"
-      },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "US Regular Session (Wall Street)",
-        "min_interval_minutes": 70,
-        "badge_color": "emerald",
-        "status_text": "US Session Offen (bis 22:00 CET)"
-      },
-      "timeframes": {
-        "1h": null,
-        "4h": {
-          "name": "Microsoft (NASDAQ:MSFT)",
-          "price": 531.63,
-          "rsi": 53.37,
-          "trend": "BULLISH",
-          "ema_fast": 530.19,
-          "ema_trend": 523.45,
-          "upper_band": 541.61,
-          "lower_band": 518.77,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.31,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 529.86,
-              "bottom": 525.11,
-              "ce_50": 527.49,
-              "gap_pct": 0.9
-            }
-          ],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 551.15,
-          "swing_low": 487.25,
-          "golden_pocket": [
-            509.62,
-            511.66
-          ],
-          "in_golden_pocket": false
-        },
-        "1D": {
-          "name": "Microsoft (NASDAQ:MSFT)",
-          "price": 531.62,
-          "rsi": 56.52,
-          "trend": "BULLISH",
-          "ema_fast": 529.13,
-          "ema_trend": 507.41,
-          "upper_band": 548.75,
-          "lower_band": 509.51,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.51,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 502.22,
-              "bottom": 498.9,
-              "ce_50": 500.56,
-              "gap_pct": 0.67
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 528.33,
-              "bottom": 525.77,
-              "ce_50": 527.05,
-              "gap_pct": 0.49
-            }
-          ],
-          "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 551.15,
-          "swing_low": 477.15,
-          "golden_pocket": [
-            503.05,
-            505.42
-          ],
-          "in_golden_pocket": false
-        },
-        "1W": null
       },
       "analyst_note": "Strikte bullische Konfluenz (81%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
       "evaluated_by": "quantitative_engine"
@@ -2494,7 +2167,13 @@
         }
       },
       "analyst_note": "Strikte bullische Konfluenz (81%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Crypto",
+        "Watchlist"
+      ],
+      "source_watchlist": "Crypto",
+      "currency": "USD"
     },
     {
       "symbol": "TVC:SILVER",
@@ -2703,124 +2382,12 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine"
-    },
-    {
-      "symbol": "NYSE:ORCL",
-      "name": "Oracle",
-      "category": "Enterprise Software",
-      "asset_type": "Stock",
-      "price": 131.86,
-      "signal": "SHORT",
-      "score": 75,
-      "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-      "crv": 3.2,
-      "entry_range": [
-        131.6,
-        132.91
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Commodities"
       ],
-      "stop_loss": 136.48,
-      "take_profit_1": 123.54,
-      "take_profit_2": 117.08,
-      "reasons": [
-        "1D Trend unter EMA 233 bärisch",
-        "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
-        "Aktiv: 4h Versteckte Bullische Divergenz (Trendfolge)",
-        "Aktiv: 1D Reguläre Bullische Divergenz (Reversal)"
-      ],
-      "charts": {
-        "4h": "charts/NYSE_ORCL_4h.svg",
-        "1D": "charts/NYSE_ORCL_1D.svg"
-      },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "US Regular Session (Wall Street)",
-        "min_interval_minutes": 70,
-        "badge_color": "emerald",
-        "status_text": "US Session Offen (bis 22:00 CET)"
-      },
-      "timeframes": {
-        "1h": null,
-        "4h": {
-          "name": "Oracle (NYSE:ORCL)",
-          "price": 131.86,
-          "rsi": 50.22,
-          "trend": "BEARISH",
-          "ema_fast": 129.27,
-          "ema_trend": 135.19,
-          "upper_band": 135.95,
-          "lower_band": 122.59,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.15,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 141.51,
-              "bottom": 131.88,
-              "ce_50": 136.69,
-              "gap_pct": 6.81
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 131.26,
-              "bottom": 127.2,
-              "ce_50": 129.23,
-              "gap_pct": 3.2
-            }
-          ],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 153.6,
-          "swing_low": 122.76,
-          "golden_pocket": [
-            141.82,
-            142.81
-          ],
-          "in_golden_pocket": false
-        },
-        "1D": {
-          "name": "Oracle (NYSE:ORCL)",
-          "price": 131.86,
-          "rsi": 46.04,
-          "trend": "BEARISH",
-          "ema_fast": 131.48,
-          "ema_trend": 140.68,
-          "upper_band": 142.9,
-          "lower_band": 120.05,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.62,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 135.55,
-              "bottom": 135.08,
-              "ce_50": 135.31,
-              "gap_pct": 0.35
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 170.7,
-          "swing_low": 122.76,
-          "golden_pocket": [
-            152.39,
-            153.92
-          ],
-          "in_golden_pocket": false
-        },
-        "1W": null
-      },
-      "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine"
+      "source_watchlist": "Commodities",
+      "currency": "USD"
     },
     {
       "symbol": "NYSE:UAA",
@@ -2843,13 +2410,13 @@
         "1D Trend unter EMA 233 bärisch",
         "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
         "Aktiv: 1D Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: 1D Versteckte Bärische Divergenz (Trendfolge)"
+        "Aktiv: 1D Reguläre Bärische Divergenz (Reversal)"
       ],
       "charts": {
         "4h": "charts/NYSE_UAA_4h.svg",
         "1D": "charts/NYSE_UAA_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -2916,7 +2483,7 @@
           ],
           "divergences": [
             "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Reguläre Bärische Divergenz (Reversal)"
           ],
           "swing_high": 6.91,
           "swing_low": 4.22,
@@ -2951,8 +2518,8 @@
       "reasons": [
         "1D Trend unter EMA 233 bärisch",
         "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)",
-        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)"
+        "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)"
       ],
       "charts": {
         "1h": "charts/TRADEGATE_ABEA_1h.svg",
@@ -2960,7 +2527,7 @@
         "1D": "charts/TRADEGATE_ABEA_1D.svg",
         "1W": "charts/TRADEGATE_ABEA_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -3053,8 +2620,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 323,
           "swing_low": 281.55,
@@ -3130,8 +2697,8 @@
             }
           ],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 350.75,
           "swing_low": 198.26,
@@ -3382,7 +2949,12 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Crypto"
+      ],
+      "source_watchlist": "Crypto",
+      "currency": "USD"
     },
     {
       "symbol": "TVC:NI225",
@@ -3608,7 +3180,12 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Watchlist"
+      ],
+      "source_watchlist": "Watchlist",
+      "currency": "USD"
     },
     {
       "symbol": "BINANCE:BTCUSD",
@@ -3815,7 +3392,12 @@
         }
       },
       "analyst_note": "Strikte bullische Konfluenz (75%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Crypto"
+      ],
+      "source_watchlist": "Crypto",
+      "currency": "USD"
     },
     {
       "symbol": "NASDAQ:PYPL",
@@ -3844,7 +3426,7 @@
         "4h": "charts/NASDAQ_PYPL_4h.svg",
         "1D": "charts/NASDAQ_PYPL_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -3971,13 +3553,13 @@
       },
       "last_analyzed": "2026-10-28T13:24:01.919125+00:00",
       "market_state": {
-        "is_open": true,
+        "is_open": false,
         "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "XETRA Regular Session",
-        "min_interval_minutes": 120,
-        "badge_color": "emerald",
-        "status_text": "XETRA Offen (bis 17:35 CET)"
+        "status": "CLOSED",
+        "session_name": "XETRA Nachtpause",
+        "min_interval_minutes": 999999,
+        "badge_color": "slate",
+        "status_text": "XETRA Geschlossen (Pause bis 09:00)"
       },
       "timeframes": {
         "1h": {
@@ -4166,15 +3748,15 @@
       "take_profit_2": 214.88,
       "reasons": [
         "1D Trend unter EMA 233 bärisch",
-        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: 1D Reguläre Bärische Divergenz (Reversal)"
       ],
       "charts": {
         "4h": "charts/NASDAQ_MRVL_4h.svg",
         "1D": "charts/NASDAQ_MRVL_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -4222,8 +3804,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 301.24,
           "swing_low": 220.2,
@@ -4291,14 +3873,14 @@
       "reasons": [
         "1D Trend unter EMA 233 bärisch",
         "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
-        "Aktiv: 1D Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: 1D Versteckte Bärische Divergenz (Trendfolge)"
+        "Aktiv: 1D Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: 1D Reguläre Bullische Divergenz (Reversal)"
       ],
       "charts": {
         "4h": "charts/NASDAQ_HOOD_4h.svg",
         "1D": "charts/NASDAQ_HOOD_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -4385,8 +3967,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 126.74,
           "swing_low": 90.07,
@@ -4397,204 +3979,6 @@
           "in_golden_pocket": false
         },
         "1W": null
-      },
-      "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine"
-    },
-    {
-      "symbol": "TRADEGATE:34Q0",
-      "name": "Coinbase (Tradegate)",
-      "category": "Tradegate / EU",
-      "asset_type": "Stock",
-      "price": 0.9895,
-      "signal": "SHORT",
-      "score": 75,
-      "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-      "crv": 3.2,
-      "entry_range": [
-        0.99,
-        1.0
-      ],
-      "stop_loss": 1.02,
-      "take_profit_1": 0.93,
-      "take_profit_2": 0.89,
-      "reasons": [
-        "1D Trend unter EMA 233 bärisch",
-        "1W Makro-Trend bärisch bestätigt",
-        "Aktiv: 1h Versteckte Bärische Divergenz (Trendfolge)",
-        "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)"
-      ],
-      "charts": {
-        "1h": "charts/TRADEGATE_34Q0_1h.svg",
-        "4h": "charts/TRADEGATE_34Q0_4h.svg",
-        "1D": "charts/TRADEGATE_34Q0_1D.svg",
-        "1W": "charts/TRADEGATE_34Q0_1W.svg"
-      },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "Tradegate Session",
-        "min_interval_minutes": 75,
-        "badge_color": "emerald",
-        "status_text": "Tradegate Offen (bis 22:00 CET)"
-      },
-      "timeframes": {
-        "1h": {
-          "name": "Coinbase (Tradegate) (TRADEGATE:34Q0)",
-          "price": 0.9895,
-          "rsi": 51.48,
-          "trend": "BEARISH",
-          "ema_fast": 0.98,
-          "ema_trend": 1.0,
-          "upper_band": 1.03,
-          "lower_band": 0.94,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.0,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 1.02,
-              "bottom": 1.01,
-              "ce_50": 1.02,
-              "gap_pct": 1.76
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 1.01,
-              "bottom": 0.98,
-              "ce_50": 1.0,
-              "gap_pct": 3.69
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 0.99,
-              "bottom": 0.98,
-              "ce_50": 0.98,
-              "gap_pct": 1.23
-            }
-          ],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 1.11,
-          "swing_low": 0.9,
-          "golden_pocket": [
-            1.03,
-            1.04
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "Coinbase (Tradegate) (TRADEGATE:34Q0)",
-          "price": 0.9895,
-          "rsi": 45.07,
-          "trend": "BEARISH",
-          "ema_fast": 0.99,
-          "ema_trend": 1.12,
-          "upper_band": 1.08,
-          "lower_band": 0.9,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.0,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 1.15,
-              "bottom": 1.12,
-              "ce_50": 1.14,
-              "gap_pct": 2.52
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 1.09,
-              "bottom": 1.08,
-              "ce_50": 1.09,
-              "gap_pct": 0.92
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 1.1,
-              "bottom": 1.08,
-              "ce_50": 1.09,
-              "gap_pct": 1.82
-            }
-          ],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 1.49,
-          "swing_low": 0.9,
-          "golden_pocket": [
-            1.27,
-            1.28
-          ],
-          "in_golden_pocket": false
-        },
-        "1D": {
-          "name": "Coinbase (Tradegate) (TRADEGATE:34Q0)",
-          "price": 0.9895,
-          "rsi": 31.12,
-          "trend": "BEARISH",
-          "ema_fast": 1.1,
-          "ema_trend": 1.44,
-          "upper_band": 1.32,
-          "lower_band": 0.87,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.11,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 1.09,
-              "bottom": 1.03,
-              "ce_50": 1.06,
-              "gap_pct": 5.96
-            }
-          ],
-          "divergences": [],
-          "swing_high": 2.22,
-          "swing_low": 0.9,
-          "golden_pocket": [
-            1.72,
-            1.76
-          ],
-          "in_golden_pocket": false
-        },
-        "1W": {
-          "name": "Coinbase (Tradegate) (TRADEGATE:34Q0)",
-          "price": 0.9895,
-          "rsi": 31.89,
-          "trend": "BEARISH",
-          "ema_fast": 1.46,
-          "ema_trend": 1.82,
-          "upper_band": 2.12,
-          "lower_band": 0.8,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.5,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 1.07,
-              "bottom": 1.04,
-              "ce_50": 1.05,
-              "gap_pct": 2.25
-            }
-          ],
-          "divergences": [],
-          "swing_high": 3.98,
-          "swing_low": 0.68,
-          "golden_pocket": [
-            1.84,
-            1.94
-          ],
-          "in_golden_pocket": false
-        }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
       "evaluated_by": "quantitative_engine"
@@ -4802,7 +4186,12 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Crypto"
+      ],
+      "source_watchlist": "Crypto",
+      "currency": "USD"
     },
     {
       "symbol": "KRAKEN:LINKUSD",
@@ -5035,7 +4424,12 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Watchlist"
+      ],
+      "source_watchlist": "Watchlist",
+      "currency": "USD"
     },
     {
       "symbol": "TVC:GOLD",
@@ -5240,7 +4634,12 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Commodities"
+      ],
+      "source_watchlist": "Commodities",
+      "currency": "USD"
     },
     {
       "symbol": "BITSTAMP:ETHUSD",
@@ -5478,7 +4877,12 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Crypto"
+      ],
+      "source_watchlist": "Crypto",
+      "currency": "USD"
     },
     {
       "symbol": "COINBASE:LTCUSD",
@@ -5690,7 +5094,12 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Watchlist"
+      ],
+      "source_watchlist": "Watchlist",
+      "currency": "USD"
     },
     {
       "symbol": "TVC:PLATINUM",
@@ -5884,7 +5293,12 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Commodities"
+      ],
+      "source_watchlist": "Commodities",
+      "currency": "USD"
     },
     {
       "symbol": "NASDAQ:META",
@@ -5913,7 +5327,7 @@
         "4h": "charts/NASDAQ_META_4h.svg",
         "1D": "charts/NASDAQ_META_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -6034,14 +5448,14 @@
       "reasons": [
         "1D Trend unter EMA 233 bärisch",
         "Kurs im 1D Golden Pocket (925.6 - 934.62)",
-        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)"
+        "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)"
       ],
       "charts": {
         "4h": "charts/NASDAQ_MU_4h.svg",
         "1D": "charts/NASDAQ_MU_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -6089,8 +5503,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 1108.62,
           "swing_low": 849.3,
@@ -6178,7 +5592,7 @@
         "4h": "charts/NASDAQ_NFLX_4h.svg",
         "1D": "charts/NASDAQ_NFLX_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -6306,15 +5720,15 @@
       "take_profit_2": 284.27,
       "reasons": [
         "1D Trend über EMA 233 bullisch",
-        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: 1D Versteckte Bullische Divergenz (Trendfolge)"
       ],
       "charts": {
         "4h": "charts/NASDAQ_CRWD_4h.svg",
         "1D": "charts/NASDAQ_CRWD_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -6362,8 +5776,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 286.94,
           "swing_low": 221.38,
@@ -6451,7 +5865,7 @@
         "4h": "charts/NYSE_IBM_4h.svg",
         "1D": "charts/NYSE_IBM_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -6794,7 +6208,12 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Crypto"
+      ],
+      "source_watchlist": "Crypto",
+      "currency": "USD"
     },
     {
       "symbol": "NASDAQ:PANW",
@@ -6815,15 +6234,15 @@
       "take_profit_2": 426.18,
       "reasons": [
         "1D Trend über EMA 233 bullisch",
-        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: 1D Versteckte Bullische Divergenz (Trendfolge)"
       ],
       "charts": {
         "4h": "charts/NASDAQ_PANW_4h.svg",
         "1D": "charts/NASDAQ_PANW_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -6871,8 +6290,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 432.28,
           "swing_low": 334.79,
@@ -6952,15 +6371,15 @@
       "take_profit_2": 533.92,
       "reasons": [
         "1D Trend über EMA 233 bullisch",
-        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "VSA: Verkaufsdruck versiegt ('No Supply')"
       ],
       "charts": {
         "4h": "charts/NYSE_DELL_4h.svg",
         "1D": "charts/NYSE_DELL_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -7008,8 +6427,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 595.02,
           "swing_low": 439.71,
@@ -7089,7 +6508,7 @@
         "1D Trend unter EMA 233 bärisch",
         "1W Makro-Trend bärisch bestätigt",
         "1D Kurs überdehnt unteres degencoder-Band (Oversold)",
-        "Aktiv: 1h Reguläre Bullische Divergenz (Reversal)"
+        "Aktiv: 1h Versteckte Bärische Divergenz (Trendfolge)"
       ],
       "charts": {
         "1h": "charts/TRADEGATE_NFC_1h.svg",
@@ -7097,7 +6516,7 @@
         "1D": "charts/TRADEGATE_NFC_1D.svg",
         "1W": "charts/TRADEGATE_NFC_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -7144,8 +6563,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 60.5,
           "swing_low": 55.81,
@@ -7191,8 +6610,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 65.19,
           "swing_low": 55.81,
@@ -7263,8 +6682,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 108.18,
           "swing_low": 55.81,
@@ -7494,202 +6913,12 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine"
-    },
-    {
-      "symbol": "TRADEGATE:MSF",
-      "name": "Microsoft (Tradegate)",
-      "category": "Tradegate / EU",
-      "asset_type": "Stock",
-      "price": 475.95,
-      "signal": "NEUTRAL",
-      "score": 58,
-      "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
-      "crv": 2.8,
-      "entry_range": [
-        458.0,
-        464.0
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Crypto"
       ],
-      "stop_loss": 448.5,
-      "take_profit_1": 492.0,
-      "take_profit_2": 510.0,
-      "reasons": [
-        "Makro-Struktur (1W/1D) bullisch, aber 1W-RSI mit 67.74 bereits nahe der Erschöpfung.",
-        "1D und 1h weisen aktive reguläre bärische Divergenzen auf, während 1h-VSA ein 'Ultra-High / Climax' meldet.",
-        "Kein Einstieg im Premium-Bereich ohne Rücklauf in ein valides FVG oder Golden Pocket (in_gp = false)."
-      ],
-      "charts": {
-        "1h": "charts/TRADEGATE_MSF_1h.svg",
-        "4h": "charts/TRADEGATE_MSF_4h.svg",
-        "1D": "charts/TRADEGATE_MSF_1D.svg",
-        "1W": "charts/TRADEGATE_MSF_1W.svg"
-      },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "Tradegate Session",
-        "min_interval_minutes": 75,
-        "badge_color": "emerald",
-        "status_text": "Tradegate Offen (bis 22:00 CET)"
-      },
-      "timeframes": {
-        "1h": {
-          "name": "Microsoft (Tradegate) (TRADEGATE:MSF)",
-          "price": 475.95,
-          "rsi": 52.05,
-          "trend": "BULLISH",
-          "ema_fast": 476.55,
-          "ema_trend": 473.98,
-          "upper_band": 479.93,
-          "lower_band": 473.16,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 3.12,
-          "vsa_class": "Ultra-High / Climax",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 473,
-              "bottom": 472,
-              "ce_50": 472.5,
-              "gap_pct": 0.21
-            }
-          ],
-          "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 479.9,
-          "swing_low": 458.55,
-          "golden_pocket": [
-            466.02,
-            466.71
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "Microsoft (Tradegate) (TRADEGATE:MSF)",
-          "price": 475.95,
-          "rsi": 54.46,
-          "trend": "BULLISH",
-          "ema_fast": 474.31,
-          "ema_trend": 472.23,
-          "upper_band": 481.54,
-          "lower_band": 467.07,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.15,
-          "vsa_class": "Average / Normal",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 467.5,
-              "bottom": 464.2,
-              "ce_50": 465.85,
-              "gap_pct": 0.71
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 492.4,
-          "swing_low": 458.55,
-          "golden_pocket": [
-            479.47,
-            480.55
-          ],
-          "in_golden_pocket": false
-        },
-        "1D": {
-          "name": "Microsoft (Tradegate) (TRADEGATE:MSF)",
-          "price": 475.95,
-          "rsi": 58.77,
-          "trend": "BULLISH",
-          "ema_fast": 472.8,
-          "ema_trend": 448.91,
-          "upper_band": 490.31,
-          "lower_band": 455.29,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.7,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 442.15,
-              "bottom": 439.1,
-              "ce_50": 440.62,
-              "gap_pct": 0.69
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 483.3,
-              "bottom": 482.75,
-              "ce_50": 483.02,
-              "gap_pct": 0.11
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 473.45,
-              "bottom": 469.55,
-              "ce_50": 471.5,
-              "gap_pct": 0.83
-            }
-          ],
-          "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 492.4,
-          "swing_low": 409.75,
-          "golden_pocket": [
-            438.68,
-            441.32
-          ],
-          "in_golden_pocket": false
-        },
-        "1W": {
-          "name": "Microsoft (Tradegate) (TRADEGATE:MSF)",
-          "price": 475.95,
-          "rsi": 67.74,
-          "trend": "BULLISH",
-          "ema_fast": 443.08,
-          "ema_trend": 401.4,
-          "upper_band": 485.0,
-          "lower_band": 401.17,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.36,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 442.15,
-              "bottom": 441.25,
-              "ce_50": 441.7,
-              "gap_pct": 0.2
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 459.05,
-              "bottom": 455.75,
-              "ce_50": 457.4,
-              "gap_pct": 0.72
-            }
-          ],
-          "divergences": [
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 492.4,
-          "swing_low": 307.1,
-          "golden_pocket": [
-            371.95,
-            377.88
-          ],
-          "in_golden_pocket": false
-        }
-      },
-      "analyst_note": "Das Volumen-Klimax auf 1h in Kombination mit multiplen bärischen Divergenzen deutet auf eine kurzfristige Verteilungsphase (Distribution) hin. In einem intakten 1D-Bullenmarkt ist ein Short tabu; stattdessen priorisieren wir den Kapitalschutz und warten in Lauerstellung auf einen gesunden Dip in den institutionellen Supportbereich bei ca. 460 EUR.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+      "source_watchlist": "Crypto",
+      "currency": "USD"
     },
     {
       "symbol": "KRAKEN:DAIEUR",
@@ -7925,6 +7154,326 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Watchlist"
+      ],
+      "source_watchlist": "Watchlist",
+      "currency": "USD"
+    },
+    {
+      "symbol": "NYSE:ORCL",
+      "name": "Oracle",
+      "category": "Enterprise Software",
+      "asset_type": "Stock",
+      "price": 131.86,
+      "signal": "NEUTRAL",
+      "score": 56,
+      "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+      "crv": 2.0,
+      "entry_range": [
+        131.86,
+        131.86
+      ],
+      "stop_loss": 127.9,
+      "take_profit_1": 135.82,
+      "take_profit_2": 139.77,
+      "reasons": [
+        "1D Trend unter EMA 233 bärisch",
+        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
+        "Aktiv: 4h Versteckte Bullische Divergenz (Trendfolge)",
+        "Aktiv: 1D Versteckte Bärische Divergenz (Trendfolge)"
+      ],
+      "charts": {
+        "4h": "charts/NYSE_ORCL_4h.svg",
+        "1D": "charts/NYSE_ORCL_1D.svg"
+      },
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "US Regular Session (Wall Street)",
+        "min_interval_minutes": 70,
+        "badge_color": "emerald",
+        "status_text": "US Session Offen (bis 22:00 CET)"
+      },
+      "timeframes": {
+        "1h": null,
+        "4h": {
+          "name": "Oracle (NYSE:ORCL)",
+          "price": 131.86,
+          "rsi": 50.22,
+          "trend": "BEARISH",
+          "ema_fast": 129.27,
+          "ema_trend": 135.19,
+          "upper_band": 135.95,
+          "lower_band": 122.59,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.15,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 141.51,
+              "bottom": 131.88,
+              "ce_50": 136.69,
+              "gap_pct": 6.81
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 131.26,
+              "bottom": 127.2,
+              "ce_50": 129.23,
+              "gap_pct": 3.2
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 153.6,
+          "swing_low": 122.76,
+          "golden_pocket": [
+            141.82,
+            142.81
+          ],
+          "in_golden_pocket": false
+        },
+        "1D": {
+          "name": "Oracle (NYSE:ORCL)",
+          "price": 131.86,
+          "rsi": 46.04,
+          "trend": "BEARISH",
+          "ema_fast": 131.48,
+          "ema_trend": 140.68,
+          "upper_band": 142.9,
+          "lower_band": 120.05,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.62,
+          "vsa_class": "Low",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 135.55,
+              "bottom": 135.08,
+              "ce_50": 135.31,
+              "gap_pct": 0.35
+            }
+          ],
+          "divergences": [
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 170.7,
+          "swing_low": 122.76,
+          "golden_pocket": [
+            152.39,
+            153.92
+          ],
+          "in_golden_pocket": false
+        },
+        "1W": null
+      },
+      "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
+      "evaluated_by": "quantitative_engine"
+    },
+    {
+      "symbol": "TRADEGATE:34Q0",
+      "name": "Coinbase (Tradegate)",
+      "category": "Tradegate / EU",
+      "asset_type": "Stock",
+      "price": 0.9895,
+      "signal": "NEUTRAL",
+      "score": 56,
+      "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+      "crv": 2.0,
+      "entry_range": [
+        0.9895,
+        0.9895
+      ],
+      "stop_loss": 0.96,
+      "take_profit_1": 1.02,
+      "take_profit_2": 1.05,
+      "reasons": [
+        "1D Trend unter EMA 233 bärisch",
+        "1W Makro-Trend bärisch bestätigt",
+        "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)",
+        "Aktiv: 1h Versteckte Bärische Divergenz (Trendfolge)"
+      ],
+      "charts": {
+        "1h": "charts/TRADEGATE_34Q0_1h.svg",
+        "4h": "charts/TRADEGATE_34Q0_4h.svg",
+        "1D": "charts/TRADEGATE_34Q0_1D.svg",
+        "1W": "charts/TRADEGATE_34Q0_1W.svg"
+      },
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
+      },
+      "timeframes": {
+        "1h": {
+          "name": "Coinbase (Tradegate) (TRADEGATE:34Q0)",
+          "price": 0.9895,
+          "rsi": 51.48,
+          "trend": "BEARISH",
+          "ema_fast": 0.98,
+          "ema_trend": 1.0,
+          "upper_band": 1.03,
+          "lower_band": 0.94,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.0,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 1.02,
+              "bottom": 1.01,
+              "ce_50": 1.02,
+              "gap_pct": 1.76
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 1.01,
+              "bottom": 0.98,
+              "ce_50": 1.0,
+              "gap_pct": 3.69
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 0.99,
+              "bottom": 0.98,
+              "ce_50": 0.98,
+              "gap_pct": 1.23
+            }
+          ],
+          "divergences": [
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 1.11,
+          "swing_low": 0.9,
+          "golden_pocket": [
+            1.03,
+            1.04
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "Coinbase (Tradegate) (TRADEGATE:34Q0)",
+          "price": 0.9895,
+          "rsi": 45.07,
+          "trend": "BEARISH",
+          "ema_fast": 0.99,
+          "ema_trend": 1.12,
+          "upper_band": 1.08,
+          "lower_band": 0.9,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.0,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 1.15,
+              "bottom": 1.12,
+              "ce_50": 1.14,
+              "gap_pct": 2.52
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 1.09,
+              "bottom": 1.08,
+              "ce_50": 1.09,
+              "gap_pct": 0.92
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 1.1,
+              "bottom": 1.08,
+              "ce_50": 1.09,
+              "gap_pct": 1.82
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 1.49,
+          "swing_low": 0.9,
+          "golden_pocket": [
+            1.27,
+            1.28
+          ],
+          "in_golden_pocket": false
+        },
+        "1D": {
+          "name": "Coinbase (Tradegate) (TRADEGATE:34Q0)",
+          "price": 0.9895,
+          "rsi": 31.12,
+          "trend": "BEARISH",
+          "ema_fast": 1.1,
+          "ema_trend": 1.44,
+          "upper_band": 1.32,
+          "lower_band": 0.87,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.11,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 1.09,
+              "bottom": 1.03,
+              "ce_50": 1.06,
+              "gap_pct": 5.96
+            }
+          ],
+          "divergences": [],
+          "swing_high": 2.22,
+          "swing_low": 0.9,
+          "golden_pocket": [
+            1.72,
+            1.76
+          ],
+          "in_golden_pocket": false
+        },
+        "1W": {
+          "name": "Coinbase (Tradegate) (TRADEGATE:34Q0)",
+          "price": 0.9895,
+          "rsi": 31.89,
+          "trend": "BEARISH",
+          "ema_fast": 1.46,
+          "ema_trend": 1.82,
+          "upper_band": 2.12,
+          "lower_band": 0.8,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.5,
+          "vsa_class": "Low",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 1.07,
+              "bottom": 1.04,
+              "ce_50": 1.05,
+              "gap_pct": 2.25
+            }
+          ],
+          "divergences": [],
+          "swing_high": 3.98,
+          "swing_low": 0.68,
+          "golden_pocket": [
+            1.84,
+            1.94
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
       "evaluated_by": "quantitative_engine"
     },
     {
@@ -7953,7 +7502,7 @@
         "4h": "charts/NYSE_ACN_4h.svg",
         "1D": "charts/NYSE_ACN_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -8088,7 +7637,7 @@
         "4h": "charts/NASDAQ_GOOG_4h.svg",
         "1D": "charts/NASDAQ_GOOG_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -8226,7 +7775,7 @@
         "1D": "charts/TRADEGATE_IFX_1D.svg",
         "1W": "charts/TRADEGATE_IFX_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -8400,193 +7949,6 @@
       "evaluated_by": "quantitative_engine"
     },
     {
-      "symbol": "TRADEGATE:PTX",
-      "name": "Palantir (Tradegate)",
-      "category": "Tradegate / EU",
-      "asset_type": "Stock",
-      "price": 177.96,
-      "signal": "NEUTRAL",
-      "score": 55,
-      "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
-      "crv": 2.7,
-      "entry_range": [
-        168.0,
-        172.5
-      ],
-      "stop_loss": 162.8,
-      "take_profit_1": 188.0,
-      "take_profit_2": 196.5,
-      "reasons": [
-        "Übergeordneter Trend (1W & 1D) intakt bullisch, jedoch 1W-RSI mit 62.6 bereits in der Heißlauf-Zone.",
-        "1D zeigt eine aktive reguläre bärische Divergenz; kein direktes Signal zum Neueinstieg auf aktuellem Kursniveau.",
-        "VSA signalisiert 'No Supply/Demand' auf 1h/4h bei fehlendem GP-Support (in_gp = false); Chasing strikt verboten."
-      ],
-      "charts": {
-        "1h": "charts/TRADEGATE_PTX_1h.svg",
-        "4h": "charts/TRADEGATE_PTX_4h.svg",
-        "1D": "charts/TRADEGATE_PTX_1D.svg",
-        "1W": "charts/TRADEGATE_PTX_1W.svg"
-      },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "Tradegate Session",
-        "min_interval_minutes": 75,
-        "badge_color": "emerald",
-        "status_text": "Tradegate Offen (bis 22:00 CET)"
-      },
-      "timeframes": {
-        "1h": {
-          "name": "Palantir (Tradegate) (TRADEGATE:PTX)",
-          "price": 177.96,
-          "rsi": 49.74,
-          "trend": "BULLISH",
-          "ema_fast": 178.4,
-          "ema_trend": 177.31,
-          "upper_band": 180.4,
-          "lower_band": 176.4,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.27,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 179.12,
-              "bottom": 178.7,
-              "ce_50": 178.91,
-              "gap_pct": 0.23
-            }
-          ],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 181,
-          "swing_low": 170.4,
-          "golden_pocket": [
-            174.11,
-            174.45
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "Palantir (Tradegate) (TRADEGATE:PTX)",
-          "price": 177.96,
-          "rsi": 53.98,
-          "trend": "BULLISH",
-          "ema_fast": 177.32,
-          "ema_trend": 175.71,
-          "upper_band": 182.23,
-          "lower_band": 172.41,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.08,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 190.36,
-          "swing_low": 164.16,
-          "golden_pocket": [
-            180.35,
-            181.19
-          ],
-          "in_golden_pocket": false
-        },
-        "1D": {
-          "name": "Palantir (Tradegate) (TRADEGATE:PTX)",
-          "price": 177.96,
-          "rsi": 57.07,
-          "trend": "BULLISH",
-          "ema_fast": 176.06,
-          "ema_trend": 163.38,
-          "upper_band": 187.67,
-          "lower_band": 164.45,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.12,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 159.02,
-              "bottom": 154.58,
-              "ce_50": 156.8,
-              "gap_pct": 2.87
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 160.74,
-              "bottom": 159.86,
-              "ce_50": 160.3,
-              "gap_pct": 0.55
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 184.04,
-              "bottom": 179.04,
-              "ce_50": 181.54,
-              "gap_pct": 2.72
-            }
-          ],
-          "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 190.36,
-          "swing_low": 132.46,
-          "golden_pocket": [
-            152.73,
-            154.58
-          ],
-          "in_golden_pocket": false
-        },
-        "1W": {
-          "name": "Palantir (Tradegate) (TRADEGATE:PTX)",
-          "price": 177.96,
-          "rsi": 62.6,
-          "trend": "BULLISH",
-          "ema_fast": 160.04,
-          "ema_trend": 137.13,
-          "upper_band": 187.82,
-          "lower_band": 132.26,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.23,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 154.22,
-              "bottom": 151.78,
-              "ce_50": 153.0,
-              "gap_pct": 1.61
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 163.06,
-              "bottom": 154.58,
-              "ce_50": 158.82,
-              "gap_pct": 5.49
-            }
-          ],
-          "divergences": [
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 190.36,
-          "swing_low": 93.3,
-          "golden_pocket": [
-            127.27,
-            130.38
-          ],
-          "in_golden_pocket": false
-        }
-      },
-      "analyst_note": "Palantir bleibt makroökonomisch extrem stark, doch die bärische 1D-Divergenz mahnt zur Geduld bezüglich eines Re-Entrys. Gemäß unserer Hysterese-Regel flippen wir in einem Bullenmarkt keinesfalls auf Short, sondern stufen auf NEUTRAL ab, um einen tieferen Rücksetzer in die ungetestete FVG/Support-Zone um 170 EUR abzuwarten.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
-    },
-    {
       "symbol": "TRADEGATE:45C",
       "name": "Broadcom (Tradegate)",
       "category": "Tradegate / EU",
@@ -8615,7 +7977,7 @@
         "1D": "charts/TRADEGATE_45C_1D.svg",
         "1W": "charts/TRADEGATE_45C_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -8819,7 +8181,7 @@
         "1D": "charts/TRADEGATE_MTE_1D.svg",
         "1W": "charts/TRADEGATE_MTE_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -9225,7 +8587,12 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Watchlist"
+      ],
+      "source_watchlist": "Watchlist",
+      "currency": "USD"
     },
     {
       "symbol": "TRADEGATE:1YD",
@@ -9256,7 +8623,7 @@
         "1D": "charts/TRADEGATE_1YD_1D.svg",
         "1W": "charts/TRADEGATE_1YD_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -9420,8 +8787,8 @@
           "vsa_class": "Low",
           "fvgs": [],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Reguläre Bärische Divergenz (Reversal)"
           ],
           "swing_high": 429.6,
           "swing_low": 250.55,
@@ -9464,7 +8831,7 @@
         "1D": "charts/TRADEGATE_AMD_1D.svg",
         "1W": "charts/TRADEGATE_AMD_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -9837,7 +9204,12 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Commodities"
+      ],
+      "source_watchlist": "Commodities",
+      "currency": "USD"
     },
     {
       "symbol": "POLONIEX:POLSUSDT",
@@ -10046,7 +9418,215 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Watchlist"
+      ],
+      "source_watchlist": "Watchlist",
+      "currency": "USD"
+    },
+    {
+      "symbol": "TRADEGATE:SAP",
+      "name": "SAP SE",
+      "category": "Tradegate / EU",
+      "asset_type": "Stock",
+      "price": 209.95,
+      "signal": "NEUTRAL",
+      "score": 54,
+      "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+      "crv": 2.9,
+      "entry_range": [
+        202.0,
+        205.0
+      ],
+      "stop_loss": 197.5,
+      "take_profit_1": 218.0,
+      "take_profit_2": 226.5,
+      "reasons": [
+        "1W und 1D makro-bullisch, jedoch 1D-RSI mit 70.69 heißgelaufen und 1h im Abverkauf (RSI 34.97).",
+        "Intraday-Pullback auf 1h ist kein Short-Signal, verbietet aber gleichzeitig das Verfolgen (Chasing) auf aktuellem Niveau (209.95 EUR).",
+        "Signal-Degradierung von vorigem 'LONG' auf 'NEUTRAL', um das Kapital vor der laufenden 1h-Korrektur zu schützen, bis ein valider Boden gefunden ist."
+      ],
+      "charts": {
+        "1h": "charts/TRADEGATE_SAP_1h.svg",
+        "4h": "charts/TRADEGATE_SAP_4h.svg",
+        "1D": "charts/TRADEGATE_SAP_1D.svg",
+        "1W": "charts/TRADEGATE_SAP_1W.svg"
+      },
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
+      },
+      "timeframes": {
+        "1h": {
+          "name": "SAP SE (TRADEGATE:SAP)",
+          "price": 209.45,
+          "rsi": 34.97,
+          "trend": "BEARISH",
+          "ema_fast": 211.88,
+          "ema_trend": 212.08,
+          "upper_band": 214.5,
+          "lower_band": 209.26,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.96,
+          "vsa_class": "Average / Normal",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 211.05,
+              "bottom": 210.75,
+              "ce_50": 210.9,
+              "gap_pct": 0.14
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 216.5,
+          "swing_low": 206.35,
+          "golden_pocket": [
+            209.9,
+            210.23
+          ],
+          "in_golden_pocket": true
+        },
+        "4h": {
+          "name": "SAP SE (TRADEGATE:SAP)",
+          "price": 209.45,
+          "rsi": 50.12,
+          "trend": "BULLISH",
+          "ema_fast": 211.82,
+          "ema_trend": 205.0,
+          "upper_band": 217.19,
+          "lower_band": 206.44,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.15,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 203.7,
+              "bottom": 203.4,
+              "ce_50": 203.55,
+              "gap_pct": 0.15
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 212.65,
+              "bottom": 212.5,
+              "ce_50": 212.57,
+              "gap_pct": 0.07
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 211.8,
+              "bottom": 210.75,
+              "ce_50": 211.28,
+              "gap_pct": 0.5
+            }
+          ],
+          "divergences": [
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 216.5,
+          "swing_low": 183.8,
+          "golden_pocket": [
+            195.25,
+            196.29
+          ],
+          "in_golden_pocket": false
+        },
+        "1D": {
+          "name": "SAP SE (TRADEGATE:SAP)",
+          "price": 209.95,
+          "rsi": 70.69,
+          "trend": "BULLISH",
+          "ema_fast": 205.26,
+          "ema_trend": 190.12,
+          "upper_band": 215.2,
+          "lower_band": 195.32,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.33,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 190,
+              "bottom": 189.76,
+              "ce_50": 189.88,
+              "gap_pct": 0.13
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 194.04,
+              "bottom": 192.52,
+              "ce_50": 193.28,
+              "gap_pct": 0.79
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 205.2,
+              "bottom": 203.4,
+              "ce_50": 204.3,
+              "gap_pct": 0.88
+            }
+          ],
+          "divergences": [],
+          "swing_high": 216.5,
+          "swing_low": 168.14,
+          "golden_pocket": [
+            185.07,
+            186.61
+          ],
+          "in_golden_pocket": false
+        },
+        "1W": {
+          "name": "SAP SE (TRADEGATE:SAP)",
+          "price": 209.95,
+          "rsi": 68.91,
+          "trend": "BULLISH",
+          "ema_fast": 188.43,
+          "ema_trend": 183.2,
+          "upper_band": 211.3,
+          "lower_band": 165.56,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.29,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 197.38,
+              "bottom": 192.52,
+              "ce_50": 194.95,
+              "gap_pct": 2.52
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 209.65,
+              "bottom": 204,
+              "ce_50": 206.82,
+              "gap_pct": 2.77
+            }
+          ],
+          "divergences": [],
+          "swing_high": 242,
+          "swing_low": 127.52,
+          "golden_pocket": [
+            198.27,
+            201.93
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "analyst_note": "SAP befindet sich im intakten Makro-Aufwärtstrend, setzt jedoch auf 1h/4h zurück. Gemäß unseren strikten Risikofiltern wird das bisherige Long-Signal neutralisiert, um vorzeitige Drawdowns durch Hebel zu verhindern. Wir positionieren uns erst wieder auf der Long-Seite, wenn der Rücksetzer den Kern-Supportbereich um 202.00–205.00 EUR erreicht und dort klares Reversal-Volumen zeigt.",
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "BINANCE:GMXUSDT",
@@ -10273,7 +9853,7 @@
         "1D": "charts/TRADEGATE_9MW_1D.svg",
         "1W": "charts/TRADEGATE_9MW_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -10367,8 +9947,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 256.1,
           "swing_low": 196.4,
@@ -10474,7 +10054,7 @@
         "4h": "charts/NYSE_KO_4h.svg",
         "1D": "charts/NYSE_KO_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -10613,7 +10193,7 @@
         "1D": "charts/TRADEGATE_APC_1D.svg",
         "1W": "charts/TRADEGATE_APC_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -10967,227 +10547,127 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Watchlist"
+      ],
+      "source_watchlist": "Watchlist",
+      "currency": "USD"
     },
     {
-      "symbol": "TRADEGATE:INL",
-      "name": "Intel (Tradegate)",
-      "category": "Tradegate / EU",
+      "symbol": "NASDAQ:MSFT",
+      "name": "Microsoft",
+      "category": "Big Tech",
       "asset_type": "Stock",
-      "price": 86.12,
+      "price": 531.62,
       "signal": "NEUTRAL",
-      "score": 53,
-      "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
-      "crv": 2.7,
+      "score": 52,
+      "setup_name": "Beobachten / Warten auf Pullback in Demand-Zone",
+      "crv": 2.6,
       "entry_range": [
-        88.5,
-        91.0
+        512.0,
+        518.5
       ],
-      "stop_loss": 94.5,
-      "take_profit_1": 80.0,
-      "take_profit_2": 73.5,
+      "stop_loss": 498.0,
+      "take_profit_1": 550.0,
+      "take_profit_2": 570.0,
       "reasons": [
-        "1D-Trend ist bärisch, aber die 4h/1h-Bärenmarktrallye läuft noch dynamisch (1h RSI bei 71.18, 4h bei 63.95).",
-        "VSA weist auf 4h 'Ultra-Low' Volumen aus, was die Rallye als reinen Liquiditäts-Run ohne echte institutionelle Akkumulation entlarvt.",
-        "Kein verfrühter Short-Einstieg: Wir warten die vollkommene Erschöpfung der 1h/4h-Überkauftheit an der oberen Kanalgrenze ab."
+        "1D-Makrotrend intakt bullisch, Kurs befindet sich jedoch mittig im Kanal ohne Test des 1D Golden Pockets (in_gp: false).",
+        "1h-Daten lückenhaft (N/A) und VSA auf 4h indiziert mangelnde institutionelle Nachfrageimpulse.",
+        "Gemäß Risikodogma 'Kein Chasing': Kein Neueinstieg im Niemandsland; Lauerstellung auf einen sauberen Retest tieferer Liquiditätszonen."
       ],
       "charts": {
-        "1h": "charts/TRADEGATE_INL_1h.svg",
-        "4h": "charts/TRADEGATE_INL_4h.svg",
-        "1D": "charts/TRADEGATE_INL_1D.svg",
-        "1W": "charts/TRADEGATE_INL_1W.svg"
+        "4h": "charts/NASDAQ_MSFT_4h.svg",
+        "1D": "charts/NASDAQ_MSFT_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
         "status": "OPEN",
-        "session_name": "Tradegate Session",
-        "min_interval_minutes": 75,
+        "session_name": "US Regular Session (Wall Street)",
+        "min_interval_minutes": 70,
         "badge_color": "emerald",
-        "status_text": "Tradegate Offen (bis 22:00 CET)"
+        "status_text": "US Session Offen (bis 22:00 CET)"
       },
       "timeframes": {
-        "1h": {
-          "name": "Intel (Tradegate) (TRADEGATE:INL)",
-          "price": 86.05,
-          "rsi": 71.18,
+        "1h": null,
+        "4h": {
+          "name": "Microsoft (NASDAQ:MSFT)",
+          "price": 531.63,
+          "rsi": 53.37,
           "trend": "BULLISH",
-          "ema_fast": 84.65,
-          "ema_trend": 82.0,
-          "upper_band": 86.14,
-          "lower_band": 83.16,
+          "ema_fast": 530.19,
+          "ema_trend": 523.45,
+          "upper_band": 541.61,
+          "lower_band": 518.77,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.76,
+          "vsa_ratio": 0.31,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 529.86,
+              "bottom": 525.11,
+              "ce_50": 527.49,
+              "gap_pct": 0.9
+            }
+          ],
+          "divergences": [
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 551.15,
+          "swing_low": 487.25,
+          "golden_pocket": [
+            509.62,
+            511.66
+          ],
+          "in_golden_pocket": false
+        },
+        "1D": {
+          "name": "Microsoft (NASDAQ:MSFT)",
+          "price": 531.62,
+          "rsi": 56.52,
+          "trend": "BULLISH",
+          "ema_fast": 529.13,
+          "ema_trend": 507.41,
+          "upper_band": 548.75,
+          "lower_band": 509.51,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.51,
           "vsa_class": "Low",
           "fvgs": [
             {
               "type": "Bullish FVG",
-              "top": 81,
-              "bottom": 78.57,
-              "ce_50": 79.78,
-              "gap_pct": 3.09
+              "top": 502.22,
+              "bottom": 498.9,
+              "ce_50": 500.56,
+              "gap_pct": 0.67
             },
             {
               "type": "Bullish FVG",
-              "top": 80.65,
-              "bottom": 80.59,
-              "ce_50": 80.62,
-              "gap_pct": 0.07
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 81.38,
-              "bottom": 81.13,
-              "ce_50": 81.25,
-              "gap_pct": 0.31
+              "top": 528.33,
+              "bottom": 525.77,
+              "ce_50": 527.05,
+              "gap_pct": 0.49
             }
           ],
           "divergences": [
             "Reguläre Bärische Divergenz (Reversal)",
             "Versteckte Bullische Divergenz (Trendfolge)"
           ],
-          "swing_high": 86.35,
-          "swing_low": 75.45,
+          "swing_high": 551.15,
+          "swing_low": 477.15,
           "golden_pocket": [
-            79.27,
-            79.61
+            503.05,
+            505.42
           ],
           "in_golden_pocket": false
         },
-        "4h": {
-          "name": "Intel (Tradegate) (TRADEGATE:INL)",
-          "price": 86.05,
-          "rsi": 63.95,
-          "trend": "BULLISH",
-          "ema_fast": 82.49,
-          "ema_trend": 84.73,
-          "upper_band": 85.99,
-          "lower_band": 78.99,
-          "channel_position": "Overbought Band (Überdehnt Oben)",
-          "vsa_ratio": 0.26,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 77.95,
-              "bottom": 77.85,
-              "ce_50": 77.9,
-              "gap_pct": 0.13
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 82.94,
-              "bottom": 81.95,
-              "ce_50": 82.44,
-              "gap_pct": 1.21
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 85.32,
-              "bottom": 84.57,
-              "ce_50": 84.94,
-              "gap_pct": 0.89
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 103.04,
-          "swing_low": 75.45,
-          "golden_pocket": [
-            92.5,
-            93.38
-          ],
-          "in_golden_pocket": false
-        },
-        "1D": {
-          "name": "Intel (Tradegate) (TRADEGATE:INL)",
-          "price": 86.12,
-          "rsi": 46.9,
-          "trend": "BEARISH",
-          "ema_fast": 85.02,
-          "ema_trend": 89.93,
-          "upper_band": 94.02,
-          "lower_band": 76.02,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.27,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 99.51,
-              "bottom": 97.5,
-              "ce_50": 98.5,
-              "gap_pct": 2.02
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 93.89,
-              "bottom": 93.77,
-              "ce_50": 93.83,
-              "gap_pct": 0.13
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 93.01,
-              "bottom": 91.84,
-              "ce_50": 92.43,
-              "gap_pct": 1.26
-            }
-          ],
-          "divergences": [],
-          "swing_high": 114.82,
-          "swing_low": 73.09,
-          "golden_pocket": [
-            87.7,
-            89.03
-          ],
-          "in_golden_pocket": false
-        },
-        "1W": {
-          "name": "Intel (Tradegate) (TRADEGATE:INL)",
-          "price": 86.12,
-          "rsi": 51.3,
-          "trend": "BULLISH",
-          "ema_fast": 88.31,
-          "ema_trend": 71.81,
-          "upper_band": 111.76,
-          "lower_band": 64.86,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.32,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 100.3,
-              "bottom": 93.77,
-              "ce_50": 97.03,
-              "gap_pct": 6.51
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 93.01,
-              "bottom": 84.98,
-              "ce_50": 89.0,
-              "gap_pct": 8.63
-            }
-          ],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 124.58,
-          "swing_low": 20.46,
-          "golden_pocket": [
-            56.91,
-            60.24
-          ],
-          "in_golden_pocket": false
-        }
+        "1W": null
       },
-      "analyst_note": "Intel befindet sich im 1D-Bärenmarkt, generiert jedoch intraday eine steile Bärenmarktrallye mit überkauftem 1h-Momentum (RSI > 71). Ein Short direkt in das steigende Momentum verletzt unsere Risikoregeln. Wir verbleiben auf NEUTRAL und beobachten die Zone um 88.5–91.0 EUR für ein valides Sweep-and-Reject-Muster.",
+      "analyst_note": "Obwohl der übergeordnete Trend bei Microsoft klar aufwärts gerichtet ist, fehlt aktuell die erforderliche HTF-Konfluenz an einer Discount-Zone. Vor dem Hintergrund früherer Fehlschläge bei Big Tech verbietet sich ein Einstieg ohne präzisen SMC-Trigger. Wir verbleiben diszipliniert an der Seitenlinie und warten auf einen Rücksetzer in den Bereich um 515 USD.",
       "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
@@ -11409,7 +10889,12 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Devisen"
+      ],
+      "source_watchlist": "Devisen",
+      "currency": "USD"
     },
     {
       "symbol": "BINANCE:ETHFIUSDT",
@@ -11872,13 +11357,13 @@
       },
       "last_analyzed": "2026-10-28T13:24:01.919125+00:00",
       "market_state": {
-        "is_open": true,
+        "is_open": false,
         "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "XETRA Regular Session",
-        "min_interval_minutes": 120,
-        "badge_color": "emerald",
-        "status_text": "XETRA Offen (bis 17:35 CET)"
+        "status": "CLOSED",
+        "session_name": "XETRA Nachtpause",
+        "min_interval_minutes": 999999,
+        "badge_color": "slate",
+        "status_text": "XETRA Geschlossen (Pause bis 09:00)"
       },
       "timeframes": {
         "1h": {
@@ -12074,16 +11559,16 @@
       "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
       "crv": 2.7,
       "entry_range": [
-        334.0,
-        338.5
+        338.0,
+        342.5
       ],
-      "stop_loss": 328.5,
-      "take_profit_1": 352.0,
-      "take_profit_2": 365.0,
+      "stop_loss": 332.0,
+      "take_profit_1": 358.0,
+      "take_profit_2": 368.5,
       "reasons": [
-        "Makro-Trend (1W & 1D) klar bullisch, aber 1D RSI mit 61.1 nahe dem Überkauft-Bereich und nicht im Golden Pocket.",
-        "Kein Chasing erlaubt: Auf 1D liegt eine reguläre bärische Divergenz vor, 4h VSA zeigt schwaches Volumen ('Low').",
-        "Strikte Hysterese: Previous Signal war NEUTRAL; wir warten diszipliniert auf einen strukturellen Pullback in die FVG/Support-Zone."
+        "Makro-Trend auf 1W und 1D intakt bullisch, jedoch 1D mit widersprüchlichen Divergenzen und kein Golden-Pocket-Retracement vorhanden.",
+        "4h-Volumen (VSA) zeigt 'Low' Aktivität, kein bestätigtes Stopping Volume oder Wyckoff-Absorptionsmuster auf aktuellem Niveau (347.10 USD).",
+        "Widersprüchliche Divergenzen auf 1h/4h mahnen zur Geduld; Einstieg erst nach strukturellem Pullback in tiefer liegende FVG-/Support-Liquidität."
       ],
       "charts": {
         "1h": "charts/NASDAQ_AAPL_1h.svg",
@@ -12091,7 +11576,7 @@
         "1D": "charts/NASDAQ_AAPL_1D.svg",
         "1W": "charts/NASDAQ_AAPL_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -12124,8 +11609,8 @@
             }
           ],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Reguläre Bärische Divergenz (Reversal)"
           ],
           "swing_high": 351.71,
           "swing_low": 338.73,
@@ -12164,8 +11649,8 @@
             }
           ],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
           ],
           "swing_high": 351.71,
           "swing_low": 325.81,
@@ -12226,7 +11711,7 @@
           "in_golden_pocket": false
         }
       },
-      "analyst_note": "Der übergeordnete Trend von Apple ist vollkommen intakt (1W/1D bullisch). Allerdings verbietet unser Regelwerk Long-Einstiege bei fortgeschrittenen RSI-Niveaus ohne Test des Golden Pockets. Wir verharren diszipliniert in Lauerstellung und warten auf einen Pullback in Richtung 334–338 USD mit klarer Wyckoff-Absorption.",
+      "analyst_note": "Übergeordnet bleibt Apple in einem gesunden Bullenmarkt, weshalb ein Short strikt verboten ist. Aktuell fehlt jedoch der konkrete Timing-Trigger für einen Neueinstieg am Hoch; wir warten diszipliniert auf einen Pullback in die Zone 338.00–342.50 USD zur Etablierung eines sauberen Chance-Risiko-Verhältnisses von > 2.5:1.",
       "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
@@ -12430,7 +11915,12 @@
         }
       },
       "analyst_note": "Obwohl der 1D-Trend bärisch ist, verbietet das Risikomanagement ein blindes Hinein-Shorten auf aktuellem Niveau ohne Rücklauf an eine signifikante Liquiditätszone. Wir verharren diszipliniert in NEUTRAL und warten auf eine Bärenmarktrallye in den Bereich 10.780–10.840 Punkte, um dort mit struktureller Bestätigung antizyklisch zu shorten.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
+      "watchlists": [
+        "Watchlist"
+      ],
+      "source_watchlist": "Watchlist",
+      "currency": "USD"
     },
     {
       "symbol": "SP:SPX",
@@ -12644,7 +12134,12 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Aktien"
+      ],
+      "source_watchlist": "Aktien",
+      "currency": "USD"
     },
     {
       "symbol": "TVC:DJI",
@@ -12825,37 +12320,42 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Aktien"
+      ],
+      "source_watchlist": "Aktien",
+      "currency": "USD"
     },
     {
-      "symbol": "TRADEGATE:YDX",
-      "name": "BYD Company",
+      "symbol": "TRADEGATE:MSF",
+      "name": "Microsoft (Tradegate)",
       "category": "Tradegate / EU",
       "asset_type": "Stock",
-      "price": 158.98,
+      "price": 475.95,
       "signal": "NEUTRAL",
       "score": 50,
-      "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
-      "crv": 2.5,
+      "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+      "crv": 2.65,
       "entry_range": [
-        162.0,
-        166.0
+        452.0,
+        458.0
       ],
-      "stop_loss": 171.5,
-      "take_profit_1": 148.0,
-      "take_profit_2": 139.0,
+      "stop_loss": 439.0,
+      "take_profit_1": 495.0,
+      "take_profit_2": 515.0,
       "reasons": [
-        "Vorheriges Signal war SHORT, jedoch signalisiert der 1h RSI mit 72.4 eine massive untergeordnete Überdehnung gegen den 1D-Trend.",
-        "1D zeigt eine reguläre bullische Divergenz, während 1W weiterhin bullisch ausgerichtet ist – erhöhtes Squeeze-Risiko.",
-        "Aus den historischen Trades (u.a. vorzeitige Verluste durch Setup-Invalidierung bei Bearish Reversals) muss der Einstieg zwingend de-riskt werden."
+        "1W RSI mit 67.74 nahe der Overbought-Schwelle bei gleichzeitig fehlender GP-Konfluenz auf Tagessicht.",
+        "1h zeigt Climax-Volumen mit regulärer bärischer Divergenz (Gefahr eines lokalen Exhaustion Tops).",
+        "Erhöhte Hysterese erforderlich: Kein Einstieg vor Beruhigung der Intraday-Volatilität und SMC-Bestätigung."
       ],
       "charts": {
-        "1h": "charts/TRADEGATE_YDX_1h.svg",
-        "4h": "charts/TRADEGATE_YDX_4h.svg",
-        "1D": "charts/TRADEGATE_YDX_1D.svg",
-        "1W": "charts/TRADEGATE_YDX_1W.svg"
+        "1h": "charts/TRADEGATE_MSF_1h.svg",
+        "4h": "charts/TRADEGATE_MSF_4h.svg",
+        "1D": "charts/TRADEGATE_MSF_1D.svg",
+        "1W": "charts/TRADEGATE_MSF_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -12867,388 +12367,159 @@
       },
       "timeframes": {
         "1h": {
-          "name": "BYD Company (TRADEGATE:YDX)",
-          "price": 158.98,
-          "rsi": 72.4,
+          "name": "Microsoft (Tradegate) (TRADEGATE:MSF)",
+          "price": 475.95,
+          "rsi": 52.05,
           "trend": "BULLISH",
-          "ema_fast": 153.43,
-          "ema_trend": 147.79,
-          "upper_band": 157.89,
-          "lower_band": 148.97,
-          "channel_position": "Overbought Band (Überdehnt Oben)",
-          "vsa_ratio": 0.66,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 141.32,
-              "bottom": 140.08,
-              "ce_50": 140.7,
-              "gap_pct": 0.89
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 149.28,
-              "bottom": 144.1,
-              "ce_50": 146.69,
-              "gap_pct": 3.59
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 151.94,
-              "bottom": 151.36,
-              "ce_50": 151.65,
-              "gap_pct": 0.38
-            }
-          ],
-          "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)"
-          ],
-          "swing_high": 159,
-          "swing_low": 133.3,
-          "golden_pocket": [
-            142.3,
-            143.12
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "BYD Company (TRADEGATE:YDX)",
-          "price": 158.98,
-          "rsi": 58.99,
-          "trend": "BEARISH",
-          "ema_fast": 149.25,
-          "ema_trend": 159.44,
-          "upper_band": 160.26,
-          "lower_band": 138.24,
+          "ema_fast": 476.55,
+          "ema_trend": 473.98,
+          "upper_band": 479.93,
+          "lower_band": 473.16,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.16,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "vsa_ratio": 3.12,
+          "vsa_class": "Ultra-High / Climax",
           "fvgs": [
             {
               "type": "Bullish FVG",
-              "top": 149.28,
-              "bottom": 140.08,
-              "ce_50": 144.68,
-              "gap_pct": 6.57
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 154.72,
-              "bottom": 153.52,
-              "ce_50": 154.12,
-              "gap_pct": 0.78
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 156.84,
-              "bottom": 153.98,
-              "ce_50": 155.41,
-              "gap_pct": 1.86
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 216.75,
-          "swing_low": 133.3,
-          "golden_pocket": [
-            184.87,
-            187.54
-          ],
-          "in_golden_pocket": false
-        },
-        "1D": {
-          "name": "BYD Company (TRADEGATE:YDX)",
-          "price": 158.98,
-          "rsi": 42.69,
-          "trend": "BEARISH",
-          "ema_fast": 159.81,
-          "ema_trend": 180.99,
-          "upper_band": 185.94,
-          "lower_band": 133.67,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.31,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 176.72,
-              "bottom": 168.98,
-              "ce_50": 172.85,
-              "gap_pct": 4.38
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 154.72,
-              "bottom": 148.28,
-              "ce_50": 151.5,
-              "gap_pct": 4.34
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 245.7,
-          "swing_low": 133.3,
-          "golden_pocket": [
-            202.76,
-            206.36
-          ],
-          "in_golden_pocket": false
-        },
-        "1W": {
-          "name": "BYD Company (TRADEGATE:YDX)",
-          "price": 158.98,
-          "rsi": 47.41,
-          "trend": "BULLISH",
-          "ema_fast": 177.74,
-          "ema_trend": 146.77,
-          "upper_band": 242.73,
-          "lower_band": 112.75,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.56,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 194.48,
-              "bottom": 161.46,
-              "ce_50": 177.97,
-              "gap_pct": 16.98
-            }
-          ],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 261,
-          "swing_low": 54,
-          "golden_pocket": [
-            126.45,
-            133.07
-          ],
-          "in_golden_pocket": false
-        }
-      },
-      "analyst_note": "Die BYD-Aktie zeigt auf 1h einen starken Überkauft-Zustand (RSI 72.4) bei gleichzeitig bullischer 1D-Divergenz. Ein aktiver Short birgt hier unmittelbares Squeeze-Potenzial. Wir nehmen das vorherige SHORT-Signal zurück auf NEUTRAL und warten ab, ob sich am übergeordneten Widerstandsband (162–166 EUR) eine echte Erschöpfungsstruktur etabliert.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
-    },
-    {
-      "symbol": "TRADEGATE:NVD",
-      "name": "Nvidia (Tradegate)",
-      "category": "Tradegate / EU",
-      "asset_type": "Stock",
-      "price": 197.64,
-      "signal": "NEUTRAL",
-      "score": 50,
-      "setup_name": "Beobachten / Konsolidierung nach Impuls",
-      "crv": 2.5,
-      "entry_range": [
-        188.0,
-        192.5
-      ],
-      "stop_loss": 183.5,
-      "take_profit_1": 208.0,
-      "take_profit_2": 218.0,
-      "reasons": [
-        "1D & 1W Trends intakt bullisch, allerdings ist der 1h-RSI mit 70.67 stark überkauft (Chasing-Verbot greift).",
-        "4h-RSI steht bei 61.05 am oberen Band und zeigt gemischte Divergenzen (Versteckte Bär-Div aktiv).",
-        "Kurs befindet sich nicht in einem institutionellen Discount-Level (in_gp = false); Einstieg birgt ungünstiges CRV."
-      ],
-      "charts": {
-        "1h": "charts/TRADEGATE_NVD_1h.svg",
-        "4h": "charts/TRADEGATE_NVD_4h.svg",
-        "1D": "charts/TRADEGATE_NVD_1D.svg",
-        "1W": "charts/TRADEGATE_NVD_1W.svg"
-      },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "Tradegate Session",
-        "min_interval_minutes": 75,
-        "badge_color": "emerald",
-        "status_text": "Tradegate Offen (bis 22:00 CET)"
-      },
-      "timeframes": {
-        "1h": {
-          "name": "Nvidia (Tradegate) (TRADEGATE:NVD)",
-          "price": 197.54,
-          "rsi": 70.67,
-          "trend": "BULLISH",
-          "ema_fast": 196.29,
-          "ema_trend": 194.02,
-          "upper_band": 198.01,
-          "lower_band": 194.57,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.01,
-          "vsa_class": "Average / Normal",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 190.16,
-              "bottom": 189.16,
-              "ce_50": 189.66,
-              "gap_pct": 0.53
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 191.88,
-              "bottom": 190.9,
-              "ce_50": 191.39,
-              "gap_pct": 0.51
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 196.86,
-              "bottom": 196.06,
-              "ce_50": 196.46,
-              "gap_pct": 0.41
-            }
-          ],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 197.9,
-          "swing_low": 187.72,
-          "golden_pocket": [
-            191.28,
-            191.61
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "Nvidia (Tradegate) (TRADEGATE:NVD)",
-          "price": 197.54,
-          "rsi": 61.05,
-          "trend": "BULLISH",
-          "ema_fast": 194.41,
-          "ema_trend": 195.73,
-          "upper_band": 198.56,
-          "lower_band": 190.26,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.27,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 191.88,
-              "bottom": 189.28,
-              "ce_50": 190.58,
-              "gap_pct": 1.37
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 194.44,
-              "bottom": 194.36,
-              "ce_50": 194.4,
-              "gap_pct": 0.04
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 197.38,
-              "bottom": 196.06,
-              "ce_50": 196.72,
-              "gap_pct": 0.67
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 213.8,
-          "swing_low": 187.72,
-          "golden_pocket": [
-            203.84,
-            204.67
-          ],
-          "in_golden_pocket": false
-        },
-        "1D": {
-          "name": "Nvidia (Tradegate) (TRADEGATE:NVD)",
-          "price": 197.64,
-          "rsi": 51.25,
-          "trend": "BULLISH",
-          "ema_fast": 195.82,
-          "ema_trend": 194.95,
-          "upper_band": 205.54,
-          "lower_band": 186.1,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.29,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 187.62,
-              "bottom": 185.34,
-              "ce_50": 186.48,
-              "gap_pct": 1.23
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 212.2,
-              "bottom": 211.8,
-              "ce_50": 212.0,
-              "gap_pct": 0.19
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 211.1,
-              "bottom": 209.95,
-              "ce_50": 210.52,
-              "gap_pct": 0.54
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 216.1,
-          "swing_low": 178,
-          "golden_pocket": [
-            191.34,
-            192.55
-          ],
-          "in_golden_pocket": false
-        },
-        "1W": {
-          "name": "Nvidia (Tradegate) (TRADEGATE:NVD)",
-          "price": 197.64,
-          "rsi": 56.26,
-          "trend": "BULLISH",
-          "ema_fast": 192.69,
-          "ema_trend": 174.78,
-          "upper_band": 216.94,
-          "lower_band": 168.44,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.28,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 204.7,
-              "bottom": 197.74,
-              "ce_50": 201.22,
-              "gap_pct": 3.4
+              "top": 473,
+              "bottom": 472,
+              "ce_50": 472.5,
+              "gap_pct": 0.21
             }
           ],
           "divergences": [
             "Reguläre Bärische Divergenz (Reversal)",
             "Versteckte Bullische Divergenz (Trendfolge)"
           ],
-          "swing_high": 216.1,
-          "swing_low": 141.8,
+          "swing_high": 479.9,
+          "swing_low": 458.55,
           "golden_pocket": [
-            167.81,
-            170.18
+            466.02,
+            466.71
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "Microsoft (Tradegate) (TRADEGATE:MSF)",
+          "price": 475.95,
+          "rsi": 54.46,
+          "trend": "BULLISH",
+          "ema_fast": 474.31,
+          "ema_trend": 472.23,
+          "upper_band": 481.54,
+          "lower_band": 467.07,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 1.15,
+          "vsa_class": "Average / Normal",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 467.5,
+              "bottom": 464.2,
+              "ce_50": 465.85,
+              "gap_pct": 0.71
+            }
+          ],
+          "divergences": [
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 492.4,
+          "swing_low": 458.55,
+          "golden_pocket": [
+            479.47,
+            480.55
+          ],
+          "in_golden_pocket": false
+        },
+        "1D": {
+          "name": "Microsoft (Tradegate) (TRADEGATE:MSF)",
+          "price": 475.95,
+          "rsi": 58.77,
+          "trend": "BULLISH",
+          "ema_fast": 472.8,
+          "ema_trend": 448.91,
+          "upper_band": 490.31,
+          "lower_band": 455.29,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.7,
+          "vsa_class": "Low",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 442.15,
+              "bottom": 439.1,
+              "ce_50": 440.62,
+              "gap_pct": 0.69
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 483.3,
+              "bottom": 482.75,
+              "ce_50": 483.02,
+              "gap_pct": 0.11
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 473.45,
+              "bottom": 469.55,
+              "ce_50": 471.5,
+              "gap_pct": 0.83
+            }
+          ],
+          "divergences": [
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 492.4,
+          "swing_low": 409.75,
+          "golden_pocket": [
+            438.68,
+            441.32
+          ],
+          "in_golden_pocket": false
+        },
+        "1W": {
+          "name": "Microsoft (Tradegate) (TRADEGATE:MSF)",
+          "price": 475.95,
+          "rsi": 67.74,
+          "trend": "BULLISH",
+          "ema_fast": 443.08,
+          "ema_trend": 401.4,
+          "upper_band": 485.0,
+          "lower_band": 401.17,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.36,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 442.15,
+              "bottom": 441.25,
+              "ce_50": 441.7,
+              "gap_pct": 0.2
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 459.05,
+              "bottom": 455.75,
+              "ce_50": 457.4,
+              "gap_pct": 0.72
+            }
+          ],
+          "divergences": [
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 492.4,
+          "swing_low": 307.1,
+          "golden_pocket": [
+            371.95,
+            377.88
           ],
           "in_golden_pocket": false
         }
       },
-      "analyst_note": "Nvidia setzt den übergeordneten Aufwärtstrend fort, ist jedoch auf 1h-Ebene akut überdehnt (RSI > 70). Ein Long-Einstieg zu diesem Zeitpunkt würde gegen das fundamentale Kapitalerhalt-Dogma verstoßen. Wir bleiben neutral und warten auf eine geordnete 4h-Mean-Reversion in Richtung des 190-EUR-Supports.",
+      "analyst_note": "Der Tradegate-Zweig von Microsoft zeigt im 1h-Chart ein Volumenspitzen-Signal (Climax) bei gleichzeitig bärischer Reversal-Divergenz. Dies deutet auf Gewinnmitnahmen größerer Marktteilnehmer hin, auch wenn der Makrotrend intakt bleibt. Wir halten an der neutralen Beobachtung fest, bis die Korrektur eine solide Basis am übergeordneten Support ausbildet.",
       "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
@@ -13510,7 +12781,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13549,7 +12820,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13588,7 +12859,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13627,7 +12898,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13666,7 +12937,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13705,7 +12976,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13744,7 +13015,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13798,7 +13069,12 @@
         "4h": null,
         "1D": null,
         "1W": null
-      }
+      },
+      "watchlists": [
+        "Watchlist"
+      ],
+      "source_watchlist": "Watchlist",
+      "currency": "USD"
     },
     {
       "symbol": "FX_IDC:XAUUSD",
@@ -13822,7 +13098,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13861,7 +13137,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13900,7 +13176,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13939,7 +13215,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13978,7 +13254,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14017,7 +13293,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14056,7 +13332,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14095,7 +13371,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14134,7 +13410,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14173,7 +13449,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14212,7 +13488,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14251,7 +13527,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14290,7 +13566,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14329,7 +13605,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14368,7 +13644,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14384,6 +13660,414 @@
         "1D": null,
         "1W": null
       }
+    },
+    {
+      "symbol": "TRADEGATE:PTX",
+      "name": "Palantir (Tradegate)",
+      "category": "Tradegate / EU",
+      "asset_type": "Stock",
+      "price": 177.96,
+      "signal": "NEUTRAL",
+      "score": 48,
+      "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+      "crv": 2.55,
+      "entry_range": [
+        165.0,
+        169.5
+      ],
+      "stop_loss": 158.0,
+      "take_profit_1": 188.0,
+      "take_profit_2": 200.0,
+      "reasons": [
+        "1W/1D-Trend bullisch, aber 1W RSI mit 62.6 bereits ambitioniert bewertet.",
+        "Keine Golden-Pocket-Konfluenz (in_gp: false); widersprüchliche Divergenzen auf 4h und 1h (gleichzeitige bärische und bullische Signale).",
+        "Volumencharakteristik (Ultra-Low Volume) zeigt Konsolidierung ohne Akkumulationsbeweis."
+      ],
+      "charts": {
+        "1h": "charts/TRADEGATE_PTX_1h.svg",
+        "4h": "charts/TRADEGATE_PTX_4h.svg",
+        "1D": "charts/TRADEGATE_PTX_1D.svg",
+        "1W": "charts/TRADEGATE_PTX_1W.svg"
+      },
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
+      },
+      "timeframes": {
+        "1h": {
+          "name": "Palantir (Tradegate) (TRADEGATE:PTX)",
+          "price": 177.96,
+          "rsi": 49.74,
+          "trend": "BULLISH",
+          "ema_fast": 178.4,
+          "ema_trend": 177.31,
+          "upper_band": 180.4,
+          "lower_band": 176.4,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.27,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 179.12,
+              "bottom": 178.7,
+              "ce_50": 178.91,
+              "gap_pct": 0.23
+            }
+          ],
+          "divergences": [
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 181,
+          "swing_low": 170.4,
+          "golden_pocket": [
+            174.11,
+            174.45
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "Palantir (Tradegate) (TRADEGATE:PTX)",
+          "price": 177.96,
+          "rsi": 53.98,
+          "trend": "BULLISH",
+          "ema_fast": 177.32,
+          "ema_trend": 175.71,
+          "upper_band": 182.23,
+          "lower_band": 172.41,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.08,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [],
+          "divergences": [
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 190.36,
+          "swing_low": 164.16,
+          "golden_pocket": [
+            180.35,
+            181.19
+          ],
+          "in_golden_pocket": false
+        },
+        "1D": {
+          "name": "Palantir (Tradegate) (TRADEGATE:PTX)",
+          "price": 177.96,
+          "rsi": 57.07,
+          "trend": "BULLISH",
+          "ema_fast": 176.06,
+          "ema_trend": 163.38,
+          "upper_band": 187.67,
+          "lower_band": 164.45,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.12,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 159.02,
+              "bottom": 154.58,
+              "ce_50": 156.8,
+              "gap_pct": 2.87
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 160.74,
+              "bottom": 159.86,
+              "ce_50": 160.3,
+              "gap_pct": 0.55
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 184.04,
+              "bottom": 179.04,
+              "ce_50": 181.54,
+              "gap_pct": 2.72
+            }
+          ],
+          "divergences": [
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 190.36,
+          "swing_low": 132.46,
+          "golden_pocket": [
+            152.73,
+            154.58
+          ],
+          "in_golden_pocket": false
+        },
+        "1W": {
+          "name": "Palantir (Tradegate) (TRADEGATE:PTX)",
+          "price": 177.96,
+          "rsi": 62.6,
+          "trend": "BULLISH",
+          "ema_fast": 160.04,
+          "ema_trend": 137.13,
+          "upper_band": 187.82,
+          "lower_band": 132.26,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.23,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 154.22,
+              "bottom": 151.78,
+              "ce_50": 153.0,
+              "gap_pct": 1.61
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 163.06,
+              "bottom": 154.58,
+              "ce_50": 158.82,
+              "gap_pct": 5.49
+            }
+          ],
+          "divergences": [
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 190.36,
+          "swing_low": 93.3,
+          "golden_pocket": [
+            127.27,
+            130.38
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "analyst_note": "Palantir konsolidiert nach starkem Aufwärtsimpuls im neutralen Kanalbereich. Die gemischten Divergenzen auf den Intraday-Zeitebenen mahnen zur Geduld, da die Gefahr eines tieferen Liquiditätsabgriffs hoch ist. Ein Long-Trigger wird erst bei Erreichen des 1D-Supports bzw. nach klarer Bestätigung durch institutionelles Volumen scharfgeschaltet.",
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+    },
+    {
+      "symbol": "TRADEGATE:INL",
+      "name": "Intel (Tradegate)",
+      "category": "Tradegate / EU",
+      "asset_type": "Stock",
+      "price": 86.12,
+      "signal": "NEUTRAL",
+      "score": 48,
+      "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+      "crv": 2.8,
+      "entry_range": [
+        87.5,
+        89.0
+      ],
+      "stop_loss": 91.8,
+      "take_profit_1": 80.5,
+      "take_profit_2": 75.0,
+      "reasons": [
+        "1D-Trend ist bärisch, während 1h-RSI mit 71.18 stark überkauft ist und eine reguläre bärische Divergenz ausbildet.",
+        "4h-RSI bei 63.95 und VSA auf 'Ultra-Low' signalisieren schwaches Volumen in der Aufwärtsbewegung (klassische Bärenmarktrallye).",
+        "Strikte Short-Regel greift noch nicht vollständig, da der Kurs noch nicht das primäre FVG/Widerstandsband touchiert hat."
+      ],
+      "charts": {
+        "1h": "charts/TRADEGATE_INL_1h.svg",
+        "4h": "charts/TRADEGATE_INL_4h.svg",
+        "1D": "charts/TRADEGATE_INL_1D.svg",
+        "1W": "charts/TRADEGATE_INL_1W.svg"
+      },
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
+      },
+      "timeframes": {
+        "1h": {
+          "name": "Intel (Tradegate) (TRADEGATE:INL)",
+          "price": 86.05,
+          "rsi": 71.18,
+          "trend": "BULLISH",
+          "ema_fast": 84.65,
+          "ema_trend": 82.0,
+          "upper_band": 86.14,
+          "lower_band": 83.16,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.76,
+          "vsa_class": "Low",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 81,
+              "bottom": 78.57,
+              "ce_50": 79.78,
+              "gap_pct": 3.09
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 80.65,
+              "bottom": 80.59,
+              "ce_50": 80.62,
+              "gap_pct": 0.07
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 81.38,
+              "bottom": 81.13,
+              "ce_50": 81.25,
+              "gap_pct": 0.31
+            }
+          ],
+          "divergences": [
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 86.35,
+          "swing_low": 75.45,
+          "golden_pocket": [
+            79.27,
+            79.61
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "Intel (Tradegate) (TRADEGATE:INL)",
+          "price": 86.05,
+          "rsi": 63.95,
+          "trend": "BULLISH",
+          "ema_fast": 82.49,
+          "ema_trend": 84.73,
+          "upper_band": 85.99,
+          "lower_band": 78.99,
+          "channel_position": "Overbought Band (Überdehnt Oben)",
+          "vsa_ratio": 0.26,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 77.95,
+              "bottom": 77.85,
+              "ce_50": 77.9,
+              "gap_pct": 0.13
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 82.94,
+              "bottom": 81.95,
+              "ce_50": 82.44,
+              "gap_pct": 1.21
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 85.32,
+              "bottom": 84.57,
+              "ce_50": 84.94,
+              "gap_pct": 0.89
+            }
+          ],
+          "divergences": [
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 103.04,
+          "swing_low": 75.45,
+          "golden_pocket": [
+            92.5,
+            93.38
+          ],
+          "in_golden_pocket": false
+        },
+        "1D": {
+          "name": "Intel (Tradegate) (TRADEGATE:INL)",
+          "price": 86.12,
+          "rsi": 46.9,
+          "trend": "BEARISH",
+          "ema_fast": 85.02,
+          "ema_trend": 89.93,
+          "upper_band": 94.02,
+          "lower_band": 76.02,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.27,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 99.51,
+              "bottom": 97.5,
+              "ce_50": 98.5,
+              "gap_pct": 2.02
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 93.89,
+              "bottom": 93.77,
+              "ce_50": 93.83,
+              "gap_pct": 0.13
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 93.01,
+              "bottom": 91.84,
+              "ce_50": 92.43,
+              "gap_pct": 1.26
+            }
+          ],
+          "divergences": [],
+          "swing_high": 114.82,
+          "swing_low": 73.09,
+          "golden_pocket": [
+            87.7,
+            89.03
+          ],
+          "in_golden_pocket": false
+        },
+        "1W": {
+          "name": "Intel (Tradegate) (TRADEGATE:INL)",
+          "price": 86.12,
+          "rsi": 51.3,
+          "trend": "BULLISH",
+          "ema_fast": 88.31,
+          "ema_trend": 71.81,
+          "upper_band": 111.76,
+          "lower_band": 64.86,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.32,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 100.3,
+              "bottom": 93.77,
+              "ce_50": 97.03,
+              "gap_pct": 6.51
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 93.01,
+              "bottom": 84.98,
+              "ce_50": 89.0,
+              "gap_pct": 8.63
+            }
+          ],
+          "divergences": [
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 124.58,
+          "swing_low": 20.46,
+          "golden_pocket": [
+            56.91,
+            60.24
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "analyst_note": "Die aktuelle Erholung auf 1h/4h läuft bei Intel direkt in den übergeordneten 1D-Abwärtstrend hinein. Aufgrund der überkauften 1h-Lage und regulären bärischen Divergenz bereiten wir ein Short-Setup vor, warten jedoch die vollständige Erschöpfung im Bereich 87.50–89.00 EUR ab, um einen strukturell geschützten Stop-Loss zu platzieren.",
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "COINBASE:AAVEUSD",
@@ -14833,15 +14517,15 @@
       "take_profit_2": 230.93,
       "reasons": [
         "1D Trend unter EMA 233 bärisch",
-        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: 1D Reguläre Bullische Divergenz (Reversal)"
       ],
       "charts": {
         "4h": "charts/NASDAQ_NVDA_4h.svg",
         "1D": "charts/NASDAQ_NVDA_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14889,8 +14573,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 243.38,
           "swing_low": 210.19,
@@ -14976,7 +14660,7 @@
         "4h": "charts/NYSE_AG_4h.svg",
         "1D": "charts/NYSE_AG_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -15106,13 +14790,13 @@
       },
       "last_analyzed": "2026-10-28T13:24:01.919125+00:00",
       "market_state": {
-        "is_open": true,
+        "is_open": false,
         "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "XETRA Regular Session",
-        "min_interval_minutes": 120,
-        "badge_color": "emerald",
-        "status_text": "XETRA Offen (bis 17:35 CET)"
+        "status": "CLOSED",
+        "session_name": "XETRA Nachtpause",
+        "min_interval_minutes": 999999,
+        "badge_color": "slate",
+        "status_text": "XETRA Geschlossen (Pause bis 09:00)"
       },
       "timeframes": {
         "1h": {
@@ -15449,7 +15133,12 @@
         }
       },
       "analyst_note": "Trotz des klaren übergeordneten Abwärtstrends verbietet das Risikomanagement ein blindes Shorten in laufende 4h/1h-Gegenbewegungen. Wir stufen das Asset als NEUTRAL ein und warten geduldig auf eine Erschöpfung der Bärenmarktrallye im Bereich 154–158 USDT mit bärischem Divergenz-Trigger.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
+      "watchlists": [
+        "Crypto"
+      ],
+      "source_watchlist": "Crypto",
+      "currency": "USD"
     },
     {
       "symbol": "KRAKEN:RPLUSD",
@@ -15683,7 +15372,12 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Crypto"
+      ],
+      "source_watchlist": "Crypto",
+      "currency": "USD"
     },
     {
       "symbol": "COINBASE:ETHBTC",
@@ -15909,7 +15603,13 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Crypto",
+        "Watchlist"
+      ],
+      "source_watchlist": "Crypto",
+      "currency": "USD"
     },
     {
       "symbol": "KRAKEN:DOTUSD",
@@ -16099,7 +15799,12 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Watchlist"
+      ],
+      "source_watchlist": "Watchlist",
+      "currency": "USD"
     },
     {
       "symbol": "TRADEGATE:FB2A",
@@ -16130,7 +15835,7 @@
         "1D": "charts/TRADEGATE_FB2A_1D.svg",
         "1W": "charts/TRADEGATE_FB2A_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -16519,7 +16224,220 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Crypto"
+      ],
+      "source_watchlist": "Crypto",
+      "currency": "USD"
+    },
+    {
+      "symbol": "TRADEGATE:YDX",
+      "name": "BYD Company",
+      "category": "Tradegate / EU",
+      "asset_type": "Stock",
+      "price": 158.98,
+      "signal": "NEUTRAL",
+      "score": 46,
+      "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+      "crv": 2.5,
+      "entry_range": [
+        162.0,
+        164.5
+      ],
+      "stop_loss": 169.0,
+      "take_profit_1": 151.0,
+      "take_profit_2": 142.5,
+      "reasons": [
+        "1D- und 4h-Trend sind eindeutig bärisch; kein Long-Signal gemäß Makro-Filter zulässig.",
+        "1h-RSI notiert bei 72.40 (Überkauft) mit regulärer bärischer Divergenz, während das 4h-Volumen 'Ultra-Low' ausweist.",
+        "Erhöhte Hysterese zum Schutz vor Whipsaws: Einstieg erst bei direktem Test des übergeordneten Premium-Widerstandslevels."
+      ],
+      "charts": {
+        "1h": "charts/TRADEGATE_YDX_1h.svg",
+        "4h": "charts/TRADEGATE_YDX_4h.svg",
+        "1D": "charts/TRADEGATE_YDX_1D.svg",
+        "1W": "charts/TRADEGATE_YDX_1W.svg"
+      },
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
+      },
+      "timeframes": {
+        "1h": {
+          "name": "BYD Company (TRADEGATE:YDX)",
+          "price": 158.98,
+          "rsi": 72.4,
+          "trend": "BULLISH",
+          "ema_fast": 153.43,
+          "ema_trend": 147.79,
+          "upper_band": 157.89,
+          "lower_band": 148.97,
+          "channel_position": "Overbought Band (Überdehnt Oben)",
+          "vsa_ratio": 0.66,
+          "vsa_class": "Low",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 141.32,
+              "bottom": 140.08,
+              "ce_50": 140.7,
+              "gap_pct": 0.89
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 149.28,
+              "bottom": 144.1,
+              "ce_50": 146.69,
+              "gap_pct": 3.59
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 151.94,
+              "bottom": 151.36,
+              "ce_50": 151.65,
+              "gap_pct": 0.38
+            }
+          ],
+          "divergences": [
+            "Reguläre Bärische Divergenz (Reversal)"
+          ],
+          "swing_high": 159,
+          "swing_low": 133.3,
+          "golden_pocket": [
+            142.3,
+            143.12
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "BYD Company (TRADEGATE:YDX)",
+          "price": 158.98,
+          "rsi": 58.99,
+          "trend": "BEARISH",
+          "ema_fast": 149.25,
+          "ema_trend": 159.44,
+          "upper_band": 160.26,
+          "lower_band": 138.24,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.16,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 149.28,
+              "bottom": 140.08,
+              "ce_50": 144.68,
+              "gap_pct": 6.57
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 154.72,
+              "bottom": 153.52,
+              "ce_50": 154.12,
+              "gap_pct": 0.78
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 156.84,
+              "bottom": 153.98,
+              "ce_50": 155.41,
+              "gap_pct": 1.86
+            }
+          ],
+          "divergences": [
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 216.75,
+          "swing_low": 133.3,
+          "golden_pocket": [
+            184.87,
+            187.54
+          ],
+          "in_golden_pocket": false
+        },
+        "1D": {
+          "name": "BYD Company (TRADEGATE:YDX)",
+          "price": 158.98,
+          "rsi": 42.69,
+          "trend": "BEARISH",
+          "ema_fast": 159.81,
+          "ema_trend": 180.99,
+          "upper_band": 185.94,
+          "lower_band": 133.67,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.31,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 176.72,
+              "bottom": 168.98,
+              "ce_50": 172.85,
+              "gap_pct": 4.38
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 154.72,
+              "bottom": 148.28,
+              "ce_50": 151.5,
+              "gap_pct": 4.34
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 245.7,
+          "swing_low": 133.3,
+          "golden_pocket": [
+            202.76,
+            206.36
+          ],
+          "in_golden_pocket": false
+        },
+        "1W": {
+          "name": "BYD Company (TRADEGATE:YDX)",
+          "price": 158.98,
+          "rsi": 47.41,
+          "trend": "BULLISH",
+          "ema_fast": 177.74,
+          "ema_trend": 146.77,
+          "upper_band": 242.73,
+          "lower_band": 112.75,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.56,
+          "vsa_class": "Low",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 194.48,
+              "bottom": 161.46,
+              "ce_50": 177.97,
+              "gap_pct": 16.98
+            }
+          ],
+          "divergences": [
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 261,
+          "swing_low": 54,
+          "golden_pocket": [
+            126.45,
+            133.07
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "analyst_note": "BYD zeigt intraday eine scharfe Gegenbewegung gegen den primären 1D-Abwärtstrend, getrieben von dünnem Volumen. Wir verbleiben streng neutral und nutzen die überkaufte 1h-Bedingung, um im Bereich um 162.00–164.50 EUR nach Bestätigung eines Short-Setups mit mindestens 2.5:1 CRV zu suchen.",
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "KRAKEN:KSMUSD",
@@ -16753,6 +16671,222 @@
       "currency": "USD"
     },
     {
+      "symbol": "TRADEGATE:NVD",
+      "name": "Nvidia (Tradegate)",
+      "category": "Tradegate / EU",
+      "asset_type": "Stock",
+      "price": 197.64,
+      "signal": "NEUTRAL",
+      "score": 45,
+      "setup_name": "Beobachten / Konsolidierung nach Impuls (Overbought-Gefahr)",
+      "crv": 2.5,
+      "entry_range": [
+        182.0,
+        186.0
+      ],
+      "stop_loss": 174.5,
+      "take_profit_1": 205.0,
+      "take_profit_2": 218.0,
+      "reasons": [
+        "1h RSI mit 70.67 im überkauften Bereich; striktes Chasing-Verbot greift.",
+        "Auf 4h liegt eine versteckte bärische Divergenz vor, die kurzfristige Erschöpfung signalisiert.",
+        "Keine strukturelle SMC-Demand-Zone am aktuellen Kursniveau (in_gp: false)."
+      ],
+      "charts": {
+        "1h": "charts/TRADEGATE_NVD_1h.svg",
+        "4h": "charts/TRADEGATE_NVD_4h.svg",
+        "1D": "charts/TRADEGATE_NVD_1D.svg",
+        "1W": "charts/TRADEGATE_NVD_1W.svg"
+      },
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
+      },
+      "timeframes": {
+        "1h": {
+          "name": "Nvidia (Tradegate) (TRADEGATE:NVD)",
+          "price": 197.54,
+          "rsi": 70.67,
+          "trend": "BULLISH",
+          "ema_fast": 196.29,
+          "ema_trend": 194.02,
+          "upper_band": 198.01,
+          "lower_band": 194.57,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 1.01,
+          "vsa_class": "Average / Normal",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 190.16,
+              "bottom": 189.16,
+              "ce_50": 189.66,
+              "gap_pct": 0.53
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 191.88,
+              "bottom": 190.9,
+              "ce_50": 191.39,
+              "gap_pct": 0.51
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 196.86,
+              "bottom": 196.06,
+              "ce_50": 196.46,
+              "gap_pct": 0.41
+            }
+          ],
+          "divergences": [
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 197.9,
+          "swing_low": 187.72,
+          "golden_pocket": [
+            191.28,
+            191.61
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "Nvidia (Tradegate) (TRADEGATE:NVD)",
+          "price": 197.54,
+          "rsi": 61.05,
+          "trend": "BULLISH",
+          "ema_fast": 194.41,
+          "ema_trend": 195.73,
+          "upper_band": 198.56,
+          "lower_band": 190.26,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.27,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 191.88,
+              "bottom": 189.28,
+              "ce_50": 190.58,
+              "gap_pct": 1.37
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 194.44,
+              "bottom": 194.36,
+              "ce_50": 194.4,
+              "gap_pct": 0.04
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 197.38,
+              "bottom": 196.06,
+              "ce_50": 196.72,
+              "gap_pct": 0.67
+            }
+          ],
+          "divergences": [
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 213.8,
+          "swing_low": 187.72,
+          "golden_pocket": [
+            203.84,
+            204.67
+          ],
+          "in_golden_pocket": false
+        },
+        "1D": {
+          "name": "Nvidia (Tradegate) (TRADEGATE:NVD)",
+          "price": 197.64,
+          "rsi": 51.25,
+          "trend": "BULLISH",
+          "ema_fast": 195.82,
+          "ema_trend": 194.95,
+          "upper_band": 205.54,
+          "lower_band": 186.1,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.29,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 187.62,
+              "bottom": 185.34,
+              "ce_50": 186.48,
+              "gap_pct": 1.23
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 212.2,
+              "bottom": 211.8,
+              "ce_50": 212.0,
+              "gap_pct": 0.19
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 211.1,
+              "bottom": 209.95,
+              "ce_50": 210.52,
+              "gap_pct": 0.54
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 216.1,
+          "swing_low": 178,
+          "golden_pocket": [
+            191.34,
+            192.55
+          ],
+          "in_golden_pocket": false
+        },
+        "1W": {
+          "name": "Nvidia (Tradegate) (TRADEGATE:NVD)",
+          "price": 197.64,
+          "rsi": 56.26,
+          "trend": "BULLISH",
+          "ema_fast": 192.69,
+          "ema_trend": 174.78,
+          "upper_band": 216.94,
+          "lower_band": 168.44,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.28,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 204.7,
+              "bottom": 197.74,
+              "ce_50": 201.22,
+              "gap_pct": 3.4
+            }
+          ],
+          "divergences": [
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 216.1,
+          "swing_low": 141.8,
+          "golden_pocket": [
+            167.81,
+            170.18
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "analyst_note": "Nvidia weist auf Stundenbasis mit einem RSI von über 70 eine deutliche Überdehnung auf, weshalb ein Long-Einstieg strikt verboten ist. Trotz bullischem Makrobild spricht die bärische Divergenz auf 4h für einen bevorstehenden Mean-Reversion-Move. Kapitalerhalt hat Vorrang: Wir warten auf einen kontrollierten Rücksetzer in Richtung der 185-EUR-Marke.",
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+    },
+    {
       "symbol": "TRADEGATE:SIE",
       "name": "Siemens",
       "category": "Tradegate / EU",
@@ -16773,7 +16907,7 @@
         "1D Trend unter EMA 233 bärisch",
         "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)",
         "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)",
-        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)"
+        "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)"
       ],
       "charts": {
         "1h": "charts/TRADEGATE_SIE_1h.svg",
@@ -16781,7 +16915,7 @@
         "1D": "charts/TRADEGATE_SIE_1D.svg",
         "1W": "charts/TRADEGATE_SIE_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -16868,8 +17002,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 278.8,
           "swing_low": 254.55,
@@ -16999,13 +17133,13 @@
       },
       "last_analyzed": "2026-10-28T13:24:01.919125+00:00",
       "market_state": {
-        "is_open": true,
+        "is_open": false,
         "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "XETRA Regular Session",
-        "min_interval_minutes": 120,
-        "badge_color": "emerald",
-        "status_text": "XETRA Offen (bis 17:35 CET)"
+        "status": "CLOSED",
+        "session_name": "XETRA Nachtpause",
+        "min_interval_minutes": 999999,
+        "badge_color": "slate",
+        "status_text": "XETRA Geschlossen (Pause bis 09:00)"
       },
       "timeframes": {
         "1h": {
@@ -17443,19 +17577,19 @@
       "price": 1017.6,
       "signal": "NEUTRAL",
       "score": 45,
-      "setup_name": "Beobachten / Widersprüchliche Timeframes",
+      "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
       "crv": 2.6,
       "entry_range": [
-        955.0,
-        975.0
+        1030.0,
+        1045.0
       ],
-      "stop_loss": 925.0,
-      "take_profit_1": 1050.0,
-      "take_profit_2": 1110.0,
+      "stop_loss": 1075.0,
+      "take_profit_1": 970.0,
+      "take_profit_2": 915.0,
       "reasons": [
-        "Strikter Konflikt der Zeitebenen: 1W und 1D bärisch, während 4h bullisch und 1h bärisch notieren.",
-        "VSA auf 4h zeigt 'Ultra-Low' Volumen, was auf fehlende Marktpartizipation und Liquiditätslöcher hinweist.",
-        "Gemäß institutioneller Doktrin gehören unklare Marktlagen ausnahmslos in die Kategorie NEUTRAL zur Kapitalerhaltung."
+        "Makro-Regime auf 1W und 1D klar bärisch; Kursbewegungen nach oben sind als Bärenmarktrallyes einzustufen.",
+        "4h zeigt 'Ultra-Low' VSA ohne echte institutionelle Nachfrage, 1h-Trend bleibt abwärtsgerichtet mit aktiven bärischen Divergenzen.",
+        "Aktuelles Kursniveau (1017.60 EUR) bietet noch keinen optimalen Einstieg an signifikantem Widerstand/FVG für ein institutionelles CRV."
       ],
       "charts": {
         "1h": "charts/TRADEGATE_RHM_1h.svg",
@@ -17463,7 +17597,7 @@
         "1D": "charts/TRADEGATE_RHM_1D.svg",
         "1W": "charts/TRADEGATE_RHM_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -17488,8 +17622,8 @@
           "vsa_class": "Low",
           "fvgs": [],
           "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bärische Divergenz (Reversal)"
           ],
           "swing_high": 1042.6,
           "swing_low": 1008.4,
@@ -17593,8 +17727,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 2007,
           "swing_low": 902.5,
@@ -17605,7 +17739,7 @@
           "in_golden_pocket": false
         }
       },
-      "analyst_note": "Rheinmetall liefert derzeit widersprüchliche Signale über alle Zeitebenen hinweg. Das Risikoprofil verbietet jegliche Positionierung, da Whipsaw-Gefahr dominiert. Ein Setup wird erst nach einer klaren Richtungsentscheidung und Auflösung der divergierenden Timeframes neu bewertet.",
+      "analyst_note": "Rheinmetall befindet sich im übergeordneten Abwärtstrend. Wir jagen den Kurs nach unten nicht hinterher, sondern lauern auf eine Erschöpfungsrallye in den Widerstandsbereich von 1030–1045 EUR. Erst bei klarer Ablehnung und bärischem Volumenimpuls wird ein Short-Einstieg mit SL über 1075 EUR freigegeben.",
       "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
@@ -17782,7 +17916,12 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Commodities"
+      ],
+      "source_watchlist": "Commodities",
+      "currency": "USD"
     },
     {
       "symbol": "NASDAQ:AVGO",
@@ -17810,7 +17949,7 @@
         "4h": "charts/NASDAQ_AVGO_4h.svg",
         "1D": "charts/NASDAQ_AVGO_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -18424,14 +18563,14 @@
       "take_profit_2": 15.02,
       "reasons": [
         "1D Trend unter EMA 233 bärisch",
-        "Aktiv: 1D Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: 1D Versteckte Bärische Divergenz (Trendfolge)"
+        "Aktiv: 1D Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: 1D Reguläre Bullische Divergenz (Reversal)"
       ],
       "charts": {
         "4h": "charts/NYSE_CAG_4h.svg",
         "1D": "charts/NYSE_CAG_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -18509,8 +18648,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 16.73,
           "swing_low": 12.88,
@@ -18549,7 +18688,7 @@
         "4h": "charts/NASDAQ_AMZN_4h.svg",
         "1D": "charts/NASDAQ_AMZN_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -18883,7 +19022,7 @@
         "4h": "charts/NASDAQ_TSLA_4h.svg",
         "1D": "charts/NASDAQ_TSLA_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -18964,8 +19103,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bärische Divergenz (Reversal)"
           ],
           "swing_high": 407.65,
           "swing_low": 315.52,
@@ -19009,7 +19148,7 @@
         "1D": "charts/TRADEGATE_TL0_1D.svg",
         "1W": "charts/TRADEGATE_TL0_1W.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -19166,7 +19305,7 @@
           "vsa_class": "Low",
           "fvgs": [],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)",
             "Versteckte Bullische Divergenz (Trendfolge)"
           ],
           "swing_high": 424.1,
@@ -19207,7 +19346,7 @@
         "4h": "charts/NYSE_UBER_4h.svg",
         "1D": "charts/NYSE_UBER_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -19334,7 +19473,7 @@
         "4h": "charts/NASDAQ_INTC_4h.svg",
         "1D": "charts/NASDAQ_INTC_1D.svg"
       },
-      "last_analyzed": "2026-10-28T15:31:48.434542+00:00",
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -19634,7 +19773,12 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine"
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Watchlist"
+      ],
+      "source_watchlist": "Watchlist",
+      "currency": "USD"
     },
     {
       "symbol": "BINANCE:BATUSD",
@@ -19674,7 +19818,12 @@
         "4h": null,
         "1D": null,
         "1W": null
-      }
+      },
+      "watchlists": [
+        "Watchlist"
+      ],
+      "source_watchlist": "Watchlist",
+      "currency": "USD"
     },
     {
       "symbol": "KUCOIN:LYXEUSDT",
@@ -19714,7 +19863,12 @@
         "4h": null,
         "1D": null,
         "1W": null
-      }
+      },
+      "watchlists": [
+        "Watchlist"
+      ],
+      "source_watchlist": "Watchlist",
+      "currency": "USD"
     },
     {
       "symbol": "UNISWAP3ETH:SAMAWETH_854B57.USD",
@@ -19754,7 +19908,12 @@
         "4h": null,
         "1D": null,
         "1W": null
-      }
+      },
+      "watchlists": [
+        "Crypto"
+      ],
+      "source_watchlist": "Crypto",
+      "currency": "USD"
     }
   ],
   "evaluation_engine": "gemini-3.8-flash-low [Pro Abo]",
@@ -19786,8 +19945,8 @@
         "analyst_note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
         "unrealized_pnl_pct": 6.69,
         "unrealized_pnl_leveraged_pct": 40.13,
-        "holding_hours": 212.0,
-        "holding_days": 8.8,
+        "holding_hours": 213.8,
+        "holding_days": 8.9,
         "tp1_reached": true,
         "trailing_active": true,
         "status": "OPEN"
@@ -19816,8 +19975,8 @@
         "analyst_note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 2.66,
         "unrealized_pnl_leveraged_pct": 15.97,
-        "holding_hours": 122.7,
-        "holding_days": 5.1,
+        "holding_hours": 124.4,
+        "holding_days": 5.2,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -19846,8 +20005,8 @@
         "analyst_note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 0.77,
         "unrealized_pnl_leveraged_pct": 3.84,
-        "holding_hours": 60.8,
-        "holding_days": 2.5,
+        "holding_hours": 62.5,
+        "holding_days": 2.6,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -19876,8 +20035,8 @@
         "analyst_note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 0.0,
         "unrealized_pnl_leveraged_pct": 0.0,
-        "holding_hours": 57.9,
-        "holding_days": 2.4,
+        "holding_hours": 59.6,
+        "holding_days": 2.5,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -19906,8 +20065,8 @@
         "analyst_note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 1.91,
         "unrealized_pnl_leveraged_pct": 5.74,
-        "holding_hours": 57.9,
-        "holding_days": 2.4,
+        "holding_hours": 59.6,
+        "holding_days": 2.5,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -19936,8 +20095,8 @@
         "analyst_note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 1.39,
         "unrealized_pnl_leveraged_pct": 5.56,
-        "holding_hours": 52.8,
-        "holding_days": 2.2,
+        "holding_hours": 54.5,
+        "holding_days": 2.3,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -19966,8 +20125,8 @@
         "analyst_note": "Strikte bullische Konfluenz (96%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 3.76,
         "unrealized_pnl_leveraged_pct": 18.82,
-        "holding_hours": 24.9,
-        "holding_days": 1.0,
+        "holding_hours": 26.6,
+        "holding_days": 1.1,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -19996,8 +20155,8 @@
         "analyst_note": "Strikte bullische Konfluenz (92%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": -0.77,
         "unrealized_pnl_leveraged_pct": -4.64,
-        "holding_hours": 24.9,
-        "holding_days": 1.0,
+        "holding_hours": 26.6,
+        "holding_days": 1.1,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -20765,7 +20924,7 @@
         "title": "Keine Live-Kerzendaten",
         "message": "Dieses Symbol wird aktuell nicht im 4h-Hauptscan überwacht. Manuelle Kursprüfung empfohlen."
       },
-      "updated_at": "2026-10-28T15:59:04.494131+00:00"
+      "updated_at": "2026-10-28T17:41:25.745254+00:00"
     }
   ],
   "gemini_quota": {
@@ -20794,7 +20953,7 @@
         "tokens_used": 10020,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 8h 0m",
+        "reset_countdown": "in 6h 18m",
         "last_error": null
       },
       {
@@ -20808,7 +20967,7 @@
         "tokens_used": 19734,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 8h 0m",
+        "reset_countdown": "in 6h 18m",
         "last_error": null
       },
       {
@@ -20822,7 +20981,7 @@
         "tokens_used": 11884,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 8h 0m",
+        "reset_countdown": "in 6h 18m",
         "last_error": null
       },
       {
@@ -20844,12 +21003,12 @@
       "enabled": true,
       "model": "gemini-3.8-flash-high (Google Pro CLI)",
       "daily_budget": 50,
-      "requests_used": 7,
-      "requests_remaining": 43,
-      "percent_used": 14.0,
+      "requests_used": 10,
+      "requests_remaining": 40,
+      "percent_used": 20.0,
       "tokens_used": 0,
       "status": "ACTIVE",
-      "last_used": "2026-10-28T15:59:04.185763+00:00"
+      "last_used": "2026-10-28T17:41:25.436790+00:00"
     }
   },
   "watchlists": [
