@@ -181,6 +181,237 @@ top_short_candidates = sorted([a for a in raw_assets if a.get("signal") == "SHOR
 top_longs_cards_html = render_top_picks_html(top_long_candidates, "LONG")
 top_shorts_cards_html = render_top_picks_html(top_short_candidates, "SHORT")
 
+
+def render_hero_cards_html(raw_assets):
+    def is_crypto_asset(a):
+        sym = a.get("symbol", "").upper()
+        cat = (a.get("category") or "").upper()
+        atype = (a.get("asset_type") or "").upper()
+        if atype == "CRYPTO" or "CRYPTO" in cat or "KRYPTO" in cat:
+            return True
+        if sym.startswith(("BINANCE:", "COINBASE:", "KRAKEN:", "BYBIT:", "CRYPTOCAP:")):
+            return True
+        if any(coin in sym for coin in ["BTC", "ETH", "SOL", "AVAX", "DOT", "BCH", "CRV", "AAVE", "KSM", "GMX", "ETHFI"]):
+            return True
+        return False
+
+    def is_tradable_crypto(a):
+        sym = a.get("symbol", "").upper()
+        if "CRYPTOCAP:" in sym or sym in ("TOTAL", "BTC.D"):
+            return False
+        return is_crypto_asset(a)
+
+    # 1. Top Opportunity Card (Aktien & Traditionelle Märkte)
+    trad_assets = [a for a in raw_assets if not is_crypto_asset(a)]
+    trad_active = [a for a in trad_assets if a.get("signal") in ("LONG", "SHORT")]
+    if trad_active:
+        top_pick = sorted(trad_active, key=lambda x: (x.get("score", 0), x.get("crv", 0)), reverse=True)[0]
+    elif trad_assets:
+        top_pick = sorted(trad_assets, key=lambda x: x.get("score", 0), reverse=True)[0]
+    else:
+        top_pick = None
+
+    # 2. Top Crypto Opportunity Card (Dynamisch nach bestem Krypto-Setup)
+    crypto_assets = [a for a in raw_assets if is_tradable_crypto(a)]
+    crypto_active = [a for a in crypto_assets if a.get("signal") in ("LONG", "SHORT")]
+    if crypto_active:
+        crypto_pick = sorted(crypto_active, key=lambda x: (x.get("score", 0), x.get("crv", 0)), reverse=True)[0]
+    elif crypto_assets:
+        crypto_pick = sorted(crypto_assets, key=lambda x: x.get("score", 0), reverse=True)[0]
+    else:
+        crypto_pick = None
+
+    # Top Pick HTML rendern (Aktien / Traditionell)
+    if top_pick:
+        tp_sym = top_pick.get("symbol", "")
+        tp_name = top_pick.get("name", tp_sym)
+        tp_cat = top_pick.get("category", "Aktien")
+        tp_price = top_pick.get("price", 0.0)
+        tp_score = top_pick.get("score", 50)
+        tp_sig = top_pick.get("signal", "NEUTRAL")
+        tp_setup = top_pick.get("setup_name", "Setup Confluence")
+        tp_crv = top_pick.get("crv", 2.5)
+        tp_entry = top_pick.get("entry_range", [tp_price, tp_price])
+        tp_sl = top_pick.get("stop_loss", tp_price * 0.95)
+        tp_tp2 = top_pick.get("take_profit_2", tp_price * 1.05)
+        tp_note = top_pick.get("analyst_note") or f"{tp_sig}-Setup mit {tp_score}% Confluence. Risikomanagement und Key-Level strikt beachten."
+
+        is_long = (tp_sig == "LONG")
+        is_short = (tp_sig == "SHORT")
+
+        tp_badge_bg = "bg-emerald-500 text-slate-950" if is_long else ("bg-rose-500 text-white" if is_short else "bg-slate-700 text-white")
+        tp_glow = "glow-emerald border-emerald-500/30" if is_long else ("glow-rose border-rose-500/30" if is_short else "border-slate-700")
+        tp_score_color = "text-emerald-400" if is_long else ("text-rose-400" if is_short else "text-slate-300")
+        tp_price_color = "text-emerald-400" if is_long else ("text-rose-400" if is_short else "text-white")
+        tp_entry_str = f"{tp_entry[0]:,.2f} - {tp_entry[1]:,.2f} $" if isinstance(tp_entry, (list, tuple)) and len(tp_entry) == 2 else f"{tp_price:,.2f} $"
+        tp_sl_str = f"{tp_sl:,.2f} $"
+        tp_tp_str = f"{tp_tp2:,.2f} $ ({tp_crv} CRV)"
+        tp_sub_badge = f"{tp_score}% Score · {tp_sig}"
+        tp_detail_link_color = "text-emerald-400 hover:text-emerald-300" if is_long else "text-rose-400 hover:text-rose-300"
+
+        top_pick_html = f"""
+        <!-- Top Pick Aktien/Traditionell: {tp_name} ({tp_sym}) -->
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900/90 via-[#0d1322] to-slate-900 border {tp_glow} p-5">
+          <div class="absolute -right-12 -top-12 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-3">
+              <span class="px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider {tp_badge_bg}">
+                Top Opportunity · Aktien
+              </span>
+              <span class="text-xs font-mono {tp_score_color} font-semibold">{tp_sub_badge}</span>
+            </div>
+            <span class="font-mono text-xs text-slate-400">{tp_sym}</span>
+          </div>
+
+          <div class="mt-3 flex items-baseline justify-between">
+            <div>
+              <h3 class="text-2xl font-bold text-white tracking-tight">{tp_name}</h3>
+              <p class="text-xs text-slate-400">{tp_cat}</p>
+            </div>
+            <div class="text-right">
+              <span class="font-mono text-2xl font-extrabold {tp_price_color}">{tp_price:,.2f} USD</span>
+              <span class="block text-xs font-mono text-slate-400">Live aus Markt-Scan</span>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono">
+            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
+              <span class="text-slate-400 block text-[11px]">Setup</span>
+              <span class="{tp_score_color} font-semibold truncate block">{tp_setup}</span>
+            </div>
+            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
+              <span class="text-slate-400 block text-[11px]">Entry Zone</span>
+              <span class="text-white font-semibold">{tp_entry_str}</span>
+            </div>
+            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
+              <span class="text-slate-400 block text-[11px]">Stop-Loss</span>
+              <span class="text-rose-400 font-semibold">{tp_sl_str}</span>
+            </div>
+            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
+              <span class="text-slate-400 block text-[11px]">Take-Profit 2</span>
+              <span class="text-cyan-400 font-semibold">{tp_tp_str}</span>
+            </div>
+          </div>
+
+          <p class="mt-3 text-xs text-slate-300 leading-relaxed">
+            <strong>Super-Analyst Rationale:</strong> {tp_note}
+          </p>
+
+          <div class="mt-4 flex items-center justify-between pt-3 border-t border-slate-800/80">
+            <button onclick="openDetailModal('{tp_sym}')" class="text-xs font-semibold {tp_detail_link_color} flex items-center gap-1 transition cursor-pointer">
+              Multi-Timeframe Details →
+            </button>
+            <a href="https://www.tradingview.com/chart/?symbol={tp_sym}" target="_blank" class="text-xs text-slate-400 hover:text-white transition flex items-center gap-1">
+              TradingView Chart ↗
+            </a>
+          </div>
+        </div>
+        """
+    else:
+        top_pick_html = '<div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 text-slate-400">Keine Top Opportunity aktiv.</div>'
+
+    # Top Crypto Opportunity HTML rendern
+    if crypto_pick:
+        c_sym = crypto_pick.get("symbol", "")
+        c_name = crypto_pick.get("name", c_sym)
+        c_cat = crypto_pick.get("category", "Crypto")
+        c_price = crypto_pick.get("price", 0.0)
+        c_score = crypto_pick.get("score", 50)
+        c_sig = crypto_pick.get("signal", "NEUTRAL")
+        c_setup = crypto_pick.get("setup_name", "Krypto Setup")
+        c_crv = crypto_pick.get("crv", 2.5)
+        c_entry = crypto_pick.get("entry_range", [c_price, c_price])
+        c_sl = crypto_pick.get("stop_loss", c_price * 0.95)
+        c_tp2 = crypto_pick.get("take_profit_2", c_price * 1.05)
+        c_note = crypto_pick.get("analyst_note") or f"{c_sig}-Krypto-Setup mit {c_score}% Confluence. 24/7 Marktvolatilität beachten."
+
+        c_is_long = (c_sig == "LONG")
+        c_is_short = (c_sig == "SHORT")
+
+        c_badge_bg = "bg-emerald-500 text-slate-950" if c_is_long else ("bg-rose-500 text-white" if c_is_short else "bg-indigo-600 text-white")
+        c_glow = "glow-emerald border-emerald-500/30" if c_is_long else ("glow-rose border-rose-500/30" if c_is_short else "border-indigo-500/30")
+        c_score_color = "text-emerald-400" if c_is_long else ("text-rose-400" if c_is_short else "text-indigo-300")
+        c_price_color = "text-emerald-400" if c_is_long else ("text-rose-400" if c_is_short else "text-white")
+        c_entry_str = f"{c_entry[0]:,.2f} - {c_entry[1]:,.2f} $" if isinstance(c_entry, (list, tuple)) and len(c_entry) == 2 else f"{c_price:,.2f} $"
+        c_sl_str = f"{c_sl:,.2f} $"
+        c_tp_str = f"{c_tp2:,.2f} $ ({c_crv} CRV)"
+        c_sub_badge = f"{c_score}% Score · {c_sig}"
+        c_detail_link_color = "text-emerald-400 hover:text-emerald-300" if c_is_long else ("text-rose-400 hover:text-rose-300" if c_is_short else "text-indigo-400 hover:text-indigo-300")
+
+        d_1d = crypto_pick.get("timeframes", {}).get("1D") or {}
+        c_trend = d_1d.get("trend", "BULLISH")
+        c_trend_badge = f"{c_trend} (1D)"
+
+        crypto_card_html = f"""
+        <!-- Top Crypto Opportunity: {c_name} ({c_sym}) -->
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-950/40 via-slate-900/90 to-slate-900 border {c_glow} p-5">
+          <div class="absolute -right-12 -top-12 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-3">
+              <span class="px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider {c_badge_bg}">
+                Top Opportunity · Krypto
+              </span>
+              <span class="text-xs font-mono {c_score_color} font-semibold">{c_sub_badge}</span>
+            </div>
+            <span class="font-mono text-xs text-slate-400">{c_sym}</span>
+          </div>
+
+          <div class="mt-3 flex items-baseline justify-between">
+            <div>
+              <h3 class="text-2xl font-bold text-white tracking-tight">{c_name}</h3>
+              <p class="text-xs text-slate-400">{c_cat} · 24/7 Krypto</p>
+            </div>
+            <div class="text-right">
+              <span class="font-mono text-2xl font-extrabold {c_price_color}">{c_price:,.2f} USD</span>
+              <span class="block text-xs font-mono text-slate-400">{c_trend_badge}</span>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono">
+            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
+              <span class="text-slate-400 block text-[11px]">Setup</span>
+              <span class="{c_score_color} font-semibold truncate block">{c_setup}</span>
+            </div>
+            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
+              <span class="text-slate-400 block text-[11px]">Entry / Trigger</span>
+              <span class="text-white font-semibold">{c_entry_str}</span>
+            </div>
+            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
+              <span class="text-slate-400 block text-[11px]">Stop-Loss</span>
+              <span class="text-rose-400 font-semibold">{c_sl_str}</span>
+            </div>
+            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
+              <span class="text-slate-400 block text-[11px]">Take-Profit 2</span>
+              <span class="text-cyan-400 font-semibold">{c_tp_str}</span>
+            </div>
+          </div>
+
+          <p class="mt-3 text-xs text-slate-300 leading-relaxed">
+            <strong>Super-Analyst Rationale:</strong> {c_note}
+          </p>
+
+          <div class="mt-4 flex items-center justify-between pt-3 border-t border-slate-800/80">
+            <button onclick="openDetailModal('{c_sym}')" class="text-xs font-semibold {c_detail_link_color} flex items-center gap-1 transition cursor-pointer">
+              Multi-Timeframe Details →
+            </button>
+            <a href="https://www.tradingview.com/chart/?symbol={c_sym}" target="_blank" class="text-xs text-slate-400 hover:text-white transition flex items-center gap-1">
+              TradingView Chart ↗
+            </a>
+          </div>
+        </div>
+        """
+    else:
+        crypto_card_html = '<div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 text-slate-400">Keine Krypto-Daten gefunden.</div>'
+
+    return f"""
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {top_pick_html}
+        {crypto_card_html}
+      </div>
+    """
+
+hero_cards_html = render_hero_cards_html(raw_assets)
+
 html_content = f"""<!DOCTYPE html>
 <html lang="de" class="dark">
 <head>
@@ -774,124 +1005,8 @@ html_content = f"""<!DOCTYPE html>
         </button>
       </div>
 
-      <!-- Highlight Opportunity Hero: Micron (MU) & Bitcoin (BTC) -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        
-        <!-- Top Pick: Micron Technology (MU) -->
-        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-950/40 via-slate-900/90 to-slate-900 border border-emerald-500/30 p-5 glow-emerald">
-          <div class="absolute -right-12 -top-12 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-          <div class="flex items-start justify-between">
-            <div class="flex items-center gap-3">
-              <span class="px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider bg-emerald-500 text-slate-950">
-                Top Opportunity
-              </span>
-              <span class="text-xs font-mono text-emerald-400 font-semibold">98% Score · Golden Confluence</span>
-            </div>
-            <span class="font-mono text-xs text-slate-400">NASDAQ:MU</span>
-          </div>
-
-          <div class="mt-3 flex items-baseline justify-between">
-            <div>
-              <h3 class="text-2xl font-bold text-white tracking-tight">Micron Technology</h3>
-              <p class="text-xs text-slate-400">Halbleiter · Watchlist Aktien</p>
-            </div>
-            <div class="text-right">
-              <span class="font-mono text-2xl font-extrabold text-emerald-400">878.84 USD</span>
-              <span class="block text-xs font-mono text-emerald-300/80">Im 0.618 Golden Pocket</span>
-            </div>
-          </div>
-
-          <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono">
-            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
-              <span class="text-slate-400 block text-[11px]">Setup</span>
-              <span class="text-emerald-300 font-semibold truncate block">Hypothese 1 (SMC)</span>
-            </div>
-            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
-              <span class="text-slate-400 block text-[11px]">Entry Zone</span>
-              <span class="text-white font-semibold">868 - 880 $</span>
-            </div>
-            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
-              <span class="text-slate-400 block text-[11px]">Stop-Loss</span>
-              <span class="text-rose-400 font-semibold">852.00 $ (-2.9%)</span>
-            </div>
-            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
-              <span class="text-slate-400 block text-[11px]">Take-Profit 2</span>
-              <span class="text-cyan-400 font-semibold">965.00 $ (3.3 CRV)</span>
-            </div>
-          </div>
-
-          <p class="mt-3 text-xs text-slate-300 leading-relaxed">
-            <strong>Super-Analyst Rationale:</strong> Kurs sitzt exakt im 1D Fibonacci Golden Pocket (867-879 USD). Gleichzeitig Überdehnung unter das untere degencoder-Band. RSI im 4h/8h extrem überverkauft (26.6) mit aktiver bullischer Divergenz. VSA signalisiert stopping volume.
-          </p>
-
-          <div class="mt-4 flex items-center justify-between pt-3 border-t border-slate-800/80">
-            <button onclick="openDetailModal('NASDAQ:MU')" class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition cursor-pointer">
-              Multi-Timeframe Details (4h, 8h, 1D) →
-            </button>
-            <a href="https://www.tradingview.com/chart/?symbol=NASDAQ:MU" target="_blank" class="text-xs text-slate-400 hover:text-white transition flex items-center gap-1">
-              TradingView Chart ↗
-            </a>
-          </div>
-        </div>
-
-        <!-- Bitcoin (BTC) -->
-        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-950/40 via-slate-900/90 to-slate-900 border border-indigo-500/30 p-5 glow-emerald">
-          <div class="absolute -right-12 -top-12 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
-          <div class="flex items-start justify-between">
-            <div class="flex items-center gap-3">
-              <span class="px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider bg-indigo-500 text-white">
-                Krypto Leitwolf
-              </span>
-              <span class="text-xs font-mono text-indigo-400 font-semibold">94% Score · Breakout Watch</span>
-            </div>
-            <span class="font-mono text-xs text-slate-400">COINBASE:BTCUSD</span>
-          </div>
-
-          <div class="mt-3 flex items-baseline justify-between">
-            <div>
-              <h3 class="text-2xl font-bold text-white tracking-tight">Bitcoin</h3>
-              <p class="text-xs text-slate-400">Krypto · Watchlist Crypto</p>
-            </div>
-            <div class="text-right">
-              <span class="font-mono text-2xl font-extrabold text-indigo-300">81,529 USD</span>
-              <span class="block text-xs font-mono text-slate-400">Über EMA 233 (75.7k)</span>
-            </div>
-          </div>
-
-          <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono">
-            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
-              <span class="text-slate-400 block text-[11px]">Setup</span>
-              <span class="text-indigo-300 font-semibold truncate block">Hypothese 2 (Breakout)</span>
-            </div>
-            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
-              <span class="text-slate-400 block text-[11px]">Trigger-Level</span>
-              <span class="text-white font-semibold">> 82,320 $</span>
-            </div>
-            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
-              <span class="text-slate-400 block text-[11px]">Stop-Loss</span>
-              <span class="text-rose-400 font-semibold">79,400 $</span>
-            </div>
-            <div class="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
-              <span class="text-slate-400 block text-[11px]">Take-Profit 2</span>
-              <span class="text-cyan-400 font-semibold">84,850 $ (3.1 CRV)</span>
-            </div>
-          </div>
-
-          <p class="mt-3 text-xs text-slate-300 leading-relaxed">
-            <strong>Super-Analyst Rationale:</strong> 1D Makro-Aufwärtstrend intakt. 8h reguläre bullische Divergenz aktiv. VSA zeigt extreme Austrocknung des Verkaufsdrucks (No Supply, Ratio 0.12). 4h-Bruch über den Bearish Order Block (82.320 USD) aktiviert den Impuls zur FVG-Magnetzone (84.3k-84.8k).
-          </p>
-
-          <div class="mt-4 flex items-center justify-between pt-3 border-t border-slate-800/80">
-            <button onclick="openDetailModal('COINBASE:BTCUSD')" class="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center gap-1 transition cursor-pointer">
-              Multi-Timeframe Details (4h, 8h, 1D) →
-            </button>
-            <a href="https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD" target="_blank" class="text-xs text-slate-400 hover:text-white transition flex items-center gap-1">
-              TradingView Chart ↗
-            </a>
-          </div>
-        </div>
-
-      </div>
+      <!-- Dynamische Highlight Opportunity Hero Cards: Top Opportunity & Krypto Leitwolf -->
+      {hero_cards_html}
 
       <!-- Top 3 Longs & Top 3 Shorts Ranking Cards Grid -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -1309,9 +1424,11 @@ html_content = f"""<!DOCTYPE html>
           <!-- Timeframe Selector Tabs (für Vektor-Chart) -->
           <div id="vector-tf-selectors" class="flex items-center gap-1 bg-slate-950/90 p-1 rounded-lg border border-slate-800">
             <span class="text-[10px] text-slate-400 font-mono px-1.5">Timeframe:</span>
-            <button id="btn-chart-tf-4h" onclick="selectModalTimeframe('4h')" class="px-3 py-1 rounded text-xs font-mono font-bold bg-indigo-600 text-white shadow-sm shadow-indigo-500/30">4h</button>
-            <button id="btn-chart-tf-8h" onclick="selectModalTimeframe('8h')" class="px-3 py-1 rounded text-xs font-mono font-semibold bg-transparent text-slate-400 hover:text-white hover:bg-slate-800">8h</button>
-            <button id="btn-chart-tf-1D" onclick="selectModalTimeframe('1D')" class="px-3 py-1 rounded text-xs font-mono font-semibold bg-transparent text-slate-400 hover:text-white hover:bg-slate-800">1D</button>
+            <button id="btn-chart-tf-1h" onclick="selectModalTimeframe('1h')" class="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-transparent text-slate-400 hover:text-white hover:bg-slate-800">1h</button>
+            <button id="btn-chart-tf-4h" onclick="selectModalTimeframe('4h')" class="px-2.5 py-1 rounded text-xs font-mono font-bold bg-indigo-600 text-white shadow-sm shadow-indigo-500/30">4h</button>
+            <button id="btn-chart-tf-1D" onclick="selectModalTimeframe('1D')" class="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-transparent text-slate-400 hover:text-white hover:bg-slate-800">1D</button>
+            <button id="btn-chart-tf-3D" onclick="selectModalTimeframe('3D')" class="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-transparent text-slate-400 hover:text-white hover:bg-slate-800 hidden">3D</button>
+            <button id="btn-chart-tf-1W" onclick="selectModalTimeframe('1W')" class="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-transparent text-slate-400 hover:text-white hover:bg-slate-800">1W</button>
           </div>
         </div>
 
@@ -1758,13 +1875,13 @@ html_content = f"""<!DOCTYPE html>
       currentModalTf = tf;
       if (!currentModalAsset) return;
 
-      ['4h', '8h', '1D'].forEach(t => {{
+      ['1h', '4h', '1D', '3D', '1W'].forEach(t => {{
         const btn = document.getElementById('btn-chart-tf-' + t);
         if (btn) {{
           if (t === tf) {{
-            btn.className = 'px-3 py-1 rounded text-xs font-mono font-bold bg-indigo-600 text-white shadow-sm shadow-indigo-500/30';
+            btn.className = 'px-2.5 py-1 rounded text-xs font-mono font-bold bg-indigo-600 text-white shadow-sm shadow-indigo-500/30';
           }} else {{
-            btn.className = 'px-3 py-1 rounded text-xs font-mono font-semibold bg-transparent text-slate-400 hover:text-white hover:bg-slate-800';
+            btn.className = 'px-2.5 py-1 rounded text-xs font-mono font-semibold bg-transparent text-slate-400 hover:text-white hover:bg-slate-800' + (btn.classList.contains('hidden') ? ' hidden' : '');
           }}
         }}
       }});
@@ -1796,6 +1913,14 @@ html_content = f"""<!DOCTYPE html>
       if (!a) return;
 
       currentModalAsset = a;
+      const btn3d = document.getElementById('btn-chart-tf-3D');
+      if (btn3d) {{
+        if (a.timeframes && a.timeframes['3D']) {{
+          btn3d.classList.remove('hidden');
+        }} else {{
+          btn3d.classList.add('hidden');
+        }}
+      }}
       switchModalView('vector');
       selectModalTimeframe('4h');
 
@@ -1904,7 +2029,7 @@ html_content = f"""<!DOCTYPE html>
       const tfGrid = document.getElementById('modal-timeframes-grid');
       tfGrid.innerHTML = '';
 
-      ['1D', '8h', '4h'].forEach(tf => {{
+      ['1W', '3D', '1D', '4h', '1h'].filter(tf => a.timeframes && a.timeframes[tf]).forEach(tf => {{
         const d = a.timeframes[tf];
         const tfCol = document.createElement('div');
         tfCol.className = 'p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-2.5 font-mono text-xs';

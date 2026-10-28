@@ -53,6 +53,72 @@ def save_config(cfg):
         json.dump(cfg, f, indent=2, ensure_ascii=False)
 
 
+# ==============================================================================
+# BENUTZER-BENACHRICHTIGUNGSPRÄFERENZEN
+# ==============================================================================
+USER_PREFS_FILE = BASE_DIR / "knowledge_base" / "user_alert_preferences.json"
+LIVE_WATCHLISTS_FILE = BASE_DIR / "knowledge_base" / "live_watchlists.json"
+
+def get_available_tv_watchlists():
+    if LIVE_WATCHLISTS_FILE.exists():
+        try:
+            with open(LIVE_WATCHLISTS_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                names = [wl.get("name") for wl in data.get("watchlists", []) if wl.get("name")]
+                if names:
+                    return names
+        except Exception:
+            pass
+    return ["Aktien", "Crypto", "Commodities", "Rohstoffe", "Devisen", "Eigene Trades"]
+
+DEFAULT_ALERT_PREFS = {
+    "enabled": True,
+    "categories": ["cat_crypto", "cat_ustech", "cat_dax", "cat_commodities"],
+    "watchlists": ["Aktien", "Crypto", "Commodities", "Rohstoffe", "Devisen", "Eigene Trades"],
+    "min_score": 85,
+    "only_my_trades": False
+}
+
+def load_all_user_preferences():
+    if USER_PREFS_FILE.exists():
+        try:
+            with open(USER_PREFS_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return {}
+
+def save_all_user_preferences(prefs):
+    USER_PREFS_FILE.parent.mkdir(parents=True, exist_ok=True)
+    with open(USER_PREFS_FILE, "w", encoding="utf-8") as f:
+        json.dump(prefs, f, indent=2, ensure_ascii=False)
+
+def get_user_preferences(user_id):
+    all_prefs = load_all_user_preferences()
+    uid = str(user_id)
+    if uid not in all_prefs:
+        all_prefs[uid] = dict(DEFAULT_ALERT_PREFS)
+        save_all_user_preferences(all_prefs)
+    else:
+        updated = False
+        for k, v in DEFAULT_ALERT_PREFS.items():
+            if k not in all_prefs[uid]:
+                all_prefs[uid][k] = v
+                updated = True
+        if updated:
+            save_all_user_preferences(all_prefs)
+    return all_prefs[uid]
+
+def update_user_preference(user_id, key, val):
+    all_prefs = load_all_user_preferences()
+    uid = str(user_id)
+    if uid not in all_prefs:
+        all_prefs[uid] = dict(DEFAULT_ALERT_PREFS)
+    all_prefs[uid][key] = val
+    save_all_user_preferences(all_prefs)
+    return all_prefs[uid]
+
+
 def check_auth(user_id, username):
     """Prüft, ob ein Nutzer Admin oder autorisierter Trader ist."""
     cfg = load_config()
@@ -175,10 +241,11 @@ def get_main_menu_keyboard(role="trader"):
                 {"text": "🚀 Marktübersicht", "callback_data": "menu_market_scan"}
             ],
             [
-                {"text": "⚙️ Admin-Zentrale", "callback_data": "menu_admin_hub"},
-                {"text": "🌐 Web-Dashboard", "callback_data": "menu_dashboard_links"}
+                {"text": "🔔 Benachrichtigungen", "callback_data": "menu_alert_settings"},
+                {"text": "⚙️ Admin-Zentrale", "callback_data": "menu_admin_hub"}
             ],
             [
+                {"text": "🌐 Web-Dashboard", "callback_data": "menu_dashboard_links"},
                 {"text": "🔄 Aktualisieren", "callback_data": "menu_refresh"}
             ]
         ]
@@ -194,11 +261,110 @@ def get_main_menu_keyboard(role="trader"):
                 {"text": "🚀 Marktübersicht", "callback_data": "menu_market_scan"}
             ],
             [
-                {"text": "🌐 Web-Dashboard", "callback_data": "menu_dashboard_links"},
+                {"text": "🔔 Benachrichtigungen", "callback_data": "menu_alert_settings"},
+                {"text": "🌐 Web-Dashboard", "callback_data": "menu_dashboard_links"}
+            ],
+            [
                 {"text": "🔄 Aktualisieren", "callback_data": "menu_refresh"}
             ]
         ]
     return {"inline_keyboard": kb}
+
+
+def get_alert_settings_text_and_markup(user_id):
+    prefs = get_user_preferences(user_id)
+    enabled = prefs.get("enabled", True)
+    cats = prefs.get("categories", ["cat_crypto", "cat_ustech", "cat_dax", "cat_commodities"])
+    min_score = prefs.get("min_score", 85)
+    my_trades = prefs.get("only_my_trades", False)
+    all_wls = get_available_tv_watchlists()
+    user_wls = prefs.get("watchlists", list(all_wls))
+
+    status_str = "🟢 <b>AKTIV</b> (Push-Alerts eingeschaltet)" if enabled else "🔴 <b>PAUSIERT</b> (Stummgeschaltet)"
+    wl_active_count = len([w for w in user_wls if w in all_wls])
+    
+    text = (
+        "🔔 <b>Meine Benachrichtigungseinstellungen</b>\n\n"
+        f"• <b>Status:</b> {status_str}\n"
+        f"• <b>Min. Setup-Score:</b> <b>{min_score}%</b>\n"
+        f"• <b>TradingView-Listen:</b> <b>{wl_active_count} von {len(all_wls)} aktiv</b>\n"
+        f"• <b>Filter-Modus:</b> {'⭐ Nur eigene Trades' if my_trades else '🌐 Alle überwachten Märkte'}\n\n"
+        "<i>Wähle deine bevorzugten Asset-Klassen und TradingView-Listen (Tippen schaltet um):</i>"
+    )
+
+    def c_mark(c):
+        return "✅" if c in cats else "❌"
+
+    kb = [
+        [
+            {"text": f"{c_mark('cat_crypto')} ₿ Krypto", "callback_data": "toggle_alert_cat_cat_crypto"},
+            {"text": f"{c_mark('cat_ustech')} 💻 US Tech", "callback_data": "toggle_alert_cat_cat_ustech"}
+        ],
+        [
+            {"text": f"{c_mark('cat_dax')} 🇩🇪 DAX / EU", "callback_data": "toggle_alert_cat_cat_dax"},
+            {"text": f"{c_mark('cat_commodities')} 🥇 Rohstoffe", "callback_data": "toggle_alert_cat_cat_commodities"}
+        ],
+        [
+            {"text": f"📋 TradingView-Listen filtern ({wl_active_count}/{len(all_wls)}) »", "callback_data": "menu_alert_tv_lists"}
+        ],
+        [
+            {"text": f"🎯 Min-Score: {min_score}% ▾", "callback_data": "cycle_alert_score"},
+            {"text": f"⭐ Modus: {'Eigene Trades' if my_trades else 'Alle Märkte'}", "callback_data": "toggle_alert_my_trades"}
+        ],
+        [
+            {"text": f"{'⏸️ Alerts stummschalten' if enabled else '▶️ Alerts aktivieren'}", "callback_data": "toggle_alert_master"}
+        ],
+        [
+            {"text": "◀️ Zurück zum Hauptmenü", "callback_data": "menu_refresh"}
+        ]
+    ]
+    return text, {"inline_keyboard": kb}
+
+
+def get_alert_tv_lists_text_and_markup(user_id):
+    prefs = get_user_preferences(user_id)
+    all_wls = get_available_tv_watchlists()
+    user_wls = prefs.get("watchlists", list(all_wls))
+
+    text = (
+        "📋 <b>TradingView-Listen Benachrichtigungs-Filter</b>\n\n"
+        "Hier kannst du gezielt festlegen, für welche deiner TradingView-Watchlists du Signale erhalten möchtest.\n\n"
+        f"Aktuell aktiv: <b>{len(user_wls)} von {len(all_wls)} Listen</b>\n"
+        "<i>Tippe auf eine Liste, um sie zu aktivieren oder zu deaktivieren:</i>"
+    )
+
+    wl_icons = {
+        "Aktien": "📈",
+        "Crypto": "₿",
+        "Commodities": "🥇",
+        "Rohstoffe": "🛢️",
+        "Devisen": "💱",
+        "Eigene Trades": "⭐"
+    }
+
+    kb = []
+    row = []
+    for wl in all_wls:
+        is_active = wl in user_wls
+        mark = "✅" if is_active else "❌"
+        icon = wl_icons.get(wl, "📁")
+        btn_text = f"{mark} {icon} {wl}"
+        row.append({"text": btn_text, "callback_data": f"toggle_alert_wl_{wl}"})
+        if len(row) == 2:
+            kb.append(row)
+            row = []
+    if row:
+        kb.append(row)
+
+    kb.append([
+        {"text": "✅ Alle aktivieren", "callback_data": "set_alert_wl_all_on"},
+        {"text": "❌ Alle deaktivieren", "callback_data": "set_alert_wl_all_off"}
+    ])
+    kb.append([
+        {"text": "◀️ Zurück zu Einstellungen", "callback_data": "menu_alert_settings"}
+    ])
+
+    return text, {"inline_keyboard": kb}
 
 
 def get_category_keyboard():
@@ -880,6 +1046,82 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
             f"Wähle eine Aktion:"
         )
         api.edit_message_text(chat_id, message_id, text, reply_markup=get_main_menu_keyboard(role))
+        return
+
+    # Benachrichtigungseinstellungen
+    if data == "menu_alert_settings":
+        text, kb = get_alert_settings_text_and_markup(user_id)
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
+
+    if data == "menu_alert_tv_lists":
+        text, kb = get_alert_tv_lists_text_and_markup(user_id)
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
+
+    if data.startswith("toggle_alert_wl_"):
+        wl_name = data.replace("toggle_alert_wl_", "")
+        prefs = get_user_preferences(user_id)
+        current_wls = list(prefs.get("watchlists", get_available_tv_watchlists()))
+        if wl_name in current_wls:
+            current_wls.remove(wl_name)
+        else:
+            current_wls.append(wl_name)
+        update_user_preference(user_id, "watchlists", current_wls)
+        text, kb = get_alert_tv_lists_text_and_markup(user_id)
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
+
+    if data == "set_alert_wl_all_on":
+        all_wls = get_available_tv_watchlists()
+        update_user_preference(user_id, "watchlists", list(all_wls))
+        text, kb = get_alert_tv_lists_text_and_markup(user_id)
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
+
+    if data == "set_alert_wl_all_off":
+        update_user_preference(user_id, "watchlists", [])
+        text, kb = get_alert_tv_lists_text_and_markup(user_id)
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
+
+    if data.startswith("toggle_alert_cat_"):
+        cat_key = data.replace("toggle_alert_cat_", "")
+        prefs = get_user_preferences(user_id)
+        current_cats = list(prefs.get("categories", ["cat_crypto", "cat_ustech", "cat_dax", "cat_commodities"]))
+        if cat_key in current_cats:
+            current_cats.remove(cat_key)
+        else:
+            current_cats.append(cat_key)
+        update_user_preference(user_id, "categories", current_cats)
+        text, kb = get_alert_settings_text_and_markup(user_id)
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
+
+    if data == "cycle_alert_score":
+        prefs = get_user_preferences(user_id)
+        curr = prefs.get("min_score", 85)
+        scores = [75, 80, 85, 90]
+        next_score = scores[(scores.index(curr) + 1) % len(scores)] if curr in scores else 85
+        update_user_preference(user_id, "min_score", next_score)
+        text, kb = get_alert_settings_text_and_markup(user_id)
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
+
+    if data == "toggle_alert_my_trades":
+        prefs = get_user_preferences(user_id)
+        curr = prefs.get("only_my_trades", False)
+        update_user_preference(user_id, "only_my_trades", not curr)
+        text, kb = get_alert_settings_text_and_markup(user_id)
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
+
+    if data == "toggle_alert_master":
+        prefs = get_user_preferences(user_id)
+        curr = prefs.get("enabled", True)
+        update_user_preference(user_id, "enabled", not curr)
+        text, kb = get_alert_settings_text_and_markup(user_id)
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
         return
 
     if data == "menu_new_trade":

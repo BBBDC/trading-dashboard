@@ -30,7 +30,7 @@ def stage_banner(title):
     print("=" * 65)
 
 
-def run_pipeline(force_download=False, skip_download=False, git_push=False, force_all=False):
+def run_pipeline(force_download=False, skip_download=False, git_push=False, force_all=False, collect_only=False):
     start_time = time.time()
     stage_banner("🚀 STARTE TRADINGVIEW SUPER-ANALYST MASTER PIPELINE")
 
@@ -38,6 +38,16 @@ def run_pipeline(force_download=False, skip_download=False, git_push=False, forc
     stage_banner("STUFE 1: Watchlists mit TradingView synchronisieren")
     from sync_watchlists import sync_watchlists
     sync_watchlists()
+
+    if collect_only:
+        stage_banner("STUFE 2: Stündliche 1h & 4h Datensammlung über TV MCP")
+        from fetch_real_ohlcv_cache import sync_all_real_data
+        with open(DB_FILE, "r", encoding="utf-8") as f:
+            all_assets = json.load(f).get("assets", [])
+        open_symbols = [a["symbol"] for a in all_assets if a.get("market_state", {}).get("is_open", True)]
+        sync_all_real_data(due_symbols=open_symbols, collect_only=True)
+        print("✅ Stündlicher 1h/4h Cache erfolgreich aktualisiert. Pipeline beendet.")
+        return
 
     # STAGE 1.5: Market Gatekeeper (Smarte Markt-Sessions)
     from market_schedule import filter_assets_for_run
@@ -58,8 +68,12 @@ def run_pipeline(force_download=False, skip_download=False, git_push=False, forc
     print("-" * 65)
 
     if not due_symbols and not force_all:
-        print("\nℹ️ Keine Märkte fällig. Dashboard und Daten sind auf dem aktuellsten Stand.")
-        print("Pipeline wird vorzeitig beendet (0 API-Calls, 0 KI-Tokens verbraucht).")
+        print("\nℹ️ Keine Märkte fällig für vollen Analyse-Durchlauf (Zyklus aktiv).")
+        print("Starte stündliche 1h & 4h Datensammlung für offene Märkte (0 KI-Tokens verbraucht)...")
+        from fetch_real_ohlcv_cache import sync_all_real_data
+        open_symbols = [a["symbol"] for a in all_assets if a.get("market_state", {}).get("is_open", True)]
+        sync_all_real_data(due_symbols=open_symbols, collect_only=True)
+        print("✅ Stündlicher 1h/4h Cache erfolgreich aktualisiert. Pipeline beendet.")
         return
 
     # STAGE 2: Echte Marktdaten herunterladen / cachen
@@ -175,9 +189,16 @@ def main():
     parser.add_argument("--force-download", action="store_true", help="Erzwingt vollständigen Neuabruf aller OHLCV-Bars")
     parser.add_argument("--git-push", action="store_true", help="Committet und pusht Dashboard-Änderungen automatisch in das Git-Hosting")
     parser.add_argument("--force", action="store_true", help="Erzwingt Voll-Scan aller 59 Assets unabhängig von Marktzeiten")
+    parser.add_argument("--collect-only", action="store_true", help="Führt nur die stündliche 1h/4h-Datensammlung durch ohne KI-Analyse")
     args = parser.parse_args()
 
-    run_pipeline(force_download=args.force_download, skip_download=args.skip_download, git_push=args.git_push, force_all=args.force)
+    run_pipeline(
+        force_download=args.force_download,
+        skip_download=args.skip_download,
+        git_push=args.git_push,
+        force_all=args.force,
+        collect_only=args.collect_only
+    )
 
 
 if __name__ == "__main__":

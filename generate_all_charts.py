@@ -58,12 +58,20 @@ for idx, asset in enumerate(assets, 1):
 
     print(f"[{idx}/{len(assets)}] Generiere Charts für {name} ({sym})...", end="", flush=True)
 
-    for tf in ["4h", "8h", "1D"]:
-        tf_data = timeframes.get(tf, {})
+    from market_schedule import classify_symbol
+    is_crypto = (classify_symbol(sym).get("category") == "CRYPTO")
+    chart_tfs = ["1h", "4h", "1D", "1W"]
+    if is_crypto:
+        chart_tfs.append("3D")
+
+    for tf in chart_tfs:
+        tf_data = timeframes.get(tf, {}) or {}
         tf_data["name"] = f"{name} ({sym})"
 
         # ECHTE historische Kerzen aus MCP abrufen
         bars = get_real_bars(sym, interval=tf)
+        if not bars:
+            continue
 
         # SVG Chart generieren
         svg_str = generate_svg_chart(bars, tf_data, timeframe=tf)

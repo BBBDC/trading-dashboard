@@ -79,6 +79,43 @@ def send_ntfy_alert(title, message, click_url=None, priority="high", tags=None):
 TELEGRAM_CONFIG_FILE = BASE_DIR / "telegram_config.json"
 
 
+USER_PREFS_FILE = BASE_DIR / "knowledge_base" / "user_alert_preferences.json"
+POSITIONS_FILE = BASE_DIR / "knowledge_base" / "user_positions.json"
+LIVE_WATCHLISTS_FILE = BASE_DIR / "knowledge_base" / "live_watchlists.json"
+
+
+def load_live_watchlists_map():
+    wl_map = {}
+    if LIVE_WATCHLISTS_FILE.exists():
+        try:
+            with open(LIVE_WATCHLISTS_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                for wl in data.get("watchlists", []):
+                    name = wl.get("name")
+                    if name:
+                        wl_map[name] = set(wl.get("symbols", []))
+        except Exception:
+            pass
+    return wl_map
+
+
+def map_symbol_to_category_key(symbol):
+    try:
+        from market_schedule import classify_symbol
+        c = classify_symbol(symbol).get("category")
+        if c == "CRYPTO":
+            return "cat_crypto"
+        elif c == "US_STOCKS":
+            return "cat_ustech"
+        elif c == "EU_STOCKS":
+            return "cat_dax"
+        elif c == "COMMODITIES_FUTURES":
+            return "cat_commodities"
+    except Exception:
+        pass
+    return "cat_crypto" if any(x in symbol for x in ["BTC", "ETH", "USDT"]) else "cat_ustech"
+
+
 def send_telegram_alert(message, parse_mode="HTML", target_chat_ids=None):
     token = None
     chat_ids = set()
@@ -543,12 +580,104 @@ def send_scan_summary_notification(db_data, force_send=False):
             print(f"✅ iOS Alert via ntfy erfolgreich versendet! ({len(changes)} Änderungen gemeldet)")
 
     if provider in ("telegram", "all"):
-        if changes:
-            tg_msg = format_telegram_change_notification(changes, click_url)
+        user_targets = {}
+        if TELEGRAM_CONFIG_FILE.exists():
+            try:
+                with open(TELEGRAM_CONFIG_FILE, "r", encoding="utf-8") as f:
+                    tconf = json.load(f)
+                    for cid in tconf.get("admin_chat_ids", []):
+                        user_targets[str(cid)] = "admin"
+                    for uname, udata in tconf.get("authorized_users", {}).items():
+                        if isinstance(udata, dict) and udata.get("chat_id"):
+                            user_targets[str(udata.get("chat_id"))] = udata.get("name") or uname
+            except Exception:
+                pass
+
+        # User Positions laden (für Filter 'nur eigene Trades')
+        active_user_symbols = {}
+        if POSITIONS_FILE.exists():
+            try:
+                with open(POSITIONS_FILE, "r", encoding="utf-8") as f:
+                    pos_data = json.load(f).get("positions", [])
+                    for p in pos_data:
+                        uid = str(p.get("user_id", ""))
+                        if uid:
+                            active_user_symbols.setdefault(uid, set()).add(p.get("symbol", ""))
+            except Exception:
+                pass
+
+        # Alle gespeicherten Nutzerpräferenzen laden
+        user_prefs_all = {}
+        if USER_PREFS_FILE.exists():
+            try:
+                with open(USER_PREFS_FILE, "r", encoding="utf-8") as f:
+                    user_prefs_all = json.load(f)
+            except Exception:
+                pass
+
+        # TradingView Watchlists Map laden
+        live_wl_map = load_live_watchlists_map()
+
+        tg_sent_count = 0
+        if not user_targets:
+            tg_msg = format_telegram_change_notification(changes, click_url) if changes else f"<b>{title}</b>\n\n{message}"
+            if send_telegram_alert(tg_msg, parse_mode="HTML"):
+                tg_sent_count += 1
         else:
-            tg_msg = f"<b>{title}</b>\n\n{message}"
-        if send_telegram_alert(tg_msg, parse_mode="HTML"):
-            print("✅ Telegram Alert erfolgreich versendet!")
+            for uid, uname in user_targets.items():
+                u_pref = user_prefs_all.get(uid, {
+                    "enabled": True,
+                    "categories": ["cat_crypto", "cat_ustech", "cat_dax", "cat_commodities"],
+                    "watchlists": ["Aktien", "Crypto", "Commodities", "Rohstoffe", "Devisen", "Eigene Trades"],
+                    "min_score": 85,
+                    "only_my_trades": False
+                })
+
+                if not u_pref.get("enabled", True):
+                    continue
+
+                u_cats = set(u_pref.get("categories", ["cat_crypto", "cat_ustech", "cat_dax", "cat_commodities"]))
+                u_min_score = u_pref.get("min_score", 85)
+                u_only_my_trades = u_pref.get("only_my_trades", False)
+                u_wls = u_pref.get("watchlists")
+
+                if u_wls is not None:
+                    allowed_wl_symbols = set()
+                    for wl_name in u_wls:
+                        allowed_wl_symbols.update(live_wl_map.get(wl_name, set()))
+                else:
+                    allowed_wl_symbols = None
+
+                # Filter changes für diesen spezifischen Nutzer
+                filtered_changes = []
+                for c in changes:
+                    sym = c.get("symbol", "")
+                    if c.get("new_score", 0) < u_min_score:
+                        continue
+                    cat_k = map_symbol_to_category_key(sym)
+                    if cat_k not in u_cats:
+                        continue
+                    if allowed_wl_symbols is not None and sym not in allowed_wl_symbols:
+                        continue
+                    if u_only_my_trades:
+                        user_syms = active_user_symbols.get(uid, set())
+                        if sym not in user_syms:
+                            continue
+                    filtered_changes.append(c)
+
+                if filtered_changes:
+                    u_msg = format_telegram_change_notification(filtered_changes, click_url)
+                    if send_telegram_alert(u_msg, parse_mode="HTML", target_chat_ids=[uid]):
+                        tg_sent_count += 1
+                        print(f"✅ Personalisierter Telegram Alert an @{uname} ({len(filtered_changes)} Treffer) gesendet.")
+                elif force_send:
+                    # Bei manuellem Testlauf trotzdem Bescheid geben
+                    fallback_msg = f"<b>{title}</b>\n\n{message}"
+                    send_telegram_alert(fallback_msg, parse_mode="HTML", target_chat_ids=[uid])
+                    tg_sent_count += 1
+
+        if tg_sent_count > 0:
+            print(f"✅ Telegram Alerts erfolgreich an {tg_sent_count} Empfänger zugestellt!")
             success = True
 
     # In Web-Historie protokollieren

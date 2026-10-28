@@ -199,39 +199,80 @@ def analyze_indicators(bars, sym_name=""):
     }
 
 
-def evaluate_quantitative_confluence(d_1d, d_8h, d_4h, asset_info):
-    """Fallback: Mathematische SMC & Wyckoff Confluence-Engine."""
-    p = d_1d["price"] if d_1d else (d_4h["price"] if d_4h else 0)
+def evaluate_quantitative_confluence(timeframes, asset_info, prev_asset=None):
+    """
+    Institutionelle Multi-Timeframe Confluence & Hysterese-Engine:
+    - Ebene 1: Makro-Regime (1W, 1D, 3D): Bestimmt den Richtungs-Kompass (BULLISH / BEARISH / RANGE).
+    - Ebene 2: Taktische Phase (4h): Bestimmt Zonen (Golden Pocket, FVG, Support/Widerstand).
+    - Ebene 3: Timing & Trigger (1h): Bestimmt Reversal-Kerzen, RSI-Divergenzen, VSA Stopping Volume.
+    - Hysterese: Verhindert Whipsaws/Bias-Flipping bei bloßen 1h/4h-Korrekturen im intakten Trend.
+    """
+    if isinstance(timeframes, dict) and "1D" in timeframes:
+        d_1d = timeframes.get("1D")
+        d_1w = timeframes.get("1W")
+        d_4h = timeframes.get("4h")
+        d_1h = timeframes.get("1h")
+        d_3d = timeframes.get("3D")
+    else:
+        # Legacy Call-Kompatibilität falls Argumente einzeln übergeben wurden
+        d_1d = timeframes
+        d_1w = None
+        d_4h = asset_info if isinstance(asset_info, dict) and "price" in asset_info else None
+        d_1h = None
+        d_3d = None
+
+    p = d_1d["price"] if d_1d else (d_4h["price"] if d_4h else (d_1h["price"] if d_1h else 0))
     if p == 0:
         return None
 
-    bull_points = 0
-    bear_points = 0
+    # 1. MAKRO-REGIME BESTIMMEN
+    macro_bullish = False
+    macro_bearish = False
     reasons = []
 
     if d_1d:
         if d_1d["trend"] == "BULLISH":
-            bull_points += 15
             reasons.append("1D Trend über EMA 233 bullisch")
+            if d_1w and d_1w.get("trend") == "BULLISH":
+                reasons.append("1W Makro-Trend bullisch bestätigt")
+            macro_bullish = True
         else:
-            bear_points += 15
             reasons.append("1D Trend unter EMA 233 bärisch")
+            if d_1w and d_1w.get("trend") == "BEARISH":
+                reasons.append("1W Makro-Trend bärisch bestätigt")
+            macro_bearish = True
 
-        if d_1d["in_golden_pocket"]:
-            bull_points += 25
-            reasons.append(f"Kurs im 1D Golden Pocket ({d_1d['golden_pocket'][0]} - {d_1d['golden_pocket'][1]})")
+    # 2. CONFLUENCE PUNKTE
+    bull_points = 0
+    bear_points = 0
 
-        if "Oversold" in d_1d["channel_position"]:
-            bull_points += 20
-            reasons.append("1D Kurs überdehnt unteres degencoder-Band (Oversold)")
-        elif "Overbought" in d_1d["channel_position"]:
-            bear_points += 20
-            reasons.append("1D Kurs überdehnt oberes degencoder-Band (Overbought)")
+    if macro_bullish:
+        bull_points += 25
+    elif macro_bearish:
+        bear_points += 25
 
+    # Golden Pocket (1D / 4h)
+    if d_1d and d_1d.get("in_golden_pocket"):
+        bull_points += 25
+        reasons.append(f"Kurs im 1D Golden Pocket ({d_1d['golden_pocket'][0]} - {d_1d['golden_pocket'][1]})")
+    elif d_4h and d_4h.get("in_golden_pocket"):
+        bull_points += 20
+        reasons.append(f"Kurs im 4h Golden Pocket ({d_4h['golden_pocket'][0]} - {d_4h['golden_pocket'][1]})")
+
+    # Überdehnungen (Channel)
+    if d_1d and "Oversold" in d_1d.get("channel_position", ""):
+        bull_points += 20
+        reasons.append("1D Kurs überdehnt unteres degencoder-Band (Oversold)")
+    elif d_1d and "Overbought" in d_1d.get("channel_position", ""):
+        bear_points += 20
+        reasons.append("1D Kurs überdehnt oberes degencoder-Band (Overbought)")
+
+    # Divergenzen aus 1h, 4h, 1D sammeln
     all_divs = []
-    for tf_dict in [d_1d, d_8h, d_4h]:
-        if tf_dict:
-            all_divs.extend(tf_dict.get("divergences", []))
+    for tf_key, tf_data in [("1h", d_1h), ("4h", d_4h), ("1D", d_1d)]:
+        if tf_data:
+            for div in tf_data.get("divergences", []):
+                all_divs.append(f"{tf_key} {div}")
 
     for div in all_divs:
         if "Bullische" in div:
@@ -241,43 +282,53 @@ def evaluate_quantitative_confluence(d_1d, d_8h, d_4h, asset_info):
             bear_points += 20
             reasons.append(f"Aktiv: {div}")
 
-    curr_rsi = d_4h["rsi"] if d_4h else (d_1d["rsi"] if d_1d else 50)
-    if curr_rsi < 30:
+    # 1h / 4h RSI & VSA
+    curr_rsi_1h = d_1h["rsi"] if d_1h else 50
+    curr_rsi_4h = d_4h["rsi"] if d_4h else 50
+    if curr_rsi_1h < 30 or curr_rsi_4h < 30:
         bull_points += 15
-        reasons.append(f"RSI überverkauft ({curr_rsi})")
-    elif curr_rsi > 70:
+        reasons.append(f"RSI überverkauft (1h: {curr_rsi_1h}, 4h: {curr_rsi_4h})")
+    elif curr_rsi_1h > 70 or curr_rsi_4h > 70:
         bear_points += 15
-        reasons.append(f"RSI überkauft ({curr_rsi})")
+        reasons.append(f"RSI überkauft (1h: {curr_rsi_1h}, 4h: {curr_rsi_4h})")
 
-    curr_vsa = d_4h["vsa_class"] if d_4h else (d_1d["vsa_class"] if d_1d else "")
-    if "No Supply" in curr_vsa or "Low" in curr_vsa:
+    curr_vsa_1h = d_1h.get("vsa_class", "") if d_1h else ""
+    curr_vsa_4h = d_4h.get("vsa_class", "") if d_4h else ""
+    if "No Supply" in curr_vsa_1h or "No Supply" in curr_vsa_4h or "Low" in curr_vsa_1h:
         if bull_points > bear_points:
-            bull_points += 10
+            bull_points += 12
             reasons.append("VSA: Verkaufsdruck versiegt ('No Supply')")
-    elif "Ultra-High" in curr_vsa or "Climax" in curr_vsa:
-        reasons.append("VSA: Climax-Volumen Spike")
+    elif "Ultra-High" in curr_vsa_1h or "Climax" in curr_vsa_1h:
+        reasons.append("VSA: Climax-Volumen Spike auf 1h")
 
-    # ========================================================
-    # STRENGSTE INSTITUTIONELLE RISK-MANAGER FILTERREGELN:
-    # 70-80% aller Märkte gehören ins "NEUTRAL (Beobachten)".
-    # "LONG" und "SHORT" erfordern kompromisslose Multi-Timeframe Konfluenz.
-    # ========================================================
+    # HYSTERESE / ANTI-WHIPSAW:
+    prev_sig = (prev_asset or {}).get("signal", "NEUTRAL")
+
+    # LONG VALIDIERUNG (Strikte Trennung Makro vs Pullback):
     long_cand_valid = (
+        macro_bullish and
         bull_points >= 65 and
-        bull_points > bear_points + 25 and
-        curr_rsi <= 60 and
+        bull_points > bear_points + 20 and
+        curr_rsi_4h <= 62 and
         not (d_1d and "Overbought" in d_1d.get("channel_position", "")) and
         (
             (d_1d and d_1d.get("in_golden_pocket")) or
+            (d_4h and d_4h.get("in_golden_pocket")) or
             any("Bullische" in d for d in all_divs) or
-            ("No Supply" in curr_vsa or "Stopping" in curr_vsa)
+            ("No Supply" in curr_vsa_1h or "No Supply" in curr_vsa_4h)
         )
     )
 
+    # Wenn zuvor schon LONG war, Trägheit wahren
+    if not long_cand_valid and prev_sig == "LONG" and macro_bullish and bull_points >= 50 and curr_rsi_4h <= 65:
+        long_cand_valid = True
+
+    # SHORT VALIDIERUNG:
     short_cand_valid = (
+        macro_bearish and
         bear_points >= 65 and
-        bear_points > bull_points + 25 and
-        curr_rsi >= 40 and
+        bear_points > bull_points + 20 and
+        curr_rsi_4h >= 38 and
         not (d_1d and "Oversold" in d_1d.get("channel_position", "")) and
         (
             (d_1d and "Overbought" in d_1d.get("channel_position", "")) or
@@ -285,17 +336,20 @@ def evaluate_quantitative_confluence(d_1d, d_8h, d_4h, asset_info):
         )
     )
 
+    if not short_cand_valid and prev_sig == "SHORT" and macro_bearish and bear_points >= 50 and curr_rsi_4h >= 35:
+        short_cand_valid = True
+
     if long_cand_valid:
         signal = "LONG"
         score = min(96, 75 + (bull_points - 65) // 2)
-        setup_name = "Hypothese 1: SMC Golden Confluence Reversal" if (d_1d and d_1d.get("in_golden_pocket")) else ("Hypothese 2: Trend Continuation & Hidden Div" if any("Versteckte Bullische" in d for d in all_divs) else "Hypothese 1: SMC Support Reversal")
+        setup_name = "Hypothese 1: SMC Golden Confluence Reversal" if (d_1d and d_1d.get("in_golden_pocket")) else ("Hypothese 2: Trend Continuation & 1h Trigger" if any("1h Bullische" in d for d in all_divs) else "Hypothese 1: SMC Support Reversal")
         entry_low = round(p * 0.992, 2)
         entry_high = round(p * 1.002, 2)
         sl = round(p * 0.965, 2) if asset_info.get("asset_type") != "Crypto" else round(p * 0.95, 2)
         tp1 = round(p + (p - sl) * 1.8, 2)
         tp2 = round(p + (p - sl) * 3.2, 2)
         crv = 3.2
-        analyst_note = f"Strikte bullische Konfluenz ({score}%): Multi-Timeframe Support verifiziert ({reasons[0] if reasons else 'HTF Support'}). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur."
+        analyst_note = f"Strikte bullische Konfluenz ({score}%): Makro-Regime intakt ({reasons[0] if reasons else '1D Trend'}). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone."
 
     elif short_cand_valid:
         signal = "SHORT"
@@ -307,18 +361,41 @@ def evaluate_quantitative_confluence(d_1d, d_8h, d_4h, asset_info):
         tp1 = round(p - (sl - p) * 1.8, 2)
         tp2 = round(p - (sl - p) * 3.2, 2)
         crv = 3.2
-        analyst_note = f"Strikte bärische Erschöpfung ({score}%): Überhitzung an HTF-Widerstandszone ({reasons[0] if reasons else 'HTF Resistance'}). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial."
+        analyst_note = f"Strikte bärische Erschöpfung ({score}%): Überhitzung an HTF-Widerstandszone ({reasons[0] if reasons else 'HTF Resistance'}). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial."
 
     else:
         signal = "NEUTRAL"
-        net_diff = abs(bull_points - bear_points)
         score = min(58, max(42, 50 + (bull_points - bear_points) // 4))
-        setup_name = "Beobachten / Warten auf HTF-Trigger"
+
+        # Kristallklare Differenzierung: Gesunder Pullback im Bullentrend vs. Bärenrallye
+        if macro_bullish:
+            setup_name = "Beobachten / Lauerstellung am Support (Buy the Dip)"
+            analyst_note = "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert."
+        elif macro_bearish:
+            setup_name = "Beobachten / Warten auf Short-Trigger am Widerstand"
+            analyst_note = "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen."
+        else:
+            setup_name = "Konsolidierungsphase / Warten auf HTF-Trigger"
+            analyst_note = "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont."
+
         entry_low, entry_high = p, p
         sl = round(p * 0.97, 2)
         tp1, tp2 = round(p * 1.03, 2), round(p * 1.06, 2)
         crv = 2.0
-        analyst_note = "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet."
+
+    return {
+        "signal": signal,
+        "score": score,
+        "setup_name": setup_name,
+        "crv": crv,
+        "entry_range": [entry_low, entry_high],
+        "stop_loss": sl,
+        "take_profit_1": tp1,
+        "take_profit_2": tp2,
+        "reasons": reasons[:4],
+        "analyst_note": analyst_note,
+        "evaluated_by": "quantitative_engine"
+    }
 
     return {
         "signal": signal,
@@ -385,19 +462,35 @@ def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):
             analyzed_assets.append(cached_asset)
             continue
 
-        # Echte Kerzen aus Cache holen
-        b_1d = get_real_bars(sym, interval="1D")
-        b_8h = get_real_bars(sym, interval="8h")
+        # Echte Kerzen aus Cache holen (1h, 4h, 1D, 1W und 3D für Krypto)
+        from market_schedule import classify_symbol
+        is_crypto = (classify_symbol(sym).get("category") == "CRYPTO")
+
+        b_1h = get_real_bars(sym, interval="1h")
         b_4h = get_real_bars(sym, interval="4h")
+        b_1d = get_real_bars(sym, interval="1D")
+        b_1w = get_real_bars(sym, interval="1W")
+        b_3d = get_real_bars(sym, interval="3D") if is_crypto else None
 
-        d_1d = analyze_indicators(b_1d, name) if b_1d else None
-        d_8h = analyze_indicators(b_8h, name) if b_8h else None
+        d_1h = analyze_indicators(b_1h, name) if b_1h else None
         d_4h = analyze_indicators(b_4h, name) if b_4h else None
+        d_1d = analyze_indicators(b_1d, name) if b_1d else None
+        d_1w = analyze_indicators(b_1w, name) if b_1w else None
+        d_3d = analyze_indicators(b_3d, name) if b_3d else None
 
-        current_price = d_1d["price"] if d_1d else (d_4h["price"] if d_4h else asset.get("price", 100.0))
+        current_price = d_1d["price"] if d_1d else (d_4h["price"] if d_4h else (d_1h["price"] if d_1h else asset.get("price", 100.0)))
 
         # Bestehende Charts beibehalten
         charts_info = asset.get("charts", {})
+
+        tf_map = {
+            "1h": d_1h,
+            "4h": d_4h,
+            "1D": d_1d,
+            "1W": d_1w
+        }
+        if is_crypto and d_3d:
+            tf_map["3D"] = d_3d
 
         asset_snapshot = {
             "symbol": sym,
@@ -408,28 +501,31 @@ def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):
             "charts": charts_info,
             "last_analyzed": now_utc.isoformat(),
             "market_state": m_state,
-            "timeframes": {
-                "1D": d_1d,
-                "8h": d_8h,
-                "4h": d_4h
-            }
+            "timeframes": tf_map
         }
 
-        # Basis quantitative Auswertung durchführen (dient gleichzeitig als Stufe-3-Basis)
-        quant_res = evaluate_quantitative_confluence(d_1d, d_8h, d_4h, asset_snapshot)
+        # Basis quantitative Auswertung durchführen mit Multi-Timeframe & Hysterese
+        quant_res = evaluate_quantitative_confluence(tf_map, asset_snapshot, prev_asset=asset)
         if quant_res:
             asset_snapshot.update(quant_res)
 
         analyzed_assets.append(asset_snapshot)
 
         if has_gemini:
+            prev_sig = asset.get("signal", "NEUTRAL")
+            prev_setup = asset.get("setup_name", "")
             gemini_batch.append({
                 "symbol": sym,
                 "name": name,
                 "category": asset_snapshot["category"],
                 "current_price": current_price,
+                "previous_signal": prev_sig,
+                "previous_setup": prev_setup,
+                "1W": {"trend": d_1w["trend"] if d_1w else "N/A", "rsi": d_1w["rsi"] if d_1w else 50} if d_1w else {},
                 "1D": {"trend": d_1d["trend"] if d_1d else "N/A", "rsi": d_1d["rsi"] if d_1d else 50, "in_gp": d_1d["in_golden_pocket"] if d_1d else False, "channel": d_1d["channel_position"] if d_1d else "N/A", "divs": d_1d["divergences"] if d_1d else []},
-                "4h": {"trend": d_4h["trend"] if d_4h else "N/A", "rsi": d_4h["rsi"] if d_4h else 50, "vsa": d_4h["vsa_class"] if d_4h else "N/A", "divs": d_4h["divergences"] if d_4h else []}
+                "3D": {"trend": d_3d["trend"] if d_3d else "N/A", "rsi": d_3d["rsi"] if d_3d else 50} if d_3d else {},
+                "4h": {"trend": d_4h["trend"] if d_4h else "N/A", "rsi": d_4h["rsi"] if d_4h else 50, "vsa": d_4h["vsa_class"] if d_4h else "N/A", "in_gp": d_4h["in_golden_pocket"] if d_4h else False, "divs": d_4h["divergences"] if d_4h else []},
+                "1h": {"trend": d_1h["trend"] if d_1h else "N/A", "rsi": d_1h["rsi"] if d_1h else 50, "vsa": d_1h["vsa_class"] if d_1h else "N/A", "divs": d_1h["divergences"] if d_1h else []}
             })
 
     # Falls Gemini aktiv ist: Batches an Gemini Kaskade senden

@@ -86,16 +86,21 @@ def rescan_and_evaluate_asset(symbol, user_pos=None):
         except Exception:
             pass
 
-    from fetch_real_ohlcv_cache import fetch_bars_direct, aggregate_to_8h
+    from fetch_real_ohlcv_cache import fetch_bars_direct
     from market_evaluator import analyze_indicators, evaluate_quantitative_confluence
     from chart_generator import generate_svg_chart
+    from market_schedule import classify_symbol
 
-    # 1. Frische Marktdaten direkt abrufen
-    bars_1d = fetch_bars_direct(symbol, interval="1D", count=120)
+    is_crypto = (classify_symbol(symbol).get("category") == "CRYPTO")
+
+    # 1. Frische Marktdaten direkt abrufen (1h, 4h, 1D, 1W und 3D für Krypto)
+    bars_1h = fetch_bars_direct(symbol, interval="1h", count=180)
     bars_4h = fetch_bars_direct(symbol, interval="4h", count=180)
-    bars_8h = aggregate_to_8h(bars_4h) if bars_4h else []
+    bars_1d = fetch_bars_direct(symbol, interval="1D", count=120)
+    bars_1w = fetch_bars_direct(symbol, interval="1W", count=100)
+    bars_3d = fetch_bars_direct(symbol, interval="3D", count=100) if is_crypto else None
 
-    if not bars_4h and not bars_1d:
+    if not bars_4h and not bars_1d and not bars_1h:
         logger.error(f"Konnte keine Live-Kerzendaten für {symbol} abrufen.")
         return None
 
@@ -114,18 +119,33 @@ def rescan_and_evaluate_asset(symbol, user_pos=None):
         name = "Apple Inc."
 
     # 2. Indikatoren berechnen
+    d_1h = analyze_indicators(bars_1h, name) if bars_1h else None
+    d_4h = analyze_indicators(bars_4h, name) if b_4h if (b_4h := bars_4h) else None
     d_1d = analyze_indicators(bars_1d, name) if bars_1d else None
-    d_8h = analyze_indicators(bars_8h, name) if bars_8h else None
-    d_4h = analyze_indicators(bars_4h, name) if bars_4h else None
+    d_1w = analyze_indicators(bars_1w, name) if bars_1w else None
+    d_3d = analyze_indicators(bars_3d, name) if bars_3d else None
 
-    current_price = d_4h["price"] if d_4h else (d_1d["price"] if d_1d else 0.0)
+    current_price = d_1d["price"] if d_1d else (d_4h["price"] if d_4h else (d_1h["price"] if d_1h else 0.0))
+
+    tf_map = {
+        "1h": d_1h,
+        "4h": d_4h,
+        "1D": d_1d,
+        "1W": d_1w
+    }
+    if is_crypto and d_3d:
+        tf_map["3D"] = d_3d
 
     # 3. Charts generieren
     CHARTS_DIR.mkdir(parents=True, exist_ok=True)
     safe_sym = symbol.replace(":", "_").replace("!", "_").replace(".", "_").replace("/", "_")
     charts_info = {}
 
-    for tf, b, ind in [("4h", bars_4h, d_4h), ("8h", bars_8h, d_8h), ("1D", bars_1d, d_1d)]:
+    chart_bars = [("1h", bars_1h, d_1h), ("4h", bars_4h, d_4h), ("1D", bars_1d, d_1d), ("1W", bars_1w, d_1w)]
+    if is_crypto and bars_3d and d_3d:
+        chart_bars.append(("3D", bars_3d, d_3d))
+
+    for tf, b, ind in chart_bars:
         if b and ind:
             svg_content = generate_svg_chart(b, ind, timeframe=tf, user_position=user_pos)
             chart_file = CHARTS_DIR / f"{safe_sym}_{tf}.svg"
@@ -138,6 +158,16 @@ def rescan_and_evaluate_asset(symbol, user_pos=None):
     asset_entry = {
         "symbol": symbol,
         "name": name,
+        "category": category,
+        "asset_type": "Crypto" if is_crypto else "Stock",
+        "price": current_price,
+        "charts": charts_info,
+        "timeframes": tf_map
+    }
+
+    quant_res = evaluate_quantitative_confluence(tf_map, asset_entry)
+    if quant_res:
+        asset_entry.update(quant_res)
         "category": category,
         "asset_type": "Crypto" if "Krypto" in category else "Stock",
         "price": current_price,

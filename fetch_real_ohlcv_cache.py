@@ -198,9 +198,14 @@ def get_real_bars(symbol, interval="1D"):
             with open(cache_8h, "w", encoding="utf-8") as f:
                 json.dump({"symbol": symbol, "interval": "8h", "bars": bars_8h}, f)
         return bars_8h
+    elif interval in ("1h", "4h"):
+        return fetch_bars_direct(symbol, interval=interval, count=180)
+    elif interval in ("1D", "3D"):
+        return fetch_bars_direct(symbol, interval=interval, count=120)
+    elif interval == "1W":
+        return fetch_bars_direct(symbol, interval=interval, count=100)
     else:
-        cnt = 180 if interval == "4h" else 120
-        return fetch_bars_direct(symbol, interval=interval, count=cnt)
+        return fetch_bars_direct(symbol, interval=interval, count=120)
 
 
 def fetch_premarket_batch_data(symbols: List[str]) -> Dict[str, Dict[str, Any]]:
@@ -249,11 +254,11 @@ def fetch_premarket_batch_data(symbols: List[str]) -> Dict[str, Dict[str, Any]]:
     return results
 
 
-def sync_all_real_data(due_symbols=None, limit=None):
+def sync_all_real_data(due_symbols=None, limit=None, collect_only=False):
     """
     Lädt echte Kerzen für fällige Assets herunter und cacht sie.
     - due_symbols: Optionales Set oder Liste von Symbolen (z. B. vom Market Gatekeeper).
-      Ist due_symbols angegeben, werden geschlossene/gepauste Assets übersprungen.
+    - collect_only: Wenn True, werden nur 1h und 4h Kerzen zur schnellen, token-freien Datensammlung geladen.
     """
     if not DB_FILE.exists():
         print(f"Datenbank {DB_FILE} nicht gefunden!")
@@ -279,22 +284,40 @@ def sync_all_real_data(due_symbols=None, limit=None):
         print("Keine fälligen Assets zum Herunterladen.")
         return
 
-    print(f"Starte echten OHLCV-Download für {len(assets_to_fetch)} Assets über TradingView MCP...")
+    from market_schedule import classify_symbol
+
+    mode_label = "Schnell-Cache (1h/4h)" if collect_only else "Voll-Sync (1h, 4h, 1D, 1W"
+    print(f"Starte echten OHLCV-Download ({mode_label}) für {len(assets_to_fetch)} Assets über TradingView MCP...")
     success_count = 0
 
     for idx, a in enumerate(assets_to_fetch, 1):
         sym = a["symbol"]
         print(f"[{idx}/{len(assets_to_fetch)}] Lade echte Kerzen für {a['name']} ({sym})...", end="", flush=True)
 
-        b_1d = get_real_bars(sym, interval="1D")
+        is_crypto = (classify_symbol(sym).get("category") == "CRYPTO")
+        b_1h = get_real_bars(sym, interval="1h")
         b_4h = get_real_bars(sym, interval="4h")
-        b_8h = get_real_bars(sym, interval="8h")
 
-        if b_1d and b_4h:
-            print(f" OK (1D: {len(b_1d)} Bars | 4h: {len(b_4h)} Bars | 8h: {len(b_8h)} Bars)")
-            success_count += 1
+        if collect_only:
+            if b_1h and b_4h:
+                print(f" OK (1h: {len(b_1h)} Bars | 4h: {len(b_4h)} Bars)")
+                success_count += 1
+            else:
+                print(f" WARNUNG: Unvollständig (1h: {len(b_1h)}, 4h: {len(b_4h)})")
         else:
-            print(f" WARNUNG: Unvollständige Daten (1D: {len(b_1d)}, 4h: {len(b_4h)})")
+            b_1d = get_real_bars(sym, interval="1D")
+            b_1w = get_real_bars(sym, interval="1W")
+            b_3d = get_real_bars(sym, interval="3D") if is_crypto else None
+
+            info_parts = [f"1h: {len(b_1h)}", f"4h: {len(b_4h)}", f"1D: {len(b_1d)}", f"1W: {len(b_1w)}"]
+            if is_crypto and b_3d:
+                info_parts.append(f"3D: {len(b_3d)}")
+
+            if b_1d and b_4h and b_1h:
+                print(f" OK ({' | '.join(info_parts)})")
+                success_count += 1
+            else:
+                print(f" WARNUNG: Unvollständige Daten (1D: {len(b_1d)}, 4h: {len(b_4h)})")
 
         time.sleep(0.12)
 

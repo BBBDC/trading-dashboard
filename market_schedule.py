@@ -27,7 +27,7 @@ def classify_symbol(symbol: str) -> Dict[str, str]:
     sym_upper = symbol.upper()
     prefix = sym_upper.split(":")[0] if ":" in sym_upper else ""
 
-    if prefix in ("BINANCE", "COINBASE", "KRAKEN", "CRYPTOCAP") or "USDT" in sym_upper or "USD" in sym_upper and any(c in sym_upper for c in ["BTC", "ETH", "SOL", "AVAX", "DOT", "BCH", "CRV", "AAVE", "KSM", "GMX"]):
+    if prefix in ("BINANCE", "COINBASE", "KRAKEN", "BYBIT", "CRYPTOCAP") or "USDT" in sym_upper or ("USD" in sym_upper and any(c in sym_upper for c in ["BTC", "ETH", "SOL", "AVAX", "DOT", "BCH", "CRV", "AAVE", "KSM", "GMX", "ETHFI"])):
         return {
             "category": "CRYPTO",
             "exchange": prefix or "CRYPTO",
@@ -35,12 +35,29 @@ def classify_symbol(symbol: str) -> Dict[str, str]:
             "label": "Krypto (24/7)"
         }
 
-    if prefix in ("NASDAQ", "NYSE"):
+    # Deutsche Börsen & Retail-Handelsplätze
+    if prefix == "TRADEGATE":
         return {
-            "category": "US_STOCKS",
+            "category": "EU_STOCKS",
+            "exchange": "TRADEGATE",
+            "timezone": "Europe/Berlin",
+            "label": "Tradegate (07:30 - 22:00 CET)"
+        }
+
+    if prefix in ("LS", "LUS"):
+        return {
+            "category": "EU_STOCKS",
             "exchange": prefix,
-            "timezone": "America/New_York",
-            "label": f"US-Aktien ({prefix})"
+            "timezone": "Europe/Berlin",
+            "label": "Lang & Schwarz (07:30 - 23:00 CET)"
+        }
+
+    if prefix == "GETTEX":
+        return {
+            "category": "EU_STOCKS",
+            "exchange": "GETTEX",
+            "timezone": "Europe/Berlin",
+            "label": "gettex (08:00 - 22:00 CET)"
         }
 
     if prefix in ("XETR", "FWB"):
@@ -48,10 +65,18 @@ def classify_symbol(symbol: str) -> Dict[str, str]:
             "category": "EU_STOCKS",
             "exchange": prefix,
             "timezone": "Europe/Berlin",
-            "label": "Deutsche Aktien (XETRA)"
+            "label": f"Deutsche Börse ({prefix})"
         }
 
-    if prefix in ("COMEX", "NYMEX", "ICEEUR", "TVC", "SP"):
+    if prefix in ("NASDAQ", "NYSE", "AMEX"):
+        return {
+            "category": "US_STOCKS",
+            "exchange": prefix,
+            "timezone": "America/New_York",
+            "label": f"US-Aktien ({prefix})"
+        }
+
+    if prefix in ("COMEX", "NYMEX", "ICEEUR", "TVC", "SP", "OANDA", "FX"):
         return {
             "category": "COMMODITIES_FUTURES",
             "exchange": prefix,
@@ -74,12 +99,8 @@ def classify_symbol(symbol: str) -> Dict[str, str]:
 
 def get_market_state(symbol: str, now_utc: Optional[datetime] = None) -> Dict[str, Any]:
     """
-    Ermittelt für ein Symbol präzise den aktuellen Marktstatus:
-    - is_open: Ist der Markt für reguläre Kerzen geöffnet?
-    - is_premarket: Befindet sich der Markt in der Vorbörsen-Phase?
-    - session_name: Name der aktuellen Session
-    - min_interval_minutes: Erforderlicher Mindestabstand zwischen Scans
-    - next_event: Beschreibung des nächsten Markt-Events
+    Ermittelt für ein Symbol präzise den aktuellen Marktstatus unter Berücksichtigung
+    der exakten Börsen-Handelszeiten (z.B. Tradegate 07:30-22:00, Xetra 09:00-17:35, US 15:30-22:05 CET).
     """
     if now_utc is None:
         now_utc = datetime.now(timezone.utc)
@@ -88,28 +109,162 @@ def get_market_state(symbol: str, now_utc: Optional[datetime] = None) -> Dict[st
 
     classification = classify_symbol(symbol)
     cat = classification["category"]
+    exch = classification.get("exchange", "")
 
-    # 1. KRYPTO (24/7)
+    # 1. KRYPTO (24/7 non-stop)
     if cat == "CRYPTO":
         return {
             "is_open": True,
             "is_premarket": False,
             "status": "OPEN",
             "session_name": "24/7 Non-Stop",
-            "min_interval_minutes": 220,  # ca. 4 Stunden (etwas Puffer für stündlichen Cron)
+            "min_interval_minutes": 220,  # ca. 4 Stunden
             "badge_color": "emerald",
             "status_text": "Aktiv (24/7)"
         }
 
-    # 2. US-AKTIEN (Wall Street)
+    # 2. DEUTSCHE BÖRSEN (Tradegate, L&S, gettex, XETRA, FWB)
+    if cat == "EU_STOCKS":
+        berlin_time = now_utc.astimezone(TZ_BERLIN)
+        weekday = berlin_time.weekday()  # 0=Mo, 4=Fr, 5=Sa, 6=So
+        time_hm = (berlin_time.hour, berlin_time.minute)
+
+        if weekday >= 5:
+            return {
+                "is_open": False,
+                "is_premarket": False,
+                "status": "CLOSED",
+                "session_name": "Wochenende (Geschlossen)",
+                "min_interval_minutes": 999999,
+                "badge_color": "slate",
+                "status_text": "Wochenende (Geschlossen)"
+            }
+
+        # Tradegate: 07:30 - 22:00 CET
+        if exch == "TRADEGATE":
+            if (7, 30) <= time_hm <= (22, 0):
+                return {
+                    "is_open": True,
+                    "is_premarket": False,
+                    "status": "OPEN",
+                    "session_name": "Tradegate Session",
+                    "min_interval_minutes": 75,
+                    "badge_color": "emerald",
+                    "status_text": "Tradegate Offen (bis 22:00 CET)"
+                }
+            elif (7, 0) <= time_hm < (7, 30):
+                return {
+                    "is_open": False,
+                    "is_premarket": True,
+                    "status": "PRE_MARKET",
+                    "session_name": "Tradegate Vorbörse",
+                    "min_interval_minutes": 20,
+                    "badge_color": "amber",
+                    "status_text": "Tradegate Vorbörse (Start 07:30)"
+                }
+            return {
+                "is_open": False,
+                "is_premarket": False,
+                "status": "CLOSED",
+                "session_name": "Tradegate Nachtpause",
+                "min_interval_minutes": 999999,
+                "badge_color": "slate",
+                "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+            }
+
+        # Lang & Schwarz: 07:30 - 23:00 CET
+        if exch in ("LS", "LUS"):
+            if (7, 30) <= time_hm <= (23, 0):
+                return {
+                    "is_open": True,
+                    "is_premarket": False,
+                    "status": "OPEN",
+                    "session_name": "Lang & Schwarz Session",
+                    "min_interval_minutes": 75,
+                    "badge_color": "emerald",
+                    "status_text": "L&S Offen (bis 23:00 CET)"
+                }
+            return {
+                "is_open": False,
+                "is_premarket": False,
+                "status": "CLOSED",
+                "session_name": "L&S Nachtpause",
+                "min_interval_minutes": 999999,
+                "badge_color": "slate",
+                "status_text": "L&S Geschlossen (Pause bis 07:30)"
+            }
+
+        # gettex: 08:00 - 22:00 CET
+        if exch == "GETTEX":
+            if (8, 0) <= time_hm <= (22, 0):
+                return {
+                    "is_open": True,
+                    "is_premarket": False,
+                    "status": "OPEN",
+                    "session_name": "gettex Session",
+                    "min_interval_minutes": 75,
+                    "badge_color": "emerald",
+                    "status_text": "gettex Offen (bis 22:00 CET)"
+                }
+            return {
+                "is_open": False,
+                "is_premarket": False,
+                "status": "CLOSED",
+                "session_name": "gettex Nachtpause",
+                "min_interval_minutes": 999999,
+                "badge_color": "slate",
+                "status_text": "gettex Geschlossen (Pause bis 08:00)"
+            }
+
+        # FWB Frankfurt Parkett: 08:00 - 20:00 CET
+        if exch == "FWB":
+            if (8, 0) <= time_hm <= (20, 0):
+                return {
+                    "is_open": True,
+                    "is_premarket": False,
+                    "status": "OPEN",
+                    "session_name": "FWB Frankfurt Session",
+                    "min_interval_minutes": 120,
+                    "badge_color": "emerald",
+                    "status_text": "FWB Offen (bis 20:00 CET)"
+                }
+            return {
+                "is_open": False,
+                "is_premarket": False,
+                "status": "CLOSED",
+                "session_name": "FWB Nachtpause",
+                "min_interval_minutes": 999999,
+                "badge_color": "slate",
+                "status_text": "FWB Geschlossen (Pause bis 08:00)"
+            }
+
+        # XETRA Standard: 09:00 - 17:35 CET
+        if (9, 0) <= time_hm <= (17, 35):
+            return {
+                "is_open": True,
+                "is_premarket": False,
+                "status": "OPEN",
+                "session_name": "XETRA Regular Session",
+                "min_interval_minutes": 120,
+                "badge_color": "emerald",
+                "status_text": "XETRA Offen (bis 17:35 CET)"
+            }
+        return {
+            "is_open": False,
+            "is_premarket": False,
+            "status": "CLOSED",
+            "session_name": "XETRA Nachtpause",
+            "min_interval_minutes": 999999,
+            "badge_color": "slate",
+            "status_text": "XETRA Geschlossen (Pause bis 09:00)"
+        }
+
+    # 3. US-AKTIEN (Wall Street: NASDAQ, NYSE, AMEX)
     if cat == "US_STOCKS":
         ny_time = now_utc.astimezone(TZ_NEW_YORK)
-        weekday = ny_time.weekday()  # 0=Montag, 4=Freitag, 5=Samstag, 6=Sonntag
-        hour = ny_time.hour
-        minute = ny_time.minute
-        time_hm = (hour, minute)
+        weekday = ny_time.weekday()
+        time_hm = (ny_time.hour, ny_time.minute)
 
-        # Wochenende (Sa & So)
         if weekday >= 5:
             return {
                 "is_open": False,
@@ -128,12 +283,12 @@ def get_market_state(symbol: str, now_utc: Optional[datetime] = None) -> Dict[st
                 "is_premarket": False,
                 "status": "OPEN",
                 "session_name": "US Regular Session (Wall Street)",
-                "min_interval_minutes": 70,  # stündlicher Scan während der offenen Session!
+                "min_interval_minutes": 70,
                 "badge_color": "emerald",
-                "status_text": f"US Session (Offen bis {22 if ny_time.tzname() == 'EDT' else 22}:00 CET)"
+                "status_text": "US Session Offen (bis 22:00 CET)"
             }
 
-        # US Pre-Market Fenster: 09:00 - 09:30 ET (15:00 - 15:30 CET)
+        # US Pre-Market: 09:00 - 09:30 ET (15:00 - 15:30 CET)
         if (9, 0) <= time_hm < (9, 30):
             return {
                 "is_open": False,
@@ -145,7 +300,6 @@ def get_market_state(symbol: str, now_utc: Optional[datetime] = None) -> Dict[st
                 "status_text": "Vorbörse (Eröffnung in Kürze)"
             }
 
-        # Nachbörse / Nachtphase
         return {
             "is_open": False,
             "is_premarket": False,
@@ -156,53 +310,14 @@ def get_market_state(symbol: str, now_utc: Optional[datetime] = None) -> Dict[st
             "status_text": "Geschlossen (Pause bis 15:30 CET)"
         }
 
-    # 3. DEUTSCHE AKTIEN (XETRA)
-    if cat == "EU_STOCKS":
-        berlin_time = now_utc.astimezone(TZ_BERLIN)
-        weekday = berlin_time.weekday()
-        time_hm = (berlin_time.hour, berlin_time.minute)
-
-        if weekday >= 5:
-            return {
-                "is_open": False,
-                "is_premarket": False,
-                "status": "CLOSED",
-                "session_name": "Wochenende (Geschlossen)",
-                "min_interval_minutes": 999999,
-                "badge_color": "slate",
-                "status_text": "Wochenende (Öffnet Mo 09:00 CET)"
-            }
-
-        # XETRA Handelszeit: 09:00 - 17:35 CET
-        if (9, 0) <= time_hm <= (17, 35):
-            return {
-                "is_open": True,
-                "is_premarket": False,
-                "status": "OPEN",
-                "session_name": "XETRA Regular Session",
-                "min_interval_minutes": 160,  # ~ alle 3-4 Stunden (Open 09:05, Midday 13:05, Close 17:05)
-                "badge_color": "emerald",
-                "status_text": "XETRA Offen (bis 17:30 CET)"
-            }
-
-        return {
-            "is_open": False,
-            "is_premarket": False,
-            "status": "CLOSED",
-            "session_name": "XETRA Nachtpause",
-            "min_interval_minutes": 999999,
-            "badge_color": "slate",
-            "status_text": "Geschlossen (Pause bis 09:00 CET)"
-        }
-
-    # 4. ROHSTOFFE & FUTURES / INDIZES (COMEX, NYMEX, TVC)
+    # 4. ROHSTOFFE & FUTURES / INDIZES (COMEX, NYMEX, ICEEUR, TVC, SP)
     if cat == "COMMODITIES_FUTURES":
         berlin_time = now_utc.astimezone(TZ_BERLIN)
         weekday = berlin_time.weekday()
         hour = berlin_time.hour
 
         # Freitag ab 23:00 bis Sonntag 23:00 CET geschlossen
-        if weekday == 4 and hour >= 23 or weekday == 5 or (weekday == 6 and hour < 23):
+        if (weekday == 4 and hour >= 23) or weekday == 5 or (weekday == 6 and hour < 23):
             return {
                 "is_open": False,
                 "is_premarket": False,
@@ -230,7 +345,7 @@ def get_market_state(symbol: str, now_utc: Optional[datetime] = None) -> Dict[st
             "is_premarket": False,
             "status": "OPEN",
             "session_name": "Commodities / Global Session",
-            "min_interval_minutes": 220,  # 4h-Takt während der Woche
+            "min_interval_minutes": 220,
             "badge_color": "emerald",
             "status_text": "Globaler Handel Aktiv"
         }
