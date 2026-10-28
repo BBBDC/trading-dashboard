@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-10-28 21:05:54 UTC",
+  "timestamp": "2026-10-28 20:59:08 UTC",
   "total_analyzed": 125,
-  "long_count": 10,
+  "long_count": 11,
   "short_count": 15,
-  "neutral_count": 100,
+  "neutral_count": 99,
   "assets": [
     {
       "symbol": "CRYPTOCAP:TOTAL",
@@ -271,17 +271,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "PayPal (Tradegate)",
+          "name": "PayPal (Tradegate) (TRADEGATE:2PP)",
           "price": 49.84,
           "rsi": 49.51,
           "trend": "BEARISH",
@@ -314,7 +314,7 @@
           "in_golden_pocket": true
         },
         "4h": {
-          "name": "PayPal (Tradegate)",
+          "name": "PayPal (Tradegate) (TRADEGATE:2PP)",
           "price": 49.84,
           "rsi": 46.6,
           "trend": "BEARISH",
@@ -339,7 +339,7 @@
           "in_golden_pocket": true
         },
         "1D": {
-          "name": "PayPal (Tradegate)",
+          "name": "PayPal (Tradegate) (TRADEGATE:2PP)",
           "price": 49.9,
           "rsi": 53.01,
           "trend": "BULLISH",
@@ -364,7 +364,7 @@
           "in_golden_pocket": true
         },
         "1W": {
-          "name": "PayPal (Tradegate)",
+          "name": "PayPal (Tradegate) (TRADEGATE:2PP)",
           "price": 49.9,
           "rsi": 57.14,
           "trend": "BULLISH",
@@ -390,12 +390,7 @@
         }
       },
       "analyst_note": "PayPal demonstriert eine lehrbuchmäßige Konsolidierung im übergeordneten Bullentrend. Der Rücksetzer ins Golden Pocket wird von stark austrocknendem Volumen ('No Supply') begleitet, was auf institutionelle Absorption hinweist. Der Stop-Loss liegt geschützt unterhalb des 1D GP und Swing-Lows bei 47,90 EUR; CRV von 2,85:1 erfüllt die Mindestanforderungen vollkommen.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "CRYPTOCAP:BTC.D",
@@ -673,6 +668,232 @@
       "currency": "USD"
     },
     {
+      "symbol": "COINBASE:BTCUSD",
+      "name": "Bitcoin",
+      "category": "Crypto",
+      "asset_type": "Crypto",
+      "price": 81616.16,
+      "signal": "LONG",
+      "score": 81,
+      "setup_name": "Hypothese 1: SMC Support Reversal",
+      "crv": 3.2,
+      "entry_range": [
+        80963.23,
+        81779.39
+      ],
+      "stop_loss": 77535.35,
+      "take_profit_1": 88961.62,
+      "take_profit_2": 94674.75,
+      "reasons": [
+        "1D Trend über EMA 233 bullisch",
+        "1W Makro-Trend bullisch bestätigt",
+        "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)",
+        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)"
+      ],
+      "charts": {
+        "1h": "charts/COINBASE_BTCUSD_1h.svg",
+        "4h": "charts/COINBASE_BTCUSD_4h.svg",
+        "1D": "charts/COINBASE_BTCUSD_1D.svg",
+        "1W": "charts/COINBASE_BTCUSD_1W.svg",
+        "3D": "charts/COINBASE_BTCUSD_3D.svg"
+      },
+      "last_analyzed": "2026-10-28T17:22:56.683366+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "24/7 Non-Stop",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Aktiv (24/7)"
+      },
+      "timeframes": {
+        "1h": {
+          "name": "Bitcoin (COINBASE:BTCUSD)",
+          "price": 81307.58,
+          "rsi": 65.26,
+          "trend": "BULLISH",
+          "ema_fast": 81029.42,
+          "ema_trend": 80546.34,
+          "upper_band": 81565.03,
+          "lower_band": 80493.81,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.03,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 80321.96,
+              "bottom": 80275,
+              "ce_50": 80298.48,
+              "gap_pct": 0.06
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 80962.99,
+              "bottom": 80895.17,
+              "ce_50": 80929.08,
+              "gap_pct": 0.08
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 81230.11,
+              "bottom": 80975.89,
+              "ce_50": 81103.0,
+              "gap_pct": 0.31
+            }
+          ],
+          "divergences": [
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 81694.39,
+          "swing_low": 79255,
+          "golden_pocket": [
+            80108.79,
+            80186.85
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "Bitcoin (COINBASE:BTCUSD)",
+          "price": 81305.01,
+          "rsi": 59.5,
+          "trend": "BULLISH",
+          "ema_fast": 80589.58,
+          "ema_trend": 80989.34,
+          "upper_band": 81835.88,
+          "lower_band": 79343.28,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.69,
+          "vsa_class": "Low",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 80321.96,
+              "bottom": 80008.79,
+              "ce_50": 80165.38,
+              "gap_pct": 0.39
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 84856.07,
+          "swing_low": 79107,
+          "golden_pocket": [
+            82659.93,
+            82843.9
+          ],
+          "in_golden_pocket": false
+        },
+        "1D": {
+          "name": "Bitcoin (COINBASE:BTCUSD)",
+          "price": 81616.16,
+          "rsi": 49.23,
+          "trend": "BULLISH",
+          "ema_fast": 81448.63,
+          "ema_trend": 80736.81,
+          "upper_band": 84956.36,
+          "lower_band": 77940.9,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.27,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 82535,
+              "bottom": 81962,
+              "ce_50": 82248.5,
+              "gap_pct": 0.69
+            }
+          ],
+          "divergences": [
+            "Reguläre Bärische Divergenz (Reversal)"
+          ],
+          "swing_high": 87397,
+          "swing_low": 74887.5,
+          "golden_pocket": [
+            79265.82,
+            79666.13
+          ],
+          "in_golden_pocket": false
+        },
+        "1W": {
+          "name": "Bitcoin (COINBASE:BTCUSD)",
+          "price": 81643.49,
+          "rsi": 56.24,
+          "trend": "BULLISH",
+          "ema_fast": 78779.97,
+          "ema_trend": 78967.62,
+          "upper_band": 89215.66,
+          "lower_band": 68344.28,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.29,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 76652,
+              "bottom": 65341.83,
+              "ce_50": 70996.92,
+              "gap_pct": 17.31
+            }
+          ],
+          "divergences": [
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 126296,
+          "swing_low": 57717.55,
+          "golden_pocket": [
+            100099.03,
+            102293.54
+          ],
+          "in_golden_pocket": false
+        },
+        "3D": {
+          "name": "Bitcoin (COINBASE:BTCUSD)",
+          "price": 81657.59,
+          "rsi": 55.96,
+          "trend": "BULLISH",
+          "ema_fast": 81641.76,
+          "ema_trend": 76815.64,
+          "upper_band": 88111.86,
+          "lower_band": 75171.66,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.08,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 75538.12,
+              "bottom": 70022.44,
+              "ce_50": 72780.28,
+              "gap_pct": 7.88
+            }
+          ],
+          "divergences": [
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 87397,
+          "swing_low": 57717.55,
+          "golden_pocket": [
+            68105.36,
+            69055.1
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "analyst_note": "Strikte bullische Konfluenz (81%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
+      "evaluated_by": "quantitative_engine",
+      "watchlists": [
+        "Crypto",
+        "Watchlist"
+      ],
+      "source_watchlist": "Crypto",
+      "currency": "USD"
+    },
+    {
       "symbol": "TRADEGATE:AMZ",
       "name": "Amazon (Tradegate)",
       "category": "Tradegate / EU",
@@ -703,17 +924,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Amazon (Tradegate)",
+          "name": "Amazon (Tradegate) (TRADEGATE:AMZ)",
           "price": 228.55,
           "rsi": 67.44,
           "trend": "BULLISH",
@@ -752,7 +973,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Amazon (Tradegate)",
+          "name": "Amazon (Tradegate) (TRADEGATE:AMZ)",
           "price": 228.55,
           "rsi": 55.75,
           "trend": "BULLISH",
@@ -799,7 +1020,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Amazon (Tradegate)",
+          "name": "Amazon (Tradegate) (TRADEGATE:AMZ)",
           "price": 228.05,
           "rsi": 52.38,
           "trend": "BULLISH",
@@ -836,7 +1057,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Amazon (Tradegate)",
+          "name": "Amazon (Tradegate) (TRADEGATE:AMZ)",
           "price": 228.05,
           "rsi": 55.11,
           "trend": "BULLISH",
@@ -862,12 +1083,7 @@
         }
       },
       "analyst_note": "Strikte bullische Konfluenz (81%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "BITSTAMP:BTCUSD",
@@ -911,7 +1127,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "BTCUSD",
+          "name": "BTCUSD (BITSTAMP:BTCUSD)",
           "price": 81345.09,
           "rsi": 66.65,
           "trend": "BULLISH",
@@ -957,7 +1173,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "BTCUSD",
+          "name": "BTCUSD (BITSTAMP:BTCUSD)",
           "price": 81345.1,
           "rsi": 59.94,
           "trend": "BULLISH",
@@ -989,7 +1205,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "BTCUSD",
+          "name": "BTCUSD (BITSTAMP:BTCUSD)",
           "price": 81345.1,
           "rsi": 48.02,
           "trend": "BULLISH",
@@ -1021,7 +1237,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "BTCUSD",
+          "name": "BTCUSD (BITSTAMP:BTCUSD)",
           "price": 81345.1,
           "rsi": 55.93,
           "trend": "BULLISH",
@@ -1053,7 +1269,7 @@
           "in_golden_pocket": false
         },
         "3D": {
-          "name": "BTCUSD",
+          "name": "BTCUSD (BITSTAMP:BTCUSD)",
           "price": 81345.1,
           "rsi": 55.34,
           "trend": "BULLISH",
@@ -1087,13 +1303,7 @@
         }
       },
       "analyst_note": "Strikte bullische Konfluenz (81%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Crypto",
-        "Watchlist"
-      ],
-      "source_watchlist": "Crypto",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TRADEGATE:SAP",
@@ -1126,17 +1336,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "SAP SE",
+          "name": "SAP SE (TRADEGATE:SAP)",
           "price": 209.45,
           "rsi": 34.97,
           "trend": "BEARISH",
@@ -1168,7 +1378,7 @@
           "in_golden_pocket": true
         },
         "4h": {
-          "name": "SAP SE",
+          "name": "SAP SE (TRADEGATE:SAP)",
           "price": 209.45,
           "rsi": 50.12,
           "trend": "BULLISH",
@@ -1215,7 +1425,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "SAP SE",
+          "name": "SAP SE (TRADEGATE:SAP)",
           "price": 209.95,
           "rsi": 70.69,
           "trend": "BULLISH",
@@ -1259,7 +1469,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "SAP SE",
+          "name": "SAP SE (TRADEGATE:SAP)",
           "price": 209.95,
           "rsi": 68.91,
           "trend": "BULLISH",
@@ -1297,12 +1507,7 @@
         }
       },
       "analyst_note": "Strikte bullische Konfluenz (81%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:MSFT",
@@ -1344,7 +1549,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Microsoft",
+          "name": "Microsoft (NASDAQ:MSFT)",
           "price": 531.63,
           "rsi": 53.37,
           "trend": "BULLISH",
@@ -1377,7 +1582,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Microsoft",
+          "name": "Microsoft (NASDAQ:MSFT)",
           "price": 531.62,
           "rsi": 56.52,
           "trend": "BULLISH",
@@ -1419,12 +1624,7 @@
         "1W": null
       },
       "analyst_note": "Strikte bullische Konfluenz (81%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TVC:SILVER",
@@ -1467,7 +1667,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "Silber (Spot)",
+          "name": "Silber (Spot) (TVC:SILVER)",
           "price": 53.72,
           "rsi": 42.78,
           "trend": "BEARISH",
@@ -1513,7 +1713,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Silber (Spot)",
+          "name": "Silber (Spot) (TVC:SILVER)",
           "price": 53.73,
           "rsi": 40.6,
           "trend": "BEARISH",
@@ -1560,7 +1760,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Silber (Spot)",
+          "name": "Silber (Spot) (TVC:SILVER)",
           "price": 53.73,
           "rsi": 32.44,
           "trend": "BEARISH",
@@ -1599,7 +1799,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Silber (Spot)",
+          "name": "Silber (Spot) (TVC:SILVER)",
           "price": 53.73,
           "rsi": 36.49,
           "trend": "BEARISH",
@@ -1633,12 +1833,7 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Commodities"
-      ],
-      "source_watchlist": "Commodities",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NYSE:UAA",
@@ -1680,7 +1875,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Under Armour",
+          "name": "Under Armour (NYSE:UAA)",
           "price": 4.67,
           "rsi": 45.6,
           "trend": "BEARISH",
@@ -1712,7 +1907,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Under Armour",
+          "name": "Under Armour (NYSE:UAA)",
           "price": 4.67,
           "rsi": 45.1,
           "trend": "BEARISH",
@@ -1747,12 +1942,7 @@
         "1W": null
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TRADEGATE:ABEA",
@@ -1785,17 +1975,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Alphabet A (Tradegate)",
+          "name": "Alphabet A (Tradegate) (TRADEGATE:ABEA)",
           "price": 292.35,
           "rsi": 64.66,
           "trend": "BULLISH",
@@ -1841,7 +2031,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Alphabet A (Tradegate)",
+          "name": "Alphabet A (Tradegate) (TRADEGATE:ABEA)",
           "price": 292.35,
           "rsi": 48.09,
           "trend": "BEARISH",
@@ -1888,7 +2078,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Alphabet A (Tradegate)",
+          "name": "Alphabet A (Tradegate) (TRADEGATE:ABEA)",
           "price": 293.05,
           "rsi": 42.96,
           "trend": "BEARISH",
@@ -1925,7 +2115,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Alphabet A (Tradegate)",
+          "name": "Alphabet A (Tradegate) (TRADEGATE:ABEA)",
           "price": 293.05,
           "rsi": 48.54,
           "trend": "BULLISH",
@@ -1966,12 +2156,7 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "KRAKEN:MOVRUSD",
@@ -2015,7 +2200,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "MOVRUSD",
+          "name": "MOVRUSD (KRAKEN:MOVRUSD)",
           "price": 1.13,
           "rsi": 49.58,
           "trend": "BULLISH",
@@ -2062,7 +2247,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "MOVRUSD",
+          "name": "MOVRUSD (KRAKEN:MOVRUSD)",
           "price": 1.13,
           "rsi": 49.91,
           "trend": "BEARISH",
@@ -2102,7 +2287,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "MOVRUSD",
+          "name": "MOVRUSD (KRAKEN:MOVRUSD)",
           "price": 1.13,
           "rsi": 41.39,
           "trend": "BEARISH",
@@ -2139,7 +2324,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "MOVRUSD",
+          "name": "MOVRUSD (KRAKEN:MOVRUSD)",
           "price": 1.13,
           "rsi": 44.42,
           "trend": "BEARISH",
@@ -2172,7 +2357,7 @@
           "in_golden_pocket": false
         },
         "3D": {
-          "name": "MOVRUSD",
+          "name": "MOVRUSD (KRAKEN:MOVRUSD)",
           "price": 1.13,
           "rsi": 46.28,
           "trend": "BEARISH",
@@ -2210,12 +2395,7 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Crypto"
-      ],
-      "source_watchlist": "Crypto",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TVC:NI225",
@@ -2257,7 +2437,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "NI225",
+          "name": "NI225 (TVC:NI225)",
           "price": 63954.14,
           "rsi": 57.55,
           "trend": "BULLISH",
@@ -2301,7 +2481,7 @@
           "in_golden_pocket": true
         },
         "4h": {
-          "name": "NI225",
+          "name": "NI225 (TVC:NI225)",
           "price": 63954.14,
           "rsi": 45.32,
           "trend": "BEARISH",
@@ -2347,7 +2527,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "NI225",
+          "name": "NI225 (TVC:NI225)",
           "price": 63953.97,
           "rsi": 43.7,
           "trend": "BEARISH",
@@ -2393,7 +2573,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "NI225",
+          "name": "NI225 (TVC:NI225)",
           "price": 63953.97,
           "rsi": 49.79,
           "trend": "BULLISH",
@@ -2441,12 +2621,7 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "BINANCE:BTCUSD",
@@ -2490,7 +2665,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "BTCUSD",
+          "name": "BTCUSD (BINANCE:BTCUSD)",
           "price": 81451.55,
           "rsi": 66.59,
           "trend": "BULLISH",
@@ -2523,7 +2698,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "BTCUSD",
+          "name": "BTCUSD (BINANCE:BTCUSD)",
           "price": 81451.55,
           "rsi": 60.89,
           "trend": "BULLISH",
@@ -2555,7 +2730,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "BTCUSD",
+          "name": "BTCUSD (BINANCE:BTCUSD)",
           "price": 81451.55,
           "rsi": 48.59,
           "trend": "BULLISH",
@@ -2587,7 +2762,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "BTCUSD",
+          "name": "BTCUSD (BINANCE:BTCUSD)",
           "price": 81451.55,
           "rsi": 56.04,
           "trend": "BULLISH",
@@ -2619,7 +2794,7 @@
           "in_golden_pocket": false
         },
         "3D": {
-          "name": "BTCUSD",
+          "name": "BTCUSD (BINANCE:BTCUSD)",
           "price": 81451.55,
           "rsi": 55.49,
           "trend": "BULLISH",
@@ -2653,12 +2828,7 @@
         }
       },
       "analyst_note": "Strikte bullische Konfluenz (75%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Crypto"
-      ],
-      "source_watchlist": "Crypto",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:PYPL",
@@ -2700,7 +2870,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "PayPal",
+          "name": "PayPal (NASDAQ:PYPL)",
           "price": 55.85,
           "rsi": 48.16,
           "trend": "BULLISH",
@@ -2740,7 +2910,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "PayPal",
+          "name": "PayPal (NASDAQ:PYPL)",
           "price": 55.85,
           "rsi": 51.16,
           "trend": "BULLISH",
@@ -2781,12 +2951,7 @@
         "1W": null
       },
       "analyst_note": "Strikte bullische Konfluenz (75%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "XETR:DAX",
@@ -3035,7 +3200,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Marvell",
+          "name": "Marvell (NASDAQ:MRVL)",
           "price": 241.98,
           "rsi": 49.06,
           "trend": "BEARISH",
@@ -3082,7 +3247,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Marvell",
+          "name": "Marvell (NASDAQ:MRVL)",
           "price": 241.98,
           "rsi": 47.98,
           "trend": "BEARISH",
@@ -3117,12 +3282,7 @@
         "1W": null
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:HOOD",
@@ -3164,7 +3324,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Robinhood",
+          "name": "Robinhood (NASDAQ:HOOD)",
           "price": 95.74,
           "rsi": 39.08,
           "trend": "BEARISH",
@@ -3210,7 +3370,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Robinhood",
+          "name": "Robinhood (NASDAQ:HOOD)",
           "price": 95.75,
           "rsi": 39.05,
           "trend": "BEARISH",
@@ -3252,12 +3412,7 @@
         "1W": null
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "BINANCE:GLMRUSDT",
@@ -3301,7 +3456,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "GLMRUSDT",
+          "name": "GLMRUSDT (BINANCE:GLMRUSDT)",
           "price": 0.0084,
           "rsi": 50.73,
           "trend": "BEARISH",
@@ -3334,7 +3489,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "GLMRUSDT",
+          "name": "GLMRUSDT (BINANCE:GLMRUSDT)",
           "price": 0.0084,
           "rsi": 45.2,
           "trend": "BEARISH",
@@ -3359,7 +3514,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "GLMRUSDT",
+          "name": "GLMRUSDT (BINANCE:GLMRUSDT)",
           "price": 0.0084,
           "rsi": 42.13,
           "trend": "BEARISH",
@@ -3389,7 +3544,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "GLMRUSDT",
+          "name": "GLMRUSDT (BINANCE:GLMRUSDT)",
           "price": 0.0084,
           "rsi": 39.87,
           "trend": "BEARISH",
@@ -3422,7 +3577,7 @@
           "in_golden_pocket": false
         },
         "3D": {
-          "name": "GLMRUSDT",
+          "name": "GLMRUSDT (BINANCE:GLMRUSDT)",
           "price": 0.0083,
           "rsi": 47.19,
           "trend": "BEARISH",
@@ -3462,12 +3617,7 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Crypto"
-      ],
-      "source_watchlist": "Crypto",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "KRAKEN:LINKUSD",
@@ -3511,7 +3661,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "LINKUSD",
+          "name": "LINKUSD (KRAKEN:LINKUSD)",
           "price": 11.8,
           "rsi": 67.92,
           "trend": "BULLISH",
@@ -3557,7 +3707,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "LINKUSD",
+          "name": "LINKUSD (KRAKEN:LINKUSD)",
           "price": 11.8,
           "rsi": 59.56,
           "trend": "BULLISH",
@@ -3604,7 +3754,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "LINKUSD",
+          "name": "LINKUSD (KRAKEN:LINKUSD)",
           "price": 11.8,
           "rsi": 42.82,
           "trend": "BEARISH",
@@ -3636,7 +3786,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "LINKUSD",
+          "name": "LINKUSD (KRAKEN:LINKUSD)",
           "price": 11.8,
           "rsi": 53.01,
           "trend": "BULLISH",
@@ -3666,7 +3816,7 @@
           "in_golden_pocket": false
         },
         "3D": {
-          "name": "LINKUSD",
+          "name": "LINKUSD (KRAKEN:LINKUSD)",
           "price": 11.8,
           "rsi": 50.02,
           "trend": "BULLISH",
@@ -3700,12 +3850,7 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TVC:GOLD",
@@ -3748,7 +3893,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "Gold (Spot)",
+          "name": "Gold (Spot) (TVC:GOLD)",
           "price": 4043.95,
           "rsi": 52.13,
           "trend": "BULLISH",
@@ -3794,7 +3939,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Gold (Spot)",
+          "name": "Gold (Spot) (TVC:GOLD)",
           "price": 4044.08,
           "rsi": 49.94,
           "trend": "BEARISH",
@@ -3841,7 +3986,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Gold (Spot)",
+          "name": "Gold (Spot) (TVC:GOLD)",
           "price": 4044.09,
           "rsi": 39.48,
           "trend": "BEARISH",
@@ -3863,7 +4008,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Gold (Spot)",
+          "name": "Gold (Spot) (TVC:GOLD)",
           "price": 4044.18,
           "rsi": 40.25,
           "trend": "BEARISH",
@@ -3910,12 +4055,7 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Commodities"
-      ],
-      "source_watchlist": "Commodities",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "BITSTAMP:ETHUSD",
@@ -3959,7 +4099,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "ETHUSD",
+          "name": "ETHUSD (BITSTAMP:ETHUSD)",
           "price": 2363.35,
           "rsi": 62.15,
           "trend": "BULLISH",
@@ -3998,7 +4138,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "ETHUSD",
+          "name": "ETHUSD (BITSTAMP:ETHUSD)",
           "price": 2363.35,
           "rsi": 55.59,
           "trend": "BEARISH",
@@ -4038,7 +4178,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "ETHUSD",
+          "name": "ETHUSD (BITSTAMP:ETHUSD)",
           "price": 2363.35,
           "rsi": 39.87,
           "trend": "BEARISH",
@@ -4075,7 +4215,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "ETHUSD",
+          "name": "ETHUSD (BITSTAMP:ETHUSD)",
           "price": 2363.35,
           "rsi": 51.4,
           "trend": "BEARISH",
@@ -4112,7 +4252,7 @@
           "in_golden_pocket": false
         },
         "3D": {
-          "name": "ETHUSD",
+          "name": "ETHUSD (BITSTAMP:ETHUSD)",
           "price": 2363.35,
           "rsi": 47.86,
           "trend": "BULLISH",
@@ -4153,12 +4293,7 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Crypto"
-      ],
-      "source_watchlist": "Crypto",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "COINBASE:LTCUSD",
@@ -4202,7 +4337,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "LTCUSD",
+          "name": "LTCUSD (COINBASE:LTCUSD)",
           "price": 57.59,
           "rsi": 61.99,
           "trend": "BULLISH",
@@ -4235,7 +4370,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "LTCUSD",
+          "name": "LTCUSD (COINBASE:LTCUSD)",
           "price": 57.59,
           "rsi": 54.98,
           "trend": "BEARISH",
@@ -4282,7 +4417,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "LTCUSD",
+          "name": "LTCUSD (COINBASE:LTCUSD)",
           "price": 57.59,
           "rsi": 40.47,
           "trend": "BEARISH",
@@ -4319,7 +4454,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "LTCUSD",
+          "name": "LTCUSD (COINBASE:LTCUSD)",
           "price": 57.59,
           "rsi": 50.79,
           "trend": "BEARISH",
@@ -4344,7 +4479,7 @@
           "in_golden_pocket": false
         },
         "3D": {
-          "name": "LTCUSD",
+          "name": "LTCUSD (COINBASE:LTCUSD)",
           "price": 57.59,
           "rsi": 49.57,
           "trend": "BULLISH",
@@ -4370,12 +4505,7 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TVC:PLATINUM",
@@ -4418,7 +4548,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "Platin (Spot)",
+          "name": "Platin (Spot) (TVC:PLATINUM)",
           "price": 1534.18,
           "rsi": 51.58,
           "trend": "BEARISH",
@@ -4451,7 +4581,7 @@
           "in_golden_pocket": true
         },
         "4h": {
-          "name": "Platin (Spot)",
+          "name": "Platin (Spot) (TVC:PLATINUM)",
           "price": 1533.6,
           "rsi": 42.51,
           "trend": "BEARISH",
@@ -4491,7 +4621,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Platin (Spot)",
+          "name": "Platin (Spot) (TVC:PLATINUM)",
           "price": 1533.6,
           "rsi": 32.76,
           "trend": "BEARISH",
@@ -4535,7 +4665,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Platin (Spot)",
+          "name": "Platin (Spot) (TVC:PLATINUM)",
           "price": 1534.29,
           "rsi": 35.25,
           "trend": "BEARISH",
@@ -4569,12 +4699,7 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Commodities"
-      ],
-      "source_watchlist": "Commodities",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NYSE:ORCL",
@@ -4616,7 +4741,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Oracle",
+          "name": "Oracle (NYSE:ORCL)",
           "price": 131.86,
           "rsi": 50.22,
           "trend": "BEARISH",
@@ -4656,7 +4781,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Oracle",
+          "name": "Oracle (NYSE:ORCL)",
           "price": 131.86,
           "rsi": 46.04,
           "trend": "BEARISH",
@@ -4691,12 +4816,7 @@
         "1W": null
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TRADEGATE:34Q0",
@@ -4729,17 +4849,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Coinbase (Tradegate)",
+          "name": "Coinbase (Tradegate) (TRADEGATE:34Q0)",
           "price": 0.9895,
           "rsi": 51.48,
           "trend": "BEARISH",
@@ -4786,7 +4906,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Coinbase (Tradegate)",
+          "name": "Coinbase (Tradegate) (TRADEGATE:34Q0)",
           "price": 0.9895,
           "rsi": 45.07,
           "trend": "BEARISH",
@@ -4833,7 +4953,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Coinbase (Tradegate)",
+          "name": "Coinbase (Tradegate) (TRADEGATE:34Q0)",
           "price": 0.9895,
           "rsi": 31.12,
           "trend": "BEARISH",
@@ -4863,7 +4983,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Coinbase (Tradegate)",
+          "name": "Coinbase (Tradegate) (TRADEGATE:34Q0)",
           "price": 0.9895,
           "rsi": 31.89,
           "trend": "BEARISH",
@@ -4894,12 +5014,7 @@
         }
       },
       "analyst_note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:META",
@@ -4941,7 +5056,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Meta Platforms",
+          "name": "Meta Platforms (NASDAQ:META)",
           "price": 622.7,
           "rsi": 24.48,
           "trend": "BEARISH",
@@ -4985,7 +5100,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Meta Platforms",
+          "name": "Meta Platforms (NASDAQ:META)",
           "price": 622.61,
           "rsi": 32.31,
           "trend": "BEARISH",
@@ -5027,12 +5142,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:MU",
@@ -5074,7 +5184,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Micron Technology",
+          "name": "Micron Technology (NASDAQ:MU)",
           "price": 932.29,
           "rsi": 50.18,
           "trend": "BEARISH",
@@ -5121,7 +5231,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Micron Technology",
+          "name": "Micron Technology (NASDAQ:MU)",
           "price": 932.29,
           "rsi": 46.54,
           "trend": "BEARISH",
@@ -5169,12 +5279,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:NFLX",
@@ -5216,7 +5321,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Netflix",
+          "name": "Netflix (NASDAQ:NFLX)",
           "price": 62.79,
           "rsi": 30.97,
           "trend": "BEARISH",
@@ -5262,7 +5367,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Netflix",
+          "name": "Netflix (NASDAQ:NFLX)",
           "price": 62.79,
           "rsi": 31.56,
           "trend": "BEARISH",
@@ -5310,12 +5415,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:CRWD",
@@ -5357,7 +5457,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "CrowdStrike",
+          "name": "CrowdStrike (NASDAQ:CRWD)",
           "price": 268.18,
           "rsi": 65.36,
           "trend": "BULLISH",
@@ -5404,7 +5504,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "CrowdStrike",
+          "name": "CrowdStrike (NASDAQ:CRWD)",
           "price": 268.18,
           "rsi": 60.41,
           "trend": "BULLISH",
@@ -5452,12 +5552,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NYSE:IBM",
@@ -5499,7 +5594,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "IBM",
+          "name": "IBM (NYSE:IBM)",
           "price": 250.35,
           "rsi": 67.27,
           "trend": "BULLISH",
@@ -5545,7 +5640,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "IBM",
+          "name": "IBM (NYSE:IBM)",
           "price": 250.35,
           "rsi": 66.01,
           "trend": "BULLISH",
@@ -5586,12 +5681,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "BINANCE:HYPEUSDT.P",
@@ -5635,7 +5725,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "HYPEUSDT.P",
+          "name": "HYPEUSDT.P (BINANCE:HYPEUSDT.P)",
           "price": 81.6,
           "rsi": 60.71,
           "trend": "BULLISH",
@@ -5682,7 +5772,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "HYPEUSDT.P",
+          "name": "HYPEUSDT.P (BINANCE:HYPEUSDT.P)",
           "price": 81.59,
           "rsi": 67.32,
           "trend": "BULLISH",
@@ -5721,7 +5811,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "HYPEUSDT.P",
+          "name": "HYPEUSDT.P (BINANCE:HYPEUSDT.P)",
           "price": 82.01,
           "rsi": 50.92,
           "trend": "BULLISH",
@@ -5767,7 +5857,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "HYPEUSDT.P",
+          "name": "HYPEUSDT.P (BINANCE:HYPEUSDT.P)",
           "price": 82,
           "rsi": 57.99,
           "trend": "BULLISH",
@@ -5800,7 +5890,7 @@
           "in_golden_pocket": false
         },
         "3D": {
-          "name": "HYPEUSDT.P",
+          "name": "HYPEUSDT.P (BINANCE:HYPEUSDT.P)",
           "price": 82,
           "rsi": 52.85,
           "trend": "BULLISH",
@@ -5834,12 +5924,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Crypto"
-      ],
-      "source_watchlist": "Crypto",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:PANW",
@@ -5881,7 +5966,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Palo Alto Networks",
+          "name": "Palo Alto Networks (NASDAQ:PANW)",
           "price": 402.06,
           "rsi": 63.63,
           "trend": "BULLISH",
@@ -5928,7 +6013,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Palo Alto Networks",
+          "name": "Palo Alto Networks (NASDAQ:PANW)",
           "price": 402.06,
           "rsi": 58.5,
           "trend": "BULLISH",
@@ -5976,12 +6061,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NYSE:DELL",
@@ -6023,7 +6103,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Dell Technologies",
+          "name": "Dell Technologies (NYSE:DELL)",
           "price": 503.6,
           "rsi": 53.04,
           "trend": "BEARISH",
@@ -6070,7 +6150,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Dell Technologies",
+          "name": "Dell Technologies (NYSE:DELL)",
           "price": 503.7,
           "rsi": 49.22,
           "trend": "BULLISH",
@@ -6116,12 +6196,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TRADEGATE:NFC",
@@ -6154,17 +6229,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Netflix (Tradegate)",
+          "name": "Netflix (Tradegate) (TRADEGATE:NFC)",
           "price": 55.81,
           "rsi": 24.97,
           "trend": "BEARISH",
@@ -6211,7 +6286,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Netflix (Tradegate)",
+          "name": "Netflix (Tradegate) (TRADEGATE:NFC)",
           "price": 55.89,
           "rsi": 30.7,
           "trend": "BEARISH",
@@ -6258,7 +6333,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Netflix (Tradegate)",
+          "name": "Netflix (Tradegate) (TRADEGATE:NFC)",
           "price": 55.89,
           "rsi": 32.6,
           "trend": "BEARISH",
@@ -6297,7 +6372,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Netflix (Tradegate)",
+          "name": "Netflix (Tradegate) (TRADEGATE:NFC)",
           "price": 55.89,
           "rsi": 33.15,
           "trend": "BEARISH",
@@ -6331,12 +6406,7 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "INDEX:BTCUSD",
@@ -6380,7 +6450,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "BTCUSD",
+          "name": "BTCUSD (INDEX:BTCUSD)",
           "price": 81330.59,
           "rsi": 65.48,
           "trend": "BULLISH",
@@ -6424,7 +6494,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "BTCUSD",
+          "name": "BTCUSD (INDEX:BTCUSD)",
           "price": 81330.57,
           "rsi": 59.7,
           "trend": "BULLISH",
@@ -6456,7 +6526,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "BTCUSD",
+          "name": "BTCUSD (INDEX:BTCUSD)",
           "price": 81483.59,
           "rsi": 48.55,
           "trend": "BULLISH",
@@ -6488,7 +6558,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "BTCUSD",
+          "name": "BTCUSD (INDEX:BTCUSD)",
           "price": 81483.59,
           "rsi": 56.07,
           "trend": "BULLISH",
@@ -6520,7 +6590,7 @@
           "in_golden_pocket": false
         },
         "3D": {
-          "name": "BTCUSD",
+          "name": "BTCUSD (INDEX:BTCUSD)",
           "price": 81483.59,
           "rsi": 55.61,
           "trend": "BULLISH",
@@ -6554,12 +6624,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Crypto"
-      ],
-      "source_watchlist": "Crypto",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "KRAKEN:DAIEUR",
@@ -6603,7 +6668,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "DAIEUR",
+          "name": "DAIEUR (KRAKEN:DAIEUR)",
           "price": 0.8985,
           "rsi": 69.11,
           "trend": "BULLISH",
@@ -6650,7 +6715,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "DAIEUR",
+          "name": "DAIEUR (KRAKEN:DAIEUR)",
           "price": 0.8985,
           "rsi": 64.82,
           "trend": "BULLISH",
@@ -6696,7 +6761,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "DAIEUR",
+          "name": "DAIEUR (KRAKEN:DAIEUR)",
           "price": 0.8985,
           "rsi": 61.65,
           "trend": "BULLISH",
@@ -6736,7 +6801,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "DAIEUR",
+          "name": "DAIEUR (KRAKEN:DAIEUR)",
           "price": 0.8985,
           "rsi": 67.37,
           "trend": "BULLISH",
@@ -6761,7 +6826,7 @@
           "in_golden_pocket": false
         },
         "3D": {
-          "name": "DAIEUR",
+          "name": "DAIEUR (KRAKEN:DAIEUR)",
           "price": 0.8985,
           "rsi": 63.29,
           "trend": "BULLISH",
@@ -6795,12 +6860,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NYSE:ACN",
@@ -6841,7 +6901,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Accenture",
+          "name": "Accenture (NYSE:ACN)",
           "price": 235.79,
           "rsi": 54.63,
           "trend": "BULLISH",
@@ -6888,7 +6948,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Accenture",
+          "name": "Accenture (NYSE:ACN)",
           "price": 235.79,
           "rsi": 61.37,
           "trend": "BULLISH",
@@ -6934,12 +6994,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:GOOG",
@@ -6981,7 +7036,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Alphabet (Google)",
+          "name": "Alphabet (Google) (NASDAQ:GOOG)",
           "price": 318.39,
           "rsi": 30.04,
           "trend": "BEARISH",
@@ -7027,7 +7082,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Alphabet (Google)",
+          "name": "Alphabet (Google) (NASDAQ:GOOG)",
           "price": 318.39,
           "rsi": 34.34,
           "trend": "BEARISH",
@@ -7075,12 +7130,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TRADEGATE:IFX",
@@ -7113,17 +7163,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Infineon Technologies",
+          "name": "Infineon Technologies (TRADEGATE:IFX)",
           "price": 53.31,
           "rsi": 63.61,
           "trend": "BULLISH",
@@ -7170,7 +7220,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Infineon Technologies",
+          "name": "Infineon Technologies (TRADEGATE:IFX)",
           "price": 53.31,
           "rsi": 58.63,
           "trend": "BULLISH",
@@ -7216,7 +7266,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Infineon Technologies",
+          "name": "Infineon Technologies (TRADEGATE:IFX)",
           "price": 53.31,
           "rsi": 45.67,
           "trend": "BEARISH",
@@ -7248,7 +7298,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Infineon Technologies",
+          "name": "Infineon Technologies (TRADEGATE:IFX)",
           "price": 53.31,
           "rsi": 45.07,
           "trend": "BEARISH",
@@ -7282,12 +7332,7 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TRADEGATE:45C",
@@ -7320,17 +7365,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Broadcom (Tradegate)",
+          "name": "Broadcom (Tradegate) (TRADEGATE:45C)",
           "price": 243.25,
           "rsi": 69.82,
           "trend": "BULLISH",
@@ -7377,7 +7422,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Broadcom (Tradegate)",
+          "name": "Broadcom (Tradegate) (TRADEGATE:45C)",
           "price": 243.25,
           "rsi": 72.81,
           "trend": "BULLISH",
@@ -7421,7 +7466,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Broadcom (Tradegate)",
+          "name": "Broadcom (Tradegate) (TRADEGATE:45C)",
           "price": 243.25,
           "rsi": 62.73,
           "trend": "BULLISH",
@@ -7465,7 +7510,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Broadcom (Tradegate)",
+          "name": "Broadcom (Tradegate) (TRADEGATE:45C)",
           "price": 243.25,
           "rsi": 66.15,
           "trend": "BULLISH",
@@ -7491,12 +7536,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TRADEGATE:MTE",
@@ -7529,17 +7569,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Micron (Tradegate)",
+          "name": "Micron (Tradegate) (TRADEGATE:MTE)",
           "price": 872.2,
           "rsi": 76.37,
           "trend": "BULLISH",
@@ -7586,7 +7626,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Micron (Tradegate)",
+          "name": "Micron (Tradegate) (TRADEGATE:MTE)",
           "price": 872.2,
           "rsi": 67.1,
           "trend": "BULLISH",
@@ -7632,7 +7672,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Micron (Tradegate)",
+          "name": "Micron (Tradegate) (TRADEGATE:MTE)",
           "price": 872.2,
           "rsi": 53.07,
           "trend": "BULLISH",
@@ -7678,7 +7718,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Micron (Tradegate)",
+          "name": "Micron (Tradegate) (TRADEGATE:MTE)",
           "price": 872.2,
           "rsi": 57.46,
           "trend": "BULLISH",
@@ -7704,12 +7744,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TVC:NDX",
@@ -7752,7 +7787,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "NDX",
+          "name": "NDX (TVC:NDX)",
           "price": 29651.43,
           "rsi": 62.11,
           "trend": "BULLISH",
@@ -7798,7 +7833,7 @@
           "in_golden_pocket": true
         },
         "4h": {
-          "name": "NDX",
+          "name": "NDX (TVC:NDX)",
           "price": 29651.43,
           "rsi": 48.98,
           "trend": "BEARISH",
@@ -7844,7 +7879,7 @@
           "in_golden_pocket": true
         },
         "1D": {
-          "name": "NDX",
+          "name": "NDX (TVC:NDX)",
           "price": 29651.44,
           "rsi": 47.24,
           "trend": "BEARISH",
@@ -7890,7 +7925,7 @@
           "in_golden_pocket": true
         },
         "1W": {
-          "name": "NDX",
+          "name": "NDX (TVC:NDX)",
           "price": 29651.44,
           "rsi": 54.62,
           "trend": "BULLISH",
@@ -7938,12 +7973,7 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TRADEGATE:1YD",
@@ -7976,17 +8006,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Eli Lilly (Tradegate)",
+          "name": "Eli Lilly (Tradegate) (TRADEGATE:1YD)",
           "price": 313.8,
           "rsi": 74.99,
           "trend": "BULLISH",
@@ -8033,7 +8063,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Eli Lilly (Tradegate)",
+          "name": "Eli Lilly (Tradegate) (TRADEGATE:1YD)",
           "price": 313.8,
           "rsi": 69.03,
           "trend": "BULLISH",
@@ -8079,7 +8109,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Eli Lilly (Tradegate)",
+          "name": "Eli Lilly (Tradegate) (TRADEGATE:1YD)",
           "price": 313.8,
           "rsi": 53.66,
           "trend": "BULLISH",
@@ -8125,7 +8155,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Eli Lilly (Tradegate)",
+          "name": "Eli Lilly (Tradegate) (TRADEGATE:1YD)",
           "price": 313.8,
           "rsi": 49.02,
           "trend": "BULLISH",
@@ -8151,12 +8181,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TRADEGATE:AMD",
@@ -8189,17 +8214,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "AMD (Tradegate)",
+          "name": "AMD (Tradegate) (TRADEGATE:AMD)",
           "price": 513.6,
           "rsi": 76.71,
           "trend": "BULLISH",
@@ -8245,7 +8270,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "AMD (Tradegate)",
+          "name": "AMD (Tradegate) (TRADEGATE:AMD)",
           "price": 513.6,
           "rsi": 67.16,
           "trend": "BULLISH",
@@ -8291,7 +8316,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "AMD (Tradegate)",
+          "name": "AMD (Tradegate) (TRADEGATE:AMD)",
           "price": 512.8,
           "rsi": 53.53,
           "trend": "BULLISH",
@@ -8335,7 +8360,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "AMD (Tradegate)",
+          "name": "AMD (Tradegate) (TRADEGATE:AMD)",
           "price": 512.8,
           "rsi": 60.86,
           "trend": "BULLISH",
@@ -8369,12 +8394,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NYMEX:NG1!",
@@ -8417,7 +8437,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "Erdgas Future",
+          "name": "Erdgas Future (NYMEX:NG1!)",
           "price": 3.08,
           "rsi": 81.98,
           "trend": "BULLISH",
@@ -8463,7 +8483,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Erdgas Future",
+          "name": "Erdgas Future (NYMEX:NG1!)",
           "price": 3.08,
           "rsi": 73.55,
           "trend": "BULLISH",
@@ -8502,7 +8522,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Erdgas Future",
+          "name": "Erdgas Future (NYMEX:NG1!)",
           "price": 3.08,
           "rsi": 54.44,
           "trend": "BULLISH",
@@ -8539,7 +8559,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Erdgas Future",
+          "name": "Erdgas Future (NYMEX:NG1!)",
           "price": 3.08,
           "rsi": 51.2,
           "trend": "BEARISH",
@@ -8565,12 +8585,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Commodities"
-      ],
-      "source_watchlist": "Commodities",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "POLONIEX:POLSUSDT",
@@ -8614,7 +8629,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "POLSUSDT",
+          "name": "POLSUSDT (POLONIEX:POLSUSDT)",
           "price": 0.0526,
           "rsi": 0.0,
           "trend": "BEARISH",
@@ -8636,7 +8651,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "POLSUSDT",
+          "name": "POLSUSDT (POLONIEX:POLSUSDT)",
           "price": 0.0526,
           "rsi": 0.08,
           "trend": "BEARISH",
@@ -8666,7 +8681,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "POLSUSDT",
+          "name": "POLSUSDT (POLONIEX:POLSUSDT)",
           "price": 0.0526,
           "rsi": 37.22,
           "trend": "BEARISH",
@@ -8705,7 +8720,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "POLSUSDT",
+          "name": "POLSUSDT (POLONIEX:POLSUSDT)",
           "price": 0.0526,
           "rsi": 47.16,
           "trend": "BEARISH",
@@ -8745,7 +8760,7 @@
           "in_golden_pocket": false
         },
         "3D": {
-          "name": "POLSUSDT",
+          "name": "POLSUSDT (POLONIEX:POLSUSDT)",
           "price": 0.0526,
           "rsi": 47.3,
           "trend": "BEARISH",
@@ -8779,231 +8794,7 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
-    },
-    {
-      "symbol": "COINBASE:BTCUSD",
-      "name": "Bitcoin",
-      "category": "Crypto",
-      "asset_type": "Crypto",
-      "price": 81616.16,
-      "signal": "NEUTRAL",
-      "score": 54,
-      "setup_name": "Beobachten / Konsolidierung nach Impuls (Warten auf Pullback-Support)",
-      "crv": 2.65,
-      "entry_range": [
-        78800.0,
-        79600.0
-      ],
-      "stop_loss": 76900.0,
-      "take_profit_1": 84500.0,
-      "take_profit_2": 88000.0,
-      "reasons": [
-        "Makro-Trend (1W, 3D, 1D) ist intakt bullisch, jedoch zeigt der 1D-Chart eine reguläre bärische Divergenz, was Chasing verbietet.",
-        "Kein frischer Long-Einstieg zum Marktpreis (81.616 USD): 1h-RSI liegt mit 65,26 über der maximal zulässigen Chasing-Schwelle und das Volumen signalisiert Erschöpfung ('Ultra-Low / No Supply-Demand').",
-        "Kapitalschutz-Direktive: Nach vorangegangenen Verlusten wird strikt auf einen Rücksetzer in die HTF-Demand-Zone / Golden Pocket (Bereich 78.800–79.600 USD) gewartet, anstatt auf lokaler Erschöpfung prozyklisch zu kaufen."
-      ],
-      "charts": {
-        "1h": "charts/COINBASE_BTCUSD_1h.svg",
-        "4h": "charts/COINBASE_BTCUSD_4h.svg",
-        "1D": "charts/COINBASE_BTCUSD_1D.svg",
-        "1W": "charts/COINBASE_BTCUSD_1W.svg",
-        "3D": "charts/COINBASE_BTCUSD_3D.svg"
-      },
-      "last_analyzed": "2026-10-28T21:05:20.951529+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "24/7 Non-Stop",
-        "min_interval_minutes": 220,
-        "badge_color": "emerald",
-        "status_text": "Aktiv (24/7)"
-      },
-      "timeframes": {
-        "1h": {
-          "name": "Bitcoin (COINBASE:BTCUSD)",
-          "price": 81307.58,
-          "rsi": 65.26,
-          "trend": "BULLISH",
-          "ema_fast": 81029.42,
-          "ema_trend": 80546.34,
-          "upper_band": 81565.03,
-          "lower_band": 80493.81,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.03,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 80321.96,
-              "bottom": 80275,
-              "ce_50": 80298.48,
-              "gap_pct": 0.06
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 80962.99,
-              "bottom": 80895.17,
-              "ce_50": 80929.08,
-              "gap_pct": 0.08
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 81230.11,
-              "bottom": 80975.89,
-              "ce_50": 81103.0,
-              "gap_pct": 0.31
-            }
-          ],
-          "divergences": [
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 81694.39,
-          "swing_low": 79255,
-          "golden_pocket": [
-            80108.79,
-            80186.85
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "Bitcoin (COINBASE:BTCUSD)",
-          "price": 81305.01,
-          "rsi": 59.5,
-          "trend": "BULLISH",
-          "ema_fast": 80589.58,
-          "ema_trend": 80989.34,
-          "upper_band": 81835.88,
-          "lower_band": 79343.28,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.69,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 80321.96,
-              "bottom": 80008.79,
-              "ce_50": 80165.38,
-              "gap_pct": 0.39
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 84856.07,
-          "swing_low": 79107,
-          "golden_pocket": [
-            82659.93,
-            82843.9
-          ],
-          "in_golden_pocket": false
-        },
-        "1D": {
-          "name": "Bitcoin (COINBASE:BTCUSD)",
-          "price": 81616.16,
-          "rsi": 49.23,
-          "trend": "BULLISH",
-          "ema_fast": 81448.63,
-          "ema_trend": 80736.81,
-          "upper_band": 84956.36,
-          "lower_band": 77940.9,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.27,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 82535,
-              "bottom": 81962,
-              "ce_50": 82248.5,
-              "gap_pct": 0.69
-            }
-          ],
-          "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)"
-          ],
-          "swing_high": 87397,
-          "swing_low": 74887.5,
-          "golden_pocket": [
-            79265.82,
-            79666.13
-          ],
-          "in_golden_pocket": false
-        },
-        "1W": {
-          "name": "Bitcoin (COINBASE:BTCUSD)",
-          "price": 81643.49,
-          "rsi": 56.24,
-          "trend": "BULLISH",
-          "ema_fast": 78779.97,
-          "ema_trend": 78967.62,
-          "upper_band": 89215.66,
-          "lower_band": 68344.28,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.29,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 76652,
-              "bottom": 65341.83,
-              "ce_50": 70996.92,
-              "gap_pct": 17.31
-            }
-          ],
-          "divergences": [
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 126296,
-          "swing_low": 57717.55,
-          "golden_pocket": [
-            100099.03,
-            102293.54
-          ],
-          "in_golden_pocket": false
-        },
-        "3D": {
-          "name": "Bitcoin (COINBASE:BTCUSD)",
-          "price": 81657.59,
-          "rsi": 55.96,
-          "trend": "BULLISH",
-          "ema_fast": 81641.76,
-          "ema_trend": 76815.64,
-          "upper_band": 88111.86,
-          "lower_band": 75171.66,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.08,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 75538.12,
-              "bottom": 70022.44,
-              "ce_50": 72780.28,
-              "gap_pct": 7.88
-            }
-          ],
-          "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 87397,
-          "swing_low": 57717.55,
-          "golden_pocket": [
-            68105.36,
-            69055.1
-          ],
-          "in_golden_pocket": false
-        }
-      },
-      "analyst_note": "Obwohl das übergeordnete Makro-Regime auf 1D und 1W klar bullisch strukturiert ist, mahnt die aktive bärische 1D-Divergenz zur Vorsicht. Auf 1h ist der RSI überkauft (>62) bei gleichzeitig austrocknendem Volumen ('Ultra-Low'), was auf lokales 'Upthrust/No Demand'-Verhalten hinweist. Im Sinne des obersten Dogmas des Kapitalerhalts wird die Position auf NEUTRAL zurückgestuft, um ein Re-Entry erst an der tieferen Liquiditätszone/Support abzuwarten.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TRADEGATE:IBM",
@@ -9035,17 +8826,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "IBM (Tradegate)",
+          "name": "IBM (Tradegate) (TRADEGATE:IBM)",
           "price": 222.65,
           "rsi": 39.03,
           "trend": "BEARISH",
@@ -9089,7 +8880,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "IBM (Tradegate)",
+          "name": "IBM (Tradegate) (TRADEGATE:IBM)",
           "price": 222.65,
           "rsi": 54.93,
           "trend": "BULLISH",
@@ -9136,7 +8927,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "IBM (Tradegate)",
+          "name": "IBM (Tradegate) (TRADEGATE:IBM)",
           "price": 223.5,
           "rsi": 68.14,
           "trend": "BULLISH",
@@ -9175,7 +8966,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "IBM (Tradegate)",
+          "name": "IBM (Tradegate) (TRADEGATE:IBM)",
           "price": 223.5,
           "rsi": 54.54,
           "trend": "BULLISH",
@@ -9223,12 +9014,7 @@
         }
       },
       "analyst_note": "Trotz intaktem übergeordnetem 1D-Bullenmarkt verbietet das Risikomanagement ein Aufstocken zu aktuellen Kursen, da der 1D-RSI fast 70 erreicht hat und auf 1h eine Konsolidierung läuft. Die Position wird auf NEUTRAL gesetzt, um den Rücksetzer in die Unterstützungszone um 217.00–219.00 EUR abzuwarten. Erst bei dortiger Bodenbildung und VSA-Absorption wird ein Re-Entry geprüft.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "TRADEGATE:9MW",
@@ -9261,17 +9047,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Super Micro Computer",
+          "name": "Super Micro Computer (TRADEGATE:9MW)",
           "price": 224,
           "rsi": 69.81,
           "trend": "BULLISH",
@@ -9318,7 +9104,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Super Micro Computer",
+          "name": "Super Micro Computer (TRADEGATE:9MW)",
           "price": 224,
           "rsi": 63.98,
           "trend": "BULLISH",
@@ -9365,7 +9151,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Super Micro Computer",
+          "name": "Super Micro Computer (TRADEGATE:9MW)",
           "price": 224,
           "rsi": 52.74,
           "trend": "BULLISH",
@@ -9397,7 +9183,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Super Micro Computer",
+          "name": "Super Micro Computer (TRADEGATE:9MW)",
           "price": 224,
           "rsi": 58.82,
           "trend": "BULLISH",
@@ -9431,12 +9217,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NYSE:KO",
@@ -9478,7 +9259,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Coca-Cola",
+          "name": "Coca-Cola (NYSE:KO)",
           "price": 91.56,
           "rsi": 48.75,
           "trend": "BULLISH",
@@ -9525,7 +9306,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Coca-Cola",
+          "name": "Coca-Cola (NYSE:KO)",
           "price": 91.56,
           "rsi": 54.5,
           "trend": "BULLISH",
@@ -9573,12 +9354,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TRADEGATE:APC",
@@ -9611,17 +9387,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Apple (Tradegate)",
+          "name": "Apple (Tradegate) (TRADEGATE:APC)",
           "price": 310.5,
           "rsi": 54.01,
           "trend": "BULLISH",
@@ -9658,7 +9434,7 @@
           "in_golden_pocket": true
         },
         "4h": {
-          "name": "Apple (Tradegate)",
+          "name": "Apple (Tradegate) (TRADEGATE:APC)",
           "price": 310.5,
           "rsi": 56.43,
           "trend": "BULLISH",
@@ -9704,7 +9480,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Apple (Tradegate)",
+          "name": "Apple (Tradegate) (TRADEGATE:APC)",
           "price": 310.5,
           "rsi": 63.0,
           "trend": "BULLISH",
@@ -9729,7 +9505,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Apple (Tradegate)",
+          "name": "Apple (Tradegate) (TRADEGATE:APC)",
           "price": 310.5,
           "rsi": 71.08,
           "trend": "BULLISH",
@@ -9754,12 +9530,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "OANDA:SPX500USD",
@@ -9802,7 +9573,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "SPX500USD",
+          "name": "SPX500USD (OANDA:SPX500USD)",
           "price": 7737,
           "rsi": 59.74,
           "trend": "BULLISH",
@@ -9842,7 +9613,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "SPX500USD",
+          "name": "SPX500USD (OANDA:SPX500USD)",
           "price": 7737,
           "rsi": 62.34,
           "trend": "BULLISH",
@@ -9881,7 +9652,7 @@
           "in_golden_pocket": true
         },
         "1D": {
-          "name": "SPX500USD",
+          "name": "SPX500USD (OANDA:SPX500USD)",
           "price": 7741,
           "rsi": 51.86,
           "trend": "BULLISH",
@@ -9920,7 +9691,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "SPX500USD",
+          "name": "SPX500USD (OANDA:SPX500USD)",
           "price": 7741,
           "rsi": 59.74,
           "trend": "BULLISH",
@@ -9968,12 +9739,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TRADEGATE:MSF",
@@ -10005,17 +9771,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Microsoft (Tradegate)",
+          "name": "Microsoft (Tradegate) (TRADEGATE:MSF)",
           "price": 475.95,
           "rsi": 52.05,
           "trend": "BULLISH",
@@ -10048,7 +9814,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Microsoft (Tradegate)",
+          "name": "Microsoft (Tradegate) (TRADEGATE:MSF)",
           "price": 475.95,
           "rsi": 54.46,
           "trend": "BULLISH",
@@ -10081,7 +9847,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Microsoft (Tradegate)",
+          "name": "Microsoft (Tradegate) (TRADEGATE:MSF)",
           "price": 475.95,
           "rsi": 58.77,
           "trend": "BULLISH",
@@ -10128,7 +9894,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Microsoft (Tradegate)",
+          "name": "Microsoft (Tradegate) (TRADEGATE:MSF)",
           "price": 475.95,
           "rsi": 67.74,
           "trend": "BULLISH",
@@ -10168,12 +9934,7 @@
         }
       },
       "analyst_note": "Microsoft bleibt fundamental und technisch im Makro-Bullenmodus, doch ein Einstieg auf aktuellem Niveau wäre prozyklisches 'Chasing' in ein Climax-Volumen hinein. Gemäß Filterregel 2 ist bei einem 1W-RSI nahe 68 Disziplin oberstes Gebot. Wir verharren auf der Lauer und warten auf einen strukturierten Dip in die Unterstützungszone um 462–467 EUR zur Risikominimierung.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "TRADEGATE:CSA",
@@ -10205,17 +9966,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Cisco Systems (Tradegate)",
+          "name": "Cisco Systems (Tradegate) (TRADEGATE:CSA)",
           "price": 210.9,
           "rsi": 40.19,
           "trend": "BEARISH",
@@ -10262,7 +10023,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Cisco Systems (Tradegate)",
+          "name": "Cisco Systems (Tradegate) (TRADEGATE:CSA)",
           "price": 210.9,
           "rsi": 46.53,
           "trend": "BULLISH",
@@ -10309,7 +10070,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Cisco Systems (Tradegate)",
+          "name": "Cisco Systems (Tradegate) (TRADEGATE:CSA)",
           "price": 210.6,
           "rsi": 61.92,
           "trend": "BULLISH",
@@ -10353,7 +10114,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Cisco Systems (Tradegate)",
+          "name": "Cisco Systems (Tradegate) (TRADEGATE:CSA)",
           "price": 210.6,
           "rsi": 66.51,
           "trend": "BULLISH",
@@ -10394,12 +10155,7 @@
         }
       },
       "analyst_note": "Cisco befindet sich in einem gesunden übergeordneten Aufwärtstrend, vollzieht aber aktuell einen notwendigen untergeordneten Rücksetzer auf 1h. Gemäß unserem obersten Dogma des Kapitalerhalts agieren wir nicht überhastet und stufen den Wert auf NEUTRAL zurück. Wir beobachten die Konsolidierung in Richtung des Supports bei 204.00–206.00 EUR für ein potenzielles Re-Entry mit vorteilhaftem CRV.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "COINBASE:CRVUSD",
@@ -10645,7 +10401,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "AMD",
+          "name": "AMD (NASDAQ:AMD)",
           "price": 560.38,
           "rsi": 52.21,
           "trend": "BEARISH",
@@ -10692,7 +10448,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "AMD",
+          "name": "AMD (NASDAQ:AMD)",
           "price": 560.38,
           "rsi": 49.84,
           "trend": "BULLISH",
@@ -10740,12 +10496,7 @@
         "1W": null
       },
       "analyst_note": "AMD konsolidiert auf 4h innerhalb eines intakten 1D-Aufwärtstrends. Wir bleiben diszipliniert NEUTRAL und jagen den Kurs nicht, sondern lauern auf ein klares Reaktionssignal im Bereich des 4h-Supports bei 542.00–548.00 USD. Ein Long-Trigger wird erst bei abgeschlossener 4h-Erschöpfung und bestätigter Bodenbildung scharfgeschaltet.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "BINANCE:GMXUSDT",
@@ -10984,7 +10735,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "US Dollar Index",
+          "name": "US Dollar Index (TVC:DXY)",
           "price": 102.42,
           "rsi": 64.04,
           "trend": "BULLISH",
@@ -11031,7 +10782,7 @@
           "in_golden_pocket": true
         },
         "4h": {
-          "name": "US Dollar Index",
+          "name": "US Dollar Index (TVC:DXY)",
           "price": 102.42,
           "rsi": 70.64,
           "trend": "BULLISH",
@@ -11075,7 +10826,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "US Dollar Index",
+          "name": "US Dollar Index (TVC:DXY)",
           "price": 102.42,
           "rsi": 63.5,
           "trend": "BULLISH",
@@ -11122,7 +10873,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "US Dollar Index",
+          "name": "US Dollar Index (TVC:DXY)",
           "price": 102.42,
           "rsi": 63.29,
           "trend": "BULLISH",
@@ -11162,12 +10913,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Devisen"
-      ],
-      "source_watchlist": "Devisen",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "BINANCE:ETHFIUSDT",
@@ -11630,7 +11376,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "UKX",
+          "name": "UKX (TVC:UKX)",
           "price": 10658.99,
           "rsi": 41.03,
           "trend": "BEARISH",
@@ -11670,7 +11416,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "UKX",
+          "name": "UKX (TVC:UKX)",
           "price": 10659.09,
           "rsi": 43.76,
           "trend": "BEARISH",
@@ -11710,7 +11456,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "UKX",
+          "name": "UKX (TVC:UKX)",
           "price": 10658.98,
           "rsi": 47.97,
           "trend": "BEARISH",
@@ -11757,7 +11503,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "UKX",
+          "name": "UKX (TVC:UKX)",
           "price": 10658.81,
           "rsi": 52.47,
           "trend": "BULLISH",
@@ -11791,12 +11537,7 @@
         }
       },
       "analyst_note": "UKX zeigt einen klaren Regimewechsel auf 1D, befindet sich jedoch mitten im Niemandsland ohne konfluente HTF-Struktur. Zur Vermeidung von Fehlausbrüchen bleibt die Positionierung strikt NEUTRAL, bis eine Erholungsrallye in den signifikanten Widerstandsbereich um 10.800 Punkte läuft. Ein Direkteinstieg auf aktuellem Niveau verbietet sich aus Gründen des Kapitalerhalts.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "SP:SPX",
@@ -11839,7 +11580,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "S&P 500",
+          "name": "S&P 500 (SP:SPX)",
           "price": 7722.6,
           "rsi": 59.04,
           "trend": "BULLISH",
@@ -11883,7 +11624,7 @@
           "in_golden_pocket": true
         },
         "4h": {
-          "name": "S&P 500",
+          "name": "S&P 500 (SP:SPX)",
           "price": 7722.6,
           "rsi": 51.99,
           "trend": "BULLISH",
@@ -11922,7 +11663,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "S&P 500",
+          "name": "S&P 500 (SP:SPX)",
           "price": 7722.6,
           "rsi": 51.21,
           "trend": "BULLISH",
@@ -11962,7 +11703,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "S&P 500",
+          "name": "S&P 500 (SP:SPX)",
           "price": 7722.6,
           "rsi": 59.36,
           "trend": "BULLISH",
@@ -12010,12 +11751,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TVC:DJI",
@@ -12058,7 +11794,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "DJI",
+          "name": "DJI (TVC:DJI)",
           "price": 52392.23,
           "rsi": 49.43,
           "trend": "BULLISH",
@@ -12091,7 +11827,7 @@
           "in_golden_pocket": true
         },
         "4h": {
-          "name": "DJI",
+          "name": "DJI (TVC:DJI)",
           "price": 52392.23,
           "rsi": 56.19,
           "trend": "BULLISH",
@@ -12124,7 +11860,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "DJI",
+          "name": "DJI (TVC:DJI)",
           "price": 52383.25,
           "rsi": 54.5,
           "trend": "BULLISH",
@@ -12148,7 +11884,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "DJI",
+          "name": "DJI (TVC:DJI)",
           "price": 52383.25,
           "rsi": 56.56,
           "trend": "BULLISH",
@@ -12196,12 +11932,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "BINANCE:ZECUSDT",
@@ -12471,12 +12202,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "NASDAQ:SPCX",
@@ -12515,12 +12241,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "AMEX:GLD",
@@ -12559,12 +12280,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "POLONIEX:SWAPUSD",
@@ -12603,12 +12319,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "CME:BTC1!",
@@ -12647,12 +12358,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "AMEX:DIA",
@@ -12691,12 +12397,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "FX_IDC:EURINR",
@@ -12735,12 +12436,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Devisen"
-      ],
-      "source_watchlist": "Devisen",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "COINBASE:EOSUSD",
@@ -12779,12 +12475,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "FX_IDC:XAUUSD",
@@ -12823,12 +12514,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "KUCOIN:EWTBTC",
@@ -12867,12 +12553,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "FX_IDC:EURIDR",
@@ -12911,12 +12592,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Devisen"
-      ],
-      "source_watchlist": "Devisen",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "CAPITALCOM:ALUMINUM",
@@ -12955,12 +12631,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Commodities"
-      ],
-      "source_watchlist": "Commodities",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "AMEX:FXE",
@@ -12999,12 +12670,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "BITSTAMP:XRPUSD",
@@ -13043,12 +12709,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "FX_IDC:EURCRC",
@@ -13087,12 +12748,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Devisen"
-      ],
-      "source_watchlist": "Devisen",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "RUS:BR1!",
@@ -13131,12 +12787,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Commodities"
-      ],
-      "source_watchlist": "Commodities",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "CAPITALCOM:CORN",
@@ -13175,12 +12826,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Commodities"
-      ],
-      "source_watchlist": "Commodities",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "AMEX:SPY",
@@ -13219,12 +12865,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "NYSE:XYZ",
@@ -13263,12 +12904,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "FX_IDC:EURLKR",
@@ -13307,12 +12943,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Devisen"
-      ],
-      "source_watchlist": "Devisen",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "NASDAQ:SNDK",
@@ -13351,12 +12982,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "AERODROME:KVCMUSDC_5C0D76",
@@ -13395,12 +13021,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Crypto"
-      ],
-      "source_watchlist": "Crypto",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "CAPITALCOM:COPPER",
@@ -13439,12 +13060,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Commodities"
-      ],
-      "source_watchlist": "Commodities",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "BINANCE:SPCXUSDT.P",
@@ -13487,7 +13103,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "SPCXUSDT.P",
+          "name": "SPCXUSDT.P (BINANCE:SPCXUSDT.P)",
           "price": 149.74,
           "rsi": 51.69,
           "trend": "BULLISH",
@@ -13512,7 +13128,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "SPCXUSDT.P",
+          "name": "SPCXUSDT.P (BINANCE:SPCXUSDT.P)",
           "price": 149.74,
           "rsi": 52.74,
           "trend": "BULLISH",
@@ -13537,7 +13153,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "SPCXUSDT.P",
+          "name": "SPCXUSDT.P (BINANCE:SPCXUSDT.P)",
           "price": 149.73,
           "rsi": 46.75,
           "trend": "BEARISH",
@@ -13577,7 +13193,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "SPCXUSDT.P",
+          "name": "SPCXUSDT.P (BINANCE:SPCXUSDT.P)",
           "price": 149.72,
           "rsi": 37.97,
           "trend": "BEARISH",
@@ -13602,7 +13218,7 @@
           "in_golden_pocket": false
         },
         "3D": {
-          "name": "SPCXUSDT.P",
+          "name": "SPCXUSDT.P (BINANCE:SPCXUSDT.P)",
           "price": 149.72,
           "rsi": 48.42,
           "trend": "BEARISH",
@@ -13628,12 +13244,7 @@
         }
       },
       "analyst_note": "Die Makro-Lage (1W, 3D, 1D) ist klar bärisch, aber die untergeordneten Zeiteinheiten (4h/1h) befinden sich noch in einer Erholungsphase. Gemäß institutionellen Risikoregeln wird eine Bärenmarktrallye niemals blind 'gelongt', jedoch darf ein Short erst nach Erreichen der übergeordneten Supply-Zone (156,50–161,00 USDT) und Abbruch der untergeordneten Struktur getriggert werden. Geduldiges Abwarten schützt vor Liquiditätsjagd.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Crypto"
-      ],
-      "source_watchlist": "Crypto",
-      "currency": "USD"
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "TRADEGATE:YDX",
@@ -13665,17 +13276,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "BYD Company",
+          "name": "BYD Company (TRADEGATE:YDX)",
           "price": 158.98,
           "rsi": 72.4,
           "trend": "BULLISH",
@@ -13721,7 +13332,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "BYD Company",
+          "name": "BYD Company (TRADEGATE:YDX)",
           "price": 158.98,
           "rsi": 58.99,
           "trend": "BEARISH",
@@ -13768,7 +13379,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "BYD Company",
+          "name": "BYD Company (TRADEGATE:YDX)",
           "price": 158.98,
           "rsi": 42.69,
           "trend": "BEARISH",
@@ -13807,7 +13418,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "BYD Company",
+          "name": "BYD Company (TRADEGATE:YDX)",
           "price": 158.98,
           "rsi": 47.41,
           "trend": "BULLISH",
@@ -13841,12 +13452,7 @@
         }
       },
       "analyst_note": "BYD verharrt im übergeordneten Bärenmarkt-Regime. Die 1h-Gegenbewegung nähert sich einer signifikanten Widerstandszone bei 161.00–163.00 EUR, zeigt jedoch bereits Überkauftheit und bärische Divergenzen. Wir bleiben strikt NEUTRAL und warten geduldig auf einen sauberen bärischen Trigger am Widerstand, anstatt verfrüht zu agieren.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "COINBASE:BCHUSD",
@@ -14115,17 +13721,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Intel (Tradegate)",
+          "name": "Intel (Tradegate) (TRADEGATE:INL)",
           "price": 86.05,
           "rsi": 71.18,
           "trend": "BULLISH",
@@ -14172,7 +13778,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Intel (Tradegate)",
+          "name": "Intel (Tradegate) (TRADEGATE:INL)",
           "price": 86.05,
           "rsi": 63.95,
           "trend": "BULLISH",
@@ -14219,7 +13825,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Intel (Tradegate)",
+          "name": "Intel (Tradegate) (TRADEGATE:INL)",
           "price": 86.12,
           "rsi": 46.9,
           "trend": "BEARISH",
@@ -14263,7 +13869,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Intel (Tradegate)",
+          "name": "Intel (Tradegate) (TRADEGATE:INL)",
           "price": 86.12,
           "rsi": 51.3,
           "trend": "BULLISH",
@@ -14304,12 +13910,7 @@
         }
       },
       "analyst_note": "Intel befindet sich im übergeordneten 1D-Abwärtstrend, weshalb der jüngste 1h/4h-Push keinesfalls long gejagt werden darf. Das Signal bleibt diszipliniert auf NEUTRAL mit Fokus auf ein mögliches Short-Reversal bei Erschöpfung im Bereich 87.50–88.50 EUR. Ein Einstieg erfordert zwingend eine bestätigte Volumen-Umkehrkerze am Widerstand.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "NASDAQ:NVDA",
@@ -14351,7 +13952,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Nvidia",
+          "name": "Nvidia (NASDAQ:NVDA)",
           "price": 217.86,
           "rsi": 46.96,
           "trend": "BEARISH",
@@ -14398,7 +13999,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Nvidia",
+          "name": "Nvidia (NASDAQ:NVDA)",
           "price": 217.86,
           "rsi": 46.2,
           "trend": "BEARISH",
@@ -14446,12 +14047,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NYSE:AG",
@@ -14491,7 +14087,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "First Majestic Silver",
+          "name": "First Majestic Silver (NYSE:AG)",
           "price": 15.54,
           "rsi": 43.8,
           "trend": "BEARISH",
@@ -14535,7 +14131,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "First Majestic Silver",
+          "name": "First Majestic Silver (NYSE:AG)",
           "price": 15.54,
           "rsi": 39.0,
           "trend": "BEARISH",
@@ -14576,12 +14172,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "XETR:NOV",
@@ -14816,7 +14407,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "RPLUSD",
+          "name": "RPLUSD (KRAKEN:RPLUSD)",
           "price": 1.5,
           "rsi": 56.09,
           "trend": "BULLISH",
@@ -14860,7 +14451,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "RPLUSD",
+          "name": "RPLUSD (KRAKEN:RPLUSD)",
           "price": 1.5,
           "rsi": 52.26,
           "trend": "BEARISH",
@@ -14907,7 +14498,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "RPLUSD",
+          "name": "RPLUSD (KRAKEN:RPLUSD)",
           "price": 1.5,
           "rsi": 37.98,
           "trend": "BEARISH",
@@ -14939,7 +14530,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "RPLUSD",
+          "name": "RPLUSD (KRAKEN:RPLUSD)",
           "price": 1.5,
           "rsi": 43.21,
           "trend": "BEARISH",
@@ -14972,7 +14563,7 @@
           "in_golden_pocket": false
         },
         "3D": {
-          "name": "RPLUSD",
+          "name": "RPLUSD (KRAKEN:RPLUSD)",
           "price": 1.5,
           "rsi": 42.37,
           "trend": "BEARISH",
@@ -15006,12 +14597,7 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Crypto"
-      ],
-      "source_watchlist": "Crypto",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "COINBASE:ETHBTC",
@@ -15055,7 +14641,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "ETHBTC",
+          "name": "ETHBTC (COINBASE:ETHBTC)",
           "price": 0.0291,
           "rsi": 48.9,
           "trend": "BEARISH",
@@ -15095,7 +14681,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "ETHBTC",
+          "name": "ETHBTC (COINBASE:ETHBTC)",
           "price": 0.0291,
           "rsi": 46.42,
           "trend": "BEARISH",
@@ -15128,7 +14714,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "ETHBTC",
+          "name": "ETHBTC (COINBASE:ETHBTC)",
           "price": 0.0291,
           "rsi": 27.78,
           "trend": "BEARISH",
@@ -15160,7 +14746,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "ETHBTC",
+          "name": "ETHBTC (COINBASE:ETHBTC)",
           "price": 0.0291,
           "rsi": 43.7,
           "trend": "BEARISH",
@@ -15204,7 +14790,7 @@
           "in_golden_pocket": false
         },
         "3D": {
-          "name": "ETHBTC",
+          "name": "ETHBTC (COINBASE:ETHBTC)",
           "price": 0.0291,
           "rsi": 37.51,
           "trend": "BEARISH",
@@ -15237,13 +14823,7 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Crypto",
-        "Watchlist"
-      ],
-      "source_watchlist": "Crypto",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "KRAKEN:DOTUSD",
@@ -15287,7 +14867,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "DOTUSD",
+          "name": "DOTUSD (KRAKEN:DOTUSD)",
           "price": 1.02,
           "rsi": 64.79,
           "trend": "BULLISH",
@@ -15320,7 +14900,7 @@
           "in_golden_pocket": true
         },
         "4h": {
-          "name": "DOTUSD",
+          "name": "DOTUSD (KRAKEN:DOTUSD)",
           "price": 1.02,
           "rsi": 45.72,
           "trend": "BEARISH",
@@ -15352,7 +14932,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "DOTUSD",
+          "name": "DOTUSD (KRAKEN:DOTUSD)",
           "price": 1.02,
           "rsi": 38.25,
           "trend": "BEARISH",
@@ -15374,7 +14954,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "DOTUSD",
+          "name": "DOTUSD (KRAKEN:DOTUSD)",
           "price": 1.02,
           "rsi": 43.97,
           "trend": "BEARISH",
@@ -15399,7 +14979,7 @@
           "in_golden_pocket": false
         },
         "3D": {
-          "name": "DOTUSD",
+          "name": "DOTUSD (KRAKEN:DOTUSD)",
           "price": 1.02,
           "rsi": 46.78,
           "trend": "BEARISH",
@@ -15433,12 +15013,7 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "BINANCE:AVAXUSDT",
@@ -15686,17 +15261,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Rheinmetall",
+          "name": "Rheinmetall (TRADEGATE:RHM)",
           "price": 1017.6,
           "rsi": 42.86,
           "trend": "BEARISH",
@@ -15721,7 +15296,7 @@
           "in_golden_pocket": true
         },
         "4h": {
-          "name": "Rheinmetall",
+          "name": "Rheinmetall (TRADEGATE:RHM)",
           "price": 1017.6,
           "rsi": 46.42,
           "trend": "BULLISH",
@@ -15754,7 +15329,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Rheinmetall",
+          "name": "Rheinmetall (TRADEGATE:RHM)",
           "price": 1017.6,
           "rsi": 51.19,
           "trend": "BEARISH",
@@ -15793,7 +15368,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Rheinmetall",
+          "name": "Rheinmetall (TRADEGATE:RHM)",
           "price": 1017.6,
           "rsi": 43.08,
           "trend": "BEARISH",
@@ -15827,12 +15402,7 @@
         }
       },
       "analyst_note": "Rheinmetall konsolidiert nach Abgaben unterhalb der 1D-Trendlinie ohne klaren Volumennachweis. Die 1D-Bulle-Divergenz kollidiert mit der 1h-Bärendynamik, was auf anhaltendes Whipsaw-Potenzial hinweist. Unter striktem Kapitalerhaltungsdogma wird hier kein Kapital gebunden, bis der Kurs entweder an den 1D-Widerstand (1045–1065 EUR) heranreicht oder eine eindeutige Bodenbildungs- und Reversal-Struktur bestätigt.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "TRADEGATE:FB2A",
@@ -15865,17 +15435,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Meta Platforms (Tradegate)",
+          "name": "Meta Platforms (Tradegate) (TRADEGATE:FB2A)",
           "price": 559.2,
           "rsi": 39.57,
           "trend": "BEARISH",
@@ -15922,7 +15492,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Meta Platforms (Tradegate)",
+          "name": "Meta Platforms (Tradegate) (TRADEGATE:FB2A)",
           "price": 559.2,
           "rsi": 24.31,
           "trend": "BEARISH",
@@ -15955,7 +15525,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Meta Platforms (Tradegate)",
+          "name": "Meta Platforms (Tradegate) (TRADEGATE:FB2A)",
           "price": 559.2,
           "rsi": 34.62,
           "trend": "BEARISH",
@@ -15988,7 +15558,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Meta Platforms (Tradegate)",
+          "name": "Meta Platforms (Tradegate) (TRADEGATE:FB2A)",
           "price": 559.2,
           "rsi": 49.81,
           "trend": "BULLISH",
@@ -16035,12 +15605,7 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "KRAKEN:EWTUSD",
@@ -16084,7 +15649,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "EWTUSD",
+          "name": "EWTUSD (KRAKEN:EWTUSD)",
           "price": 0.281,
           "rsi": 35.92,
           "trend": "BEARISH",
@@ -16117,7 +15682,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "EWTUSD",
+          "name": "EWTUSD (KRAKEN:EWTUSD)",
           "price": 0.281,
           "rsi": 27.79,
           "trend": "BEARISH",
@@ -16154,7 +15719,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "EWTUSD",
+          "name": "EWTUSD (KRAKEN:EWTUSD)",
           "price": 0.281,
           "rsi": 32.09,
           "trend": "BEARISH",
@@ -16191,7 +15756,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "EWTUSD",
+          "name": "EWTUSD (KRAKEN:EWTUSD)",
           "price": 0.281,
           "rsi": 40.37,
           "trend": "BEARISH",
@@ -16224,7 +15789,7 @@
           "in_golden_pocket": false
         },
         "3D": {
-          "name": "EWTUSD",
+          "name": "EWTUSD (KRAKEN:EWTUSD)",
           "price": 0.281,
           "rsi": 42.15,
           "trend": "BEARISH",
@@ -16257,12 +15822,7 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Crypto"
-      ],
-      "source_watchlist": "Crypto",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TRADEGATE:NVD",
@@ -16295,17 +15855,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Nvidia (Tradegate)",
+          "name": "Nvidia (Tradegate) (TRADEGATE:NVD)",
           "price": 197.54,
           "rsi": 70.67,
           "trend": "BULLISH",
@@ -16352,7 +15912,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Nvidia (Tradegate)",
+          "name": "Nvidia (Tradegate) (TRADEGATE:NVD)",
           "price": 197.54,
           "rsi": 61.05,
           "trend": "BULLISH",
@@ -16399,7 +15959,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Nvidia (Tradegate)",
+          "name": "Nvidia (Tradegate) (TRADEGATE:NVD)",
           "price": 197.64,
           "rsi": 51.25,
           "trend": "BULLISH",
@@ -16445,7 +16005,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Nvidia (Tradegate)",
+          "name": "Nvidia (Tradegate) (TRADEGATE:NVD)",
           "price": 197.64,
           "rsi": 56.26,
           "trend": "BULLISH",
@@ -16479,12 +16039,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TRADEGATE:SPX",
@@ -16517,17 +16072,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "S&P 500 (Tradegate)",
+          "name": "S&P 500 (Tradegate) (TRADEGATE:SPX)",
           "price": 134.32,
           "rsi": 53.54,
           "trend": "BULLISH",
@@ -16551,7 +16106,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "S&P 500 (Tradegate)",
+          "name": "S&P 500 (Tradegate) (TRADEGATE:SPX)",
           "price": 134.32,
           "rsi": 50.15,
           "trend": "BEARISH",
@@ -16590,7 +16145,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "S&P 500 (Tradegate)",
+          "name": "S&P 500 (Tradegate) (TRADEGATE:SPX)",
           "price": 134.62,
           "rsi": 50.08,
           "trend": "BULLISH",
@@ -16630,7 +16185,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "S&P 500 (Tradegate)",
+          "name": "S&P 500 (Tradegate) (TRADEGATE:SPX)",
           "price": 134.62,
           "rsi": 48.66,
           "trend": "BULLISH",
@@ -16664,12 +16219,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:PLTR",
@@ -16711,7 +16261,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Palantir",
+          "name": "Palantir (NASDAQ:PLTR)",
           "price": 200.29,
           "rsi": 55.49,
           "trend": "BULLISH",
@@ -16744,7 +16294,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Palantir",
+          "name": "Palantir (NASDAQ:PLTR)",
           "price": 200.29,
           "rsi": 57.26,
           "trend": "BULLISH",
@@ -16779,12 +16329,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:AAPL",
@@ -16827,7 +16372,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "Apple",
+          "name": "Apple (NASDAQ:AAPL)",
           "price": 347.09,
           "rsi": 57.2,
           "trend": "BULLISH",
@@ -16860,7 +16405,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Apple",
+          "name": "Apple (NASDAQ:AAPL)",
           "price": 347.09,
           "rsi": 59.11,
           "trend": "BULLISH",
@@ -16900,7 +16445,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Apple",
+          "name": "Apple (NASDAQ:AAPL)",
           "price": 347.1,
           "rsi": 61.1,
           "trend": "BULLISH",
@@ -16925,7 +16470,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Apple",
+          "name": "Apple (NASDAQ:AAPL)",
           "price": 347.1,
           "rsi": 66.74,
           "trend": "BULLISH",
@@ -16951,13 +16496,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien",
-        "Watchlist"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TRADEGATE:PTX",
@@ -16990,17 +16529,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Palantir (Tradegate)",
+          "name": "Palantir (Tradegate) (TRADEGATE:PTX)",
           "price": 177.96,
           "rsi": 49.74,
           "trend": "BULLISH",
@@ -17033,7 +16572,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Palantir (Tradegate)",
+          "name": "Palantir (Tradegate) (TRADEGATE:PTX)",
           "price": 177.96,
           "rsi": 53.98,
           "trend": "BULLISH",
@@ -17058,7 +16597,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Palantir (Tradegate)",
+          "name": "Palantir (Tradegate) (TRADEGATE:PTX)",
           "price": 177.96,
           "rsi": 57.07,
           "trend": "BULLISH",
@@ -17105,7 +16644,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Palantir (Tradegate)",
+          "name": "Palantir (Tradegate) (TRADEGATE:PTX)",
           "price": 177.96,
           "rsi": 62.6,
           "trend": "BULLISH",
@@ -17145,12 +16684,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "KRAKEN:KSMUSD",
@@ -17638,17 +17172,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Siemens",
+          "name": "Siemens (TRADEGATE:SIE)",
           "price": 267.55,
           "rsi": 70.09,
           "trend": "BULLISH",
@@ -17688,7 +17222,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Siemens",
+          "name": "Siemens (TRADEGATE:SIE)",
           "price": 267.55,
           "rsi": 60.9,
           "trend": "BULLISH",
@@ -17735,7 +17269,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Siemens",
+          "name": "Siemens (TRADEGATE:SIE)",
           "price": 267.55,
           "rsi": 49.32,
           "trend": "BEARISH",
@@ -17781,7 +17315,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Siemens",
+          "name": "Siemens (TRADEGATE:SIE)",
           "price": 267.55,
           "rsi": 50.67,
           "trend": "BULLISH",
@@ -17822,12 +17356,7 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "XETR:BAYN",
@@ -18336,7 +17865,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "Palladium (Spot)",
+          "name": "Palladium (Spot) (TVC:PALLADIUM)",
           "price": 1023.8,
           "rsi": 38.66,
           "trend": "BEARISH",
@@ -18361,7 +17890,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Palladium (Spot)",
+          "name": "Palladium (Spot) (TVC:PALLADIUM)",
           "price": 1023.8,
           "rsi": 33.81,
           "trend": "BEARISH",
@@ -18394,7 +17923,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Palladium (Spot)",
+          "name": "Palladium (Spot) (TVC:PALLADIUM)",
           "price": 1022.52,
           "rsi": 25.56,
           "trend": "BEARISH",
@@ -18438,7 +17967,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Palladium (Spot)",
+          "name": "Palladium (Spot) (TVC:PALLADIUM)",
           "price": 1022.52,
           "rsi": 30.91,
           "trend": "BEARISH",
@@ -18469,12 +17998,7 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Commodities"
-      ],
-      "source_watchlist": "Commodities",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:AVGO",
@@ -18515,7 +18039,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Broadcom",
+          "name": "Broadcom (NASDAQ:AVGO)",
           "price": 342.47,
           "rsi": 52.68,
           "trend": "BEARISH",
@@ -18561,7 +18085,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Broadcom",
+          "name": "Broadcom (NASDAQ:AVGO)",
           "price": 342.47,
           "rsi": 47.78,
           "trend": "BEARISH",
@@ -18609,12 +18133,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "BINANCE:DOTUSDT",
@@ -19141,7 +18660,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Conagra Brands",
+          "name": "Conagra Brands (NYSE:CAG)",
           "price": 14.17,
           "rsi": 48.46,
           "trend": "BEARISH",
@@ -19178,7 +18697,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Conagra Brands",
+          "name": "Conagra Brands (NYSE:CAG)",
           "price": 14.17,
           "rsi": 48.35,
           "trend": "BEARISH",
@@ -19220,12 +18739,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:AMZN",
@@ -19264,7 +18778,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Amazon",
+          "name": "Amazon (NASDAQ:AMZN)",
           "price": 254.47,
           "rsi": 49.97,
           "trend": "BEARISH",
@@ -19308,7 +18822,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Amazon",
+          "name": "Amazon (NASDAQ:AMZN)",
           "price": 254.47,
           "rsi": 49.87,
           "trend": "BEARISH",
@@ -19340,12 +18854,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:TSLA",
@@ -19387,7 +18896,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Tesla",
+          "name": "Tesla (NASDAQ:TSLA)",
           "price": 407.47,
           "rsi": 67.98,
           "trend": "BULLISH",
@@ -19434,7 +18943,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Tesla",
+          "name": "Tesla (NASDAQ:TSLA)",
           "price": 407.47,
           "rsi": 65.48,
           "trend": "BULLISH",
@@ -19469,13 +18978,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien",
-        "Watchlist"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TRADEGATE:TL0",
@@ -19508,17 +19011,17 @@
       },
       "last_analyzed": "2026-10-28T20:31:49.699059+00:00",
       "market_state": {
-        "is_open": false,
+        "is_open": true,
         "is_premarket": false,
-        "status": "CLOSED",
-        "session_name": "Tradegate Nachtpause",
-        "min_interval_minutes": 999999,
-        "badge_color": "slate",
-        "status_text": "Tradegate Geschlossen (Pause bis 07:30)"
+        "status": "OPEN",
+        "session_name": "Tradegate Session",
+        "min_interval_minutes": 75,
+        "badge_color": "emerald",
+        "status_text": "Tradegate Offen (bis 22:00 CET)"
       },
       "timeframes": {
         "1h": {
-          "name": "Tesla (Tradegate)",
+          "name": "Tesla (Tradegate) (TRADEGATE:TL0)",
           "price": 368.7,
           "rsi": 74.7,
           "trend": "BULLISH",
@@ -19564,7 +19067,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Tesla (Tradegate)",
+          "name": "Tesla (Tradegate) (TRADEGATE:TL0)",
           "price": 368.7,
           "rsi": 71.71,
           "trend": "BULLISH",
@@ -19611,7 +19114,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Tesla (Tradegate)",
+          "name": "Tesla (Tradegate) (TRADEGATE:TL0)",
           "price": 367.75,
           "rsi": 68.14,
           "trend": "BULLISH",
@@ -19650,7 +19153,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Tesla (Tradegate)",
+          "name": "Tesla (Tradegate) (TRADEGATE:TL0)",
           "price": 367.75,
           "rsi": 60.07,
           "trend": "BULLISH",
@@ -19676,12 +19179,7 @@
         }
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Tradegate Werte"
-      ],
-      "source_watchlist": "Tradegate Werte",
-      "currency": "EUR"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NYSE:UBER",
@@ -19722,7 +19220,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Uber",
+          "name": "Uber (NYSE:UBER)",
           "price": 65.95,
           "rsi": 33.51,
           "trend": "BEARISH",
@@ -19768,7 +19266,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Uber",
+          "name": "Uber (NYSE:UBER)",
           "price": 65.95,
           "rsi": 36.64,
           "trend": "BEARISH",
@@ -19809,12 +19307,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:INTC",
@@ -19854,7 +19347,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Intel",
+          "name": "Intel (NASDAQ:INTC)",
           "price": 93.37,
           "rsi": 45.72,
           "trend": "BEARISH",
@@ -19900,7 +19393,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Intel",
+          "name": "Intel (NASDAQ:INTC)",
           "price": 93.35,
           "rsi": 42.15,
           "trend": "BEARISH",
@@ -19946,12 +19439,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "KUCOIN:EWTUSDT",
@@ -19995,7 +19483,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "EWTUSDT",
+          "name": "EWTUSDT (KUCOIN:EWTUSDT)",
           "price": 0.2819,
           "rsi": 45.47,
           "trend": "BEARISH",
@@ -20020,7 +19508,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "EWTUSDT",
+          "name": "EWTUSDT (KUCOIN:EWTUSDT)",
           "price": 0.2819,
           "rsi": 28.8,
           "trend": "BEARISH",
@@ -20052,7 +19540,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "EWTUSDT",
+          "name": "EWTUSDT (KUCOIN:EWTUSDT)",
           "price": 0.2813,
           "rsi": 31.66,
           "trend": "BEARISH",
@@ -20089,7 +19577,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "EWTUSDT",
+          "name": "EWTUSDT (KUCOIN:EWTUSDT)",
           "price": 0.2813,
           "rsi": 41.91,
           "trend": "BEARISH",
@@ -20113,7 +19601,7 @@
           "in_golden_pocket": false
         },
         "3D": {
-          "name": "EWTUSDT",
+          "name": "EWTUSDT (KUCOIN:EWTUSDT)",
           "price": 0.2813,
           "rsi": 43.0,
           "trend": "BEARISH",
@@ -20146,12 +19634,7 @@
         }
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "BINANCE:BATUSD",
@@ -20191,12 +19674,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "KUCOIN:LYXEUSDT",
@@ -20236,12 +19714,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "UNISWAP3ETH:SAMAWETH_854B57.USD",
@@ -20281,12 +19754,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Crypto"
-      ],
-      "source_watchlist": "Crypto",
-      "currency": "USD"
+      }
     }
   ],
   "evaluation_engine": "gemini-3.8-flash-low [Pro Abo]",
@@ -20318,7 +19786,7 @@
         "analyst_note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
         "unrealized_pnl_pct": 6.69,
         "unrealized_pnl_leveraged_pct": 40.13,
-        "holding_hours": 217.2,
+        "holding_hours": 217.0,
         "holding_days": 9.0,
         "tp1_reached": true,
         "trailing_active": true,
@@ -20348,7 +19816,7 @@
         "analyst_note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 2.66,
         "unrealized_pnl_leveraged_pct": 15.97,
-        "holding_hours": 127.8,
+        "holding_hours": 127.7,
         "holding_days": 5.3,
         "tp1_reached": false,
         "trailing_active": false,
@@ -20378,8 +19846,8 @@
         "analyst_note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 0.77,
         "unrealized_pnl_leveraged_pct": 3.84,
-        "holding_hours": 66.0,
-        "holding_days": 2.8,
+        "holding_hours": 65.8,
+        "holding_days": 2.7,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -20408,7 +19876,7 @@
         "analyst_note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 0.0,
         "unrealized_pnl_leveraged_pct": 0.0,
-        "holding_hours": 63.0,
+        "holding_hours": 62.9,
         "holding_days": 2.6,
         "tp1_reached": false,
         "trailing_active": false,
@@ -20438,7 +19906,7 @@
         "analyst_note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 1.91,
         "unrealized_pnl_leveraged_pct": 5.74,
-        "holding_hours": 63.0,
+        "holding_hours": 62.9,
         "holding_days": 2.6,
         "tp1_reached": false,
         "trailing_active": false,
@@ -20468,7 +19936,7 @@
         "analyst_note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 1.39,
         "unrealized_pnl_leveraged_pct": 5.56,
-        "holding_hours": 57.9,
+        "holding_hours": 57.8,
         "holding_days": 2.4,
         "tp1_reached": false,
         "trailing_active": false,
@@ -20498,7 +19966,7 @@
         "analyst_note": "Strikte bullische Konfluenz (96%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 3.76,
         "unrealized_pnl_leveraged_pct": 18.82,
-        "holding_hours": 30.0,
+        "holding_hours": 29.9,
         "holding_days": 1.2,
         "tp1_reached": false,
         "trailing_active": false,
@@ -20528,7 +19996,7 @@
         "analyst_note": "Strikte bullische Konfluenz (92%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": -0.77,
         "unrealized_pnl_leveraged_pct": -4.64,
-        "holding_hours": 30.0,
+        "holding_hours": 29.9,
         "holding_days": 1.2,
         "tp1_reached": false,
         "trailing_active": false,
@@ -21297,7 +20765,7 @@
         "title": "Keine Live-Kerzendaten",
         "message": "Dieses Symbol wird aktuell nicht im 4h-Hauptscan überwacht. Manuelle Kursprüfung empfohlen."
       },
-      "updated_at": "2026-10-28T21:05:54.125856+00:00"
+      "updated_at": "2026-10-28T20:59:08.295960+00:00"
     }
   ],
   "gemini_quota": {
@@ -21326,7 +20794,7 @@
         "tokens_used": 10020,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 2h 53m",
+        "reset_countdown": "in 2h 34m",
         "last_error": null
       },
       {
@@ -21340,7 +20808,7 @@
         "tokens_used": 19734,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 2h 53m",
+        "reset_countdown": "in 2h 34m",
         "last_error": null
       },
       {
@@ -21354,7 +20822,7 @@
         "tokens_used": 11884,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 2h 53m",
+        "reset_countdown": "in 2h 34m",
         "last_error": null
       },
       {
