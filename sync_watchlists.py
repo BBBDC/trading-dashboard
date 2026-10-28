@@ -9,6 +9,7 @@ Dynamic Watchlist Synchronizer & Pruner.
 
 import sys
 import json
+import time
 from pathlib import Path
 from datetime import datetime, timezone
 
@@ -17,21 +18,44 @@ DB_FILE = BASE_DIR / "dashboard" / "market_analysis_db.json"
 CHARTS_DIR = BASE_DIR / "dashboard" / "charts"
 WL_CACHE = BASE_DIR / "knowledge_base" / "live_watchlists.json"
 
-
-def get_base_ticker(sym):
-    parts = sym.split(":")
-    ticker = parts[1] if len(parts) > 1 else parts[0]
-    for quote in ["USD", "USDT", "USDC", "EUR", "BTC"]:
-        if ticker.endswith(quote) and len(ticker) > len(quote):
-            ticker = ticker[:-len(quote)]
-            break
-    return ticker.upper()
+TRADEGATE_NAMES = {
+    "TL0": "Tesla (Tradegate)",
+    "NVD": "Nvidia (Tradegate)",
+    "MTE": "Micron (Tradegate)",
+    "RHM": "Rheinmetall",
+    "AMD": "AMD (Tradegate)",
+    "AMZ": "Amazon (Tradegate)",
+    "SIE": "Siemens",
+    "YDX": "BYD Company",
+    "SPX": "S&P 500 (Tradegate)",
+    "MSF": "Microsoft (Tradegate)",
+    "ABEA": "Alphabet A (Tradegate)",
+    "PTX": "Palantir (Tradegate)",
+    "2PP": "PayPal (Tradegate)",
+    "FB2A": "Meta Platforms (Tradegate)",
+    "APC": "Apple (Tradegate)",
+    "1YD": "Eli Lilly (Tradegate)",
+    "INL": "Intel (Tradegate)",
+    "NFC": "Netflix (Tradegate)",
+    "9MW": "Super Micro Computer",
+    "CSA": "Cisco Systems (Tradegate)",
+    "45C": "Broadcom (Tradegate)",
+    "IBM": "IBM (Tradegate)",
+    "IFX": "Infineon Technologies",
+    "34Q0": "Coinbase (Tradegate)",
+    "SAP": "SAP SE"
+}
 
 
 def infer_meta(sym, wl_name="Watchlist"):
     s = sym.upper()
-    ticker = sym.split(":")[1] if ":" in sym else sym
-    if any(ex in s for ex in ["BINANCE:", "COINBASE:", "KRAKEN:", "BITSTAMP:", "UNISWAP", "AERODROME"]) or any(s.endswith(q) for q in ["USD", "USDT", "USDC", "BTC", "ETH", "USDT.P"]):
+    prefix = s.split(":")[0] if ":" in s else ""
+    ticker = s.split(":")[1] if ":" in s else s
+
+    if prefix == "TRADEGATE":
+        name = TRADEGATE_NAMES.get(ticker, f"{ticker} (Tradegate)")
+        return name, "Tradegate / EU", "Stock"
+    elif any(ex in s for ex in ["BINANCE:", "COINBASE:", "KRAKEN:", "BITSTAMP:", "UNISWAP", "AERODROME"]) or any(s.endswith(q) for q in ["USD", "USDT", "USDC", "BTC", "ETH", "USDT.P"]):
         if "BTC.D" in s or "TOTAL" in s:
             return ticker, "Krypto-Makro", "Macro"
         return ticker, "Crypto", "Crypto"
@@ -39,11 +63,38 @@ def infer_meta(sym, wl_name="Watchlist"):
         return ticker, "Rohstoffe & Metalle", "Commodity"
     elif any(idx in s for idx in ["SP:SPX", "TVC:NDX", "TVC:DJI", "XETR:DAX", "TVC:DXY", "FX_IDC:"]):
         return ticker, "Indizes / Devisen", "Macro"
+    elif prefix in ("XETR", "FWB"):
+        return ticker, "Deutsche Aktien", "Stock"
     else:
         return ticker, "Aktien", "Stock"
 
 
-def load_live_watchlists():
+def load_live_watchlists(refresh_from_mcp=True):
+    """
+    Lädt Watchlists direkt live von TradingView via MCP.
+    Falls der API-Aufruf fehlschlägt, wird nahtlos der lokale Cache verwendet.
+    """
+    if refresh_from_mcp:
+        try:
+            from fetch_real_ohlcv_cache import refresh_access_token
+            from batch_analyzer import fetch_live_watchlists
+            tok = refresh_access_token()
+            if tok:
+                remote_wls = fetch_live_watchlists(tok)
+                if remote_wls and isinstance(remote_wls, list) and len(remote_wls) > 0:
+                    cache_payload = {
+                        "updated_at": datetime.now(timezone.utc).isoformat(),
+                        "source": "TradingView Official MCP Server (mcp-watchlist-list-watchlists)",
+                        "watchlists": remote_wls
+                    }
+                    WL_CACHE.parent.mkdir(parents=True, exist_ok=True)
+                    with open(WL_CACHE, "w", encoding="utf-8") as f:
+                        json.dump(cache_payload, f, indent=2, ensure_ascii=False)
+                    print(f"✅ Live-Watchlists von TradingView MCP synchronisiert: {len(remote_wls)} Listen geladen.")
+                    return remote_wls
+        except Exception as e:
+            print(f"⚠️ Hinweis: Live-Watchlist-Abfrage über MCP ({e}) -> Nutze lokalen Snapshot.", file=sys.stderr)
+
     if WL_CACHE.exists():
         try:
             with open(WL_CACHE, "r", encoding="utf-8") as f:
@@ -59,7 +110,7 @@ def load_live_watchlists():
 
 def sync_watchlists(live_wls=None, rebuild=False):
     if live_wls is None:
-        live_wls = load_live_watchlists()
+        live_wls = load_live_watchlists(refresh_from_mcp=True)
 
     if not live_wls:
         print("Keine Live-Watchlists verfügbar. Abbruch der Synchronisation.")
@@ -72,15 +123,13 @@ def sync_watchlists(live_wls=None, rebuild=False):
         for sym in wl.get("symbols", []):
             if sym.startswith(("MULTPL:", "ECONOMICS:", "FTX:", "BITTREX:")):
                 continue
-            base = get_base_ticker(sym)
-            if base not in active_symbols_map:
+            if sym not in active_symbols_map:
                 name, cat, asset_type = infer_meta(sym, wl_name)
-                active_symbols_map[base] = {
+                active_symbols_map[sym] = {
                     "symbol": sym,
                     "name": name,
                     "category": cat,
                     "asset_type": asset_type,
-                    "base": base,
                     "source_watchlist": wl_name
                 }
 
@@ -95,33 +144,32 @@ def sync_watchlists(live_wls=None, rebuild=False):
         db = json.load(f)
 
     existing_assets = db.get("assets", [])
-    existing_by_base = {get_base_ticker(a["symbol"]): a for a in existing_assets}
+    existing_by_sym = {a["symbol"]: a for a in existing_assets}
 
     # 3. Ermittle Hinzugefügte und Gelöschte
-    current_bases = set(active_symbols_map.keys())
-    db_bases = set(existing_by_base.keys())
+    current_syms = set(active_symbols_map.keys())
+    db_syms = set(existing_by_sym.keys())
 
-    added_bases = current_bases - db_bases
-    removed_bases = db_bases - current_bases
-    retained_bases = db_bases & current_bases
+    added_syms = current_syms - db_syms
+    removed_syms = db_syms - current_syms
+    retained_syms = db_syms & current_syms
 
     print("\n" + "=" * 55)
     print("WATCHLIST-SYNCHRONISATIONS-BERICHT")
     print("=" * 55)
-    print(f"Beibehaltene Assets : {len(retained_bases)}")
-    print(f"Neu hinzugefügt     : {len(added_bases)}")
-    print(f"Aus Watchlists gelöscht: {len(removed_bases)}")
+    print(f"Beibehaltene Assets : {len(retained_syms)}")
+    print(f"Neu hinzugefügt     : {len(added_syms)}")
+    print(f"Aus Watchlists gelöscht: {len(removed_syms)}")
 
     # 4. Entferne gelöschte Symbole & bereinige Chart-Dateien
     pruned_assets = []
     deleted_charts_count = 0
     for a in existing_assets:
-        base = get_base_ticker(a["symbol"])
-        if base in removed_bases:
-            print(f"  [-] GELÖSCHT: {a['name']} ({a['symbol']}) - Aus Watchlist entfernt.")
-            # Lösche zugehörige Charts
-            safe_sym = a["symbol"].replace(":", "_").replace("!", "_").replace(".", "_").replace("/", "_")
-            for tf in ["4h", "8h", "1D"]:
+        sym = a["symbol"]
+        if sym in removed_syms:
+            print(f"  [-] GELÖSCHT: {a['name']} ({sym}) - Aus Watchlist entfernt.")
+            safe_sym = sym.replace(":", "_").replace("!", "_").replace(".", "_").replace("/", "_")
+            for tf in ["1h", "4h", "1D", "1W", "3D", "8h"]:
                 chart_path = CHARTS_DIR / f"{safe_sym}_{tf}.svg"
                 if chart_path.exists():
                     try:
@@ -139,13 +187,12 @@ def sync_watchlists(live_wls=None, rebuild=False):
     from chart_generator import generate_svg_chart
 
     added_count = 0
-    for base in added_bases:
-        meta = active_symbols_map[base]
-        sym = meta["symbol"]
+    for sym in added_syms:
+        meta = active_symbols_map[sym]
         safe_sym = sym.replace(":", "_").replace("!", "_").replace(".", "_").replace("/", "_")
         print(f"  [+] NEU HINZUGEFÜGT: {meta['name']} ({sym}) aus '{meta['source_watchlist']}'")
 
-        # Initialer Datenrahmen
+        # Initialer Datenrahmen (ohne last_analyzed -> Gatekeeper erkennt: sofort fällig!)
         new_entry = {
             "symbol": sym,
             "name": meta["name"],
@@ -175,7 +222,7 @@ def sync_watchlists(live_wls=None, rebuild=False):
                     "in_golden_pocket": False,
                     "divergences": []
                 },
-                "8h": {
+                "4h": {
                     "name": f"{meta['name']} ({sym})",
                     "trend": "NEUTRAL",
                     "rsi": 50.0,
@@ -185,7 +232,17 @@ def sync_watchlists(live_wls=None, rebuild=False):
                     "in_golden_pocket": False,
                     "divergences": []
                 },
-                "4h": {
+                "1h": {
+                    "name": f"{meta['name']} ({sym})",
+                    "trend": "NEUTRAL",
+                    "rsi": 50.0,
+                    "channel_position": "Kanal-Mitte",
+                    "vsa_class": "Normal Volume",
+                    "golden_pocket": [92.0, 94.0],
+                    "in_golden_pocket": False,
+                    "divergences": []
+                },
+                "1W": {
                     "name": f"{meta['name']} ({sym})",
                     "trend": "NEUTRAL",
                     "rsi": 50.0,
@@ -197,11 +254,12 @@ def sync_watchlists(live_wls=None, rebuild=False):
                 }
             },
             "analyst_note": f"Frisch aus TV-Watchlist '{meta['source_watchlist']}' synchronisiert. Bereit für automatische Scan-Berechnung.",
-            "charts": {}
+            "charts": {},
+            "last_analyzed": None
         }
 
         # Generiere initiale SVGs
-        for tf in ["4h", "8h", "1D"]:
+        for tf in ["1h", "4h", "1D", "1W"]:
             svg = generate_svg_chart(None, new_entry["timeframes"][tf], timeframe=tf)
             c_path = CHARTS_DIR / f"{safe_sym}_{tf}.svg"
             with open(c_path, "w", encoding="utf-8") as f:

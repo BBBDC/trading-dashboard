@@ -155,10 +155,9 @@ def call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=85):
         return None, f"Pro CLI Ausführungsfehler: {e}"
 
 
-def call_gemini_via_rest_api(prompt, model="gemini-3.8-flash", api_key=None, timeout=40):
+def call_gemini_via_rest_api(prompt, model="gemini-3.5-flash", api_key=None, timeout=25):
     """
     Ruft die Google Gemini REST API über einen konkreten API-Key auf.
-    Unterstützt Gemini 3.8 Flash mit nativer Thinking-Konfiguration (Budget 1024).
     """
     if not api_key:
         try:
@@ -169,7 +168,7 @@ def call_gemini_via_rest_api(prompt, model="gemini-3.8-flash", api_key=None, tim
     if not api_key:
         return None, "Kein GEMINI_API_KEY für REST-API verfügbar."
 
-    target_model = "gemini-3.8-flash"
+    target_model = model or "gemini-3.5-flash"
     models_to_try = [
         (target_model, 1024),
         (target_model, 0)
@@ -361,25 +360,27 @@ def evaluate_batch_with_cascade(assets_batch):
     prompt = build_analysis_prompt(assets_batch)
 
     # ========================================================
-    # STUFE 1: Primäres Modell über Multi-Key Pool (REST)
+    # STUFE 1: Google Pro-Abo via CLI (bevorzugt, falls aktiviert)
     # ========================================================
-    print(f" (Multi-Key Pool REST: {primary_model})...", end="", flush=True)
-
-    res, err, used_key_info = call_gemini_via_key_pool(prompt, model=primary_model, timeout=timeout)
-    if res and isinstance(res, list) and len(res) > 0:
-        return res, None, f"{primary_model} [{used_key_info}]"
-
-    # Falls Pro-Subscription explizit erlaubt ist (Standard: False, da Nutzer 'nutze auch nur diesen Key' verlangt)
     if use_pro_sub:
-        print(" (Fallback auf Pro-Abo CLI)...", end="", flush=True)
+        print(f" (Google Pro-Abo CLI: {primary_model})...", end="", flush=True)
         res, err = call_gemini_via_pro_cli(prompt, model=primary_model, timeout=timeout)
         if res and isinstance(res, list) and len(res) > 0:
             return res, None, f"{primary_model} [Pro Abo]"
+        print(f" [Pro-Abo CLI ({err}) -> Fallback auf Key-Pool]...", end="", flush=True)
+
+    # ========================================================
+    # STUFE 2: Multi-Key Pool (REST)
+    # ========================================================
+    print(f" (Multi-Key Pool REST: {fallback_model})...", end="", flush=True)
+    res, err, used_key_info = call_gemini_via_key_pool(prompt, model=fallback_model, timeout=timeout)
+    if res and isinstance(res, list) and len(res) > 0:
+        return res, None, f"{fallback_model} [{used_key_info}]"
 
     # ========================================================
     # STUFE 3: Fallback auf quantitative Confluence-Engine
     # ========================================================
-    print(f"\n      ⚠️ API-Key Kontingent erschöpft ({err}) -> Aktiviere Stufe 3 (Mathematische Confluence-Engine)...", end="", flush=True)
+    print(f"\n      ⚠️ KI-Auswertung nicht verfügbar ({err}) -> Aktiviere Stufe 3 (Mathematische Confluence-Engine)...", end="", flush=True)
     return None, err, "quantitative_confluence [Math Core]"
 
 

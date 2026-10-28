@@ -339,7 +339,8 @@ def get_alert_tv_lists_text_and_markup(user_id):
         "Commodities": "🥇",
         "Rohstoffe": "🛢️",
         "Devisen": "💱",
-        "Eigene Trades": "⭐"
+        "Eigene Trades": "⭐",
+        "Tradegate Werte": "🏛️"
     }
 
     kb = []

@@ -498,6 +498,15 @@ def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):
             "category": asset.get("category", "Allgemein"),
             "asset_type": asset.get("asset_type", "Stock"),
             "price": current_price,
+            "signal": asset.get("signal", "NEUTRAL"),
+            "score": asset.get("score", 50),
+            "setup_name": asset.get("setup_name", "Setup-Berechnung"),
+            "crv": asset.get("crv", 2.0),
+            "entry_range": asset.get("entry_range", [current_price, current_price]),
+            "stop_loss": asset.get("stop_loss", round(current_price * 0.95, 2)),
+            "take_profit_1": asset.get("take_profit_1", round(current_price * 1.05, 2)),
+            "take_profit_2": asset.get("take_profit_2", round(current_price * 1.10, 2)),
+            "reasons": asset.get("reasons", ["Initialer Status"]),
             "charts": charts_info,
             "last_analyzed": now_utc.isoformat(),
             "market_state": m_state,
@@ -573,9 +582,9 @@ def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):
     # Sortieren nach Score
     analyzed_assets.sort(key=lambda x: x.get("score", 0), reverse=True)
 
-    long_c = sum(1 for a in analyzed_assets if a["signal"] == "LONG")
-    short_c = sum(1 for a in analyzed_assets if a["signal"] == "SHORT")
-    neutral_c = sum(1 for a in analyzed_assets if a["signal"] == "NEUTRAL")
+    long_c = sum(1 for a in analyzed_assets if a.get("signal") == "LONG")
+    short_c = sum(1 for a in analyzed_assets if a.get("signal") == "SHORT")
+    neutral_c = sum(1 for a in analyzed_assets if a.get("signal") == "NEUTRAL")
 
     db["timestamp"] = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
     db["total_analyzed"] = len(analyzed_assets)
