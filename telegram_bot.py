@@ -719,6 +719,42 @@ def get_admin_hub_text_and_markup():
     return text, kb
 
 
+def get_user_management_text_and_markup():
+    """Zeigt die Benutzerverwaltung für Master-Admins an inklusive Lösch-Möglichkeit."""
+    cfg = load_config()
+    auth_users = cfg.get("authorized_users", {})
+    admin_unames = [u.lower() for u in cfg.get("admin_usernames", [])]
+    admin_cids = [str(cid) for cid in cfg.get("admin_chat_ids", [])]
+
+    lines = [
+        "👥 <b>Benutzerverwaltung (Master-Admin)</b>\n",
+        "Hier siehst du alle aktuell autorisierten Personen.",
+        "Klicke auf einen Trader, um Zugriffsrechte zu entziehen (Löschen):\n"
+    ]
+
+    buttons = []
+    for uname, udata in auth_users.items():
+        cid = str(udata.get("chat_id", ""))
+        role = udata.get("role", "trader")
+        name = udata.get("name") or uname or f"User_{cid}"
+        is_admin = (uname.lower() in admin_unames) or (cid in admin_cids) or (role == "admin")
+
+        if is_admin:
+            lines.append(f"• 👑 <b>@{uname}</b> (Admin) – ID: <code>{cid}</code>")
+        else:
+            disp_name = f"@{uname}" if uname and uname != "None" and not uname.startswith("User_") else (name or f"User {cid}")
+            lines.append(f"• 📈 <b>{disp_name}</b> ({role.capitalize()}) – ID: <code>{cid}</code>")
+            btn_label = f"🗑️ {disp_name} löschen"
+            buttons.append([{"text": btn_label, "callback_data": f"user_del_ask_{cid}"}])
+
+    lines.append("\n<i>Hinweis: Gelöschte Nutzer müssen bei erneutem Kontakt eine neue Freischaltung anfragen.</i>")
+
+    buttons.append([{"text": "🔙 Zurück zur Admin-Zentrale", "callback_data": "menu_admin_hub"}])
+    buttons.append([{"text": "🏠 Hauptmenü", "callback_data": "menu_main"}])
+
+    return "\n".join(lines), {"inline_keyboard": buttons}
+
+
 def get_admin_quota_details_text_and_markup():
     """Detaillierte Aufschlüsselung aller API-Keys im Multi-Key Pool."""
     try:
@@ -1017,10 +1053,12 @@ def handle_unauthorized_user(api, chat_id, user_id, username, first_name):
 
     # Master-Admin benachrichtigen
     admin_cids = cfg.get("admin_chat_ids", [])
+    uname_str = username if username else ""
+    disp_btn_user = f"@{username}" if username else f"User {user_id}"
     admin_kb = {
         "inline_keyboard": [
             [
-                {"text": f"✅ Freischalten: {username or user_id}", "callback_data": f"approve_user_{user_id}_{username}"},
+                {"text": f"✅ Freischalten: {disp_btn_user}", "callback_data": f"approve_user_{user_id}_{uname_str}"},
                 {"text": "❌ Ablehnen", "callback_data": f"reject_user_{user_id}"}
             ]
         ]
@@ -1217,18 +1255,12 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
         api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
         return
 
-    if data == "menu_users" and role == "admin":
-        cfg = load_config()
-        users = cfg.get("authorized_users", {})
-        u_lines = ["👥 <b>Autorisierte Benutzer</b>\n"]
-        for uname, udata in users.items():
-            u_lines.append(f"• <b>@{uname}</b> – Rolle: <code>{udata.get('role', 'trader')}</code>")
-        kb = {
-            "inline_keyboard": [
-                [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
-            ]
-        }
-        api.edit_message_text(chat_id, message_id, "\n".join(u_lines), reply_markup=kb)
+    if data == "menu_users":
+        if role != "admin":
+            api.edit_message_text(chat_id, message_id, "⚠️ Diese Funktion ist dem Master-Admin vorbehalten.", reply_markup=get_main_menu_keyboard(role))
+            return
+        text, kb = get_user_management_text_and_markup()
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
         return
 
     if data == "action_cancel":
@@ -1447,20 +1479,31 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
 
     # 9. Admin: Benutzer freischalten
     if data.startswith("approve_user_") and role == "admin":
-        parts = data.split("_")
+        parts = data.split("_", 3)
         target_uid = parts[2]
-        target_uname = parts[3] if len(parts) > 3 else f"User_{target_uid}"
+        raw_uname = parts[3] if len(parts) > 3 else ""
+        if raw_uname and raw_uname != "None":
+            target_uname = raw_uname
+        else:
+            target_uname = f"User_{target_uid}"
 
         cfg = load_config()
-        cfg.setdefault("authorized_users", {})[target_uname] = {
+        auth_users = cfg.setdefault("authorized_users", {})
+        # Vorherige Alt-/Dummy-Einträge für diese User-ID bereinigen
+        keys_to_del = [k for k, v in auth_users.items() if str(v.get("chat_id")) == str(target_uid)]
+        for k in keys_to_del:
+            del auth_users[k]
+
+        auth_users[target_uname] = {
             "name": target_uname,
-            "chat_id": target_uid,
+            "chat_id": str(target_uid),
             "role": "trader",
             "added_at": datetime.now(timezone.utc).isoformat()
         }
         save_config(cfg)
 
-        api.edit_message_text(chat_id, message_id, f"✅ Benutzer <b>@{target_uname}</b> (ID: {target_uid}) wurde erfolgreich als Trader freigeschaltet!")
+        disp_uname = f"@{target_uname}" if not target_uname.startswith("User_") else target_uname
+        api.edit_message_text(chat_id, message_id, f"✅ Benutzer <b>{disp_uname}</b> (ID: {target_uid}) wurde erfolgreich als Trader freigeschaltet!")
         # Den freigeschalteten Nutzer benachrichtigen
         try:
             api.send_message(
@@ -1470,6 +1513,99 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
             )
         except Exception:
             pass
+        return
+
+    # Admin: Benutzer-Anfrage ablehnen
+    if data.startswith("reject_user_") and role == "admin":
+        target_uid = data.split("_", 2)[2]
+        api.edit_message_text(chat_id, message_id, f"❌ Zugriffsanfrage für User-ID <code>{target_uid}</code> wurde abgelehnt.")
+        try:
+            api.send_message(
+                target_uid,
+                "❌ <b>Deine Zugriffsanfrage wurde leider abgelehnt.</b>"
+            )
+        except Exception:
+            pass
+        return
+
+    # 10. Admin: Benutzer löschen / Zugriff entziehen - Abfrage
+    if data.startswith("user_del_ask_") and role == "admin":
+        target_uid = data[len("user_del_ask_"):]
+        cfg = load_config()
+        auth_users = cfg.get("authorized_users", {})
+
+        target_info = None
+        target_key = None
+        for k, v in auth_users.items():
+            if str(v.get("chat_id")) == str(target_uid) or str(k) == str(target_uid):
+                target_info = v
+                target_key = k
+                break
+
+        if not target_info:
+            api.edit_message_text(
+                chat_id,
+                message_id,
+                "⚠️ Benutzer wurde nicht gefunden oder bereits entfernt.",
+                reply_markup={"inline_keyboard": [[{"text": "🔙 Zurück", "callback_data": "menu_users"}]]}
+            )
+            return
+
+        disp_name = f"@{target_key}" if target_key and target_key != "None" and not target_key.startswith("User_") else (target_info.get("name") or f"User {target_uid}")
+        confirm_text = (
+            f"⚠️ <b>Benutzerzugriff entfernen?</b>\n\n"
+            f"Möchtest du <b>{disp_name}</b> (ID: <code>{target_uid}</code>) wirklich aus dem Trading-System löschen?\n\n"
+            f"• Der Zugriff auf Bot, Signale und Dashboard wird sofort gesperrt.\n"
+            f"• Bei der nächsten Kontaktaufnahme muss die Person eine neue Freischaltungsanfrage stellen."
+        )
+        confirm_kb = {
+            "inline_keyboard": [
+                [{"text": f"🚨 Ja, {disp_name} löschen", "callback_data": f"user_del_confirm_{target_uid}"}],
+                [{"text": "🔙 Abbrechen", "callback_data": "menu_users"}]
+            ]
+        }
+        api.edit_message_text(chat_id, message_id, confirm_text, reply_markup=confirm_kb)
+        return
+
+    # 11. Admin: Benutzer löschen - Bestätigt
+    if data.startswith("user_del_confirm_") and role == "admin":
+        target_uid = data[len("user_del_confirm_"):]
+        cfg = load_config()
+        auth_users = cfg.setdefault("authorized_users", {})
+
+        deleted_name = f"User {target_uid}"
+        keys_to_del = []
+        for k, v in auth_users.items():
+            if str(v.get("chat_id")) == str(target_uid) or str(k) == str(target_uid):
+                keys_to_del.append(k)
+                deleted_name = f"@{k}" if k and k != "None" and not k.startswith("User_") else (v.get("name") or f"User {target_uid}")
+
+        for k in keys_to_del:
+            del auth_users[k]
+
+        save_config(cfg)
+
+        # Optional User-Präferenzen aufräumen
+        try:
+            all_prefs = load_all_user_preferences()
+            if str(target_uid) in all_prefs:
+                del all_prefs[str(target_uid)]
+                save_all_user_preferences(all_prefs)
+        except Exception:
+            pass
+
+        result_text = (
+            f"✅ <b>Benutzerzugriff erfolgreich entfernt!</b>\n\n"
+            f"Benutzer <b>{deleted_name}</b> (ID: <code>{target_uid}</code>) wurde aus der Autorisierungsliste gelöscht.\n\n"
+            f"Sobald sich die Person erneut meldet (z. B. mit neuem Benutzernamen), erhältst du eine neue Freischaltungsanfrage zur Bestätigung."
+        )
+        result_kb = {
+            "inline_keyboard": [
+                [{"text": "👥 Zurück zur Benutzerverwaltung", "callback_data": "menu_users"}],
+                [{"text": "🏠 Hauptmenü", "callback_data": "menu_main"}]
+            ]
+        }
+        api.edit_message_text(chat_id, message_id, result_text, reply_markup=result_kb)
         return
 
 
