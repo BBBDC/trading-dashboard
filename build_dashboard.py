@@ -216,6 +216,19 @@ pro_card_html = f"""
       </section>
 """
 
+def get_asset_currency(a):
+    if isinstance(a, dict) and a.get("currency"):
+        return a.get("currency")
+    sym = (a.get("symbol") or "").upper() if isinstance(a, dict) else ""
+    cat = (a.get("category") or "").upper() if isinstance(a, dict) else ""
+    wls = a.get("watchlists") or [] if isinstance(a, dict) else []
+    if sym.startswith(("TRADEGATE:", "XETR:", "FWB:")) or "Tradegate Werte" in wls or "TRADEGATE" in cat or "DEUTSCHE AKTIEN" in cat or "DAX" in sym:
+        return "EUR"
+    return "USD"
+
+def get_asset_currency_symbol(a):
+    return "€" if get_asset_currency(a) == "EUR" else "$"
+
 # Top Longs & Shorts für Tab 2 (Top-Setups)
 def render_top_picks_html(candidates, sig_type="LONG"):
     if not candidates:
@@ -229,9 +242,14 @@ def render_top_picks_html(candidates, sig_type="LONG"):
         score = c.get("score", 0)
         setup = c.get("setup_name", "Setup")
         price = c.get("price", 0)
-        entry = c.get("entry_range", "-")
-        sl = c.get("stop_loss", "-")
-        tp2 = c.get("take_profit_2", "-")
+        curr_sym = get_asset_currency_symbol(c)
+        entry_val = c.get("entry_range", "-")
+        if isinstance(entry_val, (list, tuple)) and len(entry_val) == 2:
+            entry = f"{entry_val[0]:,.2f} - {entry_val[1]:,.2f} {curr_sym}"
+        else:
+            entry = f"{entry_val}"
+        sl = f"{c.get('stop_loss', '-'):,.2f} {curr_sym}" if isinstance(c.get('stop_loss'), (int, float)) else str(c.get('stop_loss', '-'))
+        tp2 = f"{c.get('take_profit_2', '-'):,.2f} {curr_sym}" if isinstance(c.get('take_profit_2'), (int, float)) else str(c.get('take_profit_2', '-'))
         crv = c.get("crv", "-")
 
         out += f"""
@@ -243,7 +261,7 @@ def render_top_picks_html(candidates, sig_type="LONG"):
             </div>
             <div class="text-right shrink-0">
               <span class="font-mono font-bold text-xs {score_color}">{score}% Score</span>
-              <span class="block text-[10px] font-mono text-slate-400">{price:,.2f} $</span>
+              <span class="block text-[10px] font-mono text-slate-400">{price:,.2f} {curr_sym}</span>
             </div>
           </div>
           <div class="grid grid-cols-3 gap-1.5 text-[10px] font-mono bg-slate-900/60 p-2 rounded-lg border border-slate-800">
@@ -384,9 +402,11 @@ def render_hero_cards_html(raw_assets):
         tp_glow = "glow-emerald border-emerald-500/30" if is_long else ("glow-rose border-rose-500/30" if is_short else "border-slate-700")
         tp_score_color = "text-emerald-400" if is_long else ("text-rose-400" if is_short else "text-slate-300")
         tp_price_color = "text-emerald-400" if is_long else ("text-rose-400" if is_short else "text-white")
-        tp_entry_str = f"{tp_entry[0]:,.2f} - {tp_entry[1]:,.2f} $" if isinstance(tp_entry, (list, tuple)) and len(tp_entry) == 2 else f"{tp_price:,.2f} $"
-        tp_sl_str = f"{tp_sl:,.2f} $"
-        tp_tp_str = f"{tp_tp2:,.2f} $ ({tp_crv} CRV)"
+        tp_curr_sym = get_asset_currency_symbol(top_pick)
+        tp_curr_code = get_asset_currency(top_pick)
+        tp_entry_str = f"{tp_entry[0]:,.2f} - {tp_entry[1]:,.2f} {tp_curr_sym}" if isinstance(tp_entry, (list, tuple)) and len(tp_entry) == 2 else f"{tp_price:,.2f} {tp_curr_sym}"
+        tp_sl_str = f"{tp_sl:,.2f} {tp_curr_sym}"
+        tp_tp_str = f"{tp_tp2:,.2f} {tp_curr_sym} ({tp_crv} CRV)"
         tp_sub_badge = f"{tp_score}% Score · {tp_sig}"
         tp_detail_link_color = "text-emerald-400 hover:text-emerald-300" if is_long else "text-rose-400 hover:text-rose-300"
 
@@ -410,7 +430,7 @@ def render_hero_cards_html(raw_assets):
               <p class="text-xs text-slate-400">{tp_cat}</p>
             </div>
             <div class="text-right">
-              <span class="font-mono text-2xl font-extrabold {tp_price_color}">{tp_price:,.2f} USD</span>
+              <span class="font-mono text-2xl font-extrabold {tp_price_color}">{tp_price:,.2f} {tp_curr_code}</span>
               <span class="block text-xs font-mono text-slate-400">Live aus Markt-Scan</span>
             </div>
           </div>
@@ -1767,6 +1787,21 @@ html_content = f"""<!DOCTYPE html>
       applyFilters();
     }}
 
+    function getAssetCurrencySymbol(c) {{
+      if (c && c.currency === 'EUR') return '€';
+      const sym = (c && c.symbol ? c.symbol : '').toUpperCase();
+      const cat = (c && c.category ? c.category : '').toUpperCase();
+      const wls = (c && c.watchlists) ? c.watchlists : [];
+      if (sym.startsWith('TRADEGATE:') || sym.startsWith('XETR:') || sym.startsWith('FWB:') || wls.includes('Tradegate Werte') || cat.includes('TRADEGATE') || cat.includes('DEUTSCHE AKTIEN') || sym.includes('DAX')) {{
+        return '€';
+      }}
+      return '$';
+    }}
+
+    function getAssetCurrencyCode(c) {{
+      return getAssetCurrencySymbol(c) === '€' ? 'EUR' : 'USD';
+    }}
+
     function createTopPickCardHtml(c, sigType) {{
       const badgeBorder = sigType === 'LONG' ? 'border-emerald-500/30' : 'border-rose-500/30';
       const scoreColor = sigType === 'LONG' ? 'text-emerald-400' : 'text-rose-400';
@@ -1774,10 +1809,11 @@ html_content = f"""<!DOCTYPE html>
       const name = c.name || sym;
       const score = c.score || 0;
       const setup = c.setup_name || 'Setup';
+      const currSym = getAssetCurrencySymbol(c);
       const price = formatNumber(c.price || 0);
-      const entry = (c.entry_range && c.entry_range.length === 2) ? `${{formatNumber(c.entry_range[0])}} - ${{formatNumber(c.entry_range[1])}}` : '-';
-      const sl = formatNumber(c.stop_loss);
-      const tp2 = formatNumber(c.take_profit_2);
+      const entry = (c.entry_range && c.entry_range.length === 2) ? `${{formatNumber(c.entry_range[0])}} - ${{formatNumber(c.entry_range[1])}} ${{currSym}}` : '-';
+      const sl = (c.stop_loss !== null && c.stop_loss !== undefined) ? `${{formatNumber(c.stop_loss)}} ${{currSym}}` : '-';
+      const tp2 = (c.take_profit_2 !== null && c.take_profit_2 !== undefined) ? `${{formatNumber(c.take_profit_2)}} ${{currSym}}` : '-';
       const crv = c.crv || '-';
 
       return `
@@ -1789,7 +1825,7 @@ html_content = f"""<!DOCTYPE html>
             </div>
             <div class="text-right shrink-0">
               <span class="font-mono font-bold text-xs ${{scoreColor}}">${{score}}% Score</span>
-              <span class="block text-[10px] font-mono text-slate-400">${{price}} $</span>
+              <span class="block text-[10px] font-mono text-slate-400">${{price}} ${{currSym}}</span>
             </div>
           </div>
           <div class="grid grid-cols-3 gap-1.5 text-[10px] font-mono bg-slate-900/60 p-2 rounded-lg border border-slate-800">
@@ -1975,6 +2011,9 @@ html_content = f"""<!DOCTYPE html>
           marketBadgeHtml = `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-slate-800/90 text-slate-400 border border-slate-700/60" title="${{mState.session_name || 'Markt pausiert / geschlossen'}}"><span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span>${{mState.status_text || 'Pausiert'}}</span>`;
         }}
 
+        const currSym = getAssetCurrencySymbol(a);
+        const currCode = getAssetCurrencyCode(a);
+
         // Grid Card
         const card = document.createElement('div');
         card.className = `p-4 rounded-xl bg-slate-900/90 border border-slate-800/90 transition shadow-sm hover:shadow-lg ${{cardBorder}} flex flex-col justify-between space-y-4`;
@@ -2002,7 +2041,7 @@ html_content = f"""<!DOCTYPE html>
 
             <!-- Price & Core Metrics -->
             <div class="mt-3 flex items-baseline justify-between pb-3 border-b border-slate-800/60">
-              <span class="font-mono text-lg font-bold text-white">${{formatNumber(a.price)}} <span class="text-xs text-slate-400 font-normal">USD</span></span>
+              <span class="font-mono text-lg font-bold text-white">${{formatNumber(a.price)}} <span class="text-xs text-slate-400 font-normal">${{currCode}}</span></span>
               <div class="flex items-center gap-1.5 text-xs font-mono">
                 <span class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">RSI: <span class="${{rsiColor}}">${{rsiVal}}</span></span>
                 ${{hasBullDiv ? '<span class="px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 text-[10px]">Bull Div</span>' : ''}}
@@ -2025,15 +2064,15 @@ html_content = f"""<!DOCTYPE html>
             <div class="mt-3 p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80 grid grid-cols-3 gap-2 text-[11px] font-mono">
               <div>
                 <span class="text-slate-400 block text-[10px]">Entry</span>
-                <span class="text-white font-semibold truncate block">${{formatNumber(a.entry_range[0])}}</span>
+                <span class="text-white font-semibold truncate block">${{formatNumber(a.entry_range[0])}} ${{currSym}}</span>
               </div>
               <div>
                 <span class="text-slate-400 block text-[10px]">Stop-Loss</span>
-                <span class="text-rose-400 font-semibold truncate block">${{formatNumber(a.stop_loss)}}</span>
+                <span class="text-rose-400 font-semibold truncate block">${{formatNumber(a.stop_loss)}} ${{currSym}}</span>
               </div>
               <div>
                 <span class="text-slate-400 block text-[10px]">TP2 (CRV)</span>
-                <span class="text-emerald-400 font-semibold truncate block">${{formatNumber(a.take_profit_2)}} <span class="text-[10px] text-slate-400">(${{a.crv}}:1)</span></span>
+                <span class="text-emerald-400 font-semibold truncate block">${{formatNumber(a.take_profit_2)}} ${{currSym}} <span class="text-[10px] text-slate-400">(${{a.crv}}:1)</span></span>
               </div>
             </div>
           </div>
@@ -2069,7 +2108,7 @@ html_content = f"""<!DOCTYPE html>
             <span class="px-2 py-0.5 rounded text-[11px] font-bold border ${{badgeColor}}">${{a.signal}}</span>
           </td>
           <td class="p-3 font-semibold text-slate-200">${{a.score}}%</td>
-          <td class="p-3 text-white font-bold">${{formatNumber(a.price)}}</td>
+          <td class="p-3 text-white font-bold">${{formatNumber(a.price)}} ${{currSym}}</td>
           <td class="p-3 text-slate-300">${{d1 ? d1.trend : '-'}}</td>
           <td class="p-3 ${{rsiColor}}">${{rsiVal}}</td>
           <td class="p-3 max-w-xs truncate text-slate-300">
@@ -2079,7 +2118,7 @@ html_content = f"""<!DOCTYPE html>
                 💡 Info
               </button>
             </div>
-            <span class="block text-[10px] text-slate-400">Entry: ${{formatNumber(a.entry_range[0])}} | SL: ${{formatNumber(a.stop_loss)}}</span>
+            <span class="block text-[10px] text-slate-400">Entry: ${{formatNumber(a.entry_range[0])}} ${{currSym}} | SL: ${{formatNumber(a.stop_loss)}} ${{currSym}}</span>
           </td>
           <td class="p-3 text-emerald-400 font-bold">${{a.crv}}:1</td>
           <td class="p-3 text-right">
@@ -2236,6 +2275,9 @@ html_content = f"""<!DOCTYPE html>
         }}
       }}
 
+      const modalCurrSym = getAssetCurrencySymbol(a);
+      const modalCurrCode = getAssetCurrencyCode(a);
+
       // Active Position Check & Highlight in Modal
       const userPositions = getUserPositions();
       const authUser = getAuthenticatedUser();
@@ -2268,8 +2310,8 @@ html_content = f"""<!DOCTYPE html>
                   <span>📍</span>
                   <span>DEINE POSITION: ${{activePos.direction}} ${{levP}}x</span>
                 </span>
-                <span class="text-xs font-mono text-slate-300">Einstieg: <strong class="text-white">${{entP.toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}} $</strong></span>
-                <span class="text-xs font-mono text-slate-400">Live: <strong class="text-white">${{curP.toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}} $</strong></span>
+                <span class="text-xs font-mono text-slate-300">Einstieg: <strong class="text-white">${{entP.toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}} ${{modalCurrSym}}</strong></span>
+                <span class="text-xs font-mono text-slate-400">Live: <strong class="text-white">${{curP.toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}} ${{modalCurrSym}}</strong></span>
                 ${{activePos.user_name ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-indigo-300 border border-slate-700">👤 @${{activePos.user_name}}</span>` : ''}}
               </div>
               <div class="flex items-center gap-2">
@@ -2291,19 +2333,19 @@ html_content = f"""<!DOCTYPE html>
       plan.innerHTML = `
         <div>
           <span class="text-slate-400 block text-[11px]">Aktueller Kurs</span>
-          <span class="text-white font-bold text-sm">${{formatNumber(a.price)}} USD</span>
+          <span class="text-white font-bold text-sm">${{formatNumber(a.price)}} ${{modalCurrCode}}</span>
         </div>
         <div>
           <span class="text-slate-400 block text-[11px]">Empfohlene Entry-Zone</span>
-          <span class="text-emerald-300 font-bold text-sm">${{formatNumber(a.entry_range[0])}} - ${{formatNumber(a.entry_range[1])}}</span>
+          <span class="text-emerald-300 font-bold text-sm">${{formatNumber(a.entry_range[0])}} - ${{formatNumber(a.entry_range[1])}} ${{modalCurrSym}}</span>
         </div>
         <div>
           <span class="text-slate-400 block text-[11px]">Stop-Loss (Invalidierung)</span>
-          <span class="text-rose-400 font-bold text-sm">${{formatNumber(a.stop_loss)}}</span>
+          <span class="text-rose-400 font-bold text-sm">${{formatNumber(a.stop_loss)}} ${{modalCurrSym}}</span>
         </div>
         <div>
           <span class="text-slate-400 block text-[11px]">Take-Profit 1 & 2 (CRV)</span>
-          <span class="text-cyan-400 font-bold text-sm">${{formatNumber(a.take_profit_2)}} (${{a.crv}}:1)</span>
+          <span class="text-cyan-400 font-bold text-sm">${{formatNumber(a.take_profit_2)}} ${{modalCurrSym}} (${{a.crv}}:1)</span>
         </div>
       `;
 

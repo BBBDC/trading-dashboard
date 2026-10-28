@@ -47,6 +47,14 @@ TRADEGATE_NAMES = {
 }
 
 
+def infer_currency(sym, category=""):
+    s = sym.upper()
+    prefix = s.split(":")[0] if ":" in s else ""
+    if prefix in ("TRADEGATE", "XETR", "FWB") or "Tradegate" in category or "Deutsche Aktien" in category or "DAX" in s:
+        return "EUR"
+    return "USD"
+
+
 def infer_meta(sym, wl_name="Watchlist"):
     s = sym.upper()
     prefix = s.split(":")[0] if ":" in s else ""
@@ -186,6 +194,7 @@ def sync_watchlists(live_wls=None, rebuild=False):
                 wls = [a.get("source_watchlist") or a.get("category", "Watchlist")]
             a["watchlists"] = wls
             a["source_watchlist"] = wls[0]
+            a["currency"] = infer_currency(sym, a.get("category", ""))
             pruned_assets.append(a)
 
     if deleted_charts_count > 0:
@@ -207,6 +216,7 @@ def sync_watchlists(live_wls=None, rebuild=False):
             "name": meta["name"],
             "category": meta["category"],
             "asset_type": meta["asset_type"],
+            "currency": infer_currency(sym, meta["category"]),
             "source_watchlist": wls[0],
             "watchlists": wls,
             "price": 100.0,
