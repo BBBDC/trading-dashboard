@@ -62,6 +62,12 @@ db_data["auth_config"] = auth_config
 db_data["gemini_quota"] = quota_info
 json_str = json.dumps(db_data, ensure_ascii=False)
 
+try:
+    with open(DB_FILE, "w", encoding="utf-8") as f:
+        json.dump(db_data, f, ensure_ascii=False, indent=2)
+except Exception as e:
+    print(f"Warnung beim Speichern von DB_FILE: {e}")
+
 total_keys_count = quota_info.get("total_keys_count", 2)
 active_keys_count = quota_info.get("active_keys_count", 1)
 active_key_masked = quota_info.get("active_key_masked", "AQ.Ab8...zg")
@@ -1696,11 +1702,18 @@ html_content = f"""<!DOCTYPE html>
     fetch('market_analysis_db.json')
       .then(r => r.json())
       .then(data => {{
+        const authCfg = data.auth_config || (currentData && currentData.auth_config) || (typeof EMBEDDED_DATABASE !== 'undefined' && EMBEDDED_DATABASE.auth_config);
         currentData = data;
+        if (authCfg && !currentData.auth_config) {{
+          currentData.auth_config = authCfg;
+        }}
         filteredAssets = [...currentData.assets];
         updateStats();
         applyFilters();
         renderTopPicksForWatchlist(activeWatchlist);
+        if (typeof initAuthOnLoad === 'function') {{
+          initAuthOnLoad();
+        }}
       }})
       .catch(e => {{
         console.log("Nutze integrierte Datenbank (Offline/File-Modus)");
@@ -2540,7 +2553,11 @@ html_content = f"""<!DOCTYPE html>
       fetch('market_analysis_db.json?nocache=' + Date.now())
         .then(res => res.json())
         .then(newData => {{
+          const authCfg = newData.auth_config || (currentData && currentData.auth_config) || (typeof EMBEDDED_DATABASE !== 'undefined' && EMBEDDED_DATABASE.auth_config);
           currentData = newData;
+          if (authCfg && !currentData.auth_config) {{
+            currentData.auth_config = authCfg;
+          }}
           updateStats();
           applyFilters();
           showToast('Dashboard erfolgreich aktualisiert!');
@@ -2794,19 +2811,23 @@ html_content = f"""<!DOCTYPE html>
 
     function checkUserRole(user) {{
       if (!user) return null;
-      const admins = (currentData.auth_config && currentData.auth_config.admin_usernames) || ['Bdc_Gumb_Drop', 'bdc_gumb_drop'];
-      const adminIds = (currentData.auth_config && currentData.auth_config.admin_chat_ids) || ['15231751'];
-      const uname = (user.username || '').toLowerCase();
+      const authCfg = (currentData && currentData.auth_config) || (typeof EMBEDDED_DATABASE !== 'undefined' && EMBEDDED_DATABASE.auth_config) || {{}};
+      const admins = authCfg.admin_usernames || ['Bdc_Gumb_Drop', 'bdc_gumb_drop'];
+      const adminIds = (authCfg.admin_chat_ids || ['15231751']).map(String);
+      const uname = (user.username || '').toLowerCase().replace(/^@/, '');
       const uid = String(user.id || '');
 
-      if (admins.some(a => a.toLowerCase() === uname) || adminIds.includes(uid)) {{
+      if (admins.some(a => a.toLowerCase().replace(/^@/, '') === uname) || adminIds.includes(uid)) {{
         return 'admin';
       }}
 
-      const authUsers = (currentData.auth_config && currentData.auth_config.authorized_users) || {{}};
+      const authUsers = authCfg.authorized_users || {{}};
       for (const [k, udata] of Object.entries(authUsers)) {{
-        if (k.toLowerCase() === uname || String(udata.chat_id) === uid) {{
-          return udata.role || 'trader';
+        const keyUname = k.toLowerCase().replace(/^@/, '');
+        const udataUname = ((udata && udata.name) || '').toLowerCase().replace(/^@/, '');
+        const udataChatId = String((udata && udata.chat_id) || '');
+        if ((uname && (keyUname === uname || udataUname === uname)) || (uid && udataChatId && uid === udataChatId)) {{
+          return (udata && udata.role) || 'trader';
         }}
       }}
       return null;
