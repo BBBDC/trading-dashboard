@@ -53,6 +53,20 @@ def save_config(cfg):
         json.dump(cfg, f, indent=2, ensure_ascii=False)
 
 
+def sync_dashboard_auth_async():
+    """Kompiliert das Dashboard neu und pusht geänderte Benutzerrechte zu GitHub Pages."""
+    def _worker():
+        try:
+            import subprocess
+            subprocess.run([sys.executable, str(BASE_DIR / "build_dashboard.py")], check=True)
+            from update_dashboard import git_sync_dashboard
+            git_sync_dashboard()
+        except Exception as e:
+            print(f"Fehler bei Dashboard-Auth-Sync: {e}", file=sys.stderr)
+
+    threading.Thread(target=_worker, daemon=True).start()
+
+
 # ==============================================================================
 # BENUTZER-BENACHRICHTIGUNGSPRÄFERENZEN
 # ==============================================================================
@@ -1501,6 +1515,7 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
             "added_at": datetime.now(timezone.utc).isoformat()
         }
         save_config(cfg)
+        sync_dashboard_auth_async()
 
         disp_uname = f"@{target_uname}" if not target_uname.startswith("User_") else target_uname
         api.edit_message_text(chat_id, message_id, f"✅ Benutzer <b>{disp_uname}</b> (ID: {target_uid}) wurde erfolgreich als Trader freigeschaltet!")
@@ -1584,6 +1599,7 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
             del auth_users[k]
 
         save_config(cfg)
+        sync_dashboard_auth_async()
 
         # Optional User-Präferenzen aufräumen
         try:
