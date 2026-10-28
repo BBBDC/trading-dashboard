@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-10-27 23:08:43 UTC",
+  "timestamp": "2026-10-28 02:07:12 UTC",
   "total_analyzed": 59,
-  "long_count": 10,
-  "short_count": 5,
+  "long_count": 7,
+  "short_count": 8,
   "neutral_count": 44,
   "assets": [
     {
@@ -336,6 +336,146 @@
       "evaluated_by": "quantitative_engine"
     },
     {
+      "symbol": "BINANCE:ZECUSDT",
+      "name": "Zcash",
+      "category": "Crypto",
+      "asset_type": "Crypto",
+      "price": 1309.64,
+      "charts": {
+        "4h": "charts/BINANCE_ZECUSDT_4h.svg",
+        "8h": "charts/BINANCE_ZECUSDT_8h.svg",
+        "1D": "charts/BINANCE_ZECUSDT_1D.svg"
+      },
+      "last_analyzed": "2026-10-28T02:05:42.626384+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "24/7 Non-Stop",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Aktiv (24/7)"
+      },
+      "timeframes": {
+        "1D": {
+          "name": "Zcash (BINANCE:ZECUSDT)",
+          "price": 1309.64,
+          "rsi": 55.05,
+          "trend": "BULLISH",
+          "ema_fast": 1242.94,
+          "ema_trend": 1203.22,
+          "upper_band": 1432.85,
+          "lower_band": 1053.02,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.08,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 1291.77,
+              "bottom": 1268.34,
+              "ce_50": 1280.05,
+              "gap_pct": 1.85
+            }
+          ],
+          "divergences": [
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 1698,
+          "swing_low": 788.15,
+          "golden_pocket": [
+            1106.6,
+            1135.71
+          ],
+          "in_golden_pocket": false
+        },
+        "8h": {
+          "name": "Zcash (BINANCE:ZECUSDT)",
+          "price": 1158.97,
+          "rsi": 43.93,
+          "trend": "BEARISH",
+          "ema_fast": 1185.56,
+          "ema_trend": 1272.06,
+          "upper_band": 1298.64,
+          "lower_band": 1072.48,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.23,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [],
+          "divergences": [
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 1615.13,
+          "swing_low": 1075,
+          "golden_pocket": [
+            1408.8,
+            1426.08
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "Zcash (BINANCE:ZECUSDT)",
+          "price": 1309.04,
+          "rsi": 67.18,
+          "trend": "BULLISH",
+          "ema_fast": 1261.29,
+          "ema_trend": 1227.11,
+          "upper_band": 1326.97,
+          "lower_band": 1195.6,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.54,
+          "vsa_class": "Low",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 1245.75,
+              "bottom": 1241.99,
+              "ce_50": 1243.87,
+              "gap_pct": 0.3
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 1286,
+              "bottom": 1264.97,
+              "ce_50": 1275.49,
+              "gap_pct": 1.66
+            }
+          ],
+          "divergences": [
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 1368.4,
+          "swing_low": 1049.01,
+          "golden_pocket": [
+            1160.8,
+            1171.02
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "signal": "SHORT",
+      "score": 92,
+      "setup_name": "Hypothese 1: Bearish Confluence Reversal",
+      "crv": 3.2,
+      "entry_range": [
+        1307.02,
+        1320.12
+      ],
+      "stop_loss": 1375.12,
+      "take_profit_1": 1191.78,
+      "take_profit_2": 1100.1,
+      "reasons": [
+        "1D Trend über EMA 233 bullisch",
+        "Aktiv: Reguläre Bärische Divergenz (Reversal)",
+        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: Reguläre Bärische Divergenz (Reversal)"
+      ],
+      "analyst_note": "Strikte bärische Erschöpfung (92%): Überhitzung an HTF-Widerstandszone (1D Trend über EMA 233 bullisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
+      "evaluated_by": "quantitative_engine"
+    },
+    {
       "symbol": "XETR:BAYN",
       "name": "Bayer",
       "category": "Pharma / DAX",
@@ -517,154 +657,6 @@
         "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
       ],
       "analyst_note": "Strikte bärische Erschöpfung (90%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
-      "evaluated_by": "quantitative_engine"
-    },
-    {
-      "symbol": "BINANCE:AVAXUSDT",
-      "name": "Avalanche",
-      "category": "Crypto",
-      "asset_type": "Crypto",
-      "price": 8.92,
-      "charts": {
-        "4h": "charts/BINANCE_AVAXUSDT_4h.svg",
-        "8h": "charts/BINANCE_AVAXUSDT_8h.svg",
-        "1D": "charts/BINANCE_AVAXUSDT_1D.svg"
-      },
-      "last_analyzed": "2026-10-27T22:05:43.414261+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "24/7 Non-Stop",
-        "min_interval_minutes": 220,
-        "badge_color": "emerald",
-        "status_text": "Aktiv (24/7)"
-      },
-      "timeframes": {
-        "1D": {
-          "name": "Avalanche (BINANCE:AVAXUSDT)",
-          "price": 8.92,
-          "rsi": 36.58,
-          "trend": "BEARISH",
-          "ema_fast": 9.39,
-          "ema_trend": 9.44,
-          "upper_band": 10.38,
-          "lower_band": 8.4,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.41,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 9.58,
-              "bottom": 9.35,
-              "ce_50": 9.47,
-              "gap_pct": 2.41
-            }
-          ],
-          "divergences": [
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 12.01,
-          "swing_low": 7.01,
-          "golden_pocket": [
-            8.76,
-            8.92
-          ],
-          "in_golden_pocket": true
-        },
-        "8h": {
-          "name": "Avalanche (BINANCE:AVAXUSDT)",
-          "price": 9.91,
-          "rsi": 42.73,
-          "trend": "BEARISH",
-          "ema_fast": 10.08,
-          "ema_trend": 10.39,
-          "upper_band": 10.72,
-          "lower_band": 9.44,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.36,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 10.84,
-              "bottom": 10.74,
-              "ce_50": 10.79,
-              "gap_pct": 0.89
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 10.64,
-              "bottom": 10.61,
-              "ce_50": 10.63,
-              "gap_pct": 0.32
-            }
-          ],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 12.01,
-          "swing_low": 9.34,
-          "golden_pocket": [
-            10.99,
-            11.07
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "Avalanche (BINANCE:AVAXUSDT)",
-          "price": 8.93,
-          "rsi": 46.97,
-          "trend": "BEARISH",
-          "ema_fast": 8.89,
-          "ema_trend": 9.17,
-          "upper_band": 9.17,
-          "lower_band": 8.61,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.69,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 9.23,
-              "bottom": 9.21,
-              "ce_50": 9.22,
-              "gap_pct": 0.29
-            }
-          ],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 10.05,
-          "swing_low": 8.66,
-          "golden_pocket": [
-            9.52,
-            9.57
-          ],
-          "in_golden_pocket": false
-        }
-      },
-      "signal": "LONG",
-      "score": 90,
-      "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
-      "crv": 3.2,
-      "entry_range": [
-        8.85,
-        8.94
-      ],
-      "stop_loss": 8.47,
-      "take_profit_1": 9.73,
-      "take_profit_2": 10.36,
-      "reasons": [
-        "1D Trend unter EMA 233 bärisch",
-        "Kurs im 1D Golden Pocket (8.76 - 8.92)",
-        "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
-      ],
-      "analyst_note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
       "evaluated_by": "quantitative_engine"
     },
     {
@@ -1000,342 +992,6 @@
       "evaluated_by": "quantitative_engine"
     },
     {
-      "symbol": "BINANCE:DOTUSDT",
-      "name": "Polkadot",
-      "category": "Crypto",
-      "asset_type": "Crypto",
-      "price": 1.0,
-      "charts": {
-        "4h": "charts/BINANCE_DOTUSDT_4h.svg",
-        "8h": "charts/BINANCE_DOTUSDT_8h.svg",
-        "1D": "charts/BINANCE_DOTUSDT_1D.svg"
-      },
-      "last_analyzed": "2026-10-27T22:05:43.414261+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "24/7 Non-Stop",
-        "min_interval_minutes": 220,
-        "badge_color": "emerald",
-        "status_text": "Aktiv (24/7)"
-      },
-      "timeframes": {
-        "1D": {
-          "name": "Polkadot (BINANCE:DOTUSDT)",
-          "price": 1.0,
-          "rsi": 35.4,
-          "trend": "BEARISH",
-          "ema_fast": 1.09,
-          "ema_trend": 1.1,
-          "upper_band": 1.22,
-          "lower_band": 0.95,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.49,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 1.1,
-              "bottom": 1.09,
-              "ce_50": 1.1,
-              "gap_pct": 0.73
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 1.07,
-              "bottom": 1.06,
-              "ce_50": 1.06,
-              "gap_pct": 1.03
-            }
-          ],
-          "divergences": [],
-          "swing_high": 1.31,
-          "swing_low": 0.81,
-          "golden_pocket": [
-            0.98,
-            1.0
-          ],
-          "in_golden_pocket": true
-        },
-        "8h": {
-          "name": "Polkadot (BINANCE:DOTUSDT)",
-          "price": 1.14,
-          "rsi": 45.24,
-          "trend": "BEARISH",
-          "ema_fast": 1.16,
-          "ema_trend": 1.17,
-          "upper_band": 1.26,
-          "lower_band": 1.06,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.27,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 1.23,
-              "bottom": 1.22,
-              "ce_50": 1.23,
-              "gap_pct": 0.97
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 1.14,
-              "bottom": 1.11,
-              "ce_50": 1.13,
-              "gap_pct": 2.06
-            }
-          ],
-          "divergences": [
-            "Versteckte Bullische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 1.3,
-          "swing_low": 1.01,
-          "golden_pocket": [
-            1.11,
-            1.12
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "Polkadot (BINANCE:DOTUSDT)",
-          "price": 1.0,
-          "rsi": 37.78,
-          "trend": "BEARISH",
-          "ema_fast": 1.01,
-          "ema_trend": 1.07,
-          "upper_band": 1.05,
-          "lower_band": 0.97,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.64,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 1.17,
-              "bottom": 1.13,
-              "ce_50": 1.15,
-              "gap_pct": 3.17
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 1.11,
-              "bottom": 1.09,
-              "ce_50": 1.1,
-              "gap_pct": 1.8
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 1.2,
-          "swing_low": 0.98,
-          "golden_pocket": [
-            1.12,
-            1.12
-          ],
-          "in_golden_pocket": false
-        }
-      },
-      "signal": "LONG",
-      "score": 90,
-      "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
-      "crv": 3.2,
-      "entry_range": [
-        0.99,
-        1.0
-      ],
-      "stop_loss": 0.95,
-      "take_profit_1": 1.09,
-      "take_profit_2": 1.16,
-      "reasons": [
-        "1D Trend unter EMA 233 bärisch",
-        "Kurs im 1D Golden Pocket (0.98 - 1.0)",
-        "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-        "Aktiv: Reguläre Bullische Divergenz (Reversal)"
-      ],
-      "analyst_note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-      "evaluated_by": "quantitative_engine"
-    },
-    {
-      "symbol": "CRYPTOCAP:BTC.D",
-      "name": "BTC Dominanz",
-      "category": "Krypto-Makro",
-      "asset_type": "Macro",
-      "price": 60.55,
-      "charts": {
-        "4h": "charts/CRYPTOCAP_BTC_D_4h.svg",
-        "8h": "charts/CRYPTOCAP_BTC_D_8h.svg",
-        "1D": "charts/CRYPTOCAP_BTC_D_1D.svg"
-      },
-      "last_analyzed": "2026-10-27T22:05:43.414261+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "24/7 Non-Stop",
-        "min_interval_minutes": 220,
-        "badge_color": "emerald",
-        "status_text": "Aktiv (24/7)"
-      },
-      "timeframes": {
-        "1D": {
-          "name": "BTC Dominanz (CRYPTOCAP:BTC.D)",
-          "price": 60.55,
-          "rsi": 62.2,
-          "trend": "BULLISH",
-          "ema_fast": 60.49,
-          "ema_trend": 60.0,
-          "upper_band": 60.85,
-          "lower_band": 60.13,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.92,
-          "vsa_class": "Average / Normal",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 59.54,
-              "bottom": 59.29,
-              "ce_50": 59.41,
-              "gap_pct": 0.42
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 59.97,
-              "bottom": 59.76,
-              "ce_50": 59.86,
-              "gap_pct": 0.36
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 60.26,
-              "bottom": 60.09,
-              "ce_50": 60.17,
-              "gap_pct": 0.29
-            }
-          ],
-          "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 60.91,
-          "swing_low": 58.92,
-          "golden_pocket": [
-            59.62,
-            59.68
-          ],
-          "in_golden_pocket": false
-        },
-        "8h": {
-          "name": "BTC Dominanz (CRYPTOCAP:BTC.D)",
-          "price": 60.47,
-          "rsi": 63.15,
-          "trend": "BULLISH",
-          "ema_fast": 60.36,
-          "ema_trend": 59.99,
-          "upper_band": 60.6,
-          "lower_band": 60.12,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.84,
-          "vsa_class": "Average / Normal",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 59.92,
-              "bottom": 59.67,
-              "ce_50": 59.8,
-              "gap_pct": 0.41
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 60.26,
-              "bottom": 59.96,
-              "ce_50": 60.11,
-              "gap_pct": 0.5
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 60.37,
-              "bottom": 60.33,
-              "ce_50": 60.35,
-              "gap_pct": 0.07
-            }
-          ],
-          "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 60.65,
-          "swing_low": 58.96,
-          "golden_pocket": [
-            59.55,
-            59.61
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "BTC Dominanz (CRYPTOCAP:BTC.D)",
-          "price": 60.55,
-          "rsi": 49.74,
-          "trend": "BULLISH",
-          "ema_fast": 60.53,
-          "ema_trend": 60.55,
-          "upper_band": 60.64,
-          "lower_band": 60.43,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.0,
-          "vsa_class": "Average / Normal",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 60.62,
-              "bottom": 60.61,
-              "ce_50": 60.62,
-              "gap_pct": 0.02
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 60.52,
-              "bottom": 60.52,
-              "ce_50": 60.52,
-              "gap_pct": 0.01
-            }
-          ],
-          "divergences": [
-            "Versteckte Bullische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 60.92,
-          "swing_low": 60.46,
-          "golden_pocket": [
-            60.74,
-            60.76
-          ],
-          "in_golden_pocket": true
-        }
-      },
-      "signal": "LONG",
-      "score": 90,
-      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-      "crv": 3.2,
-      "entry_range": [
-        60.07,
-        60.67
-      ],
-      "stop_loss": 58.43,
-      "take_profit_1": 64.37,
-      "take_profit_2": 67.33,
-      "reasons": [
-        "1D Trend über EMA 233 bullisch",
-        "Aktiv: Reguläre Bärische Divergenz (Reversal)",
-        "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-        "Aktiv: Reguläre Bärische Divergenz (Reversal)"
-      ],
-      "analyst_note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-      "evaluated_by": "quantitative_engine"
-    },
-    {
       "symbol": "NASDAQ:NFLX",
       "name": "Netflix",
       "category": "Entertainment",
@@ -1518,17 +1174,17 @@
       "evaluated_by": "quantitative_engine"
     },
     {
-      "symbol": "CRYPTOCAP:TOTAL",
-      "name": "Total Crypto Market Cap",
-      "category": "Krypto-Makro",
-      "asset_type": "Macro",
-      "price": 2684584727475,
+      "symbol": "COINBASE:BTCUSD",
+      "name": "Bitcoin",
+      "category": "Crypto",
+      "asset_type": "Crypto",
+      "price": 80758.53,
       "charts": {
-        "4h": "charts/CRYPTOCAP_TOTAL_4h.svg",
-        "8h": "charts/CRYPTOCAP_TOTAL_8h.svg",
-        "1D": "charts/CRYPTOCAP_TOTAL_1D.svg"
+        "4h": "charts/COINBASE_BTCUSD_4h.svg",
+        "8h": "charts/COINBASE_BTCUSD_8h.svg",
+        "1D": "charts/COINBASE_BTCUSD_1D.svg"
       },
-      "last_analyzed": "2026-10-27T22:05:43.414261+00:00",
+      "last_analyzed": "2026-10-28T02:05:42.626384+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -1540,121 +1196,114 @@
       },
       "timeframes": {
         "1D": {
-          "name": "Total Crypto Market Cap (CRYPTOCAP:TOTAL)",
-          "price": 2684584727475,
-          "rsi": 43.81,
-          "trend": "BEARISH",
-          "ema_fast": 2706373772943.57,
-          "ema_trend": 2702517027346.56,
-          "upper_band": 2836899618304.43,
-          "lower_band": 2575847927582.71,
+          "name": "Bitcoin (COINBASE:BTCUSD)",
+          "price": 80758.53,
+          "rsi": 45.28,
+          "trend": "BULLISH",
+          "ema_fast": 81326.11,
+          "ema_trend": 80703.18,
+          "upper_band": 84730.26,
+          "lower_band": 77921.97,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.83,
-          "vsa_class": "Average / Normal",
+          "vsa_ratio": 0.08,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [
             {
               "type": "Bearish FVG",
-              "top": 2870674953115,
-              "bottom": 2817044570377,
-              "ce_50": 2843859761746.0,
-              "gap_pct": 1.87
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 2737965566830,
-              "bottom": 2725258846890,
-              "ce_50": 2731612206860.0,
-              "gap_pct": 0.46
+              "top": 82535,
+              "bottom": 81962,
+              "ce_50": 82248.5,
+              "gap_pct": 0.69
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)"
+            "Reguläre Bärische Divergenz (Reversal)"
           ],
-          "swing_high": 2950187461021,
-          "swing_low": 2529701860662,
+          "swing_high": 87397,
+          "swing_low": 74887.5,
           "golden_pocket": [
-            2676871820787.65,
-            2690327359999.14
+            79265.82,
+            79666.13
           ],
-          "in_golden_pocket": true
+          "in_golden_pocket": false
         },
         "8h": {
-          "name": "Total Crypto Market Cap (CRYPTOCAP:TOTAL)",
-          "price": 2705607141029,
-          "rsi": 39.78,
+          "name": "Bitcoin (COINBASE:BTCUSD)",
+          "price": 81404.33,
+          "rsi": 41.79,
           "trend": "BEARISH",
-          "ema_fast": 2730064508199.91,
-          "ema_trend": 2777155713030.85,
-          "upper_band": 2798294473922.6,
-          "lower_band": 2661834542477.22,
+          "ema_fast": 81986.08,
+          "ema_trend": 82894.79,
+          "upper_band": 84039.7,
+          "lower_band": 79932.46,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.23,
-          "vsa_class": "High",
+          "vsa_ratio": 0.17,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
           ],
-          "swing_high": 2933994084441,
-          "swing_low": 2648483670070,
+          "swing_high": 87249.05,
+          "swing_low": 79676.02,
           "golden_pocket": [
-            2824929106151.28,
-            2834065439411.15
+            84356.15,
+            84598.49
           ],
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Total Crypto Market Cap (CRYPTOCAP:TOTAL)",
-          "price": 2684595315959,
-          "rsi": 54.45,
+          "name": "Bitcoin (COINBASE:BTCUSD)",
+          "price": 80757.54,
+          "rsi": 53.11,
           "trend": "BEARISH",
-          "ema_fast": 2666588150413.45,
-          "ema_trend": 2688875889635.14,
-          "upper_band": 2707750479568.46,
-          "lower_band": 2625425821258.44,
+          "ema_fast": 80347.1,
+          "ema_trend": 80965.84,
+          "upper_band": 81612.63,
+          "lower_band": 79081.56,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.25,
-          "vsa_class": "High",
+          "vsa_ratio": 0.51,
+          "vsa_class": "Low",
           "fvgs": [
             {
               "type": "Bullish FVG",
-              "top": 2669740748575,
-              "bottom": 2657907215164,
-              "ce_50": 2663823981869.5,
-              "gap_pct": 0.45
+              "top": 80321.96,
+              "bottom": 80008.79,
+              "ce_50": 80165.38,
+              "gap_pct": 0.39
             }
           ],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
           ],
-          "swing_high": 2809367428316,
-          "swing_low": 2622537492811,
+          "swing_high": 84856.07,
+          "swing_low": 79107,
           "golden_pocket": [
-            2737998392953.09,
-            2743976950889.25
+            82659.93,
+            82843.9
           ],
           "in_golden_pocket": false
         }
       },
-      "signal": "LONG",
-      "score": 85,
-      "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
+      "signal": "SHORT",
+      "score": 82,
+      "setup_name": "Hypothese 1: Bearish Confluence Reversal",
       "crv": 3.2,
       "entry_range": [
-        2663108049655.2,
-        2689953896929.95
+        80597.01,
+        81404.6
       ],
-      "stop_loss": 2590624262013.38,
-      "take_profit_1": 2853713565305.92,
-      "take_profit_2": 2985258216952.18,
+      "stop_loss": 84796.46,
+      "take_profit_1": 73490.26,
+      "take_profit_2": 67837.15,
       "reasons": [
-        "1D Trend unter EMA 233 bärisch",
-        "Kurs im 1D Golden Pocket (2676871820787.65 - 2690327359999.14)",
-        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+        "1D Trend über EMA 233 bullisch",
+        "Aktiv: Reguläre Bärische Divergenz (Reversal)",
+        "Aktiv: Reguläre Bärische Divergenz (Reversal)",
         "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
       ],
-      "analyst_note": "Strikte bullische Konfluenz (85%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
+      "analyst_note": "Strikte bärische Erschöpfung (82%): Überhitzung an HTF-Widerstandszone (1D Trend über EMA 233 bullisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
       "evaluated_by": "quantitative_engine"
     },
     {
@@ -1981,6 +1630,312 @@
       "evaluated_by": "quantitative_engine"
     },
     {
+      "symbol": "COINBASE:ETHUSD",
+      "name": "Ethereum",
+      "category": "Crypto",
+      "asset_type": "Crypto",
+      "price": 2351.58,
+      "charts": {
+        "4h": "charts/COINBASE_ETHUSD_4h.svg",
+        "8h": "charts/COINBASE_ETHUSD_8h.svg",
+        "1D": "charts/COINBASE_ETHUSD_1D.svg"
+      },
+      "last_analyzed": "2026-10-28T02:05:42.626384+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "24/7 Non-Stop",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Aktiv (24/7)"
+      },
+      "timeframes": {
+        "1D": {
+          "name": "Ethereum (COINBASE:ETHUSD)",
+          "price": 2351.58,
+          "rsi": 38.23,
+          "trend": "BEARISH",
+          "ema_fast": 2389.55,
+          "ema_trend": 2447.49,
+          "upper_band": 2538.94,
+          "lower_band": 2240.16,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.07,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 2683.27,
+              "bottom": 2585.67,
+              "ce_50": 2634.47,
+              "gap_pct": 3.64
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 2433.93,
+              "bottom": 2414.44,
+              "ce_50": 2424.18,
+              "gap_pct": 0.8
+            }
+          ],
+          "divergences": [
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 2807.1,
+          "swing_low": 2275.94,
+          "golden_pocket": [
+            2604.2,
+            2621.19
+          ],
+          "in_golden_pocket": false
+        },
+        "8h": {
+          "name": "Ethereum (COINBASE:ETHUSD)",
+          "price": 2423.01,
+          "rsi": 40.61,
+          "trend": "BEARISH",
+          "ema_fast": 2445.98,
+          "ema_trend": 2531.65,
+          "upper_band": 2541.96,
+          "lower_band": 2350.01,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.15,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 2776.8,
+          "swing_low": 2313.07,
+          "golden_pocket": [
+            2599.66,
+            2614.49
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "Ethereum (COINBASE:ETHUSD)",
+          "price": 2351.58,
+          "rsi": 52.0,
+          "trend": "BEARISH",
+          "ema_fast": 2334.86,
+          "ema_trend": 2368.88,
+          "upper_band": 2388.95,
+          "lower_band": 2280.77,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.49,
+          "vsa_class": "Low",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 2389.77,
+              "bottom": 2387.13,
+              "ce_50": 2388.45,
+              "gap_pct": 0.11
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 2336.84,
+              "bottom": 2321.44,
+              "ce_50": 2329.14,
+              "gap_pct": 0.66
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 2524.38,
+          "swing_low": 2275.94,
+          "golden_pocket": [
+            2429.48,
+            2437.43
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "signal": "SHORT",
+      "score": 80,
+      "setup_name": "Hypothese 1: Bearish Confluence Reversal",
+      "crv": 3.2,
+      "entry_range": [
+        2346.88,
+        2370.39
+      ],
+      "stop_loss": 2469.16,
+      "take_profit_1": 2139.94,
+      "take_profit_2": 1975.32,
+      "reasons": [
+        "1D Trend unter EMA 233 bärisch",
+        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
+      ],
+      "analyst_note": "Strikte bärische Erschöpfung (80%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
+      "evaluated_by": "quantitative_engine"
+    },
+    {
+      "symbol": "BINANCE:DOTUSDT",
+      "name": "Polkadot",
+      "category": "Crypto",
+      "asset_type": "Crypto",
+      "price": 1.01,
+      "charts": {
+        "4h": "charts/BINANCE_DOTUSDT_4h.svg",
+        "8h": "charts/BINANCE_DOTUSDT_8h.svg",
+        "1D": "charts/BINANCE_DOTUSDT_1D.svg"
+      },
+      "last_analyzed": "2026-10-28T02:05:42.626384+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "24/7 Non-Stop",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Aktiv (24/7)"
+      },
+      "timeframes": {
+        "1D": {
+          "name": "Polkadot (BINANCE:DOTUSDT)",
+          "price": 1.01,
+          "rsi": 36.24,
+          "trend": "BEARISH",
+          "ema_fast": 1.07,
+          "ema_trend": 1.09,
+          "upper_band": 1.2,
+          "lower_band": 0.95,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.03,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 1.1,
+              "bottom": 1.09,
+              "ce_50": 1.1,
+              "gap_pct": 0.73
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 1.07,
+              "bottom": 1.06,
+              "ce_50": 1.06,
+              "gap_pct": 1.03
+            }
+          ],
+          "divergences": [],
+          "swing_high": 1.31,
+          "swing_low": 0.81,
+          "golden_pocket": [
+            0.98,
+            1.0
+          ],
+          "in_golden_pocket": false
+        },
+        "8h": {
+          "name": "Polkadot (BINANCE:DOTUSDT)",
+          "price": 1.14,
+          "rsi": 45.24,
+          "trend": "BEARISH",
+          "ema_fast": 1.16,
+          "ema_trend": 1.17,
+          "upper_band": 1.26,
+          "lower_band": 1.06,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.27,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 1.23,
+              "bottom": 1.22,
+              "ce_50": 1.23,
+              "gap_pct": 0.97
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 1.14,
+              "bottom": 1.11,
+              "ce_50": 1.13,
+              "gap_pct": 2.06
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 1.3,
+          "swing_low": 1.01,
+          "golden_pocket": [
+            1.11,
+            1.12
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "Polkadot (BINANCE:DOTUSDT)",
+          "price": 1.01,
+          "rsi": 39.98,
+          "trend": "BEARISH",
+          "ema_fast": 1.01,
+          "ema_trend": 1.06,
+          "upper_band": 1.05,
+          "lower_band": 0.97,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.34,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 1.17,
+              "bottom": 1.13,
+              "ce_50": 1.15,
+              "gap_pct": 3.17
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 1.11,
+              "bottom": 1.09,
+              "ce_50": 1.1,
+              "gap_pct": 1.8
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 1.2,
+          "swing_low": 0.98,
+          "golden_pocket": [
+            1.12,
+            1.12
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "signal": "LONG",
+      "score": 77,
+      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
+      "crv": 3.2,
+      "entry_range": [
+        1.0,
+        1.01
+      ],
+      "stop_loss": 0.96,
+      "take_profit_1": 1.1,
+      "take_profit_2": 1.17,
+      "reasons": [
+        "1D Trend unter EMA 233 bärisch",
+        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+        "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
+        "Aktiv: Reguläre Bullische Divergenz (Reversal)"
+      ],
+      "analyst_note": "Strikte bullische Konfluenz (77%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
+      "evaluated_by": "quantitative_engine"
+    },
+    {
       "symbol": "NASDAQ:NVDA",
       "name": "Nvidia",
       "category": "Halbleiter",
@@ -2163,17 +2118,17 @@
       "evaluated_by": "quantitative_engine"
     },
     {
-      "symbol": "COINBASE:ETHUSD",
-      "name": "Ethereum",
+      "symbol": "KRAKEN:KSMUSD",
+      "name": "Kusama",
       "category": "Crypto",
       "asset_type": "Crypto",
-      "price": 2349.67,
+      "price": 3.85,
       "charts": {
-        "4h": "charts/COINBASE_ETHUSD_4h.svg",
-        "8h": "charts/COINBASE_ETHUSD_8h.svg",
-        "1D": "charts/COINBASE_ETHUSD_1D.svg"
+        "4h": "charts/KRAKEN_KSMUSD_4h.svg",
+        "8h": "charts/KRAKEN_KSMUSD_8h.svg",
+        "1D": "charts/KRAKEN_KSMUSD_1D.svg"
       },
-      "last_analyzed": "2026-10-27T22:05:43.414261+00:00",
+      "last_analyzed": "2026-10-28T02:05:42.626384+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -2185,120 +2140,127 @@
       },
       "timeframes": {
         "1D": {
-          "name": "Ethereum (COINBASE:ETHUSD)",
-          "price": 2349.67,
-          "rsi": 37.93,
+          "name": "Kusama (KRAKEN:KSMUSD)",
+          "price": 3.85,
+          "rsi": 34.03,
           "trend": "BEARISH",
-          "ema_fast": 2396.26,
-          "ema_trend": 2451.65,
-          "upper_band": 2555.32,
-          "lower_band": 2237.21,
+          "ema_fast": 4.07,
+          "ema_trend": 4.26,
+          "upper_band": 4.49,
+          "lower_band": 3.65,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.82,
-          "vsa_class": "Average / Normal",
+          "vsa_ratio": 0.03,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [
             {
               "type": "Bearish FVG",
-              "top": 2683.27,
-              "bottom": 2585.67,
-              "ce_50": 2634.47,
-              "gap_pct": 3.64
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 2433.93,
-              "bottom": 2414.44,
-              "ce_50": 2424.18,
-              "gap_pct": 0.8
+              "top": 4.43,
+              "bottom": 4.31,
+              "ce_50": 4.37,
+              "gap_pct": 2.71
             }
           ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 2807.1,
-          "swing_low": 2275.94,
+          "divergences": [],
+          "swing_high": 5.48,
+          "swing_low": 3.42,
           "golden_pocket": [
-            2604.2,
-            2621.19
+            4.14,
+            4.21
           ],
           "in_golden_pocket": false
         },
         "8h": {
-          "name": "Ethereum (COINBASE:ETHUSD)",
-          "price": 2423.01,
-          "rsi": 40.61,
+          "name": "Kusama (KRAKEN:KSMUSD)",
+          "price": 4.35,
+          "rsi": 37.04,
           "trend": "BEARISH",
-          "ema_fast": 2445.98,
-          "ema_trend": 2531.65,
-          "upper_band": 2541.96,
-          "lower_band": 2350.01,
+          "ema_fast": 4.54,
+          "ema_trend": 4.73,
+          "upper_band": 4.82,
+          "lower_band": 4.27,
           "channel_position": "Neutral (Im Kanal)",
           "vsa_ratio": 0.15,
           "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 4.85,
+              "bottom": 4.84,
+              "ce_50": 4.84,
+              "gap_pct": 0.21
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 4.51,
+              "bottom": 4.5,
+              "ce_50": 4.5,
+              "gap_pct": 0.22
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 4.43,
+              "bottom": 4.41,
+              "ce_50": 4.42,
+              "gap_pct": 0.45
+            }
           ],
-          "swing_high": 2776.8,
-          "swing_low": 2313.07,
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 5.48,
+          "swing_low": 4.24,
           "golden_pocket": [
-            2599.66,
-            2614.49
+            5.01,
+            5.05
           ],
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Ethereum (COINBASE:ETHUSD)",
-          "price": 2349.67,
-          "rsi": 51.35,
+          "name": "Kusama (KRAKEN:KSMUSD)",
+          "price": 3.85,
+          "rsi": 48.6,
           "trend": "BEARISH",
-          "ema_fast": 2332.45,
-          "ema_trend": 2369.69,
-          "upper_band": 2388.27,
-          "lower_band": 2276.64,
+          "ema_fast": 3.82,
+          "ema_trend": 3.97,
+          "upper_band": 3.94,
+          "lower_band": 3.7,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.65,
-          "vsa_class": "Low",
+          "vsa_ratio": 0.34,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [
             {
               "type": "Bearish FVG",
-              "top": 2389.77,
-              "bottom": 2387.13,
-              "ce_50": 2388.45,
-              "gap_pct": 0.11
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 2336.84,
-              "bottom": 2321.44,
-              "ce_50": 2329.14,
-              "gap_pct": 0.66
+              "top": 4.05,
+              "bottom": 4.04,
+              "ce_50": 4.04,
+              "gap_pct": 0.25
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)"
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
           ],
-          "swing_high": 2524.38,
-          "swing_low": 2275.94,
+          "swing_high": 4.36,
+          "swing_low": 3.71,
           "golden_pocket": [
-            2429.48,
-            2437.43
+            4.11,
+            4.13
           ],
           "in_golden_pocket": false
         }
       },
       "signal": "LONG",
       "score": 77,
-      "setup_name": "Hypothese 1: SMC Support Reversal",
+      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
       "crv": 3.2,
       "entry_range": [
-        2330.87,
-        2354.37
+        3.82,
+        3.86
       ],
-      "stop_loss": 2232.19,
-      "take_profit_1": 2561.13,
-      "take_profit_2": 2725.61,
+      "stop_loss": 3.66,
+      "take_profit_1": 4.19,
+      "take_profit_2": 4.46,
       "reasons": [
         "1D Trend unter EMA 233 bärisch",
         "Aktiv: Reguläre Bullische Divergenz (Reversal)",
@@ -2448,7 +2410,7 @@
         "8h": "charts/BINANCE_GMXUSDT_8h.svg",
         "1D": "charts/BINANCE_GMXUSDT_1D.svg"
       },
-      "last_analyzed": "2026-10-27T22:05:43.414261+00:00",
+      "last_analyzed": "2026-10-28T02:05:42.626384+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -2462,18 +2424,27 @@
         "1D": {
           "name": "GMX (BINANCE:GMXUSDT)",
           "price": 8.61,
-          "rsi": 54.77,
+          "rsi": 54.39,
           "trend": "BULLISH",
-          "ema_fast": 8.32,
-          "ema_trend": 8.07,
-          "upper_band": 9.3,
-          "lower_band": 7.34,
+          "ema_fast": 8.37,
+          "ema_trend": 8.1,
+          "upper_band": 9.32,
+          "lower_band": 7.43,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.85,
-          "vsa_class": "Average / Normal",
-          "fvgs": [],
+          "vsa_ratio": 0.08,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 8.55,
+              "bottom": 8.3,
+              "ce_50": 8.43,
+              "gap_pct": 3.01
+            }
+          ],
           "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)"
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
           ],
           "swing_high": 9.15,
           "swing_low": 6.86,
@@ -2505,8 +2476,8 @@
             }
           ],
           "divergences": [
-            "Versteckte Bullische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
           ],
           "swing_high": 9.15,
           "swing_low": 7.68,
@@ -2519,15 +2490,15 @@
         "4h": {
           "name": "GMX (BINANCE:GMXUSDT)",
           "price": 8.61,
-          "rsi": 63.95,
+          "rsi": 61.81,
           "trend": "BULLISH",
-          "ema_fast": 8.25,
-          "ema_trend": 8.25,
-          "upper_band": 8.62,
-          "lower_band": 7.89,
+          "ema_fast": 8.32,
+          "ema_trend": 8.27,
+          "upper_band": 8.7,
+          "lower_band": 7.94,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.06,
-          "vsa_class": "Average / Normal",
+          "vsa_ratio": 0.43,
+          "vsa_class": "Low",
           "fvgs": [
             {
               "type": "Bullish FVG",
@@ -2553,13 +2524,13 @@
           ],
           "divergences": [
             "Versteckte Bullische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
+            "Versteckte Bärische Divergenz (Trendfolge)"
           ],
-          "swing_high": 8.71,
+          "swing_high": 8.74,
           "swing_low": 7.52,
           "golden_pocket": [
-            8.26,
-            8.29
+            7.95,
+            7.99
           ],
           "in_golden_pocket": false
         }
@@ -3583,13 +3554,13 @@
       "name": "ether.fi",
       "category": "Crypto",
       "asset_type": "Crypto",
-      "price": 0.6681,
+      "price": 0.6705,
       "charts": {
         "4h": "charts/BINANCE_ETHFIUSDT_4h.svg",
         "8h": "charts/BINANCE_ETHFIUSDT_8h.svg",
         "1D": "charts/BINANCE_ETHFIUSDT_1D.svg"
       },
-      "last_analyzed": "2026-10-27T22:05:43.414261+00:00",
+      "last_analyzed": "2026-10-28T02:05:42.626384+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -3602,16 +3573,16 @@
       "timeframes": {
         "1D": {
           "name": "ether.fi (BINANCE:ETHFIUSDT)",
-          "price": 0.6681,
-          "rsi": 49.03,
+          "price": 0.6705,
+          "rsi": 49.46,
           "trend": "BULLISH",
           "ema_fast": 0.66,
           "ema_trend": 0.66,
-          "upper_band": 0.77,
-          "lower_band": 0.56,
+          "upper_band": 0.76,
+          "lower_band": 0.57,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.85,
-          "vsa_class": "Average / Normal",
+          "vsa_ratio": 0.03,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [
             {
               "type": "Bearish FVG",
@@ -3626,6 +3597,13 @@
               "bottom": 0.64,
               "ce_50": 0.64,
               "gap_pct": 0.35
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 0.66,
+              "bottom": 0.66,
+              "ce_50": 0.66,
+              "gap_pct": 1.23
             }
           ],
           "divergences": [
@@ -3662,8 +3640,8 @@
             }
           ],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
           ],
           "swing_high": 0.82,
           "swing_low": 0.59,
@@ -3675,20 +3653,20 @@
         },
         "4h": {
           "name": "ether.fi (BINANCE:ETHFIUSDT)",
-          "price": 0.6684,
-          "rsi": 61.44,
+          "price": 0.6705,
+          "rsi": 61.82,
           "trend": "BULLISH",
           "ema_fast": 0.65,
           "ema_trend": 0.65,
-          "upper_band": 0.68,
+          "upper_band": 0.69,
           "lower_band": 0.62,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.39,
+          "vsa_ratio": 0.23,
           "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
           ],
           "swing_high": 0.73,
           "swing_low": 0.6,
@@ -3704,8 +3682,8 @@
       "setup_name": "Beobachten / Warten auf HTF-Trigger",
       "crv": 2.0,
       "entry_range": [
-        0.6681,
-        0.6681
+        0.6705,
+        0.6705
       ],
       "stop_loss": 0.65,
       "take_profit_1": 0.69,
@@ -3714,7 +3692,7 @@
         "1D Trend über EMA 233 bullisch",
         "Aktiv: Reguläre Bärische Divergenz (Reversal)",
         "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
+        "Aktiv: Reguläre Bullische Divergenz (Reversal)"
       ],
       "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
       "evaluated_by": "quantitative_engine"
@@ -5070,6 +5048,480 @@
       "evaluated_by": "quantitative_engine"
     },
     {
+      "symbol": "COINBASE:CRVUSD",
+      "name": "Curve DAO",
+      "category": "Crypto",
+      "asset_type": "Crypto",
+      "price": 0.3414,
+      "charts": {
+        "4h": "charts/COINBASE_CRVUSD_4h.svg",
+        "8h": "charts/COINBASE_CRVUSD_8h.svg",
+        "1D": "charts/COINBASE_CRVUSD_1D.svg"
+      },
+      "last_analyzed": "2026-10-28T02:05:42.626384+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "24/7 Non-Stop",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Aktiv (24/7)"
+      },
+      "timeframes": {
+        "1D": {
+          "name": "Curve DAO (COINBASE:CRVUSD)",
+          "price": 0.3414,
+          "rsi": 45.25,
+          "trend": "BEARISH",
+          "ema_fast": 0.35,
+          "ema_trend": 0.35,
+          "upper_band": 0.4,
+          "lower_band": 0.31,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.01,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 0.38,
+              "bottom": 0.37,
+              "ce_50": 0.38,
+              "gap_pct": 2.65
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 0.36,
+              "bottom": 0.36,
+              "ce_50": 0.36,
+              "gap_pct": 0.42
+            }
+          ],
+          "divergences": [
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 0.42,
+          "swing_low": 0.29,
+          "golden_pocket": [
+            0.33,
+            0.34
+          ],
+          "in_golden_pocket": true
+        },
+        "8h": {
+          "name": "Curve DAO (COINBASE:CRVUSD)",
+          "price": 0.3401,
+          "rsi": 44.56,
+          "trend": "BEARISH",
+          "ema_fast": 0.35,
+          "ema_trend": 0.35,
+          "upper_band": 0.37,
+          "lower_band": 0.32,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.13,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 0.34,
+              "bottom": 0.33,
+              "ce_50": 0.34,
+              "gap_pct": 1.11
+            }
+          ],
+          "divergences": [
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 0.42,
+          "swing_low": 0.31,
+          "golden_pocket": [
+            0.38,
+            0.38
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "Curve DAO (COINBASE:CRVUSD)",
+          "price": 0.3414,
+          "rsi": 45.46,
+          "trend": "BEARISH",
+          "ema_fast": 0.34,
+          "ema_trend": 0.35,
+          "upper_band": 0.35,
+          "lower_band": 0.33,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.12,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 0.35,
+              "bottom": 0.34,
+              "ce_50": 0.34,
+              "gap_pct": 1.18
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 0.41,
+          "swing_low": 0.33,
+          "golden_pocket": [
+            0.36,
+            0.36
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "signal": "NEUTRAL",
+      "score": 55,
+      "setup_name": "Beobachten / Warten auf HTF-Trigger",
+      "crv": 2.0,
+      "entry_range": [
+        0.3414,
+        0.3414
+      ],
+      "stop_loss": 0.33,
+      "take_profit_1": 0.35,
+      "take_profit_2": 0.36,
+      "reasons": [
+        "1D Trend unter EMA 233 bärisch",
+        "Kurs im 1D Golden Pocket (0.33 - 0.34)",
+        "Aktiv: Reguläre Bärische Divergenz (Reversal)",
+        "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
+      ],
+      "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
+      "evaluated_by": "quantitative_engine"
+    },
+    {
+      "symbol": "BINANCE:AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Crypto",
+      "asset_type": "Crypto",
+      "price": 9.02,
+      "charts": {
+        "4h": "charts/BINANCE_AVAXUSDT_4h.svg",
+        "8h": "charts/BINANCE_AVAXUSDT_8h.svg",
+        "1D": "charts/BINANCE_AVAXUSDT_1D.svg"
+      },
+      "last_analyzed": "2026-10-28T02:05:42.626384+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "24/7 Non-Stop",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Aktiv (24/7)"
+      },
+      "timeframes": {
+        "1D": {
+          "name": "Avalanche (BINANCE:AVAXUSDT)",
+          "price": 9.02,
+          "rsi": 38.34,
+          "trend": "BEARISH",
+          "ema_fast": 9.34,
+          "ema_trend": 9.43,
+          "upper_band": 10.27,
+          "lower_band": 8.42,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.06,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 9.58,
+              "bottom": 9.35,
+              "ce_50": 9.47,
+              "gap_pct": 2.41
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 12.01,
+          "swing_low": 7.01,
+          "golden_pocket": [
+            8.76,
+            8.92
+          ],
+          "in_golden_pocket": false
+        },
+        "8h": {
+          "name": "Avalanche (BINANCE:AVAXUSDT)",
+          "price": 9.91,
+          "rsi": 42.73,
+          "trend": "BEARISH",
+          "ema_fast": 10.08,
+          "ema_trend": 10.39,
+          "upper_band": 10.72,
+          "lower_band": 9.44,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.36,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 10.84,
+              "bottom": 10.74,
+              "ce_50": 10.79,
+              "gap_pct": 0.89
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 10.64,
+              "bottom": 10.61,
+              "ce_50": 10.63,
+              "gap_pct": 0.32
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 12.01,
+          "swing_low": 9.34,
+          "golden_pocket": [
+            10.99,
+            11.07
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "Avalanche (BINANCE:AVAXUSDT)",
+          "price": 9.02,
+          "rsi": 51.8,
+          "trend": "BEARISH",
+          "ema_fast": 8.91,
+          "ema_trend": 9.17,
+          "upper_band": 9.19,
+          "lower_band": 8.64,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.74,
+          "vsa_class": "Low",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 9.23,
+              "bottom": 9.21,
+              "ce_50": 9.22,
+              "gap_pct": 0.29
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 8.94,
+              "bottom": 8.91,
+              "ce_50": 8.93,
+              "gap_pct": 0.29
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 10.05,
+          "swing_low": 8.66,
+          "golden_pocket": [
+            9.52,
+            9.57
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "signal": "NEUTRAL",
+      "score": 53,
+      "setup_name": "Beobachten / Warten auf HTF-Trigger",
+      "crv": 2.0,
+      "entry_range": [
+        9.02,
+        9.02
+      ],
+      "stop_loss": 8.75,
+      "take_profit_1": 9.29,
+      "take_profit_2": 9.56,
+      "reasons": [
+        "1D Trend unter EMA 233 bärisch",
+        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
+      ],
+      "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
+      "evaluated_by": "quantitative_engine"
+    },
+    {
+      "symbol": "CRYPTOCAP:BTC.D",
+      "name": "BTC Dominanz",
+      "category": "Krypto-Makro",
+      "asset_type": "Macro",
+      "price": 60.47,
+      "charts": {
+        "4h": "charts/CRYPTOCAP_BTC_D_4h.svg",
+        "8h": "charts/CRYPTOCAP_BTC_D_8h.svg",
+        "1D": "charts/CRYPTOCAP_BTC_D_1D.svg"
+      },
+      "last_analyzed": "2026-10-28T02:05:42.626384+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "24/7 Non-Stop",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Aktiv (24/7)"
+      },
+      "timeframes": {
+        "1D": {
+          "name": "BTC Dominanz (CRYPTOCAP:BTC.D)",
+          "price": 60.47,
+          "rsi": 58.65,
+          "trend": "BULLISH",
+          "ema_fast": 60.48,
+          "ema_trend": 60.02,
+          "upper_band": 60.82,
+          "lower_band": 60.14,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.84,
+          "vsa_class": "Average / Normal",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 59.54,
+              "bottom": 59.29,
+              "ce_50": 59.41,
+              "gap_pct": 0.42
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 59.97,
+              "bottom": 59.76,
+              "ce_50": 59.86,
+              "gap_pct": 0.36
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 60.26,
+              "bottom": 60.09,
+              "ce_50": 60.17,
+              "gap_pct": 0.29
+            }
+          ],
+          "divergences": [
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 60.91,
+          "swing_low": 58.92,
+          "golden_pocket": [
+            59.62,
+            59.68
+          ],
+          "in_golden_pocket": false
+        },
+        "8h": {
+          "name": "BTC Dominanz (CRYPTOCAP:BTC.D)",
+          "price": 60.47,
+          "rsi": 63.15,
+          "trend": "BULLISH",
+          "ema_fast": 60.36,
+          "ema_trend": 59.99,
+          "upper_band": 60.6,
+          "lower_band": 60.12,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.84,
+          "vsa_class": "Average / Normal",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 59.92,
+              "bottom": 59.67,
+              "ce_50": 59.8,
+              "gap_pct": 0.41
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 60.26,
+              "bottom": 59.96,
+              "ce_50": 60.11,
+              "gap_pct": 0.5
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 60.37,
+              "bottom": 60.33,
+              "ce_50": 60.35,
+              "gap_pct": 0.07
+            }
+          ],
+          "divergences": [
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 60.65,
+          "swing_low": 58.96,
+          "golden_pocket": [
+            59.55,
+            59.61
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "BTC Dominanz (CRYPTOCAP:BTC.D)",
+          "price": 60.47,
+          "rsi": 40.33,
+          "trend": "BEARISH",
+          "ema_fast": 60.52,
+          "ema_trend": 60.54,
+          "upper_band": 60.63,
+          "lower_band": 60.41,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.88,
+          "vsa_class": "Average / Normal",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 60.62,
+              "bottom": 60.61,
+              "ce_50": 60.62,
+              "gap_pct": 0.02
+            }
+          ],
+          "divergences": [
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 60.92,
+          "swing_low": 60.46,
+          "golden_pocket": [
+            60.74,
+            60.76
+          ],
+          "in_golden_pocket": true
+        }
+      },
+      "signal": "NEUTRAL",
+      "score": 53,
+      "setup_name": "Beobachten / Warten auf HTF-Trigger",
+      "crv": 2.0,
+      "entry_range": [
+        60.47,
+        60.47
+      ],
+      "stop_loss": 58.66,
+      "take_profit_1": 62.28,
+      "take_profit_2": 64.1,
+      "reasons": [
+        "1D Trend über EMA 233 bullisch",
+        "Aktiv: Reguläre Bärische Divergenz (Reversal)",
+        "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
+        "Aktiv: Reguläre Bärische Divergenz (Reversal)"
+      ],
+      "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
+      "evaluated_by": "quantitative_engine"
+    },
+    {
       "symbol": "XETR:NOV",
       "name": "Novartis",
       "category": "Pharma",
@@ -5762,13 +6214,13 @@
       "name": "Aave",
       "category": "Crypto",
       "asset_type": "Crypto",
-      "price": 132.79,
+      "price": 134.87,
       "charts": {
         "4h": "charts/COINBASE_AAVEUSD_4h.svg",
         "8h": "charts/COINBASE_AAVEUSD_8h.svg",
         "1D": "charts/COINBASE_AAVEUSD_1D.svg"
       },
-      "last_analyzed": "2026-10-27T22:05:43.414261+00:00",
+      "last_analyzed": "2026-10-28T02:05:42.626384+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -5781,16 +6233,16 @@
       "timeframes": {
         "1D": {
           "name": "Aave (COINBASE:AAVEUSD)",
-          "price": 132.79,
-          "rsi": 33.28,
+          "price": 134.87,
+          "rsi": 35.35,
           "trend": "BEARISH",
-          "ema_fast": 145.33,
-          "ema_trend": 146.3,
-          "upper_band": 161.91,
-          "lower_band": 128.75,
+          "ema_fast": 143.95,
+          "ema_trend": 145.89,
+          "upper_band": 159.54,
+          "lower_band": 128.37,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.01,
-          "vsa_class": "Average / Normal",
+          "vsa_ratio": 0.05,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [
             {
               "type": "Bearish FVG",
@@ -5852,15 +6304,15 @@
         },
         "4h": {
           "name": "Aave (COINBASE:AAVEUSD)",
-          "price": 132.79,
-          "rsi": 35.73,
+          "price": 134.87,
+          "rsi": 43.12,
           "trend": "BEARISH",
-          "ema_fast": 134.04,
-          "ema_trend": 141.76,
-          "upper_band": 139.16,
-          "lower_band": 128.91,
+          "ema_fast": 134.26,
+          "ema_trend": 141.52,
+          "upper_band": 139.28,
+          "lower_band": 129.25,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.72,
+          "vsa_ratio": 0.4,
           "vsa_class": "Low",
           "fvgs": [
             {
@@ -5895,12 +6347,12 @@
       "setup_name": "Beobachten / Warten auf HTF-Trigger",
       "crv": 2.0,
       "entry_range": [
-        132.79,
-        132.79
+        134.87,
+        134.87
       ],
-      "stop_loss": 128.81,
-      "take_profit_1": 136.77,
-      "take_profit_2": 140.76,
+      "stop_loss": 130.82,
+      "take_profit_1": 138.92,
+      "take_profit_2": 142.96,
       "reasons": [
         "1D Trend unter EMA 233 bärisch",
         "Aktiv: Reguläre Bärische Divergenz (Reversal)",
@@ -6067,158 +6519,6 @@
       "stop_loss": 1499.9,
       "take_profit_1": 1592.68,
       "take_profit_2": 1639.07,
-      "reasons": [
-        "1D Trend unter EMA 233 bärisch",
-        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: Reguläre Bullische Divergenz (Reversal)"
-      ],
-      "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-      "evaluated_by": "quantitative_engine"
-    },
-    {
-      "symbol": "COINBASE:SOLUSD",
-      "name": "Solana",
-      "category": "Crypto",
-      "asset_type": "Crypto",
-      "price": 101.35,
-      "charts": {
-        "4h": "charts/COINBASE_SOLUSD_4h.svg",
-        "8h": "charts/COINBASE_SOLUSD_8h.svg",
-        "1D": "charts/COINBASE_SOLUSD_1D.svg"
-      },
-      "last_analyzed": "2026-10-27T22:05:43.414261+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "24/7 Non-Stop",
-        "min_interval_minutes": 220,
-        "badge_color": "emerald",
-        "status_text": "Aktiv (24/7)"
-      },
-      "timeframes": {
-        "1D": {
-          "name": "Solana (COINBASE:SOLUSD)",
-          "price": 101.35,
-          "rsi": 36.98,
-          "trend": "BEARISH",
-          "ema_fast": 103.94,
-          "ema_trend": 105.75,
-          "upper_band": 111.53,
-          "lower_band": 96.36,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.59,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 115.17,
-              "bottom": 111.94,
-              "ce_50": 113.56,
-              "gap_pct": 2.8
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 105.52,
-              "bottom": 105.11,
-              "ce_50": 105.31,
-              "gap_pct": 0.39
-            }
-          ],
-          "divergences": [],
-          "swing_high": 124.93,
-          "swing_low": 95.71,
-          "golden_pocket": [
-            105.94,
-            106.87
-          ],
-          "in_golden_pocket": false
-        },
-        "8h": {
-          "name": "Solana (COINBASE:SOLUSD)",
-          "price": 103.93,
-          "rsi": 39.17,
-          "trend": "BEARISH",
-          "ema_fast": 105.54,
-          "ema_trend": 110.4,
-          "upper_band": 110.46,
-          "lower_band": 100.61,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.13,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 110.74,
-              "bottom": 109.13,
-              "ce_50": 109.94,
-              "gap_pct": 1.45
-            }
-          ],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 123.73,
-          "swing_low": 100.43,
-          "golden_pocket": [
-            114.83,
-            115.58
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "Solana (COINBASE:SOLUSD)",
-          "price": 101.35,
-          "rsi": 48.61,
-          "trend": "BEARISH",
-          "ema_fast": 100.9,
-          "ema_trend": 102.65,
-          "upper_band": 103.41,
-          "lower_band": 98.39,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.81,
-          "vsa_class": "Average / Normal",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 103.39,
-              "bottom": 103,
-              "ce_50": 103.19,
-              "gap_pct": 0.38
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 100.48,
-              "bottom": 100.43,
-              "ce_50": 100.46,
-              "gap_pct": 0.05
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 109.13,
-          "swing_low": 98.51,
-          "golden_pocket": [
-            105.07,
-            105.41
-          ],
-          "in_golden_pocket": false
-        }
-      },
-      "signal": "NEUTRAL",
-      "score": 51,
-      "setup_name": "Beobachten / Warten auf HTF-Trigger",
-      "crv": 2.0,
-      "entry_range": [
-        101.35,
-        101.35
-      ],
-      "stop_loss": 98.31,
-      "take_profit_1": 104.39,
-      "take_profit_2": 107.43,
       "reasons": [
         "1D Trend unter EMA 233 bärisch",
         "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
@@ -6396,282 +6696,17 @@
       "evaluated_by": "quantitative_engine"
     },
     {
-      "symbol": "COINBASE:BTCUSD",
-      "name": "Bitcoin",
-      "category": "Crypto",
-      "asset_type": "Crypto",
-      "price": 80875,
-      "charts": {
-        "4h": "charts/COINBASE_BTCUSD_4h.svg",
-        "8h": "charts/COINBASE_BTCUSD_8h.svg",
-        "1D": "charts/COINBASE_BTCUSD_1D.svg"
-      },
-      "last_analyzed": "2026-10-27T22:05:43.414261+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "24/7 Non-Stop",
-        "min_interval_minutes": 220,
-        "badge_color": "emerald",
-        "status_text": "Aktiv (24/7)"
-      },
-      "timeframes": {
-        "1D": {
-          "name": "Bitcoin (COINBASE:BTCUSD)",
-          "price": 80875,
-          "rsi": 45.8,
-          "trend": "BULLISH",
-          "ema_fast": 81431.49,
-          "ema_trend": 80704.0,
-          "upper_band": 85062.37,
-          "lower_band": 77800.61,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.87,
-          "vsa_class": "Average / Normal",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 82535,
-              "bottom": 81962,
-              "ce_50": 82248.5,
-              "gap_pct": 0.69
-            }
-          ],
-          "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)"
-          ],
-          "swing_high": 87397,
-          "swing_low": 74887.5,
-          "golden_pocket": [
-            79265.82,
-            79666.13
-          ],
-          "in_golden_pocket": false
-        },
-        "8h": {
-          "name": "Bitcoin (COINBASE:BTCUSD)",
-          "price": 81404.33,
-          "rsi": 41.79,
-          "trend": "BEARISH",
-          "ema_fast": 81986.08,
-          "ema_trend": 82894.79,
-          "upper_band": 84039.7,
-          "lower_band": 79932.46,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.17,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Reguläre Bärische Divergenz (Reversal)"
-          ],
-          "swing_high": 87249.05,
-          "swing_low": 79676.02,
-          "golden_pocket": [
-            84356.15,
-            84598.49
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "Bitcoin (COINBASE:BTCUSD)",
-          "price": 80874.99,
-          "rsi": 54.6,
-          "trend": "BEARISH",
-          "ema_fast": 80289.47,
-          "ema_trend": 80977.35,
-          "upper_band": 81603.48,
-          "lower_band": 78975.47,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.83,
-          "vsa_class": "Average / Normal",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 80321.96,
-              "bottom": 80008.79,
-              "ce_50": 80165.38,
-              "gap_pct": 0.39
-            }
-          ],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 84856.07,
-          "swing_low": 79107,
-          "golden_pocket": [
-            82659.93,
-            82843.9
-          ],
-          "in_golden_pocket": false
-        }
-      },
-      "signal": "NEUTRAL",
-      "score": 48,
-      "setup_name": "Beobachten / Warten auf HTF-Trigger",
-      "crv": 2.0,
-      "entry_range": [
-        80875,
-        80875
-      ],
-      "stop_loss": 78448.75,
-      "take_profit_1": 83301.25,
-      "take_profit_2": 85727.5,
-      "reasons": [
-        "1D Trend über EMA 233 bullisch",
-        "Aktiv: Reguläre Bärische Divergenz (Reversal)",
-        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: Reguläre Bärische Divergenz (Reversal)"
-      ],
-      "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-      "evaluated_by": "quantitative_engine"
-    },
-    {
-      "symbol": "BINANCE:ZECUSDT",
-      "name": "Zcash",
-      "category": "Crypto",
-      "asset_type": "Crypto",
-      "price": 1307.84,
-      "charts": {
-        "4h": "charts/BINANCE_ZECUSDT_4h.svg",
-        "8h": "charts/BINANCE_ZECUSDT_8h.svg",
-        "1D": "charts/BINANCE_ZECUSDT_1D.svg"
-      },
-      "last_analyzed": "2026-10-27T22:05:43.414261+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "24/7 Non-Stop",
-        "min_interval_minutes": 220,
-        "badge_color": "emerald",
-        "status_text": "Aktiv (24/7)"
-      },
-      "timeframes": {
-        "1D": {
-          "name": "Zcash (BINANCE:ZECUSDT)",
-          "price": 1307.84,
-          "rsi": 54.94,
-          "trend": "BULLISH",
-          "ema_fast": 1231.57,
-          "ema_trend": 1198.77,
-          "upper_band": 1432.82,
-          "lower_band": 1030.31,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.73,
-          "vsa_class": "Low",
-          "fvgs": [],
-          "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 1698,
-          "swing_low": 788.15,
-          "golden_pocket": [
-            1106.6,
-            1135.71
-          ],
-          "in_golden_pocket": false
-        },
-        "8h": {
-          "name": "Zcash (BINANCE:ZECUSDT)",
-          "price": 1158.97,
-          "rsi": 43.93,
-          "trend": "BEARISH",
-          "ema_fast": 1185.56,
-          "ema_trend": 1272.06,
-          "upper_band": 1298.64,
-          "lower_band": 1072.48,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.23,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Reguläre Bärische Divergenz (Reversal)"
-          ],
-          "swing_high": 1615.13,
-          "swing_low": 1075,
-          "golden_pocket": [
-            1408.8,
-            1426.08
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "Zcash (BINANCE:ZECUSDT)",
-          "price": 1307.9,
-          "rsi": 67.12,
-          "trend": "BULLISH",
-          "ema_fast": 1253.09,
-          "ema_trend": 1223.72,
-          "upper_band": 1319.64,
-          "lower_band": 1186.53,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.34,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 1245.75,
-              "bottom": 1241.99,
-              "ce_50": 1243.87,
-              "gap_pct": 0.3
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 1286,
-              "bottom": 1264.97,
-              "ce_50": 1275.49,
-              "gap_pct": 1.66
-            }
-          ],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 1368.4,
-          "swing_low": 1049.01,
-          "golden_pocket": [
-            1160.8,
-            1171.02
-          ],
-          "in_golden_pocket": false
-        }
-      },
-      "signal": "NEUTRAL",
-      "score": 48,
-      "setup_name": "Beobachten / Warten auf HTF-Trigger",
-      "crv": 2.0,
-      "entry_range": [
-        1307.84,
-        1307.84
-      ],
-      "stop_loss": 1268.6,
-      "take_profit_1": 1347.08,
-      "take_profit_2": 1386.31,
-      "reasons": [
-        "1D Trend über EMA 233 bullisch",
-        "Aktiv: Reguläre Bärische Divergenz (Reversal)",
-        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: Reguläre Bullische Divergenz (Reversal)"
-      ],
-      "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-      "evaluated_by": "quantitative_engine"
-    },
-    {
       "symbol": "BINANCE:BTCUSDT",
       "name": "Bitcoin",
       "category": "Krypto",
       "asset_type": "Crypto",
-      "price": 80997.83,
+      "price": 80878.92,
       "charts": {
         "4h": "charts/BINANCE_BTCUSDT_4h.svg",
         "8h": "charts/BINANCE_BTCUSDT_8h.svg",
         "1D": "charts/BINANCE_BTCUSDT_1D.svg"
       },
-      "last_analyzed": "2026-10-27T22:05:43.414261+00:00",
+      "last_analyzed": "2026-10-28T02:05:42.626384+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -6684,16 +6719,16 @@
       "timeframes": {
         "1D": {
           "name": "Bitcoin (BINANCE:BTCUSDT)",
-          "price": 80997.83,
-          "rsi": 45.91,
+          "price": 80878.92,
+          "rsi": 45.37,
           "trend": "BULLISH",
-          "ema_fast": 81538.1,
-          "ema_trend": 80773.64,
-          "upper_band": 85128.78,
-          "lower_band": 77947.41,
+          "ema_fast": 81433.14,
+          "ema_trend": 80774.31,
+          "upper_band": 84799.61,
+          "lower_band": 78066.68,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.93,
-          "vsa_class": "Average / Normal",
+          "vsa_ratio": 0.09,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [
             {
               "type": "Bearish FVG",
@@ -6728,8 +6763,8 @@
           "vsa_class": "Average / Normal",
           "fvgs": [],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
           ],
           "swing_high": 87220,
           "swing_low": 79800,
@@ -6741,15 +6776,15 @@
         },
         "4h": {
           "name": "Bitcoin (BINANCE:BTCUSDT)",
-          "price": 80997.84,
-          "rsi": 54.66,
+          "price": 80878.92,
+          "rsi": 53.17,
           "trend": "BEARISH",
-          "ema_fast": 80416.92,
-          "ema_trend": 81091.63,
-          "upper_band": 81700.15,
-          "lower_band": 79133.69,
+          "ema_fast": 80472.14,
+          "ema_trend": 81079.92,
+          "upper_band": 81708.69,
+          "lower_band": 79235.59,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.69,
+          "vsa_ratio": 0.63,
           "vsa_class": "Low",
           "fvgs": [
             {
@@ -6761,8 +6796,8 @@
             }
           ],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
           ],
           "swing_high": 84898,
           "swing_low": 79220.74,
@@ -6778,17 +6813,17 @@
       "setup_name": "Beobachten / Warten auf HTF-Trigger",
       "crv": 2.0,
       "entry_range": [
-        80997.83,
-        80997.83
+        80878.92,
+        80878.92
       ],
-      "stop_loss": 78567.9,
-      "take_profit_1": 83427.76,
-      "take_profit_2": 85857.7,
+      "stop_loss": 78452.55,
+      "take_profit_1": 83305.29,
+      "take_profit_2": 85731.66,
       "reasons": [
         "1D Trend über EMA 233 bullisch",
         "Aktiv: Reguläre Bärische Divergenz (Reversal)",
-        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-        "Aktiv: Reguläre Bullische Divergenz (Reversal)"
+        "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
+        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
       ],
       "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
       "evaluated_by": "quantitative_engine"
@@ -6798,13 +6833,13 @@
       "name": "Bitcoin Cash",
       "category": "Crypto",
       "asset_type": "Crypto",
-      "price": 291.94,
+      "price": 293.65,
       "charts": {
         "4h": "charts/COINBASE_BCHUSD_4h.svg",
         "8h": "charts/COINBASE_BCHUSD_8h.svg",
         "1D": "charts/COINBASE_BCHUSD_1D.svg"
       },
-      "last_analyzed": "2026-10-27T22:05:43.414261+00:00",
+      "last_analyzed": "2026-10-28T02:05:42.626384+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -6817,16 +6852,16 @@
       "timeframes": {
         "1D": {
           "name": "Bitcoin Cash (COINBASE:BCHUSD)",
-          "price": 291.94,
-          "rsi": 55.32,
+          "price": 293.65,
+          "rsi": 55.77,
           "trend": "BULLISH",
-          "ema_fast": 282.1,
-          "ema_trend": 278.07,
-          "upper_band": 308.78,
-          "lower_band": 255.42,
+          "ema_fast": 284.22,
+          "ema_trend": 278.86,
+          "upper_band": 309.73,
+          "lower_band": 258.72,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.33,
-          "vsa_class": "High",
+          "vsa_ratio": 0.1,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [
             {
               "type": "Bearish FVG",
@@ -6841,11 +6876,18 @@
               "bottom": 301.68,
               "ce_50": 304.75,
               "gap_pct": 1.99
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 293.23,
+              "bottom": 284.18,
+              "ce_50": 288.71,
+              "gap_pct": 3.18
             }
           ],
           "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Reguläre Bullische Divergenz (Reversal)"
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Reguläre Bärische Divergenz (Reversal)"
           ],
           "swing_high": 366.13,
           "swing_low": 212.78,
@@ -6869,8 +6911,8 @@
           "vsa_class": "Low",
           "fvgs": [],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
           ],
           "swing_high": 337.25,
           "swing_low": 255.99,
@@ -6882,16 +6924,16 @@
         },
         "4h": {
           "name": "Bitcoin Cash (COINBASE:BCHUSD)",
-          "price": 291.94,
-          "rsi": 67.92,
+          "price": 293.65,
+          "rsi": 67.07,
           "trend": "BULLISH",
-          "ema_fast": 282.97,
-          "ema_trend": 279.94,
-          "upper_band": 293.93,
-          "lower_band": 272.01,
+          "ema_fast": 284.97,
+          "ema_trend": 280.62,
+          "upper_band": 296.21,
+          "lower_band": 273.73,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.23,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "vsa_ratio": 0.56,
+          "vsa_class": "Low",
           "fvgs": [
             {
               "type": "Bullish FVG",
@@ -6904,11 +6946,11 @@
           "divergences": [
             "Versteckte Bärische Divergenz (Trendfolge)"
           ],
-          "swing_high": 294.58,
+          "swing_high": 297.5,
           "swing_low": 263.75,
           "golden_pocket": [
-            274.54,
-            275.53
+            275.56,
+            276.64
           ],
           "in_golden_pocket": false
         }
@@ -6918,17 +6960,17 @@
       "setup_name": "Beobachten / Warten auf HTF-Trigger",
       "crv": 2.0,
       "entry_range": [
-        291.94,
-        291.94
+        293.65,
+        293.65
       ],
-      "stop_loss": 283.18,
-      "take_profit_1": 300.7,
-      "take_profit_2": 309.46,
+      "stop_loss": 284.84,
+      "take_profit_1": 302.46,
+      "take_profit_2": 311.27,
       "reasons": [
         "1D Trend über EMA 233 bullisch",
-        "Aktiv: Reguläre Bärische Divergenz (Reversal)",
         "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
+        "Aktiv: Reguläre Bärische Divergenz (Reversal)",
+        "Aktiv: Reguläre Bullische Divergenz (Reversal)"
       ],
       "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
       "evaluated_by": "quantitative_engine"
@@ -7554,17 +7596,17 @@
       "evaluated_by": "quantitative_engine"
     },
     {
-      "symbol": "COINBASE:CRVUSD",
-      "name": "Curve DAO",
-      "category": "Crypto",
-      "asset_type": "Crypto",
-      "price": 0.3372,
+      "symbol": "CRYPTOCAP:TOTAL",
+      "name": "Total Crypto Market Cap",
+      "category": "Krypto-Makro",
+      "asset_type": "Macro",
+      "price": 2686183052161,
       "charts": {
-        "4h": "charts/COINBASE_CRVUSD_4h.svg",
-        "8h": "charts/COINBASE_CRVUSD_8h.svg",
-        "1D": "charts/COINBASE_CRVUSD_1D.svg"
+        "4h": "charts/CRYPTOCAP_TOTAL_4h.svg",
+        "8h": "charts/CRYPTOCAP_TOTAL_8h.svg",
+        "1D": "charts/CRYPTOCAP_TOTAL_1D.svg"
       },
-      "last_analyzed": "2026-10-27T22:05:43.414261+00:00",
+      "last_analyzed": "2026-10-28T02:05:42.626384+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -7576,107 +7618,99 @@
       },
       "timeframes": {
         "1D": {
-          "name": "Curve DAO (COINBASE:CRVUSD)",
-          "price": 0.3372,
-          "rsi": 43.99,
+          "name": "Total Crypto Market Cap (CRYPTOCAP:TOTAL)",
+          "price": 2686183052161,
+          "rsi": 44.07,
           "trend": "BEARISH",
-          "ema_fast": 0.35,
-          "ema_trend": 0.35,
-          "upper_band": 0.4,
-          "lower_band": 0.31,
+          "ema_fast": 2703351889278.13,
+          "ema_trend": 2701807055495.62,
+          "upper_band": 2825958041695.83,
+          "lower_band": 2580745736860.43,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.35,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "vsa_ratio": 0.81,
+          "vsa_class": "Average / Normal",
           "fvgs": [
             {
               "type": "Bearish FVG",
-              "top": 0.38,
-              "bottom": 0.37,
-              "ce_50": 0.38,
-              "gap_pct": 2.65
+              "top": 2870674953115,
+              "bottom": 2817044570377,
+              "ce_50": 2843859761746.0,
+              "gap_pct": 1.87
             },
             {
               "type": "Bearish FVG",
-              "top": 0.36,
-              "bottom": 0.36,
-              "ce_50": 0.36,
-              "gap_pct": 0.42
+              "top": 2737965566830,
+              "bottom": 2725258846890,
+              "ce_50": 2731612206860.0,
+              "gap_pct": 0.46
             }
           ],
           "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)"
+            "Versteckte Bärische Divergenz (Trendfolge)"
           ],
-          "swing_high": 0.42,
-          "swing_low": 0.29,
+          "swing_high": 2950187461021,
+          "swing_low": 2529701860662,
           "golden_pocket": [
-            0.33,
-            0.34
+            2676871820787.65,
+            2690327359999.14
           ],
           "in_golden_pocket": true
         },
         "8h": {
-          "name": "Curve DAO (COINBASE:CRVUSD)",
-          "price": 0.3401,
-          "rsi": 44.56,
+          "name": "Total Crypto Market Cap (CRYPTOCAP:TOTAL)",
+          "price": 2705607141029,
+          "rsi": 39.78,
           "trend": "BEARISH",
-          "ema_fast": 0.35,
-          "ema_trend": 0.35,
-          "upper_band": 0.37,
-          "lower_band": 0.32,
+          "ema_fast": 2730064508199.91,
+          "ema_trend": 2777155713030.85,
+          "upper_band": 2798294473922.6,
+          "lower_band": 2661834542477.22,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.13,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 0.34,
-              "bottom": 0.33,
-              "ce_50": 0.34,
-              "gap_pct": 1.11
-            }
-          ],
+          "vsa_ratio": 1.23,
+          "vsa_class": "High",
+          "fvgs": [],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
+            "Versteckte Bullische Divergenz (Trendfolge)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
           ],
-          "swing_high": 0.42,
-          "swing_low": 0.31,
+          "swing_high": 2933994084441,
+          "swing_low": 2648483670070,
           "golden_pocket": [
-            0.38,
-            0.38
+            2824929106151.28,
+            2834065439411.15
           ],
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Curve DAO (COINBASE:CRVUSD)",
-          "price": 0.3372,
-          "rsi": 41.66,
+          "name": "Total Crypto Market Cap (CRYPTOCAP:TOTAL)",
+          "price": 2686185161720,
+          "rsi": 55.07,
           "trend": "BEARISH",
-          "ema_fast": 0.34,
-          "ema_trend": 0.35,
-          "upper_band": 0.35,
-          "lower_band": 0.33,
+          "ema_fast": 2669247151996.96,
+          "ema_trend": 2688725159526.15,
+          "upper_band": 2708950837930.53,
+          "lower_band": 2629543466063.39,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.42,
-          "vsa_class": "Low",
+          "vsa_ratio": 1.17,
+          "vsa_class": "Average / Normal",
           "fvgs": [
             {
-              "type": "Bearish FVG",
-              "top": 0.35,
-              "bottom": 0.34,
-              "ce_50": 0.34,
-              "gap_pct": 1.18
+              "type": "Bullish FVG",
+              "top": 2669740748575,
+              "bottom": 2657907215164,
+              "ce_50": 2663823981869.5,
+              "gap_pct": 0.45
             }
           ],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
           ],
-          "swing_high": 0.41,
-          "swing_low": 0.33,
+          "swing_high": 2809367428316,
+          "swing_low": 2622537492811,
           "golden_pocket": [
-            0.36,
-            0.36
+            2737998392953.09,
+            2743976950889.25
           ],
           "in_golden_pocket": false
         }
@@ -7686,17 +7720,170 @@
       "setup_name": "Beobachten / Warten auf HTF-Trigger",
       "crv": 2.0,
       "entry_range": [
-        0.3372,
-        0.3372
+        2686183052161,
+        2686183052161
       ],
-      "stop_loss": 0.33,
-      "take_profit_1": 0.35,
-      "take_profit_2": 0.36,
+      "stop_loss": 2605597560596.17,
+      "take_profit_1": 2766768543725.83,
+      "take_profit_2": 2847354035290.66,
       "reasons": [
         "1D Trend unter EMA 233 bärisch",
-        "Kurs im 1D Golden Pocket (0.33 - 0.34)",
-        "Aktiv: Reguläre Bärische Divergenz (Reversal)",
-        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
+        "Kurs im 1D Golden Pocket (2676871820787.65 - 2690327359999.14)",
+        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
+      ],
+      "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
+      "evaluated_by": "quantitative_engine"
+    },
+    {
+      "symbol": "COINBASE:SOLUSD",
+      "name": "Solana",
+      "category": "Crypto",
+      "asset_type": "Crypto",
+      "price": 101.49,
+      "charts": {
+        "4h": "charts/COINBASE_SOLUSD_4h.svg",
+        "8h": "charts/COINBASE_SOLUSD_8h.svg",
+        "1D": "charts/COINBASE_SOLUSD_1D.svg"
+      },
+      "last_analyzed": "2026-10-28T02:05:42.626384+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "24/7 Non-Stop",
+        "min_interval_minutes": 220,
+        "badge_color": "emerald",
+        "status_text": "Aktiv (24/7)"
+      },
+      "timeframes": {
+        "1D": {
+          "name": "Solana (COINBASE:SOLUSD)",
+          "price": 101.49,
+          "rsi": 37.46,
+          "trend": "BEARISH",
+          "ema_fast": 103.57,
+          "ema_trend": 105.57,
+          "upper_band": 110.68,
+          "lower_band": 96.47,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.04,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 115.17,
+              "bottom": 111.94,
+              "ce_50": 113.56,
+              "gap_pct": 2.8
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 105.52,
+              "bottom": 105.11,
+              "ce_50": 105.31,
+              "gap_pct": 0.39
+            }
+          ],
+          "divergences": [],
+          "swing_high": 124.93,
+          "swing_low": 95.71,
+          "golden_pocket": [
+            105.94,
+            106.87
+          ],
+          "in_golden_pocket": false
+        },
+        "8h": {
+          "name": "Solana (COINBASE:SOLUSD)",
+          "price": 103.93,
+          "rsi": 39.17,
+          "trend": "BEARISH",
+          "ema_fast": 105.54,
+          "ema_trend": 110.4,
+          "upper_band": 110.46,
+          "lower_band": 100.61,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.13,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 110.74,
+              "bottom": 109.13,
+              "ce_50": 109.94,
+              "gap_pct": 1.45
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 123.73,
+          "swing_low": 100.43,
+          "golden_pocket": [
+            114.83,
+            115.58
+          ],
+          "in_golden_pocket": false
+        },
+        "4h": {
+          "name": "Solana (COINBASE:SOLUSD)",
+          "price": 101.49,
+          "rsi": 49.63,
+          "trend": "BEARISH",
+          "ema_fast": 100.97,
+          "ema_trend": 102.6,
+          "upper_band": 103.39,
+          "lower_band": 98.55,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.4,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 103.39,
+              "bottom": 103,
+              "ce_50": 103.19,
+              "gap_pct": 0.38
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 100.48,
+              "bottom": 100.43,
+              "ce_50": 100.46,
+              "gap_pct": 0.05
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 109.13,
+          "swing_low": 98.51,
+          "golden_pocket": [
+            105.07,
+            105.41
+          ],
+          "in_golden_pocket": false
+        }
+      },
+      "signal": "NEUTRAL",
+      "score": 46,
+      "setup_name": "Beobachten / Warten auf HTF-Trigger",
+      "crv": 2.0,
+      "entry_range": [
+        101.49,
+        101.49
+      ],
+      "stop_loss": 98.45,
+      "take_profit_1": 104.53,
+      "take_profit_2": 107.58,
+      "reasons": [
+        "1D Trend unter EMA 233 bärisch",
+        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
+        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: Reguläre Bullische Divergenz (Reversal)"
       ],
       "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
       "evaluated_by": "quantitative_engine"
@@ -7864,159 +8051,6 @@
         "1D Trend unter EMA 233 bärisch",
         "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
         "Aktiv: Reguläre Bärische Divergenz (Reversal)",
-        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
-      ],
-      "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-      "evaluated_by": "quantitative_engine"
-    },
-    {
-      "symbol": "KRAKEN:KSMUSD",
-      "name": "Kusama",
-      "category": "Crypto",
-      "asset_type": "Crypto",
-      "price": 3.82,
-      "charts": {
-        "4h": "charts/KRAKEN_KSMUSD_4h.svg",
-        "8h": "charts/KRAKEN_KSMUSD_8h.svg",
-        "1D": "charts/KRAKEN_KSMUSD_1D.svg"
-      },
-      "last_analyzed": "2026-10-27T22:05:43.414261+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "24/7 Non-Stop",
-        "min_interval_minutes": 220,
-        "badge_color": "emerald",
-        "status_text": "Aktiv (24/7)"
-      },
-      "timeframes": {
-        "1D": {
-          "name": "Kusama (KRAKEN:KSMUSD)",
-          "price": 3.82,
-          "rsi": 32.86,
-          "trend": "BEARISH",
-          "ema_fast": 4.1,
-          "ema_trend": 4.27,
-          "upper_band": 4.55,
-          "lower_band": 3.66,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.47,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 4.43,
-              "bottom": 4.31,
-              "ce_50": 4.37,
-              "gap_pct": 2.71
-            }
-          ],
-          "divergences": [],
-          "swing_high": 5.48,
-          "swing_low": 3.42,
-          "golden_pocket": [
-            4.14,
-            4.21
-          ],
-          "in_golden_pocket": false
-        },
-        "8h": {
-          "name": "Kusama (KRAKEN:KSMUSD)",
-          "price": 4.35,
-          "rsi": 37.04,
-          "trend": "BEARISH",
-          "ema_fast": 4.54,
-          "ema_trend": 4.73,
-          "upper_band": 4.82,
-          "lower_band": 4.27,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.15,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 4.85,
-              "bottom": 4.84,
-              "ce_50": 4.84,
-              "gap_pct": 0.21
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 4.51,
-              "bottom": 4.5,
-              "ce_50": 4.5,
-              "gap_pct": 0.22
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 4.43,
-              "bottom": 4.41,
-              "ce_50": 4.42,
-              "gap_pct": 0.45
-            }
-          ],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 5.48,
-          "swing_low": 4.24,
-          "golden_pocket": [
-            5.01,
-            5.05
-          ],
-          "in_golden_pocket": false
-        },
-        "4h": {
-          "name": "Kusama (KRAKEN:KSMUSD)",
-          "price": 3.82,
-          "rsi": 45.48,
-          "trend": "BEARISH",
-          "ema_fast": 3.81,
-          "ema_trend": 3.98,
-          "upper_band": 3.94,
-          "lower_band": 3.68,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.38,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 4.05,
-              "bottom": 4.04,
-              "ce_50": 4.04,
-              "gap_pct": 0.25
-            }
-          ],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 4.36,
-          "swing_low": 3.71,
-          "golden_pocket": [
-            4.11,
-            4.13
-          ],
-          "in_golden_pocket": false
-        }
-      },
-      "signal": "NEUTRAL",
-      "score": 46,
-      "setup_name": "Beobachten / Warten auf HTF-Trigger",
-      "crv": 2.0,
-      "entry_range": [
-        3.82,
-        3.82
-      ],
-      "stop_loss": 3.71,
-      "take_profit_1": 3.93,
-      "take_profit_2": 4.05,
-      "reasons": [
-        "1D Trend unter EMA 233 bärisch",
-        "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-        "Aktiv: Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
       ],
       "analyst_note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
@@ -9502,8 +9536,8 @@
         "analyst_note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
         "unrealized_pnl_pct": 6.69,
         "unrealized_pnl_leveraged_pct": 40.13,
-        "holding_hours": 195.2,
-        "holding_days": 8.1,
+        "holding_hours": 198.2,
+        "holding_days": 8.3,
         "tp1_reached": true,
         "trailing_active": true,
         "status": "OPEN"
@@ -9532,8 +9566,8 @@
         "analyst_note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 2.66,
         "unrealized_pnl_leveraged_pct": 15.97,
-        "holding_hours": 105.9,
-        "holding_days": 4.4,
+        "holding_hours": 108.9,
+        "holding_days": 4.5,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -9562,8 +9596,8 @@
         "analyst_note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 0.71,
         "unrealized_pnl_leveraged_pct": 3.54,
-        "holding_hours": 44.0,
-        "holding_days": 1.8,
+        "holding_hours": 47.0,
+        "holding_days": 2.0,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -9579,9 +9613,9 @@
         "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
         "entry_time": "2026-10-26T06:07:24.316065+00:00",
         "entry_price": 60.57,
-        "current_price": 60.55,
+        "current_price": 60.47,
         "highest_price": 60.61,
-        "lowest_price": 60.48,
+        "lowest_price": 60.47,
         "leverage": 4,
         "stop_loss": 58.45,
         "take_profit_1": 64.39,
@@ -9590,10 +9624,10 @@
         "allocated_capital": 1000.0,
         "entry_reason": "1D Trend über EMA 233 bullisch | Aktiv: Reguläre Bärische Divergenz (Reversal)",
         "analyst_note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "unrealized_pnl_pct": -0.03,
-        "unrealized_pnl_leveraged_pct": -0.13,
-        "holding_hours": 41.0,
-        "holding_days": 1.7,
+        "unrealized_pnl_pct": -0.17,
+        "unrealized_pnl_leveraged_pct": -0.66,
+        "holding_hours": 44.0,
+        "holding_days": 1.8,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -9609,8 +9643,8 @@
         "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
         "entry_time": "2026-10-26T06:07:24.316065+00:00",
         "entry_price": 8.88,
-        "current_price": 8.92,
-        "highest_price": 8.98,
+        "current_price": 9.02,
+        "highest_price": 9.02,
         "lowest_price": 8.72,
         "leverage": 3,
         "stop_loss": 8.44,
@@ -9620,10 +9654,10 @@
         "allocated_capital": 1000.0,
         "entry_reason": "1D Trend unter EMA 233 bärisch | Kurs im 1D Golden Pocket (8.76 - 8.92)",
         "analyst_note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "unrealized_pnl_pct": 0.45,
-        "unrealized_pnl_leveraged_pct": 1.35,
-        "holding_hours": 41.0,
-        "holding_days": 1.7,
+        "unrealized_pnl_pct": 1.58,
+        "unrealized_pnl_leveraged_pct": 4.73,
+        "holding_hours": 44.0,
+        "holding_days": 1.8,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -9639,8 +9673,8 @@
         "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
         "entry_time": "2026-10-26T11:09:00.349800+00:00",
         "entry_price": 2665640163972,
-        "current_price": 2684584727475,
-        "highest_price": 2684584727475,
+        "current_price": 2686183052161,
+        "highest_price": 2686183052161,
         "lowest_price": 2642817584397,
         "leverage": 4,
         "stop_loss": 2572342758232.98,
@@ -9650,10 +9684,10 @@
         "allocated_capital": 1000.0,
         "entry_reason": "1D Trend unter EMA 233 bärisch | Kurs im 1D Golden Pocket (2676871820787.65 - 2690327359999.14)",
         "analyst_note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "unrealized_pnl_pct": 0.71,
-        "unrealized_pnl_leveraged_pct": 2.84,
-        "holding_hours": 36.0,
-        "holding_days": 1.5,
+        "unrealized_pnl_pct": 0.77,
+        "unrealized_pnl_leveraged_pct": 3.08,
+        "holding_hours": 39.0,
+        "holding_days": 1.6,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -9669,8 +9703,8 @@
         "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
         "entry_time": "2026-10-27T15:07:23.291275+00:00",
         "entry_price": 0.983,
-        "current_price": 1.0,
-        "highest_price": 1.0,
+        "current_price": 1.01,
+        "highest_price": 1.01,
         "lowest_price": 0.983,
         "leverage": 5,
         "stop_loss": 0.93,
@@ -9680,10 +9714,10 @@
         "allocated_capital": 1000.0,
         "entry_reason": "1D Trend unter EMA 233 bärisch | Kurs im 1D Golden Pocket (0.98 - 1.0)",
         "analyst_note": "Strikte bullische Konfluenz (96%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "unrealized_pnl_pct": 1.73,
-        "unrealized_pnl_leveraged_pct": 8.65,
-        "holding_hours": 8.0,
-        "holding_days": 0.3,
+        "unrealized_pnl_pct": 2.75,
+        "unrealized_pnl_leveraged_pct": 13.73,
+        "holding_hours": 11.0,
+        "holding_days": 0.5,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -9712,8 +9746,8 @@
         "analyst_note": "Strikte bullische Konfluenz (92%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": -0.77,
         "unrealized_pnl_leveraged_pct": -4.64,
-        "holding_hours": 8.0,
-        "holding_days": 0.3,
+        "holding_hours": 11.0,
+        "holding_days": 0.5,
         "tp1_reached": false,
         "trailing_active": false,
         "status": "OPEN"
@@ -10471,9 +10505,9 @@
       "user_name": "Bdc_Gumb_Drop",
       "created_at": "2026-10-20T09:39:12.632729+00:00",
       "name": "Bitcoin",
-      "current_price": 80997.83,
-      "pnl_pct": 2.09,
-      "pnl_leveraged_pct": 18.77,
+      "current_price": 80878.92,
+      "pnl_pct": 2.23,
+      "pnl_leveraged_pct": 20.06,
       "recommendation": {
         "status": "WARNING",
         "badge_color": "amber",
@@ -10481,37 +10515,37 @@
         "title": "⚠️ Bullische Divergenz im 4h-Chart",
         "message": "Es formiert sich eine bullische Divergenz gegen deinen Short. Reversal-Gefahr! Stop-Loss eng nachziehen."
       },
-      "updated_at": "2026-10-27T23:08:43.308942+00:00"
+      "updated_at": "2026-10-28T02:07:12.173592+00:00"
     }
   ],
   "gemini_quota": {
     "model": "gemini-3.8-flash",
     "pool_mode": "MULTI_KEY_FAILOVER",
     "total_keys_count": 4,
-    "active_keys_count": 3,
+    "active_keys_count": 4,
     "daily_limit": 80,
-    "requests_used_today": 20,
-    "requests_remaining": 60,
-    "percent_used": 25.0,
+    "requests_used_today": 0,
+    "requests_remaining": 80,
+    "percent_used": 0.0,
     "tokens_used_today": 0,
     "status": "ACTIVE",
     "is_exhausted": false,
-    "reset_countdown": "bereit",
-    "active_key_masked": "AQ.Ab8...pOzg",
+    "reset_countdown": "aktiv (24/7)",
+    "active_key_masked": "AQ.Ab8...kcWw",
     "keys_detail": [
       {
         "id": "key_1",
         "name": "API-Key #1",
         "masked": "AQ.Ab8...kcWw",
         "daily_limit": 20,
-        "requests_used": 20,
-        "requests_remaining": 0,
-        "percent_used": 100.0,
+        "requests_used": 0,
+        "requests_remaining": 20,
+        "percent_used": 0.0,
         "tokens_used": 0,
-        "status": "EXHAUSTED",
-        "is_exhausted": true,
-        "reset_countdown": "bereit",
-        "last_error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex"
+        "status": "ACTIVE",
+        "is_exhausted": false,
+        "reset_countdown": "in 21h 52m",
+        "last_error": null
       },
       {
         "id": "key_2",
@@ -10524,7 +10558,7 @@
         "tokens_used": 0,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 0h 51m",
+        "reset_countdown": "in 21h 52m",
         "last_error": null
       },
       {
@@ -10538,7 +10572,7 @@
         "tokens_used": 0,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 0h 51m",
+        "reset_countdown": "in 21h 52m",
         "last_error": null
       },
       {
@@ -10552,7 +10586,7 @@
         "tokens_used": 0,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 0h 51m",
+        "reset_countdown": "in 21h 52m",
         "last_error": null
       }
     ]
