@@ -363,11 +363,24 @@ def evaluate_batch_with_cascade(assets_batch):
     # STUFE 1: Google Pro-Abo via CLI (bevorzugt, falls aktiviert)
     # ========================================================
     if use_pro_sub:
-        print(f" (Google Pro-Abo CLI: {primary_model})...", end="", flush=True)
-        res, err = call_gemini_via_pro_cli(prompt, model=primary_model, timeout=timeout)
-        if res and isinstance(res, list) and len(res) > 0:
-            return res, None, f"{primary_model} [Pro Abo]"
-        print(f" [Pro-Abo CLI ({err}) -> Fallback auf Key-Pool]...", end="", flush=True)
+        try:
+            from gemini_quota_tracker import is_pro_quota_available, record_pro_cli_request
+            pro_allowed = is_pro_quota_available()
+        except Exception:
+            pro_allowed = True
+
+        if pro_allowed:
+            print(f" (Google Pro-Abo CLI: {primary_model})...", end="", flush=True)
+            res, err = call_gemini_via_pro_cli(prompt, model=primary_model, timeout=timeout)
+            if res and isinstance(res, list) and len(res) > 0:
+                try:
+                    record_pro_cli_request()
+                except Exception:
+                    pass
+                return res, None, f"{primary_model} [Pro Abo]"
+            print(f" [Pro-Abo CLI ({err}) -> Fallback auf Key-Pool]...", end="", flush=True)
+        else:
+            print(f" [Pro-Abo Tages-Budget (50) erreicht -> Schone Pro-Abo, Fallback auf Key-Pool]...", end="", flush=True)
 
     # ========================================================
     # STUFE 2: Multi-Key Pool (REST)

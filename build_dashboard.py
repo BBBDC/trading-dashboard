@@ -6,6 +6,7 @@ mit Tailwind CSS, Super-Navigation, Multi-Timeframe-Modal und robuster Datenanbi
 
 import json
 from pathlib import Path
+from datetime import datetime, timezone
 
 BASE_DIR = Path(__file__).resolve().parent
 DB_FILE = BASE_DIR / "dashboard" / "market_analysis_db.json"
@@ -130,6 +131,91 @@ for kd in keys_detail:
         </div>
     """
 
+# Pro-Abo Quota Informationen für Admin-Bereich
+pro_info = quota_info.get("pro_subscription", {})
+pro_enabled = pro_info.get("enabled", True)
+pro_model = pro_info.get("model", "gemini-3.8-flash-high")
+pro_budget = pro_info.get("daily_budget", 50)
+pro_used = pro_info.get("requests_used", 0)
+pro_rem = pro_info.get("requests_remaining", 50)
+pro_pct = pro_info.get("percent_used", 0.0)
+pro_status = pro_info.get("status", "ACTIVE")
+pro_last_used = pro_info.get("last_used")
+if pro_last_used:
+    try:
+        dt = datetime.fromisoformat(pro_last_used)
+        pro_last_used_str = dt.strftime("%H:%M:%S UTC")
+    except Exception:
+        pro_last_used_str = str(pro_last_used)
+else:
+    pro_last_used_str = "Noch keine Anfragen heute"
+
+pro_badge = "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40" if pro_status == "ACTIVE" else "bg-amber-500/20 text-amber-300 border border-amber-500/40"
+pro_bar = "bg-indigo-500" if pro_status == "ACTIVE" else "bg-amber-500"
+
+pro_card_html = f"""
+      <!-- Card Pro-Abo: Google Pro Subscription Status -->
+      <section class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-indigo-950/30 to-slate-900 border border-indigo-500/40 p-5 shadow-xl space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800">
+          <div class="flex items-center gap-2.5">
+            <span class="text-2xl">💎</span>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="font-bold text-white text-base">Google Pro-Abo (CLI Integration)</h3>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono {pro_badge}">STUFE 1: PRIORITÄT</span>
+              </div>
+              <p class="text-xs text-slate-400">Direkte High-Speed Reasoning Pipeline via `agy` CLI &bull; Geschützt durch Smart Funnel</p>
+            </div>
+          </div>
+          <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 self-start sm:self-auto">
+            {pro_model}
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs font-mono">
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block uppercase">Tages-Verbrauch</span>
+            <span class="font-bold text-base text-indigo-300">{pro_used} / {pro_budget} Requests</span>
+            <span class="block text-[10px] text-slate-500 mt-0.5">{pro_pct}% des Tages-Puffers</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block uppercase">Verbleibender Puffer</span>
+            <span class="font-bold text-base text-emerald-400">{pro_rem} Requests frei</span>
+            <span class="block text-[10px] text-slate-500 mt-0.5">Sicherheits-Limit für agy</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block uppercase">Smart Funnel</span>
+            <span class="font-bold text-base text-amber-300">Aktiv (Max. 10)</span>
+            <span class="block text-[10px] text-slate-500 mt-0.5">Nur High-Conviction Setups</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block uppercase">Zuletzt genutzt</span>
+            <span class="font-bold text-base text-slate-200">{pro_last_used_str}</span>
+            <span class="block text-[10px] text-slate-500 mt-0.5">Reset um 00:00 UTC</span>
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-[11px] font-mono">
+            <span class="text-slate-400">Tages-Budget Auslastung ({pro_used} von max. {pro_budget} Requests):</span>
+            <span class="font-bold text-indigo-300">{pro_pct}%</span>
+          </div>
+          <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+            <div class="h-2 rounded-full {pro_bar}" style="width: {min(100.0, pro_pct)}%"></div>
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-indigo-950/30 border border-indigo-500/20 text-xs text-slate-300 flex items-start gap-2.5">
+          <span class="text-sm">🛡️</span>
+          <div class="leading-relaxed text-[11px]">
+            <strong class="text-indigo-300">Wochenlimit-Schonung für agy aktiv:</strong>
+            Die KI analysiert vorselektiert nur Werte mit mathematischem Confluence-Score &ge; 65%, Golden Pocket oder aktiven Divergenzen. 
+            Sollte das Tages-Sicherheitsbudget von {pro_budget} Anfragen erreicht werden, schaltet das System automatisch und unterbrechungsfrei auf Stufe 2 (Multi-Key Pool) um.
+          </div>
+        </div>
+      </section>
+"""
+
 # Top Longs & Shorts für Tab 2 (Top-Setups)
 def render_top_picks_html(candidates, sig_type="LONG"):
     if not candidates:
@@ -180,6 +266,61 @@ top_long_candidates = sorted([a for a in raw_assets if a.get("signal") == "LONG"
 top_short_candidates = sorted([a for a in raw_assets if a.get("signal") == "SHORT"], key=lambda x: x.get("score", 0), reverse=True)[:3]
 top_longs_cards_html = render_top_picks_html(top_long_candidates, "LONG")
 top_shorts_cards_html = render_top_picks_html(top_short_candidates, "SHORT")
+
+# TradingView Watchlists aggregieren und Filter-Pills erstellen
+wl_counts = {}
+for a in raw_assets:
+    for w in a.get("watchlists", []):
+        wl_counts[w] = wl_counts.get(w, 0) + 1
+
+preferred_order = ["Tradegate Werte", "Aktien", "Crypto", "Commodities", "Devisen", "Watchlist"]
+ordered_wls = [w for w in preferred_order if w in wl_counts]
+for w in sorted(wl_counts.keys()):
+    if w not in ordered_wls:
+        ordered_wls.append(w)
+
+def get_wl_icon(w):
+    if "Tradegate" in w:
+        return "🏛️ "
+    elif "Aktien" in w:
+        return "📈 "
+    elif "Crypto" in w:
+        return "🪙 "
+    elif "Commodities" in w or "Rohstoffe" in w:
+        return "🛢️ "
+    elif "Devisen" in w:
+        return "💱 "
+    return "📋 "
+
+tab2_watchlist_pills_html = f"""
+  <button onclick="setWatchlistFilter('ALL')" id="tab2-wl-ALL" class="tab2-wl-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-indigo-600 text-white cursor-pointer shadow-sm shadow-indigo-500/20">
+    Alle Listen ({len(raw_assets)})
+  </button>
+"""
+for w in ordered_wls:
+    cnt = wl_counts[w]
+    safe_id = w.replace(" ", "_").replace("/", "_")
+    icon = get_wl_icon(w)
+    tab2_watchlist_pills_html += f"""
+  <button onclick="setWatchlistFilter('{w}')" id="tab2-wl-{safe_id}" class="tab2-wl-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 cursor-pointer">
+    {icon}{w} ({cnt})
+  </button>
+"""
+
+scanner_watchlist_pills_html = f"""
+  <button onclick="setWatchlistFilter('ALL')" id="filter-wl-ALL" class="filter-wl-btn px-2.5 py-1 rounded-md transition bg-indigo-600 text-white font-medium cursor-pointer shadow-sm shadow-indigo-500/20">
+    Alle ({len(raw_assets)})
+  </button>
+"""
+for w in ordered_wls:
+    cnt = wl_counts[w]
+    safe_id = w.replace(" ", "_").replace("/", "_")
+    icon = get_wl_icon(w)
+    scanner_watchlist_pills_html += f"""
+  <button onclick="setWatchlistFilter('{w}')" id="filter-wl-{safe_id}" class="filter-wl-btn px-2.5 py-1 rounded-md transition text-slate-400 hover:text-white hover:bg-slate-800 font-medium cursor-pointer">
+    {icon}{w} ({cnt})
+  </button>
+"""
 
 
 def render_hero_cards_html(raw_assets):
@@ -1008,6 +1149,20 @@ html_content = f"""<!DOCTYPE html>
       <!-- Dynamische Highlight Opportunity Hero Cards: Top Opportunity & Krypto Leitwolf -->
       {hero_cards_html}
 
+      <!-- TradingView Watchlist Filter Bar for Top Setups -->
+      <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2.5">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-white uppercase tracking-wider">TradingView Listen-Filter:</span>
+            <span class="text-[11px] text-slate-400">Wähle eine Liste für isolierte Top Longs / Shorts</span>
+          </div>
+          <span class="text-[10px] font-mono text-indigo-300">Live Confluence Filter</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-1.5">
+          {tab2_watchlist_pills_html}
+        </div>
+      </div>
+
       <!-- Top 3 Longs & Top 3 Shorts Ranking Cards Grid -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <!-- Top 3 Longs Card -->
@@ -1015,11 +1170,11 @@ html_content = f"""<!DOCTYPE html>
           <div class="flex items-center justify-between pb-2.5 border-b border-slate-800">
             <div class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              <h3 class="font-bold text-white text-sm">🟢 Top Long Setups</h3>
+              <h3 id="top-longs-title" class="font-bold text-white text-sm">🟢 Top Long Setups</h3>
             </div>
-            <span class="text-[11px] font-mono text-emerald-400">Beste Long Confluence</span>
+            <span id="top-longs-subtitle" class="text-[11px] font-mono text-emerald-400">Beste Long Confluence</span>
           </div>
-          <div class="space-y-2.5">
+          <div id="top-longs-container" class="space-y-2.5">
             {top_longs_cards_html}
           </div>
         </div>
@@ -1029,11 +1184,11 @@ html_content = f"""<!DOCTYPE html>
           <div class="flex items-center justify-between pb-2.5 border-b border-slate-800">
             <div class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
-              <h3 class="font-bold text-white text-sm">🔴 Top Short Setups</h3>
+              <h3 id="top-shorts-title" class="font-bold text-white text-sm">🔴 Top Short Setups</h3>
             </div>
-            <span class="text-[11px] font-mono text-rose-400">Stärkste Reversal-Divergenzen</span>
+            <span id="top-shorts-subtitle" class="text-[11px] font-mono text-rose-400">Stärkste Reversal-Divergenzen</span>
           </div>
-          <div class="space-y-2.5">
+          <div id="top-shorts-container" class="space-y-2.5">
             {top_shorts_cards_html}
           </div>
         </div>
@@ -1095,6 +1250,12 @@ html_content = f"""<!DOCTYPE html>
             <span class="absolute right-3 top-2.5 text-xs text-slate-500 pointer-events-none">🔍</span>
           </div>
 
+        </div>
+
+        <!-- TradingView Watchlists Filter Row -->
+        <div class="flex flex-wrap items-center gap-1.5 text-xs pt-3 border-t border-slate-800/80">
+          <span class="text-slate-400 mr-1 text-[11px] uppercase tracking-wider font-semibold">TV Liste:</span>
+          {scanner_watchlist_pills_html}
         </div>
 
         <!-- Secondary Filter Row: Asset Class, Sorting, View Toggle -->
@@ -1192,6 +1353,9 @@ html_content = f"""<!DOCTYPE html>
           <span>Master Live-Scan starten (Pi)</span>
         </button>
       </div>
+
+      <!-- Card Pro-Abo: Google Pro Subscription Status -->
+      {pro_card_html}
 
       <!-- Card A: Google Gemini API-Key Pool -->
       <section class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-[#0d1322] to-slate-900 border border-indigo-500/30 p-5 shadow-xl space-y-4">
@@ -1505,6 +1669,7 @@ html_content = f"""<!DOCTYPE html>
     let filteredAssets = [...currentData.assets];
     let activeDirection = 'ALL';
     let activeCategory = 'ALL';
+    let activeWatchlist = 'ALL';
     let currentViewMode = 'grid';
 
     // Versuche Live-JSON nachzuladen
@@ -1515,11 +1680,13 @@ html_content = f"""<!DOCTYPE html>
         filteredAssets = [...currentData.assets];
         updateStats();
         applyFilters();
+        renderTopPicksForWatchlist(activeWatchlist);
       }})
       .catch(e => {{
         console.log("Nutze integrierte Datenbank (Offline/File-Modus)");
         updateStats();
         applyFilters();
+        renderTopPicksForWatchlist(activeWatchlist);
       }});
 
     function updateStats() {{
@@ -1567,6 +1734,118 @@ html_content = f"""<!DOCTYPE html>
       applyFilters();
     }}
 
+    function setWatchlistFilter(wl) {{
+      activeWatchlist = wl;
+
+      // Update pills in Tab 3 (Scanner)
+      document.querySelectorAll('.filter-wl-btn').forEach(btn => {{
+        btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm', 'shadow-indigo-500/20');
+        btn.classList.add('text-slate-400');
+      }});
+      const safeId = wl.replace(/\\s+/g, '_').replace(/\\//g, '_');
+      const activeScanBtn = document.getElementById('filter-wl-' + safeId);
+      if (activeScanBtn) {{
+        activeScanBtn.classList.remove('text-slate-400');
+        activeScanBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-sm', 'shadow-indigo-500/20');
+      }}
+
+      // Update pills in Tab 2 (Top Picks)
+      document.querySelectorAll('.tab2-wl-btn').forEach(btn => {{
+        btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm', 'shadow-indigo-500/20');
+        btn.classList.add('bg-slate-900', 'border', 'border-slate-800', 'text-slate-300');
+      }});
+      const activeTab2Btn = document.getElementById('tab2-wl-' + safeId);
+      if (activeTab2Btn) {{
+        activeTab2Btn.classList.remove('bg-slate-900', 'border', 'border-slate-800', 'text-slate-300');
+        activeTab2Btn.classList.add('bg-indigo-600', 'text-white', 'shadow-sm', 'shadow-indigo-500/20');
+      }}
+
+      // Top Picks in Tab 2 dynamisch für diese Watchlist anpassen
+      renderTopPicksForWatchlist(wl);
+
+      // Filter im Scanner anwenden
+      applyFilters();
+    }}
+
+    function createTopPickCardHtml(c, sigType) {{
+      const badgeBorder = sigType === 'LONG' ? 'border-emerald-500/30' : 'border-rose-500/30';
+      const scoreColor = sigType === 'LONG' ? 'text-emerald-400' : 'text-rose-400';
+      const sym = c.symbol || '';
+      const name = c.name || sym;
+      const score = c.score || 0;
+      const setup = c.setup_name || 'Setup';
+      const price = formatNumber(c.price || 0);
+      const entry = (c.entry_range && c.entry_range.length === 2) ? `${{formatNumber(c.entry_range[0])}} - ${{formatNumber(c.entry_range[1])}}` : '-';
+      const sl = formatNumber(c.stop_loss);
+      const tp2 = formatNumber(c.take_profit_2);
+      const crv = c.crv || '-';
+
+      return `
+        <div class="p-3.5 rounded-xl bg-slate-950/70 border ${{badgeBorder}} hover:border-slate-600 transition flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <div class="min-w-0">
+              <span class="font-bold text-white text-xs sm:text-sm truncate block">${{name}}</span>
+              <span class="font-mono text-[10px] text-slate-400">${{sym}}</span>
+            </div>
+            <div class="text-right shrink-0">
+              <span class="font-mono font-bold text-xs ${{scoreColor}}">${{score}}% Score</span>
+              <span class="block text-[10px] font-mono text-slate-400">${{price}} $</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-1.5 text-[10px] font-mono bg-slate-900/60 p-2 rounded-lg border border-slate-800">
+            <div><span class="text-slate-500 block">Entry:</span><span class="text-slate-200 font-semibold truncate block">${{entry}}</span></div>
+            <div><span class="text-slate-500 block">SL:</span><span class="text-rose-400 font-semibold truncate block">${{sl}}</span></div>
+            <div><span class="text-slate-500 block">TP2 / CRV:</span><span class="text-cyan-400 font-semibold truncate block">${{tp2}} (${{crv}})</span></div>
+          </div>
+          <div class="flex items-center justify-between pt-1 border-t border-slate-800/60">
+            <span class="text-[10px] text-slate-400 truncate max-w-[220px]">${{setup}}</span>
+            <button onclick="openDetailModal('${{sym}}')" class="text-[11px] font-bold text-indigo-400 hover:text-indigo-300 flex items-center gap-1 transition cursor-pointer">
+              Multi-Timeframe Details →
+            </button>
+          </div>
+        </div>
+      `;
+    }}
+
+    function renderTopPicksForWatchlist(wl) {{
+      const longsContainer = document.getElementById('top-longs-container');
+      const shortsContainer = document.getElementById('top-shorts-container');
+      const longsTitle = document.getElementById('top-longs-title');
+      const shortsTitle = document.getElementById('top-shorts-title');
+      const longsSub = document.getElementById('top-longs-subtitle');
+      const shortsSub = document.getElementById('top-shorts-subtitle');
+
+      if (!longsContainer || !shortsContainer) return;
+
+      const wlLabel = (wl === 'ALL') ? 'Alle Listen' : wl;
+      if (longsTitle) longsTitle.innerText = `🟢 Top Long Setups (${{wlLabel}})`;
+      if (shortsTitle) shortsTitle.innerText = `🔴 Top Short Setups (${{wlLabel}})`;
+      if (longsSub) longsSub.innerText = (wl === 'ALL') ? 'Beste Long Confluence' : `${{wl}} Top Longs`;
+      if (shortsSub) shortsSub.innerText = (wl === 'ALL') ? 'Stärkste Reversal-Divergenzen' : `${{wl}} Top Shorts`;
+
+      const pool = (wl === 'ALL') 
+        ? currentData.assets 
+        : currentData.assets.filter(a => a.watchlists && a.watchlists.includes(wl));
+
+      const topLongs = pool
+        .filter(a => a.signal === 'LONG')
+        .sort((a, b) => (b.score || 0) - (a.score || 0))
+        .slice(0, 3);
+
+      const topShorts = pool
+        .filter(a => a.signal === 'SHORT')
+        .sort((a, b) => (b.score || 0) - (a.score || 0))
+        .slice(0, 3);
+
+      longsContainer.innerHTML = topLongs.length > 0 
+        ? topLongs.map(c => createTopPickCardHtml(c, 'LONG')).join('')
+        : `<p class="text-xs text-slate-500 italic p-4 text-center bg-slate-950/40 rounded-xl border border-slate-800/60">Aktuell keine aktiven Long-Setups in ${{wlLabel}}.</p>`;
+
+      shortsContainer.innerHTML = topShorts.length > 0 
+        ? topShorts.map(c => createTopPickCardHtml(c, 'SHORT')).join('')
+        : `<p class="text-xs text-slate-500 italic p-4 text-center bg-slate-950/40 rounded-xl border border-slate-800/60">Aktuell keine aktiven Short-Setups in ${{wlLabel}}.</p>`;
+    }}
+
     function setViewMode(mode) {{
       currentViewMode = mode;
       const gridContainer = document.getElementById('assets-grid');
@@ -1604,12 +1883,15 @@ html_content = f"""<!DOCTYPE html>
         if (activeDirection !== 'ALL' && a.signal !== activeDirection) return false;
         // Category
         if (activeCategory !== 'ALL' && a.asset_type !== activeCategory) return false;
+        // TradingView Watchlist
+        if (activeWatchlist !== 'ALL' && !(a.watchlists && a.watchlists.includes(activeWatchlist))) return false;
         // Search
         if (query) {{
           const matchSym = a.symbol.toLowerCase().includes(query);
           const matchName = a.name.toLowerCase().includes(query);
           const matchCat = a.category.toLowerCase().includes(query);
-          if (!matchSym && !matchName && !matchCat) return false;
+          const matchWl = a.watchlists && a.watchlists.some(w => w.toLowerCase().includes(query));
+          if (!matchSym && !matchName && !matchCat && !matchWl) return false;
         }}
         return true;
       }});

@@ -118,11 +118,13 @@ def sync_watchlists(live_wls=None, rebuild=False):
 
     # 1. Sammle alle gültigen Symbole aus den Live-Watchlists
     active_symbols_map = {}
+    symbol_watchlists_map = {}
     for wl in live_wls:
         wl_name = wl.get("name", "Watchlist")
         for sym in wl.get("symbols", []):
             if sym.startswith(("MULTPL:", "ECONOMICS:", "FTX:", "BITTREX:")):
                 continue
+            symbol_watchlists_map.setdefault(sym, set()).add(wl_name)
             if sym not in active_symbols_map:
                 name, cat, asset_type = infer_meta(sym, wl_name)
                 active_symbols_map[sym] = {
@@ -178,6 +180,12 @@ def sync_watchlists(live_wls=None, rebuild=False):
                     except Exception:
                         pass
         else:
+            # Watchlist-Zugehörigkeiten für beibehaltene Assets aktualisieren
+            wls = sorted(list(symbol_watchlists_map.get(sym, set())))
+            if not wls:
+                wls = [a.get("source_watchlist") or a.get("category", "Watchlist")]
+            a["watchlists"] = wls
+            a["source_watchlist"] = wls[0]
             pruned_assets.append(a)
 
     if deleted_charts_count > 0:
@@ -193,11 +201,14 @@ def sync_watchlists(live_wls=None, rebuild=False):
         print(f"  [+] NEU HINZUGEFÜGT: {meta['name']} ({sym}) aus '{meta['source_watchlist']}'")
 
         # Initialer Datenrahmen (ohne last_analyzed -> Gatekeeper erkennt: sofort fällig!)
+        wls = sorted(list(symbol_watchlists_map.get(sym, [meta["source_watchlist"]])))
         new_entry = {
             "symbol": sym,
             "name": meta["name"],
             "category": meta["category"],
             "asset_type": meta["asset_type"],
+            "source_watchlist": wls[0],
+            "watchlists": wls,
             "price": 100.0,
             "signal": "NEUTRAL",
             "setup_name": "Neu synchronisiert - Bereit für HTF-Analyse",
@@ -277,6 +288,20 @@ def sync_watchlists(live_wls=None, rebuild=False):
     db["short_count"] = sum(1 for a in pruned_assets if a["signal"] == "SHORT")
     db["neutral_count"] = sum(1 for a in pruned_assets if a["signal"] == "NEUTRAL")
     db["timestamp"] = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+
+    # Sammle verfügbare Watchlist-Statistiken
+    available_watchlists = []
+    wl_names_seen = set()
+    for wl in live_wls:
+        w_name = wl.get("name", "Watchlist")
+        if w_name not in wl_names_seen:
+            wl_names_seen.add(w_name)
+            cnt = sum(1 for a in pruned_assets if w_name in a.get("watchlists", []))
+            available_watchlists.append({
+                "name": w_name,
+                "count": cnt
+            })
+    db["watchlists"] = available_watchlists
 
     with open(DB_FILE, "w", encoding="utf-8") as f:
         json.dump(db, f, indent=2, ensure_ascii=False)

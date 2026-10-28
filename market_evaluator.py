@@ -523,26 +523,42 @@ def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):
         if has_gemini:
             prev_sig = asset.get("signal", "NEUTRAL")
             prev_setup = asset.get("setup_name", "")
-            gemini_batch.append({
-                "symbol": sym,
-                "name": name,
-                "category": asset_snapshot["category"],
-                "current_price": current_price,
-                "previous_signal": prev_sig,
-                "previous_setup": prev_setup,
-                "1W": {"trend": d_1w["trend"] if d_1w else "N/A", "rsi": d_1w["rsi"] if d_1w else 50} if d_1w else {},
-                "1D": {"trend": d_1d["trend"] if d_1d else "N/A", "rsi": d_1d["rsi"] if d_1d else 50, "in_gp": d_1d["in_golden_pocket"] if d_1d else False, "channel": d_1d["channel_position"] if d_1d else "N/A", "divs": d_1d["divergences"] if d_1d else []},
-                "3D": {"trend": d_3d["trend"] if d_3d else "N/A", "rsi": d_3d["rsi"] if d_3d else 50} if d_3d else {},
-                "4h": {"trend": d_4h["trend"] if d_4h else "N/A", "rsi": d_4h["rsi"] if d_4h else 50, "vsa": d_4h["vsa_class"] if d_4h else "N/A", "in_gp": d_4h["in_golden_pocket"] if d_4h else False, "divs": d_4h["divergences"] if d_4h else []},
-                "1h": {"trend": d_1h["trend"] if d_1h else "N/A", "rsi": d_1h["rsi"] if d_1h else 50, "vsa": d_1h["vsa_class"] if d_1h else "N/A", "divs": d_1h["divergences"] if d_1h else []}
-            })
+            m_score = asset_snapshot.get("score", 50)
+            in_gp = bool((d_1d and d_1d.get("in_golden_pocket")) or (d_4h and d_4h.get("in_golden_pocket")))
+            has_divs = bool((d_1d and d_1d.get("divergences")) or (d_4h and d_4h.get("divergences")) or (d_1h and d_1h.get("divergences")))
+            active_setup = (asset_snapshot.get("signal") in ("LONG", "SHORT")) or (prev_sig in ("LONG", "SHORT"))
+
+            # Smart Funnel: Nur Werte mit echtem Setup-Potenzial (Score >= 65, GP/Divergenzen oder aktives Signal)
+            if m_score >= 65 or in_gp or has_divs or active_setup:
+                gemini_batch.append({
+                    "symbol": sym,
+                    "name": name,
+                    "category": asset_snapshot["category"],
+                    "current_price": current_price,
+                    "previous_signal": prev_sig,
+                    "previous_setup": prev_setup,
+                    "math_score": m_score,
+                    "active_setup": active_setup,
+                    "1W": {"trend": d_1w["trend"] if d_1w else "N/A", "rsi": d_1w["rsi"] if d_1w else 50} if d_1w else {},
+                    "1D": {"trend": d_1d["trend"] if d_1d else "N/A", "rsi": d_1d["rsi"] if d_1d else 50, "in_gp": d_1d["in_golden_pocket"] if d_1d else False, "channel": d_1d["channel_position"] if d_1d else "N/A", "divs": d_1d["divergences"] if d_1d else []},
+                    "3D": {"trend": d_3d["trend"] if d_3d else "N/A", "rsi": d_3d["rsi"] if d_3d else 50} if d_3d else {},
+                    "4h": {"trend": d_4h["trend"] if d_4h else "N/A", "rsi": d_4h["rsi"] if d_4h else 50, "vsa": d_4h["vsa_class"] if d_4h else "N/A", "in_gp": d_4h["in_golden_pocket"] if d_4h else False, "divs": d_4h["divergences"] if d_4h else []},
+                    "1h": {"trend": d_1h["trend"] if d_1h else "N/A", "rsi": d_1h["rsi"] if d_1h else 50, "vsa": d_1h["vsa_class"] if d_1h else "N/A", "divs": d_1h["divergences"] if d_1h else []}
+                })
 
     # Falls Gemini aktiv ist: Batches an Gemini Kaskade senden
     last_tier_used = "quantitative_confluence"
     ai_success_count = 0
     if has_gemini and gemini_batch:
-        batch_size = gemini_conf.get("batch_size", 8)
-        print(f"\nSende {len(gemini_batch)} Assets in Batches von {batch_size} an KI-Kaskade...")
+        # Smart Funnel Begrenzung: Sortiere nach Dringlichkeit (aktive Setups zuerst, dann Score) und limitiere auf Top 10 Kandidaten
+        gemini_batch.sort(key=lambda x: (1 if x.get("active_setup") else 0, x.get("math_score", 0)), reverse=True)
+        max_ai_candidates = 10
+        if len(gemini_batch) > max_ai_candidates:
+            print(f"\n🌪️ Smart Funnel aktiv: {len(gemini_batch)} potenzielle Setups gefunden -> Fokussiere KI auf Top {max_ai_candidates} Kandidaten zur Kontingent-Schonung.")
+            gemini_batch = gemini_batch[:max_ai_candidates]
+
+        batch_size = gemini_conf.get("batch_size", 5)
+        print(f"\nSende {len(gemini_batch)} gefilterte High-Conviction Assets in Batches von {batch_size} an KI-Kaskade...")
 
         # Mapping für schnelles Update
         asset_map = {a["symbol"]: a for a in analyzed_assets}

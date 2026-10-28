@@ -68,7 +68,14 @@ def load_quota_state():
     state = {
         "date": today_str,
         "model": "gemini-3.8-flash",
-        "keys": {}
+        "keys": {},
+        "pro_subscription": {
+            "daily_budget": 50,
+            "requests_used_today": 0,
+            "requests_remaining": 50,
+            "status": "ACTIVE",
+            "last_used": None
+        }
     }
 
     if QUOTA_FILE.exists():
@@ -78,6 +85,8 @@ def load_quota_state():
                 if saved.get("date") == today_str and isinstance(saved.get("keys"), dict):
                     state["keys"] = saved.get("keys", {})
                     state["model"] = saved.get("model", "gemini-3.8-flash")
+                    if isinstance(saved.get("pro_subscription"), dict):
+                        state["pro_subscription"] = saved["pro_subscription"]
         except Exception:
             pass
 
@@ -215,10 +224,51 @@ def record_quota_exhausted(key, err_message, retry_seconds=None):
     return state
 
 
+def record_pro_cli_request(tokens=0):
+    """Zeichnet eine erfolgreiche Anfrage über das Google Pro-Abo (CLI) auf."""
+    state = load_quota_state()
+    pro = state.setdefault("pro_subscription", {
+        "daily_budget": 50,
+        "requests_used_today": 0,
+        "requests_remaining": 50,
+        "tokens_used_today": 0,
+        "status": "ACTIVE",
+        "last_used": None
+    })
+    pro["requests_used_today"] = pro.get("requests_used_today", 0) + 1
+    budget = pro.get("daily_budget", 50)
+    pro["requests_remaining"] = max(0, budget - pro["requests_used_today"])
+    pro["tokens_used_today"] = pro.get("tokens_used_today", 0) + tokens
+    pro["last_used"] = datetime.now(timezone.utc).isoformat()
+    if pro["requests_remaining"] == 0:
+        pro["status"] = "BUDGET_REACHED"
+    else:
+        pro["status"] = "ACTIVE"
+    save_quota_state(state)
+    return pro
+
+
+def is_pro_quota_available():
+    """Prüft, ob das Tages-Sicherheitsbudget (50 Anfragen) für das Pro-Abo noch verfügbar ist."""
+    state = load_quota_state()
+    pro = state.get("pro_subscription", {})
+    budget = pro.get("daily_budget", 50)
+    used = pro.get("requests_used_today", 0)
+    return used < budget
+
+
 def get_quota_summary_for_dashboard():
     """Bereitet aggregierte und detaillierte Kennzahlen für das Dashboard auf."""
     state = load_quota_state()
     keys_dict = state.get("keys", {})
+    pro_data = state.get("pro_subscription", {
+        "daily_budget": 50,
+        "requests_used_today": 0,
+        "requests_remaining": 50,
+        "tokens_used_today": 0,
+        "status": "ACTIVE",
+        "last_used": None
+    })
 
     total_limit = 0
     total_used = 0
@@ -283,6 +333,11 @@ def get_quota_summary_for_dashboard():
     reset_countdowns = [kd["reset_countdown"] for kd in keys_detail if kd["is_exhausted"]]
     pool_countdown = reset_countdowns[0] if reset_countdowns else "aktiv (24/7)"
 
+    pro_budget = pro_data.get("daily_budget", 50)
+    pro_used = pro_data.get("requests_used_today", 0)
+    pro_rem = max(0, pro_budget - pro_used)
+    pro_pct = round(pro_used / pro_budget * 100.0, 1) if pro_budget > 0 else 100.0
+
     return {
         "model": state.get("model", "gemini-3.8-flash"),
         "pool_mode": "MULTI_KEY_FAILOVER",
@@ -297,7 +352,18 @@ def get_quota_summary_for_dashboard():
         "is_exhausted": pool_exhausted,
         "reset_countdown": pool_countdown,
         "active_key_masked": current_active_masked,
-        "keys_detail": keys_detail
+        "keys_detail": keys_detail,
+        "pro_subscription": {
+            "enabled": True,
+            "model": "gemini-3.8-flash-high (Google Pro CLI)",
+            "daily_budget": pro_budget,
+            "requests_used": pro_used,
+            "requests_remaining": pro_rem,
+            "percent_used": pro_pct,
+            "tokens_used": pro_data.get("tokens_used_today", 0),
+            "status": "ACTIVE" if pro_rem > 0 else "BUDGET_REACHED",
+            "last_used": pro_data.get("last_used")
+        }
     }
 
 
