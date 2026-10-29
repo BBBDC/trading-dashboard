@@ -141,11 +141,36 @@ def update_autonomous_portfolio(db_assets):
 
     for t in active_trades:
         sym = t["symbol"]
-        if sym not in db_map:
+        a = db_map.get(sym)
+        if not a:
+            if "USDT" in sym:
+                a = db_map.get(sym.replace("USDT", "USD"))
+            elif "USD" in sym:
+                a = db_map.get(sym.replace("USD", "USDT"))
+        if not a:
+            ticker_only = sym.split(":")[-1] if ":" in sym else sym
+            for k, v in db_map.items():
+                if k.endswith(f":{ticker_only}") or k == ticker_only:
+                    a = v
+                    break
+
+        if not a:
+            try:
+                from fetch_real_ohlcv_cache import fetch_bars_direct
+                live_bars = fetch_bars_direct(sym, interval="1D", count=2)
+                if live_bars and len(live_bars) > 0:
+                    a = {
+                        "symbol": sym,
+                        "price": float(live_bars[-1].get("c", t.get("current_price", t["entry_price"]))),
+                        "signal": "NEUTRAL"
+                    }
+            except Exception:
+                pass
+
+        if not a:
             remaining_active.append(t)
             continue
 
-        a = db_map[sym]
         curr_price = a.get("price", t.get("current_price", t["entry_price"]))
         direction = t["direction"]
         entry_price = t["entry_price"]
@@ -509,15 +534,46 @@ def evaluate_user_positions(db_assets):
         # Passendes Asset in der Marktdatenbank suchen
         a = db_map.get(sym)
         if not a:
-            # Falls Symbol nicht exakt übereinstimmt, Suche nach Ticker
+            # 1. Alias-Normalisierung (z. B. BTCUSDT -> BTCUSD, ETHUSDT -> ETHUSD)
+            if "USDT" in sym:
+                a = db_map.get(sym.replace("USDT", "USD"))
+            elif "USD" in sym:
+                a = db_map.get(sym.replace("USD", "USDT"))
+
+        if not a:
+            # 2. Suche nach Ticker ohne Exchange-Prefix (z. B. BTCUSDT -> BTCUSD)
             ticker_only = sym.split(":")[-1] if ":" in sym else sym
+            ticker_base = ticker_only.replace("USDT", "").replace("USD", "")
             for k, v in db_map.items():
-                if k.endswith(f":{ticker_only}") or k == ticker_only:
+                k_ticker = k.split(":")[-1] if ":" in k else k
+                k_base = k_ticker.replace("USDT", "").replace("USD", "")
+                if k_ticker == ticker_only or (ticker_base and k_base == ticker_base and k_base != ""):
                     a = v
                     break
 
-        curr_p = a.get("price", entry_p) if a else entry_p
-        asset_name = a.get("name", sym) if a else sym
+        curr_p = entry_p
+        asset_name = sym
+
+        if a and "price" in a:
+            curr_p = float(a["price"])
+            asset_name = a.get("name", sym)
+        else:
+            # 3. Fallback: Live-Kurs direkt von TradingView abfragen
+            try:
+                from fetch_real_ohlcv_cache import fetch_bars_direct
+                live_bars = fetch_bars_direct(sym, interval="1D", count=2)
+                if live_bars and len(live_bars) > 0:
+                    curr_p = float(live_bars[-1].get("c", entry_p))
+                    asset_name = sym
+                    a = {
+                        "symbol": sym,
+                        "name": sym,
+                        "price": curr_p,
+                        "signal": "NEUTRAL",
+                        "change_pct": round(((curr_p - live_bars[-1].get("o", curr_p)) / live_bars[-1].get("o", curr_p)) * 100, 2)
+                    }
+            except Exception:
+                pass
 
         # PnL berechnen
         if direction == "LONG":

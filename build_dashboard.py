@@ -60,6 +60,20 @@ if TELEGRAM_CONFIG.exists():
 
 db_data["auth_config"] = auth_config
 db_data["gemini_quota"] = quota_info
+
+# Synchronisiere aktuelle Nutzer-Positionen & Portfolio mit Live-Preisen & TV-Daten
+try:
+    from portfolio_engine import evaluate_user_positions, update_autonomous_portfolio
+    analyzed_assets = db_data.get("assets", [])
+    if analyzed_assets:
+        user_pos_data = evaluate_user_positions(analyzed_assets)
+        db_data["user_positions"] = user_pos_data.get("positions", [])
+        port_data, mem_data = update_autonomous_portfolio(analyzed_assets)
+        db_data["portfolio"] = port_data
+        db_data["trade_memory"] = mem_data
+except Exception as pe:
+    print(f"Warnung beim Synchronisieren des Portfolios/Nutzer-Positionen: {pe}")
+
 json_str = json.dumps(db_data, ensure_ascii=False)
 
 try:
@@ -137,6 +151,62 @@ for kd in keys_detail:
         </div>
     """
 
+# Health Check & Routing Status für Admin-Bereich
+health_info = quota_info.get("health_check", {})
+health_is_ok = health_info.get("is_healthy", False)
+health_badge_class = "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40" if health_is_ok else "bg-amber-500/20 text-amber-300 border border-amber-500/40"
+health_badge_text = "🟢 HEALTH-CHECK: FREE POOL BEREIT" if health_is_ok else "🛡️ PRO-ABO GUARD AKTIV (503 FALLBACK)"
+health_active_tier = health_info.get("active_tier", "Google Pro-Abo CLI (gemini-3.8-flash-low)")
+health_msg = health_info.get("message", "Vorab-Healthcheck vor jedem Scan aktiv")
+health_dot = "bg-emerald-400 animate-pulse" if health_is_ok else "bg-amber-400 animate-pulse"
+
+routing_health_card_html = f"""
+      <!-- Card Health & Routing: Übersicht Kaskade & Vorab-Check -->
+      <section class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-sky-950/20 to-slate-900 border border-sky-500/40 p-5 shadow-xl space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800">
+          <div class="flex items-center gap-2.5">
+            <span class="text-2xl">🛡️</span>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="font-bold text-white text-base">KI-Routing & Vorab-Healthcheck Status</h3>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono {health_badge_class}">{health_badge_text}</span>
+              </div>
+              <p class="text-xs text-slate-400">Automatische Kaskade: Free Keys sparen das Pro-Budget &bull; Pro-Abo sichert 100% Ausfallsicherheit</p>
+            </div>
+          </div>
+          <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30 self-start sm:self-auto">
+            Aktive Engine: {health_active_tier}
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block uppercase">1. Primär (Stufe 1A)</span>
+            <span class="font-bold text-base text-emerald-400">Free Multi-Key Pool</span>
+            <span class="block text-[10px] text-slate-400 mt-0.5">4x Keys &bull; 80 Requests/Tag frei</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block uppercase">2. Ausfallsicherung (Stufe 1B)</span>
+            <span class="font-bold text-base text-indigo-300">Google Pro-Abo (CLI)</span>
+            <span class="block text-[10px] text-slate-400 mt-0.5">50 Requests Puffer &bull; High-Speed Guard</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block uppercase">Vorab-Healthcheck</span>
+            <span class="font-bold text-base text-sky-300">Aktiv vor jedem Scan</span>
+            <span class="block text-[10px] text-slate-400 mt-0.5">Automatischer Micro-Ping</span>
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs text-slate-300 flex items-center justify-between">
+          <span class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full {health_dot}"></span>
+            <span><b>Health-Check Diagnose:</b> {health_msg}</span>
+          </span>
+          <span class="text-[10px] text-slate-500 font-mono">Dynamischer Schutz</span>
+        </div>
+      </section>
+"""
+
 # Pro-Abo Quota Informationen für Admin-Bereich
 pro_info = quota_info.get("pro_subscription", {})
 pro_enabled = pro_info.get("enabled", True)
@@ -168,9 +238,9 @@ pro_card_html = f"""
             <div>
               <div class="flex items-center gap-2">
                 <h3 class="font-bold text-white text-base">Google Pro-Abo (CLI Integration)</h3>
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono {pro_badge}">STUFE 1: PRIORITÄT</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono {pro_badge}">STUFE 1B: AUSFALLSICHERUNG (FAILOVER GUARD)</span>
               </div>
-              <p class="text-xs text-slate-400">Direkte High-Speed Reasoning Pipeline via `agy` CLI &bull; Geschützt durch Smart Funnel</p>
+              <p class="text-xs text-slate-400">Automatische Schutzschaltung: Übernimmt nahtlos bei 503-Überlastung des Free Pools &bull; Geschützt durch Smart Funnel</p>
             </div>
           </div>
           <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 self-start sm:self-auto">
@@ -1380,20 +1450,23 @@ html_content = f"""<!DOCTYPE html>
         </button>
       </div>
 
-      <!-- Card Pro-Abo: Google Pro Subscription Status -->
-      {pro_card_html}
+      <!-- Card Health & Routing: Übersicht Kaskade & Vorab-Check -->
+      {routing_health_card_html}
 
-      <!-- Card A: Google Gemini API-Key Pool -->
+      <!-- Card A: Google Gemini API-Key Pool (Stufe 1A) -->
       <section class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-[#0d1322] to-slate-900 border border-indigo-500/30 p-5 shadow-xl space-y-4">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800">
           <div class="flex items-center gap-2.5">
             <span class="text-xl">🔑</span>
             <div>
-              <h3 class="font-bold text-white text-base">Google Gemini API-Key Quota Pool</h3>
+              <div class="flex items-center gap-2">
+                <h3 class="font-bold text-white text-base">Google Gemini API-Key Quota Pool</h3>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">STUFE 1A: PRIMÄR-ROUTING (KOSTENLOS)</span>
+              </div>
               <p class="text-xs text-slate-400">Intelligentes Failover & Multi-Key Lastverteilung ({total_keys_count}x AI Studio Keys)</p>
             </div>
           </div>
-          <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+          <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 self-start sm:self-auto">
             Modell: gemini-3.8-flash
           </span>
         </div>
@@ -1428,6 +1501,9 @@ html_content = f"""<!DOCTYPE html>
           </div>
         </div>
       </section>
+
+      <!-- Card Pro-Abo: Google Pro Subscription Status (Stufe 1B) -->
+      {pro_card_html}
 
       <!-- Card B: Autonomes KI High-Conviction Modell-Portfolio & Gedächtnis -->
       <section id="portfolio-section" class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-emerald-950/20 to-slate-900 border border-emerald-500/30 p-5 shadow-xl space-y-5">

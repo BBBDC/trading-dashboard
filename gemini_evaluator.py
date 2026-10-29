@@ -371,39 +371,54 @@ def probe_key_pool_model_38_health(timeout=3.5):
         _health_cache["message"] = "Keine Keys verfügbar"
         return False, _health_cache["message"]
 
-    # Teste den ersten aktiven Key mit einem schnellen Ping
-    test_key, masked = keys_pool[0]
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key={test_key}"
+    # Teste Keys aus dem Pool mit einem schnellen Ping (Failover-Test)
+    found_healthy = False
+    healthy_msg = ""
+    tested_errors = []
+
+    for test_key, masked in keys_pool[:2]:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key={test_key}"
+        try:
+            r = requests.post(
+                url,
+                headers={"Content-Type": "application/json"},
+                json={"contents": [{"parts": [{"text": "Ping"}]}]},
+                timeout=timeout
+            )
+            if r.status_code == 200:
+                found_healthy = True
+                healthy_msg = f"Key {masked} aktiv & gesund (HTTP 200)"
+                break
+            else:
+                err_msg = "503 High Demand" if (r.status_code == 503 or "high demand" in r.text) else f"HTTP {r.status_code}"
+                tested_errors.append(f"{masked}: {err_msg}")
+        except requests.exceptions.Timeout:
+            tested_errors.append(f"{masked}: Timeout ({timeout}s)")
+        except Exception as e:
+            tested_errors.append(f"{masked}: {str(e)[:25]}")
+
+    _health_cache["last_checked"] = now
+    if found_healthy:
+        _health_cache["model_38_healthy"] = True
+        _health_cache["message"] = healthy_msg
+        active_tier = "Multi-Key Free Pool (gemini-3.8-flash)"
+    else:
+        _health_cache["model_38_healthy"] = False
+        _health_cache["message"] = f"Free Tier Überlastung ({'; '.join(tested_errors[:2])}) -> Pro-Abo Guard aktiv"
+        active_tier = "Google Pro-Abo CLI (gemini-3.8-flash-low)"
+
     try:
-        r = requests.post(
-            url,
-            headers={"Content-Type": "application/json"},
-            json={"contents": [{"parts": [{"text": "Ping"}]}]},
-            timeout=timeout
+        from gemini_quota_tracker import record_health_check
+        record_health_check(
+            is_healthy=_health_cache["model_38_healthy"],
+            message=_health_cache["message"],
+            tested_key_masked=keys_pool[0][1] if keys_pool else "AQ.***",
+            active_tier=active_tier
         )
-        if r.status_code == 200:
-            _health_cache["last_checked"] = now
-            _health_cache["model_38_healthy"] = True
-            _health_cache["message"] = f"Key {masked} aktiv (HTTP 200)"
-            return True, _health_cache["message"]
-        else:
-            err_msg = f"HTTP {r.status_code}"
-            if r.status_code == 503 or "high demand" in r.text:
-                err_msg = "503 High Demand"
-            _health_cache["last_checked"] = now
-            _health_cache["model_38_healthy"] = False
-            _health_cache["message"] = f"Key {masked}: {err_msg}"
-            return False, _health_cache["message"]
-    except requests.exceptions.Timeout:
-        _health_cache["last_checked"] = now
-        _health_cache["model_38_healthy"] = False
-        _health_cache["message"] = f"Key {masked}: Timeout ({timeout}s)"
-        return False, _health_cache["message"]
-    except Exception as e:
-        _health_cache["last_checked"] = now
-        _health_cache["model_38_healthy"] = False
-        _health_cache["message"] = f"Key {masked}: {str(e)[:30]}"
-        return False, _health_cache["message"]
+    except Exception:
+        pass
+
+    return _health_cache["model_38_healthy"], _health_cache["message"]
 
 
 def evaluate_batch_with_cascade(assets_batch):

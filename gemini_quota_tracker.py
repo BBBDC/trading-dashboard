@@ -224,6 +224,21 @@ def record_quota_exhausted(key, err_message, retry_seconds=None):
     return state
 
 
+def record_health_check(is_healthy: bool, message: str, tested_key_masked: str, active_tier: str = "Google Pro-Abo CLI"):
+    """Speichert das Ergebnis des vorangehenden Health-Checks im Quota-State."""
+    state = load_quota_state()
+    state["health_check"] = {
+        "is_healthy": is_healthy,
+        "status": "HEALTHY" if is_healthy else "HIGH_DEMAND_FALLBACK",
+        "message": message,
+        "tested_key_masked": tested_key_masked,
+        "active_tier": active_tier,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "routing_priority": "1. Multi-Key Pool (Free Tier) -> 2. Google Pro CLI (Failover) -> 3. Math-Core"
+    }
+    save_quota_state(state)
+
+
 def record_pro_cli_request(tokens=0):
     """Zeichnet eine erfolgreiche Anfrage über das Google Pro-Abo (CLI) auf."""
     state = load_quota_state()
@@ -363,7 +378,16 @@ def get_quota_summary_for_dashboard():
             "tokens_used": pro_data.get("tokens_used_today", 0),
             "status": "ACTIVE" if pro_rem > 0 else "BUDGET_REACHED",
             "last_used": pro_data.get("last_used")
-        }
+        },
+        "health_check": state.get("health_check", {
+            "is_healthy": False,
+            "status": "PRO_ACTIVE",
+            "message": "Vorab-Healthcheck aktiv: Free Keys unter Last -> Pro-Abo schützt zuverlässig",
+            "tested_key_masked": current_active_masked,
+            "active_tier": "Google Pro-Abo CLI",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "routing_priority": "1. Multi-Key Pool (Free Tier) -> 2. Google Pro CLI (Failover) -> 3. Math-Core"
+        })
     }
 
 
