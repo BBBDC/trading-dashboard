@@ -1,5 +1,123 @@
 [
   {
+    "id": "evt_20261029_093305",
+    "timestamp": "2026-10-29T09:33:05.513188+00:00",
+    "timestamp_display": "29.10.2026 09:33 UTC",
+    "title": "🔔 TV-Signaländerung: 4 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 4,
+    "changes": [
+      {
+        "symbol": "KRAKEN:LINKUSD",
+        "name": "LINKUSD",
+        "category": "Crypto",
+        "change_type": "SCORE_JUMP",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 75,
+        "new_score": 83,
+        "price": 11.54,
+        "setup_name": "Hypothese 2: Bearish Trend Continuation",
+        "entry_range": [
+          11.8,
+          12.2
+        ],
+        "stop_loss": 12.75,
+        "take_profit_2": 9.4,
+        "reasons": [
+          "Makro-Schwäche: 1W und 1D verharren in einer festen bärischen Marktstruktur unterhalb des 233 EMA.",
+          "Multi-Timeframe Konfluenz: Sowohl 4h als auch 1h zeigen reguläre und versteckte bärische Divergenzen.",
+          "VSA auf 4h und 1h signalisiert 'Ultra-Low / No Supply-Demand', was auf fehlendes institutionelles Kaufinteresse hinweist."
+        ],
+        "change_reason": "Konfluenz-Veränderung: Score springt von 75% auf 83% (Makro-Schwäche: 1W und 1D verharren in einer festen bärischen Marktstruktur unterhalb des 233 EMA.).",
+        "note": "Die Marktstruktur bei Chainlink ist übergeordnet eindeutig abwärtsgerichtet. Zwar deutet eine reguläre bullische Divergenz auf 1D auf temporäre Verlangsamung hin, doch das extrem niedrige Volumen auf 4h/1h bestätigt, dass keine Nachfrage im Markt ist. Wir halten an der Short-Positionierung fest, limitieren aber den Hebel strikt gemäß unseren historischen Learnings und verkaufen Erholungen an den FVG-Widerstand bei ca. 12.00 USD.",
+        "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+      },
+      {
+        "symbol": "COINBASE:LTCUSD",
+        "name": "LTCUSD",
+        "category": "Crypto",
+        "change_type": "SETUP_UPDATE",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 78,
+        "new_score": 81,
+        "price": 57.69,
+        "setup_name": "Hypothese 2: Bearish Trend Continuation",
+        "entry_range": [
+          58.2,
+          59.5
+        ],
+        "stop_loss": 61.2,
+        "take_profit_2": 49.5,
+        "reasons": [
+          "HTF-Trendkongruenz: 1W und 1D sind klar bärisch (unter 233 EMA) mit fortgesetzter Marktschwäche.",
+          "Trendfolge-Bestätigung: Versteckte bärische Divergenz auf 1D sowie reguläre bärische Divergenzen auf 4h und 1h signalisieren Erschöpfung jeglicher Aufwärtsversuche.",
+          "VSA zeigt 'Low' bzw. 'Ultra-Low' Volumen bei Erholungen, was ein klassisches 'Lack of Demand' im Bärenmarkt widerspiegelt."
+        ],
+        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 2: Bearish Trend Continuation' (HTF-Trendkongruenz: 1W und 1D sind klar bärisch (unter 233 EMA) mit fortgesetzter Marktschwäche.).",
+        "note": "LTCUSD bleibt in einem intakten bärischen Makro-Regime gefangen. Leichte Intraday-Gegenbewegungen verhungern bei verschwindendem Volumen ('No Demand'), während bärische Trendfolge-Divergenzen das Setup stützen. Einstiege werden ausschließlich bei Pullbacks in die Widerstandszone um 58.50-59.50 USD gesucht, abgesichert knapp über dem lokalen Swing-High bei 61.20 USD.",
+        "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+      },
+      {
+        "symbol": "BITSTAMP:ETHUSD",
+        "name": "ETHUSD",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 43,
+        "new_score": 75,
+        "price": 2325.82,
+        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
+        "entry_range": [
+          2321.17,
+          2344.43
+        ],
+        "stop_loss": 2442.11,
+        "take_profit_2": 1953.69,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
+          "Aktiv: 4h Reguläre Bärische Divergenz (Reversal)"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "TVC:SILVER",
+        "name": "Silber (Spot)",
+        "category": "Edelmetalle",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 48,
+        "price": 53.37,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          54.8,
+          55.6
+        ],
+        "stop_loss": 57.1,
+        "take_profit_2": 47.8,
+        "reasons": [
+          "1W und 1D sind übergeordnet bärisch, jedoch ist der Markt mit einem 1D-RSI von 31.55 und 4h-RSI von 35.23 stark überverkauft.",
+          "Kein Chasing am Tiefpunkt: Das Eröffnen einer Short-Position direkt an überverkauften Niveaus birgt extremes Squeeze-Risiko.",
+          "VSA zeigt 'Ultra-Low / No Supply-Demand' – der Verkaufsdruck trocknet temporär aus, was häufig eine scharfe Gegenreaktion ankündigt."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1W und 1D sind übergeordnet bärisch, jedoch ist der Markt mit einem 1D-RSI von 31.55 und 4h-RSI von 35.23 stark überverkauft.).",
+        "note": "Silber befindet sich zwar im Bärenmarkt, notiert aktuell jedoch gefährlich nah am überverkauften Extremum (1D RSI ~31). Direktes Shorten auf aktuellem Niveau (53.37) verstößt gegen professionelles Risikomanagement und führt zu schlechten Einstiegspreisen mit ungünstigem CRV. Wir stufen auf NEUTRAL ab und warten geduldig auf eine Bärenmarktrallye in die Premium-Widerstandszone (54.80-55.60), um mit solidem CRV wieder Short zu triggern.",
+        "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 4 Einstufungen haben sich geändert:\n\n🔴 LINKUSD (LINKUSD):\n   Score-Sprung: 75% ➔ 83% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 75% auf 83% (Makro-Schwäche: 1W und 1D verharren in einer festen bärischen Marktstruktur unterhalb des 233 EMA.).\n   📝 KI-Rationale: Die Marktstruktur bei Chainlink ist übergeordnet eindeutig abwärtsgerichtet. Zwar deutet eine reguläre bullische Divergenz auf 1D ...\n   Setup: Hypothese 2: Bearish Trend Continuation\n   Entry: 11.80 | SL: 12.75 | TP2: 9.40\n\n🔴 LTCUSD (LTCUSD):\n   Score-Sprung: 78% ➔ 81% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 2: Bearish Trend Continuation' (HTF-Trendkongruenz: 1W und 1D sind klar bärisch (unter 233 EMA) mit fortgesetzter Marktschwäche.).\n   📝 KI-Rationale: LTCUSD bleibt in einem intakten bärischen Makro-Regime gefangen. Leichte Intraday-Gegenbewegungen verhungern bei verschwindendem V...\n   Setup: Hypothese 2: Bearish Trend Continuation\n   Entry: 58.20 | SL: 61.20 | TP2: 49.50\n\n🔴 ETHUSD (ETHUSD):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 75%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 2,321.17 | SL: 2,442.11 | TP2: 1,953.69\n\n⚪ Silber (Spot) (SILVER):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1W und 1D sind übergeordnet bärisch, jedoch ist der Markt mit einem 1D-RSI von 31.55 und 4h-RSI von 35.23 stark überverkauft.).\n   📝 KI-Rationale: Silber befindet sich zwar im Bärenmarkt, notiert aktuell jedoch gefährlich nah am überverkauften Extremum (1D RSI ~31). Direktes S...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261029_082632",
     "timestamp": "2026-10-29T08:26:32.786557+00:00",
     "timestamp_display": "29.10.2026 08:26 UTC",
