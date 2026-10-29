@@ -87,6 +87,8 @@ def load_quota_state():
                     state["model"] = saved.get("model", "gemini-3.8-flash")
                     if isinstance(saved.get("pro_subscription"), dict):
                         state["pro_subscription"] = saved["pro_subscription"]
+                    if isinstance(saved.get("health_check"), dict):
+                        state["health_check"] = saved["health_check"]
         except Exception:
             pass
 

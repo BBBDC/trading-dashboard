@@ -348,7 +348,7 @@ _health_cache = {
 }
 
 
-def probe_key_pool_model_38_health(timeout=3.5):
+def probe_key_pool_model_38_health(timeout=5.0):
     """
     Führt vor dem KI-Scan eine kurze Prüfung (Micro-Ping) durch, ob die kostenlosen API-Keys
     aktuell gemini-3.8-flash ohne 503-Überlastung / Timeout verarbeiten können.
@@ -376,32 +376,36 @@ def probe_key_pool_model_38_health(timeout=3.5):
     healthy_msg = ""
     tested_errors = []
 
-    for test_key, masked in keys_pool[:2]:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key={test_key}"
-        try:
-            r = requests.post(
-                url,
-                headers={"Content-Type": "application/json"},
-                json={"contents": [{"parts": [{"text": "Ping"}]}]},
-                timeout=timeout
-            )
-            if r.status_code == 200:
-                found_healthy = True
-                healthy_msg = f"Key {masked} aktiv & gesund (HTTP 200)"
-                break
-            else:
-                err_msg = "503 High Demand" if (r.status_code == 503 or "high demand" in r.text) else f"HTTP {r.status_code}"
-                tested_errors.append(f"{masked}: {err_msg}")
-        except requests.exceptions.Timeout:
-            tested_errors.append(f"{masked}: Timeout ({timeout}s)")
-        except Exception as e:
-            tested_errors.append(f"{masked}: {str(e)[:25]}")
+    for test_key, masked in keys_pool[:3]:
+        # Teste primär gemini-3.5-flash (sehr schnelle Antwortzeit ~1.8s) oder gemini-3.8-flash
+        for test_model in ["gemini-3.5-flash", "gemini-3.8-flash"]:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{test_model}:generateContent?key={test_key}"
+            try:
+                r = requests.post(
+                    url,
+                    headers={"Content-Type": "application/json"},
+                    json={"contents": [{"parts": [{"text": "Ping"}]}]},
+                    timeout=timeout
+                )
+                if r.status_code == 200:
+                    found_healthy = True
+                    healthy_msg = f"Key {masked} aktiv & gesund ({test_model}, HTTP 200)"
+                    break
+                else:
+                    err_msg = "503 High Demand" if (r.status_code == 503 or "high demand" in r.text) else f"HTTP {r.status_code}"
+                    tested_errors.append(f"{masked} ({test_model}): {err_msg}")
+            except requests.exceptions.Timeout:
+                tested_errors.append(f"{masked} ({test_model}): Timeout ({timeout}s)")
+            except Exception as e:
+                tested_errors.append(f"{masked} ({test_model}): {str(e)[:25]}")
+        if found_healthy:
+            break
 
     _health_cache["last_checked"] = now
     if found_healthy:
         _health_cache["model_38_healthy"] = True
         _health_cache["message"] = healthy_msg
-        active_tier = "Multi-Key Free Pool (gemini-3.8-flash)"
+        active_tier = "Multi-Key Free Pool (gemini-3.5-flash)"
     else:
         _health_cache["model_38_healthy"] = False
         _health_cache["message"] = f"Free Tier Überlastung ({'; '.join(tested_errors[:2])}) -> Pro-Abo Guard aktiv"
@@ -424,10 +428,10 @@ def probe_key_pool_model_38_health(timeout=3.5):
 def evaluate_batch_with_cascade(assets_batch):
     """
     Intelligente Multi-Tier Kaskade mit dynamischer Key-Pool-Vorprüfung:
-    - Vorprüfung / Stufe 1A: Prüfe kostenlosen API-Key Pool mit gemini-3.8-flash.
+    - Vorprüfung / Stufe 1A: Prüfe kostenlosen API-Key Pool mit gemini-3.5-flash.
       -> Falls verfügbar: Nutze kostenlosen Key-Pool (spart 100% des Pro-Abo-Budgets).
     - Stufe 1B: Google Pro-Abo via CLI (gemini-3.8-flash-high).
-      -> Falls Key-Pool 3.8 überlastet ist, sichert das Pro-Abo höchste Geschwindigkeit & Tiefe.
+      -> Falls Key-Pool überlastet ist, sichert das Pro-Abo höchste Geschwindigkeit & Tiefe.
       -> Maximal 50 Anfragen/Tag zum Schutz des agy-Wochenlimits.
     - Stufe 2: Multi-Key Pool (REST) mit gemini-3.5-flash (hochzuverlässiger Fallback).
     - Stufe 3: Fallback auf quantitative Confluence-Engine.
@@ -444,20 +448,20 @@ def evaluate_batch_with_cascade(assets_batch):
     prompt = build_analysis_prompt(assets_batch)
 
     # =========================================================================
-    # VORPRÜFUNG & STUFE 1A: Schneller Health-Check auf Free API-Keys mit 3.8
+    # VORPRÜFUNG & STUFE 1A: Schneller Health-Check auf Free API-Keys mit 3.5
     # =========================================================================
-    is_38_ok, probe_msg = probe_key_pool_model_38_health(timeout=3.5)
-    if is_38_ok:
-        print(f" [Stufe 1A: API-Key Pool mit gemini-3.8-flash bereit ({probe_msg}) -> Schone Pro-Abo]...", end="", flush=True)
-        res, err, used_key_info = call_gemini_via_key_pool(prompt, model="gemini-3.8-flash", timeout=timeout)
+    is_free_ok, probe_msg = probe_key_pool_model_38_health(timeout=5.0)
+    if is_free_ok:
+        print(f" [Stufe 1A: Free Multi-Key Pool bereit ({probe_msg}) -> Schone Pro-Abo]...", end="", flush=True)
+        res, err, used_key_info = call_gemini_via_key_pool(prompt, model=fallback_model, timeout=timeout)
         if res and isinstance(res, list) and len(res) > 0:
-            return res, None, f"gemini-3.8-flash [{used_key_info}]"
-        print(f" [Key-Pool 3.8 Batch ({err}) -> Umschaltung auf Google Pro-Abo]...", end="", flush=True)
+            return res, None, f"{fallback_model} [{used_key_info}]"
+        print(f" [Key-Pool Batch ({err}) -> Umschaltung auf Google Pro-Abo]...", end="", flush=True)
     else:
-        print(f" [Stufe 1A Probe: API-Keys 3.8 nicht bereit ({probe_msg}) -> Umschaltung auf Google Pro-Abo]...", end="", flush=True)
+        print(f" [Stufe 1A Probe: Free Key-Pool nicht bereit ({probe_msg}) -> Umschaltung auf Google Pro-Abo]...", end="", flush=True)
 
     # =========================================================================
-    # STUFE 1B: Google Pro-Abo via CLI (gemini-3.8-flash-high)
+    # STUFE 1B: Google Pro-Abo via CLI (gemini-3.8-flash-high / Failover Guard)
     # =========================================================================
     if use_pro_sub:
         try:
@@ -467,7 +471,7 @@ def evaluate_batch_with_cascade(assets_batch):
             pro_allowed = True
 
         if pro_allowed:
-            print(f" (Google Pro-Abo CLI: {primary_model})...", end="", flush=True)
+            print(f" (Google Pro-Abo CLI Failover: {primary_model})...", end="", flush=True)
             res, err = call_gemini_via_pro_cli(prompt, model=primary_model, timeout=timeout)
             if res and isinstance(res, list) and len(res) > 0:
                 try:
@@ -475,14 +479,14 @@ def evaluate_batch_with_cascade(assets_batch):
                 except Exception:
                     pass
                 return res, None, f"{primary_model} [Pro Abo]"
-            print(f" [Pro-Abo CLI ({err}) -> Fallback auf Key-Pool 3.5]...", end="", flush=True)
+            print(f" [Pro-Abo CLI ({err}) -> Fallback auf Key-Pool]...", end="", flush=True)
         else:
-            print(f" [Pro-Abo Tages-Budget (50) erreicht -> Schone Pro-Abo, Fallback auf Key-Pool 3.5]...", end="", flush=True)
+            print(f" [Pro-Abo Tages-Budget (50) erreicht -> Schone Pro-Abo, Fallback auf Key-Pool]...", end="", flush=True)
 
     # =========================================================================
-    # STUFE 2: Multi-Key Pool (REST) mit gemini-3.5-flash
+    # STUFE 2: Multi-Key Pool (REST) mit gemini-3.5-flash (Letzter Retry)
     # =========================================================================
-    print(f" (Multi-Key Pool REST: {fallback_model})...", end="", flush=True)
+    print(f" (Multi-Key Pool REST Retry: {fallback_model})...", end="", flush=True)
     res, err, used_key_info = call_gemini_via_key_pool(prompt, model=fallback_model, timeout=timeout)
     if res and isinstance(res, list) and len(res) > 0:
         return res, None, f"{fallback_model} [{used_key_info}]"

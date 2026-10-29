@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-29 17:05:02 UTC",
+  "timestamp": "2026-10-29 17:29:04 UTC",
   "total_analyzed": 125,
   "long_count": 2,
   "short_count": 18,
@@ -662,13 +662,13 @@
       },
       "last_analyzed": "2026-10-29T14:16:10.275722+00:00",
       "market_state": {
-        "is_open": true,
+        "is_open": false,
         "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "XETRA Regular Session",
-        "min_interval_minutes": 120,
-        "badge_color": "emerald",
-        "status_text": "XETRA Offen (bis 17:35 CET)"
+        "status": "CLOSED",
+        "session_name": "XETRA Nachtpause",
+        "min_interval_minutes": 999999,
+        "badge_color": "slate",
+        "status_text": "XETRA Geschlossen (Pause bis 09:00)"
       },
       "timeframes": {
         "1h": {
@@ -884,13 +884,13 @@
       },
       "last_analyzed": "2026-10-29T14:16:10.275722+00:00",
       "market_state": {
-        "is_open": true,
+        "is_open": false,
         "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "XETRA Regular Session",
-        "min_interval_minutes": 120,
-        "badge_color": "emerald",
-        "status_text": "XETRA Offen (bis 17:35 CET)"
+        "status": "CLOSED",
+        "session_name": "XETRA Nachtpause",
+        "min_interval_minutes": 999999,
+        "badge_color": "slate",
+        "status_text": "XETRA Geschlossen (Pause bis 09:00)"
       },
       "timeframes": {
         "1h": {
@@ -1280,26 +1280,26 @@
       "asset_type": "Stock",
       "price": 4.67,
       "signal": "SHORT",
-      "score": 76,
+      "score": 82,
       "setup_name": "Hypothese 2: Bearish Trend Continuation",
-      "crv": 2.86,
+      "crv": 2.9,
       "entry_range": [
-        4.7,
-        4.8
+        4.65,
+        4.75
       ],
-      "stop_loss": 5.05,
+      "stop_loss": 4.95,
       "take_profit_1": 4.1,
-      "take_profit_2": 3.8,
+      "take_profit_2": 3.75,
       "reasons": [
-        "Klares bärisches Makro-Regime auf 1D und 4h; Kurse notieren deutlich unter der 233 EMA.",
-        "Doppelte Bestätigung durch versteckte bärische Divergenzen auf 1D und 4h (intakter Abwärtstrend ohne Erschöpfung).",
-        "Niedriges Volumen bei leichten Gegenbewegungen zeigt fehlendes institutionelles Kaufinteresse."
+        "Makro-Trend (1D) und Taktischer Trend (4h) sind übereinstimmend bärisch unter dem 233 EMA",
+        "Versteckte bärische Divergenz auf 4h bestätigt die Fortsetzung des übergeordneten Abwärtstrends aus der Bärenflagge",
+        "Ausreichendes strukturelles CRV von 2.9:1 zur nächsten signifikanten Liquiditätszone der Tiefs bei engem Stop über dem 4h-Swing-High"
       ],
       "charts": {
         "4h": "charts/NYSE_UAA_4h.svg",
         "1D": "charts/NYSE_UAA_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -1312,7 +1312,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Under Armour (NYSE:UAA)",
+          "name": "Under Armour",
           "price": 4.67,
           "rsi": 45.6,
           "trend": "BEARISH",
@@ -1344,7 +1344,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Under Armour (NYSE:UAA)",
+          "name": "Under Armour",
           "price": 4.67,
           "rsi": 45.1,
           "trend": "BEARISH",
@@ -1365,8 +1365,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 6.91,
           "swing_low": 4.22,
@@ -1378,13 +1378,137 @@
         },
         "1W": null
       },
-      "analyst_note": "Under Armour verbleibt in einem geordneten Bärenmarkttrend. Die versteckten bärischen Divergenzen auf Tages- und 4h-Basis bestätigen, dass Korrekturen als Liquiditätsabgriff für neue Short-Positionen genutzt werden. Ein Einstieg im Bereich 4.70-4.80 USD bietet ein strukturell sauberes CRV von fast 3:1.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Aktien"
+      "analyst_note": "Under Armour erfüllt die strengen institutionellen Kriterien für ein Trendfolge-Short-Setup: 1D und 4h notieren synchron im Bärenmarkt, gestützt durch eine versteckte bärische Divergenz auf 4h. Angesichts der historischen Drawdown-Erfahrungen wird das Setup mit striktem Risikomanagement und moderatem Positionsrisiko versehen, mit Invalidierung knapp oberhalb der 4.95-USD-Widerstandsmarke.",
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+    },
+    {
+      "symbol": "NASDAQ:HOOD",
+      "name": "Robinhood",
+      "category": "Fintech / Broker",
+      "asset_type": "Stock",
+      "price": 95.75,
+      "signal": "SHORT",
+      "score": 76,
+      "setup_name": "Hypothese 2: Bearish Trend Continuation",
+      "crv": 2.75,
+      "entry_range": [
+        95.75,
+        97.2
       ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "stop_loss": 101.4,
+      "take_profit_1": 85.5,
+      "take_profit_2": 78.2,
+      "reasons": [
+        "HTF-Struktur: Makro-Trend auf 1D und 4h bärisch etabliert mit aktiver Beibehaltung des Short-Bias ohne Anzeichen eines 1D-Strukturbruchs.",
+        "Trendfolge-Konfluenz: Versteckte bärische Divergenz auf 1D sowie 4h signalisiert Fortsetzung des Abwärtsimpulses.",
+        "VSA & Momentum: 4h VSA zeigt 'Ultra-Low / No Supply-Demand' im Pullback; geringes Aufwärtsvolumen bestätigt Erschöpfung der Käufer."
+      ],
+      "charts": {
+        "4h": "charts/NASDAQ_HOOD_4h.svg",
+        "1D": "charts/NASDAQ_HOOD_1D.svg"
+      },
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "US Regular Session (Wall Street)",
+        "min_interval_minutes": 70,
+        "badge_color": "emerald",
+        "status_text": "US Session Offen (bis 22:00 CET)"
+      },
+      "timeframes": {
+        "1h": null,
+        "4h": {
+          "name": "Robinhood",
+          "price": 95.74,
+          "rsi": 39.08,
+          "trend": "BEARISH",
+          "ema_fast": 97.11,
+          "ema_trend": 104.17,
+          "upper_band": 102.42,
+          "lower_band": 91.79,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.39,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 110.16,
+              "bottom": 101.76,
+              "ce_50": 105.96,
+              "gap_pct": 7.63
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 101.17,
+              "bottom": 96.97,
+              "ce_50": 99.07,
+              "gap_pct": 4.15
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 95.65,
+              "bottom": 93.92,
+              "ce_50": 94.78,
+              "gap_pct": 1.84
+            }
+          ],
+          "divergences": [
+            "Versteckte Bärische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 126.72,
+          "swing_low": 91.66,
+          "golden_pocket": [
+            113.33,
+            114.45
+          ],
+          "in_golden_pocket": false
+        },
+        "1D": {
+          "name": "Robinhood",
+          "price": 95.75,
+          "rsi": 39.05,
+          "trend": "BEARISH",
+          "ema_fast": 100.18,
+          "ema_trend": 105.13,
+          "upper_band": 109.74,
+          "lower_band": 90.62,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.65,
+          "vsa_class": "Low",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 108.5,
+              "bottom": 104.34,
+              "ce_50": 106.42,
+              "gap_pct": 3.83
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 98.88,
+              "bottom": 97.75,
+              "ce_50": 98.32,
+              "gap_pct": 1.14
+            }
+          ],
+          "divergences": [
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 126.74,
+          "swing_low": 90.07,
+          "golden_pocket": [
+            102.91,
+            104.08
+          ],
+          "in_golden_pocket": false
+        },
+        "1W": null
+      },
+      "analyst_note": "HOOD bestätigt das bestehende Short-Setup durch anhaltende Trendfolge-Divergenzen im 1D- und 4h-Zeitfenster. Solange kein Tagesschlusskurs über 101.40 erfolgt, bleibt die Trendfortsetzung intakt. Angesichts der bisherigen Learnings bezüglich Drawdowns wird der Hebel strikt auf maximal 2x bis 3x limitiert.",
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "XETR:DAX",
@@ -1417,13 +1541,13 @@
       },
       "last_analyzed": "2026-10-29T14:16:10.275722+00:00",
       "market_state": {
-        "is_open": true,
+        "is_open": false,
         "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "XETRA Regular Session",
-        "min_interval_minutes": 120,
-        "badge_color": "emerald",
-        "status_text": "XETRA Offen (bis 17:35 CET)"
+        "status": "CLOSED",
+        "session_name": "XETRA Nachtpause",
+        "min_interval_minutes": 999999,
+        "badge_color": "slate",
+        "status_text": "XETRA Geschlossen (Pause bis 09:00)"
       },
       "timeframes": {
         "1h": {
@@ -3832,140 +3956,6 @@
       "currency": "USD"
     },
     {
-      "symbol": "NASDAQ:HOOD",
-      "name": "Robinhood",
-      "category": "Fintech / Broker",
-      "asset_type": "Stock",
-      "price": 95.75,
-      "signal": "SHORT",
-      "score": 74,
-      "setup_name": "Hypothese 2: Bearish Trend Continuation",
-      "crv": 2.78,
-      "entry_range": [
-        96.0,
-        97.5
-      ],
-      "stop_loss": 101.5,
-      "take_profit_1": 88.0,
-      "take_profit_2": 82.0,
-      "reasons": [
-        "Strikte bärische Makro- und 4h-Trendausrichtung unter 233 EMA ohne überverkaufte Extremwerte (RSI 39).",
-        "Aktive versteckte bärische Divergenzen auf 1D und 4h bestätigen Trendfortsetzung nach schwachen Erholungsversuchen.",
-        "VSA 'Ultra-Low Volume' bestätigt fehlende institutionelle Nachfrage; Verkäufer behalten die strukturelle Kontrolle."
-      ],
-      "charts": {
-        "4h": "charts/NASDAQ_HOOD_4h.svg",
-        "1D": "charts/NASDAQ_HOOD_1D.svg"
-      },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "US Regular Session (Wall Street)",
-        "min_interval_minutes": 70,
-        "badge_color": "emerald",
-        "status_text": "US Session Offen (bis 22:00 CET)"
-      },
-      "timeframes": {
-        "1h": null,
-        "4h": {
-          "name": "Robinhood (NASDAQ:HOOD)",
-          "price": 95.74,
-          "rsi": 39.08,
-          "trend": "BEARISH",
-          "ema_fast": 97.11,
-          "ema_trend": 104.17,
-          "upper_band": 102.42,
-          "lower_band": 91.79,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.39,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 110.16,
-              "bottom": 101.76,
-              "ce_50": 105.96,
-              "gap_pct": 7.63
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 101.17,
-              "bottom": 96.97,
-              "ce_50": 99.07,
-              "gap_pct": 4.15
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 95.65,
-              "bottom": 93.92,
-              "ce_50": 94.78,
-              "gap_pct": 1.84
-            }
-          ],
-          "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 126.72,
-          "swing_low": 91.66,
-          "golden_pocket": [
-            113.33,
-            114.45
-          ],
-          "in_golden_pocket": false
-        },
-        "1D": {
-          "name": "Robinhood (NASDAQ:HOOD)",
-          "price": 95.75,
-          "rsi": 39.05,
-          "trend": "BEARISH",
-          "ema_fast": 100.18,
-          "ema_trend": 105.13,
-          "upper_band": 109.74,
-          "lower_band": 90.62,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.65,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 108.5,
-              "bottom": 104.34,
-              "ce_50": 106.42,
-              "gap_pct": 3.83
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 98.88,
-              "bottom": 97.75,
-              "ce_50": 98.32,
-              "gap_pct": 1.14
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 126.74,
-          "swing_low": 90.07,
-          "golden_pocket": [
-            102.91,
-            104.08
-          ],
-          "in_golden_pocket": false
-        },
-        "1W": null
-      },
-      "analyst_note": "HOOD zeigt eine saubere bärische Struktur mit konfluenten versteckten bärischen Divergenzen auf 1D und 4h. Da kein Reversal-Kaufvolumen vorhanden ist (No Demand), eignet sich die Konsolidierungszone bei 96.00-97.50 USD für einen risikoarmen Trendfolge-Short mit Stop oberhalb des letzten 4h-Strukturhochs.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
-    },
-    {
       "symbol": "COINBASE:CRVUSD",
       "name": "Curve DAO",
       "category": "Crypto",
@@ -4576,289 +4566,6 @@
       "currency": "EUR"
     },
     {
-      "symbol": "NASDAQ:MU",
-      "name": "Micron Technology",
-      "category": "Halbleiter",
-      "asset_type": "Stock",
-      "price": 932.29,
-      "signal": "NEUTRAL",
-      "score": 58,
-      "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
-      "crv": 2.0,
-      "entry_range": [
-        932.29,
-        932.29
-      ],
-      "stop_loss": 904.32,
-      "take_profit_1": 960.26,
-      "take_profit_2": 988.23,
-      "reasons": [
-        "1D Trend unter EMA 233 bärisch",
-        "Kurs im 1D Golden Pocket (925.6 - 934.62)",
-        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)"
-      ],
-      "charts": {
-        "4h": "charts/NASDAQ_MU_4h.svg",
-        "1D": "charts/NASDAQ_MU_1D.svg"
-      },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "US Regular Session (Wall Street)",
-        "min_interval_minutes": 70,
-        "badge_color": "emerald",
-        "status_text": "US Session Offen (bis 22:00 CET)"
-      },
-      "timeframes": {
-        "1h": null,
-        "4h": {
-          "name": "Micron Technology (NASDAQ:MU)",
-          "price": 932.29,
-          "rsi": 50.18,
-          "trend": "BEARISH",
-          "ema_fast": 909.91,
-          "ema_trend": 956.2,
-          "upper_band": 958.93,
-          "lower_band": 860.89,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.15,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 1078.67,
-              "bottom": 1049.29,
-              "ce_50": 1063.98,
-              "gap_pct": 2.72
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 1017,
-              "bottom": 1002.45,
-              "ce_50": 1009.72,
-              "gap_pct": 1.43
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 1022.89,
-              "bottom": 993.63,
-              "ce_50": 1008.26,
-              "gap_pct": 2.86
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 1108.62,
-          "swing_low": 849.3,
-          "golden_pocket": [
-            1009.56,
-            1017.86
-          ],
-          "in_golden_pocket": false
-        },
-        "1D": {
-          "name": "Micron Technology (NASDAQ:MU)",
-          "price": 932.29,
-          "rsi": 46.54,
-          "trend": "BEARISH",
-          "ema_fast": 928.28,
-          "ema_trend": 964.7,
-          "upper_band": 1010.54,
-          "lower_band": 846.01,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.5,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 1032.1,
-              "bottom": 1002.67,
-              "ce_50": 1017.38,
-              "gap_pct": 2.85
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 1017,
-              "bottom": 953.6,
-              "ce_50": 985.3,
-              "gap_pct": 6.23
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 978.5,
-              "bottom": 949.42,
-              "ce_50": 963.96,
-              "gap_pct": 2.97
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 1108.72,
-          "swing_low": 827,
-          "golden_pocket": [
-            925.6,
-            934.62
-          ],
-          "in_golden_pocket": true
-        },
-        "1W": null
-      },
-      "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
-    },
-    {
-      "symbol": "NASDAQ:NFLX",
-      "name": "Netflix",
-      "category": "Entertainment",
-      "asset_type": "Stock",
-      "price": 62.79,
-      "signal": "NEUTRAL",
-      "score": 58,
-      "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
-      "crv": 2.0,
-      "entry_range": [
-        62.79,
-        62.79
-      ],
-      "stop_loss": 60.91,
-      "take_profit_1": 64.67,
-      "take_profit_2": 66.56,
-      "reasons": [
-        "1D Trend unter EMA 233 bärisch",
-        "1D Kurs überdehnt unteres degencoder-Band (Oversold)",
-        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: 1D Reguläre Bullische Divergenz (Reversal)"
-      ],
-      "charts": {
-        "4h": "charts/NASDAQ_NFLX_4h.svg",
-        "1D": "charts/NASDAQ_NFLX_1D.svg"
-      },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "US Regular Session (Wall Street)",
-        "min_interval_minutes": 70,
-        "badge_color": "emerald",
-        "status_text": "US Session Offen (bis 22:00 CET)"
-      },
-      "timeframes": {
-        "1h": null,
-        "4h": {
-          "name": "Netflix (NASDAQ:NFLX)",
-          "price": 62.79,
-          "rsi": 30.97,
-          "trend": "BEARISH",
-          "ema_fast": 65.59,
-          "ema_trend": 69.21,
-          "upper_band": 68.07,
-          "lower_band": 63.12,
-          "channel_position": "Oversold Band (Überdehnt Unten)",
-          "vsa_ratio": 0.36,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 72.5,
-              "bottom": 70.64,
-              "ce_50": 71.57,
-              "gap_pct": 2.57
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 69.07,
-              "bottom": 67.12,
-              "ce_50": 68.09,
-              "gap_pct": 2.82
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 66.53,
-              "bottom": 66.4,
-              "ce_50": 66.47,
-              "gap_pct": 0.2
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 77.78,
-          "swing_low": 62.51,
-          "golden_pocket": [
-            71.95,
-            72.44
-          ],
-          "in_golden_pocket": false
-        },
-        "1D": {
-          "name": "Netflix (NASDAQ:NFLX)",
-          "price": 62.79,
-          "rsi": 31.56,
-          "trend": "BEARISH",
-          "ema_fast": 67.3,
-          "ema_trend": 71.78,
-          "upper_band": 71.14,
-          "lower_band": 63.46,
-          "channel_position": "Oversold Band (Überdehnt Unten)",
-          "vsa_ratio": 0.71,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 71.33,
-              "bottom": 70.22,
-              "ce_50": 70.78,
-              "gap_pct": 1.56
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 69.02,
-              "bottom": 67.12,
-              "ce_50": 68.07,
-              "gap_pct": 2.75
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 68.2,
-              "bottom": 67.49,
-              "ce_50": 67.84,
-              "gap_pct": 1.04
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)"
-          ],
-          "swing_high": 83.6,
-          "swing_low": 62.5,
-          "golden_pocket": [
-            75.54,
-            76.22
-          ],
-          "in_golden_pocket": false
-        },
-        "1W": null
-      },
-      "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
-    },
-    {
       "symbol": "NASDAQ:CRWD",
       "name": "CrowdStrike",
       "category": "Cybersecurity",
@@ -4877,15 +4584,15 @@
       "take_profit_2": 284.27,
       "reasons": [
         "1D Trend über EMA 233 bullisch",
-        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: 1D Versteckte Bullische Divergenz (Trendfolge)"
       ],
       "charts": {
         "4h": "charts/NASDAQ_CRWD_4h.svg",
         "1D": "charts/NASDAQ_CRWD_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -4898,7 +4605,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "CrowdStrike (NASDAQ:CRWD)",
+          "name": "CrowdStrike",
           "price": 268.18,
           "rsi": 65.36,
           "trend": "BULLISH",
@@ -4933,8 +4640,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 286.94,
           "swing_low": 221.38,
@@ -4945,7 +4652,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "CrowdStrike (NASDAQ:CRWD)",
+          "name": "CrowdStrike",
           "price": 268.18,
           "rsi": 60.41,
           "trend": "BULLISH",
@@ -4993,12 +4700,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NYSE:IBM",
@@ -5027,7 +4729,7 @@
         "4h": "charts/NYSE_IBM_4h.svg",
         "1D": "charts/NYSE_IBM_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -5040,7 +4742,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "IBM (NYSE:IBM)",
+          "name": "IBM",
           "price": 250.35,
           "rsi": 67.27,
           "trend": "BULLISH",
@@ -5086,7 +4788,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "IBM (NYSE:IBM)",
+          "name": "IBM",
           "price": 250.35,
           "rsi": 66.01,
           "trend": "BULLISH",
@@ -5127,12 +4829,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:PANW",
@@ -5153,15 +4850,15 @@
       "take_profit_2": 426.18,
       "reasons": [
         "1D Trend über EMA 233 bullisch",
-        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: 1D Versteckte Bullische Divergenz (Trendfolge)"
       ],
       "charts": {
         "4h": "charts/NASDAQ_PANW_4h.svg",
         "1D": "charts/NASDAQ_PANW_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -5174,7 +4871,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Palo Alto Networks (NASDAQ:PANW)",
+          "name": "Palo Alto Networks",
           "price": 402.06,
           "rsi": 63.63,
           "trend": "BULLISH",
@@ -5209,8 +4906,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 432.28,
           "swing_low": 334.79,
@@ -5221,7 +4918,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Palo Alto Networks (NASDAQ:PANW)",
+          "name": "Palo Alto Networks",
           "price": 402.06,
           "rsi": 58.5,
           "trend": "BULLISH",
@@ -5269,12 +4966,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NYSE:DELL",
@@ -5295,15 +4987,15 @@
       "take_profit_2": 533.92,
       "reasons": [
         "1D Trend über EMA 233 bullisch",
-        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "VSA: Verkaufsdruck versiegt ('No Supply')"
       ],
       "charts": {
         "4h": "charts/NYSE_DELL_4h.svg",
         "1D": "charts/NYSE_DELL_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -5316,7 +5008,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Dell Technologies (NYSE:DELL)",
+          "name": "Dell Technologies",
           "price": 503.6,
           "rsi": 53.04,
           "trend": "BEARISH",
@@ -5351,8 +5043,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 595.02,
           "swing_low": 439.71,
@@ -5363,7 +5055,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Dell Technologies (NYSE:DELL)",
+          "name": "Dell Technologies",
           "price": 503.7,
           "rsi": 49.22,
           "trend": "BULLISH",
@@ -5409,12 +5101,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "KRAKEN:DAIEUR",
@@ -7107,6 +6794,134 @@
       "currency": "EUR"
     },
     {
+      "symbol": "NASDAQ:META",
+      "name": "Meta Platforms",
+      "category": "Big Tech",
+      "asset_type": "Stock",
+      "price": 622.61,
+      "signal": "NEUTRAL",
+      "score": 58,
+      "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+      "crv": 2.0,
+      "entry_range": [
+        622.61,
+        622.61
+      ],
+      "stop_loss": 603.93,
+      "take_profit_1": 641.29,
+      "take_profit_2": 659.97,
+      "reasons": [
+        "1D Trend unter EMA 233 bärisch",
+        "Kurs im 1D Golden Pocket (622.16 - 629.92)",
+        "1D Kurs überdehnt unteres degencoder-Band (Oversold)",
+        "Aktiv: 1D Reguläre Bärische Divergenz (Reversal)"
+      ],
+      "charts": {
+        "4h": "charts/NASDAQ_META_4h.svg",
+        "1D": "charts/NASDAQ_META_1D.svg"
+      },
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "US Regular Session (Wall Street)",
+        "min_interval_minutes": 70,
+        "badge_color": "emerald",
+        "status_text": "US Session Offen (bis 22:00 CET)"
+      },
+      "timeframes": {
+        "1h": null,
+        "4h": {
+          "name": "Meta Platforms",
+          "price": 622.7,
+          "rsi": 24.48,
+          "trend": "BEARISH",
+          "ema_fast": 656.81,
+          "ema_trend": 689.4,
+          "upper_band": 684.47,
+          "lower_band": 629.16,
+          "channel_position": "Oversold Band (Überdehnt Unten)",
+          "vsa_ratio": 0.42,
+          "vsa_class": "Low",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 692.5,
+              "bottom": 680.76,
+              "ce_50": 686.63,
+              "gap_pct": 1.7
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 689.77,
+              "bottom": 650.22,
+              "ce_50": 670.0,
+              "gap_pct": 5.73
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 629.06,
+              "bottom": 628.46,
+              "ce_50": 628.76,
+              "gap_pct": 0.1
+            }
+          ],
+          "divergences": [],
+          "swing_high": 779.83,
+          "swing_low": 621.36,
+          "golden_pocket": [
+            719.29,
+            724.37
+          ],
+          "in_golden_pocket": false
+        },
+        "1D": {
+          "name": "Meta Platforms",
+          "price": 622.61,
+          "rsi": 32.31,
+          "trend": "BEARISH",
+          "ema_fast": 679.27,
+          "ema_trend": 674.0,
+          "upper_band": 723.28,
+          "lower_band": 635.26,
+          "channel_position": "Oversold Band (Überdehnt Unten)",
+          "vsa_ratio": 1.68,
+          "vsa_class": "High",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 689.68,
+              "bottom": 648.04,
+              "ce_50": 668.86,
+              "gap_pct": 6.04
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 633.27,
+              "bottom": 628.46,
+              "ce_50": 630.87,
+              "gap_pct": 0.76
+            }
+          ],
+          "divergences": [
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 779.82,
+          "swing_low": 537.27,
+          "golden_pocket": [
+            622.16,
+            629.92
+          ],
+          "in_golden_pocket": true
+        },
+        "1W": null
+      },
+      "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
+      "evaluated_by": "quantitative_engine"
+    },
+    {
       "symbol": "NYSE:ACN",
       "name": "Accenture",
       "category": "Consulting",
@@ -7132,7 +6947,7 @@
         "4h": "charts/NYSE_ACN_4h.svg",
         "1D": "charts/NYSE_ACN_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -7145,7 +6960,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Accenture (NYSE:ACN)",
+          "name": "Accenture",
           "price": 235.79,
           "rsi": 54.63,
           "trend": "BULLISH",
@@ -7192,7 +7007,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Accenture (NYSE:ACN)",
+          "name": "Accenture",
           "price": 235.79,
           "rsi": 61.37,
           "trend": "BULLISH",
@@ -7238,12 +7053,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:GOOG",
@@ -7272,7 +7082,7 @@
         "4h": "charts/NASDAQ_GOOG_4h.svg",
         "1D": "charts/NASDAQ_GOOG_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -7285,7 +7095,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Alphabet (Google) (NASDAQ:GOOG)",
+          "name": "Alphabet (Google)",
           "price": 318.39,
           "rsi": 30.04,
           "trend": "BEARISH",
@@ -7331,7 +7141,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Alphabet (Google) (NASDAQ:GOOG)",
+          "name": "Alphabet (Google)",
           "price": 318.39,
           "rsi": 34.34,
           "trend": "BEARISH",
@@ -7379,12 +7189,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "TRADEGATE:RHM",
@@ -8019,32 +7824,33 @@
       "currency": "USD"
     },
     {
-      "symbol": "NASDAQ:AMD",
-      "name": "AMD",
-      "category": "Halbleiter",
+      "symbol": "NYSE:ORCL",
+      "name": "Oracle",
+      "category": "Enterprise Software",
       "asset_type": "Stock",
-      "price": 560.38,
+      "price": 131.86,
       "signal": "NEUTRAL",
-      "score": 55,
-      "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
-      "crv": 2.75,
+      "score": 56,
+      "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+      "crv": 2.0,
       "entry_range": [
-        542.0,
-        548.0
+        131.86,
+        131.86
       ],
-      "stop_loss": 532.0,
-      "take_profit_1": 580.0,
-      "take_profit_2": 605.0,
+      "stop_loss": 127.9,
+      "take_profit_1": 135.82,
+      "take_profit_2": 139.77,
       "reasons": [
-        "1D-Makrotrend ist bullisch mit intakter versteckter bullischer Divergenz (Trendfortsetzung).",
-        "4h-Trend ist mit bärischer Struktur im Pullback-Modus; gemäß Regel 1 ist dies kein Short, aber vor Abschluss der Konsolidierung auch kein Long-Trigger.",
-        "VSA signalisiert 'Ultra-Low / No Supply-Demand', während der Kurs noch nicht im 1D Golden Pocket angekommen ist."
+        "1D Trend unter EMA 233 bärisch",
+        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
+        "Aktiv: 4h Versteckte Bullische Divergenz (Trendfolge)",
+        "Aktiv: 1D Versteckte Bärische Divergenz (Trendfolge)"
       ],
       "charts": {
-        "4h": "charts/NASDAQ_AMD_4h.svg",
-        "1D": "charts/NASDAQ_AMD_1D.svg"
+        "4h": "charts/NYSE_ORCL_4h.svg",
+        "1D": "charts/NYSE_ORCL_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -8057,107 +7863,82 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "AMD (NASDAQ:AMD)",
-          "price": 560.38,
-          "rsi": 52.21,
+          "name": "Oracle",
+          "price": 131.86,
+          "rsi": 50.22,
           "trend": "BEARISH",
-          "ema_fast": 541.63,
-          "ema_trend": 561.1,
-          "upper_band": 571.16,
-          "lower_band": 512.1,
+          "ema_fast": 129.27,
+          "ema_trend": 135.19,
+          "upper_band": 135.95,
+          "lower_band": 122.59,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.18,
+          "vsa_ratio": 0.15,
           "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [
             {
               "type": "Bearish FVG",
-              "top": 639.93,
-              "bottom": 621.44,
-              "ce_50": 630.68,
-              "gap_pct": 2.89
+              "top": 141.51,
+              "bottom": 131.88,
+              "ce_50": 136.69,
+              "gap_pct": 6.81
             },
             {
-              "type": "Bearish FVG",
-              "top": 613.34,
-              "bottom": 613.17,
-              "ce_50": 613.25,
-              "gap_pct": 0.03
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 594.4,
-              "bottom": 573.72,
-              "ce_50": 584.06,
-              "gap_pct": 3.48
+              "type": "Bullish FVG",
+              "top": 131.26,
+              "bottom": 127.2,
+              "ce_50": 129.23,
+              "gap_pct": 3.2
             }
           ],
           "divergences": [
             "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bullische Divergenz (Trendfolge)"
           ],
-          "swing_high": 658.52,
-          "swing_low": 502.6,
+          "swing_high": 153.6,
+          "swing_low": 122.76,
           "golden_pocket": [
-            598.96,
-            603.95
+            141.82,
+            142.81
           ],
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "AMD (NASDAQ:AMD)",
-          "price": 560.38,
-          "rsi": 49.84,
-          "trend": "BULLISH",
-          "ema_fast": 553.52,
-          "ema_trend": 551.05,
-          "upper_band": 602.32,
-          "lower_band": 504.72,
+          "name": "Oracle",
+          "price": 131.86,
+          "rsi": 46.04,
+          "trend": "BEARISH",
+          "ema_fast": 131.48,
+          "ema_trend": 140.68,
+          "upper_band": 142.9,
+          "lower_band": 120.05,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.72,
+          "vsa_ratio": 0.62,
           "vsa_class": "Low",
           "fvgs": [
             {
-              "type": "Bullish FVG",
-              "top": 506.05,
-              "bottom": 498.39,
-              "ce_50": 502.22,
-              "gap_pct": 1.54
-            },
-            {
               "type": "Bearish FVG",
-              "top": 633.16,
-              "bottom": 627.37,
-              "ce_50": 630.26,
-              "gap_pct": 0.91
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 613.34,
-              "bottom": 601.77,
-              "ce_50": 607.55,
-              "gap_pct": 1.89
+              "top": 135.55,
+              "bottom": 135.08,
+              "ce_50": 135.31,
+              "gap_pct": 0.35
             }
           ],
           "divergences": [
-            "Versteckte Bullische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
-          "swing_high": 658.52,
-          "swing_low": 440.5,
+          "swing_high": 170.7,
+          "swing_low": 122.76,
           "golden_pocket": [
-            516.81,
-            523.78
+            152.39,
+            153.92
           ],
           "in_golden_pocket": false
         },
         "1W": null
       },
-      "analyst_note": "Der übergeordnete Trend von AMD bleibt bullisch, während der 4h-Zeithorizont einen untergeordneten Rücksetzer durchläuft. Die aufgetretene reguläre bullische Divergenz auf 4h ist ein erstes Lebenszeichen, trifft jedoch auf 'Ultra-Low' Volumen und fehlende Bestätigung. Gemäß strikter Risikoregeln stufen wir auf NEUTRAL zurück, um eine saubere Wyckoff-Absorption an tieferer Unterstützung abzuwarten.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NYMEX:NG1!",
@@ -8809,6 +8590,122 @@
       "currency": "USD"
     },
     {
+      "symbol": "NASDAQ:MSFT",
+      "name": "Microsoft",
+      "category": "Big Tech",
+      "asset_type": "Stock",
+      "price": 531.62,
+      "signal": "NEUTRAL",
+      "score": 55,
+      "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+      "crv": 2.8,
+      "entry_range": [
+        512.0,
+        518.0
+      ],
+      "stop_loss": 502.0,
+      "take_profit_1": 545.0,
+      "take_profit_2": 560.0,
+      "reasons": [
+        "1D-Trend ist bullisch über dem 233 EMA, Kurs konsolidiert jedoch neutral inmitten der Trendspanne ohne GP-Touch",
+        "4h VSA zeigt Ultra-Low Volume / No Supply-Demand, was auf ein temporäres Momentum-Vakuum vor dem nächsten Impuls hindeutet",
+        "Bärische 1D-Divergenz konfligiert mit 4h-Bull-Divergenzen – kein klares Signal vor Bestätigung eines tragfähigen Bodens"
+      ],
+      "charts": {
+        "4h": "charts/NASDAQ_MSFT_4h.svg",
+        "1D": "charts/NASDAQ_MSFT_1D.svg"
+      },
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "US Regular Session (Wall Street)",
+        "min_interval_minutes": 70,
+        "badge_color": "emerald",
+        "status_text": "US Session Offen (bis 22:00 CET)"
+      },
+      "timeframes": {
+        "1h": null,
+        "4h": {
+          "name": "Microsoft",
+          "price": 531.63,
+          "rsi": 53.37,
+          "trend": "BULLISH",
+          "ema_fast": 530.19,
+          "ema_trend": 523.45,
+          "upper_band": 541.61,
+          "lower_band": 518.77,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.31,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 529.86,
+              "bottom": 525.11,
+              "ce_50": 527.49,
+              "gap_pct": 0.9
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 551.15,
+          "swing_low": 487.25,
+          "golden_pocket": [
+            509.62,
+            511.66
+          ],
+          "in_golden_pocket": false
+        },
+        "1D": {
+          "name": "Microsoft",
+          "price": 531.62,
+          "rsi": 56.52,
+          "trend": "BULLISH",
+          "ema_fast": 529.13,
+          "ema_trend": 507.41,
+          "upper_band": 548.75,
+          "lower_band": 509.51,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.51,
+          "vsa_class": "Low",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 502.22,
+              "bottom": 498.9,
+              "ce_50": 500.56,
+              "gap_pct": 0.67
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 528.33,
+              "bottom": 525.77,
+              "ce_50": 527.05,
+              "gap_pct": 0.49
+            }
+          ],
+          "divergences": [
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 551.15,
+          "swing_low": 477.15,
+          "golden_pocket": [
+            503.05,
+            505.42
+          ],
+          "in_golden_pocket": false
+        },
+        "1W": null
+      },
+      "analyst_note": "Microsoft konsolidiert in intakter 1D-Aufwärtsstruktur, leidet aber unter extremer Volumenarmut (No Supply-Demand) auf 4h. Gemäß Risikodogma gehen wir nicht mitten im Niemandsland Long, sondern verharren in Lauerstellung. Erst ein kontrollierter Rücksetzer an die 515-USD-Supportmarke mit klarer Volumenumkehr bietet ein valides institutionelles CRV.",
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+    },
+    {
       "symbol": "NYSE:KO",
       "name": "Coca-Cola",
       "category": "Consumer Goods",
@@ -8835,7 +8732,7 @@
         "4h": "charts/NYSE_KO_4h.svg",
         "1D": "charts/NYSE_KO_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -8848,7 +8745,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Coca-Cola (NYSE:KO)",
+          "name": "Coca-Cola",
           "price": 91.56,
           "rsi": 48.75,
           "trend": "BULLISH",
@@ -8895,7 +8792,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Coca-Cola (NYSE:KO)",
+          "name": "Coca-Cola",
           "price": 91.56,
           "rsi": 54.5,
           "trend": "BULLISH",
@@ -8943,12 +8840,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "BINANCE:ZECUSDT",
@@ -10575,134 +10467,6 @@
       "currency": "EUR"
     },
     {
-      "symbol": "NASDAQ:MRVL",
-      "name": "Marvell",
-      "category": "Halbleiter",
-      "asset_type": "Stock",
-      "price": 241.98,
-      "signal": "NEUTRAL",
-      "score": 52,
-      "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
-      "crv": 2.65,
-      "entry_range": [
-        248.5,
-        252.0
-      ],
-      "stop_loss": 258.5,
-      "take_profit_1": 235.0,
-      "take_profit_2": 222.0,
-      "reasons": [
-        "Makro-Trend (1D/4h) bärisch unter 233 EMA, jedoch widersprüchliche Divergenzen (1D regulär bärisch vs. 4h regulär bullisch).",
-        "VSA signalisiert 'Ultra-Low / No Supply-Demand' mitten im Kanal (RSI 47-49); kein klares institutionelles Momentum für direkten Short-Einstieg.",
-        "Kapitalschutz-Fokus: Direkter Short auf aktuellem Niveau bietet unzureichendes CRV; Abwarten eines Pullbacks an den dynamischen Widerstand geboten."
-      ],
-      "charts": {
-        "4h": "charts/NASDAQ_MRVL_4h.svg",
-        "1D": "charts/NASDAQ_MRVL_1D.svg"
-      },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "US Regular Session (Wall Street)",
-        "min_interval_minutes": 70,
-        "badge_color": "emerald",
-        "status_text": "US Session Offen (bis 22:00 CET)"
-      },
-      "timeframes": {
-        "1h": null,
-        "4h": {
-          "name": "Marvell (NASDAQ:MRVL)",
-          "price": 241.98,
-          "rsi": 49.06,
-          "trend": "BEARISH",
-          "ema_fast": 237.79,
-          "ema_trend": 246.31,
-          "upper_band": 254.53,
-          "lower_band": 221.05,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.14,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 272.91,
-              "bottom": 268.36,
-              "ce_50": 270.63,
-              "gap_pct": 1.67
-            },
-            {
-              "type": "Bearish FVG",
-              "top": 264.4,
-              "bottom": 251.74,
-              "ce_50": 258.07,
-              "gap_pct": 4.79
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 233.21,
-              "bottom": 229.85,
-              "ce_50": 231.53,
-              "gap_pct": 1.46
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 301.24,
-          "swing_low": 220.2,
-          "golden_pocket": [
-            270.28,
-            272.88
-          ],
-          "in_golden_pocket": false
-        },
-        "1D": {
-          "name": "Marvell (NASDAQ:MRVL)",
-          "price": 241.98,
-          "rsi": 47.98,
-          "trend": "BEARISH",
-          "ema_fast": 242.7,
-          "ema_trend": 243.17,
-          "upper_band": 271.02,
-          "lower_band": 214.39,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.46,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 235.23,
-              "bottom": 231.62,
-              "ce_50": 233.42,
-              "gap_pct": 1.56
-            }
-          ],
-          "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 301.27,
-          "swing_low": 200.62,
-          "golden_pocket": [
-            235.85,
-            239.07
-          ],
-          "in_golden_pocket": false
-        },
-        "1W": null
-      },
-      "analyst_note": "Obwohl der 1D-Trend bärisch ist, deutet die reguläre 4h-Bullish-Divergenz auf eine temporäre Erholungsbewegung hin. Ein Short-Einstieg mitten im Kanal birgt hohes Whipsaw-Risiko. Erst ein korrektiver Hochlauf in die Widerstandszone von 248.50-252.00 USD mit Rejection liefert ein institutionell vertretbares Short-Setup.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
-    },
-    {
       "symbol": "NASDAQ:AAPL",
       "name": "Apple",
       "category": "Big Tech",
@@ -10711,18 +10475,18 @@
       "signal": "NEUTRAL",
       "score": 52,
       "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
-      "crv": 2.65,
+      "crv": 2.7,
       "entry_range": [
-        336.0,
-        340.5
+        334.0,
+        338.5
       ],
-      "stop_loss": 331.0,
+      "stop_loss": 328.0,
       "take_profit_1": 355.0,
-      "take_profit_2": 365.0,
+      "take_profit_2": 368.0,
       "reasons": [
-        "1W- und 1D-Makrotrends intakt bullisch, jedoch 1D-RSI bei 61.1 nahe Overbought und reguläre bärische Reversal-Divergenz aktiv.",
-        "Kurs befindet sich nicht im Golden Pocket (in_gp: false); kein unmittelbarer institutioneller Value-Bereich auf 1D/4h.",
-        "VSA auf 4h zeigt geringes Volumen ('Low'); Chasing am aktuellen Hoch widerspricht den strikten Kapitalerhalt-Regeln."
+        "Makro-Trend (1W & 1D) klar bullisch über 233 EMA, jedoch kein Einstieg im überdehnten Bereich (1W RSI 66.7, 4h RSI > 61)",
+        "Reguläre bärische Divergenzen auf 1D und 4h mahnen zur Vorsicht vor einem gesunden Pullback; Kurs notiert nicht im Golden Pocket",
+        "Strikte Chasing-Vermeidung: Lauerstellung auf Retest der ungetesteten Nachfragezone/FVG bei 334-338 USD vor Long-Freigabe"
       ],
       "charts": {
         "1h": "charts/NASDAQ_AAPL_1h.svg",
@@ -10730,7 +10494,7 @@
         "1D": "charts/NASDAQ_AAPL_1D.svg",
         "1W": "charts/NASDAQ_AAPL_1W.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -10742,7 +10506,7 @@
       },
       "timeframes": {
         "1h": {
-          "name": "Apple (NASDAQ:AAPL)",
+          "name": "Apple",
           "price": 347.09,
           "rsi": 57.2,
           "trend": "BULLISH",
@@ -10763,7 +10527,7 @@
             }
           ],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)",
             "Versteckte Bullische Divergenz (Trendfolge)"
           ],
           "swing_high": 351.71,
@@ -10775,7 +10539,7 @@
           "in_golden_pocket": false
         },
         "4h": {
-          "name": "Apple (NASDAQ:AAPL)",
+          "name": "Apple",
           "price": 349.6,
           "rsi": 61.23,
           "trend": "BULLISH",
@@ -10803,7 +10567,7 @@
             }
           ],
           "divergences": [
-            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bärische Divergenz (Reversal)",
             "Versteckte Bullische Divergenz (Trendfolge)"
           ],
           "swing_high": 351.71,
@@ -10815,7 +10579,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Apple (NASDAQ:AAPL)",
+          "name": "Apple",
           "price": 347.1,
           "rsi": 61.1,
           "trend": "BULLISH",
@@ -10840,7 +10604,7 @@
           "in_golden_pocket": false
         },
         "1W": {
-          "name": "Apple (NASDAQ:AAPL)",
+          "name": "Apple",
           "price": 347.1,
           "rsi": 66.74,
           "trend": "BULLISH",
@@ -10865,14 +10629,8 @@
           "in_golden_pocket": false
         }
       },
-      "analyst_note": "Apple befindet sich in einem gesunden HTF-Bullenmarkt, generiert jedoch auf dem Tageschart eine reguläre bärische Divergenz bei nachlassendem 4h-Volumen. Entsprechend den Filtern verbietet sich ein Chasing bei RSI > 60 ohne Pullback. Wir verbleiben in Lauerstellung und warten auf einen strukturierten Retest der Support-Liquidität im Bereich um 336-340 USD.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Aktien",
-        "Watchlist"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "analyst_note": "Apple befindet sich in einem intakten übergeordneten Bullentrend, zeigt jedoch auf Tages- und 4h-Basis aktive bärische Divergenzen. Ein Einstieg auf aktuellem Niveau (347.10 USD) birgt ein ungünstiges Chance-Risiko-Profil und widerspricht unseren Chasing-Regeln. Wir verbleiben diszipliniert auf NEUTRAL und warten auf eine Bereinigung in Richtung des Golden Pocket / FVG-Supports.",
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "KRAKEN:KSMUSD",
@@ -11711,13 +11469,13 @@
       },
       "last_analyzed": "2026-10-29T14:16:10.275722+00:00",
       "market_state": {
-        "is_open": true,
+        "is_open": false,
         "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "XETRA Regular Session",
-        "min_interval_minutes": 120,
-        "badge_color": "emerald",
-        "status_text": "XETRA Offen (bis 17:35 CET)"
+        "status": "CLOSED",
+        "session_name": "XETRA Nachtpause",
+        "min_interval_minutes": 999999,
+        "badge_color": "slate",
+        "status_text": "XETRA Geschlossen (Pause bis 09:00)"
       },
       "timeframes": {
         "1h": {
@@ -11901,6 +11659,128 @@
       ],
       "source_watchlist": "Aktien",
       "currency": "EUR"
+    },
+    {
+      "symbol": "NASDAQ:PYPL",
+      "name": "PayPal",
+      "category": "Fintech",
+      "asset_type": "Stock",
+      "price": 55.85,
+      "signal": "NEUTRAL",
+      "score": 52,
+      "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+      "crv": 2.7,
+      "entry_range": [
+        53.2,
+        54.5
+      ],
+      "stop_loss": 51.4,
+      "take_profit_1": 59.8,
+      "take_profit_2": 63.5,
+      "reasons": [
+        "HTF-Struktur: 1D und 4h sind bullisch intakt, allerdings notiert der Kurs nicht in einer validierten Discount- bzw. Golden-Pocket-Zone (in_gp: false).",
+        "Gegenläufige 4h-Divergenz: Reguläre bärische Divergenz auf 4h mahnt zur Geduld und warnt vor vorzeitigem Einstieg in einen laufenden Rücksetzer.",
+        "Institutioneller Filter: Kein Chasing im Mittelfeld; Einstiege erfolgen erst bei Erreichen des signifikanten 1D-Supports / FVG."
+      ],
+      "charts": {
+        "4h": "charts/NASDAQ_PYPL_4h.svg",
+        "1D": "charts/NASDAQ_PYPL_1D.svg"
+      },
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "US Regular Session (Wall Street)",
+        "min_interval_minutes": 70,
+        "badge_color": "emerald",
+        "status_text": "US Session Offen (bis 22:00 CET)"
+      },
+      "timeframes": {
+        "1h": null,
+        "4h": {
+          "name": "PayPal",
+          "price": 55.85,
+          "rsi": 48.16,
+          "trend": "BULLISH",
+          "ema_fast": 56.24,
+          "ema_trend": 55.65,
+          "upper_band": 57.87,
+          "lower_band": 54.62,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.59,
+          "vsa_class": "Low",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 56.82,
+              "bottom": 56.81,
+              "ce_50": 56.81,
+              "gap_pct": 0.02
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 55.46,
+              "bottom": 54.98,
+              "ce_50": 55.22,
+              "gap_pct": 0.86
+            }
+          ],
+          "divergences": [
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 57.95,
+          "swing_low": 51.82,
+          "golden_pocket": [
+            53.97,
+            54.16
+          ],
+          "in_golden_pocket": false
+        },
+        "1D": {
+          "name": "PayPal",
+          "price": 55.85,
+          "rsi": 51.16,
+          "trend": "BULLISH",
+          "ema_fast": 56.11,
+          "ema_trend": 55.04,
+          "upper_band": 58.64,
+          "lower_band": 53.59,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 1.29,
+          "vsa_class": "High",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 54,
+              "bottom": 53.4,
+              "ce_50": 53.7,
+              "gap_pct": 1.12
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 56.84,
+              "bottom": 56.63,
+              "ce_50": 56.73,
+              "gap_pct": 0.37
+            }
+          ],
+          "divergences": [
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 62.73,
+          "swing_low": 50.8,
+          "golden_pocket": [
+            58.17,
+            58.56
+          ],
+          "in_golden_pocket": false
+        },
+        "1W": null
+      },
+      "analyst_note": "Der übergeordnete Aufwärtstrend ist stabil, doch die 4h-bärische Divergenz signalisiert einen tieferen Pullback. Ein Long-Einstieg zum aktuellen Kurs (55.85 USD) böte kein adäquates CRV. Wir verbleiben diszipliniert in Lauerstellung und warten auf eine Konsolidierung im Support-Bereich von 53.20-54.50 USD.",
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "TRADEGATE:MSF",
@@ -12279,6 +12159,129 @@
       "currency": "USD"
     },
     {
+      "symbol": "NASDAQ:MRVL",
+      "name": "Marvell",
+      "category": "Halbleiter",
+      "asset_type": "Stock",
+      "price": 241.98,
+      "signal": "NEUTRAL",
+      "score": 50,
+      "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+      "crv": 2.6,
+      "entry_range": [
+        248.0,
+        252.0
+      ],
+      "stop_loss": 262.5,
+      "take_profit_1": 228.0,
+      "take_profit_2": 215.0,
+      "reasons": [
+        "HTF-Struktur: 1D- und 4h-Trend sind bärisch, jedoch befindet sich der Kurs aktuell im Niemandsland (RSI ~48-49) ohne Erreichen einer primären Supply-Zone.",
+        "Divergenz-Konflikt: Widersprüchliche Signale auf 1D und 4h (reguläre bärische vs. versteckte bullische Divergenz auf 1D; 4h mit bullischem Reversal-Signal).",
+        "VSA-Timing: 4h VSA indiziert mangelndes Momentum ('Ultra-Low'); Einstieg direkt ins neutrale Momentum verbietet sich institutionell."
+      ],
+      "charts": {
+        "4h": "charts/NASDAQ_MRVL_4h.svg",
+        "1D": "charts/NASDAQ_MRVL_1D.svg"
+      },
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "US Regular Session (Wall Street)",
+        "min_interval_minutes": 70,
+        "badge_color": "emerald",
+        "status_text": "US Session Offen (bis 22:00 CET)"
+      },
+      "timeframes": {
+        "1h": null,
+        "4h": {
+          "name": "Marvell",
+          "price": 241.98,
+          "rsi": 49.06,
+          "trend": "BEARISH",
+          "ema_fast": 237.79,
+          "ema_trend": 246.31,
+          "upper_band": 254.53,
+          "lower_band": 221.05,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.14,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 272.91,
+              "bottom": 268.36,
+              "ce_50": 270.63,
+              "gap_pct": 1.67
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 264.4,
+              "bottom": 251.74,
+              "ce_50": 258.07,
+              "gap_pct": 4.79
+            },
+            {
+              "type": "Bullish FVG",
+              "top": 233.21,
+              "bottom": 229.85,
+              "ce_50": 231.53,
+              "gap_pct": 1.46
+            }
+          ],
+          "divergences": [
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 301.24,
+          "swing_low": 220.2,
+          "golden_pocket": [
+            270.28,
+            272.88
+          ],
+          "in_golden_pocket": false
+        },
+        "1D": {
+          "name": "Marvell",
+          "price": 241.98,
+          "rsi": 47.98,
+          "trend": "BEARISH",
+          "ema_fast": 242.7,
+          "ema_trend": 243.17,
+          "upper_band": 271.02,
+          "lower_band": 214.39,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.46,
+          "vsa_class": "Low",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 235.23,
+              "bottom": 231.62,
+              "ce_50": 233.42,
+              "gap_pct": 1.56
+            }
+          ],
+          "divergences": [
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
+          ],
+          "swing_high": 301.27,
+          "swing_low": 200.62,
+          "golden_pocket": [
+            235.85,
+            239.07
+          ],
+          "in_golden_pocket": false
+        },
+        "1W": null
+      },
+      "analyst_note": "Trotz übergeordnet bärischer Marktstruktur verbieten die widersprüchlichen Divergenzen auf Tages- und 4h-Basis eine vorzeitige Short-Exekution. Gemäß Hysterese-Regel bleibt das Signal NEUTRAL, bis der Kurs in die FVG-/Widerstandszone um 248.00-252.00 USD läuft und dort ein eindeutiger Bearish-Trigger mit Volumenbestätigung erfolgt.",
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+    },
+    {
       "symbol": "TRADEGATE:YDX",
       "name": "BYD Company",
       "category": "Tradegate / EU",
@@ -12492,24 +12495,24 @@
       "signal": "NEUTRAL",
       "score": 50,
       "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
-      "crv": 2.8,
+      "crv": 2.7,
       "entry_range": [
-        190.0,
-        193.5
+        184.0,
+        189.0
       ],
-      "stop_loss": 184.5,
+      "stop_loss": 178.0,
       "take_profit_1": 210.0,
-      "take_profit_2": 222.0,
+      "take_profit_2": 225.0,
       "reasons": [
-        "1D-Trend ist bullisch, weist jedoch eine reguläre bärische Reversal-Divergenz auf, die das Aufwärtspotenzial kurzfristig deckelt.",
-        "Keine Konfluenz mit dem 1D Fibonacci Golden Pocket (in_gp: false).",
-        "4h-Volumen zeigt 'Ultra-Low / No Supply-Demand'; fehlende institutionelle Nachfrageimpulse für einen direkten Ausbruch."
+        "1D- und 4h-Trends sind formell bullisch, jedoch ohne Golden-Pocket-Verankerung (in_gp: false)",
+        "Doppelte reguläre bärische Divergenzen auf 1D und 4h signalisieren Erschöpfung des Aufwärtsmomentums",
+        "4h VSA signalisiert Ultra-Low Volume – Fehlen institutioneller Anschlusskäufe auf aktuellem Allzeithoch-Niveau"
       ],
       "charts": {
         "4h": "charts/NASDAQ_PLTR_4h.svg",
         "1D": "charts/NASDAQ_PLTR_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -12522,7 +12525,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Palantir (NASDAQ:PLTR)",
+          "name": "Palantir",
           "price": 200.29,
           "rsi": 55.49,
           "trend": "BULLISH",
@@ -12543,8 +12546,8 @@
             }
           ],
           "divergences": [
-            "Versteckte Bullische Divergenz (Trendfolge)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Reguläre Bärische Divergenz (Reversal)",
+            "Versteckte Bullische Divergenz (Trendfolge)"
           ],
           "swing_high": 212.93,
           "swing_low": 168.97,
@@ -12555,7 +12558,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Palantir (NASDAQ:PLTR)",
+          "name": "Palantir",
           "price": 200.29,
           "rsi": 57.26,
           "trend": "BULLISH",
@@ -12589,255 +12592,8 @@
         },
         "1W": null
       },
-      "analyst_note": "Palantir konsolidiert oberhalb der 200-USD-Schwelle, zeigt aber auf Tagesbasis Warnsignale in Form einer bärischen Divergenz. Da der Kurs fernab des Golden Pockets notiert und die Volumenaktivität stagniert, rechtfertigt das Chance-Risiko-Verhältnis keinen aggressiven Long-Einstieg. Wir sichern unser Kapital und warten auf eine Bereinigung der lokalen Liquidität in Richtung 190-193 USD.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
-    },
-    {
-      "symbol": "NYSE:ORCL",
-      "name": "Oracle",
-      "category": "Enterprise Software",
-      "asset_type": "Stock",
-      "price": 131.86,
-      "signal": "NEUTRAL",
-      "score": 50,
-      "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
-      "crv": 2.55,
-      "entry_range": [
-        135.5,
-        137.0
-      ],
-      "stop_loss": 141.0,
-      "take_profit_1": 126.5,
-      "take_profit_2": 121.0,
-      "reasons": [
-        "1D und 4h Trend bärisch, aber widersprüchliche Divergenzen (1D reguläre bullische Reversal-Divergenz bei RSI 46).",
-        "Historisches Learning: ORCL wurde zuvor bereits nach 2.9 Tagen durch Signal-Neutralisierung ausgestoppt; Chasing im Mittelfeld strikt verboten.",
-        "VSA zeigt 'Ultra-Low Volume' ohne Verkaufsdruck-Bestätigung am aktuellen Kursniveau von 131.86 USD."
-      ],
-      "charts": {
-        "4h": "charts/NYSE_ORCL_4h.svg",
-        "1D": "charts/NYSE_ORCL_1D.svg"
-      },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "US Regular Session (Wall Street)",
-        "min_interval_minutes": 70,
-        "badge_color": "emerald",
-        "status_text": "US Session Offen (bis 22:00 CET)"
-      },
-      "timeframes": {
-        "1h": null,
-        "4h": {
-          "name": "Oracle (NYSE:ORCL)",
-          "price": 131.86,
-          "rsi": 50.22,
-          "trend": "BEARISH",
-          "ema_fast": 129.27,
-          "ema_trend": 135.19,
-          "upper_band": 135.95,
-          "lower_band": 122.59,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.15,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 141.51,
-              "bottom": 131.88,
-              "ce_50": 136.69,
-              "gap_pct": 6.81
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 131.26,
-              "bottom": 127.2,
-              "ce_50": 129.23,
-              "gap_pct": 3.2
-            }
-          ],
-          "divergences": [
-            "Versteckte Bullische Divergenz (Trendfolge)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 153.6,
-          "swing_low": 122.76,
-          "golden_pocket": [
-            141.82,
-            142.81
-          ],
-          "in_golden_pocket": false
-        },
-        "1D": {
-          "name": "Oracle (NYSE:ORCL)",
-          "price": 131.86,
-          "rsi": 46.04,
-          "trend": "BEARISH",
-          "ema_fast": 131.48,
-          "ema_trend": 140.68,
-          "upper_band": 142.9,
-          "lower_band": 120.05,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.62,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bearish FVG",
-              "top": 135.55,
-              "bottom": 135.08,
-              "ce_50": 135.31,
-              "gap_pct": 0.35
-            }
-          ],
-          "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 170.7,
-          "swing_low": 122.76,
-          "golden_pocket": [
-            152.39,
-            153.92
-          ],
-          "in_golden_pocket": false
-        },
-        "1W": null
-      },
-      "analyst_note": "Nach dem vorangegangenen Fehlsignal bei ORCL verlangt das Risikomanagement höchste Disziplin. Die vorliegende reguläre Bull-Divergenz im 1D mahnt vor einem zu frühen Short-Einstieg im Niemandsland. Wir verharren auf NEUTRAL und positionieren uns erst bei einem Retest des 135.50-137.00 USD Widerstandsclusters.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
-    },
-    {
-      "symbol": "NASDAQ:MSFT",
-      "name": "Microsoft",
-      "category": "Big Tech",
-      "asset_type": "Stock",
-      "price": 531.62,
-      "signal": "NEUTRAL",
-      "score": 50,
-      "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
-      "crv": 2.7,
-      "entry_range": [
-        515.0,
-        522.0
-      ],
-      "stop_loss": 506.0,
-      "take_profit_1": 550.0,
-      "take_profit_2": 570.0,
-      "reasons": [
-        "HTF-Trend ist auf 1D intakt bullisch, wird jedoch durch eine reguläre bärische Divergenz im Tageschart gebremst.",
-        "Keine Golden-Pocket-Präsenz (in_gp: false) zur Verankerung eines asymmetrischen Stop-Loss.",
-        "4h-VSA-Status 'Ultra-Low' deutet auf Sommer-/Konsolidierungsflaute hin, wodurch Ausbrüche anfällig für Bull-Traps sind."
-      ],
-      "charts": {
-        "4h": "charts/NASDAQ_MSFT_4h.svg",
-        "1D": "charts/NASDAQ_MSFT_1D.svg"
-      },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
-      "market_state": {
-        "is_open": true,
-        "is_premarket": false,
-        "status": "OPEN",
-        "session_name": "US Regular Session (Wall Street)",
-        "min_interval_minutes": 70,
-        "badge_color": "emerald",
-        "status_text": "US Session Offen (bis 22:00 CET)"
-      },
-      "timeframes": {
-        "1h": null,
-        "4h": {
-          "name": "Microsoft (NASDAQ:MSFT)",
-          "price": 531.63,
-          "rsi": 53.37,
-          "trend": "BULLISH",
-          "ema_fast": 530.19,
-          "ema_trend": 523.45,
-          "upper_band": 541.61,
-          "lower_band": 518.77,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.31,
-          "vsa_class": "Ultra-Low / No Supply-Demand",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 529.86,
-              "bottom": 525.11,
-              "ce_50": 527.49,
-              "gap_pct": 0.9
-            }
-          ],
-          "divergences": [
-            "Versteckte Bullische Divergenz (Trendfolge)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 551.15,
-          "swing_low": 487.25,
-          "golden_pocket": [
-            509.62,
-            511.66
-          ],
-          "in_golden_pocket": false
-        },
-        "1D": {
-          "name": "Microsoft (NASDAQ:MSFT)",
-          "price": 531.62,
-          "rsi": 56.52,
-          "trend": "BULLISH",
-          "ema_fast": 529.13,
-          "ema_trend": 507.41,
-          "upper_band": 548.75,
-          "lower_band": 509.51,
-          "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.51,
-          "vsa_class": "Low",
-          "fvgs": [
-            {
-              "type": "Bullish FVG",
-              "top": 502.22,
-              "bottom": 498.9,
-              "ce_50": 500.56,
-              "gap_pct": 0.67
-            },
-            {
-              "type": "Bullish FVG",
-              "top": 528.33,
-              "bottom": 525.77,
-              "ce_50": 527.05,
-              "gap_pct": 0.49
-            }
-          ],
-          "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
-          ],
-          "swing_high": 551.15,
-          "swing_low": 477.15,
-          "golden_pocket": [
-            503.05,
-            505.42
-          ],
-          "in_golden_pocket": false
-        },
-        "1W": null
-      },
-      "analyst_note": "Microsoft verharrt in einer neutralen Kanalstruktur ohne klare Trendbeschleunigung. Die Präsenz von versteckten Trendfolge- und regulären Reversal-Divergenzen spiegelt das unklare Kräftemessen wider. Unter Berücksichtigung des Kapitalschutzes und der bisherigen Drawdown-Erfahrungen bleibt das Setup neutral, bis ein tieferer Retest an signifikanten HTF-FVGs erfolgt.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "analyst_note": "Palantir zeigt nach dynamischer Rallye Überdehnungserscheinungen in Form von bärischen Divergenzen über mehrere Zeitebenen. Institutionelles Kapital jagt keine Kurse bei 200 USD ohne strukturelle Absicherung. Wir bleiben diszipliniert an der Seitenlinie und warten geduldig auf eine gesunde Konsolidierung in die 185-USD-Liquiditätszone.",
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "COINBASE:LTCUSD",
@@ -13496,7 +13252,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13511,12 +13267,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "NASDAQ:SPCX",
@@ -13540,7 +13291,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13555,12 +13306,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "AMEX:GLD",
@@ -13584,7 +13330,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13599,12 +13345,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "POLONIEX:SWAPUSD",
@@ -13628,7 +13369,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13643,12 +13384,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "CME:BTC1!",
@@ -13672,7 +13408,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13687,12 +13423,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "AMEX:DIA",
@@ -13716,7 +13447,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13731,12 +13462,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "FX_IDC:EURINR",
@@ -13760,7 +13486,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13775,12 +13501,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Devisen"
-      ],
-      "source_watchlist": "Devisen",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "COINBASE:EOSUSD",
@@ -13848,7 +13569,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13863,12 +13584,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "KUCOIN:EWTBTC",
@@ -13892,7 +13608,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13907,12 +13623,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "FX_IDC:EURIDR",
@@ -13936,7 +13647,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13951,12 +13662,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Devisen"
-      ],
-      "source_watchlist": "Devisen",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "CAPITALCOM:ALUMINUM",
@@ -13980,7 +13686,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -13995,12 +13701,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Commodities"
-      ],
-      "source_watchlist": "Commodities",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "AMEX:FXE",
@@ -14024,7 +13725,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14039,12 +13740,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "BITSTAMP:XRPUSD",
@@ -14068,7 +13764,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14083,12 +13779,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "FX_IDC:EURCRC",
@@ -14112,7 +13803,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14127,12 +13818,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Devisen"
-      ],
-      "source_watchlist": "Devisen",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "RUS:BR1!",
@@ -14156,7 +13842,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14171,12 +13857,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Commodities"
-      ],
-      "source_watchlist": "Commodities",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "CAPITALCOM:CORN",
@@ -14200,7 +13881,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14215,12 +13896,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Commodities"
-      ],
-      "source_watchlist": "Commodities",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "AMEX:SPY",
@@ -14244,7 +13920,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14259,12 +13935,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Watchlist"
-      ],
-      "source_watchlist": "Watchlist",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "NYSE:XYZ",
@@ -14288,7 +13959,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14303,12 +13974,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "FX_IDC:EURLKR",
@@ -14332,7 +13998,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14347,12 +14013,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Devisen"
-      ],
-      "source_watchlist": "Devisen",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "NASDAQ:SNDK",
@@ -14376,7 +14037,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14391,12 +14052,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "AERODROME:KVCMUSDC_5C0D76",
@@ -14420,7 +14076,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14435,12 +14091,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Crypto"
-      ],
-      "source_watchlist": "Crypto",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "CAPITALCOM:COPPER",
@@ -14464,7 +14115,7 @@
         "Multi-Timeframe-Scan wird beim nächsten Scan-Zyklus aktualisiert."
       ],
       "charts": {},
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14479,12 +14130,7 @@
         "4h": null,
         "1D": null,
         "1W": null
-      },
-      "watchlists": [
-        "Commodities"
-      ],
-      "source_watchlist": "Commodities",
-      "currency": "USD"
+      }
     },
     {
       "symbol": "TVC:NI225",
@@ -14722,32 +14368,32 @@
       "currency": "USD"
     },
     {
-      "symbol": "NASDAQ:PYPL",
-      "name": "PayPal",
-      "category": "Fintech",
+      "symbol": "NASDAQ:MU",
+      "name": "Micron Technology",
+      "category": "Halbleiter",
       "asset_type": "Stock",
-      "price": 55.85,
+      "price": 932.29,
       "signal": "NEUTRAL",
       "score": 48,
-      "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
-      "crv": 2.6,
+      "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+      "crv": 2.55,
       "entry_range": [
-        53.2,
-        54.1
+        950.0,
+        970.0
       ],
-      "stop_loss": 52.1,
-      "take_profit_1": 58.5,
-      "take_profit_2": 61.5,
+      "stop_loss": 1010.0,
+      "take_profit_1": 860.0,
+      "take_profit_2": 800.0,
       "reasons": [
-        "1D-Struktur bleibt zwar nominell bullisch, aber die 4h-Zeitebene weist eine reguläre bärische Divergenz auf.",
-        "Kurs notiert außerhalb des 1D Golden Pockets (in_gp: false), was ein unvorteilhaftes strukturelles Risiko bedingt.",
-        "Geringe 4h-Volumenaktivität ('Low') ohne Nachweis von institutionellem Absorptionsvolumen (Stopping Volume)."
+        "HTF-Struktur: Makro-Trend auf 1D und 4h bärisch, Kurs befindet sich zwar im 1D Golden Pocket, jedoch ohne bullische Wyckoff-Absorption.",
+        "Gemischte Divergenzen: 1D zeigt reguläre bullische Divergenz, während 4h gleichzeitig versteckte bärische Trendfolge und bullische Divergenzen aufweist.",
+        "VSA & Momentum: 4h VSA zeigt 'Ultra-Low', was das Fehlen institutioneller Kaufnachfrage bestätigt; math_score mit 58% unterhalb des Auslöse-Schwellenwerts."
       ],
       "charts": {
-        "4h": "charts/NASDAQ_PYPL_4h.svg",
-        "1D": "charts/NASDAQ_PYPL_1D.svg"
+        "4h": "charts/NASDAQ_MU_4h.svg",
+        "1D": "charts/NASDAQ_MU_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -14760,93 +14406,238 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "PayPal (NASDAQ:PYPL)",
-          "price": 55.85,
-          "rsi": 48.16,
-          "trend": "BULLISH",
-          "ema_fast": 56.24,
-          "ema_trend": 55.65,
-          "upper_band": 57.87,
-          "lower_band": 54.62,
+          "name": "Micron Technology",
+          "price": 932.29,
+          "rsi": 50.18,
+          "trend": "BEARISH",
+          "ema_fast": 909.91,
+          "ema_trend": 956.2,
+          "upper_band": 958.93,
+          "lower_band": 860.89,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 0.59,
-          "vsa_class": "Low",
+          "vsa_ratio": 0.15,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [
             {
               "type": "Bearish FVG",
-              "top": 56.82,
-              "bottom": 56.81,
-              "ce_50": 56.81,
-              "gap_pct": 0.02
+              "top": 1078.67,
+              "bottom": 1049.29,
+              "ce_50": 1063.98,
+              "gap_pct": 2.72
             },
             {
-              "type": "Bullish FVG",
-              "top": 55.46,
-              "bottom": 54.98,
-              "ce_50": 55.22,
-              "gap_pct": 0.86
+              "type": "Bearish FVG",
+              "top": 1017,
+              "bottom": 1002.45,
+              "ce_50": 1009.72,
+              "gap_pct": 1.43
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 1022.89,
+              "bottom": 993.63,
+              "ce_50": 1008.26,
+              "gap_pct": 2.86
             }
           ],
           "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
-          "swing_high": 57.95,
-          "swing_low": 51.82,
+          "swing_high": 1108.62,
+          "swing_low": 849.3,
           "golden_pocket": [
-            53.97,
-            54.16
+            1009.56,
+            1017.86
           ],
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "PayPal (NASDAQ:PYPL)",
-          "price": 55.85,
-          "rsi": 51.16,
-          "trend": "BULLISH",
-          "ema_fast": 56.11,
-          "ema_trend": 55.04,
-          "upper_band": 58.64,
-          "lower_band": 53.59,
+          "name": "Micron Technology",
+          "price": 932.29,
+          "rsi": 46.54,
+          "trend": "BEARISH",
+          "ema_fast": 928.28,
+          "ema_trend": 964.7,
+          "upper_band": 1010.54,
+          "lower_band": 846.01,
           "channel_position": "Neutral (Im Kanal)",
-          "vsa_ratio": 1.29,
-          "vsa_class": "High",
+          "vsa_ratio": 0.5,
+          "vsa_class": "Low",
           "fvgs": [
             {
-              "type": "Bullish FVG",
-              "top": 54,
-              "bottom": 53.4,
-              "ce_50": 53.7,
-              "gap_pct": 1.12
+              "type": "Bearish FVG",
+              "top": 1032.1,
+              "bottom": 1002.67,
+              "ce_50": 1017.38,
+              "gap_pct": 2.85
             },
             {
               "type": "Bearish FVG",
-              "top": 56.84,
-              "bottom": 56.63,
-              "ce_50": 56.73,
-              "gap_pct": 0.37
+              "top": 1017,
+              "bottom": 953.6,
+              "ce_50": 985.3,
+              "gap_pct": 6.23
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 978.5,
+              "bottom": 949.42,
+              "ce_50": 963.96,
+              "gap_pct": 2.97
+            }
+          ],
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 1108.72,
+          "swing_low": 827,
+          "golden_pocket": [
+            925.6,
+            934.62
+          ],
+          "in_golden_pocket": true
+        },
+        "1W": null
+      },
+      "analyst_note": "Trotz Erreichen des 1D Golden Pockets fehlt jegliche institutionelle Akkumulation; vielmehr deutet das ultra-niedrige Volumen auf Desinteresse der Bullen hin. Da die übergeordnete Struktur bärisch ist, verbietet sich ein aggressiver Counter-Trend-Long. Erst ein Pullback an den 4h-Widerstand (950-970 USD) bietet potenzielles Short-Potenzial.",
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+    },
+    {
+      "symbol": "NASDAQ:AMD",
+      "name": "AMD",
+      "category": "Halbleiter",
+      "asset_type": "Stock",
+      "price": 560.38,
+      "signal": "NEUTRAL",
+      "score": 48,
+      "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+      "crv": 2.6,
+      "entry_range": [
+        525.0,
+        535.0
+      ],
+      "stop_loss": 512.0,
+      "take_profit_1": 585.0,
+      "take_profit_2": 610.0,
+      "reasons": [
+        "1D-Makrostruktur ist bullisch, allerdings befindet sich der 4h-Subtrend in einer bärischen Korrekturphase",
+        "Kein Short-Signal erlaubt, da der 1D-Trend intakt ist (kein 1D-CHoCH/Strukturbruch unter den 233 EMA)",
+        "Widersprüchliche Signallage auf 4h (Versteckte Bärische vs. Reguläre Bullische Divergenz) bei Ultra-Low Volume erfordert striktes Abwarten"
+      ],
+      "charts": {
+        "4h": "charts/NASDAQ_AMD_4h.svg",
+        "1D": "charts/NASDAQ_AMD_1D.svg"
+      },
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
+      "market_state": {
+        "is_open": true,
+        "is_premarket": false,
+        "status": "OPEN",
+        "session_name": "US Regular Session (Wall Street)",
+        "min_interval_minutes": 70,
+        "badge_color": "emerald",
+        "status_text": "US Session Offen (bis 22:00 CET)"
+      },
+      "timeframes": {
+        "1h": null,
+        "4h": {
+          "name": "AMD",
+          "price": 560.38,
+          "rsi": 52.21,
+          "trend": "BEARISH",
+          "ema_fast": 541.63,
+          "ema_trend": 561.1,
+          "upper_band": 571.16,
+          "lower_band": 512.1,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.18,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
+          "fvgs": [
+            {
+              "type": "Bearish FVG",
+              "top": 639.93,
+              "bottom": 621.44,
+              "ce_50": 630.68,
+              "gap_pct": 2.89
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 613.34,
+              "bottom": 613.17,
+              "ce_50": 613.25,
+              "gap_pct": 0.03
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 594.4,
+              "bottom": 573.72,
+              "ce_50": 584.06,
+              "gap_pct": 3.48
+            }
+          ],
+          "divergences": [
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 658.52,
+          "swing_low": 502.6,
+          "golden_pocket": [
+            598.96,
+            603.95
+          ],
+          "in_golden_pocket": false
+        },
+        "1D": {
+          "name": "AMD",
+          "price": 560.38,
+          "rsi": 49.84,
+          "trend": "BULLISH",
+          "ema_fast": 553.52,
+          "ema_trend": 551.05,
+          "upper_band": 602.32,
+          "lower_band": 504.72,
+          "channel_position": "Neutral (Im Kanal)",
+          "vsa_ratio": 0.72,
+          "vsa_class": "Low",
+          "fvgs": [
+            {
+              "type": "Bullish FVG",
+              "top": 506.05,
+              "bottom": 498.39,
+              "ce_50": 502.22,
+              "gap_pct": 1.54
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 633.16,
+              "bottom": 627.37,
+              "ce_50": 630.26,
+              "gap_pct": 0.91
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 613.34,
+              "bottom": 601.77,
+              "ce_50": 607.55,
+              "gap_pct": 1.89
             }
           ],
           "divergences": [
             "Versteckte Bullische Divergenz (Trendfolge)"
           ],
-          "swing_high": 62.73,
-          "swing_low": 50.8,
+          "swing_high": 658.52,
+          "swing_low": 440.5,
           "golden_pocket": [
-            58.17,
-            58.56
+            516.81,
+            523.78
           ],
           "in_golden_pocket": false
         },
         "1W": null
       },
-      "analyst_note": "PayPal verliert im 4h-Bereich an Schwung, was durch die reguläre bärische Divergenz untermauert wird. Da kein Reversal-Cluster im Golden Pocket vorliegt und das Signal zuvor auf wackligen Beinen stand, wird die Position strikt auf NEUTRAL zurückgestuft. Ein Neueinstieg kommt erst bei erfolgreicher Bodenbildung mit Volumenbestätigung am 53-54 USD Support infrage.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "analyst_note": "AMD vollzieht einen regulären 4h-Pullback innerhalb des 1D-Bullenmarkts. Gemäß Filterregel 1 verbietet sich hier jeder Short-Gedanke, während für einen Long-Einstieg noch die volumenseitige Bestätigung und das Erreichen des Golden Pocket fehlen. Die Einstufung bleibt konservativ NEUTRAL, bis das Korrekturtief eindeutig absorbiert wird.",
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "COINBASE:BCHUSD",
@@ -16180,15 +15971,15 @@
       "take_profit_2": 230.93,
       "reasons": [
         "1D Trend unter EMA 233 bärisch",
-        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
         "Aktiv: 1D Reguläre Bullische Divergenz (Reversal)"
       ],
       "charts": {
         "4h": "charts/NASDAQ_NVDA_4h.svg",
         "1D": "charts/NASDAQ_NVDA_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -16201,7 +15992,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Nvidia (NASDAQ:NVDA)",
+          "name": "Nvidia",
           "price": 217.86,
           "rsi": 46.96,
           "trend": "BEARISH",
@@ -16236,8 +16027,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 243.38,
           "swing_low": 210.19,
@@ -16248,7 +16039,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Nvidia (NASDAQ:NVDA)",
+          "name": "Nvidia",
           "price": 217.86,
           "rsi": 46.2,
           "trend": "BEARISH",
@@ -16296,12 +16087,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NYSE:AG",
@@ -16328,7 +16114,7 @@
         "4h": "charts/NYSE_AG_4h.svg",
         "1D": "charts/NYSE_AG_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -16341,7 +16127,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "First Majestic Silver (NYSE:AG)",
+          "name": "First Majestic Silver",
           "price": 15.54,
           "rsi": 43.8,
           "trend": "BEARISH",
@@ -16385,7 +16171,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "First Majestic Silver (NYSE:AG)",
+          "name": "First Majestic Silver",
           "price": 15.54,
           "rsi": 39.0,
           "trend": "BEARISH",
@@ -16426,12 +16212,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "KRAKEN:EWTUSD",
@@ -17249,32 +17030,32 @@
       "currency": "USD"
     },
     {
-      "symbol": "NASDAQ:META",
-      "name": "Meta Platforms",
-      "category": "Big Tech",
+      "symbol": "NASDAQ:NFLX",
+      "name": "Netflix",
+      "category": "Entertainment",
       "asset_type": "Stock",
-      "price": 622.61,
+      "price": 62.79,
       "signal": "NEUTRAL",
       "score": 45,
       "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
-      "crv": 2.7,
+      "crv": 2.5,
       "entry_range": [
-        655.0,
-        668.0
+        67.5,
+        69.8
       ],
-      "stop_loss": 688.0,
-      "take_profit_1": 605.0,
-      "take_profit_2": 575.0,
+      "stop_loss": 73.2,
+      "take_profit_1": 58.0,
+      "take_profit_2": 52.5,
       "reasons": [
-        "Strikter Filter: Kurs notiert im überdehnten 1D Oversold-Band mit stark überverkauftem 4h RSI (24.48); Shorten ist hier strikt verboten.",
-        "Kurs sitzt im 1D Fibonacci Golden Pocket, womit ein starker technischer Gegenimpuls / Short-Squeeze unmittelbar droht.",
-        "1D Makro-Trend ist bärisch, daher ist nach Regel 1 auch kein Long-Signal erlaubt; Einstufung bleibt zwingend NEUTRAL."
+        "HTF-Struktur: 1D und 4h strikt bärisch, Kurs notiert jedoch bereits im extremen 'Oversold Band' (RSI 1D 31.56, 4h 30.97).",
+        "Reversal-Divergenzen: Starke reguläre bullische Divergenzen auf 1D und 4h warnen vor einer bevorstehenden dynamischen Bärenmarktrallye.",
+        "Regelkonformität: Niemals Short in überverkaufte Kanalbänder verkaufen; Long-Trades gegen den übergeordneten 1D-Bärentrend sind strikt untersagt."
       ],
       "charts": {
-        "4h": "charts/NASDAQ_META_4h.svg",
-        "1D": "charts/NASDAQ_META_1D.svg"
+        "4h": "charts/NASDAQ_NFLX_4h.svg",
+        "1D": "charts/NASDAQ_NFLX_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -17287,98 +17068,101 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Meta Platforms (NASDAQ:META)",
-          "price": 622.7,
-          "rsi": 24.48,
+          "name": "Netflix",
+          "price": 62.79,
+          "rsi": 30.97,
           "trend": "BEARISH",
-          "ema_fast": 656.81,
-          "ema_trend": 689.4,
-          "upper_band": 684.47,
-          "lower_band": 629.16,
+          "ema_fast": 65.59,
+          "ema_trend": 69.21,
+          "upper_band": 68.07,
+          "lower_band": 63.12,
           "channel_position": "Oversold Band (Überdehnt Unten)",
-          "vsa_ratio": 0.42,
-          "vsa_class": "Low",
+          "vsa_ratio": 0.36,
+          "vsa_class": "Ultra-Low / No Supply-Demand",
           "fvgs": [
             {
               "type": "Bearish FVG",
-              "top": 692.5,
-              "bottom": 680.76,
-              "ce_50": 686.63,
-              "gap_pct": 1.7
+              "top": 72.5,
+              "bottom": 70.64,
+              "ce_50": 71.57,
+              "gap_pct": 2.57
             },
             {
               "type": "Bearish FVG",
-              "top": 689.77,
-              "bottom": 650.22,
-              "ce_50": 670.0,
-              "gap_pct": 5.73
+              "top": 69.07,
+              "bottom": 67.12,
+              "ce_50": 68.09,
+              "gap_pct": 2.82
             },
             {
               "type": "Bearish FVG",
-              "top": 629.06,
-              "bottom": 628.46,
-              "ce_50": 628.76,
-              "gap_pct": 0.1
+              "top": 66.53,
+              "bottom": 66.4,
+              "ce_50": 66.47,
+              "gap_pct": 0.2
             }
           ],
-          "divergences": [],
-          "swing_high": 779.83,
-          "swing_low": 621.36,
+          "divergences": [
+            "Reguläre Bullische Divergenz (Reversal)"
+          ],
+          "swing_high": 77.78,
+          "swing_low": 62.51,
           "golden_pocket": [
-            719.29,
-            724.37
+            71.95,
+            72.44
           ],
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Meta Platforms (NASDAQ:META)",
-          "price": 622.61,
-          "rsi": 32.31,
+          "name": "Netflix",
+          "price": 62.79,
+          "rsi": 31.56,
           "trend": "BEARISH",
-          "ema_fast": 679.27,
-          "ema_trend": 674.0,
-          "upper_band": 723.28,
-          "lower_band": 635.26,
+          "ema_fast": 67.3,
+          "ema_trend": 71.78,
+          "upper_band": 71.14,
+          "lower_band": 63.46,
           "channel_position": "Oversold Band (Überdehnt Unten)",
-          "vsa_ratio": 1.68,
-          "vsa_class": "High",
+          "vsa_ratio": 0.71,
+          "vsa_class": "Low",
           "fvgs": [
             {
               "type": "Bearish FVG",
-              "top": 689.68,
-              "bottom": 648.04,
-              "ce_50": 668.86,
-              "gap_pct": 6.04
+              "top": 71.33,
+              "bottom": 70.22,
+              "ce_50": 70.78,
+              "gap_pct": 1.56
             },
             {
               "type": "Bearish FVG",
-              "top": 633.27,
-              "bottom": 628.46,
-              "ce_50": 630.87,
-              "gap_pct": 0.76
+              "top": 69.02,
+              "bottom": 67.12,
+              "ce_50": 68.07,
+              "gap_pct": 2.75
+            },
+            {
+              "type": "Bearish FVG",
+              "top": 68.2,
+              "bottom": 67.49,
+              "ce_50": 67.84,
+              "gap_pct": 1.04
             }
           ],
           "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bullische Divergenz (Trendfolge)"
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
-          "swing_high": 779.82,
-          "swing_low": 537.27,
+          "swing_high": 83.6,
+          "swing_low": 62.5,
           "golden_pocket": [
-            622.16,
-            629.92
+            75.54,
+            76.22
           ],
-          "in_golden_pocket": true
+          "in_golden_pocket": false
         },
         "1W": null
       },
-      "analyst_note": "META befindet sich in einer extrem überdehnten Abwärtsphase direkt im 1D Golden Pocket und am unteren Kanalband. Das Eingehen eines Shorts auf aktuellem Niveau wäre grob fahrlässiges Chasing mit massiver Squeeze-Gefahr. Gleichzeitig verbietet der intakte 1D-Bärentrend einen voreiligen Long; wir warten neutral auf eine Entlastungsrallye in den 655-668 USD Bereich.",
-      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "analyst_note": "NFLX ist stark überverkauft und weist bullische Divergenzen im 1D/4h-Bereich auf, die einen kurzfristigen Short zu einem extrem asymmetrischen Verlustrisiko machen würden. Gleichzeitig verbietet das Makro-Regime (unter 233 EMA) jeden Long-Versuch. Höchste Priorität hat der Kapitalschutz: Abwarten einer Erholungsrallye in den Bereich 67.50-69.80 USD für künftige Short-Re-Entries.",
+      "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
     },
     {
       "symbol": "TRADEGATE:NFC",
@@ -17820,7 +17604,7 @@
         "4h": "charts/NASDAQ_AVGO_4h.svg",
         "1D": "charts/NASDAQ_AVGO_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -17833,7 +17617,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Broadcom (NASDAQ:AVGO)",
+          "name": "Broadcom",
           "price": 342.47,
           "rsi": 52.68,
           "trend": "BEARISH",
@@ -17879,7 +17663,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Broadcom (NASDAQ:AVGO)",
+          "name": "Broadcom",
           "price": 342.47,
           "rsi": 47.78,
           "trend": "BEARISH",
@@ -17927,12 +17711,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NYSE:CAG",
@@ -17953,14 +17732,14 @@
       "take_profit_2": 15.02,
       "reasons": [
         "1D Trend unter EMA 233 bärisch",
-        "Aktiv: 1D Reguläre Bullische Divergenz (Reversal)",
-        "Aktiv: 1D Versteckte Bärische Divergenz (Trendfolge)"
+        "Aktiv: 1D Versteckte Bärische Divergenz (Trendfolge)",
+        "Aktiv: 1D Reguläre Bullische Divergenz (Reversal)"
       ],
       "charts": {
         "4h": "charts/NYSE_CAG_4h.svg",
         "1D": "charts/NYSE_CAG_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -17973,7 +17752,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Conagra Brands (NYSE:CAG)",
+          "name": "Conagra Brands",
           "price": 14.17,
           "rsi": 48.46,
           "trend": "BEARISH",
@@ -18010,7 +17789,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Conagra Brands (NYSE:CAG)",
+          "name": "Conagra Brands",
           "price": 14.17,
           "rsi": 48.35,
           "trend": "BEARISH",
@@ -18038,8 +17817,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bullische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bullische Divergenz (Reversal)"
           ],
           "swing_high": 16.73,
           "swing_low": 12.88,
@@ -18052,12 +17831,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:AMZN",
@@ -18083,7 +17857,7 @@
         "4h": "charts/NASDAQ_AMZN_4h.svg",
         "1D": "charts/NASDAQ_AMZN_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -18096,7 +17870,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Amazon (NASDAQ:AMZN)",
+          "name": "Amazon",
           "price": 254.47,
           "rsi": 49.97,
           "trend": "BEARISH",
@@ -18140,7 +17914,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Amazon (NASDAQ:AMZN)",
+          "name": "Amazon",
           "price": 254.47,
           "rsi": 49.87,
           "trend": "BEARISH",
@@ -18172,12 +17946,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "KUCOIN:EWTUSDT",
@@ -19429,7 +19198,7 @@
         "4h": "charts/NASDAQ_TSLA_4h.svg",
         "1D": "charts/NASDAQ_TSLA_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -19442,7 +19211,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Tesla (NASDAQ:TSLA)",
+          "name": "Tesla",
           "price": 407.47,
           "rsi": 67.98,
           "trend": "BULLISH",
@@ -19489,7 +19258,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Tesla (NASDAQ:TSLA)",
+          "name": "Tesla",
           "price": 407.47,
           "rsi": 65.48,
           "trend": "BULLISH",
@@ -19510,8 +19279,8 @@
             }
           ],
           "divergences": [
-            "Reguläre Bärische Divergenz (Reversal)",
-            "Versteckte Bärische Divergenz (Trendfolge)"
+            "Versteckte Bärische Divergenz (Trendfolge)",
+            "Reguläre Bärische Divergenz (Reversal)"
           ],
           "swing_high": 407.65,
           "swing_low": 315.52,
@@ -19524,13 +19293,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bullenmarkt intakt: Der 4h/1h-Rücksetzer stellt eine gesunde Konsolidierung dar. Gemäß institutionellem Risikomanagement wird kein Short gehandelt, sondern auf die Bestätigung der nächsten Support-/Value-Zone gelauert.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien",
-        "Watchlist"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NYSE:UBER",
@@ -19558,7 +19321,7 @@
         "4h": "charts/NYSE_UBER_4h.svg",
         "1D": "charts/NYSE_UBER_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -19571,7 +19334,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Uber (NYSE:UBER)",
+          "name": "Uber",
           "price": 65.95,
           "rsi": 33.51,
           "trend": "BEARISH",
@@ -19617,7 +19380,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Uber (NYSE:UBER)",
+          "name": "Uber",
           "price": 65.95,
           "rsi": 36.64,
           "trend": "BEARISH",
@@ -19658,12 +19421,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "NASDAQ:INTC",
@@ -19690,7 +19448,7 @@
         "4h": "charts/NASDAQ_INTC_4h.svg",
         "1D": "charts/NASDAQ_INTC_1D.svg"
       },
-      "last_analyzed": "2026-10-29T15:16:42.561480+00:00",
+      "last_analyzed": "2026-10-29T17:16:41.746641+00:00",
       "market_state": {
         "is_open": true,
         "is_premarket": false,
@@ -19703,7 +19461,7 @@
       "timeframes": {
         "1h": null,
         "4h": {
-          "name": "Intel (NASDAQ:INTC)",
+          "name": "Intel",
           "price": 93.37,
           "rsi": 45.72,
           "trend": "BEARISH",
@@ -19749,7 +19507,7 @@
           "in_golden_pocket": false
         },
         "1D": {
-          "name": "Intel (NASDAQ:INTC)",
+          "name": "Intel",
           "price": 93.35,
           "rsi": 42.15,
           "trend": "BEARISH",
@@ -19795,12 +19553,7 @@
         "1W": null
       },
       "analyst_note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
-      "evaluated_by": "quantitative_engine",
-      "watchlists": [
-        "Aktien"
-      ],
-      "source_watchlist": "Aktien",
-      "currency": "USD"
+      "evaluated_by": "quantitative_engine"
     },
     {
       "symbol": "BINANCE:BATUSD",
@@ -19967,7 +19720,7 @@
         "analyst_note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
         "unrealized_pnl_pct": 6.69,
         "unrealized_pnl_leveraged_pct": 40.13,
-        "holding_hours": 237.3,
+        "holding_hours": 237.7,
         "holding_days": 9.9,
         "tp1_reached": true,
         "trailing_active": true,
@@ -19997,7 +19750,7 @@
         "analyst_note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 2.66,
         "unrealized_pnl_leveraged_pct": 15.97,
-        "holding_hours": 147.9,
+        "holding_hours": 148.4,
         "holding_days": 6.2,
         "tp1_reached": false,
         "trailing_active": false,
@@ -20027,7 +19780,7 @@
         "analyst_note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 0.55,
         "unrealized_pnl_leveraged_pct": 2.75,
-        "holding_hours": 86.0,
+        "holding_hours": 86.5,
         "holding_days": 3.6,
         "tp1_reached": false,
         "trailing_active": false,
@@ -20057,7 +19810,7 @@
         "analyst_note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": 0.02,
         "unrealized_pnl_leveraged_pct": 0.07,
-        "holding_hours": 83.1,
+        "holding_hours": 83.5,
         "holding_days": 3.5,
         "tp1_reached": false,
         "trailing_active": false,
@@ -20087,7 +19840,7 @@
         "analyst_note": "Strikte bullische Konfluenz (92%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
         "unrealized_pnl_pct": -0.77,
         "unrealized_pnl_leveraged_pct": -4.64,
-        "holding_hours": 50.1,
+        "holding_hours": 50.5,
         "holding_days": 2.1,
         "tp1_reached": false,
         "trailing_active": false,
@@ -20117,7 +19870,7 @@
         "analyst_note": "PayPal demonstriert eine lehrbuchmäßige Konsolidierung im übergeordneten Bullentrend. Der Rücksetzer ins Golden Pocket wird von stark austrocknendem Volumen ('No Supply') begleitet, was auf institutionelle Absorption hinweist. Der Stop-Loss liegt geschützt unterhalb des 1D GP und Swing-Lows bei 47,90 EUR; CRV von 2,85:1 erfüllt die Mindestanforderungen vollkommen.",
         "unrealized_pnl_pct": 1.18,
         "unrealized_pnl_leveraged_pct": 5.91,
-        "holding_hours": 15.1,
+        "holding_hours": 15.5,
         "holding_days": 0.6,
         "tp1_reached": false,
         "trailing_active": false,
@@ -20147,7 +19900,7 @@
         "analyst_note": "Palantir zeigt anhaltende relative Stärke über sämtliche Timeframes hinweg. Trotz kleinerer bärischer Gegen-Divergenzen im neutralen Kanal bestätigt das ultraniedrige Volumen das Ausbleiben von institutionellem Verkaufsdruck (No Supply). Das Setup bleibt valide, solange das jüngste Swing-Low bei 168.80 EUR auf Tagesschlussbasis verteidigt wird.",
         "unrealized_pnl_pct": 0.0,
         "unrealized_pnl_leveraged_pct": 0.0,
-        "holding_hours": 6.8,
+        "holding_hours": 7.2,
         "holding_days": 0.3,
         "tp1_reached": false,
         "trailing_active": false,
@@ -21006,7 +20759,7 @@
         "title": "⚠️ Bullische Divergenz im 4h-Chart",
         "message": "Es formiert sich eine bullische Divergenz gegen deinen Short. Reversal-Gefahr! Stop-Loss eng nachziehen."
       },
-      "updated_at": "2026-10-29T17:11:33.636148+00:00"
+      "updated_at": "2026-10-29T17:39:42.533187+00:00"
     }
   ],
   "gemini_quota": {
@@ -21015,10 +20768,10 @@
     "total_keys_count": 4,
     "active_keys_count": 4,
     "daily_limit": 80,
-    "requests_used_today": 0,
-    "requests_remaining": 80,
-    "percent_used": 0.0,
-    "tokens_used_today": 0,
+    "requests_used_today": 1,
+    "requests_remaining": 79,
+    "percent_used": 1.2,
+    "tokens_used_today": 2543,
     "status": "ACTIVE",
     "is_exhausted": false,
     "reset_countdown": "aktiv (24/7)",
@@ -21035,7 +20788,7 @@
         "tokens_used": 0,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 6h 48m",
+        "reset_countdown": "in 6h 20m",
         "last_error": null
       },
       {
@@ -21043,13 +20796,13 @@
         "name": "API-Key #2",
         "masked": "AQ.Ab8...pOzg",
         "daily_limit": 20,
-        "requests_used": 0,
-        "requests_remaining": 20,
-        "percent_used": 0.0,
-        "tokens_used": 0,
+        "requests_used": 1,
+        "requests_remaining": 19,
+        "percent_used": 5.0,
+        "tokens_used": 2543,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 6h 48m",
+        "reset_countdown": "in 6h 20m",
         "last_error": null
       },
       {
@@ -21063,7 +20816,7 @@
         "tokens_used": 0,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 6h 48m",
+        "reset_countdown": "in 6h 20m",
         "last_error": null
       },
       {
@@ -21077,7 +20830,7 @@
         "tokens_used": 0,
         "status": "ACTIVE",
         "is_exhausted": false,
-        "reset_countdown": "in 6h 48m",
+        "reset_countdown": "in 6h 20m",
         "last_error": null
       }
     ],
@@ -21085,20 +20838,20 @@
       "enabled": true,
       "model": "gemini-3.8-flash-high (Google Pro CLI)",
       "daily_budget": 50,
-      "requests_used": 25,
-      "requests_remaining": 25,
-      "percent_used": 50.0,
+      "requests_used": 27,
+      "requests_remaining": 23,
+      "percent_used": 54.0,
       "tokens_used": 0,
       "status": "ACTIVE",
-      "last_used": "2026-10-29T16:17:48.647224+00:00"
+      "last_used": "2026-10-29T17:29:04.534117+00:00"
     },
     "health_check": {
-      "is_healthy": false,
-      "status": "PRO_ACTIVE",
-      "message": "Vorab-Healthcheck aktiv: Free Keys unter Last -> Pro-Abo schützt zuverlässig",
+      "is_healthy": true,
+      "status": "HEALTHY",
+      "message": "Key AQ.Ab8...oFUw aktiv & gesund (gemini-3.5-flash, HTTP 200)",
       "tested_key_masked": "AQ.Ab8...kcWw",
-      "active_tier": "Google Pro-Abo CLI",
-      "timestamp": "2026-10-29T17:11:33.634235+00:00",
+      "active_tier": "Multi-Key Free Pool (gemini-3.5-flash)",
+      "timestamp": "2026-10-29T17:39:12.078955+00:00",
       "routing_priority": "1. Multi-Key Pool (Free Tier) -> 2. Google Pro CLI (Failover) -> 3. Math-Core"
     }
   },

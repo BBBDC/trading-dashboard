@@ -459,6 +459,14 @@ def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):
         if due_set is not None and sym not in due_set:
             cached_asset = dict(asset)
             cached_asset["market_state"] = m_state
+            # Wenn Markt geöffnet ist: Aktuellen stündlichen Kurs nachziehen
+            if m_state.get("is_open", False):
+                try:
+                    b_1h_quick = get_real_bars(sym, interval="1h")
+                    if b_1h_quick and len(b_1h_quick) > 0:
+                        cached_asset["price"] = float(b_1h_quick[-1]["c"])
+                except Exception:
+                    pass
             analyzed_assets.append(cached_asset)
             continue
 
