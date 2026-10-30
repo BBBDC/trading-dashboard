@@ -21,6 +21,24 @@ CACHE_DIR = BASE_DIR / "knowledge_base" / "ohlcv_cache"
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
 DB_FILE = BASE_DIR / "dashboard" / "market_analysis_db.json"
 
+_mcp_quota_suspended_until = 0
+
+
+def is_mcp_quota_suspended():
+    global _mcp_quota_suspended_until
+    return time.time() < _mcp_quota_suspended_until
+
+
+def mark_mcp_quota_suspended(msg=""):
+    global _mcp_quota_suspended_until
+    now_utc = datetime.now(timezone.utc)
+    from datetime import timedelta
+    midnight_utc = now_utc.replace(hour=0, minute=5, second=0, microsecond=0)
+    if midnight_utc <= now_utc:
+        midnight_utc += timedelta(days=1)
+    _mcp_quota_suspended_until = midnight_utc.timestamp()
+    print(f"⚠️ TradingView MCP Quota aktiv: Pausiere MCP-Tool-Aufrufe bis {midnight_utc.strftime('%H:%M UTC')}. Nutze TV Live-Scanner.", file=sys.stderr)
+
 
 def refresh_access_token():
     """Erneuert das TradingView OAuth-Token automatisch via refresh_token."""
@@ -90,6 +108,16 @@ def fetch_bars_direct(symbol, interval="1D", count=120, retries=2):
         except Exception:
             pass
 
+    # MCP Quota-Sperre prüfen: falls aktiv, direkt aus Cache laden
+    if is_mcp_quota_suspended():
+        if cache_file.exists():
+            try:
+                with open(cache_file, "r", encoding="utf-8") as f:
+                    return json.load(f).get("bars", [])
+            except Exception:
+                pass
+        return []
+
     token = get_token()
     if not token:
         return []
@@ -121,14 +149,22 @@ def fetch_bars_direct(symbol, interval="1D", count=120, retries=2):
                 body = resp.read().decode("utf-8")
                 res = json.loads(body)
                 if "result" in res and "content" in res["result"]:
-                    txt = res["result"]["content"][0].get("text", "{}")
-                    parsed = json.loads(txt)
-                    bars = parsed.get("bars", [])
-                    if bars:
-                        # Cache speichern
-                        with open(cache_file, "w", encoding="utf-8") as f_out:
-                            json.dump({"symbol": symbol, "interval": interval, "bars": bars}, f_out)
-                        return bars
+                    content = res["result"]["content"]
+                    if content and isinstance(content, list):
+                        txt = content[0].get("text", "")
+                        if "TOOL_QUOTA_EXCEEDED" in txt or "suspended" in txt:
+                            mark_mcp_quota_suspended(txt)
+                            break
+                        try:
+                            parsed = json.loads(txt)
+                            bars = parsed.get("bars", [])
+                            if bars:
+                                # Cache speichern
+                                with open(cache_file, "w", encoding="utf-8") as f_out:
+                                    json.dump({"symbol": symbol, "interval": interval, "bars": bars}, f_out)
+                                return bars
+                        except (json.JSONDecodeError, ValueError):
+                            pass
         except urllib.error.HTTPError as e:
             if e.code == 401 and attempt == 0:
                 print(f"401 Unauthorized bei {symbol} -> Erneuere Token...")
@@ -260,6 +296,10 @@ def sync_all_real_data(due_symbols=None, limit=None, collect_only=False):
     - due_symbols: Optionales Set oder Liste von Symbolen (z. B. vom Market Gatekeeper).
     - collect_only: Wenn True, werden nur 1h und 4h Kerzen zur schnellen, token-freien Datensammlung geladen.
     """
+    if is_mcp_quota_suspended():
+        print("ℹ️ TradingView MCP Tool-Quota ist temporär pausiert (bis 00:05 UTC). Nutze TV Live-Scanner & bestehenden Cache.")
+        return
+
     if not DB_FILE.exists():
         print(f"Datenbank {DB_FILE} nicht gefunden!")
         return

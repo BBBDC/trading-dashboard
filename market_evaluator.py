@@ -450,17 +450,40 @@ def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):
     gemini_batch = []
     now_utc = datetime.now(timezone.utc)
 
+    # Frische TradingView Live-Quotes für alle Assets abrufen & Cache vorab synchronisieren
+    try:
+        from tv_live_quotes import fetch_tradingview_live_quotes, update_ohlcv_cache_with_live_quotes, SYMBOL_ALIASES
+        all_syms = [a["symbol"] for a in assets if "symbol" in a]
+        live_quotes = fetch_tradingview_live_quotes(all_syms)
+        update_ohlcv_cache_with_live_quotes(live_quotes)
+        print(f"⚡ {len(live_quotes)} TradingView Live-Kurse vorab synchronisiert.")
+    except Exception as lqe:
+        print(f"⚠️ Warnung beim Live-Quotes-Abruf: {lqe}", file=sys.stderr)
+        live_quotes = {}
+        SYMBOL_ALIASES = {}
+
     for idx, asset in enumerate(assets, 1):
         sym = asset["symbol"]
         name = asset["name"]
         m_state = get_market_state(sym, now_utc)
 
+        lq = live_quotes.get(sym)
+        if not lq:
+            alias = SYMBOL_ALIASES.get(sym)
+            if alias:
+                lq = live_quotes.get(alias)
+
         # Wenn Asset nicht fällig ist: Vorherige Analyse beibehalten
         if due_set is not None and sym not in due_set:
             cached_asset = dict(asset)
             cached_asset["market_state"] = m_state
-            # Wenn Markt geöffnet ist: Aktuellen stündlichen Kurs nachziehen
-            if m_state.get("is_open", False):
+            # Wenn Live-Kurs vorliegt: Preis & Zeitstempel immer sofort aktualisieren
+            if lq and "price" in lq:
+                cached_asset["price"] = lq["price"]
+                cached_asset["change_pct"] = lq.get("change_pct", cached_asset.get("change_pct", 0.0))
+                cached_asset["last_price_update"] = lq.get("updated_at", now_utc.isoformat())
+                cached_asset["last_price_update_str"] = lq.get("updated_at_str", "")
+            elif m_state.get("is_open", False):
                 try:
                     b_1h_quick = get_real_bars(sym, interval="1h")
                     if b_1h_quick and len(b_1h_quick) > 0:
@@ -486,7 +509,17 @@ def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):
         d_1w = analyze_indicators(b_1w, name) if b_1w else None
         d_3d = analyze_indicators(b_3d, name) if b_3d else None
 
-        current_price = d_1d["price"] if d_1d else (d_4h["price"] if d_4h else (d_1h["price"] if d_1h else asset.get("price", 100.0)))
+        if lq and "price" in lq:
+            current_price = lq["price"]
+            change_pct = lq["change_pct"]
+            last_price_update = lq["updated_at"]
+            last_price_update_str = lq["updated_at_str"]
+        else:
+            current_price = d_1d["price"] if d_1d else (d_4h["price"] if d_4h else (d_1h["price"] if d_1h else asset.get("price", 100.0)))
+            change_pct = asset.get("change_pct", 0.0)
+            last_price_update = now_utc.isoformat()
+            from tv_live_quotes import TZ_BERLIN
+            last_price_update_str = now_utc.astimezone(TZ_BERLIN).strftime("%d.%m. %H:%M CET")
 
         # Bestehende Charts beibehalten
         charts_info = asset.get("charts", {})
@@ -506,6 +539,9 @@ def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):
             "category": asset.get("category", "Allgemein"),
             "asset_type": asset.get("asset_type", "Stock"),
             "price": current_price,
+            "change_pct": change_pct,
+            "last_price_update": last_price_update,
+            "last_price_update_str": last_price_update_str,
             "signal": asset.get("signal", "NEUTRAL"),
             "score": asset.get("score", 50),
             "setup_name": asset.get("setup_name", "Setup-Berechnung"),

@@ -200,6 +200,8 @@ def update_autonomous_portfolio(db_assets):
         t["highest_price"] = max(t.get("highest_price", curr_price), curr_price)
         t["lowest_price"] = min(t.get("lowest_price", curr_price), curr_price)
         t["current_price"] = curr_price
+        t["last_price_update"] = a.get("last_price_update", now_iso)
+        t["last_price_update_str"] = a.get("last_price_update_str", "")
         t["unrealized_pnl_pct"] = round(raw_pnl_pct, 2)
         t["unrealized_pnl_leveraged_pct"] = round(leveraged_pnl_pct, 2)
         t["holding_hours"] = holding_hours
@@ -522,6 +524,7 @@ def evaluate_user_positions(db_assets):
         return data
 
     db_map = {a["symbol"]: a for a in db_assets}
+    now_iso = datetime.now(timezone.utc).isoformat()
 
     evaluated_positions = []
 
@@ -553,24 +556,32 @@ def evaluate_user_positions(db_assets):
 
         curr_p = entry_p
         asset_name = sym
+        price_update = now_iso
+        price_update_str = ""
 
         if a and "price" in a:
             curr_p = float(a["price"])
             asset_name = a.get("name", sym)
+            price_update = a.get("last_price_update", now_iso)
+            price_update_str = a.get("last_price_update_str", "")
         else:
-            # 3. Fallback: Live-Kurs direkt von TradingView abfragen
+            # 3. Fallback: Live-Kurs direkt von TradingView Scanner abfragen
             try:
-                from fetch_real_ohlcv_cache import fetch_bars_direct
-                live_bars = fetch_bars_direct(sym, interval="1D", count=2)
-                if live_bars and len(live_bars) > 0:
-                    curr_p = float(live_bars[-1].get("c", entry_p))
-                    asset_name = sym
+                from tv_live_quotes import fetch_tradingview_live_quotes
+                q_single = fetch_tradingview_live_quotes([sym])
+                if q_single and sym in q_single:
+                    curr_p = float(q_single[sym]["price"])
+                    asset_name = q_single[sym].get("description", sym)
+                    price_update = q_single[sym].get("updated_at", now_iso)
+                    price_update_str = q_single[sym].get("updated_at_str", "")
                     a = {
                         "symbol": sym,
-                        "name": sym,
+                        "name": asset_name,
                         "price": curr_p,
                         "signal": "NEUTRAL",
-                        "change_pct": round(((curr_p - live_bars[-1].get("o", curr_p)) / live_bars[-1].get("o", curr_p)) * 100, 2)
+                        "change_pct": q_single[sym].get("change_pct", 0.0),
+                        "last_price_update": price_update,
+                        "last_price_update_str": price_update_str
                     }
             except Exception:
                 pass
@@ -592,6 +603,8 @@ def evaluate_user_positions(db_assets):
         pos_copy["pnl_pct"] = round(raw_pnl, 2)
         pos_copy["pnl_leveraged_pct"] = round(lev_pnl, 2)
         pos_copy["recommendation"] = rec
+        pos_copy["last_price_update"] = price_update
+        pos_copy["last_price_update_str"] = price_update_str
         pos_copy["updated_at"] = datetime.now(timezone.utc).isoformat()
 
         evaluated_positions.append(pos_copy)

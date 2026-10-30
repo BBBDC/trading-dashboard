@@ -39,6 +39,14 @@ def run_pipeline(force_download=False, skip_download=False, git_push=False, forc
     from sync_watchlists import sync_watchlists
     sync_watchlists()
 
+    # STAGE 1.2: TradingView Scanner Live-Kurse abrufen & Cache vorab synchronisieren
+    stage_banner("STUFE 1.2: TradingView Scanner Live-Kurse abrufen & synchronisieren")
+    try:
+        from tv_live_quotes import sync_all_live_prices
+        sync_all_live_prices()
+    except Exception as e:
+        print(f"Warnung beim TradingView Scanner Live-Sync: {e}")
+
     if collect_only:
         stage_banner("STUFE 2: Stündliche 1h & 4h Datensammlung über TV MCP")
         from fetch_real_ohlcv_cache import sync_all_real_data

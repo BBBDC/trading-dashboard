@@ -61,6 +61,28 @@ if TELEGRAM_CONFIG.exists():
 db_data["auth_config"] = auth_config
 db_data["gemini_quota"] = quota_info
 
+# Vorab frische Live-Preise von TradingView ziehen & Cache synchronisieren
+try:
+    from tv_live_quotes import fetch_tradingview_live_quotes, update_ohlcv_cache_with_live_quotes, SYMBOL_ALIASES
+    all_syms = [a["symbol"] for a in db_data.get("assets", []) if "symbol" in a]
+    portfolio_syms = [t["symbol"] for t in db_data.get("portfolio", {}).get("active_trades", [])]
+    user_syms = [p["symbol"] for p in db_data.get("user_positions", [])]
+    all_q_syms = list(set(all_syms + portfolio_syms + user_syms))
+    live_quotes = fetch_tradingview_live_quotes(all_q_syms)
+    if live_quotes:
+        update_ohlcv_cache_with_live_quotes(live_quotes)
+        for a in db_data.get("assets", []):
+            s = a.get("symbol")
+            lq = live_quotes.get(s) or live_quotes.get(SYMBOL_ALIASES.get(s, ""))
+            if lq:
+                a["price"] = lq["price"]
+                a["change_pct"] = lq["change_pct"]
+                a["last_price_update"] = lq["updated_at"]
+                a["last_price_update_str"] = lq["updated_at_str"]
+        db_data["last_quotes_update"] = datetime.now(timezone.utc).isoformat()
+except Exception as lqe:
+    print(f"Warnung beim Vorab-Livequote-Sync in build_dashboard: {lqe}")
+
 # Synchronisiere aktuelle Nutzer-Positionen & Portfolio mit Live-Preisen & TV-Daten
 try:
     from portfolio_engine import evaluate_user_positions, update_autonomous_portfolio
@@ -85,6 +107,18 @@ except Exception as e:
 total_keys_count = quota_info.get("total_keys_count", 2)
 active_keys_count = quota_info.get("active_keys_count", 1)
 active_key_masked = quota_info.get("active_key_masked", "AQ.Ab8...zg")
+
+last_quotes_iso = db_data.get("last_quotes_update")
+if last_quotes_iso:
+    try:
+        import zoneinfo
+        dt_q = datetime.fromisoformat(last_quotes_iso)
+        dt_q_berlin = dt_q.astimezone(zoneinfo.ZoneInfo("Europe/Berlin"))
+        last_quotes_update_display = dt_q_berlin.strftime("%H:%M CET")
+    except Exception:
+        last_quotes_update_display = "Live"
+else:
+    last_quotes_update_display = "Live"
 
 engine_display = f"Gemini 3.8 Flash · {total_keys_count}x Key Pool"
 
@@ -1028,9 +1062,9 @@ html_content = f"""<!DOCTYPE html>
                 <span>Quota: <strong class="{quota_num_class}">{quota_used}/{quota_limit}</strong></span>
                 <span class="hidden sm:inline text-[9px] opacity-80">· {quota_status_text}</span>
               </button>
-              <span id="header-trader-badge" class="hidden inline-flex px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 items-center gap-1.5">
+              <span id="header-trader-badge" class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 items-center gap-1.5" title="TradingView Live-Feed Status">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>System Online (24/7 Pi)</span>
+                <span>⚡ TV Live: {last_quotes_update_display}</span>
               </span>
             </div>
             <p class="hidden sm:block text-[11px] text-slate-400 mt-0.5">Multi-Timeframe Confluence (4h · 8h · 1D) | SMC · Wyckoff VSA · RSI Divs</p>
@@ -2047,6 +2081,45 @@ html_content = f"""<!DOCTYPE html>
       return num.toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 4 }});
     }}
 
+    function formatUpdateTime(isoStr, strFallback) {{
+      if (!isoStr && !strFallback) return 'Live';
+      try {{
+        if (isoStr) {{
+          const dt = new Date(isoStr);
+          if (!isNaN(dt.getTime())) {{
+            const now = new Date();
+            const diffMs = now.getTime() - dt.getTime();
+            const diffMins = Math.floor(diffMs / 60000);
+            if (diffMins < 1) return 'Gerade eben';
+            if (diffMins < 60) return `vor ${{diffMins}}m`;
+            return dt.toLocaleTimeString('de-DE', {{ hour: '2-digit', minute: '2-digit' }}) + ' Uhr';
+          }}
+        }}
+        if (strFallback) return strFallback;
+      }} catch (e) {{}}
+      return 'Live';
+    }}
+
+    function formatTimeExact(isoStr, strFallback) {{
+      if (!isoStr && !strFallback) return 'Live';
+      try {{
+        if (isoStr) {{
+          const dt = new Date(isoStr);
+          if (!isNaN(dt.getTime())) {{
+            return dt.toLocaleString('de-DE', {{ 
+              day: '2-digit', 
+              month: '2-digit', 
+              hour: '2-digit', 
+              minute: '2-digit', 
+              second: '2-digit' 
+            }}) + ' CET';
+          }}
+        }}
+        if (strFallback) return strFallback;
+      }} catch (e) {{}}
+      return 'Live';
+    }}
+
     function renderAssets() {{
       const grid = document.getElementById('assets-grid');
       const tableBody = document.getElementById('assets-table-body');
@@ -2129,12 +2202,18 @@ html_content = f"""<!DOCTYPE html>
             </div>
 
             <!-- Price & Core Metrics -->
-            <div class="mt-3 flex items-baseline justify-between pb-3 border-b border-slate-800/60">
-              <span class="font-mono text-lg font-bold text-white">${{formatNumber(a.price)}} <span class="text-xs text-slate-400 font-normal">${{currCode}}</span></span>
-              <div class="flex items-center gap-1.5 text-xs font-mono">
-                <span class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">RSI: <span class="${{rsiColor}}">${{rsiVal}}</span></span>
-                ${{hasBullDiv ? '<span class="px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 text-[10px]">Bull Div</span>' : ''}}
-                ${{hasBearDiv ? '<span class="px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-300 border border-rose-500/20 text-[10px]">Bear Div</span>' : ''}}
+            <div class="mt-3 pb-3 border-b border-slate-800/60">
+              <div class="flex items-baseline justify-between">
+                <span class="font-mono text-lg font-bold text-white">${{formatNumber(a.price)}} <span class="text-xs text-slate-400 font-normal">${{currCode}}</span></span>
+                <div class="flex items-center gap-1.5 text-xs font-mono">
+                  <span class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">RSI: <span class="${{rsiColor}}">${{rsiVal}}</span></span>
+                  ${{hasBullDiv ? '<span class="px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 text-[10px]">Bull Div</span>' : ''}}
+                  ${{hasBearDiv ? '<span class="px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-300 border border-rose-500/20 text-[10px]">Bear Div</span>' : ''}}
+                </div>
+              </div>
+              <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 mt-1">
+                <span class="flex items-center gap-1" title="TradingView Live-Quote Stand"><span class="text-indigo-400">⏱️</span> Stand: ${{formatUpdateTime(a.last_price_update, a.last_price_update_str)}}</span>
+                ${{a.change_pct !== undefined ? `<span class="${{a.change_pct >= 0 ? 'text-emerald-400' : 'text-rose-400'}} font-semibold">${{a.change_pct >= 0 ? '+' : ''}}${{Number(a.change_pct).toFixed(2)}}% 24h</span>` : ''}}
               </div>
             </div>
 
@@ -2197,7 +2276,10 @@ html_content = f"""<!DOCTYPE html>
             <span class="px-2 py-0.5 rounded text-[11px] font-bold border ${{badgeColor}}">${{a.signal}}</span>
           </td>
           <td class="p-3 font-semibold text-slate-200">${{a.score}}%</td>
-          <td class="p-3 text-white font-bold">${{formatNumber(a.price)}} ${{currSym}}</td>
+          <td class="p-3">
+            <div class="text-white font-bold">${{formatNumber(a.price)}} ${{currSym}}</div>
+            <div class="text-[9px] text-slate-400 font-mono mt-0.5">⏱️ ${{formatUpdateTime(a.last_price_update, a.last_price_update_str)}}</div>
+          </td>
           <td class="p-3 text-slate-300">${{d1 ? d1.trend : '-'}}</td>
           <td class="p-3 ${{rsiColor}}">${{rsiVal}}</td>
           <td class="p-3 max-w-xs truncate text-slate-300">
@@ -2423,6 +2505,7 @@ html_content = f"""<!DOCTYPE html>
         <div>
           <span class="text-slate-400 block text-[11px]">Aktueller Kurs</span>
           <span class="text-white font-bold text-sm">${{formatNumber(a.price)}} ${{modalCurrCode}}</span>
+          <span class="text-[10px] text-slate-400 block font-mono mt-0.5">⏱️ Stand: ${{formatTimeExact(a.last_price_update, a.last_price_update_str)}}</span>
         </div>
         <div>
           <span class="text-slate-400 block text-[11px]">Empfohlene Entry-Zone</span>
@@ -2804,6 +2887,7 @@ html_content = f"""<!DOCTYPE html>
                   <div class="text-right">
                     <span class="text-[10px] text-slate-400 block">Aktueller Kurs:</span>
                     <span class="text-white font-bold">${{Number(t.current_price).toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}}</span>
+                    <span class="text-[9px] text-slate-400 block font-mono mt-0.5">⏱️ ${{formatUpdateTime(t.last_price_update, t.last_price_update_str)}}</span>
                   </div>
                   <div class="pt-1 border-t border-slate-800/80">
                     <span class="text-[10px] text-slate-400 block">Performance:</span>
@@ -2852,6 +2936,41 @@ html_content = f"""<!DOCTYPE html>
               <p class="text-[11px] leading-relaxed text-slate-300">${{l.text}}</p>
             </div>
           `).join('');
+        }}
+      }}
+
+      // Geschlossene Trades Historie
+      const closedList = document.getElementById('portfolio-closed-trades');
+      if (closedList) {{
+        if (closedTrades.length === 0) {{
+          closedList.innerHTML = `<p class="text-xs text-slate-400 italic">Keine geschlossenen Trades vorhanden.</p>`;
+        }} else {{
+          closedList.innerHTML = `
+            <div class="pt-3 border-t border-slate-800 space-y-2">
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">📜 Geschlossene Trades Historie (${{closedTrades.length}}):</span>
+              <div class="space-y-1.5">
+                ${{closedTrades.slice().reverse().map(ct => {{
+                  const isWin = (ct.realized_pnl_leveraged_pct !== undefined ? ct.realized_pnl_leveraged_pct : (ct.realized_pnl_pct || 0)) >= 0;
+                  const levPnl = ct.realized_pnl_leveraged_pct !== undefined ? ct.realized_pnl_leveraged_pct : (ct.realized_pnl_pct || 0);
+                  const pCol = isWin ? 'text-emerald-400' : 'text-rose-400';
+                  const exitTime = ct.exit_time ? new Date(ct.exit_time).toLocaleString('de-DE', {{ day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }}) : '-';
+                  return `
+                    <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 flex items-center justify-between text-xs font-mono">
+                      <div class="flex items-center gap-2">
+                        <span class="font-bold text-white">${{ct.name || ct.symbol}}</span>
+                        <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${{ct.direction === 'LONG' ? 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/10 text-rose-300 border border-rose-500/30'}}">${{ct.direction}}</span>
+                        <span class="text-[10px] text-slate-400 hidden sm:inline">${{ct.exit_reason || 'Exit'}}</span>
+                      </div>
+                      <div class="flex items-center gap-3">
+                        <span class="text-[10px] text-slate-400">⏱️ ${{exitTime}}</span>
+                        <span class="font-bold ${{pCol}}">${{levPnl >= 0 ? '+' : ''}}${{Number(levPnl).toFixed(2)}}%</span>
+                      </div>
+                    </div>
+                  `;
+                }}).join('')}}
+              </div>
+            </div>
+          `;
         }}
       }}
     }}
@@ -3430,6 +3549,7 @@ html_content = f"""<!DOCTYPE html>
               <div class="text-right">
                 <span class="text-[10px] text-slate-400 block">Live-Kurs:</span>
                 <span class="text-white font-bold">${{curr.toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}}</span>
+                <span class="text-[9px] text-slate-400 block font-mono mt-0.5">⏱️ ${{formatUpdateTime(matched ? matched.last_price_update : pos.last_price_update, matched ? matched.last_price_update_str : pos.last_price_update_str)}}</span>
               </div>
               <div class="pt-1 border-t border-slate-800/80 col-span-2 flex items-center justify-between">
                 <div>
