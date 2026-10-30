@@ -1,5 +1,97 @@
 [
   {
+    "id": "evt_20261030_181057",
+    "timestamp": "2026-10-30T18:10:57.847590+00:00",
+    "timestamp_display": "30.10.2026 18:10 UTC",
+    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 3,
+    "changes": [
+      {
+        "symbol": "TRADEGATE:YDX",
+        "name": "BYD Company",
+        "category": "Tradegate / EU",
+        "change_type": "SCORE_JUMP",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 82,
+        "new_score": 88,
+        "price": 135.84,
+        "setup_name": "Hypothese 2: Bearish Trend Continuation",
+        "entry_range": [
+          136.0,
+          137.5
+        ],
+        "stop_loss": 142.2,
+        "take_profit_2": 118.0,
+        "reasons": [
+          "1D, 4h und 1h Marktstruktur sind strikt bärisch konfluent.",
+          "Climax-Volumen auf 4h/1h bei untergeordneten Erholungsversuchen signalisiert dominanten Verkaufsdruck.",
+          "Versteckte bärische Divergenzen auf 4h bestätigen die Fortsetzung des übergeordneten Abwärtstrends."
+        ],
+        "change_reason": "Konfluenz-Veränderung: Score springt von 82% auf 88% (1D, 4h und 1h Marktstruktur sind strikt bärisch konfluent.).",
+        "note": "BYD Company (YDX) zeigt auf Tages- und H4-Basis eine klare bärische Sequenz niedrigerer Hochs und Tiefs. Die Erholungsversuche werden unter extrem hohem Volumen (VSA Climax) abverkauft, was auf institutionelles Re-Distribution Alignment hindeutet. Unter Einhaltung des Mindest-CRVs von 2.75:1 bietet die aktuelle Konsolidierung nahe 136.08 EUR einen qualifizierten Prozyklischen Short-Einstieg.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...pOzg]"
+      },
+      {
+        "symbol": "COINBASE:LTCUSD",
+        "name": "LTCUSD",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 48,
+        "price": 55.223,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          55.17,
+          55.17
+        ],
+        "stop_loss": 53.51,
+        "take_profit_2": 58.48,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "Aktiv: 4h Reguläre Bärische Divergenz (Reversal)",
+          "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
+        "note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "KRAKEN:EWTUSD",
+        "name": "EWTUSD",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 48,
+        "price": 0.276,
+        "setup_name": "Beobachten / Konsolidierung am Tief",
+        "entry_range": [
+          0,
+          0
+        ],
+        "stop_loss": 0,
+        "take_profit_2": 0,
+        "reasons": [
+          "1D RSI im überverkauften Bereich (30.92) signalisiert Erschöpfung des Impulses",
+          "4h Stopping Volume deutet auf temporäre Bodenbildung hin, SHORT-Risk-Reward unattraktiv",
+          "Crypto-Sektor Restriktionen erfordern Score >= 92% für Neu-Einstiege"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D RSI im überverkauften Bereich (30.92) signalisiert Erschöpfung des Impulses).",
+        "note": "Obwohl der übergeordnete Trend stark bärisch bleibt, deutet das sehr hohe Volumen auf 4h/1h zusammen mit dem überverkauften 1D-RSI auf einen bevorstehenden Pullback hin. Der bestehende Short wird glattgestellt bzw. neutralisiert, um Reversal-Risiken zu vermeiden.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🔴 BYD Company (YDX):\n   Score-Sprung: 82% ➔ 88% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 82% auf 88% (1D, 4h und 1h Marktstruktur sind strikt bärisch konfluent.).\n   📝 KI-Rationale: BYD Company (YDX) zeigt auf Tages- und H4-Basis eine klare bärische Sequenz niedrigerer Hochs und Tiefs. Die Erholungsversuche wer...\n   Setup: Hypothese 2: Bearish Trend Continuation\n   Entry: 136.00 | SL: 142.20 | TP2: 118.00\n\n⚪ LTCUSD (LTCUSD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-S...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ EWTUSD (EWTUSD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D RSI im überverkauften Bereich (30.92) signalisiert Erschöpfung des Impulses).\n   📝 KI-Rationale: Obwohl der übergeordnete Trend stark bärisch bleibt, deutet das sehr hohe Volumen auf 4h/1h zusammen mit dem überverkauften 1D-RSI...\n   Setup: Beobachten / Konsolidierung am Tief\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261030_170615",
     "timestamp": "2026-10-30T17:06:15.772720+00:00",
     "timestamp_display": "30.10.2026 17:06 UTC",
