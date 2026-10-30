@@ -124,19 +124,14 @@ def call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=85):
     if not AGY_BIN.exists():
         return None, f"agy CLI unter {AGY_BIN} nicht gefunden."
 
-    # Modell-Mapping für die agy CLI
-    cli_model = model
-    if "flash" in model.lower() and ("2.5" in model or "low" in model or "fallback" in model):
-        cli_model = "gemini-3.8-flash-low"
-    elif "medium" in model.lower():
-        cli_model = "gemini-3.8-flash-medium"
-    elif "3.8" in model or "pro" in model or "high" in model or "4" in model:
-        cli_model = "gemini-3.8-flash-high"
+    # Modell-Mapping für die agy CLI (User-Vorgabe: Immer Gemini 3.8 Flash Pro High)
+    cli_model = "gemini-3.8-flash-high"
 
     cmd = [
         str(AGY_BIN),
         "-p", prompt,
         "--model", cli_model,
+        "--effort", "high",
         "--disable-slash-commands"
     ]
 
@@ -324,9 +319,9 @@ Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
   "summary_text": "Prägnanter Lernsatz für das Gedächtnis (1-2 Sätze)"
 }}
 """
-    # 1. Google Pro-Abo CLI mit 3.8 Flash (Account 2)
+    # 1. Google Pro-Abo CLI mit 3.8 Flash High (Account 2: pokeulm@gmail.com)
     try:
-        res, err = call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-low", timeout=30)
+        res, err = call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=45)
         if res and isinstance(res, dict) and "driver" in res:
             return res
     except Exception:
@@ -518,41 +513,25 @@ def probe_key_pool_model_38_health(timeout=3.5):
 
 def evaluate_batch_with_cascade(assets_batch):
     """
-    Intelligente Multi-Tier Kaskade (User-Priorität: Maximale Qualität mit 3.8):
-    - Vorprüfung / Stufe 1A: Prüfe kostenlosen API-Key Pool mit gemini-3.8-flash.
-      -> Falls verfügbar: Nutze kostenlosen Key-Pool mit 3.8 (schont Pro-Abo).
-    - Stufe 1B: Google Pro-Abo via CLI (gemini-3.8-flash).
-      -> BEVORZUGT vor 3.5! Da 3.8 bessere & verlässlichere Antworten liefert,
-         übernimmt sofort das Pro-Abo mit 3.8, sobald Free Tier 3.8 überlastet ist.
-    - Stufe 2: Multi-Key Pool (REST) mit gemini-3.5-flash (Fallback nach Pro-Abo).
-    - Stufe 3: Fallback auf quantitative Confluence-Engine.
+    Intelligente Multi-Tier Kaskade (User-Priorität: Immer Gemini 3.8 Flash High über Pro-Abo Account 2):
+    - STUFE 1 (PRIMARY): Google Pro-Abo via CLI (gemini-3.8-flash-high mit Account 2 pokeulm@gmail.com).
+      -> 50-Request-Limit komplett aufgehoben! Volle Skalierbarkeit für Markt-Scans und Learnings.
+    - STUFE 2 (FALLBACK): Multi-Key Free Pool mit gemini-3.8-flash / gemini-3.5-flash.
+    - STUFE 3 (NOT-FALLBACK): Quantitative Confluence Math-Engine (SMC & Wyckoff VSA).
     """
     conf = load_config()
     if not conf.get("enabled", True):
         return None, "KI-Auswertung in gemini_config.json deaktiviert", "disabled"
 
-    primary_model = conf.get("primary_model", "gemini-3.8-flash-low")
+    primary_model = "gemini-3.8-flash-high"
     fallback_model = conf.get("fallback_model", "gemini-3.5-flash")
-    timeout = conf.get("timeout_seconds", 35)
+    timeout = conf.get("timeout_seconds", 45)
     use_pro_sub = conf.get("use_pro_subscription", True)
 
     prompt = build_analysis_prompt(assets_batch)
 
     # =========================================================================
-    # VORPRÜFUNG & STUFE 1A: Schneller Health-Check auf Free API-Keys mit gemini-3.8-flash
-    # =========================================================================
-    is_38_ok, probe_msg = probe_key_pool_model_38_health(timeout=3.5)
-    if is_38_ok:
-        print(f" [Stufe 1A: Free Key-Pool mit gemini-3.8-flash bereit ({probe_msg}) -> Schone Pro-Abo]...", end="", flush=True)
-        res, err, used_key_info = call_gemini_via_key_pool(prompt, model="gemini-3.8-flash", timeout=timeout)
-        if res and isinstance(res, list) and len(res) > 0:
-            return res, None, f"gemini-3.8-flash [{used_key_info}]"
-        print(f" [Key-Pool 3.8 Batch ({err}) -> Umschaltung auf Google Pro-Abo 3.8]...", end="", flush=True)
-    else:
-        print(f" [Stufe 1A Probe: Free 3.8 nicht bereit ({probe_msg}) -> Umschaltung auf Google Pro-Abo 3.8]...", end="", flush=True)
-
-    # =========================================================================
-    # STUFE 1B: Google Pro-Abo via CLI (gemini-3.8-flash - Bevorzugt vor 3.5)
+    # STUFE 1: Google Pro-Abo CLI mit gemini-3.8-flash-high (Account 2: pokeulm@gmail.com)
     # =========================================================================
     if use_pro_sub:
         try:
@@ -562,7 +541,7 @@ def evaluate_batch_with_cascade(assets_batch):
             pro_allowed = True
 
         if pro_allowed:
-            print(f" (Google Pro-Abo CLI: {primary_model})...", end="", flush=True)
+            print(f" (Google Pro-Abo CLI: {primary_model} [Account 2])...", end="", flush=True)
             res, err = call_gemini_via_pro_cli(prompt, model=primary_model, timeout=timeout)
             if res and isinstance(res, list) and len(res) > 0:
                 try:
@@ -572,14 +551,19 @@ def evaluate_batch_with_cascade(assets_batch):
                 t_token = Path("/home/admin/.gemini_trading/.gemini/antigravity-cli/antigravity-oauth-token")
                 acc_label = "Account 2 Pro (pokeulm@gmail.com)" if t_token.exists() else "Account 1 Pro (mayer.max.1994@gmail.com)"
                 return res, None, f"{primary_model} [{acc_label}]"
-            print(f" [Pro-Abo CLI ({err}) -> Fallback auf Key-Pool 3.5]...", end="", flush=True)
+            print(f" [Pro-Abo CLI ({err}) -> Fallback auf Key-Pool]...", end="", flush=True)
         else:
-            print(f" [Pro-Abo Tages-Budget (50) erreicht -> Fallback auf Key-Pool 3.5]...", end="", flush=True)
+            print(f" [Google 5h-Limit erreicht -> Fallback auf Key-Pool]...", end="", flush=True)
 
     # =========================================================================
-    # STUFE 2: Multi-Key Pool (REST) mit gemini-3.5-flash (Fallback nach Pro-Abo)
+    # STUFE 2: Multi-Key Pool (REST) als Fallback
     # =========================================================================
-    print(f" (Multi-Key Pool REST Fallback: {fallback_model})...", end="", flush=True)
+    print(f" (Multi-Key Pool REST Fallback: gemini-3.8-flash)...", end="", flush=True)
+    res, err, used_key_info = call_gemini_via_key_pool(prompt, model="gemini-3.8-flash", timeout=timeout)
+    if res and isinstance(res, list) and len(res) > 0:
+        return res, None, f"gemini-3.8-flash [{used_key_info}]"
+
+    print(f" (Multi-Key Pool Fallback 3.5: {fallback_model})...", end="", flush=True)
     res, err, used_key_info = call_gemini_via_key_pool(prompt, model=fallback_model, timeout=timeout)
     if res and isinstance(res, list) and len(res) > 0:
         return res, None, f"{fallback_model} [{used_key_info}]"
@@ -588,6 +572,7 @@ def evaluate_batch_with_cascade(assets_batch):
     # STUFE 3: Fallback auf quantitative Confluence-Engine
     # =========================================================================
     print(f"\n      ⚠️ KI-Auswertung nicht verfügbar ({err}) -> Aktiviere Stufe 3 (Mathematische Confluence-Engine)...", end="", flush=True)
+    return None, err, "quantitative_confluence [Math Core]"
     return None, err, "quantitative_confluence [Math Core]"
 
 

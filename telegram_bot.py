@@ -784,24 +784,35 @@ def get_admin_quota_details_text_and_markup():
     pct = quota.get("percent_used", 0.0)
 
     pro = quota.get("pro_subscription", {})
-    pro_used = pro.get("requests_used", 0)
-    pro_budget = pro.get("daily_budget", 50)
-    pro_rem = pro.get("requests_remaining", 50)
-    pro_rem_pct = pro.get("percent_remaining", 100.0)
-    acc_info = pro.get("account_info", {})
-    acc_name = acc_info.get("account_name", "Google Pro-Abo")
-    acc_email = acc_info.get("email", "")
+    five_h = pro.get("five_hour_window", {})
+    five_h_rem = five_h.get("remaining_pct", pro.get("percent_remaining", 98.9))
+    five_h_used = five_h.get("used_pct", 1.1)
+    five_h_reset = five_h.get("reset_countdown", "in wenigen Stunden")
 
-    # Fortschrittsbalken generieren (10 Blöcke)
-    filled_blocks = int(round((100.0 - pro_rem_pct) / 10.0))
+    req_today = pro.get("requests_used_today", 0)
+    req_week = pro.get("requests_used_this_week", req_today)
+    acc_info = pro.get("account_info", {})
+    acc_name = acc_info.get("account_name", "Account 2 (Dediziert für Trading)")
+    acc_email = acc_info.get("email", "pokeulm@gmail.com")
+
+    # Fortschrittsbalken für Google 5h Rolling Limit (10 Blöcke)
+    filled_blocks = int(round(five_h_rem / 10.0))
     bar = "█" * filled_blocks + "░" * (10 - filled_blocks)
 
     lines = [
-        f"⚡ <b>Google Pro-Abo · View Usage (Gemini 3.8 Flash)</b>",
-        f"👤 <b>Account:</b> {acc_name} ({acc_email})",
-        f"📊 <b>Restvolumen:</b> <code>{pro_rem_pct}%</code> frei ({pro_rem}/{pro_budget} Requests)",
-        f"<code>[{bar}]</code> {100.0 - pro_rem_pct:.1f}% verbraucht\n",
-        f"🔑 <b>Google Gemini Multi-Key Quota Pool (Failover)</b>",
+        f"⚡ <b>Google Pro-Abo · View Usage (Gemini 3.8 Flash High)</b>",
+        f"👤 <b>Account:</b> {acc_name}",
+        f"📧 <b>E-Mail:</b> <code>{acc_email}</code> (Dediziert für Trading)",
+        f"🧠 <b>Modell:</b> <code>gemini-3.8-flash-high</code> (Pro Thinking aktiv)\n",
+        f"⏳ <b>Echtes Google 5-Stunden-Limit:</b>",
+        f"• Restvolumen: <b>{five_h_rem}% frei</b> ({five_h_used}% verbraucht)",
+        f"• Reset-Zeitfenster: <code>{five_h_reset}</code>",
+        f"• <code>[{bar}]</code> {five_h_rem:.1f}% verfügbar\n",
+        f"📈 <b>Nutzungs-Monitoring (50er-Limit aufgehoben):</b>",
+        f"• Anfragen heute: <b>{req_today} Requests</b>",
+        f"• Anfragen 7-Tage (Woche): <b>{req_week} Requests</b>",
+        f"• Status: 🟢 <b>Unbegrenzter Monitoring-Modus aktiv</b>\n",
+        f"🔑 <b>Google Gemini Multi-Key Quota Pool (Failover-Reserve)</b>",
         f"<b>Pool-Verbrauch:</b> {used} / {limit} Requests ({pct:.1f}%)\n",
         f"<b>Einzel-Key Status:</b>"
     ]

@@ -1,7 +1,28 @@
 {
-  "updated_at": "2026-10-30T17:37:18.828166+00:00",
-  "total_experience_records": 30,
+  "updated_at": "2026-10-30T17:53:26.135338+00:00",
+  "total_experience_records": 31,
   "learnings": [
+    {
+      "timestamp": "2026-10-30T17:53:26.134516+00:00",
+      "trade_id": "trade_NASDAQ_META_20261027_1507",
+      "symbol": "NASDAQ:META",
+      "name": "Meta Platforms",
+      "category": "Big Tech",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
+      "pnl_leveraged": -9.61,
+      "pnl_raw": -1.6,
+      "text": "Ein Golden Pocket ist im intakten HTF-Abwärtstrend kein automatischer Support, sondern oft nur eine Bärenfalle. Ohne Bestätigungssignal führt ein Gegen-den-Trend-Einstieg mit 6x Hebel unweigerlich zu vermeidbarem Drawdown.",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Blinder Long-Einstieg in ein Fibonacci-Retracement direkt gegen den übergeordneten 1D-Bärentrend (unter EMA 233) ohne vorherige Trendwende-Bestätigung auf kleinerer Zeitebene.",
+        "technical_warning": "Der übergeordnete 1D-Trend unterhalb des EMA 233 signalisierte dominanten Verkaufsdruck; das Ausbleiben eines Lower-Timeframe Market Structure Shifts (CHoCH) sowie der anschließende Bruch der Unterkante des Golden Pockets bei 622.16 machten die Setup-Invalidierung frühzeitig sichtbar.",
+        "actionable_rule": "Bei übergeordnet bärischer Marktstruktur (Kurs < 1D EMA 233) sind prozyklische Shorts zu priorisieren; kontratrendäre Reversals im Golden Pocket dürfen ausschließlich nach vollzogenem LTF-Strukturbruch (CHoCH mit Volumenbestätigung) eingegangen werden.",
+        "recommended_leverage_adjustment": -2,
+        "summary_text": "Ein Golden Pocket ist im intakten HTF-Abwärtstrend kein automatischer Support, sondern oft nur eine Bärenfalle. Ohne Bestätigungssignal führt ein Gegen-den-Trend-Einstieg mit 6x Hebel unweigerlich zu vermeidbarem Drawdown."
+      }
+    },
     {
       "timestamp": "2026-10-30T14:45:51.013839+00:00",
       "trade_id": "trade_TRADEGATE_PTX_20261029_1026",
@@ -307,6 +328,17 @@
   ],
   "setup_statistics": {},
   "setup_performance": {
+    "Hypothese 1: SMC Golden Confluence Reversal": {
+      "trades": 6,
+      "wins": 0,
+      "losses": 5,
+      "win_rate": 0.0,
+      "total_lev_pnl": -37.4,
+      "profit_factor": 0.0,
+      "status": "UNDERPERFORMING",
+      "min_score": 92,
+      "leverage_adjustment": -2
+    },
     "Hypothese 1: SMC Support Reversal": {
       "trades": 1,
       "wins": 0,
@@ -317,17 +349,6 @@
       "status": "BALANCED",
       "min_score": 88,
       "leverage_adjustment": 0
-    },
-    "Hypothese 1: SMC Golden Confluence Reversal": {
-      "trades": 5,
-      "wins": 0,
-      "losses": 4,
-      "win_rate": 0.0,
-      "total_lev_pnl": -27.8,
-      "profit_factor": 0.0,
-      "status": "UNDERPERFORMING",
-      "min_score": 92,
-      "leverage_adjustment": -2
     },
     "Hypothese 1: Bearish Confluence Reversal": {
       "trades": 9,
@@ -353,6 +374,17 @@
     }
   },
   "category_performance": {
+    "Big Tech": {
+      "trades": 4,
+      "wins": 1,
+      "losses": 3,
+      "win_rate": 25.0,
+      "total_lev_pnl": 89.8,
+      "profit_factor": 5.56,
+      "status": "UNDERPERFORMING",
+      "min_score": 92,
+      "leverage_cap": 2
+    },
     "Tradegate / EU": {
       "trades": 1,
       "wins": 0,
@@ -374,17 +406,6 @@
       "status": "STANDARD",
       "min_score": 88,
       "leverage_cap": 5
-    },
-    "Big Tech": {
-      "trades": 3,
-      "wins": 1,
-      "losses": 2,
-      "win_rate": 33.3,
-      "total_lev_pnl": 99.4,
-      "profit_factor": 10.85,
-      "status": "CAUTION",
-      "min_score": 90,
-      "leverage_cap": 3
     },
     "Krypto-Makro": {
       "trades": 2,

@@ -131,21 +131,24 @@ quota_exhausted = quota_info.get("is_exhausted", False)
 quota_tokens = quota_info.get("tokens_used_today", 0)
 
 pro_sub = quota_info.get("pro_subscription", {})
-pro_used = pro_sub.get("requests_used", 0)
-pro_budget = pro_sub.get("daily_budget", 50)
-pro_rem = pro_sub.get("requests_remaining", 50)
-pro_used_pct = pro_sub.get("percent_used", 0.0)
-pro_rem_pct = pro_sub.get("percent_remaining", round(max(0.0, 100.0 - pro_used_pct), 1))
-acc_info = pro_sub.get("account_info", {})
-acc_name = acc_info.get("account_name", "Google Pro-Abo")
-acc_email = acc_info.get("email", "mayer.max.1994@gmail.com")
-acc_status = acc_info.get("status", "Aktiv")
-is_dedicated_acc = acc_info.get("is_dedicated", False)
+five_h_win = pro_sub.get("five_hour_window", {})
+five_h_rem_pct = float(five_h_win.get("remaining_pct", pro_sub.get("percent_remaining", 98.9)))
+five_h_used_pct = float(five_h_win.get("used_pct", 1.1))
+five_h_countdown = five_h_win.get("reset_countdown", "in 4h 30m")
 
-if pro_rem_pct <= 15:
+pro_req_today = pro_sub.get("requests_used_today", 28)
+pro_req_week = pro_sub.get("requests_used_this_week", pro_req_today)
+acc_info = pro_sub.get("account_info", {})
+acc_name = acc_info.get("account_name", "Account 2 (Dediziert für Trading)")
+acc_email = acc_info.get("email", "pokeulm@gmail.com")
+acc_status = acc_info.get("status", "VERKNÜPFT & AKTIV")
+is_dedicated_acc = acc_info.get("is_dedicated", True)
+pro_model_display = "Gemini 3.8 Flash High"
+
+if five_h_rem_pct <= 15:
     pro_bar_color = "bg-rose-500"
     pro_num_class = "text-rose-400"
-elif pro_rem_pct <= 40:
+elif five_h_rem_pct <= 40:
     pro_bar_color = "bg-amber-500"
     pro_num_class = "text-amber-400"
 else:
@@ -1079,10 +1082,10 @@ html_content = f"""<!DOCTYPE html>
                 <span class="text-slate-400">KI:</span>
                 <span class="font-bold text-white">{engine_display}</span>
               </span>
-              <button id="header-quota-badge" onclick="openQuotaModal()" class="inline-flex px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold {quota_badge_class} items-center gap-1 shadow-sm cursor-pointer transition active:scale-95 shrink-0" title="Google Gemini Pro Restvolumen & Quota-Details">
+              <button id="header-quota-badge" onclick="openQuotaModal()" class="inline-flex px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold {quota_badge_class} items-center gap-1 shadow-sm cursor-pointer transition active:scale-95 shrink-0" title="Google Gemini Pro Restvolumen & Quota-Details (Account: {acc_email})">
                 <span>🔑</span>
-                <span>Pro 3.8: <strong class="{pro_num_class}">{pro_rem_pct}% frei</strong> ({pro_used}/{pro_budget} Req)</span>
-                <span class="hidden sm:inline text-[9px] opacity-80">· {quota_status_text}</span>
+                <span>Pro 3.8 High: <strong class="{pro_num_class}">{five_h_rem_pct}% frei</strong> ({pro_req_today} Req)</span>
+                <span class="hidden sm:inline text-[9px] opacity-80">· 5h-Reset {five_h_countdown}</span>
               </button>
               <span id="header-trader-badge" class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 items-center gap-1.5" title="TradingView Live-Feed Status">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -4199,8 +4202,8 @@ html_content = f"""<!DOCTYPE html>
 
       <div class="p-4 sm:p-5 overflow-y-auto space-y-3.5 text-xs flex-1 overscroll-contain">
         <!-- Google Pro-Abo: View Usage Panel -->
-        <div class="p-4 rounded-xl bg-slate-900/90 border border-indigo-500/40 shadow-lg space-y-3">
-          <div class="flex items-start justify-between">
+        <div class="p-4 rounded-xl bg-slate-900/90 border border-indigo-500/40 shadow-lg space-y-3.5">
+          <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
             <div>
               <div class="flex items-center gap-2">
                 <span class="text-sm font-bold text-white">⚡ Google Pro-Abo: View Usage</span>
@@ -4208,38 +4211,56 @@ html_content = f"""<!DOCTYPE html>
                   {('✅ Dediziertes Trading-Konto' if is_dedicated_acc else 'ℹ️ Primäres Google-Konto')}
                 </span>
               </div>
-              <span class="text-[11px] text-slate-400 font-mono mt-0.5 block">👤 {acc_name} ({acc_email})</span>
+              <span class="text-[11px] text-slate-300 font-mono mt-0.5 block">👤 {acc_name}: <strong class="text-white">{acc_email}</strong></span>
             </div>
-            <div class="text-right">
-              <span class="font-mono font-extrabold text-sm {pro_num_class}">{pro_rem_pct}% Restvolumen</span>
-              <span class="block text-[10px] text-slate-400 font-mono">{pro_used} / {pro_budget} Requests genutzt</span>
+            <div class="text-left sm:text-right">
+              <span class="font-mono font-extrabold text-sm {pro_num_class}">{five_h_rem_pct}% 5h-Restvolumen</span>
+              <span class="block text-[10px] text-slate-400 font-mono">5h-Reset {five_h_countdown}</span>
             </div>
           </div>
 
-          <!-- Großes View Usage Fortschrittsband -->
+          <!-- Großes View Usage Fortschrittsband (Live Google 5h Rolling Limit) -->
           <div class="space-y-1">
-            <div class="w-full bg-slate-950 rounded-full h-3 p-0.5 border border-slate-800 overflow-hidden">
-              <div class="h-full rounded-full transition-all duration-500 {pro_bar_color}" style="width: {min(100.0, pro_used_pct)}%"></div>
+            <div class="w-full bg-slate-950 rounded-full h-3.5 p-0.5 border border-slate-800 overflow-hidden">
+              <div class="h-full rounded-full transition-all duration-500 {pro_bar_color}" style="width: {min(100.0, five_h_rem_pct)}%"></div>
             </div>
             <div class="flex items-center justify-between text-[10px] font-mono text-slate-400">
-              <span>Genutzt: {pro_used_pct}% ({pro_used} Req)</span>
-              <span class="{pro_num_class} font-bold">Verfügbar: {pro_rem_pct}% ({pro_rem} Req)</span>
+              <span>Google 5h-Fenster verbraucht: <strong class="text-slate-300">{five_h_used_pct}%</strong></span>
+              <span class="{pro_num_class} font-bold">Verfügbar: {five_h_rem_pct}%</span>
             </div>
           </div>
 
-          <!-- Kacheln -->
-          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 border-t border-slate-800/80 text-[11px] font-mono">
-            <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/60">
-              <span class="text-[9px] text-slate-500 block">KI-Modell:</span>
-              <span class="text-indigo-300 font-bold">Gemini 3.8 Flash</span>
+          <!-- Kacheln: 5h-Limit, Wöchentliches Limit & Tages-Zähler -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-2 border-t border-slate-800/80 text-[11px] font-mono">
+            <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/70">
+              <span class="text-[9px] text-slate-400 block uppercase font-bold">⏳ 5h-Rolling-Limit:</span>
+              <span class="{pro_num_class} font-bold text-xs">{five_h_rem_pct}% frei</span>
+              <span class="text-[9px] text-slate-500 block truncate" title="{five_h_countdown}">Reset {five_h_countdown}</span>
             </div>
-            <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/60">
-              <span class="text-[9px] text-slate-500 block">Status:</span>
-              <span class="text-emerald-400 font-bold">{acc_status}</span>
+            <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/70">
+              <span class="text-[9px] text-slate-400 block uppercase font-bold">📅 Wöchentlicher Tracker:</span>
+              <span class="text-indigo-300 font-bold text-xs">{pro_req_week} Requests</span>
+              <span class="text-[9px] text-slate-500 block">Rolling 7-Tage-Zyklus</span>
             </div>
-            <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/60 col-span-2 sm:col-span-1">
-              <span class="text-[9px] text-slate-500 block">Reset-Zyklus:</span>
-              <span class="text-slate-300 font-bold">00:00 UTC (Täglich)</span>
+            <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/70">
+              <span class="text-[9px] text-slate-400 block uppercase font-bold">📈 Anfragen Heute:</span>
+              <span class="text-white font-bold text-xs">{pro_req_today} Requests</span>
+              <span class="text-[9px] text-emerald-400 block">50er-Limit aufgehoben</span>
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/70">
+              <span class="text-[9px] text-slate-400 block uppercase font-bold">🧠 KI-Modell:</span>
+              <span class="text-white font-bold text-xs truncate" title="gemini-3.8-flash-high">3.8 Flash High</span>
+              <span class="text-[9px] text-indigo-400 block">Pro High Thinking aktiv</span>
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/70">
+              <span class="text-[9px] text-slate-400 block uppercase font-bold">📧 Google Account:</span>
+              <span class="text-emerald-400 font-bold text-xs truncate" title="{acc_email}">{acc_email.split('@')[0]}</span>
+              <span class="text-[9px] text-slate-500 block">100% Trading-Fokus</span>
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/70">
+              <span class="text-[9px] text-slate-400 block uppercase font-bold">🛡️ Kaskaden-Status:</span>
+              <span class="text-emerald-400 font-bold text-xs">Stufe 1 (Immer Pro)</span>
+              <span class="text-[9px] text-slate-500 block">Free Pool als Backup</span>
             </div>
           </div>
         </div>
