@@ -1,5 +1,149 @@
 [
   {
+    "id": "evt_20261030_082918",
+    "timestamp": "2026-10-30T08:29:18.597704+00:00",
+    "timestamp_display": "30.10.2026 08:29 UTC",
+    "title": "🔔 TV-Signaländerung: 5 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 5,
+    "changes": [
+      {
+        "symbol": "TRADEGATE:PTX",
+        "name": "Palantir (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SETUP_UPDATE",
+        "old_signal": "LONG",
+        "new_signal": "LONG",
+        "old_score": 83,
+        "new_score": 86,
+        "price": 175.14,
+        "setup_name": "Hypothese 1: SMC Support Reversal",
+        "entry_range": [
+          173.5,
+          175.5
+        ],
+        "stop_loss": 167.2,
+        "take_profit_2": 198.0,
+        "reasons": [
+          "Makro-Trend auf 1W und 1D vollumfänglich bullisch mit intakter Marktstruktur.",
+          "4h-Zeitebene zeigt No Supply / Ultra-Low Volume bei gleichzeitiger regulärer bullischer Divergenz.",
+          "Hysterese gewahrt: Bestätigung des aktiven Long-Signals bei moderatem 4h-RSI (51.97) ohne Überhitzungsanzeichen."
+        ],
+        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 1: SMC Support Reversal' (Makro-Trend auf 1W und 1D vollumfänglich bullisch mit intakter Marktstruktur.).",
+        "note": "Palantir verteidigt die Trendstruktur auf Tagesbasis souverän. Das 4h-Chart zeigt eine saubere Volumenkontraktion (No Supply) mit versteckter und regulärer bullischer Divergenz, was eine Fortsetzung des Impulses favorisiert. Der Stop-Loss liegt strikt unterhalb der jüngsten 4h-Konsolidierungsbasis bei 167.20 EUR.",
+        "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+      },
+      {
+        "symbol": "XETR:DAX",
+        "name": "DAX 40",
+        "category": "Indizes",
+        "change_type": "SETUP_UPDATE",
+        "old_signal": "LONG",
+        "new_signal": "LONG",
+        "old_score": 75,
+        "new_score": 80,
+        "price": 25590.14,
+        "setup_name": "Hypothese 2: Trend Continuation",
+        "entry_range": [
+          25450.0,
+          25550.0
+        ],
+        "stop_loss": 25180.0,
+        "take_profit_2": 26600.0,
+        "reasons": [
+          "Vollständiges Trend-Alignment: 1W, 1D, 4h und 1h notieren einheitlich im bullischen Regime.",
+          "1D zeigt reguläre bullische Divergenz; 1h bestätigt die Trendfortsetzung via versteckter bullischer Divergenz.",
+          "Keine Überhitzung (1D RSI 53.87, 4h RSI 56.62); Hysterese bestätigt das bestehende LONG-Signal ohne Chasing."
+        ],
+        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 2: Trend Continuation' (Vollständiges Trend-Alignment: 1W, 1D, 4h und 1h notieren einheitlich im bullischen Regime.).",
+        "note": "Der DAX weist eine ideale fraktale Trendausrichtung auf, wobei sämtliche Zeitebenen von 1W bis 1h im Einklang nach oben tendieren. Mit einem 4h-RSI von unter 57 liegt keine Überkauftheit vor, und die versteckte Divergenz auf 1h stützt den Trend. Ein konservativer Einstieg in leichten Intraday-Rücksetzern bis 25500 bietet ein exzellentes CRV zur Ausdehnung der Allzeithoch-Rallye.",
+        "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+      },
+      {
+        "symbol": "XETR:NOV",
+        "name": "Novartis",
+        "category": "Pharma",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 85,
+        "new_score": 58,
+        "price": 34.4,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          34.4,
+          34.4
+        ],
+        "stop_loss": 33.37,
+        "take_profit_2": 36.46,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "Aktiv: 1h Reguläre Bullische Divergenz (Reversal)",
+          "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
+        "note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "XETR:BAYN",
+        "name": "Bayer",
+        "category": "Pharma / DAX",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 85,
+        "new_score": 52,
+        "price": 45.66,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          46.8,
+          47.4
+        ],
+        "stop_loss": 48.6,
+        "take_profit_2": 41.2,
+        "reasons": [
+          "HTF-Struktur auf 1D bärisch, während 1W bullisch notiert (Konflikt der Makro-Ebenen).",
+          "Taktischer 4h/1h-Aufwärtsimpuls läuft gegen den 1D-Trend; kein Short-Einstieg in laufende 4h-Erholung ohne Erschöpfung.",
+          "1h zeigt reguläre bärische Divergenz, aber fehlendes VSA-Bestätigungssignal mahnt zu Geduld an übergeordneter Supply-Zone."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Struktur auf 1D bärisch, während 1W bullisch notiert (Konflikt der Makro-Ebenen).).",
+        "note": "Bayer befindet sich auf Tagesbasis im Abwärtstrend, vollzieht aktuell jedoch eine untergeordnete Gegenbewegung auf 4h/1h. Gemäß strikter Risikoregeln verbietet sich ein vorzeitiger Short mitten in die dynamische Erholung. Ein valider Einstieg erfordert das Anlaufen der Supply-Zone um 46.80–47.40 EUR gepaart mit klarer volumenseitiger Erschöpfung.",
+        "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+      },
+      {
+        "symbol": "TRADEGATE:INL",
+        "name": "Intel (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 74,
+        "new_score": 48,
+        "price": 83.82,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          85.5,
+          86.8
+        ],
+        "stop_loss": 89.2,
+        "take_profit_2": 75.0,
+        "reasons": [
+          "1D-Trend ist bärisch, jedoch zeigt der 1h-Zeithorizont einen bullischen Gegenimpuls mit versteckter bullischer Divergenz.",
+          "4h-Volumen ist extrem ausgetrocknet (Ultra-Low / No Supply-Demand), wodurch unmittelbare Follow-Through-Wahrscheinlichkeit gering ist.",
+          "Previous Signal SHORT muss vor neuem Einstieg konsolidieren, um Whipsaws durch den 1h-Bounce zu vermeiden."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Trend ist bärisch, jedoch zeigt der 1h-Zeithorizont einen bullischen Gegenimpuls mit versteckter bullischer Divergenz.).",
+        "note": "Obwohl der übergeordnete Trend auf 1D bärisch bleibt, kollidiert der 1h-Aufwärtstrend mit einer direkten Short-Ausführung. Das extrem niedrige Volumen auf 4h mahnt zur Zurückhaltung, da Fehlausbrüche drohen. Wir warten geduldig auf einen Fehlausbruch an der 86.00er-Widerstandszone vor Re-Entry.",
+        "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 5 Einstufungen haben sich geändert:\n\n🟢 Palantir (Tradegate) (PTX):\n   Score-Sprung: 83% ➔ 86% (LONG)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: SMC Support Reversal' (Makro-Trend auf 1W und 1D vollumfänglich bullisch mit intakter Marktstruktur.).\n   📝 KI-Rationale: Palantir verteidigt die Trendstruktur auf Tagesbasis souverän. Das 4h-Chart zeigt eine saubere Volumenkontraktion (No Supply) mit ...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 173.50 | SL: 167.20 | TP2: 198.00\n\n🟢 DAX 40 (DAX):\n   Score-Sprung: 75% ➔ 80% (LONG)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 2: Trend Continuation' (Vollständiges Trend-Alignment: 1W, 1D, 4h und 1h notieren einheitlich im bullischen Regime.).\n   📝 KI-Rationale: Der DAX weist eine ideale fraktale Trendausrichtung auf, wobei sämtliche Zeitebenen von 1W bis 1h im Einklang nach oben tendieren....\n   Setup: Hypothese 2: Trend Continuation\n   Entry: 25,450.00 | SL: 25,180.00 | TP2: 26,600.00\n\n⚪ Novartis (NOV):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 58%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-S...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ Bayer (BAYN):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Struktur auf 1D bärisch, während 1W bullisch notiert (Konflikt der Makro-Ebenen).).\n   📝 KI-Rationale: Bayer befindet sich auf Tagesbasis im Abwärtstrend, vollzieht aktuell jedoch eine untergeordnete Gegenbewegung auf 4h/1h. Gemäß st...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ Intel (Tradegate) (INL):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Trend ist bärisch, jedoch zeigt der 1h-Zeithorizont einen bullischen Gegenimpuls mit versteckter bullischer Divergenz.).\n   📝 KI-Rationale: Obwohl der übergeordnete Trend auf 1D bärisch bleibt, kollidiert der 1h-Aufwärtstrend mit einer direkten Short-Ausführung. Das ext...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261030_071807",
     "timestamp": "2026-10-30T07:18:07.143815+00:00",
     "timestamp_display": "30.10.2026 07:18 UTC",
