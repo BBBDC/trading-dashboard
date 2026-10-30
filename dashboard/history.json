@@ -1,5 +1,96 @@
 [
   {
+    "id": "evt_20261030_122640",
+    "timestamp": "2026-10-30T12:26:40.437230+00:00",
+    "timestamp_display": "30.10.2026 12:26 UTC",
+    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 3,
+    "changes": [
+      {
+        "symbol": "TRADEGATE:PTX",
+        "name": "Palantir (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 86,
+        "new_score": 52,
+        "price": 175.14,
+        "setup_name": "Beobachten / Konsolidierung & Re-Test Support",
+        "entry_range": [
+          168.0,
+          171.5
+        ],
+        "stop_loss": 164.5,
+        "take_profit_2": 192.5,
+        "reasons": [
+          "HTF-Trend (1W/1D) intakt bullisch, bisheriges Long-Setup gerät jedoch in Momentum-Ermüdung",
+          "Multiple bärische Divergenzen auf 4h (regulär & versteckt) bei Ultra-Low Volume signalisieren Erschöpfung",
+          "Strikte Risikomanagement-Regel: Kein Re-Entry/Add ohne Pullback in institutionelle Liquiditätszonen"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Trend (1W/1D) intakt bullisch, bisheriges Long-Setup gerät jedoch in Momentum-Ermüdung).",
+        "note": "Nach dem vorangegangenen Long-Impuls zeigen sich auf 4h klare Überhitzungsmuster und bärische Divergenzen bei nachlassendem Handelsvolumen. Wir sichern Gewinne und wechseln zur Risikominimierung auf NEUTRAL. Ein neuer Long-Trigger erfordert einen sauberen Rücksetzer in die Unterstützungszone um 170 EUR.",
+        "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+      },
+      {
+        "symbol": "TRADEGATE:IFX",
+        "name": "Infineon Technologies",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 48,
+        "price": 52.85,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          54.5,
+          55.8
+        ],
+        "stop_loss": 57.5,
+        "take_profit_2": 46.2,
+        "reasons": [
+          "Makro-Regime (1W & 1D) ist bärisch unter 233 EMA, 1D RSI verharrt kraftlos bei 44.46",
+          "Aktuelle 4h/1h-Aufwärtsbewegung ist regelkonform als kontratrendliche Bärenmarktrallye einzustufen, kein valider Long-Trigger",
+          "4h und 1h weisen versteckte bärische Divergenzen auf, doch das VSA zeigt Ultra-Low Volume – Erschöpfung am Widerstand muss erst abgewartet werden"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Regime (1W & 1D) ist bärisch unter 233 EMA, 1D RSI verharrt kraftlos bei 44.46).",
+        "note": "Infineon läuft in einer typischen Bärenmarktrallye auf 4h/1h nordwärts, was institutionell keinesfalls gekauft werden darf. Ein direkter Short verbietet sich ebenfalls, solange der untergeordnete Aufwärtsimpuls nicht an einem signifikanten FVG oder Widerstand bricht. Wir bleiben neutral und lauern auf Erschöpfungssignale in der 55-Euro-Zone.",
+        "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+      },
+      {
+        "symbol": "TRADEGATE:34Q0",
+        "name": "Coinbase (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 45,
+        "price": 0.981,
+        "setup_name": "Beobachten / Konsolidierung nach Sell-off",
+        "entry_range": [
+          1.02,
+          1.06
+        ],
+        "stop_loss": 1.13,
+        "take_profit_2": 0.79,
+        "reasons": [
+          "1W und 1D befinden sich in einem tiefen Bärenregime, 1D RSI mit 30.32 nahe an extremer Überverkauftheit",
+          "Auf 4h liegt eine reguläre bullische Divergenz vor, die ein starkes Whipsaw-Risiko für verspätete Trendfolge-Shorts birgt",
+          "Asymmetrisches CRV für Neu-Shorts auf aktuellem Niveau unzureichend; Risiko einer scharfen Mean-Reversion-Gegenbewegung ist akut"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1W und 1D befinden sich in einem tiefen Bärenregime, 1D RSI mit 30.32 nahe an extremer Überverkauftheit).",
+        "note": "Coinbase weist zwar intakte Makro-Bärenstrukturen auf, ist jedoch auf Tagesbasis stark überdehnt, während auf 4h bereits eine reguläre bullische Divergenz warnt. Hier Short zu gehen, verstößt gegen das Gebot des Kapitalerhalts (Chasing the Bottom). Eine Einstufung auf Neutral schützt vor Fehlausbrüchen.",
+        "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n⚪ Palantir (Tradegate) (PTX):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Trend (1W/1D) intakt bullisch, bisheriges Long-Setup gerät jedoch in Momentum-Ermüdung).\n   📝 KI-Rationale: Nach dem vorangegangenen Long-Impuls zeigen sich auf 4h klare Überhitzungsmuster und bärische Divergenzen bei nachlassendem Handel...\n   Setup: Beobachten / Konsolidierung & Re-Test Support\n\n⚪ Infineon Technologies (IFX):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Regime (1W & 1D) ist bärisch unter 233 EMA, 1D RSI verharrt kraftlos bei 44.46).\n   📝 KI-Rationale: Infineon läuft in einer typischen Bärenmarktrallye auf 4h/1h nordwärts, was institutionell keinesfalls gekauft werden darf. Ein di...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ Coinbase (Tradegate) (34Q0):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 45%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1W und 1D befinden sich in einem tiefen Bärenregime, 1D RSI mit 30.32 nahe an extremer Überverkauftheit).\n   📝 KI-Rationale: Coinbase weist zwar intakte Makro-Bärenstrukturen auf, ist jedoch auf Tagesbasis stark überdehnt, während auf 4h bereits eine regu...\n   Setup: Beobachten / Konsolidierung nach Sell-off\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261030_112053",
     "timestamp": "2026-10-30T11:20:53.127526+00:00",
     "timestamp_display": "30.10.2026 11:20 UTC",
