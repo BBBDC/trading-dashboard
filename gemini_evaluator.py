@@ -485,7 +485,9 @@ def evaluate_batch_with_cascade(assets_batch):
                     record_pro_cli_request()
                 except Exception:
                     pass
-                return res, None, f"{primary_model} [Pro Abo]"
+                t_token = Path("/home/admin/.gemini_trading/.gemini/antigravity-cli/antigravity-oauth-token")
+                acc_label = "Account 2 Pro (pokeulm@gmail.com)" if t_token.exists() else "Account 1 Pro (mayer.max.1994@gmail.com)"
+                return res, None, f"{primary_model} [{acc_label}]"
             print(f" [Pro-Abo CLI ({err}) -> Fallback auf Key-Pool 3.5]...", end="", flush=True)
         else:
             print(f" [Pro-Abo Tages-Budget (50) erreicht -> Fallback auf Key-Pool 3.5]...", end="", flush=True)

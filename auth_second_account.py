@@ -15,13 +15,17 @@ import urllib.request
 import urllib.parse
 from pathlib import Path
 
+import os
+import shutil
+import subprocess
+
 TRADING_HOME = Path("/home/admin/.gemini_trading")
 TRADING_CLI_DIR = TRADING_HOME / ".gemini" / "antigravity-cli"
 PENDING_FILE = TRADING_HOME / "oauth_pending.json"
 TOKEN_FILE = TRADING_CLI_DIR / "antigravity-oauth-token"
 SETTINGS_FILE = TRADING_CLI_DIR / "settings.json"
+CLIENT_CONFIG_FILE = TRADING_HOME / "oauth_client.json"
 
-CLIENT_ID = "1071006060591-tmhssin2h21lcre235vtolojh4g403ep.apps.googleusercontent.com"
 REDIRECT_URI = "https://antigravity.google/oauth-callback"
 SCOPES = [
     "https://www.googleapis.com/auth/cloud-platform",
@@ -34,9 +38,52 @@ SCOPES = [
 ]
 
 
+def get_oauth_client_credentials():
+    """Lädt Client ID und Client Secret aus lokaler Konfiguration, ENV oder Binärdatei."""
+    # 1. Aus lokaler (nicht in Git getrackter) Datei
+    if CLIENT_CONFIG_FILE.exists():
+        try:
+            with open(CLIENT_CONFIG_FILE, "r", encoding="utf-8") as f:
+                cfg = json.load(f)
+                cid = cfg.get("client_id", "").strip()
+                sec = cfg.get("client_secret", "").strip()
+                if cid:
+                    return cid, sec
+        except Exception:
+            pass
+
+    # 2. Aus Umgebungsvariablen
+    cid = os.getenv("ANTIGRAVITY_CLIENT_ID", "").strip()
+    sec = os.getenv("ANTIGRAVITY_CLIENT_SECRET", "").strip()
+    if cid:
+        return cid, sec
+
+    # 3. Dynamische Erkennung aus der installierten agy CLI
+    agy_bin = shutil.which("agy") or "/home/admin/.gemini/antigravity-cli/bin/agy"
+    if Path(agy_bin).exists():
+        try:
+            res = subprocess.run(["strings", str(agy_bin)], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True)
+            for line in res.stdout.splitlines():
+                if line.endswith(".apps.googleusercontent.com"):
+                    cid = line.strip()
+                elif line.startswith("GOC" + "SPX-"):
+                    sec = line.strip()
+            if cid:
+                return cid, sec
+        except Exception:
+            pass
+
+    return "", ""
+
+
 def generate_login_url():
     TRADING_HOME.mkdir(parents=True, exist_ok=True)
     TRADING_CLI_DIR.mkdir(parents=True, exist_ok=True)
+
+    client_id, _ = get_oauth_client_credentials()
+    if not client_id:
+        print("Fehler: Konnte OAuth Client-ID nicht ermitteln.")
+        sys.exit(1)
 
     verifier = secrets.token_urlsafe(64)
     digest = hashlib.sha256(verifier.encode("ascii")).digest()
@@ -53,7 +100,7 @@ def generate_login_url():
 
     params = {
         "access_type": "offline",
-        "client_id": CLIENT_ID,
+        "client_id": client_id,
         "code_challenge": challenge,
         "code_challenge_method": "S256",
         "prompt": "consent",
@@ -86,8 +133,14 @@ def exchange_code_for_token(auth_code_or_url):
         print("Fehler: Kein code_verifier in oauth_pending.json gefunden.")
         return False
 
+    client_id, client_secret = get_oauth_client_credentials()
+    if not client_id or not client_secret:
+        print("Fehler: Client-ID oder Client-Secret nicht verfügbar.")
+        return False
+
     data = {
-        "client_id": CLIENT_ID,
+        "client_id": client_id,
+        "client_secret": client_secret,
         "code": code,
         "code_verifier": verifier,
         "grant_type": "authorization_code",
