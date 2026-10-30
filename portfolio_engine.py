@@ -48,14 +48,148 @@ def save_json_file(file_path, data):
 
 
 # ==============================================================================
-# 1. HEBEL-BERECHNUNG (MAXIMAL 10x, INSTITUTIONELLES RISIKOMANAGEMENT)
+# 1. HEBEL-BERECHNUNG & CLOSED-LOOP SCORECARD GOVERNOR
 # ==============================================================================
-def calculate_optimal_leverage(asset_type, category, current_price, stop_loss, score):
+def calculate_performance_matrix(closed_trades):
+    """
+    Berechnet die quantitative Closed-Loop Performance Matrix für alle Setups und Asset-Kategorien.
+    Ermittelt automatisch Win-Rates, Profit-Faktoren, Hebel-Dämpfer und Mindest-Score-Vorgaben.
+    """
+    setup_stats = {}
+    category_stats = {}
+
+    for ct in closed_trades:
+        s_name = ct.get("setup_name", "High-Conviction Confluence")
+        cat = ct.get("category", "Allgemein")
+        raw_pnl = float(ct.get("realized_pnl_pct", 0.0))
+        lev_pnl = float(ct.get("realized_pnl_leveraged_pct", raw_pnl))
+        is_win = lev_pnl > 0
+        is_breakeven = abs(lev_pnl) < 0.1
+
+        # Setup Stats sammeln
+        if s_name not in setup_stats:
+            setup_stats[s_name] = {"trades": 0, "wins": 0, "losses": 0, "gross_win": 0.0, "gross_loss": 0.0, "total_lev_pnl": 0.0}
+        setup_stats[s_name]["trades"] += 1
+        if is_win:
+            setup_stats[s_name]["wins"] += 1
+            setup_stats[s_name]["gross_win"] += lev_pnl
+        elif not is_breakeven:
+            setup_stats[s_name]["losses"] += 1
+            setup_stats[s_name]["gross_loss"] += abs(lev_pnl)
+        setup_stats[s_name]["total_lev_pnl"] += lev_pnl
+
+        # Category Stats sammeln
+        if cat not in category_stats:
+            category_stats[cat] = {"trades": 0, "wins": 0, "losses": 0, "gross_win": 0.0, "gross_loss": 0.0, "total_lev_pnl": 0.0}
+        category_stats[cat]["trades"] += 1
+        if is_win:
+            category_stats[cat]["wins"] += 1
+            category_stats[cat]["gross_win"] += lev_pnl
+        elif not is_breakeven:
+            category_stats[cat]["losses"] += 1
+            category_stats[cat]["gross_loss"] += abs(lev_pnl)
+        category_stats[cat]["total_lev_pnl"] += lev_pnl
+
+    # Setups finalisieren
+    setup_performance = {}
+    for s_name, data in setup_stats.items():
+        tr = data["trades"]
+        wins = data["wins"]
+        wr = round((wins / tr) * 100.0, 1) if tr > 0 else 0.0
+        pf = round(data["gross_win"] / data["gross_loss"], 2) if data["gross_loss"] > 0 else (9.99 if data["gross_win"] > 0 else 0.0)
+        tot_pnl = round(data["total_lev_pnl"], 1)
+
+        # Dynamic Governor Rules
+        if tr >= 4 and wr < 35.0:
+            status = "UNDERPERFORMING"
+            min_score = 92
+            lev_adj = -2
+        elif tr >= 3 and wr < 50.0:
+            status = "CAUTION"
+            min_score = 90
+            lev_adj = -1
+        elif tr >= 3 and wr >= 65.0 and pf >= 1.5:
+            status = "PROVEN_EDGE"
+            min_score = 88
+            lev_adj = 1
+        else:
+            status = "BALANCED"
+            min_score = 88
+            lev_adj = 0
+
+        setup_performance[s_name] = {
+            "trades": tr,
+            "wins": wins,
+            "losses": data["losses"],
+            "win_rate": wr,
+            "total_lev_pnl": tot_pnl,
+            "profit_factor": pf,
+            "status": status,
+            "min_score": min_score,
+            "leverage_adjustment": lev_adj
+        }
+
+    # Categories finalisieren
+    category_performance = {}
+    for cat, data in category_stats.items():
+        tr = data["trades"]
+        wins = data["wins"]
+        wr = round((wins / tr) * 100.0, 1) if tr > 0 else 0.0
+        pf = round(data["gross_win"] / data["gross_loss"], 2) if data["gross_loss"] > 0 else (9.99 if data["gross_win"] > 0 else 0.0)
+        tot_pnl = round(data["total_lev_pnl"], 1)
+
+        # Dynamic Governor Rules
+        if tr >= 4 and wr < 35.0:
+            status = "UNDERPERFORMING"
+            min_score = 92
+            lev_cap = 2
+        elif tr >= 3 and wr < 50.0:
+            status = "CAUTION"
+            min_score = 90
+            lev_cap = 3
+        elif tr >= 3 and wr >= 65.0:
+            status = "STRONG"
+            min_score = 88
+            lev_cap = 6
+        else:
+            status = "STANDARD"
+            min_score = 88
+            lev_cap = 5
+
+        category_performance[cat] = {
+            "trades": tr,
+            "wins": wins,
+            "losses": data["losses"],
+            "win_rate": wr,
+            "total_lev_pnl": tot_pnl,
+            "profit_factor": pf,
+            "status": status,
+            "min_score": min_score,
+            "leverage_cap": lev_cap
+        }
+
+    return setup_performance, category_performance
+
+
+def update_setup_scorecard(memory, closed_trades):
+    """
+    Aktualisiert die Performance-Matrix im Gedächtnis basierend auf allen geschlossenen Trades.
+    """
+    setup_perf, cat_perf = calculate_performance_matrix(closed_trades)
+    memory["setup_performance"] = setup_perf
+    memory["category_performance"] = cat_perf
+    memory["updated_at"] = datetime.now(timezone.utc).isoformat()
+    return memory
+
+
+def calculate_optimal_leverage(asset_type, category, current_price, stop_loss, score, setup_name=None, memory=None):
     """
     Berechnet den verantwortungsvollen Hebel (1x bis max 10x):
     - Berücksichtigt Asset-Klasse (Krypto max 2-3x, Aktien 3-5x, Indizes 5-8x, Rohstoffe 4-6x)
     - Liquidationsschutz: Stop-Loss muss weit vor einer theoretischen Liquidation liegen
     - Score-Bonus nur bei extrem hoher Konfluenz (Score >= 92%)
+    - CLOSED-LOOP SCORECARD GOVERNOR: Drosselt den Hebel automatisch, falls Kategorie oder Setup
+      in der historischen Auswertung unterdurchschnittlich abgeschnitten haben!
     """
     if not current_price or not stop_loss or current_price <= 0:
         return 3
@@ -80,6 +214,22 @@ def calculate_optimal_leverage(asset_type, category, current_price, stop_loss, s
     else:  # Standard Aktien / Tech
         class_cap = 5
 
+    # Scorecard-Governor aus Erfahrungsspeicher
+    if memory and isinstance(memory, dict):
+        cat_perf = memory.get("category_performance", {}).get(category, {})
+        setup_perf = memory.get("setup_performance", {}).get(setup_name, {})
+
+        # Kategorie-Dämpfer
+        if cat_perf:
+            cat_cap = cat_perf.get("leverage_cap")
+            if cat_cap is not None:
+                class_cap = min(class_cap, cat_cap)
+
+        # Setup-Dämpfer
+        if setup_perf:
+            lev_adj = setup_perf.get("leverage_adjustment", 0)
+            class_cap = max(1, class_cap + lev_adj)
+
     # High-Score Bonus (+1 bis +2 bei Score >= 92%)
     bonus = 0
     if score >= 92:
@@ -90,6 +240,83 @@ def calculate_optimal_leverage(asset_type, category, current_price, stop_loss, s
     chosen_leverage = min(safe_max_lev, class_cap + bonus)
     # Strikte Obergrenze 10x, Untergrenze 1x
     return max(1, min(10, chosen_leverage))
+
+
+def monitor_in_flight_trades(active_trades, db_map):
+    """
+    Überwacht alle laufenden Trades in Echtzeit während des stündlichen Scans:
+    - Erkennt frühzeitige Divergenzen / Trendwechsel gegen die Position
+    - Zieht bei Gewinnen automatisch Trailing-Stop-Loss nach (Profit-Locking)
+    - Setzt In-Flight Warnmeldungen für das Dashboard und Telegram
+    """
+    for t in active_trades:
+        sym = t.get("symbol")
+        live_asset = db_map.get(sym)
+        if not live_asset:
+            continue
+
+        direction = t.get("direction", "LONG")
+        entry_price = float(t.get("entry_price", 100.0))
+        curr_price = float(live_asset.get("price", entry_price))
+        raw_pnl = ((curr_price - entry_price) / entry_price) * 100.0 if direction == "LONG" else ((entry_price - curr_price) / entry_price) * 100.0
+        current_sl = float(t.get("stop_loss", 0.0))
+        highest_p = float(t.get("highest_price", curr_price))
+        lowest_p = float(t.get("lowest_price", curr_price))
+
+        # Höchst-/Tiefstkurse nachführen
+        t["highest_price"] = max(highest_p, curr_price)
+        t["lowest_price"] = min(lowest_p, curr_price)
+
+        t.setdefault("in_flight_warnings", [])
+        health = "HEALTHY"
+
+        # 1. Divergenz- & Gegen-Signal Früherkennung
+        divs_4h = []
+        tf_4h = live_asset.get("4h", {})
+        if isinstance(tf_4h, dict):
+            divs_4h = tf_4h.get("divs", [])
+
+        if direction == "LONG":
+            has_adverse_div = any("bärisch" in str(d).lower() or "bearish" in str(d).lower() for d in divs_4h)
+            if has_adverse_div:
+                health = "CAUTION"
+                warn_msg = "⚠️ Bärische Divergenz im 4h-Chart detektiert. Erhöhtes Risiko für Rücksetzer."
+                if warn_msg not in t["in_flight_warnings"]:
+                    t["in_flight_warnings"].append(warn_msg)
+                # Bei Gewinn sofort Break-Even sichern!
+                if raw_pnl >= 1.0 and current_sl < entry_price:
+                    t["stop_loss"] = entry_price
+                    t["trailing_active"] = True
+                    t["in_flight_warnings"].append("🛡️ Stop-Loss vorsorglich auf Break-Even nachgezogen.")
+
+            # Profit Locking: Wenn Gewinn >= 2.5% und neuer Peak erreicht, Trailing Stop auf 50% des Peaks
+            if raw_pnl >= 2.5:
+                trail_level = entry_price + (t["highest_price"] - entry_price) * 0.5
+                if trail_level > current_sl:
+                    t["stop_loss"] = round(trail_level, 4)
+                    t["trailing_active"] = True
+                    health = "TRAILING_STOP"
+
+        elif direction == "SHORT":
+            has_adverse_div = any("bullisch" in str(d).lower() or "bullish" in str(d).lower() for d in divs_4h)
+            if has_adverse_div:
+                health = "CAUTION"
+                warn_msg = "⚠️ Bullische Divergenz im 4h-Chart detektiert. Erhöhtes Risiko für Bärenrallye."
+                if warn_msg not in t["in_flight_warnings"]:
+                    t["in_flight_warnings"].append(warn_msg)
+                if raw_pnl >= 1.0 and current_sl > entry_price:
+                    t["stop_loss"] = entry_price
+                    t["trailing_active"] = True
+                    t["in_flight_warnings"].append("🛡️ Stop-Loss vorsorglich auf Break-Even nachgezogen.")
+
+            if raw_pnl >= 2.5:
+                trail_level = entry_price - (entry_price - t["lowest_price"]) * 0.5
+                if trail_level < current_sl:
+                    t["stop_loss"] = round(trail_level, 4)
+                    t["trailing_active"] = True
+                    health = "TRAILING_STOP"
+
+        t["health_status"] = health
 
 
 # ==============================================================================
@@ -306,9 +533,6 @@ def update_autonomous_portfolio(db_assets):
             final_lev_pnl = final_raw_pnl * lev
             is_win = final_raw_pnl > 0
 
-            # Post-Mortem Analyse für das Gedächtnis
-            learning_note = generate_trade_learning(t, exit_reason, final_raw_pnl, final_lev_pnl)
-
             closed_entry = {
                 "trade_id": t["trade_id"],
                 "symbol": t["symbol"],
@@ -321,6 +545,8 @@ def update_autonomous_portfolio(db_assets):
                 "entry_price": entry_price,
                 "exit_time": now_iso,
                 "exit_price": exit_price,
+                "highest_price": t.get("highest_price", entry_price),
+                "lowest_price": t.get("lowest_price", entry_price),
                 "leverage": lev,
                 "holding_days": holding_days,
                 "entry_reason": t["entry_reason"],
@@ -328,8 +554,22 @@ def update_autonomous_portfolio(db_assets):
                 "realized_pnl_pct": round(final_raw_pnl, 2),
                 "realized_pnl_leveraged_pct": round(final_lev_pnl, 2),
                 "result": "WIN" if is_win else ("LOSS" if final_raw_pnl < 0 else "BREAKEVEN"),
-                "post_mortem_learning": learning_note
             }
+
+            # Tiefgehende KI-Post-Mortem-Analyse via Gemini 3.8 Flash (Account 2)
+            try:
+                from gemini_evaluator import evaluate_trade_post_mortem
+                ai_post_mortem = evaluate_trade_post_mortem(closed_entry)
+            except Exception:
+                ai_post_mortem = None
+
+            if ai_post_mortem and isinstance(ai_post_mortem, dict):
+                closed_entry["ai_post_mortem"] = ai_post_mortem
+                closed_entry["post_mortem_learning"] = ai_post_mortem.get("summary_text", generate_trade_learning(t, exit_reason, final_raw_pnl, final_lev_pnl))
+            else:
+                learning_note = generate_trade_learning(t, exit_reason, final_raw_pnl, final_lev_pnl)
+                closed_entry["post_mortem_learning"] = learning_note
+
             closed_trades.insert(0, closed_entry)
             newly_closed.append(closed_entry)
 
@@ -338,8 +578,11 @@ def update_autonomous_portfolio(db_assets):
         else:
             remaining_active.append(t)
 
-    # 2. Neue High-Conviction Setups aufnehmen (Score >= 88%, Signal != NEUTRAL)
-    # Maximal 10 gleichzeitig aktive Positionen für optimale Diversifikation
+    # 2. In-Flight Überwachung aller verbleibenden aktiven Trades
+    monitor_in_flight_trades(remaining_active, db_map)
+
+    # 3. Neue High-Conviction Setups aufnehmen (Score >= 88%, Signal != NEUTRAL)
+    # Maximal 8 gleichzeitig aktive Positionen für optimale Diversifikation
     max_active_positions = 8
     
     if len(remaining_active) < max_active_positions:
@@ -358,15 +601,26 @@ def update_autonomous_portfolio(db_assets):
             
             sym = c["symbol"]
             curr_p = c.get("price", 100.0)
-            sl = c.get("stop_loss", curr_p * 0.95)
-            tp1 = c.get("take_profit_1", curr_p * 1.05)
-            tp2 = c.get("take_profit_2", curr_p * 1.10)
             score = c.get("score", 88)
             cat = c.get("category", "")
             asset_type = c.get("asset_type", "Stock")
+            setup_name = c.get("setup_name", "High-Conviction Confluence")
 
-            # Automatische Hebel-Ermittlung
-            lev = calculate_optimal_leverage(asset_type, cat, curr_p, sl, score)
+            # CLOSED-LOOP SCORECARD FILTER: Dynamischer Mindest-Score
+            setup_perf = memory.get("setup_performance", {}).get(setup_name, {})
+            cat_perf = memory.get("category_performance", {}).get(cat, {})
+            min_score_req = max(88, setup_perf.get("min_score", 88), cat_perf.get("min_score", 88))
+
+            if score < min_score_req:
+                print(f"   🛡️ [Scorecard Guard] {sym} ({setup_name} in {cat}) übersprungen: Score {score}% < Mindestanforderung von {min_score_req}%")
+                continue
+
+            sl = c.get("stop_loss", curr_p * 0.95)
+            tp1 = c.get("take_profit_1", curr_p * 1.05)
+            tp2 = c.get("take_profit_2", curr_p * 1.10)
+
+            # Automatische Hebel-Ermittlung mit Scorecard-Feedback
+            lev = calculate_optimal_leverage(asset_type, cat, curr_p, sl, score, setup_name=setup_name, memory=memory)
 
             # Fundierte Begründung zusammenstellen
             reasons = c.get("reasons", [])
@@ -383,7 +637,7 @@ def update_autonomous_portfolio(db_assets):
                 "asset_type": asset_type,
                 "direction": c["signal"],
                 "score": score,
-                "setup_name": c.get("setup_name", "High-Conviction Confluence"),
+                "setup_name": setup_name,
                 "entry_time": now_iso,
                 "entry_price": curr_p,
                 "current_price": curr_p,
@@ -403,12 +657,14 @@ def update_autonomous_portfolio(db_assets):
                 "holding_days": 0.0,
                 "tp1_reached": False,
                 "trailing_active": False,
+                "health_status": "HEALTHY",
+                "in_flight_warnings": [],
                 "status": "OPEN"
             }
             remaining_active.append(new_trade)
             active_symbols[sym] = new_trade
 
-    # 3. Metriken neu berechnen
+    # 4. Metriken neu berechnen
     all_closed = closed_trades
     total_closed = len(all_closed)
     wins = [t for t in all_closed if t["result"] == "WIN"]
@@ -437,6 +693,9 @@ def update_autonomous_portfolio(db_assets):
         "total_leveraged_pnl_pct": round(sum_lev_pnl, 2),
         "profit_factor": profit_factor
     }
+
+    # Closed-Loop Scorecard rekalibrieren (Performance-Matrix für Setups und Kategorien)
+    update_setup_scorecard(memory, closed_trades)
 
     save_json_file(PORTFOLIO_FILE, portfolio)
     save_json_file(TRADE_MEMORY_FILE, memory)
@@ -469,43 +728,105 @@ def generate_trade_learning(trade, exit_reason, raw_pnl, lev_pnl):
 
 def record_learning_in_memory(memory, closed_entry):
     learnings = memory.get("learnings", [])
-    learnings.insert(0, {
+    entry_learning = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "trade_id": closed_entry["trade_id"],
         "symbol": closed_entry["symbol"],
+        "name": closed_entry.get("name", closed_entry["symbol"]),
+        "category": closed_entry.get("category", ""),
+        "direction": closed_entry.get("direction", "LONG"),
         "result": closed_entry["result"],
         "setup_name": closed_entry["setup_name"],
         "pnl_leveraged": closed_entry["realized_pnl_leveraged_pct"],
+        "pnl_raw": closed_entry.get("realized_pnl_pct", 0.0),
         "text": closed_entry["post_mortem_learning"]
-    })
-    memory["learnings"] = learnings[:50]  # Letzte 50 Learnings im Gedächtnis
+    }
+    if "ai_post_mortem" in closed_entry:
+        entry_learning["ai_post_mortem"] = closed_entry["ai_post_mortem"]
+
+    learnings.insert(0, entry_learning)
+    memory["learnings"] = learnings[:60]  # Letzte 60 Learnings im Gedächtnis
     memory["total_experience_records"] = len(learnings)
     memory["updated_at"] = datetime.now(timezone.utc).isoformat()
 
 
-def get_memory_summary_for_ai_prompt():
+def get_memory_summary_for_ai_prompt(assets_batch=None):
     """
-    Gibt eine prägnante Zusammenfassung des Erfahrungsspeichers für den Gemini-Prompt zurück.
-    Ermöglicht der KI, vor jeder neuen Bewertung aus vergangenen Fehlern und Erfolgen zu lernen.
+    Gibt eine kontextuelle, maßgeschneiderte Zusammenfassung des Erfahrungsspeichers für den Gemini-Prompt zurück.
+    Analysiert die im aktuellen Batch enthaltenen Kategorien und Setups und injiziert
+    präzise Erfahrungswerte, Sektor-Winrates und bindende Handlungsregeln aus vergangenen Trades.
     """
     portfolio = load_json_file(PORTFOLIO_FILE, {})
     memory = load_json_file(TRADE_MEMORY_FILE, {})
 
     metrics = portfolio.get("metrics", {})
     learnings = memory.get("learnings", [])
-
-    if not learnings and metrics.get("total_trades", 0) == 0:
-        return "Erfahrungsspeicher initialisiert. Noch keine geschlossenen historischen Trades vorhanden."
+    setup_perf = memory.get("setup_performance", {})
+    cat_perf = memory.get("category_performance", {})
 
     lines = [
-        f"HISTORISCHES TRADE-GEDÄCHTNIS & TRACK-RECORD (Bisherige Performance):",
-        f"- Bisher geschlossene Trades: {metrics.get('total_trades', 0)} | Win-Rate: {metrics.get('win_rate_pct', 0.0)}% | Gesamtertrag (gehebelt): {metrics.get('total_leveraged_pnl_pct', 0.0):+,.1f}%",
-        "- Wichtigste Erfahrungen aus deinen bisherigen Trades:"
+        "HISTORISCHES TRADE-GEDÄCHTNIS & SELBSTVERBESSERUNGS-SCORECARD:",
+        f"- Bisher geschlossene Trades: {metrics.get('total_trades', 0)} | Gesamt-Win-Rate: {metrics.get('win_rate_pct', 0.0)}% | PnL (gehebelt): {metrics.get('total_leveraged_pnl_pct', 0.0):+,.1f}%"
     ]
-    for l in learnings[:4]:
-        lines.append(f"  • [{l.get('result')}] {l.get('text')}")
 
-    lines.append("Berücksichtige diese eigenen Erfahrungen strikt bei deiner aktuellen Hebelwahl und Bewertung!")
+    # Batch-spezifische Kategorien ermitteln
+    batch_cats = set()
+    if assets_batch:
+        for a in assets_batch:
+            cat = a.get("category")
+            if cat:
+                batch_cats.add(cat)
+
+    # 1. Spezifische Sektor-Erfahrungen für Assets in diesem Batch
+    if batch_cats:
+        lines.append("- RELEVANTE PERFORMANCE-DATEN FÜR DIE IN DIESEM BATCH ENTHALTENEN SEKTOREN:")
+        for cat in batch_cats:
+            cp = cat_perf.get(cat)
+            if cp and cp.get("trades", 0) > 0:
+                status_icon = "🟢" if cp.get("win_rate", 0) >= 60 else ("🔴" if cp.get("win_rate", 0) < 35 else "🟡")
+                lines.append(
+                    f"  {status_icon} Sektor '{cat}': {cp.get('wins')}/{cp.get('trades')} Trades ({cp.get('win_rate')}%), "
+                    f"PnL: {cp.get('total_lev_pnl'):+.1f}%, Status: {cp.get('status')}. "
+                    f"-> Hebel-Cap: max {cp.get('leverage_cap')}x, Mindest-Score für Einstieg: {cp.get('min_score')}%"
+                )
+
+    # 2. Setup-Performance Warnungen
+    underperforming_setups = [s for s, d in setup_perf.items() if d.get("status") == "UNDERPERFORMING"]
+    proven_setups = [s for s, d in setup_perf.items() if d.get("status") == "PROVEN_EDGE"]
+
+    if underperforming_setups:
+        lines.append("- STRATEGISCHE DÄMPFER AUS HISTORISCHEN FEHLERN (SEHR WICHTIG):")
+        for us in underperforming_setups[:2]:
+            d = setup_perf[us]
+            lines.append(f"  ⚠️ Setup '{us}' performte schwach ({d.get('win_rate')}% Win-Rate, {d.get('total_lev_pnl'):+.1f}% PnL). Vergib Einstiege hier NUR bei makelloser 1D Konfluenz & Score >= {d.get('min_score')}%!")
+
+    if proven_setups:
+        lines.append("- BEWÄHRTES EDGE AUS GEWINN-TRADES:")
+        for ps in proven_setups[:2]:
+            d = setup_perf[ps]
+            lines.append(f"  ✅ Setup '{ps}' zeigte exzellentes Edge ({d.get('win_rate')}% Win-Rate, Profit-Faktor {d.get('profit_factor')}). Halte nach solchen Setups bevorzugt Ausschau.")
+
+    # 3. Neueste bindende KI-Lerneinheiten und Handlungsregeln
+    lines.append("- BINDENDE LEITREGELN AUS DEN LETZTEN TRADES:")
+    # Filter bevorzugt nach Batch-Kategorien, falls vorhanden
+    relevant_learnings = []
+    if batch_cats:
+        for l in learnings:
+            if l.get("category") in batch_cats:
+                relevant_learnings.append(l)
+
+    # Falls keine categoriespezifischen da sind, nimm die neuesten allgemeinen
+    feed = relevant_learnings[:3] if relevant_learnings else learnings[:3]
+    for l in feed:
+        ai_pm = l.get("ai_post_mortem", {})
+        rule = ai_pm.get("actionable_rule")
+        warn = ai_pm.get("technical_warning")
+        if rule:
+            lines.append(f"  • [{l.get('symbol')}] REGEL: {rule} (Frühwarnung: {warn})")
+        else:
+            lines.append(f"  • [{l.get('result')}] {l.get('text')}")
+
+    lines.append("Setze diese Lektionen bei der Beurteilung ausnahmslos um: Schütze Kapital, jage keinen Fakeouts hinterher!")
     return "\n".join(lines)
 
 

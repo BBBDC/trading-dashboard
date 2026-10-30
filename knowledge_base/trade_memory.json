@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-30T14:45:51.013850+00:00",
+  "updated_at": "2026-10-30T17:37:18.828166+00:00",
   "total_experience_records": 30,
   "learnings": [
     {
@@ -9,7 +9,15 @@
       "result": "LOSS",
       "setup_name": "Hypothese 1: SMC Support Reversal",
       "pnl_leveraged": -20.5,
-      "text": "Verlusttrade auf Palantir (Tradegate) (TRADEGATE:PTX) mit -4.1% (-20.5% bei 5x Hebel nach 1.2d). Grund: Stop-Loss erreicht (167.96 <= 168.80) zum Kapitalschutz.. Learning: Bei Setup 'Hypothese 1: SMC Support Reversal' auf Tradegate / EU sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
+      "text": "Divergenzen und VSA-Muster sind ohne sichtbare Reaktionsbestätigung wertlos. Bei Hebel 5x führt das Vorwegnehmen einer Bodenbildung zu unnötig hohen Drawdowns von über 20%.",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Der Einstieg erfolgte direkt am lokalen Top ohne bullische Folgebestätigung, woraufhin die angenommene SMC-Support-Zone impulsiv unter Verkaufsdruck gebrochen wurde.",
+        "technical_warning": "Das Ausbleiben jeglicher Aufwärtsbewegung über den Einstiegspreis (Höchstkurs identisch mit Einstieg) sowie der Bruch der lokalen 1h-Struktur zeigten sofortigen Mangel an institutioneller Nachfrage an.",
+        "actionable_rule": "Bei SMC-Support-Reversals niemals blind per Limit einsteigen, sondern zwingend einen LTF-Market-Structure-Shift (MSS/CHoCH) mit Bestätigungskerze abwarten.",
+        "recommended_leverage_adjustment": -2,
+        "summary_text": "Divergenzen und VSA-Muster sind ohne sichtbare Reaktionsbestätigung wertlos. Bei Hebel 5x führt das Vorwegnehmen einer Bodenbildung zu unnötig hohen Drawdowns von über 20%."
+      }
     },
     {
       "timestamp": "2026-10-30T14:45:51.013703+00:00",
@@ -18,7 +26,15 @@
       "result": "LOSS",
       "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
       "pnl_leveraged": -17.05,
-      "text": "Verlusttrade auf Nvidia (NASDAQ:NVDA) mit -2.8% (-17.0% bei 6x Hebel nach 7.1d). Grund: Vorzeitiger Kapitalschutz: Setup nach 7.1 Tagen invalidiert (Signal NEUTRAL).. Learning: Bei Setup 'Hypothese 1: SMC Golden Confluence Reversal' auf Halbleiter sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
+      "text": "Ein fallendes Messer gegen den Tagestrend ohne Reversal-Bestätigung mit 6x Hebel zu fangen, ist grobe Fahrlässigkeit im Risikomanagement. Bei Counter-Trend-Setups muss der Hebel drastisch reduziert und zwingend auf Marktstruktur-Validierung gewartet werden.",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Der Einstieg erfolgte prozyklisch gegen den übergeordneten bärischen Tagestrend unter dem EMA 233, ohne dass eine bestätigte bullische Trendwende (CHoCH/BOS) auf kleinerer Zeitebene vorlag.",
+        "technical_warning": "Der Kurs notierte unter dem EMA 233 bei gleichzeitigem Fehlen von bullischem Volumen oder Divergenzen; zudem lag der Einstiegskurs (212.21) bereits oberhalb des definierten Golden Pockets (209.67 - 211.33), wodurch das Setup von Beginn an verfrüht und ohne Bestätigung gehandelt wurde.",
+        "actionable_rule": "Keine Reversal-Longs gegen einen bärischen HTF-Trend (unterhalb EMA 233) mit Hebel eröffnen, bevor ein valider Change of Character (CHoCH) mit überdurchschnittlichem Volumen auf dem Einstiegs-Timeframe bestätigt ist.",
+        "recommended_leverage_adjustment": -3,
+        "summary_text": "Ein fallendes Messer gegen den Tagestrend ohne Reversal-Bestätigung mit 6x Hebel zu fangen, ist grobe Fahrlässigkeit im Risikomanagement. Bei Counter-Trend-Setups muss der Hebel drastisch reduziert und zwingend auf Marktstruktur-Validierung gewartet werden."
+      }
     },
     {
       "timestamp": "2026-10-30T14:45:51.013587+00:00",
@@ -27,7 +43,15 @@
       "result": "WIN",
       "setup_name": "Hypothese 1: Bearish Confluence Reversal",
       "pnl_leveraged": 109.5,
-      "text": "Erfolgreicher SHORT-Trade auf Alphabet (Google) (NASDAQ:GOOG) mit +18.3% (+109.5% bei 6x Hebel nach 10.8d). Bestätigt die Validität von 'Hypothese 1: Bearish Confluence Reversal'. Das Nachziehen des Stop-Loss bzw. Abwarten des HTF-Ziels zahlte sich voll aus."
+      "text": "Ein voller Buchgewinn von +18.25% durch striktes Trendfolge-Disziplinieren unter dem EMA 233. Trotz des Erfolgs muss die Setup-Logik bei widersprüchlichen Divergenz-Signalen geschärft werden, um unnötiges Drawdown-Risiko zu vermeiden.",
+      "ai_post_mortem": {
+        "verdict": "WIN",
+        "driver": "Der übergeordnete 1D-Abwärtstrend unterhalb des EMA 233 entfaltete massive Abwärtsdynamik und drückte den Kurs direkt ins primäre Take-Profit-Ziel.",
+        "technical_warning": "Die im Einstiegslog erwähnte 'versteckte bullische Divergenz' stand im Widerspruch zum Short-Bias; künftig muss die Indikator-Nomenklatur bereinigt und auf echte bärische Trendfolge-Divergenzen oder Fehlausbrüche am HTF-Widerstand getimt werden.",
+        "actionable_rule": "Gehe niemals Short, wenn bullische Divergenzen aktiv sind, es sei denn, ein valider Bruch der lokalen Marktstruktur bestätigt das Scheitern der Käufer.",
+        "recommended_leverage_adjustment": 1,
+        "summary_text": "Ein voller Buchgewinn von +18.25% durch striktes Trendfolge-Disziplinieren unter dem EMA 233. Trotz des Erfolgs muss die Setup-Logik bei widersprüchlichen Divergenz-Signalen geschärft werden, um unnötiges Drawdown-Risiko zu vermeiden."
+      }
     },
     {
       "timestamp": "2026-10-29T14:28:02.035611+00:00",
@@ -36,7 +60,15 @@
       "result": "LOSS",
       "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
       "pnl_leveraged": -0.85,
-      "text": "Verlusttrade auf Total Crypto Market Cap (CRYPTOCAP:TOTAL) mit -0.2% (-0.9% bei 4x Hebel nach 3.1d). Grund: Struktureller Trendwechsel: Markt-Signal drehte von LONG auf SHORT.. Learning: Bei Setup 'Hypothese 1: SMC Golden Confluence Reversal' auf Krypto-Makro sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
+      "text": "Ein Golden Pocket ist im intakten HTF-Abwärtstrend kein Kaufgrund ohne strukturelle Bestätigung. Wer gegen die Trendrichtung blind in Korrekturlevel greift, bezahlt mit unnötigen Reibungsverlusten.",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Long-Einstieg gegen einen intakten übergeordneten Bärentrend (unter 1D EMA 233) ohne bestätigte Umkehrstruktur führte zu einem klassischen 'Messer-Fangen' und letztlich zum Ausstieg durch Trendfolge.",
+        "technical_warning": "Der Kurs lag unter dem 1D EMA 233 und hatte das 1D Golden Pocket nach unten durchbrochen, ohne dass im LTF/HTF ein bestätigter Market Structure Break (MSB) oder bullisches Volumen/Divergenz eine Bodenbildung signalisierten.",
+        "actionable_rule": "Keine Reversal-Trades gegen den Daily Trend (unter EMA 233) allein auf Basis passiver Fibonacci-Zonen; ein Einstieg erfordert zwingend eine bestätigte bullische Strukturverschiebung (CHoCH/BOS) auf dem 4H- oder 1D-Chart.",
+        "recommended_leverage_adjustment": -1,
+        "summary_text": "Ein Golden Pocket ist im intakten HTF-Abwärtstrend kein Kaufgrund ohne strukturelle Bestätigung. Wer gegen die Trendrichtung blind in Korrekturlevel greift, bezahlt mit unnötigen Reibungsverlusten."
+      }
     },
     {
       "timestamp": "2026-10-29T06:09:48.795489+00:00",
@@ -273,5 +305,185 @@
       "text": "Verlusttrade auf GMX (BINANCE:GMXUSDT) mit -1.9% (-7.5% bei 4x Hebel nach 0.6d). Grund: Stop-Loss erreicht (8.13 <= 8.24) zum Kapitalschutz.. Learning: Bei Setup 'Hypothese 2: Trend Continuation & Hidden Div' auf Crypto sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
     }
   ],
-  "setup_statistics": {}
+  "setup_statistics": {},
+  "setup_performance": {
+    "Hypothese 1: SMC Support Reversal": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate": 0.0,
+      "total_lev_pnl": -20.5,
+      "profit_factor": 0.0,
+      "status": "BALANCED",
+      "min_score": 88,
+      "leverage_adjustment": 0
+    },
+    "Hypothese 1: SMC Golden Confluence Reversal": {
+      "trades": 5,
+      "wins": 0,
+      "losses": 4,
+      "win_rate": 0.0,
+      "total_lev_pnl": -27.8,
+      "profit_factor": 0.0,
+      "status": "UNDERPERFORMING",
+      "min_score": 92,
+      "leverage_adjustment": -2
+    },
+    "Hypothese 1: Bearish Confluence Reversal": {
+      "trades": 9,
+      "wins": 2,
+      "losses": 7,
+      "win_rate": 22.2,
+      "total_lev_pnl": 53.5,
+      "profit_factor": 1.87,
+      "status": "UNDERPERFORMING",
+      "min_score": 92,
+      "leverage_adjustment": -2
+    },
+    "Hypothese 2: Trend Continuation & Hidden Div": {
+      "trades": 15,
+      "wins": 1,
+      "losses": 14,
+      "win_rate": 6.7,
+      "total_lev_pnl": -114.0,
+      "profit_factor": 0.14,
+      "status": "UNDERPERFORMING",
+      "min_score": 92,
+      "leverage_adjustment": -2
+    }
+  },
+  "category_performance": {
+    "Tradegate / EU": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate": 0.0,
+      "total_lev_pnl": -20.5,
+      "profit_factor": 0.0,
+      "status": "STANDARD",
+      "min_score": 88,
+      "leverage_cap": 5
+    },
+    "Halbleiter": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate": 0.0,
+      "total_lev_pnl": -17.1,
+      "profit_factor": 0.0,
+      "status": "STANDARD",
+      "min_score": 88,
+      "leverage_cap": 5
+    },
+    "Big Tech": {
+      "trades": 3,
+      "wins": 1,
+      "losses": 2,
+      "win_rate": 33.3,
+      "total_lev_pnl": 99.4,
+      "profit_factor": 10.85,
+      "status": "CAUTION",
+      "min_score": 90,
+      "leverage_cap": 3
+    },
+    "Krypto-Makro": {
+      "trades": 2,
+      "wins": 0,
+      "losses": 2,
+      "win_rate": 0.0,
+      "total_lev_pnl": -2.9,
+      "profit_factor": 0.0,
+      "status": "STANDARD",
+      "min_score": 88,
+      "leverage_cap": 5
+    },
+    "Crypto": {
+      "trades": 15,
+      "wins": 0,
+      "losses": 14,
+      "win_rate": 0.0,
+      "total_lev_pnl": -140.1,
+      "profit_factor": 0.0,
+      "status": "UNDERPERFORMING",
+      "min_score": 92,
+      "leverage_cap": 2
+    },
+    "Enterprise Software": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate": 0.0,
+      "total_lev_pnl": -8.5,
+      "profit_factor": 0.0,
+      "status": "STANDARD",
+      "min_score": 88,
+      "leverage_cap": 5
+    },
+    "Pharma / DAX": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate": 0.0,
+      "total_lev_pnl": -14.4,
+      "profit_factor": 0.0,
+      "status": "STANDARD",
+      "min_score": 88,
+      "leverage_cap": 5
+    },
+    "Krypto": {
+      "trades": 2,
+      "wins": 0,
+      "losses": 2,
+      "win_rate": 0.0,
+      "total_lev_pnl": -9.1,
+      "profit_factor": 0.0,
+      "status": "STANDARD",
+      "min_score": 88,
+      "leverage_cap": 5
+    },
+    "Mobility / Tech": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate": 0.0,
+      "total_lev_pnl": -11.5,
+      "profit_factor": 0.0,
+      "status": "STANDARD",
+      "min_score": 88,
+      "leverage_cap": 5
+    },
+    "Fintech / Broker": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate": 0.0,
+      "total_lev_pnl": -9.1,
+      "profit_factor": 0.0,
+      "status": "STANDARD",
+      "min_score": 88,
+      "leverage_cap": 5
+    },
+    "Indizes / Devisen": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate": 100.0,
+      "total_lev_pnl": 5.8,
+      "profit_factor": 9.99,
+      "status": "STANDARD",
+      "min_score": 88,
+      "leverage_cap": 5
+    },
+    "Consumer": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate": 100.0,
+      "total_lev_pnl": 19.3,
+      "profit_factor": 9.99,
+      "status": "STANDARD",
+      "min_score": 88,
+      "leverage_cap": 5
+    }
+  }
 }

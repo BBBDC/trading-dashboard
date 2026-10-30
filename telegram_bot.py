@@ -722,10 +722,11 @@ def get_admin_hub_text_and_markup():
                 {"text": "🏛️ Modell-Portfolio", "callback_data": "admin_model_portfolio"}
             ],
             [
-                {"text": "👥 Benutzerverwaltung", "callback_data": "menu_users"},
-                {"text": "⚡ Live Master-Scan", "callback_data": "action_trigger_scan"}
+                {"text": "🧠 KI-Lernsystem & Scorecard", "callback_data": "admin_learnings_hub"},
+                {"text": "👥 Benutzerverwaltung", "callback_data": "menu_users"}
             ],
             [
+                {"text": "⚡ Live Master-Scan", "callback_data": "action_trigger_scan"},
                 {"text": "🔙 Hauptmenü", "callback_data": "menu_main"}
             ]
         ]
@@ -862,6 +863,70 @@ def get_admin_model_portfolio_text_and_markup():
             pnl = t.get("pnl_leveraged_pct", 0.0)
             lines.append(f"• {sig_icon} <b>{t.get('symbol')}</b> (Entry: {t.get('entry_price'):,.2f} $) | PnL: <b>{pnl:+.2f}%</b>")
         lines.append("")
+
+    kb = {
+        "inline_keyboard": [
+            [{"text": "🌐 Im Web-Dashboard ansehen", "url": "https://bbbdc.github.io/trading-dashboard/"}],
+            [{"text": "🔙 Zurück zur Admin-Zentrale", "callback_data": "menu_admin_hub"}]
+        ]
+    }
+    return "\n".join(lines), kb
+
+
+def get_admin_learnings_text_and_markup():
+    """Zeigt das KI-Trade-Lernsystem und die Closed-Loop Scorecard an."""
+    trade_mem_file = BASE_DIR / "knowledge_base" / "trade_memory.json"
+    if not trade_mem_file.exists():
+        return "🧠 Noch kein Erfahrungsspeicher vorhanden.", {"inline_keyboard": [[{"text": "🔙 Admin-Zentrale", "callback_data": "menu_admin_hub"}]]}
+
+    try:
+        with open(trade_mem_file, "r", encoding="utf-8") as f:
+            mem = json.load(f)
+    except Exception as e:
+        return f"Fehler beim Lesen des Lernspeichers: {e}", None
+
+    learnings = mem.get("learnings", [])
+    setup_perf = mem.get("setup_performance", {})
+    cat_perf = mem.get("category_performance", {})
+
+    lines = [
+        "🧠 <b>KI-Trade-Lernsystem & Closed-Loop Scorecard</b>\n",
+        f"• <b>Gespeicherte Lerneinheiten:</b> {len(learnings)}",
+        f"• <b>Gemini 3.8 Flash Engine:</b> Account 2 (pokeulm@gmail.com)\n",
+        "📊 <b>Setup-Performance & Mindest-Scores:</b>"
+    ]
+
+    if setup_perf:
+        for s_name, sp in list(setup_perf.items())[:3]:
+            short_name = s_name.replace("Hypothese ", "Hyp. ")
+            status_icon = "🟢" if sp.get("status") == "PROVEN_EDGE" else ("🔴" if sp.get("status") == "UNDERPERFORMING" else "🟡")
+            lines.append(
+                f"{status_icon} <b>{short_name}</b>: {sp.get('wins')}/{sp.get('trades')} ({sp.get('win_rate')}%) | PnL: {sp.get('total_lev_pnl'):+.1f}%\n"
+                f"   ↳ Min-Score: <code>{sp.get('min_score')}%</code> | Hebel: <code>{sp.get('leverage_adjustment', 0):+d}x</code>"
+            )
+        lines.append("")
+
+    if cat_perf:
+        lines.append("🌐 <b>Sektor-Governors (Dämpfer aktiv):</b>")
+        for cat, cp in list(cat_perf.items())[:3]:
+            p_icon = "🟢" if cp.get("total_lev_pnl", 0) >= 0 else "🔴"
+            lines.append(f"{p_icon} <b>{cat}</b>: {cp.get('win_rate')}% Win-Rate | Cap: <code>{cp.get('leverage_cap')}x</code> | Min-Score: <code>{cp.get('min_score')}%</code>")
+        lines.append("")
+
+    lines.append("🔬 <b>Neueste KI-Post-Mortem Lerneinheiten:</b>")
+    ai_learnings = [l for l in learnings if l.get("ai_post_mortem")][:2]
+    if ai_learnings:
+        for l in ai_learnings:
+            ai = l.get("ai_post_mortem", {})
+            res_icon = "✅" if l.get("result") == "WIN" else "❌"
+            lines.append(
+                f"{res_icon} <b>{l.get('symbol')}</b> ({l.get('pnl_leveraged'):+.1f}%):\n"
+                f"• <i>Ursache:</i> {ai.get('driver')}\n"
+                f"• <i>Regel:</i> <code>{ai.get('actionable_rule')}</code>\n"
+            )
+    else:
+        for l in learnings[:2]:
+            lines.append(f"• [{l.get('result')}] {l.get('symbol')}: {l.get('text')[:120]}...\n")
 
     kb = {
         "inline_keyboard": [
@@ -1058,6 +1123,14 @@ def handle_update(api, update):
             api.send_message(chat_id, "Aktion abgebrochen.", reply_markup=get_main_menu_keyboard(role))
             return
 
+        if text.startswith("/learnings") or text.startswith("/scorecard"):
+            if role != "admin":
+                api.send_message(chat_id, "⚠️ Diese Funktion ist dem Master-Admin vorbehalten.", reply_markup=get_main_menu_keyboard(role))
+                return
+            t, kb = get_admin_learnings_text_and_markup()
+            api.send_message(chat_id, t, reply_markup=kb)
+            return
+
         # Prüfen ob der Nutzer sich in einem Wizard befindet
         session = USER_SESSIONS.get(chat_id)
         if session:
@@ -1238,6 +1311,14 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
             api.edit_message_text(chat_id, message_id, "⚠️ Diese Funktion ist dem Master-Admin vorbehalten.", reply_markup=get_main_menu_keyboard(role))
             return
         text, kb = get_admin_model_portfolio_text_and_markup()
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
+
+    if data == "admin_learnings_hub":
+        if role != "admin":
+            api.edit_message_text(chat_id, message_id, "⚠️ Diese Funktion ist dem Master-Admin vorbehalten.", reply_markup=get_main_menu_keyboard(role))
+            return
+        text, kb = get_admin_learnings_text_and_markup()
         api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
         return
 

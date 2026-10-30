@@ -277,10 +277,94 @@ def call_gemini_via_key_pool(prompt, model="gemini-3.8-flash", timeout=40):
     return None, last_err, "exhausted"
 
 
+def evaluate_trade_post_mortem(trade_data):
+    """
+    Führt eine tiefgehende KI-Post-Mortem-Analyse eines geschlossenen Trades durch.
+    Nutzt prioritär Gemini 3.8 Flash via Account 2 (Google Pro-Abo CLI),
+    mit automatischem Fallback auf den Free Key-Pool und deterministische Regeln.
+    """
+    sym = trade_data.get("symbol", "")
+    name = trade_data.get("name", sym)
+    direction = trade_data.get("direction", "LONG")
+    setup = trade_data.get("setup_name", "High-Conviction Confluence")
+    category = trade_data.get("category", "Asset")
+    entry_price = float(trade_data.get("entry_price", 0.0))
+    exit_price = float(trade_data.get("exit_price", 0.0))
+    entry_time = str(trade_data.get("entry_time", ""))
+    exit_time = str(trade_data.get("exit_time", ""))
+    days = float(trade_data.get("holding_days", 0.0))
+    raw_pnl = float(trade_data.get("realized_pnl_pct", 0.0))
+    lev_pnl = float(trade_data.get("realized_pnl_leveraged_pct", 0.0))
+    lev = int(trade_data.get("leverage", 1))
+    exit_reason = str(trade_data.get("exit_reason", ""))
+    entry_reason = str(trade_data.get("entry_reason", ""))
+    highest = float(trade_data.get("highest_price", entry_price))
+    lowest = float(trade_data.get("lowest_price", entry_price))
+
+    verdict = "WIN" if raw_pnl > 0 else ("LOSS" if raw_pnl < 0 else "BREAKEVEN")
+
+    prompt = f"""Du bist ein Senior Prop-Desk Chef-Risikomanager und Trading-Coach mit 20 Jahren Markterfahrung.
+Analysiere diesen soeben abgeschlossenen Trade unseres autonomen Handelsportfolios objektiv und schonungslos:
+- Asset: {name} ({sym}) | Sektor: {category}
+- Richtung: {direction} | Setup-Hypothese: {setup}
+- Einstieg: {entry_price:,.4f} am {entry_time} (Begründung: {entry_reason})
+- Ausstieg: {exit_price:,.4f} am {exit_time} nach {days:.1f} Tagen
+- Ausstiegsgrund: {exit_reason}
+- Realisierter PnL: {raw_pnl:+.2f}% unhebelt ({lev_pnl:+.2f}% bei {lev}x Hebel)
+- Kursverlauf während Trade: Tiefstkurs {lowest:,.4f}, Höchstkurs {highest:,.4f}
+
+Erstelle ein strukturiertes JSON-Post-Mortem.
+Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
+{{
+  "verdict": "{verdict}",
+  "driver": "Konkrete Ursache für Erfolg oder Misserfolg (1 prägnanter deutscher Satz)",
+  "technical_warning": "Welches Chart-/Indikator-Signal (z.B. Divergenz, Volumen, HTF-Widerstand, Support-Bruch) hätte früher gewarnt oder den Einstieg besser getimt?",
+  "actionable_rule": "Eine glasklare, bindende Handlungsregel für künftige Trades in dieser Assetklasse / bei diesem Setup",
+  "recommended_leverage_adjustment": {-2 if lev_pnl < -15 else (-1 if lev_pnl < 0 else (1 if lev_pnl > 20 else 0))},
+  "summary_text": "Prägnanter Lernsatz für das Gedächtnis (1-2 Sätze)"
+}}
+"""
+    # 1. Google Pro-Abo CLI mit 3.8 Flash (Account 2)
+    try:
+        res, err = call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-low", timeout=30)
+        if res and isinstance(res, dict) and "driver" in res:
+            return res
+    except Exception:
+        pass
+
+    # 2. Key-Pool Fallback (3.8 Flash)
+    try:
+        res, err, _ = call_gemini_via_key_pool(prompt, model="gemini-3.8-flash", timeout=25)
+        if res and isinstance(res, dict) and "driver" in res:
+            return res
+    except Exception:
+        pass
+
+    # 3. Deterministischer Fallback
+    if verdict == "WIN":
+        return {
+            "verdict": "WIN",
+            "driver": f"Erfolgreicher {direction}-Trade: Setup '{setup}' bestätigte die übergeordnete Konfluenz.",
+            "technical_warning": "Keine negativen Divergenzen während des Laufs aufgetreten.",
+            "actionable_rule": f"Bei {category} Gewinne weiter konsequent mit Trailing-Stops schützen.",
+            "recommended_leverage_adjustment": 0,
+            "summary_text": f"Erfolgreicher {direction}-Trade auf {name} (+{raw_pnl:.1f}%, +{lev_pnl:.1f}% bei {lev}x). HTF-Ziel erreicht."
+        }
+    else:
+        return {
+            "verdict": "LOSS",
+            "driver": f"Setup '{setup}' durch {exit_reason} invalidiert.",
+            "technical_warning": "Fehlende Bestätigung im Volumen oder vorzeitiger Strukturbruch im niedrigen Timeframe.",
+            "actionable_rule": f"Bei {category} Hebel bei ähnlicher Marktstruktur konservativer wählen und Bestätigung abwarten.",
+            "recommended_leverage_adjustment": -1,
+            "summary_text": f"Verlusttrade auf {name} ({raw_pnl:.1f}%, {lev_pnl:.1f}% bei {lev}x). Grund: {exit_reason}."
+        }
+
+
 def build_analysis_prompt(assets_batch):
     try:
         from portfolio_engine import get_memory_summary_for_ai_prompt
-        mem_ctx = get_memory_summary_for_ai_prompt()
+        mem_ctx = get_memory_summary_for_ai_prompt(assets_batch)
     except Exception:
         mem_ctx = ""
 

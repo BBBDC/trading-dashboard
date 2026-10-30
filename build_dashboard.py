@@ -1610,21 +1610,62 @@ html_content = f"""<!DOCTYPE html>
 
         <!-- Trade Memory & Erfahrungs-Gedächtnis (Accordion) -->
         <div class="border-t border-slate-800/80 pt-4">
-          <button onclick="toggleMemoryAccordion()" class="w-full flex items-center justify-between p-3 rounded-xl bg-slate-950/60 hover:bg-slate-950/90 border border-slate-800 text-left transition cursor-pointer">
-            <div class="flex items-center gap-2.5">
-              <span class="text-base">🧠</span>
+          <button onclick="toggleMemoryAccordion()" class="w-full flex items-center justify-between p-3.5 rounded-xl bg-slate-950/70 hover:bg-slate-950/95 border border-slate-800 text-left transition cursor-pointer shadow-md">
+            <div class="flex items-center gap-3">
+              <span class="text-xl">🧠</span>
               <div>
-                <span class="text-xs font-bold text-slate-200">Trade-Gedächtnis & Post-Mortem Lerneinheiten</span>
-                <span class="block text-[10px] text-slate-400" id="memory-status-summary">Lade Erfahrungsspeicher...</span>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-slate-100">KI-Trade-Gedächtnis & Selbstverbesserungs-Hub</span>
+                  <span class="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Gemini 3.8 Flash Pro</span>
+                </div>
+                <span class="block text-[10px] text-slate-400 mt-0.5" id="memory-status-summary">Lade Erfahrungsspeicher...</span>
               </div>
             </div>
-            <span id="memory-accordion-icon" class="text-slate-400 text-xs font-mono transition">▼</span>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-mono text-indigo-400 bg-indigo-500/10 px-2 py-1 rounded hidden sm:inline">Closed-Loop Active</span>
+              <span id="memory-accordion-icon" class="text-slate-400 text-xs font-mono transition">▼</span>
+            </div>
           </button>
 
-          <div id="memory-accordion-content" class="hidden mt-3 space-y-3">
-            <div id="memory-learnings-list" class="space-y-2">
-              <!-- Dynamisch via JS -->
+          <div id="memory-accordion-content" class="hidden mt-3 space-y-4">
+            <!-- Sektor- & Setup-Scorecard Grid -->
+            <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-3">
+              <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+                <span class="text-[11px] font-bold text-slate-300 flex items-center gap-1.5">
+                  <span>📊</span> Quantitative Closed-Loop Scorecard (Setup- & Sektor-Governor)
+                </span>
+                <span class="text-[9px] text-slate-400 font-mono">Dynamische Hebel- & Score-Korrektur</span>
+              </div>
+              
+              <div>
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">🎯 Setup-Performance & Mindest-Scores:</span>
+                <div id="memory-setup-scorecard" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+                  <!-- Dynamisch via JS -->
+                </div>
+              </div>
+
+              <div class="pt-2 border-t border-slate-800/60">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">🌐 Sektor-Governors & Hebel-Caps:</span>
+                <div id="memory-category-scorecard" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-xs font-mono">
+                  <!-- Dynamisch via JS -->
+                </div>
+              </div>
             </div>
+
+            <!-- Deep AI Post-Mortem Feed -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-bold text-slate-300 flex items-center gap-1.5">
+                  <span>🔬</span> Tiefgehende KI-Post-Mortem Analysen (Gemini 3.8 Flash):
+                </span>
+                <span class="text-[9px] text-slate-400 font-mono">Ursachen, Frühwarnungen & Handlungsregeln</span>
+              </div>
+              <div id="memory-learnings-list" class="space-y-2.5">
+                <!-- Dynamisch via JS -->
+              </div>
+            </div>
+
+            <!-- Geschlossene Trades Historie -->
             <div id="portfolio-closed-trades" class="space-y-2">
               <!-- Dynamisch via JS -->
             </div>
@@ -2880,6 +2921,20 @@ html_content = f"""<!DOCTYPE html>
             const pnlColor = levPnl >= 0 ? 'text-emerald-400' : 'text-rose-400';
             const ticker = t.symbol.split(':').pop();
 
+            // In-Flight Health Status
+            let healthBadge = '';
+            if (t.health_status === 'TRAILING_STOP') {{
+              healthBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">🛡️ Trailing SL</span>`;
+            }} else if (t.health_status === 'CAUTION') {{
+              healthBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30">⚠️ Divergenz</span>`;
+            }} else {{
+              healthBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">🟢 Intakt</span>`;
+            }}
+
+            const warningsHtml = (t.in_flight_warnings && t.in_flight_warnings.length > 0)
+              ? `<div class="space-y-1 pt-1 border-t border-slate-800/60">${{t.in_flight_warnings.map(w => `<div class="text-[10px] text-amber-300 bg-amber-500/10 border border-amber-500/20 px-2 py-1 rounded font-mono">${{w}}</div>`).join('')}}</div>`
+              : '';
+
             return `
               <div class="rounded-xl bg-slate-950/80 border border-slate-800/80 p-4 space-y-3 hover:border-slate-700 transition">
                 <div class="flex items-start justify-between">
@@ -2891,6 +2946,7 @@ html_content = f"""<!DOCTYPE html>
                     <span class="text-[10px] text-slate-500 font-mono">${{t.setup_name || 'SMC Confluence'}}</span>
                   </div>
                   <div class="flex items-center gap-1.5">
+                    ${{healthBadge}}
                     ${{(t.tranches && t.tranches > 1) ? `<span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30" title="Position bei Signalverstärkung aufgestockt">Tranche ${{t.tranches}}/3</span>` : ''}}
                     <span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-${{sigColor}}-500/10 text-${{sigColor}}-400 border border-${{sigColor}}-500/30">
                       ${{t.direction}}
@@ -2922,9 +2978,12 @@ html_content = f"""<!DOCTYPE html>
                   </div>
                 </div>
 
-                <div class="text-[11px] text-slate-300 bg-slate-900/40 p-2.5 rounded-lg border border-slate-800/40">
-                  <span class="text-emerald-400 font-semibold block text-[10px] uppercase">Einstiegsgrund:</span>
-                  <p class="leading-relaxed text-[11px]">${{t.entry_reason || t.analyst_note || 'Multi-Timeframe SMC-Konfluenz'}}</p>
+                <div class="text-[11px] text-slate-300 bg-slate-900/40 p-2.5 rounded-lg border border-slate-800/40 space-y-1.5">
+                  <div>
+                    <span class="text-emerald-400 font-semibold block text-[10px] uppercase">Einstiegsgrund:</span>
+                    <p class="leading-relaxed text-[11px]">${{t.entry_reason || t.analyst_note || 'Multi-Timeframe SMC-Konfluenz'}}</p>
+                  </div>
+                  ${{warningsHtml}}
                 </div>
 
                 <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-slate-800/60">
@@ -2941,23 +3000,137 @@ html_content = f"""<!DOCTYPE html>
       // Gedächtnis Summary & Accordion
       const memSum = document.getElementById('memory-status-summary');
       if (memSum) {{
-        memSum.textContent = learnings.length + ' Lerneinheiten im Gedächtnis &bull; ' + closedTrades.length + ' geschlossene Trades historisch';
+        memSum.textContent = learnings.length + ' Lerneinheiten &bull; ' + closedTrades.length + ' geschlossene Trades &bull; Closed-Loop Governor aktiv';
       }}
 
+      // 1. Setup Scorecard rendern
+      const setupScorecardElem = document.getElementById('memory-setup-scorecard');
+      const setupPerf = memory.setup_performance || {{}};
+      if (setupScorecardElem) {{
+        const setupKeys = Object.keys(setupPerf);
+        if (setupKeys.length === 0) {{
+          setupScorecardElem.innerHTML = `<span class="text-xs text-slate-500 italic col-span-full">Noch keine Setup-Statistiken vorhanden.</span>`;
+        }} else {{
+          setupScorecardElem.innerHTML = setupKeys.map(k => {{
+            const sp = setupPerf[k];
+            const isGood = sp.status === 'PROVEN_EDGE';
+            const isBad = sp.status === 'UNDERPERFORMING';
+            const statusCol = isGood ? 'text-emerald-400 border-emerald-500/30 bg-emerald-500/10' : (isBad ? 'text-rose-400 border-rose-500/30 bg-rose-500/10' : 'text-slate-300 border-slate-700 bg-slate-900/60');
+            const pnlCol = sp.total_lev_pnl >= 0 ? 'text-emerald-400' : 'text-rose-400';
+            return `
+              <div class="p-2 rounded-lg border ${{statusCol}} space-y-1 font-mono text-[10px]">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold truncate text-slate-200" title="${{k}}">${{k.replace('Hypothese ', 'Hyp. ')}}</span>
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-bold ${{statusCol}}">${{sp.status}}</span>
+                </div>
+                <div class="flex items-center justify-between text-slate-400">
+                  <span>${{sp.wins}}/${{sp.trades}} (${{sp.win_rate}}%)</span>
+                  <span class="font-bold ${{pnlCol}}">${{sp.total_lev_pnl >= 0 ? '+' : ''}}${{sp.total_lev_pnl}}%</span>
+                </div>
+                <div class="text-[9px] text-slate-400 border-t border-slate-800/80 pt-0.5 flex justify-between">
+                  <span>Min-Score: ${{sp.min_score}}%</span>
+                  <span>Hebel: ${{sp.leverage_adjustment >= 0 ? '+' : ''}}${{sp.leverage_adjustment}}x</span>
+                </div>
+              </div>
+            `;
+          }}).join('');
+        }}
+      }}
+
+      // 2. Category Scorecard rendern
+      const catScorecardElem = document.getElementById('memory-category-scorecard');
+      const catPerf = memory.category_performance || {{}};
+      if (catScorecardElem) {{
+        const catKeys = Object.keys(catPerf);
+        if (catKeys.length === 0) {{
+          catScorecardElem.innerHTML = `<span class="text-xs text-slate-500 italic col-span-full">Noch keine Sektor-Statistiken vorhanden.</span>`;
+        }} else {{
+          catScorecardElem.innerHTML = catKeys.map(c => {{
+            const cp = catPerf[c];
+            const pCol = cp.total_lev_pnl >= 0 ? 'text-emerald-400' : 'text-rose-400';
+            return `
+              <div class="p-1.5 rounded-lg bg-slate-900/60 border border-slate-800/80 text-[10px]">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-slate-200 truncate" title="${{c}}">${{c}}</span>
+                  <span class="font-mono ${{pCol}}">${{cp.total_lev_pnl >= 0 ? '+' : ''}}${{cp.total_lev_pnl}}%</span>
+                </div>
+                <div class="flex items-center justify-between text-slate-400 text-[9px] mt-0.5">
+                  <span>${{cp.wins}}/${{cp.trades}} (${{cp.win_rate}}%)</span>
+                  <span class="text-indigo-300">Cap: ${{cp.leverage_cap}}x</span>
+                </div>
+              </div>
+            `;
+          }}).join('');
+        }}
+      }}
+
+      // 3. Deep AI Post-Mortem Feed rendern
       const learnList = document.getElementById('memory-learnings-list');
       if (learnList) {{
         if (learnings.length === 0) {{
           learnList.innerHTML = `<p class="text-xs text-slate-400 italic">Noch keine geschlossenen Trades. Das System lernt automatisch aus jedem Trade-Ausstieg.</p>`;
         }} else {{
-          learnList.innerHTML = learnings.map(l => `
-            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-slate-300 space-y-1">
-              <div class="flex items-center justify-between">
-                <span class="font-bold font-mono ${{l.result === 'WIN' ? 'text-emerald-400' : 'text-rose-400'}}">${{l.result === 'WIN' ? '✅ Erfolg' : '❌ Verlust'}} (${{l.pnl_leveraged >= 0 ? '+' : ''}}${{l.pnl_leveraged}}%)</span>
-                <span class="text-[10px] text-slate-500 font-mono">${{l.setup_name || 'Trade'}}</span>
-              </div>
-              <p class="text-[11px] leading-relaxed text-slate-300">${{l.text}}</p>
-            </div>
-          `).join('');
+          learnList.innerHTML = learnings.slice(0, 15).map(l => {{
+            const ai = l.ai_post_mortem;
+            const isWin = l.result === 'WIN';
+            const resColor = isWin ? 'text-emerald-400' : (l.result === 'BREAKEVEN' ? 'text-amber-400' : 'text-rose-400');
+            const resBg = isWin ? 'bg-emerald-500/10 border-emerald-500/30' : (l.result === 'BREAKEVEN' ? 'bg-amber-500/10 border-amber-500/30' : 'bg-rose-500/10 border-rose-500/30');
+            const pnlStr = (l.pnl_leveraged !== undefined ? (l.pnl_leveraged >= 0 ? '+' : '') + l.pnl_leveraged + '%' : '');
+
+            if (ai && ai.driver) {{
+              return `
+                <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/90 text-xs text-slate-300 space-y-2 hover:border-slate-700 transition">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono ${{resBg}} ${{resColor}}">
+                        ${{isWin ? '✅ GEWINN' : (l.result === 'BREAKEVEN' ? '⚖️ BREAK-EVEN' : '❌ VERLUST')}} ${{pnlStr}}
+                      </span>
+                      <span class="font-bold text-white text-xs">${{l.name || l.symbol}}</span>
+                      <span class="text-[10px] text-slate-400 hidden sm:inline">(${{l.category || 'Asset'}})</span>
+                    </div>
+                    <span class="text-[10px] text-slate-500 font-mono">${{l.setup_name || 'Trade'}}</span>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px] pt-1">
+                    <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/60 space-y-0.5">
+                      <span class="text-[10px] font-bold text-amber-400 flex items-center gap-1">
+                        <span>🔍</span> Hauptursache (Driver):
+                      </span>
+                      <p class="leading-relaxed text-slate-300">${{ai.driver}}</p>
+                    </div>
+                    <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/60 space-y-0.5">
+                      <span class="text-[10px] font-bold text-sky-400 flex items-center gap-1">
+                        <span>⚡</span> Technisches Frühwarn-Signal:
+                      </span>
+                      <p class="leading-relaxed text-slate-300">${{ai.technical_warning || 'Keine negativen Divergenzen vor Ausstieg.'}}</p>
+                    </div>
+                  </div>
+
+                  <div class="p-2 rounded-lg bg-indigo-950/30 border border-indigo-900/50 space-y-0.5">
+                    <span class="text-[10px] font-bold text-indigo-300 flex items-center gap-1">
+                      <span>📜</span> Bindende Handlungsregel für künftige Trades:
+                    </span>
+                    <p class="leading-relaxed text-indigo-100 font-mono text-[10.5px]">${{ai.actionable_rule}}</p>
+                  </div>
+
+                  <div class="text-[10px] text-slate-400 pt-1 border-t border-slate-800/60 flex items-center justify-between">
+                    <span>🧠 Fazit: ${{ai.summary_text || l.text}}</span>
+                    <span class="text-[9px] text-slate-500">${{l.timestamp ? new Date(l.timestamp).toLocaleDateString('de-DE') : ''}}</span>
+                  </div>
+                </div>
+              `;
+            }} else {{
+              return `
+                <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-slate-300 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <span class="font-bold font-mono ${{resColor}}">${{isWin ? '✅ Erfolg' : '❌ Verlust'}} (${{pnlStr}})</span>
+                    <span class="text-[10px] text-slate-500 font-mono">${{l.setup_name || 'Trade'}}</span>
+                  </div>
+                  <p class="text-[11px] leading-relaxed text-slate-300">${{l.text}}</p>
+                </div>
+              `;
+            }}
+          }}).join('');
         }}
       }}
 
