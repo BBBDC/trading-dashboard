@@ -770,7 +770,7 @@ def get_user_management_text_and_markup():
 
 
 def get_admin_quota_details_text_and_markup():
-    """Detaillierte Aufschlüsselung aller API-Keys im Multi-Key Pool."""
+    """Detaillierte Aufschlüsselung aller API-Keys und des Pro-Abos (View Usage)."""
     try:
         from gemini_quota_tracker import get_quota_summary_for_dashboard
         quota = get_quota_summary_for_dashboard()
@@ -782,9 +782,26 @@ def get_admin_quota_details_text_and_markup():
     limit = quota.get("daily_limit", 80)
     pct = quota.get("percent_used", 0.0)
 
+    pro = quota.get("pro_subscription", {})
+    pro_used = pro.get("requests_used", 0)
+    pro_budget = pro.get("daily_budget", 50)
+    pro_rem = pro.get("requests_remaining", 50)
+    pro_rem_pct = pro.get("percent_remaining", 100.0)
+    acc_info = pro.get("account_info", {})
+    acc_name = acc_info.get("account_name", "Google Pro-Abo")
+    acc_email = acc_info.get("email", "")
+
+    # Fortschrittsbalken generieren (10 Blöcke)
+    filled_blocks = int(round((100.0 - pro_rem_pct) / 10.0))
+    bar = "█" * filled_blocks + "░" * (10 - filled_blocks)
+
     lines = [
-        f"🔑 <b>Google Gemini Multi-Key Quota Pool</b>\n",
-        f"<b>Gesamt-Verbrauch:</b> {used} / {limit} Requests ({pct:.1f}%)\n",
+        f"⚡ <b>Google Pro-Abo · View Usage (Gemini 3.8 Flash)</b>",
+        f"👤 <b>Account:</b> {acc_name} ({acc_email})",
+        f"📊 <b>Restvolumen:</b> <code>{pro_rem_pct}%</code> frei ({pro_rem}/{pro_budget} Requests)",
+        f"<code>[{bar}]</code> {100.0 - pro_rem_pct:.1f}% verbraucht\n",
+        f"🔑 <b>Google Gemini Multi-Key Quota Pool (Failover)</b>",
+        f"<b>Pool-Verbrauch:</b> {used} / {limit} Requests ({pct:.1f}%)\n",
         f"<b>Einzel-Key Status:</b>"
     ]
 
@@ -800,11 +817,10 @@ def get_admin_quota_details_text_and_markup():
 
         lines.append(
             f"• <b>{name}</b> (<code>{masked}</code>):\n"
-            f"   Status: {status_sym}\n"
-            f"   Verbrauch: {k_used} / {k_lim} ({k_pct:.0f}%)\n"
+            f"   Status: {status_sym} | {k_used}/{k_lim} ({k_pct:.0f}%)\n"
         )
 
-    lines.append("🛡️ <i>Automatisches Failover: Sobald ein Key voll ist, switcht der Pi ohne Pause auf den nächsten Key.</i>")
+    lines.append("🛡️ <i>Kaskade: 1. Dediziertes Pro-Abo (3.8 Flash) -> 2. Free Key-Pool -> 3. SMC Math Core.</i>")
 
     kb = {
         "inline_keyboard": [

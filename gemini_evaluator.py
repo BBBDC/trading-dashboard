@@ -117,7 +117,9 @@ def extract_json_from_text(raw_text):
 def call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=85):
     """
     Ruft das Google Gemini Modell direkt über das angemeldete Google Pro-Abo (agy CLI) auf.
-    Benötigt KEINEN separaten API-Key und nutzt das aktive Pro-Kontingent.
+    Prüft prioritär, ob das dedizierte 2. Google-Konto (/home/admin/.gemini_trading) autorisiert ist.
+    Falls ja: Nutzt exklusiv das 2. Google-Konto (Account 2).
+    Falls nein: Nutzt das primäre Google-Konto (Account 1).
     """
     if not AGY_BIN.exists():
         return None, f"agy CLI unter {AGY_BIN} nicht gefunden."
@@ -138,20 +140,29 @@ def call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=85):
         "--disable-slash-commands"
     ]
 
+    env = os.environ.copy()
+    dedicated_trading_home = Path("/home/admin/.gemini_trading")
+    dedicated_token = dedicated_trading_home / ".gemini" / "antigravity-cli" / "antigravity-oauth-token"
+    if dedicated_token.exists():
+        env["HOME"] = str(dedicated_trading_home)
+        acc_label = "Account 2 (Trading Pro)"
+    else:
+        acc_label = "Account 1 (Coding Pro)"
+
     try:
-        res = subprocess.run(cmd, cwd="/tmp", capture_output=True, text=True, timeout=timeout)
+        res = subprocess.run(cmd, cwd="/tmp", capture_output=True, text=True, timeout=timeout, env=env)
         if res.returncode != 0:
             err = res.stderr.strip() or f"CLI Exit-Code {res.returncode}"
-            return None, f"Pro CLI Fehler ({cli_model}): {err[:180]}"
+            return None, f"Pro CLI Fehler ({cli_model} via {acc_label}): {err[:180]}"
 
         parsed = extract_json_from_text(res.stdout)
         if parsed:
             return parsed, None
         else:
-            return None, f"Antwort von {cli_model} konnte nicht als JSON geparst werden."
+            return None, f"Antwort von {cli_model} via {acc_label} konnte nicht als JSON geparst werden."
 
     except subprocess.TimeoutExpired:
-        return None, f"Pro CLI Timeout ({timeout}s) bei {cli_model}."
+        return None, f"Pro CLI Timeout ({timeout}s) bei {cli_model} ({acc_label})."
     except Exception as e:
         return None, f"Pro CLI Ausführungsfehler: {e}"
 

@@ -274,6 +274,41 @@ def is_pro_quota_available():
     return used < budget
 
 
+def get_connected_account_info():
+    """Prüft, ob das dedizierte 2. Google-Konto verknüpft ist oder Account 1 genutzt wird."""
+    t_token = Path("/home/admin/.gemini_trading/.gemini/antigravity-cli/antigravity-oauth-token")
+    if t_token.exists():
+        try:
+            with open(t_token, "r", encoding="utf-8") as f:
+                d = json.load(f)
+                email = d.get("id_token_email", "Unbekannt")
+                return {
+                    "account_name": "Account 2 (Dediziert für Trading)",
+                    "email": email,
+                    "is_dedicated": True,
+                    "status": "VERKNÜPFT & AKTIV (100% Trading-Fokus)"
+                }
+        except Exception:
+            pass
+
+    # Fallback zu Account 1
+    c_token = Path("/home/admin/.gemini/antigravity-cli/antigravity-oauth-token")
+    email = "mayer.max.1994@gmail.com"
+    if c_token.exists():
+        try:
+            with open(c_token, "r", encoding="utf-8") as f:
+                d = json.load(f)
+                email = d.get("id_token_email", email)
+        except Exception:
+            pass
+    return {
+        "account_name": "Account 1 (Coding-Assistent / Fallback)",
+        "email": email,
+        "is_dedicated": False,
+        "status": "Wartet auf Verknüpfung von Account 2"
+    }
+
+
 def get_quota_summary_for_dashboard():
     """Bereitet aggregierte und detaillierte Kennzahlen für das Dashboard auf."""
     state = load_quota_state()
@@ -354,6 +389,8 @@ def get_quota_summary_for_dashboard():
     pro_used = pro_data.get("requests_used_today", 0)
     pro_rem = max(0, pro_budget - pro_used)
     pro_pct = round(pro_used / pro_budget * 100.0, 1) if pro_budget > 0 else 100.0
+    pro_remaining_pct = round(max(0.0, 100.0 - pro_pct), 1)
+    acc_info = get_connected_account_info()
 
     return {
         "model": state.get("model", "gemini-3.8-flash"),
@@ -372,11 +409,13 @@ def get_quota_summary_for_dashboard():
         "keys_detail": keys_detail,
         "pro_subscription": {
             "enabled": True,
-            "model": "gemini-3.8-flash-high (Google Pro CLI)",
+            "model": "gemini-3.8-flash-high (Google Pro)",
+            "account_info": acc_info,
             "daily_budget": pro_budget,
             "requests_used": pro_used,
             "requests_remaining": pro_rem,
             "percent_used": pro_pct,
+            "percent_remaining": pro_remaining_pct,
             "tokens_used": pro_data.get("tokens_used_today", 0),
             "status": "ACTIVE" if pro_rem > 0 else "BUDGET_REACHED",
             "last_used": pro_data.get("last_used")

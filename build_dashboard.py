@@ -130,6 +130,28 @@ quota_countdown = quota_info.get("reset_countdown", "in wenigen Stunden")
 quota_exhausted = quota_info.get("is_exhausted", False)
 quota_tokens = quota_info.get("tokens_used_today", 0)
 
+pro_sub = quota_info.get("pro_subscription", {})
+pro_used = pro_sub.get("requests_used", 0)
+pro_budget = pro_sub.get("daily_budget", 50)
+pro_rem = pro_sub.get("requests_remaining", 50)
+pro_used_pct = pro_sub.get("percent_used", 0.0)
+pro_rem_pct = pro_sub.get("percent_remaining", round(max(0.0, 100.0 - pro_used_pct), 1))
+acc_info = pro_sub.get("account_info", {})
+acc_name = acc_info.get("account_name", "Google Pro-Abo")
+acc_email = acc_info.get("email", "mayer.max.1994@gmail.com")
+acc_status = acc_info.get("status", "Aktiv")
+is_dedicated_acc = acc_info.get("is_dedicated", False)
+
+if pro_rem_pct <= 15:
+    pro_bar_color = "bg-rose-500"
+    pro_num_class = "text-rose-400"
+elif pro_rem_pct <= 40:
+    pro_bar_color = "bg-amber-500"
+    pro_num_class = "text-amber-400"
+else:
+    pro_bar_color = "bg-emerald-500"
+    pro_num_class = "text-emerald-400"
+
 if quota_exhausted:
     quota_badge_class = "bg-rose-500/15 text-rose-300 border border-rose-500/30 hover:bg-rose-500/25"
     quota_num_class = "text-rose-200"
@@ -1057,9 +1079,9 @@ html_content = f"""<!DOCTYPE html>
                 <span class="text-slate-400">KI:</span>
                 <span class="font-bold text-white">{engine_display}</span>
               </span>
-              <button id="header-quota-badge" onclick="switchDashboardTab('admin')" class="inline-flex px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold {quota_badge_class} items-center gap-1 shadow-sm cursor-pointer transition active:scale-95 shrink-0" title="Google AI Studio API-Key Kontingent & Status">
+              <button id="header-quota-badge" onclick="openQuotaModal()" class="inline-flex px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold {quota_badge_class} items-center gap-1 shadow-sm cursor-pointer transition active:scale-95 shrink-0" title="Google Gemini Pro Restvolumen & Quota-Details">
                 <span>🔑</span>
-                <span>Quota: <strong class="{quota_num_class}">{quota_used}/{quota_limit}</strong></span>
+                <span>Pro 3.8: <strong class="{pro_num_class}">{pro_rem_pct}% frei</strong> ({pro_used}/{pro_budget} Req)</span>
                 <span class="hidden sm:inline text-[9px] opacity-80">· {quota_status_text}</span>
               </button>
               <span id="header-trader-badge" class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 items-center gap-1.5" title="TradingView Live-Feed Status">
@@ -4003,6 +4025,52 @@ html_content = f"""<!DOCTYPE html>
       </div>
 
       <div class="p-4 sm:p-5 overflow-y-auto space-y-3.5 text-xs flex-1 overscroll-contain">
+        <!-- Google Pro-Abo: View Usage Panel -->
+        <div class="p-4 rounded-xl bg-slate-900/90 border border-indigo-500/40 shadow-lg space-y-3">
+          <div class="flex items-start justify-between">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">⚡ Google Pro-Abo: View Usage</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold {('bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' if is_dedicated_acc else 'bg-amber-500/20 text-amber-300 border border-amber-500/40')}">
+                  {('✅ Dediziertes Trading-Konto' if is_dedicated_acc else 'ℹ️ Primäres Google-Konto')}
+                </span>
+              </div>
+              <span class="text-[11px] text-slate-400 font-mono mt-0.5 block">👤 {acc_name} ({acc_email})</span>
+            </div>
+            <div class="text-right">
+              <span class="font-mono font-extrabold text-sm {pro_num_class}">{pro_rem_pct}% Restvolumen</span>
+              <span class="block text-[10px] text-slate-400 font-mono">{pro_used} / {pro_budget} Requests genutzt</span>
+            </div>
+          </div>
+
+          <!-- Großes View Usage Fortschrittsband -->
+          <div class="space-y-1">
+            <div class="w-full bg-slate-950 rounded-full h-3 p-0.5 border border-slate-800 overflow-hidden">
+              <div class="h-full rounded-full transition-all duration-500 {pro_bar_color}" style="width: {min(100.0, pro_used_pct)}%"></div>
+            </div>
+            <div class="flex items-center justify-between text-[10px] font-mono text-slate-400">
+              <span>Genutzt: {pro_used_pct}% ({pro_used} Req)</span>
+              <span class="{pro_num_class} font-bold">Verfügbar: {pro_rem_pct}% ({pro_rem} Req)</span>
+            </div>
+          </div>
+
+          <!-- Kacheln -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 border-t border-slate-800/80 text-[11px] font-mono">
+            <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/60">
+              <span class="text-[9px] text-slate-500 block">KI-Modell:</span>
+              <span class="text-indigo-300 font-bold">Gemini 3.8 Flash</span>
+            </div>
+            <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/60">
+              <span class="text-[9px] text-slate-500 block">Status:</span>
+              <span class="text-emerald-400 font-bold">{acc_status}</span>
+            </div>
+            <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/60 col-span-2 sm:col-span-1">
+              <span class="text-[9px] text-slate-500 block">Reset-Zyklus:</span>
+              <span class="text-slate-300 font-bold">00:00 UTC (Täglich)</span>
+            </div>
+          </div>
+        </div>
+
         <div class="grid grid-cols-2 gap-2.5">
           <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
             <span class="text-[10px] text-slate-400 block font-semibold">Aktives KI-Modell</span>
