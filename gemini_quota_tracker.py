@@ -229,7 +229,7 @@ def record_quota_exhausted(key, err_message, retry_seconds=None):
     return state
 
 
-def record_health_check(is_healthy: bool, message: str, tested_key_masked: str, active_tier: str = "Google Pro-Abo CLI"):
+def record_health_check(is_healthy: bool, message: str, tested_key_masked: str, active_tier: str = "Google Pro-Abo CLI (pokeulm@gmail.com · gemini-3.8-flash-high)"):
     """Speichert das Ergebnis des vorangehenden Health-Checks im Quota-State."""
     state = load_quota_state()
     state["health_check"] = {
@@ -239,7 +239,7 @@ def record_health_check(is_healthy: bool, message: str, tested_key_masked: str, 
         "tested_key_masked": tested_key_masked,
         "active_tier": active_tier,
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "routing_priority": "1. Multi-Key Pool (Free Tier) -> 2. Google Pro CLI (Failover) -> 3. Math-Core"
+        "routing_priority": "1. Google Pro-Abo (pokeulm@gmail.com · 3.8 Flash High) -> 2. Multi-Key Pool (3.8 Flash High) -> 3. Multi-Key Pool (3.5 Flash) -> 4. Math-Core"
     }
     save_quota_state(state)
 
@@ -571,9 +571,9 @@ def get_quota_summary_for_dashboard():
             "status": "PRO_PRIMARY_ACTIVE",
             "message": "Google Pro-Abo mit Account 2 (pokeulm@gmail.com) aktiv · gemini-3.8-flash-high",
             "tested_key_masked": current_active_masked,
-            "active_tier": "Google Pro-Abo CLI (gemini-3.8-flash-high)",
+            "active_tier": "Google Pro-Abo CLI (pokeulm@gmail.com · gemini-3.8-flash-high)",
             "timestamp": datetime.now(timezone.utc).isoformat(),
-            "routing_priority": "1. Google Pro-Abo CLI (Account 2) -> 2. Multi-Key Free Pool -> 3. Math-Core"
+            "routing_priority": "1. Google Pro-Abo (pokeulm@gmail.com · 3.8 Flash High) -> 2. Multi-Key Pool (3.8 Flash High) -> 3. Multi-Key Pool (3.5 Flash) -> 4. Math-Core"
         })
     }
 

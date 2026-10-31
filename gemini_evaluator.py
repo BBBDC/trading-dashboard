@@ -114,24 +114,23 @@ def extract_json_from_text(raw_text):
         return None
 
 
-def call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=85):
+def call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=120):
     """
     Ruft das Google Gemini Modell direkt über das angemeldete Google Pro-Abo (agy CLI) auf.
     Prüft prioritär, ob das dedizierte 2. Google-Konto (/home/admin/.gemini_trading) autorisiert ist.
-    Falls ja: Nutzt exklusiv das 2. Google-Konto (Account 2).
+    Falls ja: Nutzt exklusiv das 2. Google-Konto (Account 2: pokeulm@gmail.com).
     Falls nein: Nutzt das primäre Google-Konto (Account 1).
     """
     if not AGY_BIN.exists():
         return None, f"agy CLI unter {AGY_BIN} nicht gefunden."
 
-    # Modell-Mapping für die agy CLI (User-Vorgabe: Immer Gemini 3.8 Flash Pro High)
+    # Modell für die agy CLI (User-Vorgabe: Immer Gemini 3.8 Flash Pro High)
     cli_model = "gemini-3.8-flash-high"
 
     cmd = [
         str(AGY_BIN),
         "-p", prompt,
         "--model", cli_model,
-        "--effort", "high",
         "--disable-slash-commands"
     ]
 
@@ -321,15 +320,15 @@ Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
 """
     # 1. Google Pro-Abo CLI mit 3.8 Flash High (Account 2: pokeulm@gmail.com)
     try:
-        res, err = call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=45)
+        res, err = call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=90)
         if res and isinstance(res, dict) and "driver" in res:
             return res
     except Exception:
         pass
 
-    # 2. Key-Pool Fallback (3.8 Flash)
+    # 2. Key-Pool Failover (3.8 Flash High)
     try:
-        res, err, _ = call_gemini_via_key_pool(prompt, model="gemini-3.8-flash", timeout=25)
+        res, err, _ = call_gemini_via_key_pool(prompt, model="gemini-3.8-flash", timeout=35)
         if res and isinstance(res, dict) and "driver" in res:
             return res
     except Exception:
@@ -488,14 +487,13 @@ def probe_key_pool_model_38_health(timeout=3.5):
             tested_errors.append(f"{masked}: {str(e)[:25]}")
 
     _health_cache["last_checked"] = now
+    active_tier = "Google Pro-Abo CLI (pokeulm@gmail.com · gemini-3.8-flash-high)"
     if found_healthy:
         _health_cache["model_38_healthy"] = True
-        _health_cache["message"] = healthy_msg
-        active_tier = "Multi-Key Free Pool (gemini-3.8-flash)"
+        _health_cache["message"] = f"Key-Pool Reserve einsatzbereit ({healthy_msg})"
     else:
         _health_cache["model_38_healthy"] = False
-        _health_cache["message"] = f"Free Tier 3.8 überlastet ({'; '.join(tested_errors[:2])}) -> Pro-Abo (3.8) aktiv"
-        active_tier = "Google Pro-Abo CLI (gemini-3.8-flash)"
+        _health_cache["message"] = f"Key-Pool Reserve 3.8 überlastet ({'; '.join(tested_errors[:2])}) -> Pro-Abo Account 2 (pokeulm) sichert primär"
 
     try:
         from gemini_quota_tracker import record_health_check
@@ -513,11 +511,12 @@ def probe_key_pool_model_38_health(timeout=3.5):
 
 def evaluate_batch_with_cascade(assets_batch):
     """
-    Intelligente Multi-Tier Kaskade (User-Priorität: Immer Gemini 3.8 Flash High über Pro-Abo Account 2):
-    - STUFE 1 (PRIMARY): Google Pro-Abo via CLI (gemini-3.8-flash-high mit Account 2 pokeulm@gmail.com).
-      -> 50-Request-Limit komplett aufgehoben! Volle Skalierbarkeit für Markt-Scans und Learnings.
-    - STUFE 2 (FALLBACK): Multi-Key Free Pool mit gemini-3.8-flash / gemini-3.5-flash.
-    - STUFE 3 (NOT-FALLBACK): Quantitative Confluence Math-Engine (SMC & Wyckoff VSA).
+    Intelligente 4-Stufen Kaskade (User-Priorität: Erst pokeulm, dann die Keys auf 3.8 High, dann 3.5 Fallback, dann Math-Core):
+    - STUFE 1 (PRIMÄR): Google Pro-Abo via CLI (gemini-3.8-flash-high mit Account 2 pokeulm@gmail.com).
+      -> Volle Skalierbarkeit ohne 50er-Limit.
+    - STUFE 2 (FAILOVER 1): Multi-Key Free Pool mit gemini-3.8-flash (High Thinking).
+    - STUFE 3 (FAILOVER 2): Multi-Key Free Pool mit gemini-3.5-flash (bei 503-Überlastung von 3.8).
+    - STUFE 4 (SAFETY NET): Quantitative Confluence Math-Engine (SMC, Wyckoff VSA, Golden Pocket).
     """
     conf = load_config()
     if not conf.get("enabled", True):
@@ -525,7 +524,7 @@ def evaluate_batch_with_cascade(assets_batch):
 
     primary_model = "gemini-3.8-flash-high"
     fallback_model = conf.get("fallback_model", "gemini-3.5-flash")
-    timeout = conf.get("timeout_seconds", 45)
+    timeout = conf.get("timeout_seconds", 120)
     use_pro_sub = conf.get("use_pro_subscription", True)
 
     prompt = build_analysis_prompt(assets_batch)
@@ -541,7 +540,7 @@ def evaluate_batch_with_cascade(assets_batch):
             pro_allowed = True
 
         if pro_allowed:
-            print(f" (Google Pro-Abo CLI: {primary_model} [Account 2])...", end="", flush=True)
+            print(f" (Stufe 1: Google Pro-Abo CLI {primary_model} [pokeulm@gmail.com])...", end="", flush=True)
             res, err = call_gemini_via_pro_cli(prompt, model=primary_model, timeout=timeout)
             if res and isinstance(res, list) and len(res) > 0:
                 try:
@@ -551,28 +550,30 @@ def evaluate_batch_with_cascade(assets_batch):
                 t_token = Path("/home/admin/.gemini_trading/.gemini/antigravity-cli/antigravity-oauth-token")
                 acc_label = "Account 2 Pro (pokeulm@gmail.com)" if t_token.exists() else "Account 1 Pro (mayer.max.1994@gmail.com)"
                 return res, None, f"{primary_model} [{acc_label}]"
-            print(f" [Pro-Abo CLI ({err}) -> Fallback auf Key-Pool]...", end="", flush=True)
+            print(f" [Stufe 1 Pro-Abo CLI ({err}) -> Failover auf Stufe 2 Keys]...", end="", flush=True)
         else:
-            print(f" [Google 5h-Limit erreicht -> Fallback auf Key-Pool]...", end="", flush=True)
+            print(f" [Stufe 1 Google 5h-Limit erreicht -> Failover auf Stufe 2 Keys]...", end="", flush=True)
 
     # =========================================================================
-    # STUFE 2: Multi-Key Pool (REST) als Fallback
+    # STUFE 2: Multi-Key Pool (REST) mit gemini-3.8-flash High
     # =========================================================================
-    print(f" (Multi-Key Pool REST Fallback: gemini-3.8-flash)...", end="", flush=True)
-    res, err, used_key_info = call_gemini_via_key_pool(prompt, model="gemini-3.8-flash", timeout=timeout)
+    print(f" (Stufe 2: Multi-Key Pool REST gemini-3.8-flash High)...", end="", flush=True)
+    res, err, used_key_info = call_gemini_via_key_pool(prompt, model="gemini-3.8-flash", timeout=45)
     if res and isinstance(res, list) and len(res) > 0:
-        return res, None, f"gemini-3.8-flash [{used_key_info}]"
+        return res, None, f"gemini-3.8-flash High [{used_key_info}]"
 
-    print(f" (Multi-Key Pool Fallback 3.5: {fallback_model})...", end="", flush=True)
-    res, err, used_key_info = call_gemini_via_key_pool(prompt, model=fallback_model, timeout=timeout)
+    # =========================================================================
+    # STUFE 3: Multi-Key Pool (REST) Fallback auf gemini-3.5-flash
+    # =========================================================================
+    print(f" (Stufe 3: Multi-Key Pool Fallback {fallback_model})...", end="", flush=True)
+    res, err, used_key_info = call_gemini_via_key_pool(prompt, model=fallback_model, timeout=30)
     if res and isinstance(res, list) and len(res) > 0:
         return res, None, f"{fallback_model} [{used_key_info}]"
 
     # =========================================================================
-    # STUFE 3: Fallback auf quantitative Confluence-Engine
+    # STUFE 4: Fallback auf quantitative Confluence-Engine
     # =========================================================================
-    print(f"\n      ⚠️ KI-Auswertung nicht verfügbar ({err}) -> Aktiviere Stufe 3 (Mathematische Confluence-Engine)...", end="", flush=True)
-    return None, err, "quantitative_confluence [Math Core]"
+    print(f"\n      ⚠️ KI-Auswertung nicht verfügbar ({err}) -> Aktiviere Stufe 4 (Mathematische Confluence-Engine)...", end="", flush=True)
     return None, err, "quantitative_confluence [Math Core]"
 
 

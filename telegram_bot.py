@@ -832,7 +832,7 @@ def get_admin_quota_details_text_and_markup():
             f"   Status: {status_sym} | {k_used}/{k_lim} ({k_pct:.0f}%)\n"
         )
 
-    lines.append("🛡️ <i>Kaskade: 1. Dediziertes Pro-Abo (3.8 Flash) -> 2. Free Key-Pool -> 3. SMC Math Core.</i>")
+    lines.append("🛡️ <i>Kaskade: 1. Google Pro-Abo (pokeulm@gmail.com · 3.8 Flash High) -> 2. Multi-Key Pool (3.8 Flash High) -> 3. Multi-Key Pool (3.5 Flash) -> 4. SMC Math-Core.</i>")
 
     kb = {
         "inline_keyboard": [

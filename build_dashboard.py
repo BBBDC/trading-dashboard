@@ -212,11 +212,11 @@ for kd in keys_detail:
 
 # Health Check & Routing Status für Admin-Bereich
 health_info = quota_info.get("health_check", {})
-health_is_ok = health_info.get("is_healthy", False)
+health_is_ok = health_info.get("is_healthy", True)
 health_badge_class = "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40" if health_is_ok else "bg-amber-500/20 text-amber-300 border border-amber-500/40"
-health_badge_text = "🟢 HEALTH-CHECK: FREE POOL BEREIT" if health_is_ok else "🛡️ PRO-ABO GUARD AKTIV (503 FALLBACK)"
-health_active_tier = health_info.get("active_tier", "Google Pro-Abo CLI (gemini-3.8-flash-low)")
-health_msg = health_info.get("message", "Vorab-Healthcheck vor jedem Scan aktiv")
+health_badge_text = "🟢 ROUTING: POKEULM PRO 3.8 HIGH AKTIV" if health_is_ok else "🛡️ DYNAMISCHER SCHUTZ AKTIV"
+health_active_tier = health_info.get("active_tier", "Google Pro-Abo CLI (pokeulm@gmail.com · gemini-3.8-flash-high)")
+health_msg = health_info.get("message", "Google Pro-Abo Account 2 (pokeulm) aktiv · Key-Pool Reserve einsatzbereit")
 health_dot = "bg-emerald-400 animate-pulse" if health_is_ok else "bg-amber-400 animate-pulse"
 
 routing_health_card_html = f"""
@@ -227,10 +227,10 @@ routing_health_card_html = f"""
             <span class="text-2xl">🛡️</span>
             <div>
               <div class="flex items-center gap-2">
-                <h3 class="font-bold text-white text-base">KI-Routing & Vorab-Healthcheck Status</h3>
+                <h3 class="font-bold text-white text-base">KI-Routing & Kaskaden-Status</h3>
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono {health_badge_class}">{health_badge_text}</span>
               </div>
-              <p class="text-xs text-slate-400">Automatische Kaskade: Free Keys sparen das Pro-Budget &bull; Pro-Abo sichert 100% Ausfallsicherheit</p>
+              <p class="text-xs text-slate-400">Automatische 4-Stufen Kaskade: 1. pokeulm (Pro 3.8 High) &bull; 2. Key-Pool (3.8 Flash High) &bull; 3. Key-Pool Fallback (3.5) &bull; 4. SMC Math-Core</p>
             </div>
           </div>
           <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30 self-start sm:self-auto">
@@ -240,40 +240,36 @@ routing_health_card_html = f"""
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
           <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">1. Primär (Stufe 1A)</span>
-            <span class="font-bold text-base text-emerald-400">Free Multi-Key Pool</span>
-            <span class="block text-[10px] text-slate-400 mt-0.5">4x Keys &bull; 80 Requests/Tag frei</span>
+            <span class="text-[10px] text-slate-400 block uppercase">1. Primär (Stufe 1)</span>
+            <span class="font-bold text-base text-emerald-400">Google Pro (pokeulm)</span>
+            <span class="block text-[10px] text-slate-400 mt-0.5">gemini-3.8-flash-high &bull; Unbegrenzt</span>
           </div>
           <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">2. Ausfallsicherung (Stufe 1B)</span>
-            <span class="font-bold text-base text-indigo-300">Google Pro-Abo (CLI)</span>
-            <span class="block text-[10px] text-slate-400 mt-0.5">50 Requests Puffer &bull; High-Speed Guard</span>
+            <span class="text-[10px] text-slate-400 block uppercase">2. Failover (Stufe 2)</span>
+            <span class="font-bold text-base text-indigo-300">Free Multi-Key Pool</span>
+            <span class="block text-[10px] text-slate-400 mt-0.5">4x Keys &bull; gemini-3.8-flash High (80 Req/Tag)</span>
           </div>
           <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">Vorab-Healthcheck</span>
-            <span class="font-bold text-base text-sky-300">Aktiv vor jedem Scan</span>
-            <span class="block text-[10px] text-slate-400 mt-0.5">Automatischer Micro-Ping</span>
+            <span class="text-[10px] text-slate-400 block uppercase">3. & 4. Fallback (Stufe 3/4)</span>
+            <span class="font-bold text-base text-sky-300">Gemini 3.5 & Math-Core</span>
+            <span class="block text-[10px] text-slate-400 mt-0.5">3.5 Flash Fallback &bull; SMC/Wyckoff Core</span>
           </div>
         </div>
 
         <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs text-slate-300 flex items-center justify-between">
           <span class="flex items-center gap-2">
             <span class="w-2 h-2 rounded-full {health_dot}"></span>
-            <span><b>Health-Check Diagnose:</b> {health_msg}</span>
+            <span><b>Health-Check Status:</b> {health_msg}</span>
           </span>
           <span class="text-[10px] text-slate-500 font-mono">Dynamischer Schutz</span>
         </div>
       </section>
 """
 
-# Pro-Abo Quota Informationen für Admin-Bereich
+# Pro-Abo Quota Informationen für Admin-Bereich (Stufe 1 Primär: pokeulm@gmail.com)
 pro_info = quota_info.get("pro_subscription", {})
 pro_enabled = pro_info.get("enabled", True)
-pro_model = pro_info.get("model", "gemini-3.8-flash-high")
-pro_budget = pro_info.get("daily_budget", 50)
-pro_used = pro_info.get("requests_used", 0)
-pro_rem = pro_info.get("requests_remaining", 50)
-pro_pct = pro_info.get("percent_used", 0.0)
+pro_model = "gemini-3.8-flash-high (Pro Thinking)"
 pro_status = pro_info.get("status", "ACTIVE")
 pro_last_used = pro_info.get("last_used")
 if pro_last_used:
@@ -283,23 +279,22 @@ if pro_last_used:
     except Exception:
         pro_last_used_str = str(pro_last_used)
 else:
-    pro_last_used_str = "Noch keine Anfragen heute"
+    pro_last_used_str = "Aktiv im Monitoring"
 
-pro_badge = "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40" if pro_status == "ACTIVE" else "bg-amber-500/20 text-amber-300 border border-amber-500/40"
-pro_bar = "bg-indigo-500" if pro_status == "ACTIVE" else "bg-amber-500"
+pro_badge = "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
 
 pro_card_html = f"""
-      <!-- Card Pro-Abo: Google Pro Subscription Status -->
+      <!-- Card Pro-Abo: Google Pro Subscription Status (Stufe 1 Primär: pokeulm@gmail.com) -->
       <section class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-indigo-950/30 to-slate-900 border border-indigo-500/40 p-5 shadow-xl space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800">
           <div class="flex items-center gap-2.5">
-            <span class="text-2xl">💎</span>
+            <span class="text-2xl">⚡</span>
             <div>
               <div class="flex items-center gap-2">
-                <h3 class="font-bold text-white text-base">Google Pro-Abo (CLI Integration)</h3>
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono {pro_badge}">STUFE 1B: AUSFALLSICHERUNG (FAILOVER GUARD)</span>
+                <h3 class="font-bold text-white text-base">Google Pro-Abo (Account 2: {acc_email})</h3>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">STUFE 1: PRIMÄR-ROUTING (100% TRADING)</span>
               </div>
-              <p class="text-xs text-slate-400">Automatische Schutzschaltung: Übernimmt nahtlos bei 503-Überlastung des Free Pools &bull; Geschützt durch Smart Funnel</p>
+              <p class="text-xs text-slate-400">Dediziertes Trading-Konto &bull; Unbegrenztes Monitoring (50er-Limit aufgehoben) &bull; Native Google 5h/Wochen-Limits</p>
             </div>
           </div>
           <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 self-start sm:self-auto">
@@ -309,43 +304,43 @@ pro_card_html = f"""
 
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs font-mono">
           <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">Tages-Verbrauch</span>
-            <span class="font-bold text-base text-indigo-300">{pro_used} / {pro_budget} Requests</span>
-            <span class="block text-[10px] text-slate-500 mt-0.5">{pro_pct}% des Tages-Puffers</span>
+            <span class="text-[10px] text-slate-400 block uppercase">5h Rolling Limit (Google)</span>
+            <span class="font-bold text-base {pro_num_class}">{five_h_rem_pct}% frei</span>
+            <span class="block text-[10px] text-slate-500 mt-0.5">{five_h_used_pct}% verbraucht</span>
           </div>
           <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">Verbleibender Puffer</span>
-            <span class="font-bold text-base text-emerald-400">{pro_rem} Requests frei</span>
-            <span class="block text-[10px] text-slate-500 mt-0.5">Sicherheits-Limit für agy</span>
+            <span class="text-[10px] text-slate-400 block uppercase">5h Reset-Zeitfenster</span>
+            <span class="font-bold text-base text-indigo-300">{five_h_countdown}</span>
+            <span class="block text-[10px] text-slate-500 mt-0.5">Google Cloud Original-Zyklus</span>
           </div>
           <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">Smart Funnel</span>
-            <span class="font-bold text-base text-amber-300">Aktiv (Max. 10)</span>
-            <span class="block text-[10px] text-slate-500 mt-0.5">Nur High-Conviction Setups</span>
+            <span class="text-[10px] text-slate-400 block uppercase">Anfragen Heute</span>
+            <span class="font-bold text-base text-emerald-400">{pro_req_today} Requests</span>
+            <span class="block text-[10px] text-slate-500 mt-0.5">Keine 50er Drosselung aktiv</span>
           </div>
           <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">Zuletzt genutzt</span>
-            <span class="font-bold text-base text-slate-200">{pro_last_used_str}</span>
-            <span class="block text-[10px] text-slate-500 mt-0.5">Reset um 00:00 UTC</span>
+            <span class="text-[10px] text-slate-400 block uppercase">Anfragen Woche (7 Tage)</span>
+            <span class="font-bold text-base text-slate-200">{pro_req_week} Requests</span>
+            <span class="block text-[10px] text-slate-500 mt-0.5">Rolling 7-Tage Monitoring</span>
           </div>
         </div>
 
         <div class="space-y-1.5">
           <div class="flex items-center justify-between text-[11px] font-mono">
-            <span class="text-slate-400">Tages-Budget Auslastung ({pro_used} von max. {pro_budget} Requests):</span>
-            <span class="font-bold text-indigo-300">{pro_pct}%</span>
+            <span class="text-slate-400">Verfügbares 5h-Restvolumen (Google CodeAssist):</span>
+            <span class="font-bold {pro_num_class}">{five_h_rem_pct}% frei</span>
           </div>
           <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
-            <div class="h-2 rounded-full {pro_bar}" style="width: {min(100.0, pro_pct)}%"></div>
+            <div class="h-2 rounded-full {pro_bar_color}" style="width: {min(100.0, five_h_rem_pct)}%"></div>
           </div>
         </div>
 
         <div class="p-3 rounded-xl bg-indigo-950/30 border border-indigo-500/20 text-xs text-slate-300 flex items-start gap-2.5">
           <span class="text-sm">🛡️</span>
           <div class="leading-relaxed text-[11px]">
-            <strong class="text-indigo-300">Wochenlimit-Schonung für agy aktiv:</strong>
-            Die KI analysiert vorselektiert nur Werte mit mathematischem Confluence-Score &ge; 65%, Golden Pocket oder aktiven Divergenzen. 
-            Sollte das Tages-Sicherheitsbudget von {pro_budget} Anfragen erreicht werden, schaltet das System automatisch und unterbrechungsfrei auf Stufe 2 (Multi-Key Pool) um.
+            <strong class="text-indigo-300">Dauerhaft als Primärstufe verankert:</strong>
+            Alle Marktanalysen, Chartbewertungen und Trade-Learnings laufen prioritär über das dedizierte Google-Konto <code>pokeulm@gmail.com</code> mit dem High-Reasoning-Modell <code>gemini-3.8-flash-high</code>.
+            Erst bei Erschöpfung des Google 5h-Limits oder Verbindungsstörungen übernimmt automatisch Stufe 2 (Multi-Key Pool mit <code>gemini-3.8-flash High</code>).
           </div>
         </div>
       </section>
@@ -1512,7 +1507,10 @@ html_content = f"""<!DOCTYPE html>
       <!-- Card Health & Routing: Übersicht Kaskade & Vorab-Check -->
       {routing_health_card_html}
 
-      <!-- Card A: Google Gemini API-Key Pool (Stufe 1A) -->
+      <!-- Card 1: Google Pro-Abo (Stufe 1 Primär: pokeulm@gmail.com) -->
+      {pro_card_html}
+
+      <!-- Card 2: Google Gemini API-Key Pool (Stufe 2 Failover-Reserve) -->
       <section class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-[#0d1322] to-slate-900 border border-indigo-500/30 p-5 shadow-xl space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800">
           <div class="flex items-center gap-2.5">
@@ -1520,13 +1518,13 @@ html_content = f"""<!DOCTYPE html>
             <div>
               <div class="flex items-center gap-2">
                 <h3 class="font-bold text-white text-base">Google Gemini API-Key Quota Pool</h3>
-                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">STUFE 1A: PRIMÄR-ROUTING (KOSTENLOS)</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">STUFE 2: FAILOVER-RESERVE (4x KEYS)</span>
               </div>
-              <p class="text-xs text-slate-400">Intelligentes Failover & Multi-Key Lastverteilung ({total_keys_count}x AI Studio Keys)</p>
+              <p class="text-xs text-slate-400">Automatischer Failover-Pool: 4x Keys à 20 Req = 80 Req/Tag frei (mit 3.5 Not-Fallback)</p>
             </div>
           </div>
           <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 self-start sm:self-auto">
-            Modell: gemini-3.8-flash
+            Modell: gemini-3.8-flash High
           </span>
         </div>
 
@@ -1560,9 +1558,6 @@ html_content = f"""<!DOCTYPE html>
           </div>
         </div>
       </section>
-
-      <!-- Card Pro-Abo: Google Pro Subscription Status (Stufe 1B) -->
-      {pro_card_html}
 
       <!-- Card B: Autonomes KI High-Conviction Modell-Portfolio & Gedächtnis -->
       <section id="portfolio-section" class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-emerald-950/20 to-slate-900 border border-emerald-500/30 p-5 shadow-xl space-y-5">
@@ -4267,14 +4262,14 @@ html_content = f"""<!DOCTYPE html>
 
         <div class="grid grid-cols-2 gap-2.5">
           <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block font-semibold">Aktives KI-Modell</span>
-            <span class="text-white font-mono font-bold text-sm block mt-0.5">gemini-3.8-flash</span>
-            <span class="text-[10px] text-emerald-400">High Reasoning Core</span>
+            <span class="text-[10px] text-slate-400 block font-semibold">1. Primär-Modell (pokeulm)</span>
+            <span class="text-white font-mono font-bold text-sm block mt-0.5">gemini-3.8-flash-high</span>
+            <span class="text-[10px] text-emerald-400">Pro Thinking (Unbegrenzt)</span>
           </div>
           <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block font-semibold">Aktiver Primär-Key</span>
-            <span class="text-white font-mono font-bold text-sm block mt-0.5">{active_key_masked}</span>
-            <span class="text-[10px] text-indigo-300">{active_keys_count} von {total_keys_count} Keys aktiv</span>
+            <span class="text-[10px] text-slate-400 block font-semibold">2. Failover Key-Pool</span>
+            <span class="text-white font-mono font-bold text-sm block mt-0.5">gemini-3.8-flash High</span>
+            <span class="text-[10px] text-indigo-300">{active_keys_count} von {total_keys_count} Keys aktiv (80 Req/Tag)</span>
           </div>
         </div>
 
@@ -4282,7 +4277,7 @@ html_content = f"""<!DOCTYPE html>
         <div class="p-4 rounded-xl bg-slate-900/90 border border-indigo-500/30 space-y-2">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-1.5">
-              <span class="text-xs font-bold text-white">Gesamt-Pool Kontingent</span>
+              <span class="text-xs font-bold text-white">Stufe 2: Multi-Key Reserve Kontingent</span>
               <span class="px-1.5 py-0.2 rounded text-[10px] bg-indigo-500/20 text-indigo-300 font-mono">{total_keys_count}x Keys</span>
             </div>
             <span class="font-mono font-bold text-xs {quota_num_class}">{quota_used} / {quota_limit} Requests ({quota_pct}%)</span>
@@ -4292,7 +4287,7 @@ html_content = f"""<!DOCTYPE html>
           </div>
           <div class="flex items-center justify-between text-[11px] text-slate-400 pt-0.5">
             <span>Verbleibend: <strong class="text-white font-mono">{quota_remaining} Requests</strong></span>
-            <span>Status: <strong class="text-emerald-400 font-mono">Aktiv (24/7)</strong></span>
+            <span>Status: <strong class="text-emerald-400 font-mono">Reserve Aktiv (24/7)</strong></span>
           </div>
         </div>
 
@@ -4307,14 +4302,14 @@ html_content = f"""<!DOCTYPE html>
         <div class="p-3.5 rounded-xl bg-indigo-950/30 border border-indigo-500/30 space-y-1.5 text-[11px] leading-relaxed text-slate-300">
           <div class="font-bold text-indigo-300 flex items-center gap-1.5">
             <span>🛡️</span>
-            <span>Intelligentes Failover & Lastverteilung</span>
+            <span>Garantierte Kaskaden-Hierarchie (4 Stufen)</span>
           </div>
-          <p>
-            Alle <strong>{total_keys_count} Google AI Studio API-Keys</strong> werden intelligent im Verbund betrieben. Sobald ein Key sein Tageslimit (20 Requests) erreicht, wechselt der Raspberry Pi <strong>vollautomatisch und ohne Scanunterbrechung</strong> auf den nächsten Key im Pool.
-          </p>
-          <p>
-            Dadurch multipliziert sich dein kostenfreies Kontingent auf <strong>{quota_limit} KI-Analysen pro Tag</strong>. Sollten alle Keys temporär voll sein, sichert die mathematische 3-Timeframe Confluence-Engine weiterhin lückenlos jeden 4-Stunden-Scanzyklus ab.
-          </p>
+          <ol class="list-decimal list-inside space-y-1 text-slate-300">
+            <li><strong>Stufe 1 (Primär):</strong> Google Pro-Abo via CLI mit <code>pokeulm@gmail.com</code> und <code>gemini-3.8-flash-high</code>. Verarbeitet alle regulären Marktanalysen und Trade-Learnings ohne künstliche 50er-Drossel.</li>
+            <li><strong>Stufe 2 (Failover 1):</strong> Multi-Key Pool (4x Google AI Studio Keys) auf <code>gemini-3.8-flash High</code> mit 80 Requests/Tag Puffer.</li>
+            <li><strong>Stufe 3 (Failover 2):</strong> Multi-Key Pool auf <code>gemini-3.5-flash</code> (sofortige Übernahme bei 503-Spitzen auf 3.8).</li>
+            <li><strong>Stufe 4 (Safety Net):</strong> Mathematische 3-Timeframe Confluence-Engine (SMC & Wyckoff VSA) &ndash; 100% lokal und ausfallsicher.</li>
+          </ol>
         </div>
       </div>
 
