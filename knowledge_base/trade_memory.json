@@ -1,7 +1,28 @@
 {
-  "updated_at": "2026-10-31T22:07:44.081988+00:00",
-  "total_experience_records": 31,
+  "updated_at": "2026-10-31T23:05:36.009874+00:00",
+  "total_experience_records": 32,
   "learnings": [
+    {
+      "timestamp": "2026-10-31T23:05:24.506543+00:00",
+      "trade_id": "trade_BINANCE_ZECUSDT_20261031_0613",
+      "symbol": "BINANCE:ZECUSDT",
+      "name": "Zcash",
+      "category": "Crypto",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "Hypothese 1: SMC Support Reversal",
+      "pnl_leveraged": -6.55,
+      "pnl_raw": -2.18,
+      "text": "Pyramidisieren in die Momentum-Erschöpfung hinein verwandelt ein valides HTF-Reversal in eine Liquiditätsfalle. Kaufe Bestätigungen nach Pullbacks, keine lokalen Tops.",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Aggressives Pyramidisieren (Tranche 2 bei 1.285) unmittelbar unter dem lokalen Hoch (1.288) trieb den Durchschnittseinstieg kurz vor einer Momentum-Erschöpfung fahrlässig nach oben.",
+        "technical_warning": "Fehlende Volumenbestätigung am lokalen Widerstand bei 1.288 sowie bearische LTF-Divergenzen (RSI/Delta) signalisierten frühzeitig Liquiditätsabgriff statt nachhaltigem Breakout.",
+        "actionable_rule": "Zusatztranchen dürfen ausschließlich nach signifikantem Strukturbruch (MSS/BOS) und erfolgreichem Retest des Ausbruchsniveaus platziert werden, niemals direkt in eine unbestätigte Widerstandszone.",
+        "recommended_leverage_adjustment": -1,
+        "summary_text": "Pyramidisieren in die Momentum-Erschöpfung hinein verwandelt ein valides HTF-Reversal in eine Liquiditätsfalle. Kaufe Bestätigungen nach Pullbacks, keine lokalen Tops."
+      }
+    },
     {
       "timestamp": "2026-10-30T17:53:26.134516+00:00",
       "trade_id": "trade_NASDAQ_META_20261027_1507",
@@ -328,6 +349,17 @@
   ],
   "setup_statistics": {},
   "setup_performance": {
+    "Hypothese 1: SMC Support Reversal": {
+      "trades": 2,
+      "wins": 0,
+      "losses": 2,
+      "win_rate": 0.0,
+      "total_lev_pnl": -27.1,
+      "profit_factor": 0.0,
+      "status": "BALANCED",
+      "min_score": 88,
+      "leverage_adjustment": 0
+    },
     "Hypothese 1: SMC Golden Confluence Reversal": {
       "trades": 6,
       "wins": 0,
@@ -338,17 +370,6 @@
       "status": "UNDERPERFORMING",
       "min_score": 92,
       "leverage_adjustment": -2
-    },
-    "Hypothese 1: SMC Support Reversal": {
-      "trades": 1,
-      "wins": 0,
-      "losses": 1,
-      "win_rate": 0.0,
-      "total_lev_pnl": -20.5,
-      "profit_factor": 0.0,
-      "status": "BALANCED",
-      "min_score": 88,
-      "leverage_adjustment": 0
     },
     "Hypothese 1: Bearish Confluence Reversal": {
       "trades": 9,
@@ -374,6 +395,17 @@
     }
   },
   "category_performance": {
+    "Crypto": {
+      "trades": 16,
+      "wins": 0,
+      "losses": 15,
+      "win_rate": 0.0,
+      "total_lev_pnl": -146.7,
+      "profit_factor": 0.0,
+      "status": "UNDERPERFORMING",
+      "min_score": 92,
+      "leverage_cap": 2
+    },
     "Big Tech": {
       "trades": 4,
       "wins": 1,
@@ -417,17 +449,6 @@
       "status": "STANDARD",
       "min_score": 88,
       "leverage_cap": 5
-    },
-    "Crypto": {
-      "trades": 15,
-      "wins": 0,
-      "losses": 14,
-      "win_rate": 0.0,
-      "total_lev_pnl": -140.1,
-      "profit_factor": 0.0,
-      "status": "UNDERPERFORMING",
-      "min_score": 92,
-      "leverage_cap": 2
     },
     "Enterprise Software": {
       "trades": 1,
