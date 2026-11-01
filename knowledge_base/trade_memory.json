@@ -1,7 +1,28 @@
 {
-  "updated_at": "2026-11-01T02:10:39.455545+00:00",
-  "total_experience_records": 32,
+  "updated_at": "2026-11-01T03:06:18.687907+00:00",
+  "total_experience_records": 33,
   "learnings": [
+    {
+      "timestamp": "2026-11-01T03:05:24.470287+00:00",
+      "trade_id": "trade_BINANCE_ZECUSDT_20261031_2305",
+      "symbol": "BINANCE:ZECUSDT",
+      "name": "Zcash",
+      "category": "Crypto",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "Hypothese 2: Trend Continuation",
+      "pnl_leveraged": -2.64,
+      "pnl_raw": -0.88,
+      "text": "Ein makroökonomisch bullischer Trend schützt nicht vor mikroskopischen Liquiditätsabfischungen im Krypto-Nacht-Handel. Wer enge Stops mit Hebel im Marktrauschen platziert, dient institutionellen Akteuren lediglich als Ausstiegs-Liquidität.",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Prozyklischer Trendfolge-Einstieg in ein illiquides Wochenend-Zeitfenster mit einem Stop-Loss unter 1%, der innerhalb der normalen Krypto-Rauschbandbreite lag und direkt nach einem Fehlausbruch abgefischt wurde.",
+        "technical_warning": "Fehlendes Ausbruchsvolumen beim Erreichen des 1.260er-Niveaus sowie die Missachtung der 4h-ATR-Volatilitätsspanne, wodurch der Stop-Loss strukturell ungeschützt im Rauschen platziert war.",
+        "actionable_rule": "In volatilen Krypto-Märkten darf der initiale Stop-Loss niemals enger als 1.5x 4h-ATR liegen, und pyramidisierte Trendfortsetzungs-Trades sind an Wochenenden ohne signifikante Volumenbestätigung strikt untersagt.",
+        "recommended_leverage_adjustment": -1,
+        "summary_text": "Ein makroökonomisch bullischer Trend schützt nicht vor mikroskopischen Liquiditätsabfischungen im Krypto-Nacht-Handel. Wer enge Stops mit Hebel im Marktrauschen platziert, dient institutionellen Akteuren lediglich als Ausstiegs-Liquidität."
+      }
+    },
     {
       "timestamp": "2026-10-31T23:05:24.506543+00:00",
       "trade_id": "trade_BINANCE_ZECUSDT_20261031_0613",
@@ -349,6 +370,17 @@
   ],
   "setup_statistics": {},
   "setup_performance": {
+    "Hypothese 2: Trend Continuation": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate": 0.0,
+      "total_lev_pnl": -2.6,
+      "profit_factor": 0.0,
+      "status": "BALANCED",
+      "min_score": 88,
+      "leverage_adjustment": 0
+    },
     "Hypothese 1: SMC Support Reversal": {
       "trades": 2,
       "wins": 0,
@@ -396,11 +428,11 @@
   },
   "category_performance": {
     "Crypto": {
-      "trades": 16,
+      "trades": 17,
       "wins": 0,
-      "losses": 15,
+      "losses": 16,
       "win_rate": 0.0,
-      "total_lev_pnl": -146.7,
+      "total_lev_pnl": -149.3,
       "profit_factor": 0.0,
       "status": "UNDERPERFORMING",
       "min_score": 92,
