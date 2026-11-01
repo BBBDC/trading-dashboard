@@ -1,7 +1,28 @@
 {
-  "updated_at": "2026-11-01T06:12:43.123937+00:00",
-  "total_experience_records": 33,
+  "updated_at": "2026-11-01T07:06:18.577654+00:00",
+  "total_experience_records": 34,
   "learnings": [
+    {
+      "timestamp": "2026-11-01T07:05:23.958666+00:00",
+      "trade_id": "trade_COINBASE_BCHUSD_20261031_0613",
+      "symbol": "COINBASE:BCHUSD",
+      "name": "Bitcoin Cash",
+      "category": "Crypto",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "Hypothese 1: SMC Support Reversal",
+      "pnl_leveraged": -7.19,
+      "pnl_raw": -1.8,
+      "text": "Ein Retracement-Level ist erst dann ein Support, wenn der Markt dort aggressiv kauft. Ohne bestätigte Reaktion ist 4x-Hebel reines Glücksspiel.",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Der Einstieg erfolgte ungeprüft als blindes Limit in das 4h Golden Pocket, ohne eine vorherige Lower-Timeframe-Strukturbestätigung (Market Structure Shift) abzuwarten.",
+        "technical_warning": "Das sofortige Versiegen des Momentums bei 291.46 sowie der dynamische Bruch der Pocket-Unterkante (288.49) ohne bullische RSI-Divergenz oder sichtbares Absorptionsvolumen zeigten frühzeitig das Fehlen institutioneller Käufer.",
+        "actionable_rule": "SMC-Reversals in Altcoins dürfen niemals 'blind' an Fibonacci-Levels gefischt werden; ein Einstieg erfordert zwingend einen bestätigten 15m/1h Market Structure Shift mit Displacement-Candle.",
+        "recommended_leverage_adjustment": -1,
+        "summary_text": "Ein Retracement-Level ist erst dann ein Support, wenn der Markt dort aggressiv kauft. Ohne bestätigte Reaktion ist 4x-Hebel reines Glücksspiel."
+      }
+    },
     {
       "timestamp": "2026-11-01T03:05:24.470287+00:00",
       "trade_id": "trade_BINANCE_ZECUSDT_20261031_2305",
@@ -370,23 +391,23 @@
   ],
   "setup_statistics": {},
   "setup_performance": {
+    "Hypothese 1: SMC Support Reversal": {
+      "trades": 3,
+      "wins": 0,
+      "losses": 3,
+      "win_rate": 0.0,
+      "total_lev_pnl": -34.2,
+      "profit_factor": 0.0,
+      "status": "CAUTION",
+      "min_score": 90,
+      "leverage_adjustment": -1
+    },
     "Hypothese 2: Trend Continuation": {
       "trades": 1,
       "wins": 0,
       "losses": 1,
       "win_rate": 0.0,
       "total_lev_pnl": -2.6,
-      "profit_factor": 0.0,
-      "status": "BALANCED",
-      "min_score": 88,
-      "leverage_adjustment": 0
-    },
-    "Hypothese 1: SMC Support Reversal": {
-      "trades": 2,
-      "wins": 0,
-      "losses": 2,
-      "win_rate": 0.0,
-      "total_lev_pnl": -27.1,
       "profit_factor": 0.0,
       "status": "BALANCED",
       "min_score": 88,
@@ -428,11 +449,11 @@
   },
   "category_performance": {
     "Crypto": {
-      "trades": 17,
+      "trades": 18,
       "wins": 0,
-      "losses": 16,
+      "losses": 17,
       "win_rate": 0.0,
-      "total_lev_pnl": -149.3,
+      "total_lev_pnl": -156.5,
       "profit_factor": 0.0,
       "status": "UNDERPERFORMING",
       "min_score": 92,
