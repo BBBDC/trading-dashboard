@@ -1,7 +1,28 @@
 {
-  "updated_at": "2026-11-02T18:47:04.286328+00:00",
-  "total_experience_records": 45,
+  "updated_at": "2026-11-02T19:27:37.826911+00:00",
+  "total_experience_records": 46,
   "learnings": [
+    {
+      "timestamp": "2026-11-02T19:27:33.750241+00:00",
+      "trade_id": "inc_TSLA_1793636897",
+      "symbol": "TSLA",
+      "name": "Tesla",
+      "category": "Micro-Incubator (15m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder Micro Confluence Long",
+      "pnl_leveraged": -2.84,
+      "pnl_raw": -1.42,
+      "text": "Ein Signal ohne Volumenbestätigung ist ein Scheinsupport. Wenn der Markt nach dem Einstieg keine Dynamik entwickelt, nimm das Risiko proaktiv vom Tisch, anstatt auf den Stop-Loss zu warten.",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Mangelndes institutionelles Kaufvolumen beim Retest des Order Blocks führte zu einem schwachen Folgeimpuls (Peak bei nur 412.88) und dem anschließenden Bruch des lokalen Supports.",
+        "technical_warning": "Das Ausbleiben von Volumenexpansion beim Anlaufen des Order Blocks sowie eine bearishe Erschöpfungsstruktur auf LTF (fehlende Anschlusskäufe nach dem blauen Dreieck) warnten vor einem Fakeout.",
+        "actionable_rule": "Order-Block-Retests in hochvolatilen Werten wie TSLA erfordern zwingend eine Bestätigung durch ansteigendes LTF-Volumen; bleibt ein dynamischer Impuls über das Initialhoch innerhalb von 30 Minuten aus, ist der Stop sofort auf Breakeven nachzuziehen oder die Position um 50% zu de-risken.",
+        "recommended_leverage_adjustment": -1,
+        "summary_text": "Ein Signal ohne Volumenbestätigung ist ein Scheinsupport. Wenn der Markt nach dem Einstieg keine Dynamik entwickelt, nimm das Risiko proaktiv vom Tisch, anstatt auf den Stop-Loss zu warten."
+      }
+    },
     {
       "timestamp": "2026-11-02T18:47:01.066066+00:00",
       "trade_id": "inc_SOLUSDT_1793636897",
