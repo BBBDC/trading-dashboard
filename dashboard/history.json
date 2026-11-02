@@ -1,5 +1,268 @@
 [
   {
+    "id": "evt_20261102_114918",
+    "timestamp": "2026-11-02T11:49:18.774186+00:00",
+    "timestamp_display": "02.11.2026 11:49 UTC",
+    "title": "🔔 TV-Signaländerung: 6 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 6,
+    "changes": [
+      {
+        "symbol": "TRADEGATE:2PP",
+        "name": "PayPal (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 65,
+        "price": 50.92,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          50.9,
+          51.19
+        ],
+        "stop_loss": 51.65,
+        "take_profit_2": 48.5,
+        "reasons": [
+          "1D Sell Pocket ist aktiv und der Kurs befindet sich an einem bearischen OB Grad B (50.90 - 51.19).",
+          "1h zeigt ein klares Sell Area Signal (Rotes Kreuz) bei überkaufte RSI-Werten (62.28).",
+          "Makro-Trend auf 1D/1W zwar bullisch, jedoch verbieten strikte Regeln ein Long-Chasing bei 1D Sell Pocket und überkautem LTF-Volumen."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Sell Pocket ist aktiv und der Kurs befindet sich an einem bearischen OB Grad B (50.90 - 51.19).).",
+        "note": "Obwohl der übergeordnete Trend bullisch ist, befindet sich der Kurs direkt im 1D Sell Pocket und stößt an einen bearischen Order Block. Ein Long-Einstieg ist hier wegen schlechten Chance-Risiko-Verhältnisses ausgeschlossen. Ein nachhaltiger Short-Trigger erfordert vorab ein klares Choch auf dem 15m/1h-Timeframe.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...pOzg]"
+      },
+      {
+        "symbol": "TRADEGATE:SAP",
+        "name": "SAP SE",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 60,
+        "price": 209.6,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          207.5,
+          209.65
+        ],
+        "stop_loss": 205.8,
+        "take_profit_2": 218.0,
+        "reasons": [
+          "1D Makro-Trend ist stark bullisch, befindet sich jedoch im 1D Sell Pocket, was Gewinnmitnahmen wahrscheinlicher macht.",
+          "4h und 1h korrigieren (1h bearish) mit geringerem Volumen am bullischen OB Grad C.",
+          "OB Grad C erfüllt nicht die Mindestqualitätsanforderungen für ein hochprozentiges direktes Signal."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Makro-Trend ist stark bullisch, befindet sich jedoch im 1D Sell Pocket, was Gewinnmitnahmen wahrscheinlicher macht.).",
+        "note": "SAP verbleibt in einem intakten übergeordneten Aufwärtstrend, setzt jedoch auf 1h/4h zurück. Aufgrund des aktiven 1D Sell Pockets und des schwachen OB-Grades (Grad C) warten wir auf eine klare Liquiditätsabsorption im Bereich 207.50-209.65 EUR vor einer neuen Positionierung.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...pOzg]"
+      },
+      {
+        "symbol": "TRADEGATE:RHM",
+        "name": "Rheinmetall",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 55,
+        "price": 1037.8,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          1010.0,
+          1022.0
+        ],
+        "stop_loss": 992.0,
+        "take_profit_2": 1080.0,
+        "reasons": [
+          "1D-Trend ist zwar bullisch, jedoch zeigt der 1W-Trend weiterhin ein bärisches Bild.",
+          "Der Kurs steht unmittelbar an einem 4h Bearish Order Block (Grad C) bei gleichzeitig hohem 1h-RSI (63.96) und Sell-Signalen im 4h-Degencoder.",
+          "Ein direktes Hinterherjagen (Chasing) an Widerständen verstößt gegen die primären Risiko-Doktrinen."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Trend ist zwar bullisch, jedoch zeigt der 1W-Trend weiterhin ein bärisches Bild.).",
+        "note": "Rheinmetall hat den vorherigen Long-Impuls gut umgesetzt, läuft nun jedoch in eine Widerstandszone bei heiß gelaufenen untergeordneten Indikatoren. Gewinnmitnahmen sind angebracht; neue Long-Einstiege werden erst nach einem gesunden Rücksetzer in tiefere Support-Zonen geprüft.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "TRADEGATE:IFX",
+        "name": "Infineon Technologies",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 52,
+        "price": 51.63,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          52.8,
+          53.5
+        ],
+        "stop_loss": 54.6,
+        "take_profit_2": 48.2,
+        "reasons": [
+          "Übergeordneter Makro-Trend (1W & 1D) klar bärisch unterhalb relevanter Moving Averages.",
+          "1D Buy Pocket signalisiert zwar temporäre Bodenbildungsversuche, aber der 4h/1h Trend ist weiterhin bärisch geprägt.",
+          "Ein gesicherter Einstieg erfordert nach historischen Lektionen eine makellose 1D-Konfluenz (Score >= 88%), die aktuell nicht vorliegt."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Übergeordneter Makro-Trend (1W & 1D) klar bärisch unterhalb relevanter Moving Averages.).",
+        "note": "Infineon befindet sich in einem intakten bärischen Makro-Regime. Das Vorhandensein der 1D Buy Pocket warnt vor Blindeinstiegen auf der Short-Seite, während die übergeordnete Schwäche Long-Setups verbietet. Wir verbleiben strikt im Beobachtungsmodus, bis eine klare Ablehnung an der nächsten Supply-Zone erfolgt.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "TRADEGATE:AMZ",
+        "name": "Amazon (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 50,
+        "price": 216.2,
+        "setup_name": "Beobachten / Warten auf Trendbestätigung",
+        "entry_range": [
+          215.0,
+          217.0
+        ],
+        "stop_loss": 221.5,
+        "take_profit_2": 200.0,
+        "reasons": [
+          "1D Trend ist bärisch (unter 233 EMA), was Erholungen auf 4h/1h als Bärenmarktrallyes qualifiziert.",
+          "Widersprüchliche degencoder-Signale: Sowohl 1D Buy Pocket als auch 1D Sell Pocket sind gleichzeitig aktiv.",
+          "1h/4h zeigen versteckte bärische Divergenzen bei neutraler Struktur."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend ist bärisch (unter 233 EMA), was Erholungen auf 4h/1h als Bärenmarktrallyes qualifiziert.).",
+        "note": "Amazon zeigt ein widersprüchliches Indikatoren-Bild (gleichzeitige Buy/Sell Pockets) in einer bärischen 1D-Grundstruktur. Gemäß unserer Kapitalerhalts-Direktive und der Auswertung historisch schwacher Bearish-Confluence-Setups bleibt das Signal streng NEUTRAL, bis klare Marktverhältnisse herrschen.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...pOzg]"
+      },
+      {
+        "symbol": "TRADEGATE:YDX",
+        "name": "BYD Company",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 85,
+        "new_score": 48,
+        "price": 141.66,
+        "setup_name": "Beobachten / Lauerstellung am Support",
+        "entry_range": [
+          138.0,
+          140.0
+        ],
+        "stop_loss": 134.5,
+        "take_profit_2": 155.0,
+        "reasons": [
+          "Makro-Trends (1W, 1D, 4h, 1h) sind durchgehend bärisch ausgerichtet.",
+          "1D Buy Pocket und untergeordnete 'Buy Area'-Signale deuten auf eine Überdehnung hin, bieten aber ohne LTF Market Structure Shift keine tragfähige Basis.",
+          "Sektor-Sonderregel für EU-Titel fordert Mindest-Score von 88% für valide Einstiege."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trends (1W, 1D, 4h, 1h) sind durchgehend bärisch ausgerichtet.).",
+        "note": "BYD verharrt im Abwärtstrend. Zwar signalisieren Indikatoren eine kurzfristige Überverkauftheit (Buy Pocket), ein Long-Einstieg gegen den intakten 1D-Bärenmarkt wäre jedoch regelwidriges Messer-Greifen. Wir warten auf eine Bodenbildung mit klarem Volumen-Displacement.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 6 Einstufungen haben sich geändert:\n\n⚪ PayPal (Tradegate) (2PP):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 65%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Sell Pocket ist aktiv und der Kurs befindet sich an einem bearischen OB Grad B (50.90 - 51.19).).\n   📝 KI-Rationale: Obwohl der übergeordnete Trend bullisch ist, befindet sich der Kurs direkt im 1D Sell Pocket und stößt an einen bearischen Order B...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ SAP SE (SAP):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 60%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Makro-Trend ist stark bullisch, befindet sich jedoch im 1D Sell Pocket, was Gewinnmitnahmen wahrscheinlicher macht.).\n   📝 KI-Rationale: SAP verbleibt in einem intakten übergeordneten Aufwärtstrend, setzt jedoch auf 1h/4h zurück. Aufgrund des aktiven 1D Sell Pockets ...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n⚪ Rheinmetall (RHM):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 55%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Trend ist zwar bullisch, jedoch zeigt der 1W-Trend weiterhin ein bärisches Bild.).\n   📝 KI-Rationale: Rheinmetall hat den vorherigen Long-Impuls gut umgesetzt, läuft nun jedoch in eine Widerstandszone bei heiß gelaufenen untergeordn...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n⚪ Infineon Technologies (IFX):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Übergeordneter Makro-Trend (1W & 1D) klar bärisch unterhalb relevanter Moving Averages.).\n   📝 KI-Rationale: Infineon befindet sich in einem intakten bärischen Makro-Regime. Das Vorhandensein der 1D Buy Pocket warnt vor Blindeinstiegen auf...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ Amazon (Tradegate) (AMZ):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 50%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend ist bärisch (unter 233 EMA), was Erholungen auf 4h/1h als Bärenmarktrallyes qualifiziert.).\n   📝 KI-Rationale: Amazon zeigt ein widersprüchliches Indikatoren-Bild (gleichzeitige Buy/Sell Pockets) in einer bärischen 1D-Grundstruktur. Gemäß un...\n   Setup: Beobachten / Warten auf Trendbestätigung\n\n⚪ BYD Company (YDX):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trends (1W, 1D, 4h, 1h) sind durchgehend bärisch ausgerichtet.).\n   📝 KI-Rationale: BYD verharrt im Abwärtstrend. Zwar signalisieren Indikatoren eine kurzfristige Überverkauftheit (Buy Pocket), ein Long-Einstieg ge...\n   Setup: Beobachten / Lauerstellung am Support\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
+    "id": "evt_20261102_110936",
+    "timestamp": "2026-11-02T11:09:36.973758+00:00",
+    "timestamp_display": "02.11.2026 11:09 UTC",
+    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 3,
+    "changes": [
+      {
+        "symbol": "TVC:NI225",
+        "name": "NI225",
+        "category": "Aktien",
+        "change_type": "SCORE_JUMP",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 92,
+        "new_score": 85,
+        "price": 63081.64,
+        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
+        "entry_range": [
+          62955.48,
+          63586.29
+        ],
+        "stop_loss": 65289.5,
+        "take_profit_2": 56016.49,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)",
+          "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
+          "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)"
+        ],
+        "change_reason": "Konfluenz-Veränderung: Score springt von 92% auf 85% (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "XETR:NOV",
+        "name": "Novartis",
+        "category": "Pharma",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 50,
+        "new_score": 85,
+        "price": 35.615,
+        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
+        "entry_range": [
+          35.56,
+          35.92
+        ],
+        "stop_loss": 36.88,
+        "take_profit_2": 31.63,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "Aktiv: 1h Reguläre Bullische Divergenz (Reversal)",
+          "Aktiv: 1h Versteckte Bärische Divergenz (Trendfolge)",
+          "Aktiv: 4h Versteckte Bullische Divergenz (Trendfolge)"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "TVC:DXY",
+        "name": "US Dollar Index",
+        "category": "Forex / Makro",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "LONG",
+        "old_score": 54,
+        "new_score": 82,
+        "price": 101.687,
+        "setup_name": "Hypothese 1: SMC Support Reversal",
+        "entry_range": [
+          100.86,
+          101.87
+        ],
+        "stop_loss": 98.11,
+        "take_profit_2": 113.06,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "Kurs im 4h Golden Pocket (102.08 - 102.12)",
+          "Aktiv: 4h Reguläre Bärische Divergenz (Reversal)",
+          "Aktiv: 1D Versteckte Bullische Divergenz (Trendfolge)"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
+        "note": "Strikte bullische Konfluenz (82%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
+        "evaluated_by": "quantitative_engine"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🔴 NI225 (NI225):\n   Score-Sprung: 92% ➔ 85% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 92% auf 85% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 62,955.48 | SL: 65,289.50 | TP2: 56,016.49\n\n🔴 Novartis (NOV):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 85%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 35.56 | SL: 36.88 | TP2: 31.63\n\n🟢 US Dollar Index (DXY):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 82%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (82%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 100.86 | SL: 98.11 | TP2: 113.06\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261102_102232",
     "timestamp": "2026-11-02T10:22:32.992205+00:00",
     "timestamp_display": "02.11.2026 10:22 UTC",

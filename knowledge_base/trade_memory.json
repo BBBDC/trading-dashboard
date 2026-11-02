@@ -1,7 +1,28 @@
 {
-  "updated_at": "2026-11-02T11:09:33.165213+00:00",
-  "total_experience_records": 34,
+  "updated_at": "2026-11-02T12:05:52.455481+00:00",
+  "total_experience_records": 35,
   "learnings": [
+    {
+      "timestamp": "2026-11-02T11:48:56.726239+00:00",
+      "trade_id": "trade_TRADEGATE_YDX_20261030_1810",
+      "symbol": "TRADEGATE:YDX",
+      "name": "BYD Company",
+      "category": "Tradegate / EU",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "Hypothese 2: Bearish Trend Continuation",
+      "pnl_leveraged": -18.96,
+      "pnl_raw": -3.79,
+      "text": "Wer am Freitagabend in einen überdehnten Trend hinein shortet, wird am Montagmorgen von den asiatischen Primärmärkten überrollt. Climax-Volumen nach Kursverlusten signalisiert primär Liquiditätsabsorption der Käufer und keine Trendfortsetzung.",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Später Trendfolge-Short am Freitagabend kurz vor Börsenschluss bei bereits überdehnter Abwärtsbewegung, wodurch die Position ungeschützt dem Wochenend-Gap-Risiko der asiatischen Leitbörsen ausgesetzt wurde.",
+        "technical_warning": "Das interpretierte 'Climax-Volumen' in der Erholung stellte keine Verkaufsdominanz dar, sondern eine Volumenausschüttung/Absorption an einem übergeordneten Support-Level mit drohender bullischer Indikatordivergenz.",
+        "actionable_rule": "Keine neuen Trendfolge-Short-Positionen auf europäische Sekundärlistings asiatischer Titel nach 17:00 Uhr am Freitag eröffnen; Volumenspitzen am Ende mehrtägiger Abwärtswellen sind strikt als Erschöpfung/Absorptionsgefahr zu werten.",
+        "recommended_leverage_adjustment": -2,
+        "summary_text": "Wer am Freitagabend in einen überdehnten Trend hinein shortet, wird am Montagmorgen von den asiatischen Primärmärkten überrollt. Climax-Volumen nach Kursverlusten signalisiert primär Liquiditätsabsorption der Käufer und keine Trendfortsetzung."
+      }
+    },
     {
       "timestamp": "2026-11-01T07:05:23.958666+00:00",
       "trade_id": "trade_COINBASE_BCHUSD_20261031_0613",
@@ -391,6 +412,17 @@
   ],
   "setup_statistics": {},
   "setup_performance": {
+    "Hypothese 2: Bearish Trend Continuation": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate": 0.0,
+      "total_lev_pnl": -19.0,
+      "profit_factor": 0.0,
+      "status": "BALANCED",
+      "min_score": 88,
+      "leverage_adjustment": 0
+    },
     "Hypothese 1: SMC Support Reversal": {
       "trades": 3,
       "wins": 0,
@@ -448,6 +480,17 @@
     }
   },
   "category_performance": {
+    "Tradegate / EU": {
+      "trades": 2,
+      "wins": 0,
+      "losses": 2,
+      "win_rate": 0.0,
+      "total_lev_pnl": -39.5,
+      "profit_factor": 0.0,
+      "status": "STANDARD",
+      "min_score": 88,
+      "leverage_cap": 5
+    },
     "Crypto": {
       "trades": 18,
       "wins": 0,
@@ -469,17 +512,6 @@
       "status": "UNDERPERFORMING",
       "min_score": 92,
       "leverage_cap": 2
-    },
-    "Tradegate / EU": {
-      "trades": 1,
-      "wins": 0,
-      "losses": 1,
-      "win_rate": 0.0,
-      "total_lev_pnl": -20.5,
-      "profit_factor": 0.0,
-      "status": "STANDARD",
-      "min_score": 88,
-      "leverage_cap": 5
     },
     "Halbleiter": {
       "trades": 1,
