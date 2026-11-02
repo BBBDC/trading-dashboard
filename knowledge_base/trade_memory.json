@@ -1,7 +1,49 @@
 {
-  "updated_at": "2026-11-02T13:16:02.071807+00:00",
-  "total_experience_records": 35,
+  "updated_at": "2026-11-02T14:17:16.003050+00:00",
+  "total_experience_records": 37,
   "learnings": [
+    {
+      "timestamp": "2026-11-02T14:17:11.490237+00:00",
+      "trade_id": "trade_COINBASE_ETHBTC_20261102_1414",
+      "symbol": "COINBASE:ETHBTC",
+      "name": "ETHBTC",
+      "category": "Crypto",
+      "direction": "SHORT",
+      "result": "BREAKEVEN",
+      "setup_name": "Hypothese 1: degencoder Institutional Sell Pocket Reversal",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Ein angeblicher Maximalgewinn bei 0,00 % PnL entlarvt eine fehlerhafte TP-Bedingung im Short-Code, die sofort behoben werden muss. Wer bei Short-Trades oberhalb des Einstiegs Gewinne verbucht, betreibt Selbsttäuschung und zahlt unnötigen Spread.",
+      "ai_post_mortem": {
+        "verdict": "BREAKEVEN",
+        "driver": "Kritischer Logikfehler im Ausführungs-Algorithmus: Bei einer Short-Position lag das Take-Profit-Ziel mit 0.03 über dem Einstiegskurs von 0.0294, was eine sofortige Phantom-Schließung ohne Marktbewegung auslöste.",
+        "technical_warning": "Kein primäres Chartversagen, sondern fehlende Execution-Validierung; charttechnisch fehlte vor dem Short-Trigger an 0.0294 zudem ein veritabler Mikrostruktur-Bruch (LL) zur Bestätigung der Trendfolge.",
+        "actionable_rule": "Implementiere einen harten Execution-Guard: Take-Profit-Preise bei Short-Orders müssen zwingend kleiner als der Entry-Preis sein (TP < Entry - 1x ATR), andernfalls wird die Order blockiert.",
+        "recommended_leverage_adjustment": 0,
+        "summary_text": "Ein angeblicher Maximalgewinn bei 0,00 % PnL entlarvt eine fehlerhafte TP-Bedingung im Short-Code, die sofort behoben werden muss. Wer bei Short-Trades oberhalb des Einstiegs Gewinne verbucht, betreibt Selbsttäuschung und zahlt unnötigen Spread."
+      }
+    },
+    {
+      "timestamp": "2026-11-02T14:14:45.366477+00:00",
+      "trade_id": "trade_KRAKEN_DAIEUR_20261031_0613",
+      "symbol": "KRAKEN:DAIEUR",
+      "name": "DAIEUR",
+      "category": "Crypto",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "Hypothese 1: SMC Support Reversal",
+      "pnl_leveraged": -12.72,
+      "pnl_raw": -3.18,
+      "text": "Wer Buchgewinne an HTF-Liquiditätsmarken nicht absichert, wird an gehebelten Währungspaaren am absoluten Tief ausgestoppt. Kapitalerhalt verlangt proaktive Risikoreduktion statt verzögerter Reaktionen nach vollständigem Support-Kollaps.",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Fehlende Gewinnsicherung nach dem Liquiditäts-Sweep am lokalen Hoch (0.9036) führte zum ungebremsten Durchrauschen durch den Support eines faktischen FX-Crosses (USD/EUR) bei überhöhtem Hebel.",
+        "technical_warning": "Die scharfe bärische Rejektion an der psychologischen Marke 0.9000 mit anschließendem 4H-Strukturbruch (Change of Character) unter das Einstiegsniveau von 0.8936 hätte den sofortigen Ausstieg signalisieren müssen, lange bevor die Position am absoluten Tiefstkurs (0.8651) geschlossen wurde.",
+        "actionable_rule": "Bei gehebelten Stablecoin/FX-Paaren muss nach einem Anstieg von >1% der Stopp zwingend auf Break-Even nachgezogen werden, und die Position ist beim ersten bärischen 4H-Strukturbruch sofort manuell zu schließen.",
+        "recommended_leverage_adjustment": -2,
+        "summary_text": "Wer Buchgewinne an HTF-Liquiditätsmarken nicht absichert, wird an gehebelten Währungspaaren am absoluten Tief ausgestoppt. Kapitalerhalt verlangt proaktive Risikoreduktion statt verzögerter Reaktionen nach vollständigem Support-Kollaps."
+      }
+    },
     {
       "timestamp": "2026-11-02T11:48:56.726239+00:00",
       "trade_id": "trade_TRADEGATE_YDX_20261030_1810",
@@ -412,6 +454,28 @@
   ],
   "setup_statistics": {},
   "setup_performance": {
+    "Hypothese 1: degencoder Institutional Sell Pocket Reversal": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 0,
+      "win_rate": 0.0,
+      "total_lev_pnl": 0.0,
+      "profit_factor": 0.0,
+      "status": "BALANCED",
+      "min_score": 88,
+      "leverage_adjustment": 0
+    },
+    "Hypothese 1: SMC Support Reversal": {
+      "trades": 4,
+      "wins": 0,
+      "losses": 4,
+      "win_rate": 0.0,
+      "total_lev_pnl": -47.0,
+      "profit_factor": 0.0,
+      "status": "UNDERPERFORMING",
+      "min_score": 92,
+      "leverage_adjustment": -2
+    },
     "Hypothese 2: Bearish Trend Continuation": {
       "trades": 1,
       "wins": 0,
@@ -422,17 +486,6 @@
       "status": "BALANCED",
       "min_score": 88,
       "leverage_adjustment": 0
-    },
-    "Hypothese 1: SMC Support Reversal": {
-      "trades": 3,
-      "wins": 0,
-      "losses": 3,
-      "win_rate": 0.0,
-      "total_lev_pnl": -34.2,
-      "profit_factor": 0.0,
-      "status": "CAUTION",
-      "min_score": 90,
-      "leverage_adjustment": -1
     },
     "Hypothese 2: Trend Continuation": {
       "trades": 1,
@@ -480,6 +533,17 @@
     }
   },
   "category_performance": {
+    "Crypto": {
+      "trades": 20,
+      "wins": 0,
+      "losses": 18,
+      "win_rate": 0.0,
+      "total_lev_pnl": -169.2,
+      "profit_factor": 0.0,
+      "status": "UNDERPERFORMING",
+      "min_score": 92,
+      "leverage_cap": 2
+    },
     "Tradegate / EU": {
       "trades": 2,
       "wins": 0,
@@ -490,17 +554,6 @@
       "status": "STANDARD",
       "min_score": 88,
       "leverage_cap": 5
-    },
-    "Crypto": {
-      "trades": 18,
-      "wins": 0,
-      "losses": 17,
-      "win_rate": 0.0,
-      "total_lev_pnl": -156.5,
-      "profit_factor": 0.0,
-      "status": "UNDERPERFORMING",
-      "min_score": 92,
-      "leverage_cap": 2
     },
     "Big Tech": {
       "trades": 4,
