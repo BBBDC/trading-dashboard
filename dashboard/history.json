@@ -1,5 +1,96 @@
 [
   {
+    "id": "evt_20261102_081634",
+    "timestamp": "2026-11-02T08:16:34.596673+00:00",
+    "timestamp_display": "02.11.2026 08:16 UTC",
+    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 3,
+    "changes": [
+      {
+        "symbol": "XETR:DAX",
+        "name": "DAX 40",
+        "category": "Indizes",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 55,
+        "price": 25818.21,
+        "setup_name": "Beobachten / Konsolidierung am Widerstand",
+        "entry_range": [
+          25300.0,
+          25450.0
+        ],
+        "stop_loss": 25050.0,
+        "take_profit_2": 26400.0,
+        "reasons": [
+          "1h RSI überkauft (70.66) und 4h RSI nahe der Ausdehnungsgrenze (64.29) verbieten direkte Long-Einstiege (Chasing-Verbot).",
+          "1D Trend ist intakt bullisch und der Kurs verweilt im 1D Golden Pocket, erfordert aber einen gesunden Rücksetzer.",
+          "Keine frische bullische Divergenz auf 4h/1h zur Absicherung eines unmittelbaren Einstiegs vorhanden."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1h RSI überkauft (70.66) und 4h RSI nahe der Ausdehnungsgrenze (64.29) verbieten direkte Long-Einstiege (Chasing-Verbot).).",
+        "note": "Obwohl der übergeordnete Trend im DAX stark bullisch ist und im Tages-GP notiert, verhindert die temporäre Überhitzung im 1h-Chart (RSI > 70) einen Long-Einstieg zum aktuellen Marktpreis. Kapitalerhalt hat Vorrang: Wir warten geduldig auf einen Ausverkauf in den 4h-Support, um ein asymmetrisches CRV zu sichern.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "TRADEGATE:SAP",
+        "name": "SAP SE",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 52,
+        "price": 209.1,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          202.0,
+          204.5
+        ],
+        "stop_loss": 198.5,
+        "take_profit_2": 220.0,
+        "reasons": [
+          "1D RSI liegt extrem hoch bei 70.12, was ein unmittelbares Kaufsignal nach Regelwerk ausschließt.",
+          "1h Trend wechselt auf bärisch mit Konsolidierungsbedarf, während 1D Makro-Trend bullisch bleibt.",
+          "4h versteckte bullische Divergenz deutet auf potenzielle Bodenbildung bei weiterem Rücksetzer hin."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D RSI liegt extrem hoch bei 70.12, was ein unmittelbares Kaufsignal nach Regelwerk ausschließt.).",
+        "note": "SAP befindet sich im übergeordneten Bullenmarkt, zeigt jedoch kurzfristig Erschöpfungsanzeichen durch den hohen 1D-RSI. Ein Einstieg auf dem aktuellen Niveau würde gegen das Verbot des Hinterherlaufens verstoßen. Wir halten das Signal auf NEUTRAL und warten auf eine Bereinigung der Indikatoren im Support-Bereich.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "XETR:NOV",
+        "name": "Novartis",
+        "category": "Pharma",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 85,
+        "new_score": 50,
+        "price": 35.71,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          35.9,
+          36.3
+        ],
+        "stop_loss": 37.15,
+        "take_profit_2": 32.5,
+        "reasons": [
+          "HTF-Konflikt: 1W und 1D befinden sich im Bärenmarkt, jedoch weist der 1D-Chart sowohl reguläre als auch versteckte bullische Divergenzen auf.",
+          "LTF-Überdehnung: Die 4h- und 1h-Zeitebenen sind nach einer dynamischen Rallye mit RSI > 65–70 überkauft und weisen Climax-Volumen auf.",
+          "Risikomanagement & Scorecard-Regel: Das Setup 'Bearish Confluence Reversal' erfordert nach historischen Fehltrades zwingend makellose 1D-Konfluenz und Score >= 92%; bei Math-Score 72 bleibt nur die Neutral-Einstufung zum Kapitalschutz."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Konflikt: 1W und 1D befinden sich im Bärenmarkt, jedoch weist der 1D-Chart sowohl reguläre als auch versteckte bullische Divergenzen auf.).",
+        "note": "Novartis hat nach einer starken Erholungsbewegung auf 4h/1h überkaufte Niveaus (1h RSI 70.17) mit ersten bärischen Divergenzen erreicht, doch widersprechen aktive bullische Divergenzen auf dem 1D-Chart einem überstürzten Short-Einstieg. Da die historische Performance-Scorecard für Bearish Reversals eine makellose Konfluenz mit Score >= 92% verlangt, wird das vorherige Short-Signal auf NEUTRAL herabgestuft. Ein erneuter Einstieg wird erst nach klarer Erschöpfung am Widerstand bei 35.90–36.30 EUR geprüft.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n⚪ DAX 40 (DAX):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 55%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1h RSI überkauft (70.66) und 4h RSI nahe der Ausdehnungsgrenze (64.29) verbieten direkte Long-Einstiege (Chasing-Verbot).).\n   📝 KI-Rationale: Obwohl der übergeordnete Trend im DAX stark bullisch ist und im Tages-GP notiert, verhindert die temporäre Überhitzung im 1h-Chart...\n   Setup: Beobachten / Konsolidierung am Widerstand\n\n⚪ SAP SE (SAP):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D RSI liegt extrem hoch bei 70.12, was ein unmittelbares Kaufsignal nach Regelwerk ausschließt.).\n   📝 KI-Rationale: SAP befindet sich im übergeordneten Bullenmarkt, zeigt jedoch kurzfristig Erschöpfungsanzeichen durch den hohen 1D-RSI. Ein Einsti...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n⚪ Novartis (NOV):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 50%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Konflikt: 1W und 1D befinden sich im Bärenmarkt, jedoch weist der 1D-Chart sowohl reguläre als auch versteckte bullische Divergenzen auf.).\n   📝 KI-Rationale: Novartis hat nach einer starken Erholungsbewegung auf 4h/1h überkaufte Niveaus (1h RSI 70.17) mit ersten bärischen Divergenzen err...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261102_062014",
     "timestamp": "2026-11-02T06:20:14.067514+00:00",
     "timestamp_display": "02.11.2026 06:20 UTC",
