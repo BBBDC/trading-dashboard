@@ -1,5 +1,177 @@
 [
   {
+    "id": "evt_20261102_222837",
+    "timestamp": "2026-11-02T22:28:37.323363+00:00",
+    "timestamp_display": "02.11.2026 22:28 UTC",
+    "title": "🔔 TV-Signaländerung: 6 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 6,
+    "changes": [
+      {
+        "symbol": "COINBASE:ETHUSD",
+        "name": "Ethereum",
+        "category": "Crypto",
+        "change_type": "SCORE_JUMP",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 75,
+        "new_score": 85,
+        "price": 2249.92,
+        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
+        "entry_range": [
+          2253.79,
+          2276.38
+        ],
+        "stop_loss": 2371.23,
+        "take_profit_2": 1896.97,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 1D Institutional BUY Pocket (Lower Chaos Band unter RFE 233)",
+          "degencoder: 1h Potential Buy Signal (Blaues Dreieck)"
+        ],
+        "change_reason": "Konfluenz-Veränderung: Score springt von 75% auf 85% (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "KRAKEN:MOVRUSD",
+        "name": "MOVRUSD",
+        "category": "Crypto",
+        "change_type": "SCORE_JUMP",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 67,
+        "new_score": 85,
+        "price": 1.0494,
+        "setup_name": "Hypothese 2: degencoder Indicator Sell Signal",
+        "entry_range": [
+          1.05,
+          1.06
+        ],
+        "stop_loss": 1.1,
+        "take_profit_2": 0.89,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 4h Institutional BUY Pocket (Lower Chaos Band unter RFE 233)",
+          "degencoder: 1h Good Buy Signal (Blaues Dreieck Umkehrkerze)"
+        ],
+        "change_reason": "Konfluenz-Veränderung: Score springt von 67% auf 85% (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "KRAKEN:RPLUSD",
+        "name": "RPLUSD",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 85,
+        "new_score": 58,
+        "price": 1.444,
+        "setup_name": "Beobachten / Lauerstellung am Support",
+        "entry_range": [
+          1.41,
+          1.44
+        ],
+        "stop_loss": 1.38,
+        "take_profit_2": 1.58,
+        "reasons": [
+          "Makro-Trends (1W, 3D, 1D, 4h, 1h) sind durchgehend bärisch, weshalb ein Long-Einstieg gegen den Trend trotz 1D Buy Pocket verboten ist.",
+          "Der Kurs liegt direkt in einem bärischen FVG und bärischen Order Block (Grad B), was stark Widerstand leistet.",
+          "Historischer Dämpfer: Die Krypto-Sektorperformance verlangt eine Mindest-Konfluenzerfüllung von >= 92% für Reversals."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trends (1W, 3D, 1D, 4h, 1h) sind durchgehend bärisch, weshalb ein Long-Einstieg gegen den Trend trotz 1D Buy Pocket verboten ist.).",
+        "note": "Obwohl RPLUSD ein 1D Buy Pocket und 4h/1h Good Buy Signals aufweist, stehen alle Makro-Trends (1W/3D/1D) auf Bärisch. Ein Short auf diesem Niveau würde direkt in die 1D Buy Pocket verkaufen, während ein Long gegen den intakten 1D-Abwärtstrend verstößt. Daher gilt strikt: Kapitalerhalt und NEUTRAL.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "INDEX:BTCUSD",
+        "name": "BTCUSD",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 75,
+        "new_score": 58,
+        "price": 76734.19,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          76860.84,
+          76860.84
+        ],
+        "stop_loss": 74555.01,
+        "take_profit_2": 81472.49,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 4h Institutional BUY Pocket (Lower Chaos Band unter RFE 233)",
+          "degencoder: 1h Potential Buy Signal (Blaues Dreieck)"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
+        "note": "Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-Signalen an HTF-Resistancen.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "KRAKEN:DOTUSD",
+        "name": "DOTUSD",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 85,
+        "new_score": 52,
+        "price": 0.9397,
+        "setup_name": "Beobachten / Lauerstellung am Support",
+        "entry_range": [
+          0.93,
+          0.94
+        ],
+        "stop_loss": 0.918,
+        "take_profit_2": 1.06,
+        "reasons": [
+          "Kurs notiert im institutional degencoder 1D Buy Pocket mit simultanen 4h/1h Kaufsignalen und regulärer bullischer 4h-Divergenz, was ein Weiterführen des Short-Bias verbietet.",
+          "Der bullische Order Block (0.930–0.946) weist lediglich Grade C mit 11 Retests (R11, mitigated) auf; das Makro-Regime (1W, 3D, 1D) ist bärisch mit versteckter bärischer 1D-Divergenz belastet.",
+          "Bindende Sektor-Regel Crypto (Mindest-Score 92%) und historische Lektion (COINBASE:BCHUSD): Altcoin-Reversals erfordern zwingend einen bestätigten 1h Market Structure Shift mit Displacement-Candle, welcher bei aktuellem 'Very Low Volume' noch vollständig fehlt."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Kurs notiert im institutional degencoder 1D Buy Pocket mit simultanen 4h/1h Kaufsignalen und regulärer bullischer 4h-Divergenz, was ein Weiterführen des Short-Bias verbietet.).",
+        "note": "DOT erreicht das institutional 1D Buy Pocket und zeigt bullische Divergenzen auf 4h, weshalb der vorherige Short umgehend geschlossen/neutralisiert wird. Ein Long-Einstieg verbietet sich jedoch aktuell noch, da der vorliegende Support-Block (Grade C, R11) institutionell ausgezehrt ist und der 1h-Trend weiterhin bärisch notiert. Kapitalerhalt hat Vorrang: Wir bleiben neutral in Lauerstellung am Support und fordern vor Kapitalallokation zwingend einen strukturellen 1h-MSS mit starkem Impulsvolumen.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      },
+      {
+        "symbol": "KUCOIN:EWTUSDT",
+        "name": "EWTUSDT",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 87,
+        "new_score": 45,
+        "price": 0.2814,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          0.315,
+          0.325
+        ],
+        "stop_loss": 0.342,
+        "take_profit_2": 0.225,
+        "reasons": [
+          "Makro-Trend auf 1W, 3D und 1D ist vollkommen intakt bärisch, womit 4h/1h Erholungsbewegungen reine Bärenmarktrallyes darstellen und Longs kategorisch verbieten.",
+          "Das Auftreten von 4h 'Ultra High Volume' bei überverkauftem 1D-RSI (33.01) in Kombination mit 4h/1h 'Potential Buy Signalen' deutet auf institutionelles Absorptionsvolumen/Climax hin.",
+          "Prozyklisches Shorting am aktuellen Tiefstkurs (0.2813) birgt enormes Squeeze-Risiko und bietet ohne Pullback an eine FVG- oder Order-Block-Zone kein asymmetrisches CRV."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend auf 1W, 3D und 1D ist vollkommen intakt bärisch, womit 4h/1h Erholungsbewegungen reine Bärenmarktrallyes darstellen und Longs kategorisch verbieten.).",
+        "note": "EWT zeigt nach anhaltendem Abverkauf deutliche Anzeichen einer volumengestützten Absorption ('Ultra High Volume' auf 4h mit Kaufsignalen auf 1h und 4h). Das vorherige Short-Signal wird daher zwingend auf NEUTRAL neutralisiert, um Gewinne zu sichern und nicht in einen Climax hinein zu verkaufen. Wir warten geduldig auf eine Bärenmarkterholung in die Liquiditätszone bei 0.3150–0.3250 USDT, um dort einen hochgradig asymmetrischen Trendfolge-Short vorzubereiten.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 6 Einstufungen haben sich geändert:\n\n🔴 Ethereum (ETHUSD):\n   Score-Sprung: 75% ➔ 85% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 75% auf 85% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 2,253.79 | SL: 2,371.23 | TP2: 1,896.97\n\n🔴 MOVRUSD (MOVRUSD):\n   Score-Sprung: 67% ➔ 85% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 67% auf 85% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 2: degencoder Indicator Sell Signal\n   Entry: 1.05 | SL: 1.10 | TP2: 0.89\n\n⚪ RPLUSD (RPLUSD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 58%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trends (1W, 3D, 1D, 4h, 1h) sind durchgehend bärisch, weshalb ein Long-Einstieg gegen den Trend trotz 1D Buy Pocket verboten ist.).\n   📝 KI-Rationale: Obwohl RPLUSD ein 1D Buy Pocket und 4h/1h Good Buy Signals aufweist, stehen alle Makro-Trends (1W/3D/1D) auf Bärisch. Ein Short au...\n   Setup: Beobachten / Lauerstellung am Support\n\n⚪ BTCUSD (BTCUSD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 58%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-S...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ DOTUSD (DOTUSD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Kurs notiert im institutional degencoder 1D Buy Pocket mit simultanen 4h/1h Kaufsignalen und regulärer bullischer 4h-Divergenz, was ein Weiterführen des Short-Bias verbietet.).\n   📝 KI-Rationale: DOT erreicht das institutional 1D Buy Pocket und zeigt bullische Divergenzen auf 4h, weshalb der vorherige Short umgehend geschlos...\n   Setup: Beobachten / Lauerstellung am Support\n\n⚪ EWTUSDT (EWTUSDT):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 45%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend auf 1W, 3D und 1D ist vollkommen intakt bärisch, womit 4h/1h Erholungsbewegungen reine Bärenmarktrallyes darstellen und Longs kategorisch verbieten.).\n   📝 KI-Rationale: EWT zeigt nach anhaltendem Abverkauf deutliche Anzeichen einer volumengestützten Absorption ('Ultra High Volume' auf 4h mit Kaufsi...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261102_192746",
     "timestamp": "2026-11-02T19:27:46.744700+00:00",
     "timestamp_display": "02.11.2026 19:27 UTC",
