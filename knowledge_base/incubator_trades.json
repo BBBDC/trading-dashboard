@@ -1,0 +1,317 @@
+{
+  "updated_at": "2026-11-02T15:18:17.715259+00:00",
+  "today_focus_assets": [
+    {
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "exchange": "BINANCE",
+      "source": "binance"
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla",
+      "exchange": "NASDAQ",
+      "source": "yahoo"
+    },
+    {
+      "symbol": "EURUSD=X",
+      "name": "EUR/USD",
+      "exchange": "FOREX",
+      "source": "yahoo"
+    }
+  ],
+  "metrics": {
+    "total_trades": 4,
+    "wins": 1,
+    "losses": 3,
+    "win_rate": 25.0,
+    "total_r_profit": 0.0,
+    "active_count": 3,
+    "avg_rr": 2.2
+  },
+  "active_trades": [
+    {
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "exchange": "BINANCE",
+      "source": "binance",
+      "timeframe": "15m",
+      "direction": "LONG",
+      "entry_time": "2026-11-02T14:45:00+00:00",
+      "entry_timestamp": 1793630700,
+      "entry_price": 94.5,
+      "sl": 93.5154,
+      "tp1": 95.9769,
+      "tp2": 97.4538,
+      "risk_amount": 0.9846,
+      "setup_name": "degencoder Micro Confluence Long",
+      "setup_tags": [
+        "Bullish OB [B] Retest (R1)",
+        "Institutional Buy Pocket (Chaos Band < RFE)",
+        "Good Buy Signal (Blaues Dreieck)"
+      ],
+      "vsa_class": "Very Low Volume",
+      "status": "OPEN",
+      "highest_price": 94.89,
+      "lowest_price": 94.09,
+      "trade_id": "inc_SOLUSDT_1793630826",
+      "current_price": 94.55,
+      "unrealized_pnl_pct": 0.05,
+      "unrealized_r": 0.05
+    },
+    {
+      "symbol": "EURUSD=X",
+      "name": "EUR/USD",
+      "exchange": "FOREX",
+      "source": "yahoo",
+      "timeframe": "15m",
+      "direction": "SHORT",
+      "entry_time": "2026-11-02T14:46:29+00:00",
+      "entry_timestamp": 1793630789,
+      "entry_price": 1.1215791702270508,
+      "sl": 1.1232,
+      "tp1": 1.1191,
+      "tp2": 1.1167,
+      "risk_amount": 0.0016,
+      "setup_name": "degencoder Micro Confluence Short",
+      "setup_tags": [
+        "Bearish OB [B] Retest (B)",
+        "Institutional Sell Pocket (Chaos Band > RFE)",
+        "Good Sell Signal (Kreis/Marker)"
+      ],
+      "vsa_class": "Normal Volume",
+      "status": "OPEN",
+      "highest_price": 1.1215791702270508,
+      "lowest_price": 1.120824933052063,
+      "trade_id": "inc_EURUSD=X_1793630826",
+      "current_price": 1.1209505796432495,
+      "unrealized_pnl_pct": 0.06,
+      "unrealized_r": 0.39
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla",
+      "exchange": "NASDAQ",
+      "source": "yahoo",
+      "timeframe": "15m",
+      "direction": "SHORT",
+      "entry_time": "2026-11-02T15:17:26+00:00",
+      "entry_timestamp": 1793632646,
+      "entry_price": 407.6050109863281,
+      "sl": 411.6469,
+      "tp1": 401.5422,
+      "tp2": 395.4793,
+      "risk_amount": 4.0419,
+      "setup_name": "degencoder Micro Confluence Short",
+      "setup_tags": [
+        "Institutional Sell Pocket (Chaos Band > RFE)",
+        "Good Sell Signal (Kreis/Marker)"
+      ],
+      "vsa_class": "Very Low Volume",
+      "status": "OPEN",
+      "highest_price": 407.6050109863281,
+      "lowest_price": 407.6050109863281,
+      "trade_id": "inc_TSLA_1793632646"
+    }
+  ],
+  "closed_trades": [
+    {
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "exchange": "BINANCE",
+      "source": "binance",
+      "timeframe": "15m",
+      "direction": "LONG",
+      "entry_time": "2026-11-02T07:15:00+00:00",
+      "entry_timestamp": 1793603700,
+      "entry_price": 94.39,
+      "sl": 94.39,
+      "tp1": 94.9549,
+      "tp2": 95.5198,
+      "risk_amount": 0.3766,
+      "setup_name": "degencoder Micro Confluence Long",
+      "setup_tags": [
+        "Institutional Buy Pocket (Chaos Band < RFE)",
+        "Good Buy Signal (Blaues Dreieck)"
+      ],
+      "vsa_class": "Normal Volume",
+      "status": "CLOSED_SL",
+      "highest_price": 94.98,
+      "lowest_price": 93.9,
+      "trade_id": "inc_hist_SOLUSDT_1793603700",
+      "tp1_reached": true,
+      "exit_price": 94.0134,
+      "exit_time": "2026-11-02T10:00:00+00:00",
+      "exit_timestamp": 1793613600,
+      "realized_r": -1.0,
+      "realized_pnl_pct": -0.4,
+      "exit_reason": "Stop-Loss unter Support-Level getroffen",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Ein anfänglicher Buchgewinn bis 94.9800 wurde mangels konsequentem Break-Even-Nachzug vollständig abgegeben und bei einsetzendem Verkaufsdruck unter Support ausgestoppt.",
+        "technical_warning": "Das Ausbleiben von Anschlussvolumen an der psychologischen Marke von 95.00 sowie die Bildung eines lokalen Lower Highs warnten vor dem Scheitern des Ausbruchsversuchs.",
+        "actionable_rule": "Sobald ein Micro-Confluence-Trade mehr als +0.50% im Buchgewinn notiert, muss der Stop-Loss zwingend auf Einstiegsniveau nachgezogen und Teilgewinne vor runden HTF-Widerständen gesichert werden.",
+        "recommended_leverage_adjustment": -1,
+        "summary_text": "Ein Trade, der bereits signifikant im Plus lag, darf im Micro-Trading niemals als voller Verlust enden. Fehlendes aktives Trade-Management verwandelt valide Signale in unnötige Portfolio-Drawdowns."
+      }
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla",
+      "exchange": "NASDAQ",
+      "source": "yahoo",
+      "timeframe": "15m",
+      "direction": "LONG",
+      "entry_time": "2026-10-29T19:30:00+00:00",
+      "entry_timestamp": 1793302200,
+      "entry_price": 403.6600036621094,
+      "sl": 403.146,
+      "tp1": 404.431,
+      "tp2": 405.202,
+      "risk_amount": 0.514,
+      "setup_name": "degencoder Micro Confluence Long",
+      "setup_tags": [
+        "Bullish OB [C] Retest (R5)",
+        "Liquidity Sweep Stop-Hunt [A]",
+        "Institutional Buy Pocket (Chaos Band < RFE)",
+        "Good Buy Signal (Blaues Dreieck)"
+      ],
+      "vsa_class": "High Volume",
+      "status": "CLOSED_SL",
+      "highest_price": 404.5799865722656,
+      "lowest_price": 402.79998779296875,
+      "trade_id": "inc_hist_TSLA_1793302200",
+      "exit_price": 403.146,
+      "exit_time": "2026-10-29T19:45:00+00:00",
+      "exit_timestamp": 1793303100,
+      "realized_r": -1.0,
+      "realized_pnl_pct": -0.13,
+      "exit_reason": "Stop-Loss unter Support-Level getroffen",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Ein viel zu eng dimensionierter Stop-Loss von lediglich 0,13 % (ca. 51 Cent) ignorierte die natürliche Intraday-Volatilität von TSLA in der Schlussstunde und führte zum vorzeitigen Rauskegeln durch normales Marktrauschen.",
+        "technical_warning": "Fehlender Abgleich mit der Intraday-ATR sowie die unmittelbare Erschöpfung des Aufwärtsimpulses am lokalen Hoch bei 404,58 ohne Anschlussvolumen in der spätzyklischen Power Hour (19:30 UTC).",
+        "actionable_rule": "Keine Micro-LTF-Ausbrüche in Hoch-Beta-Aktien innerhalb der letzten 45 Minuten vor US-Börsenschluss ohne mindestens 1,0x ATR(5m) Stop-Abstand und übergeordneten Volumen-Cluster-Support.",
+        "recommended_leverage_adjustment": -1,
+        "summary_text": "Mikro-Setups mit Bruchteil-Prozent-Stops in hochvolatilen Werten wie TSLA sind kein Trading, sondern Subventionierung der Market Maker. Volatilität erfordert Raum zum Atmen oder striktes Positions-Sizing ohne Hebel."
+      }
+    },
+    {
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "exchange": "BINANCE",
+      "source": "binance",
+      "timeframe": "15m",
+      "direction": "LONG",
+      "entry_time": "2026-11-02T07:45:00+00:00",
+      "entry_timestamp": 1793605500,
+      "entry_price": 94.28,
+      "sl": 94.28,
+      "tp1": 94.6679,
+      "tp2": 95.0558,
+      "risk_amount": 0.2586,
+      "setup_name": "degencoder Micro Confluence Long",
+      "setup_tags": [
+        "Bullish OB [C] Retest (R1)",
+        "Liquidity Sweep Stop-Hunt [A]",
+        "Institutional Buy Pocket (Chaos Band < RFE)",
+        "Good Buy Signal (Blaues Dreieck)"
+      ],
+      "vsa_class": "Normal Volume",
+      "status": "CLOSED_SL",
+      "highest_price": 94.98,
+      "lowest_price": 93.9,
+      "trade_id": "inc_hist_SOLUSDT_1793605500",
+      "tp1_reached": true,
+      "exit_price": 94.0214,
+      "exit_time": "2026-11-02T10:00:00+00:00",
+      "exit_timestamp": 1793613600,
+      "realized_r": -1.0,
+      "realized_pnl_pct": -0.27,
+      "exit_reason": "Stop-Loss unter Support-Level getroffen",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Der Trade lief mit +0,74 % Buchgewinn (Höchstkurs 94.98) zunächst perfekt an, wurde jedoch mangels dynamischer Gewinnsicherung an der psychologischen 95,00-Widerstandsmarke wieder komplett abverkauft und ausgestoppt.",
+        "technical_warning": "Das Abprallen an der 95,00-Marke und die fehlende Anschlussnachfrage (Volume Exhaustion) signalisierten eine Bullenfalle, die vor dem Re-Break des Supports eine sofortige Glattstellung oder Break-Even-Absicherung erforderte.",
+        "actionable_rule": "Sobald ein Micro-Confluence-Trade ein MFE von über +0,50 % erreicht, MUSS der Stop-Loss zwingend und unverzüglich auf Break-Even (+ Spesen) nachgezogen werden.",
+        "recommended_leverage_adjustment": -1,
+        "summary_text": "Ein valider Einstieg ist wertlos, wenn Gewinne nicht geschützt werden. Lass im Micro-Incubator niemals einen fast 1 % im Plus liegenden Trade in einem vollen Stop-Loss enden."
+      }
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla",
+      "exchange": "NASDAQ",
+      "source": "yahoo",
+      "timeframe": "15m",
+      "direction": "LONG",
+      "entry_time": "2026-10-30T13:30:00+00:00",
+      "entry_timestamp": 1793367000,
+      "entry_price": 392.45001220703125,
+      "sl": 392.45001220703125,
+      "tp1": 400.792,
+      "tp2": 409.1339,
+      "risk_amount": 5.5613,
+      "setup_name": "degencoder Micro Confluence Long",
+      "setup_tags": [
+        "Institutional Buy Pocket (Chaos Band < RFE)",
+        "Good Buy Signal (Blaues Dreieck)",
+        "VSA High Volume Surge (Ultra High Volume)"
+      ],
+      "vsa_class": "Ultra High Volume",
+      "status": "CLOSED_TP2",
+      "highest_price": 410.45001220703125,
+      "lowest_price": 392.0799865722656,
+      "trade_id": "inc_hist_TSLA_1793367000",
+      "tp1_reached": true,
+      "exit_price": 409.1339,
+      "exit_time": "2026-11-02T14:30:00+00:00",
+      "exit_timestamp": 1793629800,
+      "realized_r": 3.0,
+      "realized_pnl_pct": 4.25,
+      "exit_reason": "Maximaler Take-Profit 2 (3.0R) vollständig realisiert",
+      "ai_post_mortem": {
+        "verdict": "WIN",
+        "driver": "Die Dreifach-Konfluenz aus VSA-Ultra-High-Volume und institutioneller Buy-Pocket direkt zur US-Eröffnung erzeugte sofortigen bullischen Kaufdruck mit minimalem MAE von nur 0,37 USD.",
+        "technical_warning": "Das ungesicherte Halten einer Hebelposition über das Wochenende bei einem High-Beta-Titel wie TSLA barg ein asymmetrisches Gap-Down-Risiko, während das abflachende Volumen nahe der 410,00-Widerstandsmarke bereits erste lokale Erschöpfungsanzeichen vor dem finalen TP2-Hit signalisierte.",
+        "actionable_rule": "Bei am Freitag eröffneten Momentum-Trades in High-Beta-Werten ist vor US-Handelsschluss bei aufgelaufenem Gewinn zwingend mindestens 50 % am TP1 zu sichern und der Stop-Loss der Restposition auf Break-Even nachzuziehen.",
+        "recommended_leverage_adjustment": 0,
+        "summary_text": "Mustergültiger Sniper-Einstieg mit nahezu perfekter 3.0R-Monetarisierung am TP2, dessen exzellentes Ergebnis jedoch nicht über das eingegangene ungesicherte Wochenend-Haltrisiko hinwegtäuschen darf."
+      }
+    }
+  ],
+  "ai_insights": [
+    {
+      "symbol": "TSLA",
+      "direction": "LONG",
+      "verdict": "WIN",
+      "driver": "Die Dreifach-Konfluenz aus VSA-Ultra-High-Volume und institutioneller Buy-Pocket direkt zur US-Eröffnung erzeugte sofortigen bullischen Kaufdruck mit minimalem MAE von nur 0,37 USD.",
+      "rule": "Bei am Freitag eröffneten Momentum-Trades in High-Beta-Werten ist vor US-Handelsschluss bei aufgelaufenem Gewinn zwingend mindestens 50 % am TP1 zu sichern und der Stop-Loss der Restposition auf Break-Even nachzuziehen.",
+      "warning": "Das ungesicherte Halten einer Hebelposition über das Wochenende bei einem High-Beta-Titel wie TSLA barg ein asymmetrisches Gap-Down-Risiko, während das abflachende Volumen nahe der 410,00-Widerstandsmarke bereits erste lokale Erschöpfungsanzeichen vor dem finalen TP2-Hit signalisierte."
+    },
+    {
+      "symbol": "SOLUSDT",
+      "direction": "LONG",
+      "verdict": "LOSS",
+      "driver": "Der Trade lief mit +0,74 % Buchgewinn (Höchstkurs 94.98) zunächst perfekt an, wurde jedoch mangels dynamischer Gewinnsicherung an der psychologischen 95,00-Widerstandsmarke wieder komplett abverkauft und ausgestoppt.",
+      "rule": "Sobald ein Micro-Confluence-Trade ein MFE von über +0,50 % erreicht, MUSS der Stop-Loss zwingend und unverzüglich auf Break-Even (+ Spesen) nachgezogen werden.",
+      "warning": "Das Abprallen an der 95,00-Marke und die fehlende Anschlussnachfrage (Volume Exhaustion) signalisierten eine Bullenfalle, die vor dem Re-Break des Supports eine sofortige Glattstellung oder Break-Even-Absicherung erforderte."
+    },
+    {
+      "symbol": "TSLA",
+      "direction": "LONG",
+      "verdict": "LOSS",
+      "driver": "Ein viel zu eng dimensionierter Stop-Loss von lediglich 0,13 % (ca. 51 Cent) ignorierte die natürliche Intraday-Volatilität von TSLA in der Schlussstunde und führte zum vorzeitigen Rauskegeln durch normales Marktrauschen.",
+      "rule": "Keine Micro-LTF-Ausbrüche in Hoch-Beta-Aktien innerhalb der letzten 45 Minuten vor US-Börsenschluss ohne mindestens 1,0x ATR(5m) Stop-Abstand und übergeordneten Volumen-Cluster-Support.",
+      "warning": "Fehlender Abgleich mit der Intraday-ATR sowie die unmittelbare Erschöpfung des Aufwärtsimpulses am lokalen Hoch bei 404,58 ohne Anschlussvolumen in der spätzyklischen Power Hour (19:30 UTC)."
+    },
+    {
+      "symbol": "SOLUSDT",
+      "direction": "LONG",
+      "verdict": "LOSS",
+      "driver": "Ein anfänglicher Buchgewinn bis 94.9800 wurde mangels konsequentem Break-Even-Nachzug vollständig abgegeben und bei einsetzendem Verkaufsdruck unter Support ausgestoppt.",
+      "rule": "Sobald ein Micro-Confluence-Trade mehr als +0.50% im Buchgewinn notiert, muss der Stop-Loss zwingend auf Einstiegsniveau nachgezogen und Teilgewinne vor runden HTF-Widerständen gesichert werden.",
+      "warning": "Das Ausbleiben von Anschlussvolumen an der psychologischen Marke von 95.00 sowie die Bildung eines lokalen Lower Highs warnten vor dem Scheitern des Ausbruchsversuchs."
+    }
+  ]
+}

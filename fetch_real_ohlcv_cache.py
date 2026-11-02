@@ -40,20 +40,29 @@ def mark_mcp_quota_suspended(msg=""):
     print(f"⚠️ TradingView MCP Quota aktiv: Pausiere MCP-Tool-Aufrufe bis {midnight_utc.strftime('%H:%M UTC')}. Nutze TV Live-Scanner.", file=sys.stderr)
 
 
+_MCP_AUTH_INVALID = False
+
+
 def refresh_access_token():
     """Erneuert das TradingView OAuth-Token automatisch via refresh_token."""
+    global _MCP_AUTH_INVALID
     if not TOKEN_FILE.exists():
         return None
     try:
         with open(TOKEN_FILE, "r", encoding="utf-8") as f:
             conf = json.load(f)
 
-        token_url = conf.get("token_url", "https://www.tradingview.com/mcp/oauth/token")
-        client_id = conf.get("client_id")
-        refresh_token = conf.get("refresh_token")
+        # Unterstütze sowohl verschachteltes als auch flaches Token-Format
+        is_nested = ("https://mcp.tradingview.com/mcp" in conf)
+        target = conf["https://mcp.tradingview.com/mcp"] if is_nested else conf
+        tok_data = target.get("token", target)
+
+        token_url = target.get("token_url", conf.get("token_url", "https://www.tradingview.com/mcp/oauth/token"))
+        client_id = target.get("client_id", conf.get("client_id"))
+        refresh_token = tok_data.get("refresh_token", conf.get("refresh_token"))
 
         if not refresh_token or not client_id:
-            return conf.get("access_token")
+            return tok_data.get("access_token")
 
         data = urllib.parse.urlencode({
             "grant_type": "refresh_token",
@@ -64,19 +73,24 @@ def refresh_access_token():
         req = urllib.request.Request(token_url, data=data, headers={"Content-Type": "application/x-www-form-urlencoded"})
         with urllib.request.urlopen(req, timeout=10) as resp:
             new_tokens = json.loads(resp.read().decode("utf-8"))
-            conf["access_token"] = new_tokens.get("access_token", conf["access_token"])
+            tok_data["access_token"] = new_tokens.get("access_token", tok_data.get("access_token"))
             if "refresh_token" in new_tokens:
-                conf["refresh_token"] = new_tokens["refresh_token"]
-            conf["expiry"] = datetime.now(timezone.utc).isoformat()
+                tok_data["refresh_token"] = new_tokens["refresh_token"]
+            target["expiry"] = datetime.now(timezone.utc).isoformat()
             with open(TOKEN_FILE, "w", encoding="utf-8") as f_out:
                 json.dump(conf, f_out, indent=2)
             print("TradingView MCP OAuth-Token erfolgreich erneuert!")
-            return conf["access_token"]
+            _MCP_AUTH_INVALID = False
+            return tok_data.get("access_token")
     except Exception as e:
-        print(f"Token-Refresh fehlgeschlagen ({e}) -> nutze bestehendes Token.", file=sys.stderr)
+        _MCP_AUTH_INVALID = True
+        print(f"Token-Refresh fehlgeschlagen ({e}) -> nutze bestehendes Token / lokalen Cache.", file=sys.stderr)
         if TOKEN_FILE.exists():
             with open(TOKEN_FILE, "r", encoding="utf-8") as f:
-                return json.load(f).get("access_token")
+                c = json.load(f)
+                if "https://mcp.tradingview.com/mcp" in c:
+                    return c["https://mcp.tradingview.com/mcp"].get("token", {}).get("access_token")
+                return c.get("access_token")
     return None
 
 
@@ -85,18 +99,174 @@ def get_token():
         try:
             with open(TOKEN_FILE, "r", encoding="utf-8") as f:
                 conf = json.load(f)
-                return conf.get("access_token")
+                if "https://mcp.tradingview.com/mcp" in conf:
+                    entry = conf["https://mcp.tradingview.com/mcp"]
+                    tok = entry.get("token", {}).get("access_token")
+                    if tok:
+                        return tok
+                tok = conf.get("access_token")
+                if tok:
+                    return tok
         except Exception:
             pass
     return refresh_access_token()
 
 
+def fetch_crypto_bars_direct(symbol: str, interval: str = "1D", count: int = 120) -> List[Dict[str, Any]]:
+    """
+    Holt 100% echte historische Kerzen für Krypto völlig kostenlos, unbegrenzt und
+    in Millisekunden direkt über die offizielle Binance- oder Coinbase-REST-API.
+    Verbraucht 0 MCP-Quota!
+    """
+    clean_sym = symbol.split(":")[-1].replace("/", "")
+    if clean_sym.endswith("USD") and not clean_sym.endswith("USDT") and not clean_sym.startswith("USDT"):
+        clean_sym += "T"
+
+    # Timeframe-Mapping
+    tf_map = {"1h": "1h", "4h": "4h", "1D": "1d", "1W": "1w", "3D": "3d"}
+    binance_tf = tf_map.get(interval, "1d")
+
+    url = f"https://api.binance.com/api/v3/klines?symbol={clean_sym}&interval={binance_tf}&limit={count}"
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"})
+    try:
+        with urllib.request.urlopen(req, timeout=7) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            if data and isinstance(data, list):
+                bars = []
+                for b in data:
+                    bars.append({
+                        "t": int(b[0]) // 1000,
+                        "o": round(float(b[1]), 4) if float(b[1]) < 1 else round(float(b[1]), 2),
+                        "h": round(float(b[2]), 4) if float(b[2]) < 1 else round(float(b[2]), 2),
+                        "l": round(float(b[3]), 4) if float(b[3]) < 1 else round(float(b[3]), 2),
+                        "c": round(float(b[4]), 4) if float(b[4]) < 1 else round(float(b[4]), 2),
+                        "v": round(float(b[5]), 2)
+                    })
+                return bars
+    except Exception:
+        pass
+
+    # Coinbase Fallback
+    try:
+        cb_id = clean_sym.replace("USDT", "-USD").replace("USD", "-USD")
+        gran_map = {"1h": 3600, "1D": 86400}
+        gran = gran_map.get(interval, 86400)
+        url_cb = f"https://api.exchange.coinbase.com/products/{cb_id}/candles?granularity={gran}"
+        req_cb = urllib.request.Request(url_cb, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req_cb, timeout=7) as resp:
+            data_cb = json.loads(resp.read().decode("utf-8"))
+            if data_cb and isinstance(data_cb, list):
+                bars = []
+                for b in reversed(data_cb[:count]):
+                    bars.append({
+                        "t": int(b[0]),
+                        "l": round(float(b[1]), 2),
+                        "h": round(float(b[2]), 2),
+                        "o": round(float(b[3]), 2),
+                        "c": round(float(b[4]), 2),
+                        "v": round(float(b[5]), 2)
+                    })
+                return bars
+    except Exception:
+        pass
+
+    return []
+
+
+def fetch_yahoo_bars_direct(symbol: str, interval: str = "1D", count: int = 120) -> List[Dict[str, Any]]:
+    """
+    Holt echte historische Kerzen für US-Aktien kostenlos über Yahoo Finance REST.
+    Entlastet TradingView MCP vollständig.
+    """
+    ticker = symbol.split(":")[-1]
+    now = int(time.time())
+    start = now - (count + 45) * 86400
+    int_map = {"1h": "1h", "4h": "1h", "1D": "1d", "1W": "1wk"}
+    y_int = int_map.get(interval, "1d")
+
+    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?period1={start}&period2={now}&interval={y_int}"
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"})
+    try:
+        with urllib.request.urlopen(req, timeout=7) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            res = data.get("chart", {}).get("result", [])
+            if not res:
+                return []
+            entry = res[0]
+            ts = entry.get("timestamp", [])
+            q = entry.get("indicators", {}).get("quote", [{}])[0]
+            opens = q.get("open", [])
+            highs = q.get("high", [])
+            lows = q.get("low", [])
+            closes = q.get("close", [])
+            vols = q.get("volume", [])
+
+            bars = []
+            for i in range(len(ts)):
+                if opens[i] is not None and closes[i] is not None:
+                    bars.append({
+                        "t": ts[i],
+                        "o": round(float(opens[i]), 2),
+                        "h": round(float(highs[i]), 2),
+                        "l": round(float(lows[i]), 2),
+                        "c": round(float(closes[i]), 2),
+                        "v": float(vols[i] or 0.0)
+                    })
+
+            # Wenn 4h angefragt wurde und wir 1h Kerzen haben -> aggregieren
+            if interval == "4h" and y_int == "1h" and bars:
+                chunked = []
+                for k in range(0, len(bars), 4):
+                    chk = bars[k:k + 4]
+                    if chk:
+                        chunked.append({
+                            "t": chk[0]["t"],
+                            "o": chk[0]["o"],
+                            "h": max(b["h"] for b in chk),
+                            "l": min(b["l"] for b in chk),
+                            "c": chk[-1]["c"],
+                            "v": sum(b["v"] for b in chk)
+                        })
+                return chunked[-count:]
+
+            return bars[-count:]
+    except Exception:
+        pass
+    return []
+
+
+def is_crypto_symbol(symbol: str) -> bool:
+    s = symbol.upper()
+    return any(ex in s for ex in ["BINANCE", "COINBASE", "KRAKEN", "BITSTAMP", "UNISWAP", "AERODROME", "CRYPTOCAP", "KUCOIN", "BYBIT", "OKX", "MEXC", "GATEIO", "BITGET", "COINGECKO", "DEXSCREENER"]) or any(s.endswith(q) for q in ["USD", "USDT", "USDC", "BTC", "ETH", "USDT.P"])
+
+
+def is_us_stock_symbol(symbol: str) -> bool:
+    s = symbol.upper()
+    return s.startswith("NASDAQ:") or s.startswith("NYSE:") or s.startswith("AMEX:")
+
+
 def fetch_bars_direct(symbol, interval="1D", count=120, retries=2):
-    """Ruft echte historische Kerzen direkt über TradingView MCP ab."""
+    """Ruft echte historische Kerzen ab – Krypto via Binance/Coinbase, US-Aktien via Yahoo, Rest via MCP/Cache."""
     safe_sym = symbol.replace(":", "_").replace("!", "_").replace(".", "_").replace("/", "_")
     cache_file = CACHE_DIR / f"{safe_sym}_{interval}.json"
 
-    # Cache prüfen (10 Min Gültigkeit)
+    # 1. KRYPTO-ROUTING (100% entkoppelt von MCP)
+    if is_crypto_symbol(symbol):
+        crypto_bars = fetch_crypto_bars_direct(symbol, interval=interval, count=count)
+        if crypto_bars and len(crypto_bars) >= 10:
+            with open(cache_file, "w", encoding="utf-8") as f_out:
+                json.dump({"symbol": symbol, "interval": interval, "bars": crypto_bars}, f_out)
+            return crypto_bars
+
+    # 2. US-AKTIEN-ROUTING (Kostenlos via Yahoo Finance)
+    if is_us_stock_symbol(symbol):
+        us_bars = fetch_yahoo_bars_direct(symbol, interval=interval, count=count)
+        if us_bars and len(us_bars) >= 10:
+            with open(cache_file, "w", encoding="utf-8") as f_out:
+                json.dump({"symbol": symbol, "interval": interval, "bars": us_bars}, f_out)
+            return us_bars
+
+    # 3. Cache prüfen (10 Min Gültigkeit für Tradegate & Rohstoffe)
     if cache_file.exists():
         try:
             mtime = cache_file.stat().st_mtime
@@ -108,8 +278,9 @@ def fetch_bars_direct(symbol, interval="1D", count=120, retries=2):
         except Exception:
             pass
 
-    # MCP Quota-Sperre prüfen: falls aktiv, direkt aus Cache laden
-    if is_mcp_quota_suspended():
+    # MCP Quota-Sperre oder ungültiges Token prüfen: direkt aus Cache laden
+    global _MCP_AUTH_INVALID
+    if is_mcp_quota_suspended() or _MCP_AUTH_INVALID:
         if cache_file.exists():
             try:
                 with open(cache_file, "r", encoding="utf-8") as f:
@@ -120,6 +291,12 @@ def fetch_bars_direct(symbol, interval="1D", count=120, retries=2):
 
     token = get_token()
     if not token:
+        if cache_file.exists():
+            try:
+                with open(cache_file, "r", encoding="utf-8") as f:
+                    return json.load(f).get("bars", [])
+            except Exception:
+                pass
         return []
 
     url = "https://mcp.tradingview.com/mcp"
@@ -142,7 +319,7 @@ def fetch_bars_direct(symbol, interval="1D", count=120, retries=2):
             headers = {
                 "Authorization": f"Bearer {token}",
                 "Content-Type": "application/json",
-                "Accept": "text/event-stream, application/json"
+                "Accept": "application/json"
             }
             req = urllib.request.Request(url, data=json.dumps(req_data).encode("utf-8"), headers=headers)
             with urllib.request.urlopen(req, timeout=12) as resp:
@@ -215,6 +392,27 @@ def aggregate_to_8h(bars_4h):
     return res
 
 
+def aggregate_to_1w(bars_1d):
+    """Aggregiert 1D-Kerzen mathematisch präzise in 1W-Wochenkerzen (5 Handelstage pro Woche)."""
+    if not bars_1d:
+        return []
+    bars_sorted = sorted(bars_1d, key=lambda x: x["t"])
+    res = []
+    for i in range(0, len(bars_sorted), 5):
+        chunk = bars_sorted[i:i+5]
+        if not chunk:
+            continue
+        res.append({
+            "t": chunk[0]["t"],
+            "o": chunk[0]["o"],
+            "h": max(b["h"] for b in chunk),
+            "l": min(b["l"] for b in chunk),
+            "c": chunk[-1]["c"],
+            "v": sum(b.get("v") or 0.0 for b in chunk)
+        })
+    return res
+
+
 def get_real_bars(symbol, interval="1D"):
     """Liefert echte historische Kerzen für symbol und interval."""
     if interval == "8h":
@@ -239,7 +437,20 @@ def get_real_bars(symbol, interval="1D"):
     elif interval in ("1D", "3D"):
         return fetch_bars_direct(symbol, interval=interval, count=120)
     elif interval == "1W":
-        return fetch_bars_direct(symbol, interval=interval, count=100)
+        bars = fetch_bars_direct(symbol, interval=interval, count=100)
+        if not bars or len(bars) < 10:
+            bars_1d = get_real_bars(symbol, interval="1D")
+            bars_agg = aggregate_to_1w(bars_1d)
+            if bars_agg:
+                safe_sym = symbol.replace(":", "_").replace("!", "_").replace(".", "_").replace("/", "_")
+                cache_1w = CACHE_DIR / f"{safe_sym}_1W.json"
+                try:
+                    with open(cache_1w, "w", encoding="utf-8") as f:
+                        json.dump({"symbol": symbol, "interval": "1W", "bars": bars_agg}, f)
+                except Exception:
+                    pass
+                return bars_agg
+        return bars
     else:
         return fetch_bars_direct(symbol, interval=interval, count=120)
 

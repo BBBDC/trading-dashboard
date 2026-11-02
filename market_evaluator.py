@@ -17,6 +17,14 @@ from datetime import datetime, timezone
 from fetch_real_ohlcv_cache import get_real_bars
 from gemini_evaluator import evaluate_batch_with_cascade, load_config as load_gemini_config
 from market_schedule import get_market_state
+from degencoder_engine import (
+    analyze_degencoder_full,
+    detect_degencoder_order_blocks,
+    detect_degencoder_signals,
+    detect_degencoder_fvgs,
+    calculate_degencoder_bands,
+    calculate_vsa_wyckoff
+)
 
 BASE_DIR = Path(__file__).resolve().parent
 DB_FILE = BASE_DIR / "dashboard" / "market_analysis_db.json"
@@ -74,77 +82,25 @@ def calculate_rsi(closes, period=14):
 
 
 def analyze_indicators(bars, sym_name=""):
-    """Führt die Kernanalyse auf einer Zeiteinheit aus."""
+    """
+    Führt die vollständige Kernanalyse auf einer Zeiteinheit aus:
+    - 100% präziser degencoder_engine Nachbau (Bänder, RFE 233, Buy/Sell Pockets, Signale, OB Retro, FVGs, VSA)
+    - RSI(14) mit Divergenzerkennung
+    - Fibonacci Retracements & Golden Pocket
+    """
     if not bars or len(bars) < 15:
         return None
     last_bar = bars[-1]
     closes = [b["c"] for b in bars]
     p = last_bar["c"]
 
-    # RSI
+    # 1. degencoder Engine (Bänder, Signale, OB Retro, FVGs, VSA)
+    degen = analyze_degencoder_full(bars, timeframe=sym_name)
+
+    # 2. RSI & Divergenzen
     rsi_list = calculate_rsi(closes)
     current_rsi = rsi_list[-1] if rsi_list else 50.0
 
-    # degencoder (13, 1.8, 233)
-    ema_fast = calculate_ema(closes, 13)
-    atr = calculate_atr(bars, 13)
-    ema_trend = calculate_ema(closes, 233) if len(closes) >= 233 else calculate_ema(closes, min(len(closes) - 1, 50))
-    ef = ema_fast[-1] if (ema_fast and ema_fast[-1] is not None) else p
-    at = atr[-1] if (atr and atr[-1] is not None) else (p * 0.02)
-    et = ema_trend[-1] if (ema_trend and ema_trend[-1] is not None) else ef
-
-    upper_band = ef + 1.8 * at
-    lower_band = ef - 1.8 * at
-    trend = "BULLISH" if p >= et else "BEARISH"
-
-    if p > upper_band:
-        channel_pos = "Overbought Band (Überdehnt Oben)"
-    elif p < lower_band:
-        channel_pos = "Oversold Band (Überdehnt Unten)"
-    else:
-        channel_pos = "Neutral (Im Kanal)"
-
-    # Wyckoff VSA
-    vols = [(b.get("v") or 0.0) for b in bars]
-    vsa_period = 20
-    last_v = last_bar.get("v") or 0.0
-    if len(vols) >= vsa_period:
-        sma_v = sum(vols[-vsa_period:]) / vsa_period
-        ratio = last_v / sma_v if sma_v > 0 else 1.0
-    else:
-        ratio = 1.0
-
-    if ratio >= 2.2:
-        vsa_class = "Ultra-High / Climax"
-    elif ratio >= 1.8:
-        vsa_class = "Very High / Stopping"
-    elif ratio >= 1.2:
-        vsa_class = "High"
-    elif ratio >= 0.8:
-        vsa_class = "Average / Normal"
-    elif ratio >= 0.4:
-        vsa_class = "Low"
-    else:
-        vsa_class = "Ultra-Low / No Supply-Demand"
-
-    # FVGs
-    fvgs = []
-    for i in range(max(2, len(bars) - 30), len(bars)):
-        c0, c2 = bars[i - 2], bars[i]
-        if c2["l"] > c0["h"]:
-            gap_pct = (c2["l"] - c0["h"]) / c0["h"] * 100
-            ce = (c2["l"] + c0["h"]) / 2.0
-            mitigated = any(bars[k]["l"] <= ce for k in range(i + 1, len(bars)))
-            if not mitigated and abs(ce - p) / p < 0.15:
-                fvgs.append({"type": "Bullish FVG", "top": round(c2["l"], 2), "bottom": round(c0["h"], 2), "ce_50": round(ce, 2), "gap_pct": round(gap_pct, 2)})
-        elif c2["h"] < c0["l"]:
-            gap_pct = (c0["l"] - c2["h"]) / c0["l"] * 100
-            ce = (c0["l"] + c2["h"]) / 2.0
-            mitigated = any(bars[k]["h"] >= ce for k in range(i + 1, len(bars)))
-            if not mitigated and abs(ce - p) / p < 0.15:
-                fvgs.append({"type": "Bearish FVG", "top": round(c0["l"], 2), "bottom": round(c2["h"], 2), "ce_50": round(ce, 2), "gap_pct": round(gap_pct, 2)})
-
-    # RSI Divergenzen
     divs = []
     highs = [b["h"] for b in bars]
     lows = [b["l"] for b in bars]
@@ -165,7 +121,7 @@ def analyze_indicators(bars, sym_name=""):
                     elif highs[i] < highs[j] and rsi_list[i] > rsi_list[j] + 1.0:
                         divs.append("Versteckte Bärische Divergenz (Trendfolge)")
 
-    # Fibonacci Retracement
+    # 3. Fibonacci Retracement
     subset = bars[-min(60, len(bars)):]
     high_bar = max(subset, key=lambda x: x["h"])
     low_bar = min(subset, key=lambda x: x["l"])
@@ -178,19 +134,32 @@ def analyze_indicators(bars, sym_name=""):
     gp_max = max(gp_start, gp_end)
     in_golden_pocket = (gp_min * 0.995 <= p <= gp_max * 1.005)
 
+    vsa_info = degen.get("vsa", {})
+
     return {
         "name": sym_name,
         "price": round(p, 4) if p < 1 else round(p, 2),
         "rsi": current_rsi,
-        "trend": trend,
-        "ema_fast": round(ef, 2),
-        "ema_trend": round(et, 2),
-        "upper_band": round(upper_band, 2),
-        "lower_band": round(lower_band, 2),
-        "channel_position": channel_pos,
-        "vsa_ratio": round(ratio, 2),
-        "vsa_class": vsa_class,
-        "fvgs": fvgs[:3],
+        "trend": degen.get("trend", "BEARISH"),
+        "ema_fast": round(degen.get("ema_fast") or p, 2),
+        "ema_trend": round(degen.get("rfe_basis") or p, 2),
+        "upper_band": round(degen.get("upper_band") or p, 2),
+        "lower_band": round(degen.get("lower_band") or p, 2),
+        "rfe_basis": round(degen.get("rfe_basis") or p, 2),
+        "rfe_upper": round(degen.get("rfe_upper") or p, 2),
+        "rfe_lower": round(degen.get("rfe_lower") or p, 2),
+        "channel_position": degen.get("channel_position", "Neutral (Im Kanal)"),
+        "in_buy_pocket": degen.get("in_buy_pocket", False),
+        "in_sell_pocket": degen.get("in_sell_pocket", False),
+        "active_signals": degen.get("active_signals", []),
+        "recent_signals": degen.get("recent_signals", []),
+        "order_blocks": degen.get("order_blocks", []),
+        "active_order_block": degen.get("active_order_block"),
+        "fvgs": degen.get("fvgs", []),
+        "active_fvg": degen.get("active_fvg"),
+        "vsa_ratio": vsa_info.get("ratio", 1.0),
+        "vsa_class": vsa_info.get("class", "Normal Volume"),
+        "vsa_color": vsa_info.get("color", "#22c55e"),
         "divergences": list(set(divs))[-2:],
         "swing_high": round(high_bar["h"], 2),
         "swing_low": round(low_bar["l"], 2),
@@ -251,6 +220,80 @@ def evaluate_quantitative_confluence(timeframes, asset_info, prev_asset=None):
     elif macro_bearish:
         bear_points += 25
 
+    # A. degencoder Institutional Pockets (Lower Chaos Band unter RFE 233 = Akkumulation)
+    in_buy_pocket = False
+    in_sell_pocket = False
+    if d_1d and d_1d.get("in_buy_pocket"):
+        bull_points += 25
+        in_buy_pocket = True
+        reasons.append("degencoder: 1D Institutional BUY Pocket (Lower Chaos Band unter RFE 233)")
+    elif d_4h and d_4h.get("in_buy_pocket"):
+        bull_points += 20
+        in_buy_pocket = True
+        reasons.append("degencoder: 4h Institutional BUY Pocket (Lower Chaos Band unter RFE 233)")
+
+    if d_1d and d_1d.get("in_sell_pocket"):
+        bear_points += 25
+        in_sell_pocket = True
+        reasons.append("degencoder: 1D Institutional SELL Pocket (Upper Chaos Band über RFE 233)")
+    elif d_4h and d_4h.get("in_sell_pocket"):
+        bear_points += 20
+        in_sell_pocket = True
+        reasons.append("degencoder: 4h Institutional SELL Pocket (Upper Chaos Band über RFE 233)")
+
+    # B. degencoder Diskrete Signale (Good Buy/Sell, Buy/Sell Area)
+    has_degencoder_buy = False
+    has_degencoder_sell = False
+    for tf_key, tf_data in [("1h", d_1h), ("4h", d_4h), ("1D", d_1d)]:
+        if tf_data:
+            for sig in tf_data.get("active_signals", []):
+                if "Good Buy Signal" in sig:
+                    bull_points += 25
+                    has_degencoder_buy = True
+                    reasons.append(f"degencoder: {tf_key} Good Buy Signal (Blaues Dreieck Umkehrkerze)")
+                elif "Potential Buy" in sig or "Buy Area" in sig:
+                    bull_points += 15
+                    has_degencoder_buy = True
+                    reasons.append(f"degencoder: {tf_key} {sig}")
+                elif "Good Sell Signal" in sig:
+                    bear_points += 25
+                    has_degencoder_sell = True
+                    reasons.append(f"degencoder: {tf_key} Good Sell Signal (Kreis Top-Erschöpfung)")
+                elif "Sell Area" in sig:
+                    bear_points += 15
+                    has_degencoder_sell = True
+                    reasons.append(f"degencoder: {tf_key} {sig}")
+
+    # C. degencoder's OB (Retro) Order Blocks
+    active_bull_ob = None
+    active_bear_ob = None
+    for tf_key, tf_data in [("4h", d_4h), ("1D", d_1d)]:
+        if tf_data and tf_data.get("active_order_block"):
+            aob = tf_data["active_order_block"]
+            if "Bullish" in aob.get("type", ""):
+                active_bull_ob = aob
+                badge = aob.get("badge", "A")
+                pts = 25 if badge in ("A", "R1", "R2", "R3") else 15
+                bull_points += pts
+                reasons.append(f"degencoder OB: {tf_key} Bullish Order Block [{badge}] ({aob['bottom']} - {aob['top']}) mit Sweep")
+            elif "Bearish" in aob.get("type", ""):
+                active_bear_ob = aob
+                badge = aob.get("badge", "A")
+                pts = 25 if badge in ("A", "R1", "R2", "R3") else 15
+                bear_points += pts
+                reasons.append(f"degencoder OB: {tf_key} Bearish Order Block [{badge}] ({aob['bottom']} - {aob['top']}) mit Sweep")
+
+    # D. degencoder's FVGs (1-Tick Wick Rule)
+    for tf_key, tf_data in [("4h", d_4h), ("1D", d_1d)]:
+        if tf_data and tf_data.get("active_fvg"):
+            afvg = tf_data["active_fvg"]
+            if "Bullish" in afvg.get("type", ""):
+                bull_points += 15
+                reasons.append(f"degencoder FVG: {tf_key} Bullish Imbalance ({afvg['bottom']} - {afvg['top']})")
+            elif "Bearish" in afvg.get("type", ""):
+                bear_points += 15
+                reasons.append(f"degencoder FVG: {tf_key} Bearish Imbalance ({afvg['bottom']} - {afvg['top']})")
+
     # Golden Pocket (1D / 4h)
     if d_1d and d_1d.get("in_golden_pocket"):
         bull_points += 25
@@ -294,12 +337,12 @@ def evaluate_quantitative_confluence(timeframes, asset_info, prev_asset=None):
 
     curr_vsa_1h = d_1h.get("vsa_class", "") if d_1h else ""
     curr_vsa_4h = d_4h.get("vsa_class", "") if d_4h else ""
-    if "No Supply" in curr_vsa_1h or "No Supply" in curr_vsa_4h or "Low" in curr_vsa_1h:
+    if "Low" in curr_vsa_1h or "Low" in curr_vsa_4h or "Very Low" in curr_vsa_1h:
         if bull_points > bear_points:
             bull_points += 12
-            reasons.append("VSA: Verkaufsdruck versiegt ('No Supply')")
-    elif "Ultra-High" in curr_vsa_1h or "Climax" in curr_vsa_1h:
-        reasons.append("VSA: Climax-Volumen Spike auf 1h")
+            reasons.append("VSA Wyckoff: Verkaufsdruck versiegt ('Low/No Supply')")
+    elif "Ultra High" in curr_vsa_1h or "Very High" in curr_vsa_1h:
+        reasons.append("VSA Wyckoff: Hoher Volumen-Spike auf 1h")
 
     # HYSTERESE / ANTI-WHIPSAW:
     prev_sig = (prev_asset or {}).get("signal", "NEUTRAL")
@@ -309,13 +352,16 @@ def evaluate_quantitative_confluence(timeframes, asset_info, prev_asset=None):
         macro_bullish and
         bull_points >= 65 and
         bull_points > bear_points + 20 and
-        curr_rsi_4h <= 62 and
+        curr_rsi_4h <= 65 and
         not (d_1d and "Overbought" in d_1d.get("channel_position", "")) and
         (
             (d_1d and d_1d.get("in_golden_pocket")) or
             (d_4h and d_4h.get("in_golden_pocket")) or
+            in_buy_pocket or
+            has_degencoder_buy or
+            active_bull_ob is not None or
             any("Bullische" in d for d in all_divs) or
-            ("No Supply" in curr_vsa_1h or "No Supply" in curr_vsa_4h)
+            ("Low" in curr_vsa_1h or "Low" in curr_vsa_4h)
         )
     )
 
@@ -328,10 +374,13 @@ def evaluate_quantitative_confluence(timeframes, asset_info, prev_asset=None):
         macro_bearish and
         bear_points >= 65 and
         bear_points > bull_points + 20 and
-        curr_rsi_4h >= 38 and
+        curr_rsi_4h >= 35 and
         not (d_1d and "Oversold" in d_1d.get("channel_position", "")) and
         (
             (d_1d and "Overbought" in d_1d.get("channel_position", "")) or
+            in_sell_pocket or
+            has_degencoder_sell or
+            active_bear_ob is not None or
             any("Bärische" in d for d in all_divs)
         )
     )
@@ -342,7 +391,19 @@ def evaluate_quantitative_confluence(timeframes, asset_info, prev_asset=None):
     if long_cand_valid:
         signal = "LONG"
         score = min(96, 75 + (bull_points - 65) // 2)
-        setup_name = "Hypothese 1: SMC Golden Confluence Reversal" if (d_1d and d_1d.get("in_golden_pocket")) else ("Hypothese 2: Trend Continuation & 1h Trigger" if any("1h Bullische" in d for d in all_divs) else "Hypothese 1: SMC Support Reversal")
+        if in_buy_pocket:
+            setup_name = "Hypothese 1: degencoder Institutional Buy Pocket Reversal"
+        elif active_bull_ob:
+            setup_name = f"Hypothese 1: SMC Order Block [{active_bull_ob.get('badge', 'A')}] Confluence"
+        elif has_degencoder_buy:
+            setup_name = "Hypothese 2: degencoder Indicator Reversal Signal"
+        elif (d_1d and d_1d.get("in_golden_pocket")):
+            setup_name = "Hypothese 1: SMC Golden Confluence Reversal"
+        elif any("1h Bullische" in d for d in all_divs):
+            setup_name = "Hypothese 2: Trend Continuation & 1h Trigger"
+        else:
+            setup_name = "Hypothese 1: SMC Support Reversal"
+
         entry_low = round(p * 0.992, 2)
         entry_high = round(p * 1.002, 2)
         sl = round(p * 0.965, 2) if asset_info.get("asset_type") != "Crypto" else round(p * 0.95, 2)
@@ -354,7 +415,17 @@ def evaluate_quantitative_confluence(timeframes, asset_info, prev_asset=None):
     elif short_cand_valid:
         signal = "SHORT"
         score = min(95, 75 + (bear_points - 65) // 2)
-        setup_name = "Hypothese 3: Wyckoff Range Fakeout / Top Exhaustion" if (d_1d and "Overbought" in d_1d.get("channel_position", "")) else "Hypothese 1: Bearish Confluence Reversal"
+        if in_sell_pocket:
+            setup_name = "Hypothese 1: degencoder Institutional Sell Pocket Reversal"
+        elif active_bear_ob:
+            setup_name = f"Hypothese 1: SMC Order Block [{active_bear_ob.get('badge', 'A')}] Exhaustion"
+        elif has_degencoder_sell:
+            setup_name = "Hypothese 2: degencoder Indicator Sell Signal"
+        elif (d_1d and "Overbought" in d_1d.get("channel_position", "")):
+            setup_name = "Hypothese 3: Wyckoff Range Fakeout / Top Exhaustion"
+        else:
+            setup_name = "Hypothese 1: Bearish Confluence Reversal"
+
         entry_low = round(p * 0.998, 2)
         entry_high = round(p * 1.008, 2)
         sl = round(p * 1.035, 2) if asset_info.get("asset_type") != "Crypto" else round(p * 1.05, 2)
@@ -570,10 +641,15 @@ def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):
             m_score = asset_snapshot.get("score", 50)
             in_gp = bool((d_1d and d_1d.get("in_golden_pocket")) or (d_4h and d_4h.get("in_golden_pocket")))
             has_divs = bool((d_1d and d_1d.get("divergences")) or (d_4h and d_4h.get("divergences")) or (d_1h and d_1h.get("divergences")))
+            has_degen = bool(
+                (d_1d and (d_1d.get("in_buy_pocket") or d_1d.get("in_sell_pocket") or d_1d.get("active_order_block"))) or
+                (d_4h and (d_4h.get("in_buy_pocket") or d_4h.get("in_sell_pocket") or d_4h.get("active_order_block") or d_4h.get("active_signals"))) or
+                (d_1h and d_1h.get("active_signals"))
+            )
             active_setup = (asset_snapshot.get("signal") in ("LONG", "SHORT")) or (prev_sig in ("LONG", "SHORT"))
 
-            # Smart Funnel: Nur Werte mit echtem Setup-Potenzial (Score >= 65, GP/Divergenzen oder aktives Signal)
-            if m_score >= 65 or in_gp or has_divs or active_setup:
+            # Smart Funnel: Nur Werte mit echtem Setup-Potenzial (Score >= 65, GP/Divergenzen, degencoder Trigger oder aktives Signal)
+            if m_score >= 65 or in_gp or has_divs or has_degen or active_setup:
                 gemini_batch.append({
                     "symbol": sym,
                     "name": name,
@@ -583,6 +659,14 @@ def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):
                     "previous_setup": prev_setup,
                     "math_score": m_score,
                     "active_setup": active_setup,
+                    "degencoder": {
+                        "1D_buy_pocket": d_1d.get("in_buy_pocket", False) if d_1d else False,
+                        "1D_sell_pocket": d_1d.get("in_sell_pocket", False) if d_1d else False,
+                        "4h_signals": d_4h.get("active_signals", []) if d_4h else [],
+                        "1h_signals": d_1h.get("active_signals", []) if d_1h else [],
+                        "active_order_block": (d_4h.get("active_order_block") if d_4h else None) or (d_1d.get("active_order_block") if d_1d else None),
+                        "active_fvg": (d_4h.get("active_fvg") if d_4h else None) or (d_1d.get("active_fvg") if d_1d else None)
+                    },
                     "1W": {"trend": d_1w["trend"] if d_1w else "N/A", "rsi": d_1w["rsi"] if d_1w else 50} if d_1w else {},
                     "1D": {"trend": d_1d["trend"] if d_1d else "N/A", "rsi": d_1d["rsi"] if d_1d else 50, "in_gp": d_1d["in_golden_pocket"] if d_1d else False, "channel": d_1d["channel_position"] if d_1d else "N/A", "divs": d_1d["divergences"] if d_1d else []},
                     "3D": {"trend": d_3d["trend"] if d_3d else "N/A", "rsi": d_3d["rsi"] if d_3d else 50} if d_3d else {},
@@ -594,11 +678,11 @@ def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):
     last_tier_used = "quantitative_confluence"
     ai_success_count = 0
     if has_gemini and gemini_batch:
-        # Smart Funnel Begrenzung: Sortiere nach Dringlichkeit (aktive Setups zuerst, dann Score) und limitiere auf Top 10 Kandidaten
+        # Smart Funnel: Sortiere nach Dringlichkeit (aktive Setups zuerst, dann Score) und limitiere auf Top-Kandidaten (z. B. 50)
         gemini_batch.sort(key=lambda x: (1 if x.get("active_setup") else 0, x.get("math_score", 0)), reverse=True)
-        max_ai_candidates = 10
+        max_ai_candidates = gemini_conf.get("max_ai_candidates", 50)
         if len(gemini_batch) > max_ai_candidates:
-            print(f"\n🌪️ Smart Funnel aktiv: {len(gemini_batch)} potenzielle Setups gefunden -> Fokussiere KI auf Top {max_ai_candidates} Kandidaten zur Kontingent-Schonung.")
+            print(f"\n🌪️ Smart Funnel aktiv: {len(gemini_batch)} potenzielle Setups gefunden -> Fokussiere KI auf Top {max_ai_candidates} High-Conviction Kandidaten.")
             gemini_batch = gemini_batch[:max_ai_candidates]
 
         batch_size = gemini_conf.get("batch_size", 5)

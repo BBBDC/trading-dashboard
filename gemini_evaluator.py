@@ -380,15 +380,15 @@ STRENGSTE INSTITUTIONELLE FILTERREGELN (BITTE GENAUESTENS EINHALTEN):
    - Beachte das Feld 'previous_signal': Ein professionelles Handelssystem wechselt seine Einstufung nicht bei jeder 1h/4h-Schwankung. Hohe Trägheit (Hysterese) schützt vor Whipsaws!
 
 2. KRITERIEN FÜR EIN ECHTES "LONG"-SIGNAL (SEHR STRIKT):
-   - Makro-Trend (1D & 1W) ist bullisch (über 233 EMA) ODER der Kurs sitzt exakt im 1D Fibonacci Golden Pocket (0.618 - 0.650) mit bestätigter Wyckoff-Absorption.
+   - Makro-Trend (1D & 1W) ist bullisch (über 233 EMA) ODER der Kurs sitzt im institutional 'degencoder Buy Pocket' (Lower Chaos Band unter RFE 233) ODER exakt im 1D Fibonacci Golden Pocket (0.618 - 0.650) ODER an einem unberührten bullischen SMC Order Block (Grad A / Retest R1-R3 mit Liquiditäts-Sweep).
    - Kein Chasing: Niemals Long gehen, wenn der 4h-Kurs bereits am oberen degencoder-Band (Overbought) oder der RSI > 62 ist.
-   - Konfluenz & Timing-Trigger: Es muss auf 1h oder 4h eine aktive bullische Divergenz ODER Wyckoff "No Supply / Stopping Volume" vorliegen.
+   - Konfluenz & Timing-Trigger: Es muss auf 1h oder 4h ein degencoder 'Good Buy Signal' (blaues Dreieck), eine aktive bullische Divergenz, ein SMC Order Block Retest ODER Wyckoff "No Supply / Low Volume" vorliegen.
    - Mindest-CRV (Chance-Risiko-Verhältnis) >= 2.5:1 zum nächsten signifikanten FVG / Widerstand.
    - Score >= 88 % wird NUR bei makelloser 3-facher Konfluenz vergeben.
 
 3. KRITERIEN FÜR EIN ECHTES "SHORT"-SIGNAL (SEHR STRIKT):
-   - Makro-Trend ist bärisch (unter 233 EMA) ODER klare Top-Erschöpfung am oberen 1D-Kanalband (Overbought) mit bestätigter bärischer Divergenz auf 1h/4h.
-   - Niemals Short gegen einen starken intakten 1D-Bullenmarkt.
+   - Makro-Trend ist bärisch (unter 233 EMA) ODER institutional 'degencoder Sell Pocket' (Upper Chaos Band über RFE 233) ODER klare Top-Erschöpfung am oberen 1D-Kanalband (Overbought) / bärischer Order Block (Grad A mit Sweep) mit bestätigtem degencoder 'Good Sell Signal' (Kreis) oder bärischer Divergenz auf 1h/4h.
+   - Niemals Short gegen einen starken intakten 1D-Bullenmarkt ohne strukturellen Bruch.
    - Mindest-CRV >= 2.5:1.
 
 4. STANDARD-EINSTUFUNG BEI UNKLARER LAGE:
@@ -396,15 +396,15 @@ STRENGSTE INSTITUTIONELLE FILTERREGELN (BITTE GENAUESTENS EINHALTEN):
    - Im Zweifel MUSS das Signal IMMER "NEUTRAL" sein (Score 40–55%).
 
 5. STOP-LOSS & TARGETS:
-   - Der Stop-Loss muss strukturell begründet sein (knapp unterhalb des Golden Pocket / Swing-Lows / FVG), niemals willkürlich.
-   - Take Profit 1 & 2 müssen an echten Liquiditätszonen oder gegnerischen FVGs liegen.
+   - Der Stop-Loss muss strukturell begründet sein (knapp unterhalb des Order Blocks / Golden Pocket / Swing-Lows / FVG), niemals willkürlich.
+   - Take Profit 1 & 2 müssen an echten Liquiditätszonen, Order Blocks oder gegnerischen FVGs liegen.
 {memory_block}
-Hier sind die aktuellen Marktdaten und technischen Messungen für {len(assets_batch)} Assets:
+Hier sind die aktuellen Marktdaten, degencoder Indikatoren & Order Blocks für {len(assets_batch)} Assets:
 
 {json.dumps(assets_batch, indent=2, ensure_ascii=False)}
 
 AUFGABE:
-Analysiere jedes Asset gründlich. Berücksichtige übergeordnete Trends (1D) vs untergeordnete Einstiege (4h/8h).
+Analysiere jedes Asset gründlich. Berücksichtige übergeordnete Trends (1D) vs untergeordnete Einstiege (4h/1h) sowie die degencoder Signale & Order Blocks.
 Erstelle für JEDES Asset im Input eine exakte Handelsbewertung.
 
 Antworte AUSSCHLIESSLICH als JSON-Array von Objekten mit exakt diesem Schema:
@@ -413,7 +413,7 @@ Antworte AUSSCHLIESSLICH als JSON-Array von Objekten mit exakt diesem Schema:
     "symbol": "TICKER (exakt wie im Input)",
     "signal": "LONG" | "SHORT" | "NEUTRAL",
     "score": 0 bis 100 (Streng konservativ! >85% nur für absolute Top-Tier Setups),
-    "setup_name": "z.B. Hypothese 1: SMC Golden Confluence Reversal | Hypothese 2: Trend Continuation | Beobachten / Konsolidierung",
+    "setup_name": "z.B. Hypothese 1: degencoder Institutional Buy Pocket Reversal | Hypothese 1: SMC Order Block Confluence | Hypothese 1: SMC Golden Confluence Reversal | Beobachten / Lauerstellung am Support",
     "crv": 2.5,
     "entry_range": [min_entry, max_entry],
     "stop_loss": stop_loss_kurs,

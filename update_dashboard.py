@@ -112,6 +112,14 @@ def run_pipeline(force_download=False, skip_download=False, git_push=False, forc
         chart_cmd.extend(["--symbols", ",".join(due_symbols)])
     subprocess.run(chart_cmd, check=True)
 
+    # STAGE 4.8: AI Paper-Trading Incubator & Post-Mortem Lab (15m/30m)
+    stage_banner("STUFE 4.8: AI Incubator & Rapid Post-Mortem Lab (15m/30m)")
+    try:
+        from ai_incubator import run_incubator_cycle
+        run_incubator_cycle()
+    except Exception as e:
+        print(f"Warnung beim AI-Incubator: {e}")
+
     # STAGE 5: Dashboard & Historie kompilieren
     stage_banner("STUFE 5: HTML-Dashboard & Live-Historie aktualisieren")
     subprocess.run([sys.executable, str(BASE_DIR / "build_dashboard.py")], check=True)

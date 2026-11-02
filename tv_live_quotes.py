@@ -190,12 +190,36 @@ def update_ohlcv_cache_with_live_quotes(quotes_map):
                     continue
 
                 last_bar = bars[-1]
-                # Aktualisiere die letzte Kerze mit dem Live-Kurs
-                last_bar["c"] = price
-                last_bar["h"] = max(last_bar.get("h", price), price, high_p)
-                last_bar["l"] = min(last_bar.get("l", price), price, low_p)
-                if vol > 0:
-                    last_bar["v"] = max(last_bar.get("v", 0), vol)
+                
+                # --- LOCAL CANDLE BUILDER ---
+                # Prüfe ob eine neue Kerzenperiode (1h, 4h, 1D) begonnen hat
+                int_sec_map = {"1h": 3600, "4h": 14400, "1D": 86400}
+                int_sec = int_sec_map.get(interval, 3600)
+                
+                curr_bar_period = (now_ts // int_sec) * int_sec
+                last_bar_period = (int(last_bar.get("t", 0)) // int_sec) * int_sec
+
+                if curr_bar_period > last_bar_period:
+                    # Vorherige Kerze ist abgeschlossen -> Neue Kerze starten und Historie erweitern!
+                    new_bar = {
+                        "t": curr_bar_period,
+                        "o": price,
+                        "h": max(price, high_p),
+                        "l": min(price, low_p),
+                        "c": price,
+                        "v": vol if vol > 0 else 0.0
+                    }
+                    bars.append(new_bar)
+                    if len(bars) > 250:
+                        bars = bars[-250:]
+                    cdata["bars"] = bars
+                else:
+                    # Laufende Kerze mit frischem Live-Kurs aktualisieren
+                    last_bar["c"] = price
+                    last_bar["h"] = max(last_bar.get("h", price), price, high_p)
+                    last_bar["l"] = min(last_bar.get("l", price), price, low_p)
+                    if vol > 0:
+                        last_bar["v"] = max(last_bar.get("v", 0), vol)
 
                 with open(cache_file, "w", encoding="utf-8") as f_out:
                     json.dump(cdata, f_out)
