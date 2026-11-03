@@ -355,6 +355,110 @@ Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
         }
 
 
+def evaluate_batch_trades_post_mortem(trades_list):
+    """
+    Führt eine vergleichende Multi-Trade Post-Mortem-Analyse für 2 bis 5 abgeschlossene Trades durch.
+    Analysiert Kausalitäten (Cross-Trade-Synthese): Was unterschied Gewinner von Verlierern?
+    Nutzt prioritär Gemini 3.8 Flash High via Pro-Abo CLI (pokeulm@gmail.com).
+    """
+    if not trades_list:
+        return None
+
+    # Textuelle Aufbereitung der Trades
+    trades_summary_text = []
+    for idx, t in enumerate(trades_list, 1):
+        tid = t.get("trade_id", f"trade_{idx}")
+        sym = t.get("symbol", "")
+        name = t.get("name", sym)
+        tf = t.get("timeframe", "15m")
+        direction = t.get("direction", "LONG")
+        setup = t.get("setup_name", "degencoder Confluence")
+        tags = ", ".join(t.get("setup_tags", []))
+        entry_p = t.get("entry_price", 0.0)
+        exit_p = t.get("exit_price", entry_p)
+        r_pnl = t.get("realized_r", 0.0)
+        pnl_pct = t.get("realized_pnl_pct", 0.0)
+        status = t.get("status", "CLOSED")
+        exit_reason = t.get("exit_reason", "")
+        trades_summary_text.append(
+            f"Trade {idx} [{tid}]: {name} ({sym}) | TF: {tf} | Richtung: {direction} | Setup: {setup} | "
+            f"Triggers: {tags} | Entry: {entry_p} | Exit: {exit_p} | Status: {status} | "
+            f"Realisierter PnL: {pnl_pct:+.2f}% ({r_pnl:+.1f}R) | Exit-Grund: {exit_reason}"
+        )
+
+    trades_block = "\n".join(trades_summary_text)
+
+    prompt = f"""Du bist ein Senior Prop-Desk Chef-Risikomanager und Trading-Coach mit 20 Jahren Markterfahrung an Krypto- und traditionellen Börsen (Frankfurt, XETRA, Wall Street).
+Analysiere diese Gruppe von kürzlich abgeschlossenen Trades unseres autonomen Handelslabors (Mikro-Zeitskalen 5m und 15m) vergleichend und schonungslos:
+
+{trades_block}
+
+AUFGABE:
+1. Untersuche vergleichend die Kausalitäten: Was unterschied die Gewinner von den Verlierern? (z.B. VSA-Volumenbestätigung, Überdehnung zu Chaos-Bändern, Liquidity-Sweep Qualität [A], übergeordneter 4h-Trend).
+2. Erstelle für jeden einzelnen Trade eine prägnante Ursachen- und Regelanalyse.
+3. Destilliere 1 bis 2 übergreifende, fraktale Handlungsregeln, die auch für 4h/1D Setups bindend gültig sind.
+
+Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
+{{
+  "batch_summary": "1-2 Sätze vergleichende Gesamteinschätzung dieser Trade-Gruppe",
+  "trade_evaluations": [
+    {{
+      "trade_id": "...",
+      "verdict": "WIN oder LOSS",
+      "driver": "Konkrete Ursache für Erfolg oder Misserfolg (1 prägnanter Satz)",
+      "technical_warning": "Welches Chart-/Indikator-Signal (z.B. Volumen, Sweep-Tiefe, FVG-Größe) hätte früher gewarnt?",
+      "actionable_rule": "Eine bindende Handlungsregel für künftige Trades bei diesem Setup"
+    }}
+  ],
+  "cross_market_insights": [
+    {{
+      "rule": "Übergreifende System-Regel für das 4h/1D Gedächtnis",
+      "context": "Begründung aus den 5m/15m Beobachtungen"
+    }}
+  ]
+}}
+"""
+    # 1. Pro CLI
+    try:
+        res, err = call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=90)
+        if res and isinstance(res, dict) and "trade_evaluations" in res:
+            return res
+    except Exception:
+        pass
+
+    # 2. Key Pool Fallback
+    try:
+        res, err, _ = call_gemini_via_key_pool(prompt, model="gemini-3.8-flash", timeout=40)
+        if res and isinstance(res, dict) and "trade_evaluations" in res:
+            return res
+    except Exception:
+        pass
+
+    # 3. Deterministischer Fallback
+    evals = []
+    for t in trades_list:
+        tid = t.get("trade_id", "")
+        is_win = (t.get("realized_r", 0) > 0)
+        evals.append({
+            "trade_id": tid,
+            "verdict": "WIN" if is_win else "LOSS",
+            "driver": f"Trade {t.get('symbol')} schloss mit {t.get('status')} ({t.get('realized_r', 0):+.1f}R).",
+            "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+            "actionable_rule": f"Bei {t.get('symbol')} Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+        })
+
+    return {
+        "batch_summary": "Deterministische Auswertung der Batch-Trades (Fallback-Modus).",
+        "trade_evaluations": evals,
+        "cross_market_insights": [
+            {
+                "rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
+                "context": "Statischer Schutz vor Counter-Trend Whipsaws."
+            }
+        ]
+    }
+
+
 def build_analysis_prompt(assets_batch):
     try:
         from portfolio_engine import get_memory_summary_for_ai_prompt

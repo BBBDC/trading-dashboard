@@ -1680,7 +1680,7 @@ html_content = f"""<!DOCTYPE html>
         </div>
       </section>
 
-      <!-- Card Incubator: AI Paper-Trading Incubator & Rapid Post-Mortem Lab (15m / 30m Micro-Trading) -->
+      <!-- Card Incubator: AI Paper-Trading Incubator & Rapid Post-Mortem Lab (5m / 15m / 30m Micro-Trading) -->
       <section id="incubator-section" class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-purple-950/20 to-slate-900 border border-purple-500/30 p-5 shadow-xl space-y-5">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3.5">
           <div>
@@ -1690,10 +1690,10 @@ html_content = f"""<!DOCTYPE html>
               </h2>
               <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center gap-1">
                 <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
-                15m / 30m Micro-Trades
+                16-Asset Matrix (5m / 15m)
               </span>
             </div>
-            <p class="text-xs text-slate-400 mt-0.5">Schnelle KI-Lernschleife & Post-Mortem Feedback auf 15m/30m &bull; Tägliche Rotation (Binance + Yahoo, 0 € API-Kosten) &bull; Transferiert Lehren auf 4h/1D Setups</p>
+            <p class="text-xs text-slate-400 mt-0.5">Schnelle KI-Lernschleife auf 5m & 15m &bull; 24/7 Krypto (Binance REST) + Deutsche Börsen 08:00–22:00 MEZ (Börse Frankfurt & XETRA) &bull; 0 € API-Kosten &bull; Transferiert Lehren auf 4h/1D Setups</p>
           </div>
 
           <!-- Incubator Performance KPIs -->
@@ -1713,26 +1713,35 @@ html_content = f"""<!DOCTYPE html>
           </div>
         </div>
 
-        <!-- Heutige Fokus-Assets Banner -->
-        <div class="p-3 rounded-xl bg-purple-950/30 border border-purple-500/20 flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
-          <div class="flex items-center gap-2">
-            <span class="text-sm">🔄</span>
-            <span class="text-slate-300 font-bold">Heutige Rotations-Assets (15m):</span>
-            <div class="flex flex-wrap gap-1.5" id="inc-focus-assets-list">Lade Rotations-Assets...</div>
+        <!-- Heutige Fokus-Assets & Börsen-Status Banner -->
+        <div class="p-3.5 rounded-xl bg-purple-950/30 border border-purple-500/20 space-y-2 text-xs font-mono">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-purple-500/10 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-sm">🔄</span>
+              <span class="text-slate-300 font-bold">Aktive 8-Asset-Fokusgruppe (5m & 15m):</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                ● Börse Frankfurt / Tradegate (08:00–22:00 MEZ)
+              </span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                ● Krypto (24/7 Binance)
+              </span>
+            </div>
           </div>
-          <span class="px-2 py-0.5 rounded text-[10px] bg-purple-500/10 text-purple-400 border border-purple-500/20">
-            Top-Down 1D/4h RFE-Filter AKTIV
-          </span>
+          <div class="flex flex-wrap gap-1.5" id="inc-focus-assets-list">Lade Rotations-Assets...</div>
         </div>
 
-        <!-- Aktive Micro-Trades -->
+        <!-- Aktive Micro-Trades Header & Filter -->
         <div>
-          <div class="flex items-center justify-between mb-2.5">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2.5">
             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-              <span>Aktuell laufende Trainings-Trades (15m / 30m)</span>
+              <span>Aktuell laufende Trainings-Trades</span>
               <span class="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-300 font-mono" id="inc-active-count">0</span>
             </h3>
-            <span class="text-[11px] text-slate-500 font-mono">Exit bei TP1 (+1.5R), TP2 (+3.0R) oder SL (-1.0R)</span>
+            <div class="flex items-center gap-1.5">
+              <span class="text-[11px] text-slate-500 font-mono">Exit bei TP1 (+1.5R), TP2 (+3.0R) oder SL (-1.0R)</span>
+            </div>
           </div>
           <div id="incubator-active-trades" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
             <!-- Dynamisch via JS gefüllt -->
@@ -1746,23 +1755,40 @@ html_content = f"""<!DOCTYPE html>
               <span class="text-xl">🎓</span>
               <div>
                 <div class="flex items-center gap-2">
-                  <span class="text-xs font-bold text-slate-100">Trainings-Historie & KI-Post-Mortem Berichte</span>
-                  <span class="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">Gemini 3.8 Flash Closed-Loop</span>
+                  <span class="text-xs font-bold text-slate-100">Trainings-Historie & Vergleichende KI-Post-Mortem Berichte</span>
+                  <span class="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">Gemini 3.8 Flash High</span>
                 </div>
                 <span class="block text-[10px] text-slate-400 mt-0.5" id="inc-history-summary">Lade Trade-Historie...</span>
               </div>
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-[10px] font-mono text-purple-400 bg-purple-500/10 px-2 py-1 rounded hidden sm:inline">Deep Insights</span>
+              <span class="text-[10px] font-mono text-purple-400 bg-purple-500/10 px-2 py-1 rounded hidden sm:inline">Cross-Market Insights</span>
               <span id="incubator-accordion-icon" class="text-slate-400 text-xs font-mono transition">▼</span>
             </div>
           </button>
 
           <div id="incubator-accordion-content" class="hidden mt-3 space-y-4">
+            <!-- Filter-Leiste für Historie -->
+            <div class="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs font-mono">
+              <div class="flex items-center gap-1.5">
+                <span class="text-[10px] text-slate-400 uppercase">Zeitskala:</span>
+                <button onclick="setIncubatorTfFilter('all')" id="inc-tf-all" class="inc-tf-btn px-2 py-0.5 rounded text-[10px] font-bold bg-purple-600 text-white cursor-pointer">Alle</button>
+                <button onclick="setIncubatorTfFilter('5m')" id="inc-tf-5m" class="inc-tf-btn px-2 py-0.5 rounded text-[10px] font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-white cursor-pointer">5m Micro</button>
+                <button onclick="setIncubatorTfFilter('15m')" id="inc-tf-15m" class="inc-tf-btn px-2 py-0.5 rounded text-[10px] font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-white cursor-pointer">15m Structure</button>
+              </div>
+
+              <div class="flex items-center gap-1.5">
+                <span class="text-[10px] text-slate-400 uppercase">Markt:</span>
+                <button onclick="setIncubatorCatFilter('all')" id="inc-cat-all" class="inc-cat-btn px-2 py-0.5 rounded text-[10px] font-bold bg-purple-600 text-white cursor-pointer">Alle</button>
+                <button onclick="setIncubatorCatFilter('crypto')" id="inc-cat-crypto" class="inc-cat-btn px-2 py-0.5 rounded text-[10px] font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-white cursor-pointer">Krypto 24/7</button>
+                <button onclick="setIncubatorCatFilter('german')" id="inc-cat-german" class="inc-cat-btn px-2 py-0.5 rounded text-[10px] font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-white cursor-pointer">Deutsche Börsen (EUR)</button>
+              </div>
+            </div>
+
             <!-- Letzte KI-Lernregeln Feed -->
             <div class="space-y-2">
               <span class="text-[11px] font-bold text-slate-300 flex items-center gap-1.5">
-                <span>⚡</span> Durch 15m Micro-Trades destillierte Handlungsregeln (für 4h/1D Setups):
+                <span>⚡</span> Durch 5m & 15m Micro-Trades destillierte Handlungsregeln (für 4h/1D Setups):
               </span>
               <div id="incubator-learnings-feed" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 <!-- Dynamisch via JS -->
@@ -3295,6 +3321,29 @@ html_content = f"""<!DOCTYPE html>
     // ==========================================
     // 🧪 AI Incubator & Rapid Post-Mortem Lab
     // ==========================================
+    let currentIncTfFilter = 'all';
+    let currentIncCatFilter = 'all';
+
+    function setIncubatorTfFilter(tf) {{
+      currentIncTfFilter = tf;
+      document.querySelectorAll('.inc-tf-btn').forEach(b => {{
+        b.className = 'inc-tf-btn px-2 py-0.5 rounded text-[10px] font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-white cursor-pointer';
+      }});
+      const active = document.getElementById('inc-tf-' + tf);
+      if (active) active.className = 'inc-tf-btn px-2 py-0.5 rounded text-[10px] font-bold bg-purple-600 text-white cursor-pointer';
+      renderIncubatorSection();
+    }}
+
+    function setIncubatorCatFilter(cat) {{
+      currentIncCatFilter = cat;
+      document.querySelectorAll('.inc-cat-btn').forEach(b => {{
+        b.className = 'inc-cat-btn px-2 py-0.5 rounded text-[10px] font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-white cursor-pointer';
+      }});
+      const active = document.getElementById('inc-cat-' + cat);
+      if (active) active.className = 'inc-cat-btn px-2 py-0.5 rounded text-[10px] font-bold bg-purple-600 text-white cursor-pointer';
+      renderIncubatorSection();
+    }}
+
     function toggleIncubatorAccordion() {{
       const content = document.getElementById('incubator-accordion-content');
       const icon = document.getElementById('incubator-accordion-icon');
@@ -3343,13 +3392,17 @@ html_content = f"""<!DOCTYPE html>
         if (focusAssets.length === 0) {{
           focList.textContent = 'Standard-Pool aktiv';
         }} else {{
-          focList.innerHTML = focusAssets.map(a => `<span class="px-2 py-0.5 rounded bg-purple-900/50 text-purple-200 border border-purple-500/30 text-[10px] font-bold">${{a.name}} (${{a.symbol}}) &bull; ${{a.exchange}}</span>`).join(' ');
+          focList.innerHTML = focusAssets.map(a => {{
+            const isGer = a.symbol.endsWith('.F') || a.symbol.endsWith('.DE') || (a.category && a.category.includes('EUR'));
+            const bCol = isGer ? 'bg-emerald-950/40 text-emerald-300 border-emerald-500/30' : 'bg-purple-900/40 text-purple-200 border-purple-500/30';
+            return `<span class="px-2 py-0.5 rounded border ${{bCol}} text-[10px] font-bold">${{a.name}} (${{a.symbol}}) &bull; ${{a.exchange}}</span>`;
+          }}).join(' ');
         }}
       }}
 
       const sumElem = document.getElementById('inc-history-summary');
       if (sumElem) {{
-        sumElem.textContent = `${{closedTrades.length}} abgeschlossene Trainings-Trades &bull; ${{insights.length}} KI-Post-Mortem Regeln für 4h/1D`;
+        sumElem.textContent = `${{closedTrades.length}} abgeschlossene Trainings-Trades &bull; ${{insights.length}} vergleichende KI-Post-Mortem Regeln`;
       }}
 
       // 1. Aktive Trades Cards
@@ -3358,7 +3411,7 @@ html_content = f"""<!DOCTYPE html>
         if (activeTrades.length === 0) {{
           actContainer.innerHTML = `
             <div class="col-span-full p-4 rounded-xl bg-slate-950/40 border border-slate-800 text-center text-xs text-slate-400">
-              Aktuell keine offenen Micro-Trades im Inkubator. Der Scanner prüft alle 15m/30m auf valide Setups.
+              Aktuell keine offenen Micro-Trades im Inkubator. Der Scanner prüft alle 5m & 15m auf valide Setups.
             </div>
           `;
         }} else {{
@@ -3369,6 +3422,8 @@ html_content = f"""<!DOCTYPE html>
             const unR = t.unrealized_r || 0.0;
             const pnlCol = unPnl >= 0 ? 'text-emerald-400' : 'text-rose-400';
             const tags = (t.setup_tags || []).map(tg => `<span class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 text-[9px]">${{tg}}</span>`).join(' ');
+            const isGer = t.symbol.endsWith('.F') || t.symbol.endsWith('.DE');
+            const exchLabel = isGer ? 'Börse Frankfurt / XETRA' : 'Binance (24/7)';
 
             return `
               <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-purple-500/40 transition space-y-3">
@@ -3376,7 +3431,7 @@ html_content = f"""<!DOCTYPE html>
                   <div class="flex items-center gap-2">
                     <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${{dirCol}}">${{t.direction}}</span>
                     <span class="font-bold text-white text-xs">${{t.name || t.symbol}}</span>
-                    <span class="text-[10px] text-purple-300 font-mono">${{t.timeframe || '15m'}}</span>
+                    <span class="px-1.5 py-0.2 rounded text-[9px] font-mono bg-purple-500/20 text-purple-300 border border-purple-500/30">${{t.timeframe || '5m'}}</span>
                   </div>
                   <span class="font-mono text-xs font-bold ${{pnlCol}}">${{unPnl >= 0 ? '+' : ''}}${{unPnl.toFixed(2)}}% (${{unR >= 0 ? '+' : ''}}${{unR.toFixed(2)}}R)</span>
                 </div>
@@ -3394,6 +3449,11 @@ html_content = f"""<!DOCTYPE html>
                     <span class="text-slate-500 block">TP1 / TP2</span>
                     <span class="text-emerald-400 font-bold">${{t.tp1}} / ${{t.tp2}}</span>
                   </div>
+                </div>
+
+                <div class="flex items-center justify-between text-[9px] text-slate-400 font-mono">
+                  <span>${{exchLabel}}</span>
+                  <span>Trailing BE aktiv</span>
                 </div>
 
                 <div class="flex flex-wrap gap-1">
@@ -3421,10 +3481,10 @@ html_content = f"""<!DOCTYPE html>
                     <span class="px-1.5 py-0.5 rounded text-[9px] font-bold border ${{badgeCol}}">${{ins.verdict}}</span>
                     <span class="font-bold text-white text-[11px]">${{ins.symbol}} (${{ins.direction}})</span>
                   </div>
-                  <span class="text-[9px] text-purple-300 font-mono">15m Confluence</span>
+                  <span class="text-[9px] text-purple-300 font-mono">${{ins.timeframe || '5m/15m'}} Confluence</span>
                 </div>
                 <div class="text-[10.5px] font-mono text-purple-200 bg-purple-950/40 p-2 rounded border border-purple-900/40">
-                  <span class="text-purple-400 font-bold block mb-0.5">📌 Handlungsregel:</span>
+                  <span class="text-purple-400 font-bold block mb-0.5">📌 Gelernte Handlungsregel:</span>
                   ${{ins.rule}}
                 </div>
                 ${{ins.warning ? `<p class="text-[10px] text-slate-400"><span class="text-sky-400">Frühwarnung:</span> ${{ins.warning}}</p>` : ''}}
@@ -3434,19 +3494,76 @@ html_content = f"""<!DOCTYPE html>
         }}
       }}
 
-      // 3. Geschlossene Trades Historie
+      // 3. Geschlossene Trades Historie mit Filterung
       const closedContainer = document.getElementById('incubator-closed-trades');
       if (closedContainer) {{
-        if (closedTrades.length === 0) {{
-          closedContainer.innerHTML = `<p class="text-xs text-slate-400 italic">Noch keine geschlossenen Trades in der Historie.</p>`;
+        let filteredClosed = closedTrades.slice().reverse();
+
+        // Timeframe Filter
+        if (currentIncTfFilter !== 'all') {{
+          filteredClosed = filteredClosed.filter(t => (t.timeframe || '15m') === currentIncTfFilter);
+        }}
+
+        // Market Category Filter
+        if (currentIncCatFilter === 'crypto') {{
+          filteredClosed = filteredClosed.filter(t => t.symbol.endsWith('USDT') || t.source === 'binance');
+        }} else if (currentIncCatFilter === 'german') {{
+          filteredClosed = filteredClosed.filter(t => t.symbol.endsWith('.F') || t.symbol.endsWith('.DE') || (t.category && t.category.includes('EUR')));
+        }}
+
+        if (filteredClosed.length === 0) {{
+          closedContainer.innerHTML = `<p class="text-xs text-slate-400 italic">Keine geschlossenen Trades für diesen Filter gefunden.</p>`;
         }} else {{
-          closedContainer.innerHTML = closedTrades.slice().reverse().map((t, idx) => {{
+          closedContainer.innerHTML = filteredClosed.map((t, idx) => {{
             const isWin = (t.realized_r || 0) > 0;
             const resBadge = isWin ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' : 'bg-rose-500/10 text-rose-400 border-rose-500/30';
             const rStr = (t.realized_r !== undefined ? (t.realized_r >= 0 ? '+' : '') + t.realized_r.toFixed(1) + 'R' : '');
             const pnlStr = (t.realized_pnl_pct !== undefined ? (t.realized_pnl_pct >= 0 ? '+' : '') + t.realized_pnl_pct.toFixed(2) + '%' : '');
             const pm = t.ai_post_mortem;
             const dateStr = t.exit_time ? new Date(t.exit_time).toLocaleString('de-DE', {{month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'}}) : '';
+            const isGer = t.symbol.endsWith('.F') || t.symbol.endsWith('.DE');
+            const exchTag = isGer ? 'FRA/XETRA (EUR)' : 'Binance';
+
+            return `
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-xs space-y-2">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono border ${{resBadge}}">${{t.status || 'CLOSED'}} (${{rStr}})</span>
+                    <span class="font-bold text-white text-xs">${{t.name || t.symbol}}</span>
+                    <span class="px-1.5 py-0.2 rounded text-[9px] font-mono bg-slate-800 text-purple-300">${{t.timeframe || '5m'}}</span>
+                    <span class="text-[10px] text-slate-400">(${{t.direction}}, ${{exchTag}})</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono text-xs font-bold ${{isWin ? 'text-emerald-400' : 'text-rose-400'}}">${{pnlStr}}</span>
+                    <span class="text-[10px] text-slate-500 font-mono">${{dateStr}}</span>
+                    ${{pm ? `<button onclick="toggleIncubatorPm(${{idx}})" class="px-2 py-0.5 rounded bg-purple-900/40 hover:bg-purple-800/60 text-purple-300 border border-purple-500/30 text-[10px] font-bold cursor-pointer transition">KI-Bericht</button>` : ''}}
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between text-[10px] text-slate-400 font-mono px-2 py-1 rounded bg-slate-950/50">
+                  <span>Einstieg: ${{t.entry_price}} &bull; Ausstieg: ${{t.exit_price || '-'}}</span>
+                  <span>Grund: ${{t.exit_reason || 'Exit-Signal'}}</span>
+                </div>
+
+                ${{pm ? `
+                  <div id="inc-pm-box-${{idx}}" class="hidden p-3 rounded-lg bg-purple-950/30 border border-purple-500/30 space-y-1.5 text-[11px] mt-2">
+                    <div class="flex items-center justify-between border-b border-purple-500/20 pb-1">
+                      <span class="font-bold text-purple-300 flex items-center gap-1">
+                        <span>🧠</span> KI Post-Mortem Analyse (Gemini 3.8 Flash High):
+                      </span>
+                      <span class="text-[10px] text-purple-400 font-mono">${{pm.verdict || 'ANALYSE'}}</span>
+                    </div>
+                    ${{pm.driver ? `<p class="text-slate-300"><span class="text-amber-400 font-bold">Ursache:</span> ${{pm.driver}}</p>` : ''}}
+                    ${{pm.technical_warning ? `<p class="text-slate-300"><span class="text-sky-400 font-bold">Frühwarnung:</span> ${{pm.technical_warning}}</p>` : ''}}
+                    ${{pm.actionable_rule ? `<p class="text-indigo-200 font-mono bg-purple-950/60 p-2 rounded border border-purple-800/40"><span class="text-indigo-300 font-bold block mb-0.5">📌 Gelernte System-Regel:</span> ${{pm.actionable_rule}}</p>` : ''}}
+                  </div>
+                ` : ''}}
+              </div>
+            `;
+          }}).join('');
+        }}
+      }}
+    }}
 
             return `
               <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-xs space-y-2">
