@@ -1,7 +1,103 @@
 {
-  "updated_at": "2026-11-03T17:06:27.157101+00:00",
-  "total_experience_records": 78,
+  "updated_at": "2026-11-03T18:37:06.965235+00:00",
+  "total_experience_records": 83,
   "learnings": [
+    {
+      "timestamp": "2026-11-03T18:37:03.174687+00:00",
+      "trade_id": "cross_rule_1793731023",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Sweep-Validierungs-Filter: Ein Liquidity Sweep [A] ist wertlos ohne sofortige Rückeroberung und strukturellen Bruch.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "AVAX demonstriert, dass ein Sweep ohne bullisches Anschlussvolumen und ohne FVG-Bildung lediglich die Fortsetzung des übergeordneten Abwärtstrends einleitet.",
+        "actionable_rule": "Sweep-Validierungs-Filter: Ein Liquidity Sweep [A] ist wertlos ohne sofortige Rückeroberung und strukturellen Bruch."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T18:37:03.174645+00:00",
+      "trade_id": "cross_rule_1793731023",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Displacement-Doktrin vor Zonen-Glaube: Keine Limit-/Market-Orders allein aufgrund von statischen Orderblocks oder Indikator-Bändern.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl bei TSLA als auch bei LINK und AVAX wurden Zonen schlicht als Durchlauf-Liquidität genutzt; auf 4h/1D führt dieses unbestätigte Front-Running zu massiven Drawdowns bei Trendfortsetzungen.",
+        "actionable_rule": "Displacement-Doktrin vor Zonen-Glaube: Keine Limit-/Market-Orders allein aufgrund von statischen Orderblocks oder Indikator-Bändern."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T18:37:03.174617+00:00",
+      "trade_id": "inc_AVAXUSDT_15m_1793723582",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (15m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Micro-Confluence Long",
+      "pnl_leveraged": -0.44,
+      "pnl_raw": -0.22,
+      "text": "Nach einem Stop-Hunt-Sweep [A] muss innerhalb von maximal zwei Folgekerzen ein impulsives Displacement-FVG entstehen, andernfalls verfällt das Setup sofort.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_15m_1793723582",
+        "verdict": "LOSS",
+        "driver": "Trotz korrekt identifiziertem Liquidity Sweep [A] scheiterte der Long an mangelnder Folge-Expansion an einem schwachen Kategorie-[C]-Orderblock bei übergeordnetem Verkaufsdruck.",
+        "technical_warning": "Fehlen eines sofortigen bullischen Fair Value Gaps (FVG) nach dem Sweep und Akzeptanz des Preises unterhalb des Support-Levels statt V-förmiger Rückeroberung.",
+        "actionable_rule": "Nach einem Stop-Hunt-Sweep [A] muss innerhalb von maximal zwei Folgekerzen ein impulsives Displacement-FVG entstehen, andernfalls verfällt das Setup sofort."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T18:37:03.174580+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1793718637",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Institutional Sell Pockets an Chaos-Band-Extrema dürfen erst nach einem bestätigten 5m-Displacement unter das letzte lokale Zwischentief ausgeführt werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1793718637",
+        "verdict": "LOSS",
+        "driver": "Mean-Reversion-Versuch gegen ein sich dynamisch öffnendes Chaos-Band ohne strukturelle Bestätigung resultierte im direkten Überrennen durch Trend-Momentum auf der 5m-Skala.",
+        "technical_warning": "Band-Expansion (Volatilitätsausbruch statt Kontraktion) in Kombination mit anhaltend positivem kumulativem Volumendelta (CVD).",
+        "actionable_rule": "Institutional Sell Pockets an Chaos-Band-Extrema dürfen erst nach einem bestätigten 5m-Displacement unter das letzte lokale Zwischentief ausgeführt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T18:37:03.174488+00:00",
+      "trade_id": "inc_TSLA_1793651092",
+      "symbol": "TSLA",
+      "name": "Tesla",
+      "category": "Micro-Incubator (15m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder Micro Confluence Short",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Shorts an Orderblocks der Kategorie [B] sind strikt verboten, solange kein Sweep lokaler Hochs und kein bärischer Bruch der Mikro-Struktur (MSB) auf 15m vorliegen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_TSLA_1793651092",
+        "verdict": "LOSS",
+        "driver": "Antizipativer Short-Einstieg an einem zweitklassigen Bearish Orderblock [B] ohne vorherigen Buy-Side-Liquidity-Sweep führte zum sofortigen Ausstoppen im vorherrschenden Intraday-Kaufimpuls.",
+        "technical_warning": "Fehlende VSA-Absorption (kein Upthrust-Volumen am OB) sowie Ausbleiben einer Docht-Rejection auf Kerzenschlussbasis.",
+        "actionable_rule": "Shorts an Orderblocks der Kategorie [B] sind strikt verboten, solange kein Sweep lokaler Hochs und kein bärischer Bruch der Mikro-Struktur (MSB) auf 15m vorliegen."
+      }
+    },
     {
       "timestamp": "2026-11-03T16:33:41.762486+00:00",
       "trade_id": "cross_rule_1793723621",
