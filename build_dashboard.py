@@ -1011,17 +1011,34 @@ html_content = f"""<!DOCTYPE html>
         </p>
       </div>
 
-      <!-- Telegram Official Login Widget (Offizieller Redirect-Modus: 100% zuverlässig auf allen Geräten) -->
-      <div id="tg-widget-mount" class="py-3 flex flex-col items-center justify-center min-h-[50px]">
+      <!-- Telegram Official Login Widget (Identisch zum bewährten EVCC Dashboard) -->
+      <div id="tg-widget-mount" class="py-2 flex flex-col items-center justify-center min-h-[50px]">
         <script async src="https://telegram.org/js/telegram-widget.js?22" 
                 data-telegram-login="aitradeanalystbot" 
                 data-size="large" 
                 data-radius="12" 
-                data-auth-url="https://bbbdc.github.io/trading-dashboard/" 
+                data-onauth="onTelegramAuth(user)" 
+                data-auth-url="https://bbbdc.github.io/trading-dashboard/index.html" 
                 data-request-access="write"></script>
       </div>
 
       <div id="tg-auth-error" class="hidden text-left"></div>
+
+      <!-- Schnell-Login / Fallback Toggle (Subtiler Link wie im EVCC Dashboard) -->
+      <div class="pt-1">
+        <button type="button" onclick="toggleFallbackLogin()" class="text-[11px] text-slate-500 hover:text-indigo-400 transition cursor-pointer underline">
+          Alternative: Über Benutzernamen oder User-ID anmelden
+        </button>
+        <div id="fallback-login-container" class="hidden mt-3 p-3 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2 text-left">
+          <label class="block text-[11px] text-slate-400 font-medium">Telegram Benutzername oder numerische User-ID:</label>
+          <div class="flex gap-2">
+            <input type="text" id="fallback-username-input" placeholder="z. B. Bdc_Gumb_Drop oder 15231751" class="flex-1 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500 font-mono" onkeydown="if(event.key==='Enter') submitFallbackLogin()">
+            <button type="button" onclick="submitFallbackLogin()" class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition cursor-pointer shadow-sm">
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
 
       <div class="pt-3 border-t border-slate-800 text-[11px] text-slate-500 space-y-1">
         <p>Zugriff nur für autorisierte Telegram-Nutzer.</p>
@@ -2011,6 +2028,9 @@ html_content = f"""<!DOCTYPE html>
         updateStats();
         applyFilters();
         renderTopPicksForWatchlist(activeWatchlist);
+        if (typeof initAuthOnLoad === 'function') {{
+          initAuthOnLoad();
+        }}
       }});
 
     function updateStats() {{
@@ -3606,13 +3626,22 @@ html_content = f"""<!DOCTYPE html>
 
     function checkUserRole(user) {{
       if (!user) return null;
-      const authCfg = (currentData && currentData.auth_config) || (typeof EMBEDDED_DATABASE !== 'undefined' && EMBEDDED_DATABASE.auth_config) || {{}};
-      const admins = authCfg.admin_usernames || ['Bdc_Gumb_Drop', 'bdc_gumb_drop'];
-      const adminIds = (authCfg.admin_chat_ids || ['15231751']).map(String);
-      const uname = (user.username || '').toLowerCase().replace(/^@/, '');
-      const uid = String(user.id || '');
+      
+      const adminIds = ['15231751'];
+      const adminUnames = ['bdc_gumb_drop', 'Bdc_Gumb_Drop'];
+      const uid = String(user.id || '').trim();
+      const uname = ((user.username || '')).replace(/^@/, '').toLowerCase().trim();
 
-      if (admins.some(a => a.toLowerCase().replace(/^@/, '') === uname) || adminIds.includes(uid)) {{
+      // Master Admin immer direkt berechtigt
+      if (adminIds.includes(uid) || (uname && adminUnames.map(x => x.toLowerCase()).includes(uname))) {{
+        return 'admin';
+      }}
+
+      const authCfg = (currentData && currentData.auth_config) || (typeof EMBEDDED_DATABASE !== 'undefined' && EMBEDDED_DATABASE.auth_config) || {{}};
+      const cfgAdmins = (authCfg.admin_usernames || []).map(x => String(x).replace(/^@/, '').toLowerCase().trim());
+      const cfgAdminIds = (authCfg.admin_chat_ids || []).map(x => String(x).trim());
+
+      if (cfgAdminIds.includes(uid) || (uname && cfgAdmins.includes(uname))) {{
         return 'admin';
       }}
 
@@ -3620,7 +3649,7 @@ html_content = f"""<!DOCTYPE html>
       for (const [k, udata] of Object.entries(authUsers)) {{
         const keyUname = k.toLowerCase().replace(/^@/, '');
         const udataUname = ((udata && udata.name) || '').toLowerCase().replace(/^@/, '');
-        const udataChatId = String((udata && udata.chat_id) || '');
+        const udataChatId = String((udata && udata.chat_id) || '').trim();
         if ((uname && (keyUname === uname || udataUname === uname)) || (uid && udataChatId && uid === udataChatId)) {{
           return (udata && udata.role) || 'trader';
         }}
@@ -3799,7 +3828,10 @@ html_content = f"""<!DOCTYPE html>
 
     function applyAuthenticatedState(user) {{
       const gate = document.getElementById('telegram-auth-gate');
-      if (gate) gate.classList.add('hidden');
+      if (gate) {{
+        gate.classList.add('hidden');
+        gate.style.display = 'none';
+      }}
 
       const badge = document.getElementById('auth-user-badge');
       if (badge) {{
@@ -3809,7 +3841,7 @@ html_content = f"""<!DOCTYPE html>
         const photoEl = document.getElementById('auth-user-photo');
         const fallbackEl = document.getElementById('auth-user-avatar-fallback');
 
-        if (nameEl) nameEl.innerText = user.username ? '@' + user.username : (user.first_name || 'Trader');
+        if (nameEl) nameEl.innerText = user.username ? '@' + user.username.replace(/^@/, '') : (user.first_name || 'Trader');
         if (roleEl) {{
           roleEl.innerText = (user.role || 'TRADER').toUpperCase();
           if (user.role === 'admin') {{
@@ -3874,7 +3906,43 @@ html_content = f"""<!DOCTYPE html>
       const mobTabAdmin = document.getElementById('mob-tab-admin');
       if (mobTabAdmin) mobTabAdmin.classList.add('hidden');
       const gate = document.getElementById('telegram-auth-gate');
-      if (gate) gate.classList.remove('hidden');
+      if (gate) {{
+        gate.classList.remove('hidden');
+        gate.style.display = '';
+      }}
+    }}
+
+    function toggleFallbackLogin() {{
+      const c = document.getElementById('fallback-login-container');
+      if (c) c.classList.toggle('hidden');
+    }}
+
+    function submitFallbackLogin() {{
+      const inp = document.getElementById('fallback-username-input');
+      if (!inp) return;
+      const raw = inp.value.trim().replace(/^@/, '');
+      if (!raw) return;
+
+      const isNumeric = /^\\d+$/.test(raw);
+      const dummyUser = {{
+        id: isNumeric ? raw : ('user_' + raw.toLowerCase()),
+        username: isNumeric ? '' : raw,
+        first_name: raw
+      }};
+
+      const role = checkUserRole(dummyUser);
+      if (!role) {{
+        const errBox = document.getElementById('tg-auth-error');
+        if (errBox) {{
+          errBox.className = 'p-3.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs space-y-1 mt-2 text-left';
+          errBox.innerHTML = `Die Eingabe <strong>${{raw}}</strong> ist noch nicht autorisiert. Bitte öffne <a href="https://t.me/aitradeanalystbot" target="_blank" class="text-indigo-400 underline font-bold">@aitradeanalystbot</a> in Telegram.`;
+          errBox.classList.remove('hidden');
+        }}
+        return;
+      }}
+
+      dummyUser.role = role;
+      window.handleTelegramLogin(dummyUser);
     }}
 
     function setAdminPosFilter(f) {{
@@ -3883,17 +3951,18 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     function initAuthOnLoad() {{
-      // 1. URL Query-Parameter prüfen (Offizieller Telegram Redirect-Modus)
+      // 1. URL Query-Parameter & Hash prüfen (Offizieller Telegram Redirect-Modus & tgAuthResult)
       try {{
         const urlParams = new URLSearchParams(window.location.search);
+        let qUser = null;
         const tgId = urlParams.get('id');
         const tgUsername = urlParams.get('username') || urlParams.get('user');
         const tgHash = urlParams.get('hash');
 
         if (tgId || tgUsername) {{
           const rawUname = (tgUsername || '').replace(/^@/, '');
-          const qUser = {{
-            id: tgId || ('user_' + rawUname),
+          qUser = {{
+            id: tgId || ('user_' + rawUname.toLowerCase()),
             first_name: urlParams.get('first_name') || rawUname || 'Trader',
             last_name: urlParams.get('last_name') || '',
             username: rawUname || '',
@@ -3901,26 +3970,48 @@ html_content = f"""<!DOCTYPE html>
             auth_date: urlParams.get('auth_date') || '',
             hash: tgHash || ''
           }};
+        }} else {{
+          // Check for tgAuthResult in location.hash or search
+          const rawHash = window.location.hash || '';
+          const rawSearch = window.location.search || '';
+          const match = (rawHash + rawSearch).match(/[#?&]tgAuthResult=([A-Za-z0-9\\-_=]+)/);
+          if (match && match[1]) {{
+            let b64 = match[1].replace(/-/g, '+').replace(/_/g, '/');
+            while (b64.length % 4) b64 += '=';
+            try {{
+              qUser = JSON.parse(atob(b64));
+            }} catch(e) {{}}
+          }}
+        }}
+
+        if (qUser) {{
           window.handleTelegramLogin(qUser);
           window.history.replaceState({{}}, document.title, window.location.pathname);
           return;
         }}
       }} catch (e) {{}}
 
-      // 2. Gespeicherten Nutzer prüfen
-      const user = getAuthenticatedUser();
-      if (user && (user.id || user.username)) {{
-        const role = checkUserRole(user);
+      // 2. Gespeicherten Nutzer aus localStorage laden
+      const savedUser = getAuthenticatedUser();
+      if (savedUser) {{
+        const role = checkUserRole(savedUser);
         if (role) {{
-          user.role = role;
-          applyAuthenticatedState(user);
+          savedUser.role = role;
+          applyAuthenticatedState(savedUser);
+          return;
+        }} else {{
+          // Optimistischer Fallback bis Remote-DB synchronisiert ist
+          applyAuthenticatedState(savedUser);
           return;
         }}
       }}
 
       // Nicht eingeloggt -> Gate sichtbar halten
       const gate = document.getElementById('telegram-auth-gate');
-      if (gate) gate.classList.remove('hidden');
+      if (gate) {{
+        gate.classList.remove('hidden');
+        gate.style.display = '';
+      }}
     }}
 
     // 1. Bereinige Altlasten (z.B. Demo BTC-Position aus früheren Versionen)
