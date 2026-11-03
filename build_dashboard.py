@@ -1007,6 +1007,11 @@ html_content = f"""<!DOCTYPE html>
       return null;
     }}
 
+    // Immediate anti-flicker style injection if user is already authenticated
+    if (getStoredUser()) {{
+      document.write('<style>#telegram-auth-gate {{ display: none !important; }}</style>');
+    }}
+
     function saveStoredUser(user) {{
       window.currentAuthUser = user;
       try {{ localStorage.setItem('tg_user', JSON.stringify(user)); }} catch(e) {{}}
@@ -3780,46 +3785,6 @@ html_content = f"""<!DOCTYPE html>
       }}
     }}
 
-            return `
-              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-xs space-y-2">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono border ${{resBadge}}">${{t.status || 'CLOSED'}} (${{rStr}})</span>
-                    <span class="font-bold text-white text-xs">${{t.name || t.symbol}}</span>
-                    <span class="text-[10px] text-slate-400">(${{t.timeframe || '15m'}}, ${{t.direction}})</span>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <span class="font-mono text-xs font-bold ${{isWin ? 'text-emerald-400' : 'text-rose-400'}}">${{pnlStr}}</span>
-                    <span class="text-[10px] text-slate-500 font-mono">${{dateStr}}</span>
-                    ${{pm ? `<button onclick="toggleIncubatorPm(${{idx}})" class="px-2 py-0.5 rounded bg-purple-900/40 hover:bg-purple-800/60 text-purple-300 border border-purple-500/30 text-[10px] font-bold cursor-pointer transition">KI-Bericht</button>` : ''}}
-                  </div>
-                </div>
-
-                <div class="flex items-center justify-between text-[10px] text-slate-400 font-mono px-2 py-1 rounded bg-slate-950/50">
-                  <span>Einstieg: ${{t.entry_price}} &bull; Ausstieg: ${{t.exit_price || '-'}}</span>
-                  <span>Grund: ${{t.exit_reason || 'Exit-Signal'}}</span>
-                </div>
-
-                ${{pm ? `
-                  <div id="inc-pm-box-${{idx}}" class="hidden p-3 rounded-lg bg-purple-950/30 border border-purple-500/30 space-y-1.5 text-[11px] mt-2">
-                    <div class="flex items-center justify-between border-b border-purple-500/20 pb-1">
-                      <span class="font-bold text-purple-300 flex items-center gap-1">
-                        <span>🧠</span> KI Post-Mortem Analyse (Gemini 3.8 Flash):
-                      </span>
-                      <span class="text-[10px] text-purple-400 font-mono">${{pm.verdict || 'ANALYSE'}}</span>
-                    </div>
-                    ${{pm.driver ? `<p class="text-slate-300"><span class="text-amber-400 font-bold">Ursache:</span> ${{pm.driver}}</p>` : ''}}
-                    ${{pm.technical_warning ? `<p class="text-slate-300"><span class="text-sky-400 font-bold">Frühwarnung:</span> ${{pm.technical_warning}}</p>` : ''}}
-                    ${{pm.actionable_rule ? `<p class="text-indigo-200 font-mono bg-purple-950/60 p-2 rounded border border-purple-800/40"><span class="text-indigo-300 font-bold block mb-0.5">📌 Gelernte System-Regel:</span> ${{pm.actionable_rule}}</p>` : ''}}
-                  </div>
-                ` : ''}}
-              </div>
-            `;
-          }}).join('');
-        }}
-      }}
-    }}
-
     // ==========================================
     // 👤 Eigene Nutzer-Positionen Management
     // ==========================================
@@ -3963,71 +3928,6 @@ html_content = f"""<!DOCTYPE html>
       }});
 
       container.innerHTML = html;
-    }}
-
-    function applyAuthenticatedState(user) {{
-      const gate = document.getElementById('telegram-auth-gate');
-      if (gate) {{
-        gate.classList.add('hidden');
-        gate.style.display = 'none';
-      }}
-
-      const badge = document.getElementById('auth-user-badge');
-      if (badge) {{
-        badge.classList.remove('hidden');
-        const nameEl = document.getElementById('auth-user-name');
-        const roleEl = document.getElementById('auth-user-role-badge');
-        const photoEl = document.getElementById('auth-user-photo');
-        const fallbackEl = document.getElementById('auth-user-avatar-fallback');
-
-        if (nameEl) nameEl.innerText = user.username ? '@' + user.username.replace(/^@/, '') : (user.first_name || 'Trader');
-        if (roleEl) {{
-          roleEl.innerText = (user.role || 'TRADER').toUpperCase();
-          if (user.role === 'admin') {{
-            roleEl.className = 'px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30';
-          }} else {{
-            roleEl.className = 'px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30';
-          }}
-        }}
-        if (user.photo_url && photoEl) {{
-          photoEl.src = user.photo_url;
-          photoEl.classList.remove('hidden');
-          if (fallbackEl) fallbackEl.classList.add('hidden');
-        }}
-      }}
-
-      // Admin vs Trader Visibility Control
-      const isAdmin = user.role === 'admin';
-      const navTabAdmin = document.getElementById('nav-tab-admin');
-      const mobTabAdmin = document.getElementById('mob-tab-admin');
-      const headerQuota = document.getElementById('header-quota-badge');
-      const headerEngine = document.getElementById('header-engine-badge');
-      const headerTrader = document.getElementById('header-trader-badge');
-
-      if (isAdmin) {{
-        if (navTabAdmin) navTabAdmin.classList.remove('hidden');
-        if (mobTabAdmin) mobTabAdmin.classList.remove('hidden');
-        if (headerQuota) headerQuota.classList.remove('hidden');
-        if (headerEngine) headerEngine.classList.remove('hidden');
-        if (headerTrader) headerTrader.classList.add('hidden');
-        renderAdminUsersList();
-      }} else {{
-        if (navTabAdmin) navTabAdmin.classList.add('hidden');
-        if (mobTabAdmin) mobTabAdmin.classList.add('hidden');
-        if (headerQuota) headerQuota.classList.add('hidden');
-        if (headerEngine) headerEngine.classList.add('hidden');
-        if (headerTrader) headerTrader.classList.remove('hidden');
-
-        // Falls Trader auf admin-Tab steht, zurücksetzen
-        const curTab = sessionStorage.getItem('active_tab') || 'positions';
-        if (curTab === 'admin') {{
-          sessionStorage.setItem('active_tab', 'positions');
-        }}
-      }}
-
-      const savedTab = sessionStorage.getItem('active_tab') || 'positions';
-      switchDashboardTab(savedTab);
-      renderUserPositions();
     }}
 
     function logoutTelegram() {{
