@@ -35,14 +35,20 @@
       logDiag('AUTH_SUCCESS', 'Callback onTelegramAuth() aufgerufen!', user);
       try {
         localStorage.setItem('tg_user', JSON.stringify(user));
-        logDiag('STORAGE', 'User in localStorage (tg_user) gespeichert', user);
+        sessionStorage.setItem('tg_user', JSON.stringify(user));
+        document.cookie = "tg_user=" + encodeURIComponent(JSON.stringify(user)) + "; path=/; max-age=31536000; SameSite=Lax";
+        logDiag('STORAGE', 'User in localStorage, sessionStorage & Cookie (tg_user) gespeichert', user);
       } catch(e) {
-        logDiag('ERROR', 'Konnte localStorage nicht schreiben: ' + e);
+        logDiag('ERROR', 'Konnte Storage nicht schreiben: ' + e);
       }
     };
 
     window.onTelegramAuthEvcc = function(user) {
       logDiag('AUTH_SUCCESS', 'Callback onTelegramAuthEvcc() aufgerufen!', user);
+      try {
+        localStorage.setItem('evcc_auth_user', JSON.stringify(user));
+        sessionStorage.setItem('evcc_auth_user', JSON.stringify(user));
+      } catch(e) {}
     };
 
     // Message interceptor (für iframe postMessage)
@@ -148,7 +154,10 @@
     function clearStorage() {
       localStorage.removeItem('tg_user');
       localStorage.removeItem('evcc_auth_user');
-      logDiag('STORAGE', 'localStorage Keys gelöscht');
+      sessionStorage.removeItem('tg_user');
+      sessionStorage.removeItem('evcc_auth_user');
+      document.cookie = "tg_user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      logDiag('STORAGE', 'Storage Keys (localStorage, sessionStorage, Cookie) gelöscht');
     }
 
     // Initial check URL query & hash

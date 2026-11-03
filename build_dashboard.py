@@ -752,7 +752,7 @@ html_content = f"""<!DOCTYPE html>
     }})();
   </script>
 
-  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -977,19 +977,228 @@ html_content = f"""<!DOCTYPE html>
       }}
     }}
   </style>
+  <!-- Global Telegram & Auth Architecture (Early Initialization in Head) -->
   <script>
-    // Globaler Callback für Telegram Widget (wird aufgerufen sobald der Login erfolgt)
+    window.currentAuthUser = null;
+
+    function getStoredUser() {{
+      if (window.currentAuthUser) return window.currentAuthUser;
+      try {{
+        const u = localStorage.getItem('tg_user');
+        if (u) {{
+          window.currentAuthUser = JSON.parse(u);
+          return window.currentAuthUser;
+        }}
+      }} catch(e) {{}}
+      try {{
+        const s = sessionStorage.getItem('tg_user');
+        if (s) {{
+          window.currentAuthUser = JSON.parse(s);
+          return window.currentAuthUser;
+        }}
+      }} catch(e) {{}}
+      try {{
+        const m = document.cookie.match(/(?:^|;\\s*)tg_user=([^;]+)/);
+        if (m && m[1]) {{
+          window.currentAuthUser = JSON.parse(decodeURIComponent(m[1]));
+          return window.currentAuthUser;
+        }}
+      }} catch(e) {{}}
+      return null;
+    }}
+
+    function saveStoredUser(user) {{
+      window.currentAuthUser = user;
+      try {{ localStorage.setItem('tg_user', JSON.stringify(user)); }} catch(e) {{}}
+      try {{ sessionStorage.setItem('tg_user', JSON.stringify(user)); }} catch(e) {{}}
+      try {{ document.cookie = "tg_user=" + encodeURIComponent(JSON.stringify(user)) + "; path=/; max-age=31536000; SameSite=Lax"; }} catch(e) {{}}
+    }}
+
+    function clearStoredUser() {{
+      window.currentAuthUser = null;
+      try {{ localStorage.removeItem('tg_user'); }} catch(e) {{}}
+      try {{ sessionStorage.removeItem('tg_user'); }} catch(e) {{}}
+      try {{ document.cookie = "tg_user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"; }} catch(e) {{}}
+    }}
+
+    function checkUserRole(user) {{
+      if (!user) return null;
+      const adminIds = ['15231751'];
+      const adminUnames = ['bdc_gumb_drop', 'Bdc_Gumb_Drop'];
+      const uid = String(user.id || '').trim();
+      const uname = ((user.username || '')).replace(/^@/, '').toLowerCase().trim();
+
+      // Master Admin immer direkt berechtigt
+      if (adminIds.includes(uid) || (uname && adminUnames.map(x => x.toLowerCase()).includes(uname))) {{
+        return 'admin';
+      }}
+
+      const authCfg = (typeof currentData !== 'undefined' && currentData && currentData.auth_config) || (typeof EMBEDDED_DATABASE !== 'undefined' && EMBEDDED_DATABASE.auth_config) || {{}};
+      const cfgAdmins = (authCfg.admin_usernames || []).map(x => String(x).replace(/^@/, '').toLowerCase().trim());
+      const cfgAdminIds = (authCfg.admin_chat_ids || []).map(x => String(x).trim());
+
+      if (cfgAdminIds.includes(uid) || (uname && cfgAdmins.includes(uname))) {{
+        return 'admin';
+      }}
+
+      const authUsers = authCfg.authorized_users || {{}};
+      for (const [k, udata] of Object.entries(authUsers)) {{
+        const keyUname = k.toLowerCase().replace(/^@/, '');
+        const udataUname = ((udata && udata.name) || '').toLowerCase().replace(/^@/, '');
+        const udataChatId = String((udata && udata.chat_id) || '').trim();
+        if ((uname && (keyUname === uname || udataUname === uname)) || (uid && udataChatId && uid === udataChatId)) {{
+          return (udata && udata.role) || 'trader';
+        }}
+      }}
+      return null;
+    }}
+
+    function applyAuthenticatedState(user) {{
+      if (!user) return;
+      const gate = document.getElementById('telegram-auth-gate');
+      if (gate) {{
+        gate.classList.add('hidden');
+        gate.style.setProperty('display', 'none', 'important');
+      }}
+
+      const badge = document.getElementById('auth-user-badge');
+      if (badge) {{
+        badge.classList.remove('hidden');
+        const nameEl = document.getElementById('auth-user-name');
+        const roleEl = document.getElementById('auth-user-role-badge');
+        const photoEl = document.getElementById('auth-user-photo');
+        const fallbackEl = document.getElementById('auth-user-avatar-fallback');
+
+        if (nameEl) nameEl.innerText = user.username ? '@' + user.username.replace(/^@/, '') : (user.first_name || 'Trader');
+        if (roleEl) {{
+          roleEl.innerText = (user.role || 'TRADER').toUpperCase();
+          if (user.role === 'admin') {{
+            roleEl.className = 'px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30';
+          }} else {{
+            roleEl.className = 'px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30';
+          }}
+        }}
+        if (user.photo_url && photoEl) {{
+          photoEl.src = user.photo_url;
+          photoEl.classList.remove('hidden');
+          if (fallbackEl) fallbackEl.classList.add('hidden');
+        }}
+      }}
+
+      // Admin vs Trader Controls
+      const isAdmin = user.role === 'admin';
+      const navTabAdmin = document.getElementById('nav-tab-admin');
+      const mobTabAdmin = document.getElementById('mob-tab-admin');
+      const headerQuota = document.getElementById('header-quota-badge');
+      const headerEngine = document.getElementById('header-engine-badge');
+      const headerTrader = document.getElementById('header-trader-badge');
+
+      if (isAdmin) {{
+        if (navTabAdmin) navTabAdmin.classList.remove('hidden');
+        if (mobTabAdmin) mobTabAdmin.classList.remove('hidden');
+        if (headerQuota) headerQuota.classList.remove('hidden');
+        if (headerEngine) headerEngine.classList.remove('hidden');
+        if (headerTrader) headerTrader.classList.add('hidden');
+        if (typeof renderAdminUsersList === 'function') {{
+          try {{ renderAdminUsersList(); }} catch(e) {{}}
+        }}
+      }} else {{
+        if (navTabAdmin) navTabAdmin.classList.add('hidden');
+        if (mobTabAdmin) mobTabAdmin.classList.add('hidden');
+        if (headerQuota) headerQuota.classList.add('hidden');
+        if (headerEngine) headerEngine.classList.add('hidden');
+        if (headerTrader) headerTrader.classList.remove('hidden');
+      }}
+
+      if (typeof switchDashboardTab === 'function') {{
+        try {{
+          const savedTab = sessionStorage.getItem('active_tab') || 'positions';
+          switchDashboardTab(savedTab);
+        }} catch(e) {{}}
+      }}
+      if (typeof renderUserPositions === 'function') {{
+        try {{ renderUserPositions(); }} catch(e) {{}}
+      }}
+    }}
+
+    window.handleTelegramLogin = function(user) {{
+      if (!user) return;
+      const role = checkUserRole(user);
+      user.role = role;
+
+      if (!role) {{
+        const errBox = document.getElementById('tg-auth-error');
+        if (errBox) {{
+          errBox.className = 'p-3.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs space-y-2 mt-3 text-left';
+          errBox.innerHTML = `
+            <div class="font-bold text-rose-400 flex items-center gap-1.5">
+              <span>⛔</span> Zugriff nicht freigeschaltet
+            </div>
+            <p>Dein Telegram-Account <strong>@${{user.username || user.first_name || 'Unbekannt'}}</strong> ist in diesem System noch nicht autorisiert.</p>
+            <p class="text-[11px] text-slate-400">Bitte öffne <a href="https://t.me/aitradeanalystbot" target="_blank" class="text-indigo-400 font-bold underline">@aitradeanalystbot</a> in Telegram und sende <code>/start</code>. Sobald der Administrator dich freigeschaltet hat, lade diese Seite neu.</p>
+            <button onclick="logoutTelegram()" class="mt-2 w-full py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition cursor-pointer">
+              Mit anderem Account anmelden
+            </button>
+          `;
+          errBox.classList.remove('hidden');
+        }}
+        return;
+      }}
+
+      saveStoredUser(user);
+      applyAuthenticatedState(user);
+    }};
+
+    // Globaler Telegram Callback für das Login-Widget
     window.onTelegramAuth = function(user) {{
       console.log('Telegram Auth Callback empfangen:', user);
-      try {{
-        localStorage.setItem('tg_user', JSON.stringify(user));
-      }} catch(e) {{}}
-      if (typeof handleTelegramLogin === 'function') {{
-        handleTelegramLogin(user);
-      }} else {{
-        window.location.reload();
-      }}
+      handleTelegramLogin(user);
     }};
+
+    // Early Telegram URL & Hash Authentication Check (läuft sofort beim Laden)
+    (function earlyAuthCheck() {{
+      try {{
+        // Check #tgAuthResult (from mobile / redirect OAuth)
+        const hash = window.location.hash || window.location.search || '';
+        const match = hash.match(/[#?&]tgAuthResult=([A-Za-z0-9\\-_=]+)/);
+        if (match && match[1]) {{
+          let b64 = match[1].replace(/-/g, '+').replace(/_/g, '/');
+          while (b64.length % 4) b64 += '=';
+          const qUser = JSON.parse(atob(b64));
+          if (qUser && (qUser.id || qUser.username)) {{
+            handleTelegramLogin(qUser);
+            try {{ window.history.replaceState({{}}, document.title, window.location.pathname); }} catch(e) {{}}
+            return;
+          }}
+        }}
+      }} catch(e) {{}}
+
+      try {{
+        // Check query parameters (?id=...&username=...)
+        const sp = new URLSearchParams(window.location.search);
+        const tgId = sp.get('id');
+        const tgUname = sp.get('username') || sp.get('user');
+        if (tgId || tgUname) {{
+          const raw = (tgUname || '').replace(/^@/, '');
+          const qUser = {{
+            id: tgId || ('user_' + raw.toLowerCase()),
+            first_name: sp.get('first_name') || raw || 'Trader',
+            username: raw || '',
+            photo_url: sp.get('photo_url') || '',
+            auth_date: sp.get('auth_date') || '',
+            hash: sp.get('hash') || ''
+          }};
+          handleTelegramLogin(qUser);
+          try {{ window.history.replaceState({{}}, document.title, window.location.pathname); }} catch(e) {{}}
+          return;
+        }}
+      }} catch(e) {{}}
+
+      const existing = getStoredUser();
+      if (existing) {{
+        handleTelegramLogin(existing);
+      }}
+    }})();
   </script>
 </head>
 <body class="bg-[#0b0f19] text-slate-100 min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
@@ -1018,7 +1227,7 @@ html_content = f"""<!DOCTYPE html>
                 data-size="large" 
                 data-radius="12" 
                 data-onauth="onTelegramAuth(user)" 
-                data-auth-url="https://bbbdc.github.io/trading-dashboard/index.html" 
+                data-auth-url="https://bbbdc.github.io/trading-dashboard/" 
                 data-request-access="write"></script>
       </div>
 
@@ -1040,9 +1249,12 @@ html_content = f"""<!DOCTYPE html>
         </div>
       </div>
 
-      <div class="pt-3 border-t border-slate-800 text-[11px] text-slate-500 space-y-1">
-        <p>Zugriff nur für autorisierte Telegram-Nutzer.</p>
-        <p>Noch nicht freigeschaltet? Öffne <a href="https://t.me/aitradeanalystbot" target="_blank" class="text-indigo-400 hover:text-indigo-300 font-semibold underline">@aitradeanalystbot</a> und sende <code class="bg-slate-800 px-1 py-0.5 rounded">/start</code>.</p>
+      <!-- Footer Info & Reset Option -->
+      <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-500">
+        <p>Zugriff nur für autorisierte Nutzer.</p>
+        <button type="button" onclick="resetAuthSession()" class="text-slate-400 hover:text-amber-400 transition underline cursor-pointer ml-2 whitespace-nowrap">
+          🔄 Session zurücksetzen
+        </button>
       </div>
     </div>
   </div>
@@ -3612,84 +3824,11 @@ html_content = f"""<!DOCTYPE html>
     // 👤 Eigene Nutzer-Positionen Management
     // ==========================================
     let currentPosDirection = 'LONG';
-    let currentAuthUser = null;
     let currentAdminPosFilter = 'all';
 
     function getAuthenticatedUser() {{
-      if (currentAuthUser) return currentAuthUser;
-      try {{
-        const raw = localStorage.getItem('tg_user');
-        if (raw) currentAuthUser = JSON.parse(raw);
-      }} catch (e) {{}}
-      return currentAuthUser;
+      return getStoredUser();
     }}
-
-    function checkUserRole(user) {{
-      if (!user) return null;
-      
-      const adminIds = ['15231751'];
-      const adminUnames = ['bdc_gumb_drop', 'Bdc_Gumb_Drop'];
-      const uid = String(user.id || '').trim();
-      const uname = ((user.username || '')).replace(/^@/, '').toLowerCase().trim();
-
-      // Master Admin immer direkt berechtigt
-      if (adminIds.includes(uid) || (uname && adminUnames.map(x => x.toLowerCase()).includes(uname))) {{
-        return 'admin';
-      }}
-
-      const authCfg = (currentData && currentData.auth_config) || (typeof EMBEDDED_DATABASE !== 'undefined' && EMBEDDED_DATABASE.auth_config) || {{}};
-      const cfgAdmins = (authCfg.admin_usernames || []).map(x => String(x).replace(/^@/, '').toLowerCase().trim());
-      const cfgAdminIds = (authCfg.admin_chat_ids || []).map(x => String(x).trim());
-
-      if (cfgAdminIds.includes(uid) || (uname && cfgAdmins.includes(uname))) {{
-        return 'admin';
-      }}
-
-      const authUsers = authCfg.authorized_users || {{}};
-      for (const [k, udata] of Object.entries(authUsers)) {{
-        const keyUname = k.toLowerCase().replace(/^@/, '');
-        const udataUname = ((udata && udata.name) || '').toLowerCase().replace(/^@/, '');
-        const udataChatId = String((udata && udata.chat_id) || '').trim();
-        if ((uname && (keyUname === uname || udataUname === uname)) || (uid && udataChatId && uid === udataChatId)) {{
-          return (udata && udata.role) || 'trader';
-        }}
-      }}
-      return null;
-    }}
-
-    window.handleTelegramLogin = function(user) {{
-      if (!user) return;
-      const role = checkUserRole(user);
-      user.role = role;
-
-      if (!role) {{
-        const errBox = document.getElementById('tg-auth-error');
-        if (errBox) {{
-          errBox.className = 'p-3.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs space-y-2 mt-3 text-left';
-          errBox.innerHTML = `
-            <div class="font-bold text-rose-400 flex items-center gap-1.5">
-              <span>⛔</span> Zugriff nicht freigeschaltet
-            </div>
-            <p>Dein Telegram-Account <strong>@${{user.username || user.first_name || 'Unbekannt'}}</strong> ist in diesem System noch nicht autorisiert.</p>
-            <p class="text-[11px] text-slate-400">Bitte öffne <a href="https://t.me/aitradeanalystbot" target="_blank" class="text-indigo-400 font-bold underline">@aitradeanalystbot</a> in Telegram und sende <code>/start</code>. Sobald der Administrator dich freigeschaltet hat, lade diese Seite neu.</p>
-            <button onclick="logoutTelegram()" class="mt-2 w-full py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition cursor-pointer">
-              Mit anderem Account anmelden
-            </button>
-          `;
-          errBox.classList.remove('hidden');
-        }}
-        return;
-      }}
-
-      currentAuthUser = user;
-      try {{
-        localStorage.setItem('tg_user', JSON.stringify(user));
-      }} catch (e) {{}}
-
-      applyAuthenticatedState(user);
-    }};
-
-    window.onTelegramAuth = window.handleTelegramLogin;
 
     function switchDashboardTab(tabId) {{
       const user = getAuthenticatedUser();
@@ -3892,11 +4031,8 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     function logoutTelegram() {{
-      try {{
-        localStorage.removeItem('tg_user');
-        sessionStorage.removeItem('active_tab');
-      }} catch (e) {{}}
-      currentAuthUser = null;
+      clearStoredUser();
+      try {{ sessionStorage.removeItem('active_tab'); }} catch (e) {{}}
       const badge = document.getElementById('auth-user-badge');
       if (badge) badge.classList.add('hidden');
       const errBox = document.getElementById('tg-auth-error');
@@ -3910,6 +4046,14 @@ html_content = f"""<!DOCTYPE html>
         gate.classList.remove('hidden');
         gate.style.display = '';
       }}
+    }}
+
+    function resetAuthSession() {{
+      clearStoredUser();
+      try {{ sessionStorage.clear(); }} catch(e) {{}}
+      try {{ localStorage.clear(); }} catch(e) {{}}
+      alert('Login-Session & lokaler Speicher wurden zurückgesetzt. Die Seite wird neu geladen.');
+      window.location.href = window.location.origin + window.location.pathname;
     }}
 
     function toggleFallbackLogin() {{
@@ -3951,64 +4095,13 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     function initAuthOnLoad() {{
-      // 1. URL Query-Parameter & Hash prüfen (Offizieller Telegram Redirect-Modus & tgAuthResult)
-      try {{
-        const urlParams = new URLSearchParams(window.location.search);
-        let qUser = null;
-        const tgId = urlParams.get('id');
-        const tgUsername = urlParams.get('username') || urlParams.get('user');
-        const tgHash = urlParams.get('hash');
-
-        if (tgId || tgUsername) {{
-          const rawUname = (tgUsername || '').replace(/^@/, '');
-          qUser = {{
-            id: tgId || ('user_' + rawUname.toLowerCase()),
-            first_name: urlParams.get('first_name') || rawUname || 'Trader',
-            last_name: urlParams.get('last_name') || '',
-            username: rawUname || '',
-            photo_url: urlParams.get('photo_url') || '',
-            auth_date: urlParams.get('auth_date') || '',
-            hash: tgHash || ''
-          }};
-        }} else {{
-          // Check for tgAuthResult in location.hash or search
-          const rawHash = window.location.hash || '';
-          const rawSearch = window.location.search || '';
-          const match = (rawHash + rawSearch).match(/[#?&]tgAuthResult=([A-Za-z0-9\\-_=]+)/);
-          if (match && match[1]) {{
-            let b64 = match[1].replace(/-/g, '+').replace(/_/g, '/');
-            while (b64.length % 4) b64 += '=';
-            try {{
-              qUser = JSON.parse(atob(b64));
-            }} catch(e) {{}}
-          }}
-        }}
-
-        if (qUser) {{
-          window.handleTelegramLogin(qUser);
-          window.history.replaceState({{}}, document.title, window.location.pathname);
-          return;
-        }}
-      }} catch (e) {{}}
-
-      // 2. Gespeicherten Nutzer aus localStorage laden
-      const savedUser = getAuthenticatedUser();
-      if (savedUser) {{
-        const role = checkUserRole(savedUser);
-        if (role) {{
-          savedUser.role = role;
-          applyAuthenticatedState(savedUser);
-          return;
-        }} else {{
-          // Optimistischer Fallback bis Remote-DB synchronisiert ist
-          applyAuthenticatedState(savedUser);
-          return;
-        }}
-      }}
-
-      // Nicht eingeloggt -> Gate sichtbar halten
+      const user = getStoredUser();
       const gate = document.getElementById('telegram-auth-gate');
-      if (gate) {{
+      if (user) {{
+        applyAuthenticatedState(user);
+        return;
+      }}
+      if (gate && gate.style.display !== 'none' && !gate.classList.contains('hidden')) {{
         gate.classList.remove('hidden');
         gate.style.display = '';
       }}
