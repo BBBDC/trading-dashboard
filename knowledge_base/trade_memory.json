@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-03T14:50:20.969224+00:00",
-  "total_experience_records": 69,
+  "updated_at": "2026-11-03T15:11:26.578724+00:00",
+  "total_experience_records": 73,
   "learnings": [
+    {
+      "timestamp": "2026-11-03T15:11:22.786940+00:00",
+      "trade_id": "cross_rule_1793718682",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "VSA-Volumenvalidierung als unumstößliche Execution-Bedingung für jedes Retest-Setup.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der Verlust in AMZ.F belegt, dass isolierte Trigger-Signale (wie das blaue Dreieck) wertlos sind, wenn der Pullback mit expansiven Bären-Volumen erfolgt; Korrekturen müssen volumenarm austrocknen, bevor der Impuls gezündet wird.",
+        "actionable_rule": "VSA-Volumenvalidierung als unumstößliche Execution-Bedingung für jedes Retest-Setup."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T15:11:22.786888+00:00",
+      "trade_id": "cross_rule_1793718682",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Liquiditäts-Axiom: Kein Trade ohne vorangegangenen Liquidity-Sweep signifikanter Hochs/Tiefs.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf der 5m- als auch auf der 4h/1D-Zeitebene akkumuliert Smart Money erst unterhalb offensichtlicher Tiefs. Ein reines 'Touch-and-Go' an sekundären Blöcken ohne Liquiditätsreinigung führt systemisch zu Fehlausbrüchen und Stop-Outs.",
+        "actionable_rule": "Fraktales Liquiditäts-Axiom: Kein Trade ohne vorangegangenen Liquidity-Sweep signifikanter Hochs/Tiefs."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T15:11:22.786843+00:00",
+      "trade_id": "inc_AMZ.F_5m_1793716985",
+      "symbol": "AMZ.F",
+      "name": "Amazon",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.66,
+      "pnl_raw": -0.33,
+      "text": "Kein Long-Entry an [B]-Blocks ohne vorangegangenen Sweep des letzten signifikanten Swing-Tiefs (mindestens Sweep-Qualität [A]) und begleitende Volumenaustrocknung der Bären.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AMZ.F_5m_1793716985",
+        "verdict": "LOSS",
+        "driver": "Kauf in ein unvollendetes Korrekturmuster ohne vorherige Sell-Side-Liquiditätsabfischung, wodurch der fragile Support des [B]-Blocks durch überlegenes Abgabevolumen mühelos durchbrochen wurde.",
+        "technical_warning": "Ansteigendes Abwärtsvolumen (VSA) bei der Anfahrt auf die Zone sowie mangelnde bullische Divergenz an den Chaos-Bändern warnten vor dominierendem institutionellen Verkaufsdruck.",
+        "actionable_rule": "Kein Long-Entry an [B]-Blocks ohne vorangegangenen Sweep des letzten signifikanten Swing-Tiefs (mindestens Sweep-Qualität [A]) und begleitende Volumenaustrocknung der Bären."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T15:11:22.786737+00:00",
+      "trade_id": "inc_APC.F_5m_1793716984",
+      "symbol": "APC.F",
+      "name": "Apple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 2.12,
+      "pnl_raw": 1.06,
+      "text": "Bei Retests an [C]-Order-Blocks muss nach Erreichen von 1.0R der Stop-Loss kompromisslos auf Break-Even nachgezogen werden, da diese Zonen statistisch anfälliger für späte Sweeps sind.",
+      "ai_post_mortem": {
+        "trade_id": "inc_APC.F_5m_1793716984",
+        "verdict": "WIN",
+        "driver": "Sofortige aggressive Anschlusskäufe nach dem OB-Retest trugen den Kurs dynamisch und ohne nennenswerten Drawdown direkt durch alle Liquiditätspools bis zum maximalen Take-Profit.",
+        "technical_warning": "Grad-C-Order-Blocks besitzen geringere institutionelle Signifikanz; ein Ausbleiben von sofortigem Delta-Kaufvolumen innerhalb von zwei Kerzen nach Signal hätte den Einstieg sofort invalidiert.",
+        "actionable_rule": "Bei Retests an [C]-Order-Blocks muss nach Erreichen von 1.0R der Stop-Loss kompromisslos auf Break-Even nachgezogen werden, da diese Zonen statistisch anfälliger für späte Sweeps sind."
+      }
+    },
     {
       "timestamp": "2026-11-03T14:44:13.362936+00:00",
       "trade_id": "cross_rule_1793717053",
