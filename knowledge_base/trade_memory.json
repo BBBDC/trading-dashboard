@@ -1,7 +1,200 @@
 {
-  "updated_at": "2026-11-03T14:05:05.828533+00:00",
-  "total_experience_records": 98,
+  "updated_at": "2026-11-03T14:44:17.533821+00:00",
+  "total_experience_records": 69,
   "learnings": [
+    {
+      "timestamp": "2026-11-03T14:44:13.362936+00:00",
+      "trade_id": "cross_rule_1793717053",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Asymmetrische Qualitätsselektion: Tier-B Triggersignale dürfen nur prozyklisch im Einklang mit der 4h/1D-Trendstruktur gehandelt werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf Mikro-Zeitebenen werden sekundäre Widerstände (wie bei NVD.F) durch HTF-Flow mühelos überrannt; schwächere Setups verzeihen keine Gegenwind-Trades gegen den übergeordneten Markttrend.",
+        "actionable_rule": "Asymmetrische Qualitätsselektion: Tier-B Triggersignale dürfen nur prozyklisch im Einklang mit der 4h/1D-Trendstruktur gehandelt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T14:44:13.362901+00:00",
+      "trade_id": "cross_rule_1793717053",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Liquiditäts-Axiom: Kein Trade ohne vorangegangenen Sweep & Reclaim relevanter Hochs/Tiefs.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein Orderblock besitzt aus sich heraus keinen statistischen Edge; erst das Abfischen gegnerischer Liquidität erzeugt das strukturelle Ungleichgewicht, das sowohl auf 5m als auch auf 4h/1D für saubere Multi-R-Expansionswellen sorgt.",
+        "actionable_rule": "Fraktales Liquiditäts-Axiom: Kein Trade ohne vorangegangenen Sweep & Reclaim relevanter Hochs/Tiefs."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T14:44:13.362870+00:00",
+      "trade_id": "inc_NVD.F_5m_1793708481",
+      "symbol": "NVD.F",
+      "name": "Nvidia",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.34,
+      "pnl_raw": -0.17,
+      "text": "Kategorisches Ausführungsverbot für Tier-B Orderblocks im 5m-Chart, sofern kein übergeordneter 4h-Trendfilter den Short stützt und kein Buy-Stop-Sweep das Level säubert.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NVD.F_5m_1793708481",
+        "verdict": "LOSS",
+        "driver": "Minderwertiger Short-Versuch an einem sekundären Tier-B Orderblock mit rein indikatorbasiertem Triggersignal, ohne dass zuvor Buy-Side-Liquidität über dem lokalen Widerstand abgeräumt wurde.",
+        "technical_warning": "Fehlendes VSA-Climax-Volumen am Widerstand sowie das Ausbleiben eines oberen Wicks/Sweeps über die Chaos-Bänder warnten vor anhaltender Trendfortsetzung der Käufer.",
+        "actionable_rule": "Kategorisches Ausführungsverbot für Tier-B Orderblocks im 5m-Chart, sofern kein übergeordneter 4h-Trendfilter den Short stützt und kein Buy-Stop-Sweep das Level säubert."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T14:44:13.362789+00:00",
+      "trade_id": "inc_ETHUSDT_5m_1793708481",
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 2.02,
+      "pnl_raw": 1.01,
+      "text": "Aggressive Micro-Confluence Longs nur freigeben, wenn vor dem Tier-A OB-Retest ein verifizierter Tier-A Stop-Hunt unter das vorangegangene Swing-Tief stattgefunden hat.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ETHUSDT_5m_1793708481",
+        "verdict": "WIN",
+        "driver": "Perfektes Zusammenspiel aus institutionalem Sell-Side Liquidity Sweep (Grade A) und sofortiger Reaktivierung an einem unmitigierten Tier-A Orderblock, was unmittelbaren Expansionsdruck bis zum 3.0R-Ziel generierte.",
+        "technical_warning": "Das Setup lief lehrbuchmäßig durch; ein frühes Ausstiegssignal hätte lediglich gedroht, wenn nach dem Sweep kein VSA-Absorptionsvolumen gefolgt wäre oder der Preis länger als 3 Kerzen in der FVG konsolidiert hätte.",
+        "actionable_rule": "Aggressive Micro-Confluence Longs nur freigeben, wenn vor dem Tier-A OB-Retest ein verifizierter Tier-A Stop-Hunt unter das vorangegangene Swing-Tief stattgefunden hat."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T14:43:42.166300+00:00",
+      "trade_id": "cross_rule_1793717022",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Mindest-Strukturqualität: OBs ohne Liquiditäts-Sweep ([A]-Kriterium) erfordern zwingend eine übergeordnete Bestätigung",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Isolierte [B]- und [C]-Retests ohne vorherige Stop-Runs bieten keinen institutionellen Schutzwall; auf 15m rettete die Mean-Reversion-Spannung des Chaos-Bandes das Setup, auf 5m wurden ungesweepte Niveaus gnadenlos überrannt.",
+        "actionable_rule": "Fraktale Mindest-Strukturqualität: OBs ohne Liquiditäts-Sweep ([A]-Kriterium) erfordern zwingend eine übergeordnete Bestätigung"
+      }
+    },
+    {
+      "timestamp": "2026-11-03T14:43:42.166277+00:00",
+      "trade_id": "cross_rule_1793717022",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Absolute Filter-Vollständigkeit vor Timeframe-Rauschen (No Pocket, No Trade)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der BTC-Trade scheiterte primär am Fehlen der Institutional Buy Pocket; unvollständige Confluences verwandeln Setups auf 5m wie auf 4h/1D in unkalkulierbares Rauschen ohne statistischen Edge.",
+        "actionable_rule": "Absolute Filter-Vollständigkeit vor Timeframe-Rauschen (No Pocket, No Trade)"
+      }
+    },
+    {
+      "timestamp": "2026-11-03T14:43:42.166264+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1793698203",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Entry ohne 100% erfüllte Confluence-Bedingungen – das Fehlen auch nur eines Kernfilters (Institutional Buy Pocket) schließt die Orderplatzierung kategorisch aus.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1793698203",
+        "verdict": "LOSS",
+        "driver": "Disziplinwidriger Trade ohne die essentielle 'Institutional Buy Pocket' (Chaos Band < RFE), der als ungedecktes Messerfangen im 5m-Abwärtsimpuls endete.",
+        "technical_warning": "Fehlen des Chaos-Band-Erschöpfungssignals und ein OB [B] ohne vorhergehenden Liquiditäts-Sweep (Grade-A-Kriterium) signalisierten hohe Durchbruchswahrscheinlichkeit.",
+        "actionable_rule": "Kein Entry ohne 100% erfüllte Confluence-Bedingungen – das Fehlen auch nur eines Kernfilters (Institutional Buy Pocket) schließt die Orderplatzierung kategorisch aus."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T14:43:42.166246+00:00",
+      "trade_id": "inc_RENDERUSDT_15m_1793698203",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (15m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 15m Micro-Confluence Long",
+      "pnl_leveraged": 5.22,
+      "pnl_raw": 2.61,
+      "text": "Priorisiere 15m-Setups gegenüber 5m-Setups und halte die 3.0R-Projektion diszipliniert ein, sobald Chaos Band < RFE mit einem validierten Momentum-Signal koinzidiert.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_15m_1793698203",
+        "verdict": "WIN",
+        "driver": "Die 15m-Auflösung filterte das Marktrauschen effektiv heraus, wodurch die 'Institutional Buy Pocket' (Chaos Band < RFE) ihren statistischen Edge in einer impulsiven 3.0R-Expansion entfalten konnte.",
+        "technical_warning": "Der OB war lediglich Grade [C]; bei fehlender relativer Stärke des Tokens hätte dieser unvollständige Sweep zu einem vorzeitigen Stop-Out geführt.",
+        "actionable_rule": "Priorisiere 15m-Setups gegenüber 5m-Setups und halte die 3.0R-Projektion diszipliniert ein, sobald Chaos Band < RFE mit einem validierten Momentum-Signal koinzidiert."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T14:43:42.166184+00:00",
+      "trade_id": "inc_BNBUSDT_5m_1793696811",
+      "symbol": "BNBUSDT",
+      "name": "BNB",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "5m-Micro-Confluence-Longs auf Beta-Altcoins sind strikt auszusetzen, wenn der Leitmarkt (BTC) kein synchrones Umkehrsignal aufweist.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BNBUSDT_5m_1793696811",
+        "verdict": "LOSS",
+        "driver": "Trotz vollständiger Triggerkette erlag das 5m-Setup mangelnder lokaler Delta-Absorption und dem zeitgleichen Liquiditätsabverkauf im Leitmarkt BTC.",
+        "technical_warning": "Ausbleiben einer bullischen VSA-Absorptionskerze beim OB-Retest sowie ein Durchstechen des Chaos-Bandes ohne prompte V-förmige Rejection (Failure to Reclaim).",
+        "actionable_rule": "5m-Micro-Confluence-Longs auf Beta-Altcoins sind strikt auszusetzen, wenn der Leitmarkt (BTC) kein synchrones Umkehrsignal aufweist."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T14:40:49.533734+00:00",
+      "trade_id": "trade_BINANCE_BATUSD_20261102_1414",
+      "symbol": "BINANCE:BATUSD",
+      "name": "BATUSD",
+      "category": "Crypto",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "Hypothese 1: SMC Order Block [R7] Confluence",
+      "pnl_leveraged": -11.95,
+      "pnl_raw": -2.99,
+      "text": "Ein übergeordnet bullischer HTF-Trend rechtfertigt keinen ungeprüften Einstieg in ein fallendes Messer. Ohne klare Liquiditätsaufnahme und LTF-Strukturbruch am Order Block vernichtet Hebel das Risikobudget in Stunden.",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Blinder Einstieg in einen SMC Order Block ohne Bestätigung lokaler Bodenbildung (CHoCH) führte zum Kauf direkt in eine übergeordnete Korrektur ohne jegliche Kaufabsorption.",
+        "technical_warning": "Fehlendes bullisches Volumen am Order Block sowie das sofortige Ausbleiben jeglicher Anschlusskäufe (Höchstkurs 0.1306 gegenüber Einstieg 0.1305) signalisierten fehlende institutionelle Nachfrage.",
+        "actionable_rule": "Im Krypto-Sektor dürfen SMC Order Blocks niemals per Blind-Limit oder ohne Lower-Timeframe-Umkehrsignal (CHoCH / MSS mit signifikantem Volumen) betreten werden; bei fehlender Bestätigung ist Hebel auf maximal 2x zu drosseln.",
+        "recommended_leverage_adjustment": -1,
+        "summary_text": "Ein übergeordnet bullischer HTF-Trend rechtfertigt keinen ungeprüften Einstieg in ein fallendes Messer. Ohne klare Liquiditätsaufnahme und LTF-Strukturbruch am Order Block vernichtet Hebel das Risikobudget in Stunden."
+      }
+    },
     {
       "timestamp": "2026-11-03T12:21:53.274896+00:00",
       "trade_id": "cross_rule_1793708513",
@@ -1151,501 +1344,21 @@
         "recommended_leverage_adjustment": -1,
         "summary_text": "Ein valider Einstieg ist wertlos, wenn Gewinne nicht geschützt werden. Lass im Micro-Incubator niemals einen fast 1 % im Plus liegenden Trade in einem vollen Stop-Loss enden."
       }
-    },
-    {
-      "timestamp": "2026-11-02T14:47:53.186655+00:00",
-      "trade_id": "inc_hist_TSLA_1793302200",
-      "symbol": "TSLA",
-      "name": "Tesla",
-      "category": "Micro-Incubator (15m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder Micro Confluence Long",
-      "pnl_leveraged": -0.26,
-      "pnl_raw": -0.13,
-      "text": "Mikro-Setups mit Bruchteil-Prozent-Stops in hochvolatilen Werten wie TSLA sind kein Trading, sondern Subventionierung der Market Maker. Volatilität erfordert Raum zum Atmen oder striktes Positions-Sizing ohne Hebel.",
-      "ai_post_mortem": {
-        "verdict": "LOSS",
-        "driver": "Ein viel zu eng dimensionierter Stop-Loss von lediglich 0,13 % (ca. 51 Cent) ignorierte die natürliche Intraday-Volatilität von TSLA in der Schlussstunde und führte zum vorzeitigen Rauskegeln durch normales Marktrauschen.",
-        "technical_warning": "Fehlender Abgleich mit der Intraday-ATR sowie die unmittelbare Erschöpfung des Aufwärtsimpulses am lokalen Hoch bei 404,58 ohne Anschlussvolumen in der spätzyklischen Power Hour (19:30 UTC).",
-        "actionable_rule": "Keine Micro-LTF-Ausbrüche in Hoch-Beta-Aktien innerhalb der letzten 45 Minuten vor US-Börsenschluss ohne mindestens 1,0x ATR(5m) Stop-Abstand und übergeordneten Volumen-Cluster-Support.",
-        "recommended_leverage_adjustment": -1,
-        "summary_text": "Mikro-Setups mit Bruchteil-Prozent-Stops in hochvolatilen Werten wie TSLA sind kein Trading, sondern Subventionierung der Market Maker. Volatilität erfordert Raum zum Atmen oder striktes Positions-Sizing ohne Hebel."
-      }
-    },
-    {
-      "timestamp": "2026-11-02T14:47:31.814614+00:00",
-      "trade_id": "inc_hist_SOLUSDT_1793603700",
-      "symbol": "SOLUSDT",
-      "name": "Solana",
-      "category": "Micro-Incubator (15m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder Micro Confluence Long",
-      "pnl_leveraged": -0.8,
-      "pnl_raw": -0.4,
-      "text": "Ein Trade, der bereits signifikant im Plus lag, darf im Micro-Trading niemals als voller Verlust enden. Fehlendes aktives Trade-Management verwandelt valide Signale in unnötige Portfolio-Drawdowns.",
-      "ai_post_mortem": {
-        "verdict": "LOSS",
-        "driver": "Ein anfänglicher Buchgewinn bis 94.9800 wurde mangels konsequentem Break-Even-Nachzug vollständig abgegeben und bei einsetzendem Verkaufsdruck unter Support ausgestoppt.",
-        "technical_warning": "Das Ausbleiben von Anschlussvolumen an der psychologischen Marke von 95.00 sowie die Bildung eines lokalen Lower Highs warnten vor dem Scheitern des Ausbruchsversuchs.",
-        "actionable_rule": "Sobald ein Micro-Confluence-Trade mehr als +0.50% im Buchgewinn notiert, muss der Stop-Loss zwingend auf Einstiegsniveau nachgezogen und Teilgewinne vor runden HTF-Widerständen gesichert werden.",
-        "recommended_leverage_adjustment": -1,
-        "summary_text": "Ein Trade, der bereits signifikant im Plus lag, darf im Micro-Trading niemals als voller Verlust enden. Fehlendes aktives Trade-Management verwandelt valide Signale in unnötige Portfolio-Drawdowns."
-      }
-    },
-    {
-      "timestamp": "2026-11-02T14:17:11.490237+00:00",
-      "trade_id": "trade_COINBASE_ETHBTC_20261102_1414",
-      "symbol": "COINBASE:ETHBTC",
-      "name": "ETHBTC",
-      "category": "Crypto",
-      "direction": "SHORT",
-      "result": "BREAKEVEN",
-      "setup_name": "Hypothese 1: degencoder Institutional Sell Pocket Reversal",
-      "pnl_leveraged": 0.0,
-      "pnl_raw": 0.0,
-      "text": "Ein angeblicher Maximalgewinn bei 0,00 % PnL entlarvt eine fehlerhafte TP-Bedingung im Short-Code, die sofort behoben werden muss. Wer bei Short-Trades oberhalb des Einstiegs Gewinne verbucht, betreibt Selbsttäuschung und zahlt unnötigen Spread.",
-      "ai_post_mortem": {
-        "verdict": "BREAKEVEN",
-        "driver": "Kritischer Logikfehler im Ausführungs-Algorithmus: Bei einer Short-Position lag das Take-Profit-Ziel mit 0.03 über dem Einstiegskurs von 0.0294, was eine sofortige Phantom-Schließung ohne Marktbewegung auslöste.",
-        "technical_warning": "Kein primäres Chartversagen, sondern fehlende Execution-Validierung; charttechnisch fehlte vor dem Short-Trigger an 0.0294 zudem ein veritabler Mikrostruktur-Bruch (LL) zur Bestätigung der Trendfolge.",
-        "actionable_rule": "Implementiere einen harten Execution-Guard: Take-Profit-Preise bei Short-Orders müssen zwingend kleiner als der Entry-Preis sein (TP < Entry - 1x ATR), andernfalls wird die Order blockiert.",
-        "recommended_leverage_adjustment": 0,
-        "summary_text": "Ein angeblicher Maximalgewinn bei 0,00 % PnL entlarvt eine fehlerhafte TP-Bedingung im Short-Code, die sofort behoben werden muss. Wer bei Short-Trades oberhalb des Einstiegs Gewinne verbucht, betreibt Selbsttäuschung und zahlt unnötigen Spread."
-      }
-    },
-    {
-      "timestamp": "2026-11-02T14:14:45.366477+00:00",
-      "trade_id": "trade_KRAKEN_DAIEUR_20261031_0613",
-      "symbol": "KRAKEN:DAIEUR",
-      "name": "DAIEUR",
-      "category": "Crypto",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "Hypothese 1: SMC Support Reversal",
-      "pnl_leveraged": -12.72,
-      "pnl_raw": -3.18,
-      "text": "Wer Buchgewinne an HTF-Liquiditätsmarken nicht absichert, wird an gehebelten Währungspaaren am absoluten Tief ausgestoppt. Kapitalerhalt verlangt proaktive Risikoreduktion statt verzögerter Reaktionen nach vollständigem Support-Kollaps.",
-      "ai_post_mortem": {
-        "verdict": "LOSS",
-        "driver": "Fehlende Gewinnsicherung nach dem Liquiditäts-Sweep am lokalen Hoch (0.9036) führte zum ungebremsten Durchrauschen durch den Support eines faktischen FX-Crosses (USD/EUR) bei überhöhtem Hebel.",
-        "technical_warning": "Die scharfe bärische Rejektion an der psychologischen Marke 0.9000 mit anschließendem 4H-Strukturbruch (Change of Character) unter das Einstiegsniveau von 0.8936 hätte den sofortigen Ausstieg signalisieren müssen, lange bevor die Position am absoluten Tiefstkurs (0.8651) geschlossen wurde.",
-        "actionable_rule": "Bei gehebelten Stablecoin/FX-Paaren muss nach einem Anstieg von >1% der Stopp zwingend auf Break-Even nachgezogen werden, und die Position ist beim ersten bärischen 4H-Strukturbruch sofort manuell zu schließen.",
-        "recommended_leverage_adjustment": -2,
-        "summary_text": "Wer Buchgewinne an HTF-Liquiditätsmarken nicht absichert, wird an gehebelten Währungspaaren am absoluten Tief ausgestoppt. Kapitalerhalt verlangt proaktive Risikoreduktion statt verzögerter Reaktionen nach vollständigem Support-Kollaps."
-      }
-    },
-    {
-      "timestamp": "2026-11-02T11:48:56.726239+00:00",
-      "trade_id": "trade_TRADEGATE_YDX_20261030_1810",
-      "symbol": "TRADEGATE:YDX",
-      "name": "BYD Company",
-      "category": "Tradegate / EU",
-      "direction": "SHORT",
-      "result": "LOSS",
-      "setup_name": "Hypothese 2: Bearish Trend Continuation",
-      "pnl_leveraged": -18.96,
-      "pnl_raw": -3.79,
-      "text": "Wer am Freitagabend in einen überdehnten Trend hinein shortet, wird am Montagmorgen von den asiatischen Primärmärkten überrollt. Climax-Volumen nach Kursverlusten signalisiert primär Liquiditätsabsorption der Käufer und keine Trendfortsetzung.",
-      "ai_post_mortem": {
-        "verdict": "LOSS",
-        "driver": "Später Trendfolge-Short am Freitagabend kurz vor Börsenschluss bei bereits überdehnter Abwärtsbewegung, wodurch die Position ungeschützt dem Wochenend-Gap-Risiko der asiatischen Leitbörsen ausgesetzt wurde.",
-        "technical_warning": "Das interpretierte 'Climax-Volumen' in der Erholung stellte keine Verkaufsdominanz dar, sondern eine Volumenausschüttung/Absorption an einem übergeordneten Support-Level mit drohender bullischer Indikatordivergenz.",
-        "actionable_rule": "Keine neuen Trendfolge-Short-Positionen auf europäische Sekundärlistings asiatischer Titel nach 17:00 Uhr am Freitag eröffnen; Volumenspitzen am Ende mehrtägiger Abwärtswellen sind strikt als Erschöpfung/Absorptionsgefahr zu werten.",
-        "recommended_leverage_adjustment": -2,
-        "summary_text": "Wer am Freitagabend in einen überdehnten Trend hinein shortet, wird am Montagmorgen von den asiatischen Primärmärkten überrollt. Climax-Volumen nach Kursverlusten signalisiert primär Liquiditätsabsorption der Käufer und keine Trendfortsetzung."
-      }
-    },
-    {
-      "timestamp": "2026-11-01T07:05:23.958666+00:00",
-      "trade_id": "trade_COINBASE_BCHUSD_20261031_0613",
-      "symbol": "COINBASE:BCHUSD",
-      "name": "Bitcoin Cash",
-      "category": "Crypto",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "Hypothese 1: SMC Support Reversal",
-      "pnl_leveraged": -7.19,
-      "pnl_raw": -1.8,
-      "text": "Ein Retracement-Level ist erst dann ein Support, wenn der Markt dort aggressiv kauft. Ohne bestätigte Reaktion ist 4x-Hebel reines Glücksspiel.",
-      "ai_post_mortem": {
-        "verdict": "LOSS",
-        "driver": "Der Einstieg erfolgte ungeprüft als blindes Limit in das 4h Golden Pocket, ohne eine vorherige Lower-Timeframe-Strukturbestätigung (Market Structure Shift) abzuwarten.",
-        "technical_warning": "Das sofortige Versiegen des Momentums bei 291.46 sowie der dynamische Bruch der Pocket-Unterkante (288.49) ohne bullische RSI-Divergenz oder sichtbares Absorptionsvolumen zeigten frühzeitig das Fehlen institutioneller Käufer.",
-        "actionable_rule": "SMC-Reversals in Altcoins dürfen niemals 'blind' an Fibonacci-Levels gefischt werden; ein Einstieg erfordert zwingend einen bestätigten 15m/1h Market Structure Shift mit Displacement-Candle.",
-        "recommended_leverage_adjustment": -1,
-        "summary_text": "Ein Retracement-Level ist erst dann ein Support, wenn der Markt dort aggressiv kauft. Ohne bestätigte Reaktion ist 4x-Hebel reines Glücksspiel."
-      }
-    },
-    {
-      "timestamp": "2026-11-01T03:05:24.470287+00:00",
-      "trade_id": "trade_BINANCE_ZECUSDT_20261031_2305",
-      "symbol": "BINANCE:ZECUSDT",
-      "name": "Zcash",
-      "category": "Crypto",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "Hypothese 2: Trend Continuation",
-      "pnl_leveraged": -2.64,
-      "pnl_raw": -0.88,
-      "text": "Ein makroökonomisch bullischer Trend schützt nicht vor mikroskopischen Liquiditätsabfischungen im Krypto-Nacht-Handel. Wer enge Stops mit Hebel im Marktrauschen platziert, dient institutionellen Akteuren lediglich als Ausstiegs-Liquidität.",
-      "ai_post_mortem": {
-        "verdict": "LOSS",
-        "driver": "Prozyklischer Trendfolge-Einstieg in ein illiquides Wochenend-Zeitfenster mit einem Stop-Loss unter 1%, der innerhalb der normalen Krypto-Rauschbandbreite lag und direkt nach einem Fehlausbruch abgefischt wurde.",
-        "technical_warning": "Fehlendes Ausbruchsvolumen beim Erreichen des 1.260er-Niveaus sowie die Missachtung der 4h-ATR-Volatilitätsspanne, wodurch der Stop-Loss strukturell ungeschützt im Rauschen platziert war.",
-        "actionable_rule": "In volatilen Krypto-Märkten darf der initiale Stop-Loss niemals enger als 1.5x 4h-ATR liegen, und pyramidisierte Trendfortsetzungs-Trades sind an Wochenenden ohne signifikante Volumenbestätigung strikt untersagt.",
-        "recommended_leverage_adjustment": -1,
-        "summary_text": "Ein makroökonomisch bullischer Trend schützt nicht vor mikroskopischen Liquiditätsabfischungen im Krypto-Nacht-Handel. Wer enge Stops mit Hebel im Marktrauschen platziert, dient institutionellen Akteuren lediglich als Ausstiegs-Liquidität."
-      }
-    },
-    {
-      "timestamp": "2026-10-31T23:05:24.506543+00:00",
-      "trade_id": "trade_BINANCE_ZECUSDT_20261031_0613",
-      "symbol": "BINANCE:ZECUSDT",
-      "name": "Zcash",
-      "category": "Crypto",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "Hypothese 1: SMC Support Reversal",
-      "pnl_leveraged": -6.55,
-      "pnl_raw": -2.18,
-      "text": "Pyramidisieren in die Momentum-Erschöpfung hinein verwandelt ein valides HTF-Reversal in eine Liquiditätsfalle. Kaufe Bestätigungen nach Pullbacks, keine lokalen Tops.",
-      "ai_post_mortem": {
-        "verdict": "LOSS",
-        "driver": "Aggressives Pyramidisieren (Tranche 2 bei 1.285) unmittelbar unter dem lokalen Hoch (1.288) trieb den Durchschnittseinstieg kurz vor einer Momentum-Erschöpfung fahrlässig nach oben.",
-        "technical_warning": "Fehlende Volumenbestätigung am lokalen Widerstand bei 1.288 sowie bearische LTF-Divergenzen (RSI/Delta) signalisierten frühzeitig Liquiditätsabgriff statt nachhaltigem Breakout.",
-        "actionable_rule": "Zusatztranchen dürfen ausschließlich nach signifikantem Strukturbruch (MSS/BOS) und erfolgreichem Retest des Ausbruchsniveaus platziert werden, niemals direkt in eine unbestätigte Widerstandszone.",
-        "recommended_leverage_adjustment": -1,
-        "summary_text": "Pyramidisieren in die Momentum-Erschöpfung hinein verwandelt ein valides HTF-Reversal in eine Liquiditätsfalle. Kaufe Bestätigungen nach Pullbacks, keine lokalen Tops."
-      }
-    },
-    {
-      "timestamp": "2026-10-30T17:53:26.134516+00:00",
-      "trade_id": "trade_NASDAQ_META_20261027_1507",
-      "symbol": "NASDAQ:META",
-      "name": "Meta Platforms",
-      "category": "Big Tech",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
-      "pnl_leveraged": -9.61,
-      "pnl_raw": -1.6,
-      "text": "Ein Golden Pocket ist im intakten HTF-Abwärtstrend kein automatischer Support, sondern oft nur eine Bärenfalle. Ohne Bestätigungssignal führt ein Gegen-den-Trend-Einstieg mit 6x Hebel unweigerlich zu vermeidbarem Drawdown.",
-      "ai_post_mortem": {
-        "verdict": "LOSS",
-        "driver": "Blinder Long-Einstieg in ein Fibonacci-Retracement direkt gegen den übergeordneten 1D-Bärentrend (unter EMA 233) ohne vorherige Trendwende-Bestätigung auf kleinerer Zeitebene.",
-        "technical_warning": "Der übergeordnete 1D-Trend unterhalb des EMA 233 signalisierte dominanten Verkaufsdruck; das Ausbleiben eines Lower-Timeframe Market Structure Shifts (CHoCH) sowie der anschließende Bruch der Unterkante des Golden Pockets bei 622.16 machten die Setup-Invalidierung frühzeitig sichtbar.",
-        "actionable_rule": "Bei übergeordnet bärischer Marktstruktur (Kurs < 1D EMA 233) sind prozyklische Shorts zu priorisieren; kontratrendäre Reversals im Golden Pocket dürfen ausschließlich nach vollzogenem LTF-Strukturbruch (CHoCH mit Volumenbestätigung) eingegangen werden.",
-        "recommended_leverage_adjustment": -2,
-        "summary_text": "Ein Golden Pocket ist im intakten HTF-Abwärtstrend kein automatischer Support, sondern oft nur eine Bärenfalle. Ohne Bestätigungssignal führt ein Gegen-den-Trend-Einstieg mit 6x Hebel unweigerlich zu vermeidbarem Drawdown."
-      }
-    },
-    {
-      "timestamp": "2026-10-30T14:45:51.013839+00:00",
-      "trade_id": "trade_TRADEGATE_PTX_20261029_1026",
-      "symbol": "TRADEGATE:PTX",
-      "result": "LOSS",
-      "setup_name": "Hypothese 1: SMC Support Reversal",
-      "pnl_leveraged": -20.5,
-      "text": "Divergenzen und VSA-Muster sind ohne sichtbare Reaktionsbestätigung wertlos. Bei Hebel 5x führt das Vorwegnehmen einer Bodenbildung zu unnötig hohen Drawdowns von über 20%.",
-      "ai_post_mortem": {
-        "verdict": "LOSS",
-        "driver": "Der Einstieg erfolgte direkt am lokalen Top ohne bullische Folgebestätigung, woraufhin die angenommene SMC-Support-Zone impulsiv unter Verkaufsdruck gebrochen wurde.",
-        "technical_warning": "Das Ausbleiben jeglicher Aufwärtsbewegung über den Einstiegspreis (Höchstkurs identisch mit Einstieg) sowie der Bruch der lokalen 1h-Struktur zeigten sofortigen Mangel an institutioneller Nachfrage an.",
-        "actionable_rule": "Bei SMC-Support-Reversals niemals blind per Limit einsteigen, sondern zwingend einen LTF-Market-Structure-Shift (MSS/CHoCH) mit Bestätigungskerze abwarten.",
-        "recommended_leverage_adjustment": -2,
-        "summary_text": "Divergenzen und VSA-Muster sind ohne sichtbare Reaktionsbestätigung wertlos. Bei Hebel 5x führt das Vorwegnehmen einer Bodenbildung zu unnötig hohen Drawdowns von über 20%."
-      }
-    },
-    {
-      "timestamp": "2026-10-30T14:45:51.013703+00:00",
-      "trade_id": "trade_NASDAQ_NVDA_20261023_1315",
-      "symbol": "NASDAQ:NVDA",
-      "result": "LOSS",
-      "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
-      "pnl_leveraged": -17.05,
-      "text": "Ein fallendes Messer gegen den Tagestrend ohne Reversal-Bestätigung mit 6x Hebel zu fangen, ist grobe Fahrlässigkeit im Risikomanagement. Bei Counter-Trend-Setups muss der Hebel drastisch reduziert und zwingend auf Marktstruktur-Validierung gewartet werden.",
-      "ai_post_mortem": {
-        "verdict": "LOSS",
-        "driver": "Der Einstieg erfolgte prozyklisch gegen den übergeordneten bärischen Tagestrend unter dem EMA 233, ohne dass eine bestätigte bullische Trendwende (CHoCH/BOS) auf kleinerer Zeitebene vorlag.",
-        "technical_warning": "Der Kurs notierte unter dem EMA 233 bei gleichzeitigem Fehlen von bullischem Volumen oder Divergenzen; zudem lag der Einstiegskurs (212.21) bereits oberhalb des definierten Golden Pockets (209.67 - 211.33), wodurch das Setup von Beginn an verfrüht und ohne Bestätigung gehandelt wurde.",
-        "actionable_rule": "Keine Reversal-Longs gegen einen bärischen HTF-Trend (unterhalb EMA 233) mit Hebel eröffnen, bevor ein valider Change of Character (CHoCH) mit überdurchschnittlichem Volumen auf dem Einstiegs-Timeframe bestätigt ist.",
-        "recommended_leverage_adjustment": -3,
-        "summary_text": "Ein fallendes Messer gegen den Tagestrend ohne Reversal-Bestätigung mit 6x Hebel zu fangen, ist grobe Fahrlässigkeit im Risikomanagement. Bei Counter-Trend-Setups muss der Hebel drastisch reduziert und zwingend auf Marktstruktur-Validierung gewartet werden."
-      }
-    },
-    {
-      "timestamp": "2026-10-30T14:45:51.013587+00:00",
-      "trade_id": "trade_NASDAQ_GOOG_20261019_1956",
-      "symbol": "NASDAQ:GOOG",
-      "result": "WIN",
-      "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-      "pnl_leveraged": 109.5,
-      "text": "Ein voller Buchgewinn von +18.25% durch striktes Trendfolge-Disziplinieren unter dem EMA 233. Trotz des Erfolgs muss die Setup-Logik bei widersprüchlichen Divergenz-Signalen geschärft werden, um unnötiges Drawdown-Risiko zu vermeiden.",
-      "ai_post_mortem": {
-        "verdict": "WIN",
-        "driver": "Der übergeordnete 1D-Abwärtstrend unterhalb des EMA 233 entfaltete massive Abwärtsdynamik und drückte den Kurs direkt ins primäre Take-Profit-Ziel.",
-        "technical_warning": "Die im Einstiegslog erwähnte 'versteckte bullische Divergenz' stand im Widerspruch zum Short-Bias; künftig muss die Indikator-Nomenklatur bereinigt und auf echte bärische Trendfolge-Divergenzen oder Fehlausbrüche am HTF-Widerstand getimt werden.",
-        "actionable_rule": "Gehe niemals Short, wenn bullische Divergenzen aktiv sind, es sei denn, ein valider Bruch der lokalen Marktstruktur bestätigt das Scheitern der Käufer.",
-        "recommended_leverage_adjustment": 1,
-        "summary_text": "Ein voller Buchgewinn von +18.25% durch striktes Trendfolge-Disziplinieren unter dem EMA 233. Trotz des Erfolgs muss die Setup-Logik bei widersprüchlichen Divergenz-Signalen geschärft werden, um unnötiges Drawdown-Risiko zu vermeiden."
-      }
-    },
-    {
-      "timestamp": "2026-10-29T14:28:02.035611+00:00",
-      "trade_id": "trade_CRYPTOCAP_TOTAL_20261026_1109",
-      "symbol": "CRYPTOCAP:TOTAL",
-      "result": "LOSS",
-      "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
-      "pnl_leveraged": -0.85,
-      "text": "Ein Golden Pocket ist im intakten HTF-Abwärtstrend kein Kaufgrund ohne strukturelle Bestätigung. Wer gegen die Trendrichtung blind in Korrekturlevel greift, bezahlt mit unnötigen Reibungsverlusten.",
-      "ai_post_mortem": {
-        "verdict": "LOSS",
-        "driver": "Long-Einstieg gegen einen intakten übergeordneten Bärentrend (unter 1D EMA 233) ohne bestätigte Umkehrstruktur führte zu einem klassischen 'Messer-Fangen' und letztlich zum Ausstieg durch Trendfolge.",
-        "technical_warning": "Der Kurs lag unter dem 1D EMA 233 und hatte das 1D Golden Pocket nach unten durchbrochen, ohne dass im LTF/HTF ein bestätigter Market Structure Break (MSB) oder bullisches Volumen/Divergenz eine Bodenbildung signalisierten.",
-        "actionable_rule": "Keine Reversal-Trades gegen den Daily Trend (unter EMA 233) allein auf Basis passiver Fibonacci-Zonen; ein Einstieg erfordert zwingend eine bestätigte bullische Strukturverschiebung (CHoCH/BOS) auf dem 4H- oder 1D-Chart.",
-        "recommended_leverage_adjustment": -1,
-        "summary_text": "Ein Golden Pocket ist im intakten HTF-Abwärtstrend kein Kaufgrund ohne strukturelle Bestätigung. Wer gegen die Trendrichtung blind in Korrekturlevel greift, bezahlt mit unnötigen Reibungsverlusten."
-      }
-    },
-    {
-      "timestamp": "2026-10-29T06:09:48.795489+00:00",
-      "trade_id": "trade_BINANCE_DOTUSDT_20261027_1507",
-      "symbol": "BINANCE:DOTUSDT",
-      "result": "BREAKEVEN",
-      "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
-      "pnl_leveraged": 0.0,
-      "text": "Verlusttrade auf Polkadot (BINANCE:DOTUSDT) mit 0.0% (0.0% bei 5x Hebel nach 1.6d). Grund: Struktureller Trendwechsel: Markt-Signal drehte von LONG auf SHORT.. Learning: Bei Setup 'Hypothese 1: SMC Golden Confluence Reversal' auf Crypto sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-29T02:07:20.183141+00:00",
-      "trade_id": "trade_BINANCE_AVAXUSDT_20261026_0607",
-      "symbol": "BINANCE:AVAXUSDT",
-      "result": "LOSS",
-      "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
-      "pnl_leveraged": -7.77,
-      "text": "Verlusttrade auf Avalanche (BINANCE:AVAXUSDT) mit -2.6% (-7.8% bei 3x Hebel nach 2.8d). Grund: Vorzeitiger Kapitalschutz: Setup nach 2.8 Tagen invalidiert (Signal NEUTRAL).. Learning: Bei Setup 'Hypothese 1: SMC Golden Confluence Reversal' auf Crypto sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-27T15:07:23.292001+00:00",
-      "trade_id": "trade_NYSE_ORCL_20261024_1810",
-      "symbol": "NYSE:ORCL",
-      "result": "LOSS",
-      "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-      "pnl_leveraged": -8.51,
-      "text": "Verlusttrade auf Oracle (NYSE:ORCL) mit -1.7% (-8.5% bei 5x Hebel nach 2.9d). Grund: Vorzeitiger Kapitalschutz: Setup nach 2.9 Tagen invalidiert (Signal NEUTRAL).. Learning: Bei Setup 'Hypothese 1: Bearish Confluence Reversal' auf Enterprise Software sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-27T15:07:23.291806+00:00",
-      "trade_id": "trade_NASDAQ_AAPL_20261024_1008",
-      "symbol": "NASDAQ:AAPL",
-      "result": "LOSS",
-      "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-      "pnl_leveraged": -0.85,
-      "text": "Verlusttrade auf Apple (NASDAQ:AAPL) mit -0.1% (-0.8% bei 6x Hebel nach 3.2d). Grund: Struktureller Trendwechsel: Markt-Signal drehte von SHORT auf LONG.. Learning: Bei Setup 'Hypothese 1: Bearish Confluence Reversal' auf Big Tech sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-26T11:09:00.350167+00:00",
-      "trade_id": "trade_XETR_BAYN_20261023_1000",
-      "symbol": "XETR:BAYN",
-      "result": "LOSS",
-      "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-      "pnl_leveraged": -14.41,
-      "text": "Verlusttrade auf Bayer (XETR:BAYN) mit -2.9% (-14.4% bei 5x Hebel nach 3.0d). Grund: Vorzeitiger Kapitalschutz: Setup nach 3.0 Tagen invalidiert (Signal NEUTRAL).. Learning: Bei Setup 'Hypothese 1: Bearish Confluence Reversal' auf Pharma / DAX sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-26T06:07:24.316639+00:00",
-      "trade_id": "trade_BINANCE_GMXUSDT_20261025_0608",
-      "symbol": "BINANCE:GMXUSDT",
-      "result": "LOSS",
-      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-      "pnl_leveraged": -18.29,
-      "text": "Verlusttrade auf GMX (BINANCE:GMXUSDT) mit -6.1% (-18.3% bei 3x Hebel nach 1.0d). Grund: Stop-Loss erreicht (8.01 <= 8.10) zum Kapitalschutz.. Learning: Bei Setup 'Hypothese 2: Trend Continuation & Hidden Div' auf Crypto sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-25T14:08:40.977486+00:00",
-      "trade_id": "trade_COINBASE_BTCUSD_20261023_1913",
-      "symbol": "COINBASE:BTCUSD",
-      "result": "LOSS",
-      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-      "pnl_leveraged": -6.13,
-      "text": "Verlusttrade auf Bitcoin (COINBASE:BTCUSD) mit -1.5% (-6.1% bei 4x Hebel nach 1.8d). Grund: Vorzeitiger Kapitalschutz: Setup nach 1.8 Tagen invalidiert (Signal NEUTRAL).. Learning: Bei Setup 'Hypothese 2: Trend Continuation & Hidden Div' auf Crypto sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-25T10:11:43.134335+00:00",
-      "trade_id": "trade_COINBASE_BCHUSD_20261024_1810",
-      "symbol": "COINBASE:BCHUSD",
-      "result": "LOSS",
-      "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-      "pnl_leveraged": -1.05,
-      "text": "Verlusttrade auf Bitcoin Cash (COINBASE:BCHUSD) mit -0.3% (-1.0% bei 3x Hebel nach 0.7d). Grund: Struktureller Trendwechsel: Markt-Signal drehte von SHORT auf LONG.. Learning: Bei Setup 'Hypothese 1: Bearish Confluence Reversal' auf Crypto sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-25T02:11:28.953947+00:00",
-      "trade_id": "trade_BINANCE_ZECUSDT_20261024_1810",
-      "symbol": "BINANCE:ZECUSDT",
-      "result": "LOSS",
-      "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-      "pnl_leveraged": -15.09,
-      "text": "Verlusttrade auf Zcash (BINANCE:ZECUSDT) mit -5.0% (-15.1% bei 3x Hebel nach 0.3d). Grund: Stop-Loss erreicht (1,219.79 >= 1,219.44) zum Kapitalschutz.. Learning: Bei Setup 'Hypothese 1: Bearish Confluence Reversal' auf Crypto sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-24T18:10:16.283276+00:00",
-      "trade_id": "trade_COINBASE_CRVUSD_20261023_1913",
-      "symbol": "COINBASE:CRVUSD",
-      "result": "LOSS",
-      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-      "pnl_leveraged": -22.69,
-      "text": "Verlusttrade auf Curve DAO (COINBASE:CRVUSD) mit -5.7% (-22.7% bei 4x Hebel nach 1.0d). Grund: Stop-Loss erreicht (0.35 <= 0.35) zum Kapitalschutz.. Learning: Bei Setup 'Hypothese 2: Trend Continuation & Hidden Div' auf Crypto sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-24T18:10:16.283107+00:00",
-      "trade_id": "trade_BINANCE_BTCUSDT_20261023_1808",
-      "symbol": "BINANCE:BTCUSDT",
-      "result": "LOSS",
-      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-      "pnl_leveraged": -6.13,
-      "text": "Verlusttrade auf Bitcoin (BINANCE:BTCUSDT) mit -1.5% (-6.1% bei 4x Hebel nach 1.0d). Grund: Vorzeitiger Kapitalschutz: Setup nach 1.0 Tagen invalidiert (Signal NEUTRAL).. Learning: Bei Setup 'Hypothese 2: Trend Continuation & Hidden Div' auf Krypto sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-24T18:10:16.282929+00:00",
-      "trade_id": "trade_BINANCE_GMXUSDT_20261023_1808",
-      "symbol": "BINANCE:GMXUSDT",
-      "result": "LOSS",
-      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-      "pnl_leveraged": -7.45,
-      "text": "Verlusttrade auf GMX (BINANCE:GMXUSDT) mit -1.9% (-7.4% bei 4x Hebel nach 1.0d). Grund: Stop-Loss erreicht (8.17 <= 8.25) zum Kapitalschutz.. Learning: Bei Setup 'Hypothese 2: Trend Continuation & Hidden Div' auf Crypto sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-24T10:08:01.757144+00:00",
-      "trade_id": "trade_BINANCE_DOTUSDT_20261023_1913",
-      "symbol": "BINANCE:DOTUSDT",
-      "result": "LOSS",
-      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-      "pnl_leveraged": -21.43,
-      "text": "Verlusttrade auf Polkadot (BINANCE:DOTUSDT) mit -5.4% (-21.4% bei 4x Hebel nach 0.6d). Grund: Stop-Loss erreicht (1.06 <= 1.06) zum Kapitalschutz.. Learning: Bei Setup 'Hypothese 2: Trend Continuation & Hidden Div' auf Crypto sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-23T19:13:18.632336+00:00",
-      "trade_id": "trade_COINBASE_BCHUSD_20261022_1913",
-      "symbol": "COINBASE:BCHUSD",
-      "result": "LOSS",
-      "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-      "pnl_leveraged": -12.58,
-      "text": "Verlusttrade auf Bitcoin Cash (COINBASE:BCHUSD) mit -4.2% (-12.6% bei 3x Hebel nach 1.0d). Grund: Vorzeitiger Kapitalschutz: Setup nach 1.0 Tagen invalidiert (Signal NEUTRAL).. Learning: Bei Setup 'Hypothese 1: Bearish Confluence Reversal' auf Crypto sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-23T19:13:18.632166+00:00",
-      "trade_id": "trade_NYSE_UBER_20261022_1116",
-      "symbol": "NYSE:UBER",
-      "result": "LOSS",
-      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-      "pnl_leveraged": -11.46,
-      "text": "Verlusttrade auf Uber (NYSE:UBER) mit -1.9% (-11.5% bei 6x Hebel nach 1.3d). Grund: Stop-Loss erreicht (67.04 <= 67.62) zum Kapitalschutz.. Learning: Bei Setup 'Hypothese 2: Trend Continuation & Hidden Div' auf Mobility / Tech sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-23T19:13:18.631928+00:00",
-      "trade_id": "trade_NASDAQ_HOOD_20261020_0313",
-      "symbol": "NASDAQ:HOOD",
-      "result": "LOSS",
-      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-      "pnl_leveraged": -9.08,
-      "text": "Verlusttrade auf Robinhood (NASDAQ:HOOD) mit -1.5% (-9.1% bei 6x Hebel nach 3.7d). Grund: Vorzeitiger Kapitalschutz: Setup nach 3.7 Tagen invalidiert (Signal NEUTRAL).. Learning: Bei Setup 'Hypothese 2: Trend Continuation & Hidden Div' auf Fintech / Broker sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-23T18:08:03.033214+00:00",
-      "trade_id": "trade_TVC_DJI_20261023_1000",
-      "symbol": "TVC:DJI",
-      "result": "WIN",
-      "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-      "pnl_leveraged": 5.77,
-      "text": "Erfolgreicher SHORT-Trade auf DJI (TVC:DJI) mit +1.2% (+5.8% bei 5x Hebel nach 0.3d). Bestätigt die Validität von 'Hypothese 1: Bearish Confluence Reversal'. Das Nachziehen des Stop-Loss bzw. Abwarten des HTF-Ziels zahlte sich voll aus."
-    },
-    {
-      "timestamp": "2026-10-23T18:08:03.033131+00:00",
-      "trade_id": "trade_BINANCE_DOTUSDT_20261022_1517",
-      "symbol": "BINANCE:DOTUSDT",
-      "result": "LOSS",
-      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-      "pnl_leveraged": -3.54,
-      "text": "Verlusttrade auf Polkadot (BINANCE:DOTUSDT) mit -0.9% (-3.5% bei 4x Hebel nach 1.1d). Grund: Stop-Loss erreicht (1.12 <= 1.12) zum Kapitalschutz.. Learning: Bei Setup 'Hypothese 2: Trend Continuation & Hidden Div' auf Crypto sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-23T03:13:03.790042+00:00",
-      "trade_id": "trade_NASDAQ_AAPL_20261020_0313",
-      "symbol": "NASDAQ:AAPL",
-      "result": "LOSS",
-      "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-      "pnl_leveraged": -9.24,
-      "text": "Verlusttrade auf Apple (NASDAQ:AAPL) mit -1.5% (-9.2% bei 6x Hebel nach 3.0d). Grund: Vorzeitiger Kapitalschutz: Setup nach 3.0 Tagen invalidiert (Signal NEUTRAL).. Learning: Bei Setup 'Hypothese 1: Bearish Confluence Reversal' auf Big Tech sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-22T19:13:55.471569+00:00",
-      "trade_id": "trade_NYSE_UAA_20261022_1116",
-      "symbol": "NYSE:UAA",
-      "result": "WIN",
-      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-      "pnl_leveraged": 19.27,
-      "text": "Erfolgreicher LONG-Trade auf Under Armour (NYSE:UAA) mit +3.2% (+19.3% bei 6x Hebel nach 0.3d). Bestätigt die Validität von 'Hypothese 2: Trend Continuation & Hidden Div'. Das Nachziehen des Stop-Loss bzw. Abwarten des HTF-Ziels zahlte sich voll aus."
-    },
-    {
-      "timestamp": "2026-10-22T19:13:55.471353+00:00",
-      "trade_id": "trade_CRYPTOCAP_TOTAL_20261020_1115",
-      "symbol": "CRYPTOCAP:TOTAL",
-      "result": "LOSS",
-      "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
-      "pnl_leveraged": -2.09,
-      "text": "Verlusttrade auf Total Crypto Market Cap (CRYPTOCAP:TOTAL) mit -0.7% (-2.1% bei 3x Hebel nach 2.3d). Grund: Stop-Loss erreicht (2,696,913,623,209.00 <= 2,699,508,101,371.00) zum Kapitalschutz.. Learning: Bei Setup 'Hypothese 1: SMC Golden Confluence Reversal' auf Krypto-Makro sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-22T19:13:55.471150+00:00",
-      "trade_id": "trade_BINANCE_BTCUSDT_20261020_1115",
-      "symbol": "BINANCE:BTCUSDT",
-      "result": "LOSS",
-      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-      "pnl_leveraged": -2.96,
-      "text": "Verlusttrade auf Bitcoin (BINANCE:BTCUSDT) mit -1.0% (-3.0% bei 3x Hebel nach 2.3d). Grund: Stop-Loss erreicht (81,387.33 <= 81,594.00) zum Kapitalschutz.. Learning: Bei Setup 'Hypothese 2: Trend Continuation & Hidden Div' auf Krypto sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-22T15:17:40.245080+00:00",
-      "trade_id": "trade_COINBASE_BTCUSD_20261020_0313",
-      "symbol": "COINBASE:BTCUSD",
-      "result": "LOSS",
-      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-      "pnl_leveraged": -2.27,
-      "text": "Verlusttrade auf Bitcoin (COINBASE:BTCUSD) mit -0.8% (-2.3% bei 3x Hebel nach 2.5d). Grund: Stop-Loss erreicht (81,603.19 <= 81,738.92) zum Kapitalschutz.. Learning: Bei Setup 'Hypothese 2: Trend Continuation & Hidden Div' auf Crypto sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-22T07:11:08.042166+00:00",
-      "trade_id": "trade_BINANCE_ETHFIUSDT_20261020_0313",
-      "symbol": "BINANCE:ETHFIUSDT",
-      "result": "LOSS",
-      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-      "pnl_leveraged": -6.45,
-      "text": "Verlusttrade auf ether.fi (BINANCE:ETHFIUSDT) mit -1.6% (-6.5% bei 4x Hebel nach 2.2d). Grund: Vorzeitiger Kapitalschutz: Setup nach 2.2 Tagen invalidiert (Signal NEUTRAL).. Learning: Bei Setup 'Hypothese 2: Trend Continuation & Hidden Div' auf Crypto sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-22T07:11:08.041987+00:00",
-      "trade_id": "trade_BINANCE_DOTUSDT_20261019_1956",
-      "symbol": "BINANCE:DOTUSDT",
-      "result": "LOSS",
-      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-      "pnl_leveraged": -7.89,
-      "text": "Verlusttrade auf Polkadot (BINANCE:DOTUSDT) mit -2.6% (-7.9% bei 3x Hebel nach 2.5d). Grund: Vorzeitiger Kapitalschutz: Setup nach 2.5 Tagen invalidiert (Signal NEUTRAL).. Learning: Bei Setup 'Hypothese 2: Trend Continuation & Hidden Div' auf Crypto sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
-    },
-    {
-      "timestamp": "2026-10-20T11:15:53.611281+00:00",
-      "trade_id": "trade_BINANCE_GMXUSDT_20261019_1956",
-      "symbol": "BINANCE:GMXUSDT",
-      "result": "LOSS",
-      "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-      "pnl_leveraged": -7.48,
-      "text": "Verlusttrade auf GMX (BINANCE:GMXUSDT) mit -1.9% (-7.5% bei 4x Hebel nach 0.6d). Grund: Stop-Loss erreicht (8.13 <= 8.24) zum Kapitalschutz.. Learning: Bei Setup 'Hypothese 2: Trend Continuation & Hidden Div' auf Crypto sollte der Hebel bei ähnlicher Marktstruktur konservativer gewählt werden oder der Ausstieg bei ersten Divergenzen erfolgen."
     }
   ],
   "setup_statistics": {},
   "setup_performance": {
+    "Hypothese 1: SMC Order Block [R7] Confluence": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate": 0.0,
+      "total_lev_pnl": -11.9,
+      "profit_factor": 0.0,
+      "status": "BALANCED",
+      "min_score": 88,
+      "leverage_adjustment": 0
+    },
     "Hypothese 1: degencoder Institutional Sell Pocket Reversal": {
       "trades": 1,
       "wins": 0,
@@ -1726,11 +1439,11 @@
   },
   "category_performance": {
     "Crypto": {
-      "trades": 20,
+      "trades": 21,
       "wins": 0,
-      "losses": 18,
+      "losses": 19,
       "win_rate": 0.0,
-      "total_lev_pnl": -169.2,
+      "total_lev_pnl": -181.2,
       "profit_factor": 0.0,
       "status": "UNDERPERFORMING",
       "min_score": 92,
