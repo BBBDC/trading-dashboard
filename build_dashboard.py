@@ -1007,56 +1007,25 @@ html_content = f"""<!DOCTYPE html>
       <div>
         <h2 class="text-xl font-bold text-white tracking-tight">Privater Systemzugang</h2>
         <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-          TradingView Super-Analyst auf Raspberry Pi. Authentifiziere dich für deine Trades und Live-Marktanalysen.
+          TradingView Super-Analyst auf Raspberry Pi. Bitte authentifiziere dich über Telegram, um Zugriff auf deine Trades und Live-Marktanalysen zu erhalten.
         </p>
       </div>
 
-      <!-- 👑 1-Klick Master-Admin Schnell-Login -->
-      <div class="pt-1">
-        <button type="button" onclick="loginDirectUser('Bdc_Gumb_Drop')" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 transition cursor-pointer active:scale-[0.99]">
-          <span>👑</span>
-          <span>Als Master-Admin (@Bdc_Gumb_Drop) anmelden</span>
-        </button>
-      </div>
-
-      <!-- Direkte Anmeldung mit Nutzername (100% zuverlässig, ohne Safari / Cookie-Blockade) -->
-      <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2 text-left">
-        <div class="text-[11px] font-semibold text-slate-300 flex items-center justify-between">
-          <span>Direkt-Login mit Telegram-Name</span>
-          <span class="text-[10px] text-indigo-400 font-mono">Ohne Cookie-Hürde</span>
-        </div>
-        <div class="flex gap-2">
-          <div class="relative flex-1">
-            <span class="absolute left-3 top-2 text-slate-500 text-xs font-mono">@</span>
-            <input type="text" id="fallback-username-input" placeholder="Bdc_Gumb_Drop" value="Bdc_Gumb_Drop" class="w-full pl-7 pr-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500 font-mono">
-          </div>
-          <button type="button" onclick="submitFallbackLogin()" class="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition cursor-pointer shadow-md shadow-indigo-600/30">
-            Anmelden
-          </button>
-        </div>
-      </div>
-
-      <div class="relative flex py-0.5 items-center">
-        <div class="flex-grow border-t border-slate-800"></div>
-        <span class="flex-shrink mx-3 text-[10px] text-slate-500 uppercase tracking-wider font-mono">oder per Telegram-Widget</span>
-        <div class="flex-grow border-t border-slate-800"></div>
-      </div>
-
-      <!-- Telegram Official Login Widget -->
-      <div id="tg-widget-mount" class="py-1 flex flex-col items-center justify-center min-h-[44px]">
+      <!-- Telegram Official Login Widget (Offizieller Redirect-Modus: 100% zuverlässig auf allen Geräten) -->
+      <div id="tg-widget-mount" class="py-3 flex flex-col items-center justify-center min-h-[50px]">
         <script async src="https://telegram.org/js/telegram-widget.js?22" 
                 data-telegram-login="aitradeanalystbot" 
                 data-size="large" 
                 data-radius="12" 
-                data-onauth="onTelegramAuth(user)" 
+                data-auth-url="https://bbbdc.github.io/trading-dashboard/" 
                 data-request-access="write"></script>
       </div>
 
       <div id="tg-auth-error" class="hidden text-left"></div>
 
-      <div class="pt-2 border-t border-slate-800 text-[10.5px] text-slate-400 space-y-1 text-left">
-        <p>💡 <em>Hinweis:</em> Bei Safari, iOS oder Tracking-Blockern kann das externe Telegram-Popup blockieren. Nutze in dem Fall einfach den oberen 1-Klick Admin-Button.</p>
-        <p class="text-[10px] text-slate-500">Noch nicht freigeschaltet? Öffne <a href="https://t.me/aitradeanalystbot" target="_blank" class="text-indigo-400 hover:text-indigo-300 font-semibold underline">@aitradeanalystbot</a> und sende <code class="bg-slate-800 px-1 py-0.5 rounded">/start</code>.</p>
+      <div class="pt-3 border-t border-slate-800 text-[11px] text-slate-500 space-y-1">
+        <p>Zugriff nur für autorisierte Telegram-Nutzer.</p>
+        <p>Noch nicht freigeschaltet? Öffne <a href="https://t.me/aitradeanalystbot" target="_blank" class="text-indigo-400 hover:text-indigo-300 font-semibold underline">@aitradeanalystbot</a> und sende <code class="bg-slate-800 px-1 py-0.5 rounded">/start</code>.</p>
       </div>
     </div>
   </div>
@@ -3913,60 +3882,24 @@ html_content = f"""<!DOCTYPE html>
       renderUserPositions();
     }}
 
-    function loginDirectUser(raw) {{
-      if (!raw) return;
-      raw = raw.trim().replace(/^@/, '');
-      const dummyUser = {{
-        id: 'user_' + raw,
-        username: raw,
-        first_name: raw
-      }};
-
-      const role = checkUserRole(dummyUser);
-      if (!role) {{
-        const errBox = document.getElementById('tg-auth-error');
-        if (errBox) {{
-          errBox.className = 'p-3.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs space-y-1 mt-2 text-left';
-          errBox.innerHTML = `Der Nutzername <strong>@${{raw}}</strong> ist im System noch nicht freigeschaltet. Bitte öffne <a href="https://t.me/aitradeanalystbot" target="_blank" class="text-indigo-400 underline font-bold">@aitradeanalystbot</a> in Telegram.`;
-          errBox.classList.remove('hidden');
-        }}
-        return;
-      }}
-
-      dummyUser.role = role;
-      window.handleTelegramLogin(dummyUser);
-    }}
-
-    function toggleFallbackLogin() {{
-      const c = document.getElementById('fallback-login-container');
-      if (c) c.classList.toggle('hidden');
-    }}
-
-    function submitFallbackLogin() {{
-      const inp = document.getElementById('fallback-username-input');
-      if (!inp) return;
-      const raw = inp.value.trim().replace(/^@/, '');
-      if (!raw) return;
-      loginDirectUser(raw);
-    }}
-
     function initAuthOnLoad() {{
-      // 1. Erst URL Query-Parameter prüfen (Deep-Links vom Bot oder Telegram Redirect Mode)
+      // 1. URL Query-Parameter prüfen (Offizieller Telegram Redirect-Modus)
       try {{
         const urlParams = new URLSearchParams(window.location.search);
-        const qUserParam = urlParams.get('user') || urlParams.get('username') || urlParams.get('login') || urlParams.get('admin');
-        const qId = urlParams.get('id');
+        const tgId = urlParams.get('id');
+        const tgUsername = urlParams.get('username') || urlParams.get('user');
+        const tgHash = urlParams.get('hash');
 
-        if (qUserParam || qId) {{
-          const rawUname = (qUserParam || '').replace(/^@/, '');
+        if (tgId || tgUsername) {{
+          const rawUname = (tgUsername || '').replace(/^@/, '');
           const qUser = {{
-            id: qId || ('user_' + rawUname),
+            id: tgId || ('user_' + rawUname),
             first_name: urlParams.get('first_name') || rawUname || 'Trader',
             last_name: urlParams.get('last_name') || '',
             username: rawUname || '',
             photo_url: urlParams.get('photo_url') || '',
             auth_date: urlParams.get('auth_date') || '',
-            hash: urlParams.get('hash') || ''
+            hash: tgHash || ''
           }};
           window.handleTelegramLogin(qUser);
           window.history.replaceState({{}}, document.title, window.location.pathname);
