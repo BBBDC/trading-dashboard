@@ -1,7 +1,103 @@
 {
-  "updated_at": "2026-11-03T15:11:26.578724+00:00",
-  "total_experience_records": 73,
+  "updated_at": "2026-11-03T16:33:45.624242+00:00",
+  "total_experience_records": 78,
   "learnings": [
+    {
+      "timestamp": "2026-11-03T16:33:41.762486+00:00",
+      "trade_id": "cross_rule_1793723621",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "VSA-Absorptionspflicht vor Reversal-Ausführung: Ein Liquidity Sweep ist solange ein Trendfortsetzungs-Breakdown, bis institutionelles Absorptionsvolumen mit prompter Ablehnung (Rejection Wick) bewiesen ist.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Bei DOGE und AVAX wurde das Abräumen von Stops fälschlicherweise als Kaufzone gewertet, anstatt zu erkennen, dass der Markt schlicht tiefere Liquiditätspools ansteuerte, wohingegen MSFT echte institutionelle Gegenliquidität fand.",
+        "actionable_rule": "VSA-Absorptionspflicht vor Reversal-Ausführung: Ein Liquidity Sweep ist solange ein Trendfortsetzungs-Breakdown, bis institutionelles Absorptionsvolumen mit prompter Ablehnung (Rejection Wick) bewiesen ist."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T16:33:41.762448+00:00",
+      "trade_id": "cross_rule_1793723621",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine Micro-Timeframe-Entries (5m/15m) ohne übergeordneten 4h/1D Market Structure Shift (MSS) und Trendfilter.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die identische Verlustzeit (Timestamp 1793716984) bei AVAX und DOGE belegt, dass lokale 5m-Order-Blocks bei übergeordnetem Makrodruck makulatur sind; Micro-Setups funktionieren nur als Einstiegs-Präzisierung in Richtung der HTF-Liquiditätsströme.",
+        "actionable_rule": "Keine Micro-Timeframe-Entries (5m/15m) ohne übergeordneten 4h/1D Market Structure Shift (MSS) und Trendfilter."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T16:33:41.762426+00:00",
+      "trade_id": "inc_DOGEUSDT_5m_1793716984",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.7,
+      "pnl_raw": -0.35,
+      "text": "Ein Stop-Hunt Sweep [A] darf erst dann getriggert werden, wenn eine VSA-Climax-Kerze eine sofortige Rückeroberung der Liquiditätszone mit Schlusskurs über dem Level bestätigt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_5m_1793716984",
+        "verdict": "LOSS",
+        "driver": "Blindes Vertrauen in ein isoliertes Indikatorsignal ('Blaues Dreieck') in einer illiquiden Memecoin-5m-Struktur trotz mangelnder VSA-Kaufabsorption am Stop-Hunt-Tief.",
+        "technical_warning": "Das Fehlen eines ausgeprägten Rejection-Wicks (>50% der Sweep-Kerze) und aggressiver Durchstich des Levels [A] ohne prompte Rückeroberung binnen 2 Kerzen.",
+        "actionable_rule": "Ein Stop-Hunt Sweep [A] darf erst dann getriggert werden, wenn eine VSA-Climax-Kerze eine sofortige Rückeroberung der Liquiditätszone mit Schlusskurs über dem Level bestätigt."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T16:33:41.762396+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1793716984",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.32,
+      "pnl_raw": -0.66,
+      "text": "Order Blocks mit Qualitätsgrad unter [A] sind auf 5m-Zeitskalen ausnahmslos verboten, wenn kein synchroner Richtungsentscheid des BTC-Lead-Marktes vorliegt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1793716984",
+        "verdict": "LOSS",
+        "driver": "Minderwertiger C-Klasse Order Block auf ultra-kurzer 5m-Zeitskala bot keinerlei institutionellen Puffer gegen einen übergeordneten, korrelierten Krypto-Abverkauf.",
+        "technical_warning": "Überdurchschnittliches Sell-Volumen ohne Delta-Divergenz beim Sweep sowie ein Kerzenschluss unterhalb der Order-Block-Basis signalisierten fehlende Absorption.",
+        "actionable_rule": "Order Blocks mit Qualitätsgrad unter [A] sind auf 5m-Zeitskalen ausnahmslos verboten, wenn kein synchroner Richtungsentscheid des BTC-Lead-Marktes vorliegt."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T16:33:41.762315+00:00",
+      "trade_id": "inc_MSFT_1793672760",
+      "symbol": "MSFT",
+      "name": "Microsoft",
+      "category": "Micro-Incubator (15m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder Micro Confluence Long",
+      "pnl_leveraged": 3.48,
+      "pnl_raw": 1.74,
+      "text": "Institutional Buy Pockets (Chaos < RFE) auf Zeitebenen >= 15m berechtigen zum aggressiven Skalieren auf volle TP-Ziele (3.0R), solange das RFE-Niveau vorab ein erschöpftes Volatilitätsregime belegt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_MSFT_1793672760",
+        "verdict": "WIN",
+        "driver": "Perfekte Konfluenz aus statistischer Mean-Reversion ('Institutional Buy Pocket' durch Chaos Band < RFE) und sauberer Liquiditätsstruktur auf einem liquiden Mega-Cap-Titel im 15m-Zeitfenster.",
+        "technical_warning": "Kein Warnsignal bei Entry; ein frühes Ausbleiben von Folgevolumen bei Erreichen des ersten Chaos-Band-Mittelwerts hätte als Warnung für Teilschließungen gedient.",
+        "actionable_rule": "Institutional Buy Pockets (Chaos < RFE) auf Zeitebenen >= 15m berechtigen zum aggressiven Skalieren auf volle TP-Ziele (3.0R), solange das RFE-Niveau vorab ein erschöpftes Volatilitätsregime belegt."
+      }
+    },
     {
       "timestamp": "2026-11-03T15:11:22.786940+00:00",
       "trade_id": "cross_rule_1793718682",
