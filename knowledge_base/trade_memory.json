@@ -1,7 +1,199 @@
 {
-  "updated_at": "2026-11-03T18:37:06.965235+00:00",
-  "total_experience_records": 83,
+  "updated_at": "2026-11-03T19:12:59.744682+00:00",
+  "total_experience_records": 93,
   "learnings": [
+    {
+      "timestamp": "2026-11-03T19:12:55.657717+00:00",
+      "trade_id": "cross_rule_1793733175",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Obligatorische Doppelvektoren-Bedingung (Sweep + Volatilitätsanomalie)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein bloßes charttechnisches Signal ohne vorangegangenen Sweep [A] und ohne statistische Band-Überdehnung (Chaos Band > RFE) besitzt keinen mathematischen Edge gegenüber Markt-Rauschen.",
+        "actionable_rule": "Obligatorische Doppelvektoren-Bedingung (Sweep + Volatilitätsanomalie)"
+      }
+    },
+    {
+      "timestamp": "2026-11-03T19:12:55.657669+00:00",
+      "trade_id": "cross_rule_1793733175",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Gesetz der Zonenabnutzung (Retest Decay Rule)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m wie auf 4h/1D ist R1 der institutionelle Alpha-Einstieg; ab R3 sind Resting Orders absorbiert, und das Level dient primär als Breakout-Katalysator statt als Reversal-Zone.",
+        "actionable_rule": "Fraktales Gesetz der Zonenabnutzung (Retest Decay Rule)"
+      }
+    },
+    {
+      "timestamp": "2026-11-03T19:12:55.657588+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1793730988",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.62,
+      "pnl_raw": -0.31,
+      "text": "Orderblöcke mit Rating unter [B] sind vom automatischen Handel ausgeschlossen, selbst wenn ein Sweep [A] vorliegt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1793730988",
+        "verdict": "LOSS",
+        "driver": "Ein strukturell minderwertiger Tertiär-Orderblock [C] ohne institutionelle Chaos-Band-Überdehnung konnte den Verkaufsdruck trotz Sweep [A] nicht absorbieren.",
+        "technical_warning": "Das schwache OB-Rating [C] und das Fehlen einer Sell/Buy-Pocket zeigten unzureichende institutionelle Limit-Tiefe an.",
+        "actionable_rule": "Orderblöcke mit Rating unter [B] sind vom automatischen Handel ausgeschlossen, selbst wenn ein Sweep [A] vorliegt."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T19:12:55.657552+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1793730987",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 0.6,
+      "pnl_raw": 0.3,
+      "text": "Aggressive Skalierung auf 3.0R ist nur erlaubt, wenn R1-Retests unmittelbar durch Chaos-Band-Extrema und Sweep [A] gestützt werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1793730987",
+        "verdict": "WIN",
+        "driver": "Perfekte Konfluenz aus unberührtem Erstkontakt (R1), Stop-Hunt-Liquiditätsraub [A] und statistischer Überdehnung im Chaos Band.",
+        "technical_warning": "Keine Warnung – vollumfängliche Validierung aller institutionellen Einstiegsparameter mit maximalem Edge.",
+        "actionable_rule": "Aggressive Skalierung auf 3.0R ist nur erlaubt, wenn R1-Retests unmittelbar durch Chaos-Band-Extrema und Sweep [A] gestützt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T19:12:55.657463+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1793730987",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.08,
+      "pnl_raw": -0.54,
+      "text": "Orderblöcke mit Retest-Count > R2 werden zwingend invalidiert; Einstiege sind ohne frischen Liquiditäts-Sweep verboten.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1793730987",
+        "verdict": "LOSS",
+        "driver": "Der 4. Retest (R4) eines bereits degradierten [B]-Orderblocks führte zu Liquiditätserschöpfung und Durchschlag statt Reaktionssprung.",
+        "technical_warning": "Retest-Zähler R4 warnte vor fortgeschrittener Order-Absorption; zudem fehlte jeglicher Liquidity-Sweep [A] als Treibstoff.",
+        "actionable_rule": "Orderblöcke mit Retest-Count > R2 werden zwingend invalidiert; Einstiege sind ohne frischen Liquiditäts-Sweep verboten."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T19:12:24.650279+00:00",
+      "trade_id": "cross_rule_1793733144",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Die fraktale Veto-Hierarchie gegen 'Blind Fading'",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Keine quantitative Überdehnung (Chaos Band, RSI, RFE) rechtfertigt einen Long-Einstieg gegen das übergeordnete Momentum, solange die Marktstruktur (Higher Low / Break of Structure) im Ausführungs-Timeframe nicht formal gedreht hat.",
+        "actionable_rule": "Die fraktale Veto-Hierarchie gegen 'Blind Fading'"
+      }
+    },
+    {
+      "timestamp": "2026-11-03T19:12:24.650257+00:00",
+      "trade_id": "cross_rule_1793733144",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Das Gesetz der zonalen Liquiditätserschöpfung (R-Count Filter)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl im 5m- als auch im 4h/1D-Chart verliert jeder Support-Block mit jedem Retest an Abwehrkraft, da Limit-Bids aufgebraucht werden. Ein R3-Retest wandelt ein Support-Level statistisch in ein Sell-Side-Liquidity-Magnet um.",
+        "actionable_rule": "Das Gesetz der zonalen Liquiditätserschöpfung (R-Count Filter)"
+      }
+    },
+    {
+      "timestamp": "2026-11-03T19:12:24.650245+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1793723583",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Statistische Überdehnung (< RFE / Chaos-Band) ist eine reine Alarmstufe und kein Einstiegssignal; Longs erfordern zwingend einen bestätigten 5m-Market-Structure-Shift mit Displacement.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1793723583",
+        "verdict": "LOSS",
+        "driver": "Messerfallen-Syndrom: Versuchter Einstieg in extremer Überdehnung (Chaos Band < RFE) ohne vorangegangenen mikro-strukturellen Trendwechsel (CHoCH/MSS).",
+        "technical_warning": "Reines Verweilen unterhalb des RFE-Bandes ohne bullische Reversal-Divergenz und ohne volumenseitige Absorptionskerze (Displacement zurück ins Band).",
+        "actionable_rule": "Statistische Überdehnung (< RFE / Chaos-Band) ist eine reine Alarmstufe und kein Einstiegssignal; Longs erfordern zwingend einen bestätigten 5m-Market-Structure-Shift mit Displacement."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T19:12:24.650227+00:00",
+      "trade_id": "inc_DOGEUSDT_5m_1793723583",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Order Blocks dürfen maximal beim ersten oder zweiten Retest (R1/R2) gehandelt werden; ab R3 gilt die Zone als gebrochen und dient als Liquiditätsziel für Breakdowns.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_5m_1793723583",
+        "verdict": "LOSS",
+        "driver": "Zonenerschöpfung: Der Einstieg erfolgte beim 3. Retest (R3) eines Support-OBs, an dem die passiven Kauf-Limits bereits vollständig absorbiert waren.",
+        "technical_warning": "R3-Retest mit ansteigendem Abwärts-Delta/Verkaufsvolumen statt VSA-typischer Volumenaustrocknung (No Supply) vor dem Test.",
+        "actionable_rule": "Order Blocks dürfen maximal beim ersten oder zweiten Retest (R1/R2) gehandelt werden; ab R3 gilt die Zone als gebrochen und dient als Liquiditätsziel für Breakdowns."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T19:12:24.650165+00:00",
+      "trade_id": "inc_AMZ.F_5m_1793718637",
+      "symbol": "AMZ.F",
+      "name": "Amazon",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "US-Tech-Einzeltitel dürfen auf europäischen Nebenbörsen (AMZ.F) nur mit A-Grade Setups und erst ab dem Pre-Market/US-Cash Open (15:30 CET) long gehandelt werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AMZ.F_5m_1793718637",
+        "verdict": "LOSS",
+        "driver": "Handel eines minderwertigen B-Grade Order Blocks in illiquidem Nebenhandels-Umfeld (Frankfurt/XETRA) vor Eröffnung des US-Kassamarktes ohne institutionelle Nachfragebestätigung.",
+        "technical_warning": "Dünnes Handelsvolumen der Tradegate/Frankfurt-Notierung gepaart mit einem B-Grade OB ohne vorangegangenen Liquidity Sweep der lokalen Vola-Tiefs.",
+        "actionable_rule": "US-Tech-Einzeltitel dürfen auf europäischen Nebenbörsen (AMZ.F) nur mit A-Grade Setups und erst ab dem Pre-Market/US-Cash Open (15:30 CET) long gehandelt werden."
+      }
+    },
     {
       "timestamp": "2026-11-03T18:37:03.174687+00:00",
       "trade_id": "cross_rule_1793731023",
