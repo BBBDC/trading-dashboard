@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-03T11:34:14.724254+00:00",
-  "total_experience_records": 94,
+  "updated_at": "2026-11-03T12:21:57.081123+00:00",
+  "total_experience_records": 98,
   "learnings": [
+    {
+      "timestamp": "2026-11-03T12:21:53.274896+00:00",
+      "trade_id": "cross_rule_1793708513",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Dynamische Volatilitäts- und Beta-Gewichtung: 3.0R erfordert bei High-Beta-Assets (SUI) die doppelte absolute Expansion gegenüber Low-Beta-Werten (ADA) und muss im Makro-Kontext gegen 4h-Widerstände gerechnet werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die 2.00% Preisstrecke bei SUI deckt signifikant mehr Intraday-Struktur ab als 0.96% bei ADA; auf Tagesebene führt blindes R-Targeting ohne Abgleich mit übergeordneten Key-Levels zu verfrühten Umkehrverlusten vor TP2.",
+        "actionable_rule": "Dynamische Volatilitäts- und Beta-Gewichtung: 3.0R erfordert bei High-Beta-Assets (SUI) die doppelte absolute Expansion gegenüber Low-Beta-Werten (ADA) und muss im Makro-Kontext gegen 4h-Widerstände gerechnet werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T12:21:53.274843+00:00",
+      "trade_id": "cross_rule_1793708513",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "B-Tier Orderblocks ohne vorangegangenen Liquidity Sweep [A] verlangen zwingend eine statistische Überdehnung (Chaos Band / RFE) als Eintrittsfilter.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m wie auf 4h/1D neigen unbestätigte OBs in Trendpausen zu Kaskaden-Stopps; nur die RFE-Erschöpfung schützt institutionell vor dem Durchrutschen in tiefere Liquiditätspools.",
+        "actionable_rule": "B-Tier Orderblocks ohne vorangegangenen Liquidity Sweep [A] verlangen zwingend eine statistische Überdehnung (Chaos Band / RFE) als Eintrittsfilter."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T12:21:53.274797+00:00",
+      "trade_id": "inc_SUIUSDT_5m_1793698201",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 4.0,
+      "pnl_raw": 2.0,
+      "text": "Isolierte OB [B]-Retests ohne Chaos-Band-/RFE-Konfluenz dürfen nur mit maximal 0.75R Risiko oder zwingender Bestätigung durch ein 15m Delta-Disbalance-Cluster gehandelt werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_5m_1793698201",
+        "verdict": "WIN",
+        "driver": "Hohes relatives Asset-Beta und direkter Momentum-Follow-Through nach dem Buy-Signal führten zur raschen 2.00%-Expansion trotz geringerer Indikatoren-Dichte.",
+        "technical_warning": "Das Fehlen der Institutional Buy Pocket und ein unvollständiger FVG-Schluss unterhalb des Entries hätten bei nachlassendem Volumen zu einer B-Tier OB-Falle geführt.",
+        "actionable_rule": "Isolierte OB [B]-Retests ohne Chaos-Band-/RFE-Konfluenz dürfen nur mit maximal 0.75R Risiko oder zwingender Bestätigung durch ein 15m Delta-Disbalance-Cluster gehandelt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T12:21:53.274689+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1793698200",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 1.92,
+      "pnl_raw": 0.96,
+      "text": "Bei aktiver Institutional Buy Pocket (Chaos Band < RFE) muss der Stop-Loss zwingend knapp unter das lokale Chaos-Extremum gelegt werden, um Frontrunning-Liquidität effizient auszunutzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1793698200",
+        "verdict": "WIN",
+        "driver": "Perfekte Konfluenz aus Mean-Reversion im Chaos-Band unter RFE-Erschöpfung und unmittelbarer VSA-Absorption am Bullish OB [B].",
+        "technical_warning": "Die B-Klassifizierung des OBs ohne vorherigen aggressiven Sell-Side Liquidity Sweep [A] barg das Risiko eines Durchstichs bei schwachem Delta.",
+        "actionable_rule": "Bei aktiver Institutional Buy Pocket (Chaos Band < RFE) muss der Stop-Loss zwingend knapp unter das lokale Chaos-Extremum gelegt werden, um Frontrunning-Liquidität effizient auszunutzen."
+      }
+    },
     {
       "timestamp": "2026-11-03T11:13:58.138169+00:00",
       "trade_id": "cross_rule_1793704438",
