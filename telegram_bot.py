@@ -1134,6 +1134,22 @@ def handle_update(api, update):
             api.send_message(chat_id, "Aktion abgebrochen.", reply_markup=get_main_menu_keyboard(role))
             return
 
+        if text.startswith("/dashboard") or text.startswith("/login"):
+            USER_SESSIONS.pop(chat_id, None)
+            login_param = f"?user={username}" if username else f"?id={user_id}"
+            dash_text = (
+                f"🌐 <b>Direktzugang zum Web-Dashboard</b>\n\n"
+                f"Klicke auf den Button unten, um dich automatisch als <b>@{username or first_name}</b> im Dashboard anzumelden:"
+            )
+            dash_kb = {
+                "inline_keyboard": [
+                    [{"text": "📊 Web-Dashboard öffnen (Auto-Login)", "url": f"https://bbbdc.github.io/trading-dashboard/{login_param}"}],
+                    [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
+                ]
+            }
+            api.send_message(chat_id, dash_text, reply_markup=dash_kb)
+            return
+
         if text.startswith("/learnings") or text.startswith("/scorecard"):
             if role != "admin":
                 api.send_message(chat_id, "⚠️ Diese Funktion ist dem Master-Admin vorbehalten.", reply_markup=get_main_menu_keyboard(role))
@@ -1335,12 +1351,13 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
 
     if data == "menu_market_scan":
         summary = get_market_overview(role=role)
+        login_param = f"?user={username}" if username else f"?id={user_id}"
         if role == "admin":
             kb = {
                 "inline_keyboard": [
                     [{"text": "⚡ Jetzt Live-Scan starten", "callback_data": "action_trigger_scan"}],
                     [{"text": "🎯 Top-Setups ansehen", "callback_data": "menu_top_setups"}],
-                    [{"text": "🌐 Web-Dashboard öffnen", "url": "https://bbbdc.github.io/trading-dashboard/"}],
+                    [{"text": "🌐 Web-Dashboard öffnen", "url": f"https://bbbdc.github.io/trading-dashboard/{login_param}"}],
                     [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
                 ]
             }
@@ -1348,7 +1365,7 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
             kb = {
                 "inline_keyboard": [
                     [{"text": "🎯 Top-Setups ansehen", "callback_data": "menu_top_setups"}],
-                    [{"text": "🌐 Web-Dashboard öffnen", "url": "https://bbbdc.github.io/trading-dashboard/"}],
+                    [{"text": "🌐 Web-Dashboard öffnen", "url": f"https://bbbdc.github.io/trading-dashboard/{login_param}"}],
                     [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
                 ]
             }
@@ -1363,13 +1380,14 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
         return
 
     if data == "menu_dashboard_links":
+        login_param = f"?user={username}" if username else f"?id={user_id}"
         text = (
             "🌐 <b>Web-Dashboard & Signal-Historie</b>\n\n"
             "Hier kannst du das interaktive Dashboard mit allen Charts und Auswertungen aufrufen:"
         )
         kb = {
             "inline_keyboard": [
-                [{"text": "📊 Live Web-Dashboard", "url": "https://bbbdc.github.io/trading-dashboard/"}],
+                [{"text": "📊 Live Web-Dashboard (Auto-Login)", "url": f"https://bbbdc.github.io/trading-dashboard/{login_param}"}],
                 [{"text": "📜 Signal-Historie & Treffer", "url": "https://bbbdc.github.io/trading-dashboard/history.html"}],
                 [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
             ]

@@ -43,7 +43,7 @@ INCUBATOR_FILE = KB_DIR / "incubator_trades.json"
 TRADE_MEMORY_FILE = KB_DIR / "trade_memory.json"
 
 # ==============================================================================
-# 1. 16-ASSET-MATRIX (24/7 KRYPTO + DEUTSCHE 08:00–22:00 MEZ BÖRSEN)
+# 1. 24-ASSET-MATRIX (24/7 KRYPTO + DEUTSCHE 08:00–22:00 MEZ BÖRSEN)
 # ==============================================================================
 
 CRYPTO_UNIVERSE = [
@@ -54,7 +54,11 @@ CRYPTO_UNIVERSE = [
     {"symbol": "AVAXUSDT", "name": "Avalanche", "exchange": "BINANCE (24/7)", "source": "binance", "category": "Crypto"},
     {"symbol": "DOGEUSDT", "name": "Dogecoin", "exchange": "BINANCE (24/7)", "source": "binance", "category": "Crypto"},
     {"symbol": "LINKUSDT", "name": "Chainlink", "exchange": "BINANCE (24/7)", "source": "binance", "category": "Crypto"},
-    {"symbol": "NEARUSDT", "name": "Near Protocol", "exchange": "BINANCE (24/7)", "source": "binance", "category": "Crypto"}
+    {"symbol": "NEARUSDT", "name": "Near Protocol", "exchange": "BINANCE (24/7)", "source": "binance", "category": "Crypto"},
+    {"symbol": "XRPUSDT", "name": "Ripple", "exchange": "BINANCE (24/7)", "source": "binance", "category": "Crypto"},
+    {"symbol": "ADAUSDT", "name": "Cardano", "exchange": "BINANCE (24/7)", "source": "binance", "category": "Crypto"},
+    {"symbol": "SUIUSDT", "name": "Sui", "exchange": "BINANCE (24/7)", "source": "binance", "category": "Crypto"},
+    {"symbol": "RENDERUSDT", "name": "Render", "exchange": "BINANCE (24/7)", "source": "binance", "category": "Crypto"}
 ]
 
 EQUITIES_GERMAN_UNIVERSE = [
@@ -64,8 +68,12 @@ EQUITIES_GERMAN_UNIVERSE = [
     {"symbol": "AMZ.F", "name": "Amazon", "exchange": "FRA / Tradegate (08-22h)", "source": "yahoo", "category": "US-Tech (EUR)", "currency": "EUR"},
     {"symbol": "MSF.F", "name": "Microsoft", "exchange": "FRA / Tradegate (08-22h)", "source": "yahoo", "category": "US-Tech (EUR)", "currency": "EUR"},
     {"symbol": "FB2A.F", "name": "Meta Platforms", "exchange": "FRA / Tradegate (08-22h)", "source": "yahoo", "category": "US-Tech (EUR)", "currency": "EUR"},
+    {"symbol": "ABEA.F", "name": "Alphabet (Google)", "exchange": "FRA / Tradegate (08-22h)", "source": "yahoo", "category": "US-Tech (EUR)", "currency": "EUR"},
     {"symbol": "RHM.DE", "name": "Rheinmetall", "exchange": "XETRA (09-17:30h)", "source": "yahoo", "category": "DAX / Defense (EUR)", "currency": "EUR"},
-    {"symbol": "SAP.DE", "name": "SAP SE", "exchange": "XETRA (09-17:30h)", "source": "yahoo", "category": "DAX / Tech (EUR)", "currency": "EUR"}
+    {"symbol": "SAP.DE", "name": "SAP SE", "exchange": "XETRA (09-17:30h)", "source": "yahoo", "category": "DAX / Tech (EUR)", "currency": "EUR"},
+    {"symbol": "SIE.DE", "name": "Siemens", "exchange": "XETRA (09-17:30h)", "source": "yahoo", "category": "DAX / Industrial (EUR)", "currency": "EUR"},
+    {"symbol": "ALV.DE", "name": "Allianz", "exchange": "XETRA (09-17:30h)", "source": "yahoo", "category": "DAX / Financial (EUR)", "currency": "EUR"},
+    {"symbol": "DTE.DE", "name": "Dt. Telekom", "exchange": "XETRA (09-17:30h)", "source": "yahoo", "category": "DAX / Telecom (EUR)", "currency": "EUR"}
 ]
 
 ALL_INCUBATOR_ASSETS = CRYPTO_UNIVERSE + EQUITIES_GERMAN_UNIVERSE
@@ -74,22 +82,35 @@ ALL_INCUBATOR_ASSETS = CRYPTO_UNIVERSE + EQUITIES_GERMAN_UNIVERSE
 def get_active_market_rotation_assets() -> List[Dict[str, Any]]:
     """
     Wählt intelligent 8 parallele Fokus-Assets aus (4 Krypto + 4 Aktien):
-    - Berücksichtigt Tageszeit: Zu deutschen Handelszeiten (08:00–22:00 MEZ) stehen Frankfurt & XETRA im Fokus.
-    - Außerhalb der Börsenzeiten wird der Krypto-Anteil dynamisch erhöht.
+    - STÜNDLICH DYNAMISCHE ROTATION: Die Fokusgruppe rotiert jede Stunde um 1 Position weiter,
+      sodass über den Tag hinweg ALLE Krypto- und Aktienwerte gleichmäßig durchlaufen und trainiert werden.
+    - Zu deutschen Handelszeiten (08:00–22:00 MEZ) stehen Frankfurt & XETRA im Fokus.
+    - Außerhalb der Börsenzeiten (Nacht & Wochenende) wird der Krypto-Anteil dynamisch erhöht.
     """
     now = datetime.now(timezone.utc)
     hour_cet = (now.hour + 1) % 24  # UTC+1 (MEZ)
 
-    # 4 Krypto-Assets auswählen (rotierend nach Tag)
-    day_idx = now.timetuple().tm_yday
-    c_indices = [(day_idx + i) % len(CRYPTO_UNIVERSE) for i in range(4)]
-    selected_crypto = [CRYPTO_UNIVERSE[idx] for idx in c_indices]
+    # Stündlicher Rotations-Index (yday * 24 + hour) -> Ändert sich jede Stunde
+    rot_offset = (now.timetuple().tm_yday * 24 + now.hour)
 
-    # 4 Aktien-Assets auswählen
-    e_indices = [(day_idx + i) % len(EQUITIES_GERMAN_UNIVERSE) for i in range(4)]
-    selected_equities = [EQUITIES_GERMAN_UNIVERSE[idx] for idx in e_indices]
+    # Deutsche Börsenzeiten: Mo-Fr ca. 08:00 - 22:00 MEZ
+    is_weekday = now.weekday() < 5
+    is_german_market_open = is_weekday and (8 <= hour_cet < 22)
 
-    return selected_crypto + selected_equities
+    if is_german_market_open:
+        # 4 rotierende Kryptos + 4 rotierende deutsche/Tradegate Aktien
+        c_indices = [(rot_offset + i) % len(CRYPTO_UNIVERSE) for i in range(4)]
+        e_indices = [(rot_offset + i) % len(EQUITIES_GERMAN_UNIVERSE) for i in range(4)]
+        selected_crypto = [CRYPTO_UNIVERSE[idx] for idx in c_indices]
+        selected_equities = [EQUITIES_GERMAN_UNIVERSE[idx] for idx in e_indices]
+        return selected_crypto + selected_equities
+    else:
+        # Nachts / Wochenende: Deutsche Börsen geschlossen -> Krypto-Anteil auf 6 erhöhen
+        c_indices = [(rot_offset + i) % len(CRYPTO_UNIVERSE) for i in range(6)]
+        e_indices = [(rot_offset + i) % len(EQUITIES_GERMAN_UNIVERSE) for i in range(2)]
+        selected_crypto = [CRYPTO_UNIVERSE[idx] for idx in c_indices]
+        selected_equities = [EQUITIES_GERMAN_UNIVERSE[idx] for idx in e_indices]
+        return selected_crypto + selected_equities
 
 
 # ==============================================================================
@@ -713,10 +734,16 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
     active_trades = still_active
     closed_trades.extend(just_closed)
 
-    # 2. Suche nach neuen 5m & 15m Setups (bis max 6 aktive Positionen)
-    max_active = 6
+    # 2. Suche nach neuen 5m & 15m Setups (bis max 8 aktive Positionen)
+    max_active = 8
+    candidate_assets = list(active_assets)
+    # Falls Kapazität frei ist: Restliche Matrix-Assets als Backup prüfen
+    for a in ALL_INCUBATOR_ASSETS:
+        if not any(ca["symbol"] == a["symbol"] for ca in candidate_assets):
+            candidate_assets.append(a)
+
     if len(active_trades) < max_active:
-        for asset in active_assets:
+        for asset in candidate_assets:
             # Maximal 1 aktive Position pro Symbol
             if any(t["symbol"] == asset["symbol"] for t in active_trades):
                 continue

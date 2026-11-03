@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-03T09:14:04.013037+00:00",
-  "total_experience_records": 87,
+  "updated_at": "2026-11-03T09:32:43.292330+00:00",
+  "total_experience_records": 91,
   "learnings": [
+    {
+      "timestamp": "2026-11-03T09:30:35.326263+00:00",
+      "trade_id": "cross_rule_1793698235",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Einstieg ohne Volumen- und Absorptions-Validierung (Effort vs. Result)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Indikatorbasierte Signale (wie Dreiecke oder Chaos-Bänder) scheitern über sämtliche Zeitebenen hinweg, wenn das begleitende Volumenprofil keine reale institutionelle Orderblock-Verteidigung nachweist.",
+        "actionable_rule": "Kein Einstieg ohne Volumen- und Absorptions-Validierung (Effort vs. Result)"
+      }
+    },
+    {
+      "timestamp": "2026-11-03T09:30:35.326240+00:00",
+      "trade_id": "cross_rule_1793698235",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Struktureller Stop-Puffer statt Punktlandung an offensichtlichen Swing-Levels",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Fraktal auf 5m wie auf 4h/1D werden exakt an Support-/Resistance-Marken platzierte Stops zum bevorzugten Ziel für Liquiditäts-Sweeps (Stop-Runs); Invalidierungslevel müssen stets hinter den Liquiditätspool zuzüglich Volatilitätsabschlag gelegt werden.",
+        "actionable_rule": "Struktureller Stop-Puffer statt Punktlandung an offensichtlichen Swing-Levels"
+      }
+    },
+    {
+      "timestamp": "2026-11-03T09:30:35.326216+00:00",
+      "trade_id": "inc_DOGEUSDT_5m_1793696812",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.26,
+      "pnl_raw": -0.13,
+      "text": "Long-Entries an B-Klasse-Orderblocks erfordern zwingend eine VSA-Reaktionsbestätigung (Delta-Absorption, Wick-Rejection) und dürfen den SL keinesfalls exakt auf das lokale Tief legen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_5m_1793696812",
+        "verdict": "LOSS",
+        "driver": "Der sekundäre Orderblock-Retest [B] bot keine institutionelle Kaufkraft, wodurch der Stop-Loss direkt unter dem offensichtlichen Support-Level durch simplen Verkaufsüberhang unterspült wurde.",
+        "technical_warning": "Versiegendes Volumen beim Rücklauf in die Support-Zone sowie die minderwertige B-Qualität des Blocks deuteten auf unvollständige Akkumulation und hohes Durchbruchsrisiko hin.",
+        "actionable_rule": "Long-Entries an B-Klasse-Orderblocks erfordern zwingend eine VSA-Reaktionsbestätigung (Delta-Absorption, Wick-Rejection) und dürfen den SL keinesfalls exakt auf das lokale Tief legen."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T09:30:35.326160+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1793696812",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.1,
+      "pnl_raw": -0.05,
+      "text": "Kein Short-Einstieg an Sell-Pockets ohne vorangegangenen Sweep lokaler BSL (Buy-Side Liquidity) und zwingende SL-Platzierung außerhalb des statistischen ATR-Rauschens (mindestens 1.5x ATR Puffer über Swing-High).",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1793696812",
+        "verdict": "LOSS",
+        "driver": "Der Trade scheiterte an einem mit 0,05% untragbar engen Stop-Loss im 5m-Rauschen, welcher durch einen Standard-Liquiditäts-Spike über das lokale Widerstandslevel sofort abgeräumt wurde.",
+        "technical_warning": "Fehlende Volumenabsorption am Chaos-Band und das Ausbleiben eines klaren Buy-Side Liquidity Sweeps vor dem Sell-Marker signalisierten fehlenden institutionellen Verkaufsdruck.",
+        "actionable_rule": "Kein Short-Einstieg an Sell-Pockets ohne vorangegangenen Sweep lokaler BSL (Buy-Side Liquidity) und zwingende SL-Platzierung außerhalb des statistischen ATR-Rauschens (mindestens 1.5x ATR Puffer über Swing-High)."
+      }
+    },
     {
       "timestamp": "2026-11-03T09:13:52.206603+00:00",
       "trade_id": "cross_rule_1793697232",
