@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-03T10:37:12.387167+00:00",
-  "total_experience_records": 91,
+  "updated_at": "2026-11-03T11:14:01.958895+00:00",
+  "total_experience_records": 94,
   "learnings": [
+    {
+      "timestamp": "2026-11-03T11:13:58.138169+00:00",
+      "trade_id": "cross_rule_1793704438",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Priorisierung von A-Grade Sweeps gegenüber statischen Zonenretests.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf der 5m- als auch auf der 1D-Ebene bieten ungecleante Zonen (B-Grade) keine verlässliche Asymmetrie, da institutionelles Smart Money erst nach dem Abfischen lokaler Stops aggressiv Liquidität bereitstellt.",
+        "actionable_rule": "Fraktale Priorisierung von A-Grade Sweeps gegenüber statischen Zonenretests."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T11:13:58.138140+00:00",
+      "trade_id": "cross_rule_1793704438",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Counter-Trend-Einstieg bei Überdehnungsbändern ohne übergeordneten 4h/1D Institutional Orderflow-Gleichlauf.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Indikatorische 'Buy Pockets' (Chaos Band < RFE) markieren in starken Trendphasen oft nur temporäre Verweilstationen vor der nächsten Liquidationskaskade; ohne HTF-Konfluenz verpuffen Mikro-Signale wirkungslos.",
+        "actionable_rule": "Kein Counter-Trend-Einstieg bei Überdehnungsbändern ohne übergeordneten 4h/1D Institutional Orderflow-Gleichlauf."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T11:13:58.138085+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1793698200",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "B-Grade Order Blocks dürfen im 5m/15m-Bereich niemals blind per Limit/Market gefischt werden; zwingende Voraussetzung für den Entry ist ein vorangegangener Sweep externer Liquidität gefolgt von einem validierten Mikro-CHoCH mit VSA-Kaufvolumen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1793698200",
+        "verdict": "LOSS",
+        "driver": "Frontrunning eines B-Grade Order Blocks in eine impulsive Abwärtsüberdehnung (Chaos Band < RFE) hinein ohne jegliche volumenseitige Absorptions- oder Reversal-Bestätigung.",
+        "technical_warning": "Das Fehlen eines echten A-Grade Liquidity Sweeps vor der Zone sowie ein B-Grade OB signalisierten unzureichende institutionelle Nachfrage, wodurch der Support unmittelbar ohne Reaktionsbounce durchschlagen wurde.",
+        "actionable_rule": "B-Grade Order Blocks dürfen im 5m/15m-Bereich niemals blind per Limit/Market gefischt werden; zwingende Voraussetzung für den Entry ist ein vorangegangener Sweep externer Liquidität gefolgt von einem validierten Mikro-CHoCH mit VSA-Kaufvolumen."
+      }
+    },
     {
       "timestamp": "2026-11-03T09:30:35.326263+00:00",
       "trade_id": "cross_rule_1793698235",
