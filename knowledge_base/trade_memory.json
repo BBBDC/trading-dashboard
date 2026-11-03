@@ -1,7 +1,159 @@
 {
-  "updated_at": "2026-11-03T21:06:21.815667+00:00",
-  "total_experience_records": 66,
+  "updated_at": "2026-11-03T22:26:58.071217+00:00",
+  "total_experience_records": 68,
   "learnings": [
+    {
+      "timestamp": "2026-11-03T22:26:54.272076+00:00",
+      "trade_id": "cross_rule_1793744814",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Strikte Bestätigungspflicht bei sekundären Liquiditätszonen ([B]-Setups).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Während [A]-Setups oft blind per Limit-Order gehandelt werden können, erfordern zweitrangige Zonen auf allen Zeitebenen (von 5m bis Daily) einen diskreten Auslöser (wie Momentum-Dreiecke oder Delta-Absorption), um Trap-Szenarien auszuschließen.",
+        "actionable_rule": "Strikte Bestätigungspflicht bei sekundären Liquiditätszonen ([B]-Setups)."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T22:26:54.272046+00:00",
+      "trade_id": "cross_rule_1793744814",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale R-Multiple-Asymmetrie vor Trefferquote: Strukturelle Invalidierung schlägt prozentuale Distanz.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m genügt eine Preisbewegung von nur 0,60 % für ein volles 3.0R-Ziel, wenn der Einstieg an der Kante der Liquidität erfolgt. Dieses Prinzip skaliert 1:1 auf 4h/1D, wo analoge R2-Retests an Schlüsselzonen mit minimalem Risiko massive Swing-R-Multiples liefern.",
+        "actionable_rule": "Fraktale R-Multiple-Asymmetrie vor Trefferquote: Strukturelle Invalidierung schlägt prozentuale Distanz."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T22:26:54.271980+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1793737846",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 1.2,
+      "pnl_raw": 0.6,
+      "text": "Sekundäre Orderblocks ([B]-Qualität) dürfen nur dann exekutiert werden, wenn der Retest durch einen verifizierten Momentum-Trigger bestätigt wird und der Initial-Stop zwingend unter der Basiskerze des Blocks liegt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1793737846",
+        "verdict": "WIN",
+        "driver": "Präziser Retest (R2) eines Bullish Orderblocks gepaart mit synchronem Momentum-Trigger (Good Buy Signal), der unmittelbar aggressiven Kaufdruck ohne nennenswerten Drawdown freisetzte.",
+        "technical_warning": "Bei Orderblocks mit [B]-Klassifizierung droht bei nachlassendem Delta-Volumen im Retest häufig ein tieferer Sweep in die Ineffizienz; hier hätte ein verfrühtes Ausbleiben von Kaufvolumen vor einem Fehlausbruch gewarnt.",
+        "actionable_rule": "Sekundäre Orderblocks ([B]-Qualität) dürfen nur dann exekutiert werden, wenn der Retest durch einen verifizierten Momentum-Trigger bestätigt wird und der Initial-Stop zwingend unter der Basiskerze des Blocks liegt."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T22:26:36.194711+00:00",
+      "trade_id": "cross_rule_1793744796",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Displacement-Imperativ vor Trend-Fading",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Weder ein Liquidity Sweep noch ein Tier-A-Block rechtfertigen einen Blind-Entry gegen die Mikro-Dynamik; erst wenn die institutionelle Reaktion ein neues Ungleichgewicht (FVG + Strukturbruch in Gegenrichtung) hinterlässt, ist die Liquiditätsfalle bestätigt (wie der XRP-Fehlshort bewiesen hat).",
+        "actionable_rule": "Displacement-Imperativ vor Trend-Fading"
+      }
+    },
+    {
+      "timestamp": "2026-11-03T22:26:36.194671+00:00",
+      "trade_id": "cross_rule_1793744796",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Das Gesetz der Zonen-Degeneration & ATR-Mindestatmung",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein Orderblock verliert fraktal (von 5m bis 1D) mit jedem Berührungspunkt (R1 -> R3) institutionelle Füllkraft; wer Zonen ab R2 anfasst und Stopps mechanisch unter die lokale Schwankungsbreite (< 1.2x ATR) klemmt, wird unweigerlich von Marktfriktion statt echtem Trendversagen liquidiert.",
+        "actionable_rule": "Das Gesetz der Zonen-Degeneration & ATR-Mindestatmung"
+      }
+    },
+    {
+      "timestamp": "2026-11-03T22:26:36.194643+00:00",
+      "trade_id": "inc_SUIUSDT_5m_1793737845",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.2,
+      "pnl_raw": -0.1,
+      "text": "Reversal-Setups ohne vorgeschalteten qualifizierten Liquidity-Sweep [A] besitzen ein ausnahmsloses 'No-Trade'-Mandat im Algorithmus.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_5m_1793737845",
+        "verdict": "LOSS",
+        "driver": "Vollständiges Fehlen von Liquiditäts-Validierung (kein Sweep-Trigger) gepaart mit blindem Rebound-Fischen in einem minderwertigen OB [D].",
+        "technical_warning": "Kein vorheriger Sell-Side-Liquidity-Run zur Bereinigung schwacher Hände und Entry direkt in fallendes Intraday-Momentum.",
+        "actionable_rule": "Reversal-Setups ohne vorgeschalteten qualifizierten Liquidity-Sweep [A] besitzen ein ausnahmsloses 'No-Trade'-Mandat im Algorithmus."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T22:26:36.194606+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1793737845",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.22,
+      "pnl_raw": -0.11,
+      "text": "Orderblöcke mit Güteklasse C oder schlechter sowie Zonen mit mehr als einem vorangegangenen Retest (R >= 2) sind für Entries strikt gesperrt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1793737845",
+        "verdict": "LOSS",
+        "driver": "Exekution in einer strukturell toten Zone (OB [C] im bereits 3. Retest R3) mit einem suizidal engen Stopp von 0,11%, der reine Spread- und Rausch-Liquidierung provozierte.",
+        "technical_warning": "Retest-Erschöpfung (R3 signalisiert schwindende institutionelle Nachfrage) kombiniert mit einer Stop-Distanz, die signifikant unterhalb des aktuellen 5m-ATR lag.",
+        "actionable_rule": "Orderblöcke mit Güteklasse C oder schlechter sowie Zonen mit mehr als einem vorangegangenen Retest (R >= 2) sind für Entries strikt gesperrt."
+      }
+    },
+    {
+      "timestamp": "2026-11-03T22:26:36.194517+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1793733114",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -1.16,
+      "pnl_raw": -0.58,
+      "text": "Short-Entries an OB [A] nach einem Sweep erfordern zwingend eine M5-Schlusskerze unterhalb des Sweep-Pivots mit erkennbarem bärischem FVG vor Order-Aktivierung.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1793733114",
+        "verdict": "LOSS",
+        "driver": "Klassische Absorption-Trap: Der scheinbare 'Sweep' war kein erschöpfender Fakeout, sondern aggressives Breakout-Kaufvolumen, das den M5-Orderblock [A] ohne jegliche bärische Reaktion pulverisiert hat.",
+        "technical_warning": "Ausbleiben einer impulsiven Gegenbewegung (kein Market Structure Shift / MSS) und anhaltend positives Delta/Volumen beim Anlaufen der Liquiditätsmarke.",
+        "actionable_rule": "Short-Entries an OB [A] nach einem Sweep erfordern zwingend eine M5-Schlusskerze unterhalb des Sweep-Pivots mit erkennbarem bärischem FVG vor Order-Aktivierung."
+      }
+    },
     {
       "timestamp": "2026-11-03T20:31:41.338189+00:00",
       "trade_id": "trade_COINBASE_ETHBTC_20261103_2030",
