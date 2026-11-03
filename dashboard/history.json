@@ -1,5 +1,70 @@
 [
   {
+    "id": "evt_20261103_222706",
+    "timestamp": "2026-11-03T22:27:06.484632+00:00",
+    "timestamp_display": "03.11.2026 22:27 UTC",
+    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 2,
+    "changes": [
+      {
+        "symbol": "BITSTAMP:ETHUSD",
+        "name": "ETHUSD",
+        "category": "Crypto",
+        "change_type": "SETUP_UPDATE",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 95,
+        "new_score": 94,
+        "price": 2287.89,
+        "setup_name": "Hypothese 1: SMC Order Block Exhaustion",
+        "entry_range": [
+          2289.0,
+          2304.0
+        ],
+        "stop_loss": 2335.0,
+        "take_profit_2": 2150.0,
+        "reasons": [
+          "HTF-Trend auf 1W, 3D, 1D und 4h durchgehend bärisch ausgerichtet.",
+          "Der Kurs retestet den aktiven Grad A Bearish Order Block (R4, Top 2304.72) mit Anzeichen von Volumenerschöpfung auf 1h/4h.",
+          "Versteckte bärische Divergenzen auf 1D und 4h signalisieren eine Fortsetzung des primären Abwärtstrends."
+        ],
+        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block Exhaustion' (HTF-Trend auf 1W, 3D, 1D und 4h durchgehend bärisch ausgerichtet.).",
+        "note": "ETHUSD retestet den bärischen Grad A Order Block im Bereich 2273–2304 USD. Der übergeordnete Trend ist über 1W, 1D und 4h klar negativ. Auf kleineren Zeiteinheiten bricht das Kaufvolumen ein (Very Low Volume), was in Kombination mit den bärischen Divergenzen ein hervorragendes asymmetric Short-Setup mit einem CRV von >2.8:1 bietet.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "COINBASE:ETHBTC",
+        "name": "ETHBTC",
+        "category": "Crypto",
+        "change_type": "SETUP_UPDATE",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 95,
+        "new_score": 93,
+        "price": 0.029432,
+        "setup_name": "Hypothese 1: SMC Bearish Trend Continuation",
+        "entry_range": [
+          0.02945,
+          0.02965
+        ],
+        "stop_loss": 0.03015,
+        "take_profit_2": 0.0279,
+        "reasons": [
+          "Klarer bärischer HTF-Makrotrend auf 1W, 3D und 1D mit intakter Marktstruktur unter dem 233 EMA.",
+          "Doppeltes Sell-Signal (4h und 1h 'Good Sell Signal') in Kombination mit regulärer bärischer Divergenz auf 1h und 4h.",
+          "Sehr schwaches Volumen (Very Low Volume) bei den 1h/4h-Erholungsversuchen signalisiert fehlendes institutionelles Kauftinteresse."
+        ],
+        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 1: SMC Bearish Trend Continuation' (Klarer bärischer HTF-Makrotrend auf 1W, 3D und 1D mit intakter Marktstruktur unter dem 233 EMA.).",
+        "note": "ETHBTC verbleibt in einem strukturell intakten Bärenmarkt über sämtliche HTF-Zeiteinheiten. Die jüngste untergeordnete Erholung zeigt exzessive Volumenerschöpfung (Very Low Volume) und wird durch konfluente 'Good Sell'-Signale auf 1h und 4h abgelehnt. Gemäß den strikten Risikoregeln liegen alle Take-Profit-Targets zwingend unter dem Einstiegspreis.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n🔴 ETHUSD (ETHUSD):\n   Score-Sprung: 95% ➔ 94% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block Exhaustion' (HTF-Trend auf 1W, 3D, 1D und 4h durchgehend bärisch ausgerichtet.).\n   📝 KI-Rationale: ETHUSD retestet den bärischen Grad A Order Block im Bereich 2273–2304 USD. Der übergeordnete Trend ist über 1W, 1D und 4h klar neg...\n   Setup: Hypothese 1: SMC Order Block Exhaustion\n   Entry: 2,289.00 | SL: 2,335.00 | TP2: 2,150.00\n\n🔴 ETHBTC (ETHBTC):\n   Score-Sprung: 95% ➔ 93% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: SMC Bearish Trend Continuation' (Klarer bärischer HTF-Makrotrend auf 1W, 3D und 1D mit intakter Marktstruktur unter dem 233 EMA.).\n   📝 KI-Rationale: ETHBTC verbleibt in einem strukturell intakten Bärenmarkt über sämtliche HTF-Zeiteinheiten. Die jüngste untergeordnete Erholung ze...\n   Setup: Hypothese 1: SMC Bearish Trend Continuation\n   Entry: 0.03 | SL: 0.03 | TP2: 0.03\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261103_183716",
     "timestamp": "2026-11-03T18:37:16.799641+00:00",
     "timestamp_display": "03.11.2026 18:37 UTC",
@@ -27603,16 +27668,5 @@
     "notification_sent": true,
     "provider": "ntfy",
     "raw_message": "🔄 Folgende 7 Einstufungen haben sich geändert:\n\n🟢 Curve DAO (CRVUSD):\n   Einstufung: SHORT ➔ LONG (Score: 96%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 0.34 | SL: 0.33 | TP2: 0.37\n\n🟢 Total Crypto Market Cap (TOTAL):\n   Einstufung: NEUTRAL ➔ LONG (Score: 96%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 2,693,240,080,955.78 | SL: 2,619,936,167,462.02 | TP2: 3,019,035,252,039.14\n\n🟢 Uber (UBER):\n   Einstufung: NEUTRAL ➔ LONG (Score: 96%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 69.79 | SL: 67.89 | TP2: 78.22\n\n🔴 Under Armour (UAA):\n   Einstufung: NEUTRAL ➔ SHORT (Score: 95%)\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 4.73 | SL: 4.91 | TP2: 4.20\n\n🔴 Kupfer Future (HG1!):\n   Einstufung: NEUTRAL ➔ SHORT (Score: 95%)\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 6.56 | SL: 6.80 | TP2: 5.83\n\n🔴 DJI (DJI):\n   Einstufung: NEUTRAL ➔ SHORT (Score: 95%)\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 51,903.20 | SL: 53,827.46 | TP2: 46,182.41\n\n... und 1 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261018_122452",
-    "timestamp": "2026-10-18T12:24:52.108800+00:00",
-    "timestamp_display": "18.10.2026 12:24 UTC",
-    "title": "System-Start: Baseline-Scan initialisiert",
-    "type": "SYSTEM_INIT",
-    "change_count": 0,
-    "changes": [],
-    "summary": "Initialisierung abgeschlossen. 58 Assets im 4h-Überwachungszyklus aktiv (16 Longs, 18 Shorts). Zukünftige Signalwechsel werden automatisch erfasst.",
-    "notification_sent": false
   }
 ]

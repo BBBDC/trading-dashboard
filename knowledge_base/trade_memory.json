@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-03T22:26:58.071217+00:00",
-  "total_experience_records": 68,
+  "updated_at": "2026-11-03T23:10:55.013104+00:00",
+  "total_experience_records": 71,
   "learnings": [
+    {
+      "timestamp": "2026-11-03T23:10:51.194770+00:00",
+      "trade_id": "cross_rule_1793747451",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volatilitätsbasierte Stop-Verankerung jenseits offensichtlicher Liquiditätspools",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein Stop innerhalb der normalen Rausch-Bandbreite des Instruments führt zu 100 % Fehlerrate; wie auf 5m muss auch auf 4h/1D der Stop außerhalb des Liquiditäts-Vakuums plus Volatilitätspuffer (ATR) platziert werden, niemals bündig am sichtbaren Support.",
+        "actionable_rule": "Volatilitätsbasierte Stop-Verankerung jenseits offensichtlicher Liquiditätspools"
+      }
+    },
+    {
+      "timestamp": "2026-11-03T23:10:51.194723+00:00",
+      "trade_id": "cross_rule_1793747451",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Exklusive Zonen-Autorisierung: Handele ausschließlich Zonen mit nachgewiesenem Displacement und FVG (Mindestqualität [A/B])",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Was auf 5m als minderwertiger C-Klasse-Retest sofort kollabiert, fungiert auf 4h/1D als bloßer Durchlauferhitzer für Gegentrend-Liquidität; ohne institutionelles Ungleichgewicht existiert kein statistischer Edge.",
+        "actionable_rule": "Exklusive Zonen-Autorisierung: Handele ausschließlich Zonen mit nachgewiesenem Displacement und FVG (Mindestqualität [A/B])"
+      }
+    },
+    {
+      "timestamp": "2026-11-03T23:10:51.194642+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1793744758",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.1,
+      "pnl_raw": -0.05,
+      "text": "Order Blocks unter Qualitätsstufe [B] sind ausnahmslos gesperrt; der Stop-Loss muss strukturell verankert sein und zwingend einen Mindestabstand von 1,5x 5m-ATR unterhalb des Sweeps einhalten.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1793744758",
+        "verdict": "LOSS",
+        "driver": "Ausführung an einem schwachen Order Block [C] mit unzureichendem Stop-Puffer, wodurch die Position von gewöhnlicher Spread- und Rausch-Volatilität liquidiert wurde.",
+        "technical_warning": "Das Fehlen von VSA-Absorptionsvolumen beim Retest sowie die niedrige Güteklasse des Order Blocks [C] signalisierten frühzeitig, dass der Sweep kein Smart-Money-Accumulation-Muster, sondern fortgesetzten Abgabedruck darstellte.",
+        "actionable_rule": "Order Blocks unter Qualitätsstufe [B] sind ausnahmslos gesperrt; der Stop-Loss muss strukturell verankert sein und zwingend einen Mindestabstand von 1,5x 5m-ATR unterhalb des Sweeps einhalten."
+      }
+    },
     {
       "timestamp": "2026-11-03T22:26:54.272076+00:00",
       "trade_id": "cross_rule_1793744814",
