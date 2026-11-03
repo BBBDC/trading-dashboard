@@ -981,12 +981,12 @@ html_content = f"""<!DOCTYPE html>
     // Globaler Callback für Telegram Widget (wird aufgerufen sobald der Login erfolgt)
     window.onTelegramAuth = function(user) {{
       console.log('Telegram Auth Callback empfangen:', user);
+      try {{
+        localStorage.setItem('tg_user', JSON.stringify(user));
+      }} catch(e) {{}}
       if (typeof handleTelegramLogin === 'function') {{
         handleTelegramLogin(user);
       }} else {{
-        try {{
-          localStorage.setItem('tg_user', JSON.stringify(user));
-        }} catch(e) {{}}
         window.location.reload();
       }}
     }};
