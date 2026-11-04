@@ -1,7 +1,179 @@
 {
-  "updated_at": "2026-11-04T15:27:34.739212+00:00",
-  "total_experience_records": 75,
+  "updated_at": "2026-11-04T16:37:20.267609+00:00",
+  "total_experience_records": 69,
   "learnings": [
+    {
+      "timestamp": "2026-11-04T16:37:16.530803+00:00",
+      "trade_id": "cross_rule_1793810236",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Strikte Trennung von Liquiditäts-Sweeps und echten Widerstandsbrüchen durch zeitbasierte Bestätigung.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Alphabet demonstriert, dass ein Stop-Loss knapp über lokalen Niveaus ohne zeitliche Entkopplung oder Puffer anfällig für reine Sweep-Noise ist. Auf Makro-Ebenen (4h/1D) muss der Stop oberhalb des übergeordneten Liquiditätspools liegen, um nicht vor der eigentlichen Verteilungswelle liquidiert zu werden.",
+        "actionable_rule": "Strikte Trennung von Liquiditäts-Sweeps und echten Widerstandsbrüchen durch zeitbasierte Bestätigung."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T16:37:16.530764+00:00",
+      "trade_id": "cross_rule_1793810236",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Mean-Reversion-Handel gegen expandierende Band-Strukturen ohne VSA-Exhaustion-Nachweis.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf der 5m-Mikroebene als auch im 4h/1D-Chart signalisiert ein 'Chaos Band > RFE' nur dann eine valide Trendumkehr, wenn das Volumen bei Annäherung an das Band versiegt (Volume Dry-up) oder durch eine impulsive Rejection absorbiert wird; andernfalls fungiert das Band als dynamischer Katalysator für Trendbeschleunigung.",
+        "actionable_rule": "Kein Mean-Reversion-Handel gegen expandierende Band-Strukturen ohne VSA-Exhaustion-Nachweis."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T16:37:16.530732+00:00",
+      "trade_id": "inc_ABEA.F_5m_1793805278",
+      "symbol": "ABEA.F",
+      "name": "Alphabet (Google)",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.04,
+      "pnl_raw": -0.02,
+      "text": "Kein Short-Trigger in einer Sell Pocket ohne bestätigten Close unterhalb der Trigger-Kerze und Stop-Loss-Platzierung mit Mindestabstand von 0.5x ATR über dem Swing-High.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ABEA.F_5m_1793805278",
+        "verdict": "LOSS",
+        "driver": "Einstieg gegen ungebrochenes Momentum, bei dem der Stop-Loss ohne hinreichenden Volatilitätspuffer direkt am lokalen Widerstands-Cluster überrannt wurde.",
+        "technical_warning": "Fehlende bärische Docht-Bildung (Rejection-Wick) und anhaltend hohes Kauf-Delta am oberen Chaos-Band vor Trigger-Auslösung.",
+        "actionable_rule": "Kein Short-Trigger in einer Sell Pocket ohne bestätigten Close unterhalb der Trigger-Kerze und Stop-Loss-Platzierung mit Mindestabstand von 0.5x ATR über dem Swing-High."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T16:37:16.530643+00:00",
+      "trade_id": "inc_FB2A.F_5m_1793805277",
+      "symbol": "FB2A.F",
+      "name": "Meta Platforms",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.0,
+      "pnl_raw": -0.0,
+      "text": "Bei Erreichen von TP2 (3.0R) Position vollständig schließen und keinen Re-Entry im selben 5m-Zyklus ohne neuen strukturellen Sweep zulassen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_FB2A.F_5m_1793805277",
+        "verdict": "WIN",
+        "driver": "Erfolgreiche Mean-Reversion durch echte Liquiditätsabsorption und Verkäufer-Dominanz an der oberen Band-Erschöpfung.",
+        "technical_warning": "Keine akute Warnung, jedoch erfordert die minimale PnL-Spanne bei +3.0R eine genaue Verifikation der Slippage- und Execution-Parameter auf Mikro-Ebene.",
+        "actionable_rule": "Bei Erreichen von TP2 (3.0R) Position vollständig schließen und keinen Re-Entry im selben 5m-Zyklus ohne neuen strukturellen Sweep zulassen."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T16:36:50.229346+00:00",
+      "trade_id": "cross_rule_1793810210",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Volumen-Postulat: Ultra-High-Volume an Key-Levels ist bis zum Beweis des Gegenteils (Rejection Wick & Displacement) ein Breakout-Katalysator, kein Reversal.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der LINKUSDT-Fehlschlag zeigt über alle Zeitebenen (von 5m bis 1D), dass massives Volumen an Widerständen meist institutionelle Liquiditätsaufnahme darstellt, die passive Short-Orders liquidiert.",
+        "actionable_rule": "Fraktales Volumen-Postulat: Ultra-High-Volume an Key-Levels ist bis zum Beweis des Gegenteils (Rejection Wick & Displacement) ein Breakout-Katalysator, kein Reversal."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T16:36:50.229296+00:00",
+      "trade_id": "cross_rule_1793810210",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Übergeordnete Trend-Dominanz: Counter-Trend-Setups auf 5m/15m sind strikt verboten, solange 1h und 4h eine intakte bullische Marktstruktur (MSS/BOS) aufweisen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Indikatorüberdehnungen (Chaos Bands > RFE) verharren in starken Trends chronisch im Extrembereich; sie dienen in Trendmärkten als Einstieg für Trendfolger, nicht für Reversals.",
+        "actionable_rule": "Übergeordnete Trend-Dominanz: Counter-Trend-Setups auf 5m/15m sind strikt verboten, solange 1h und 4h eine intakte bullische Marktstruktur (MSS/BOS) aufweisen."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T16:36:50.229258+00:00",
+      "trade_id": "inc_MSF.F_5m_1793805277",
+      "symbol": "MSF.F",
+      "name": "Microsoft",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.0,
+      "pnl_raw": -0.0,
+      "text": "Der Mindestabstand für den Stop-Loss muss zwingend mindestens 1.5x ATR(5m) plus das Zweifache des aktuellen Börsen-Spreads betragen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_MSF.F_5m_1793805277",
+        "verdict": "LOSS",
+        "driver": "Ausführungstechnischer Suizid durch einen absurden Stop-Loss-Abstand von nur 0,0134 EUR, der unvermeidlich im regulären XETRA/Frankfurt-Spread und Marktrauschen liquidiert wurde.",
+        "technical_warning": "Die SL-Distanz lag dramatisch unterhalb der 5m-ATR und ignorierte den effektiven Bid/Ask-Spread des europäischen Handelsplatzes vollständig.",
+        "actionable_rule": "Der Mindestabstand für den Stop-Loss muss zwingend mindestens 1.5x ATR(5m) plus das Zweifache des aktuellen Börsen-Spreads betragen."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T16:36:50.229209+00:00",
+      "trade_id": "inc_AMZ.F_5m_1793805277",
+      "symbol": "AMZ.F",
+      "name": "Amazon",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.52,
+      "pnl_raw": -0.26,
+      "text": "Kein Counter-Trend-Entry ohne A-Qualitäts-Sweep (signifikanter Durchstich des vorherigen lokalen Hochs mit umgehender Rückabwicklung).",
+      "ai_post_mortem": {
+        "trade_id": "inc_AMZ.F_5m_1793805277",
+        "verdict": "LOSS",
+        "driver": "Reines Indikator-Fading ohne VSA-Volumenbestätigung und ohne sauberen Liquidity-Sweep direkt in eine intakte Aufwärtsbewegung hinein.",
+        "technical_warning": "Völliges Ausbleiben von Abgabevolumen bei gleichzeitigem Kerzenschluss nahe dem Hoch signalisierte mangelndes Verkäuferinteresse und mühelose Trendfortsetzung.",
+        "actionable_rule": "Kein Counter-Trend-Entry ohne A-Qualitäts-Sweep (signifikanter Durchstich des vorherigen lokalen Hochs mit umgehender Rückabwicklung)."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T16:36:50.229100+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1793805277",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.8,
+      "pnl_raw": -0.4,
+      "text": "Bei VSA-Volumenspitzen (>2.0x) an Sell-Pockets darf ein Short erst getriggert werden, wenn die Folgekerze unter das 50%-Niveau der Impulskerze schließt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1793805277",
+        "verdict": "LOSS",
+        "driver": "Das Ultra-High-Volume (2.3x) markierte keinen Erschöpfungs-Climax, sondern institutionelle Absorption und bullische Expansion, die den Widerstand mühelos überrollt hat.",
+        "technical_warning": "Das Fehlen einer oberen Rejection-Lunte (Wick) trotz massivem Volumenanstieg indizierte ungebrochene Aggression der Käufer statt institutionellen Verkaufsdrucks.",
+        "actionable_rule": "Bei VSA-Volumenspitzen (>2.0x) an Sell-Pockets darf ein Short erst getriggert werden, wenn die Folgekerze unter das 50%-Niveau der Impulskerze schließt."
+      }
+    },
     {
       "timestamp": "2026-11-04T15:27:34.738204+00:00",
       "trade_id": "trade_BINANCE_HYPEUSDT.P_20261104_1505",
