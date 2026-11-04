@@ -1,7 +1,103 @@
 {
-  "updated_at": "2026-11-04T18:38:20.982141+00:00",
-  "total_experience_records": 78,
+  "updated_at": "2026-11-04T19:12:06.503377+00:00",
+  "total_experience_records": 83,
   "learnings": [
+    {
+      "timestamp": "2026-11-04T19:12:02.734237+00:00",
+      "trade_id": "cross_rule_1793819522",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Hierarchie-Filter: Lokale Indikator-Trigger (Pockets/Marker) sind irrelevant ohne übergeordneten Trend-Align und VSA-Absorptionsbestätigung.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Micro-Signale (Chaos-Bänder, Pfeile/Kreise) generieren im Trendverlauf permanente Fehlsignale; institutionelles Kapital akkumuliert/distribuiert nur bei messbarem Volumen-Versiegen der Gegenseite.",
+        "actionable_rule": "Hierarchie-Filter: Lokale Indikator-Trigger (Pockets/Marker) sind irrelevant ohne übergeordneten Trend-Align und VSA-Absorptionsbestätigung."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T19:12:02.734215+00:00",
+      "trade_id": "cross_rule_1793819522",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Mitigation-Exhaustion-Gesetz: Orderblöcke der Güteklassen [C] und [D] sind nach R1, Tier-[A]/[B] nach R2 für Neu-Einstiege gesperrt.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Fraktal gilt auf 5m wie auf 4h/1D: Jeder Test absorbiert die verbleibende institutionelle Resting Liquidity. Ein R3-Level ist kein Support/Resistance mehr, sondern ein offener Liquiditätspool, der von Smart Money gezielt für Breakouts durchschlagen wird.",
+        "actionable_rule": "Mitigation-Exhaustion-Gesetz: Orderblöcke der Güteklassen [C] und [D] sind nach R1, Tier-[A]/[B] nach R2 für Neu-Einstiege gesperrt."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T19:12:02.734203+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1793817434",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.12,
+      "pnl_raw": -0.56,
+      "text": "Triggermarker (Blaues Dreieck) dürfen nur feuern, wenn der Orderblock maximal R1 aufweist und zuvor ein untergeordneter Strukturbruch (MSS) das Ende des Abwärtsimpulses bestätigt hat.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1793817434",
+        "verdict": "LOSS",
+        "driver": "Klassisches 'Falling Knife': Blindes Befolgen eines isolierten Indikator-Kaufsignals an einer institutionell bereits vollständig geräumten R3-Supportzone.",
+        "technical_warning": "Aufeinanderfolgende bärische Impulskerzen ohne abnehmendes Volumen beim Anlauf auf die Zone zeigten ungebrochenen Verkaufsdruck.",
+        "actionable_rule": "Triggermarker (Blaues Dreieck) dürfen nur feuern, wenn der Orderblock maximal R1 aufweist und zuvor ein untergeordneter Strukturbruch (MSS) das Ende des Abwärtsimpulses bestätigt hat."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T19:12:02.734184+00:00",
+      "trade_id": "inc_MSF.F_5m_1793810168",
+      "symbol": "MSF.F",
+      "name": "Microsoft",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Striktes Handelsverbot für 5m-Micro-Setups auf europäischen Nebenbörsen für US-Aktien sowie absoluter Ausschluss von Orderblöcken ab dem 3. Antesten (R3).",
+      "ai_post_mortem": {
+        "trade_id": "inc_MSF.F_5m_1793810168",
+        "verdict": "LOSS",
+        "driver": "Handel eines bereits ausgelaugten Dritt-Retests (R3) an einem schwachen [C]-Orderblock in einem illiquiden europäischen Zweitmarkt-Listing (MSF.F), wo der angebliche Sweep in Wahrheit ein echter Fortsetzungs-Breakdown war.",
+        "technical_warning": "Fehlende V-Shape-Rejection nach dem Tief und strukturelles Spread-/Slippage-Risiko auf Regionalbörsen bei US-Basiswerten.",
+        "actionable_rule": "Striktes Handelsverbot für 5m-Micro-Setups auf europäischen Nebenbörsen für US-Aktien sowie absoluter Ausschluss von Orderblöcken ab dem 3. Antesten (R3)."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T19:12:02.734123+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1793810168",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine Short-Setups an Orderblöcken unterhalb von Tier-[B]; ein R2-Retest erfordert zwingend eine bestätigte Volumen-Divergenz vor Markteintritt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1793810168",
+        "verdict": "LOSS",
+        "driver": "Einstieg an einem minderwertigen Tier-[D]-Orderblock gegen intaktes Aufwärtsmomentum, wobei das Chaos-Band eine Trenderschöpfung vorspiegelte, die mangels Verkäufervolumen sofort überrannt wurde.",
+        "technical_warning": "Ausbleiben eines VSA-Climax-Volumens am RFE-Band und fehlende bärische Docht-Ablehnung vor Signalauslösung.",
+        "actionable_rule": "Keine Short-Setups an Orderblöcken unterhalb von Tier-[B]; ein R2-Retest erfordert zwingend eine bestätigte Volumen-Divergenz vor Markteintritt."
+      }
+    },
     {
       "timestamp": "2026-11-04T18:38:16.946242+00:00",
       "trade_id": "cross_rule_1793817496",
