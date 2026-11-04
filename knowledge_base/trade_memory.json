@@ -1,7 +1,179 @@
 {
-  "updated_at": "2026-11-04T17:06:23.415435+00:00",
-  "total_experience_records": 69,
+  "updated_at": "2026-11-04T18:38:20.982141+00:00",
+  "total_experience_records": 78,
   "learnings": [
+    {
+      "timestamp": "2026-11-04T18:38:16.946242+00:00",
+      "trade_id": "cross_rule_1793817496",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Primärmarkt- und Liquiditäts-Primat vor rein technischen Indikatorsignalen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Weder Krypto-Micro-Strukturen noch ADRs/Zweitnotizen entfalten autarke Preisfindung; das Setup ist nur valide, wenn der primäre Leitmarkt (BTC bzw. US-Main-Session) das Signal stützt.",
+        "actionable_rule": "Primärmarkt- und Liquiditäts-Primat vor rein technischen Indikatorsignalen."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T18:38:16.946222+00:00",
+      "trade_id": "cross_rule_1793817496",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Verdrängungs-Gesetz: Zonen geringer Güteklasse (C-Grade) sind Liquiditätsziele, keine Rebound-Zonen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m wie auf 4h/1D werden schwache Order Blocks bei übergeordnetem Momentum durchschlagen; erst eine massive Displacement-Kerze in Trendrichtung beweist institutionelles Interesse.",
+        "actionable_rule": "Fraktales Verdrängungs-Gesetz: Zonen geringer Güteklasse (C-Grade) sind Liquiditätsziele, keine Rebound-Zonen."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T18:38:16.946208+00:00",
+      "trade_id": "inc_FB2A.F_5m_1793810168",
+      "symbol": "FB2A.F",
+      "name": "Meta Platforms",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.5,
+      "pnl_raw": -0.25,
+      "text": "Vollständiges Handelsverbot für 5m-Gegen-Trend-Setups auf europäischen Zweitnotizen von US-Aktien; Fading von Bandüberdehnungen erfordert zwingend Bestätigung am US-Heimatmarkt (NASDAQ/NYSE).",
+      "ai_post_mortem": {
+        "trade_id": "inc_FB2A.F_5m_1793810168",
+        "verdict": "LOSS",
+        "driver": "Ein volatilitätsbasierter Mean-Reversion-Short lief ungebremst gegen die übergeordnete US-Tech-Dynamik auf einer dünn liquiden europäischen Nebennotiz.",
+        "technical_warning": "Fehlendes VSA-Erschöpfungsvolumen (kein Buying Climax) am Chaos-Band und Ignorieren des dominanten US-Kassamarkt-Momentums.",
+        "actionable_rule": "Vollständiges Handelsverbot für 5m-Gegen-Trend-Setups auf europäischen Zweitnotizen von US-Aktien; Fading von Bandüberdehnungen erfordert zwingend Bestätigung am US-Heimatmarkt (NASDAQ/NYSE)."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T18:38:16.946153+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1793810167",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.8,
+      "pnl_raw": -0.4,
+      "text": "Kein Limit-Einstieg an Order Blocks der Qualitätsstufe [C]; Ausführung erst nach Bestätigung durch einen 5m-Market-Structure-Shift (MSS) mit FVG-Expansion.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1793810167",
+        "verdict": "LOSS",
+        "driver": "Der Einstieg in einen schwachen Class-C-Order-Block nach dem Liquidity Sweep scheiterte an fehlender Absorption und anhaltendem Verkaufsdruck.",
+        "technical_warning": "Ausbleiben einer impulsiven Verdrängungskerze (Displacement / FVG) unmittelbar nach dem Sweep und mangelnde VSA-Kaufvolumen-Divergenz.",
+        "actionable_rule": "Kein Limit-Einstieg an Order Blocks der Qualitätsstufe [C]; Ausführung erst nach Bestätigung durch einen 5m-Market-Structure-Shift (MSS) mit FVG-Expansion."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T18:37:47.778706+00:00",
+      "trade_id": "cross_rule_1793817467",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Synchronous Basket Correlation Lock: Verbot zeitgleicher unkorrelierter Einzelsignale in derselben Richtung ohne Macro-Regime-Freigabe.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Das simultane Triggern von 3 Altcoin-Shorts innerhalb einer Sekunde offenbart ein systemisches Klumpenrisiko: Ein marktweiter BTC-Impuls führt unweigerlich zum synchronen Stop-Out aller Positionen, wenn kein übergeordneter 4h-Regime-Filter vorschaltet.",
+        "actionable_rule": "Synchronous Basket Correlation Lock: Verbot zeitgleicher unkorrelierter Einzelsignale in derselben Richtung ohne Macro-Regime-Freigabe."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T18:37:47.778661+00:00",
+      "trade_id": "cross_rule_1793817467",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Climactic Volume Rule: Ultra-hohes Volumen am Band-Extremum ist bis zum Beweis des Gegenteils Trendtreiber und kein Umkehrsignal.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl im 5m- als auch im 4h/1D-Chart kennzeichnet extremes Volumen häufig institutionelle Akkumulation/Ausbrüche; wer blind in volumengestützte Expansionen fadet, ohne einen Sweep mit anschließender Strukturinvalidation abzuwarten, liquidiert sein Risikokapital.",
+        "actionable_rule": "Climactic Volume Rule: Ultra-hohes Volumen am Band-Extremum ist bis zum Beweis des Gegenteils Trendtreiber und kein Umkehrsignal."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T18:37:47.778630+00:00",
+      "trade_id": "inc_DOGEUSDT_5m_1793805277",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Ein Micro-Confluence Short erfordert zwingend relative Schwäche gegenüber dem Benchmark-Asset (BTC) sowie nachweisbaren Sell-Side-Orderflow.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_5m_1793805277",
+        "verdict": "LOSS",
+        "driver": "Kopflose Beta-Exposition bei unterdurchschnittlichem relativem Sell-Volumen (nur 1.5x), die vom marktweiten Momentum gnadenlos ausgestoppt wurde.",
+        "technical_warning": "Die schwache relative Volumenreaktion (1.5x) am Sell-Pocket verriet das Fehlen echter institutioneller Verkaufsaufträge zur Trendumkehr.",
+        "actionable_rule": "Ein Micro-Confluence Short erfordert zwingend relative Schwäche gegenüber dem Benchmark-Asset (BTC) sowie nachweisbaren Sell-Side-Orderflow."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T18:37:47.778589+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1793805276",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Positionen außerhalb der Chaos-Bänder dürfen erst eröffnet werden, wenn die Folgekerze per Schlusskurs wieder eindeutig innerhalb des Bandes schließt (Re-Entry Confirmation).",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1793805276",
+        "verdict": "LOSS",
+        "driver": "Mitriss-Verlust durch unbestätigten Mean-Reversion-Versuch an den Chaos-Bändern während einer synchronen Altcoin-Expansionsphase.",
+        "technical_warning": "Das dynamische Verlassen der Chaos-Bänder bei 2.6x VSA deutete auf ein 'Band-Walking' im Rahmen eines Momentum-Runs hin, nicht auf eine überdehnte Umkehr.",
+        "actionable_rule": "Positionen außerhalb der Chaos-Bänder dürfen erst eröffnet werden, wenn die Folgekerze per Schlusskurs wieder eindeutig innerhalb des Bandes schließt (Re-Entry Confirmation)."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T18:37:47.778489+00:00",
+      "trade_id": "inc_BNBUSDT_5m_1793805276",
+      "symbol": "BNBUSDT",
+      "name": "BNB",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Bei VSA-Volumen > 3.0x ist jeder Counter-Trend-Einstieg verboten, bis ein bestätigter Bruch der lokalen Marktstruktur (MSS/CHoCH) auf Kerzenschlussbasis erfolgt ist.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BNBUSDT_5m_1793805276",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Short-Einstieg direkt in einen massiven Kauf-Volumenimpuls (3.4x VSA), der den lokalen Widerstand per Breakout pulverisiert hat.",
+        "technical_warning": "Das 3.4x Ultra-High-Volume ohne ausgeprägte obere Dochtbildung signalisierte aggressive institutionelle Absorption, nicht das Auftreten von Verkaufsdruck.",
+        "actionable_rule": "Bei VSA-Volumen > 3.0x ist jeder Counter-Trend-Einstieg verboten, bis ein bestätigter Bruch der lokalen Marktstruktur (MSS/CHoCH) auf Kerzenschlussbasis erfolgt ist."
+      }
+    },
     {
       "timestamp": "2026-11-04T16:37:16.530803+00:00",
       "trade_id": "cross_rule_1793810236",
