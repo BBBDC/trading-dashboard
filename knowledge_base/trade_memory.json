@@ -1,7 +1,179 @@
 {
-  "updated_at": "2026-11-04T01:05:54.559427+00:00",
-  "total_experience_records": 72,
+  "updated_at": "2026-11-04T02:27:24.024528+00:00",
+  "total_experience_records": 69,
   "learnings": [
+    {
+      "timestamp": "2026-11-04T02:27:20.338183+00:00",
+      "trade_id": "cross_rule_1793759240",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Klasse-[C]-Zonen erfordern zwingend Volumenerschöpfung (VSA No Supply / No Demand) vor der Order-Aktivierung.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl im 5m-Rauschen als auch bei 4h/1D-Strukturen besitzen sekundäre Order-Blöcke (C-Grade) keine dominante Liquidität; ohne nachweisbare Erschöpfung der Gegenseite enden Retests dort meist als Trendfortsetzung gegen die Position.",
+        "actionable_rule": "Klasse-[C]-Zonen erfordern zwingend Volumenerschöpfung (VSA No Supply / No Demand) vor der Order-Aktivierung."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T02:27:20.338165+00:00",
+      "trade_id": "cross_rule_1793759240",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Trade ohne ATR-basierte Mindest-Pufferzone für 1R, unabhängig von der Zeitebene.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Micro-Scalps mit nominellen 3R bei nur 0,10% Netto-Kursamplitude skalieren nicht auf 4h/1D, da R-Multiples immer die tatsächliche Marktvolatilität und Liquiditätsfriktionen widerspiegeln müssen, statt künstlich verengt zu werden.",
+        "actionable_rule": "Kein Trade ohne ATR-basierte Mindest-Pufferzone für 1R, unabhängig von der Zeitebene."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T02:27:20.338151+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1793747422",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 0.2,
+      "pnl_raw": 0.1,
+      "text": "Definiere einen harten Mindestabstand für den Stop-Loss (z.B. min. 1.0x 5m-ATR oder >0,15% bei BTC), um Scheingewinne durch Micro-Friction-Risiken systematisch auszuschließen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1793747422",
+        "verdict": "WIN",
+        "driver": "Punktgenauer R1-Retest an der Bullish OB [C]-Kante mit unmittelbarem Momentum-Trigger (Blaues Dreieck) ohne nennenswerten Drawdown.",
+        "technical_warning": "Eine implizite Stop-Distanz von ca. 0,033% bei BTC ist hochgradig rausch- und slippage-anfällig; jedes Orderbuch-Ungleichgewicht oder Mikro-Sweep hätte vor dem Impuls liquidiert.",
+        "actionable_rule": "Definiere einen harten Mindestabstand für den Stop-Loss (z.B. min. 1.0x 5m-ATR oder >0,15% bei BTC), um Scheingewinne durch Micro-Friction-Risiken systematisch auszuschließen."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T02:27:20.338096+00:00",
+      "trade_id": "inc_ETHUSDT_5m_1793744759",
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 1.36,
+      "pnl_raw": 0.68,
+      "text": "Bei C-Grade Order Blocks darf der Entry erst nach Verlassen der Block-Spanne mit bärischem Bar-Close erfolgen, niemals per Blind-Limit im Inneren des Blocks.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ETHUSDT_5m_1793744759",
+        "verdict": "WIN",
+        "driver": "Effiziente Verkäufer-Initiative am Bearish OB [C] Retest, bestätigt durch einen synchronen Sell-Marker und saubere Ausdehnung zur Target-Liquidität.",
+        "technical_warning": "Die Klassifizierung als C-Grade-Order-Block barg erhöhtes Sweep-Risiko; ein Ausbleiben von fallendem Volumen beim Retest hätte auf ein Durchschlagen der Angebotszone hingewiesen.",
+        "actionable_rule": "Bei C-Grade Order Blocks darf der Entry erst nach Verlassen der Block-Spanne mit bärischem Bar-Close erfolgen, niemals per Blind-Limit im Inneren des Blocks."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T02:26:56.142671+00:00",
+      "trade_id": "cross_rule_1793759216",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Regimeregel: Mikro-Sweeps dürfen niemals isoliert gegen das übergeordnete HTF-Displacement gehandelt werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "BNB scheiterte trotz [A]-Sweep auf der Long-Seite, weil der breite Markt (wie die zeitgleichen Short-Setups in SUI und RENDER zeigen) in eine Abwärts-Expansionsphase überging; Sweeps in HTF-Gegenrichtung führen im statistischen Mittel zu Trendfortsetzungen statt Trendwenden.",
+        "actionable_rule": "Fraktale Regimeregel: Mikro-Sweeps dürfen niemals isoliert gegen das übergeordnete HTF-Displacement gehandelt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T02:26:56.142629+00:00",
+      "trade_id": "cross_rule_1793759216",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "No Sweep, No Trade: Ein Orderblock ohne vorherigen Liquiditäts-Sweep ist kein Reversal-Level, sondern ein Durchbruchsziel.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Wie der direkte Vergleich zwischen SUI (Loss ohne Sweep) und RENDER (Win mit [A]-Sweep) beweist, fehlt es Orderblocks ohne vorangegangenen Stop-Hunt an gefangener Gegenliquidität, um echtes Momentum im Markt zu entfalten – dies gilt fraktal identisch für 4h- und 1D-Orderblöcke.",
+        "actionable_rule": "No Sweep, No Trade: Ein Orderblock ohne vorherigen Liquiditäts-Sweep ist kein Reversal-Level, sondern ein Durchbruchsziel."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T02:26:56.142601+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1793744758",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 4.02,
+      "pnl_raw": 2.01,
+      "text": "Bei simultanem Vorliegen von [A]-Sweep und [A]-OB ist die Positionsgröße voll auszuschöpfen und das Halten bis TP2 (3.0R) ohne verfrühte manuelle Intervention zwingend einzuhalten.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1793744758",
+        "verdict": "WIN",
+        "driver": "Perfekte Konfluenz aus gefangenen Käufern nach BSL-Sweep High [A], unmittelbarer Ablehnung an unmitigiertem Tier-A Orderblock und konsequenter Trendexpansion bis zum vollen 3.0R-Target.",
+        "technical_warning": "Keine Warnung erforderlich; die aggressive Ablehnungs-Dochtbildung mit FVG-Generierung lieferte sofortige Bestätigung für ungehinderte Abwärtsdynamik.",
+        "actionable_rule": "Bei simultanem Vorliegen von [A]-Sweep und [A]-OB ist die Positionsgröße voll auszuschöpfen und das Halten bis TP2 (3.0R) ohne verfrühte manuelle Intervention zwingend einzuhalten."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T02:26:56.142562+00:00",
+      "trade_id": "inc_SUIUSDT_5m_1793744758",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.86,
+      "pnl_raw": -0.43,
+      "text": "Reine Tier-[B] Orderblocks ohne verifizierten Liquidity-Sweep High [A] sind in der Execution-Engine hardcodiert zu sperren.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_5m_1793744758",
+        "verdict": "LOSS",
+        "driver": "Unzureichende Setup-Qualität durch Einstieg an einem sekundären [B]-Klasse Orderblock ohne vorherigen Stop-Hunt von Buy-Side-Liquidität (BSL).",
+        "technical_warning": "Das Fehlen eines Liquidity Sweeps [A] über dem lokalen Hoch hinterließ offene Kauf-Stops im Markt, die als Magnet für Smart-Money dienten und den SL unmittelbar überrannten.",
+        "actionable_rule": "Reine Tier-[B] Orderblocks ohne verifizierten Liquidity-Sweep High [A] sind in der Execution-Engine hardcodiert zu sperren."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T02:26:56.142466+00:00",
+      "trade_id": "inc_BNBUSDT_5m_1793716983",
+      "symbol": "BNBUSDT",
+      "name": "BNB",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.2,
+      "pnl_raw": -0.6,
+      "text": "Kein Long-Einstieg an 5m-Support-Zonen ohne nachgewiesene Absorption (Delta-Climax) und Mindestausrichtung an der übergeordneten 15m/1h-Trendstruktur.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BNBUSDT_5m_1793716983",
+        "verdict": "LOSS",
+        "driver": "Fehlgeschlagener Long-Reversieversuch an lokalem Support, da der Sweep nicht absorbiert wurde, sondern in ein echtes bärisches Displacement gegen den übergeordneten Marktdruck umschlug.",
+        "technical_warning": "Fehlende Volumen-Absorption (keine Delta-Divergenz am Sweep-Tief) sowie das Ausbleiben einer bullischen Candle-Close-Bestätigung über dem vorherigen 5m-Swing-Low signalisierten anhaltenden Verkaufsüberhang.",
+        "actionable_rule": "Kein Long-Einstieg an 5m-Support-Zonen ohne nachgewiesene Absorption (Delta-Climax) und Mindestausrichtung an der übergeordneten 15m/1h-Trendstruktur."
+      }
+    },
     {
       "timestamp": "2026-11-04T00:05:25.290947+00:00",
       "trade_id": "trade_COINBASE_BCHUSD_20261102_1414",
