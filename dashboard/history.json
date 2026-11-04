@@ -1,5 +1,96 @@
 [
   {
+    "id": "evt_20261104_103506",
+    "timestamp": "2026-11-04T10:35:06.099175+00:00",
+    "timestamp_display": "04.11.2026 10:35 UTC",
+    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 3,
+    "changes": [
+      {
+        "symbol": "COINBASE:ETHBTC",
+        "name": "ETHBTC",
+        "category": "Crypto",
+        "change_type": "SETUP_UPDATE",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 95,
+        "new_score": 93,
+        "price": 0.029658,
+        "setup_name": "Hypothese 1: SMC Order Block [R1] Rejection",
+        "entry_range": [
+          0.0296,
+          0.0298
+        ],
+        "stop_loss": 0.03015,
+        "take_profit_2": 0.028,
+        "reasons": [
+          "HTF Makro-Trend (1W, 3D, 1D) durchgehend bärisch unter der 233 EMA.",
+          "Grad A Bearish Order Block (R1) mit erfolgtem Liquidity Sweep auf Tagesebene frisch bestätigt.",
+          "Aktive Good Sell Signale auf 4h und 1h bei nachlassendem Volumen in der Erholung (Very Low Volume auf 1h)."
+        ],
+        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R1] Rejection' (HTF Makro-Trend (1W, 3D, 1D) durchgehend bärisch unter der 233 EMA.).",
+        "note": "Das Paar verbleibt in einem intakten HTF-Abwärtstrend. Die Gegenbewegung auf 4h stellt eine klassische Bärenmarktrallye dar, die exakt an einem frischen Grad A Bearish OB (R1 mit Sweep) abgefangen wurde. Die 4h/1h Sell-Signale bestätigen das institutionelle Re-Offloading. Das CRV liegt über 3:1 mit strukturellem Stop über dem OB-Top.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "BITSTAMP:ETHUSD",
+        "name": "ETHUSD",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 52,
+        "price": 2328.76,
+        "setup_name": "Beobachten / Warten auf Rejection im HTF Premium Bereich",
+        "entry_range": [
+          2320.0,
+          2337.0
+        ],
+        "stop_loss": 2360.0,
+        "take_profit_2": 2200.0,
+        "reasons": [
+          "Widersprüchliche HTF-Gefüge: 1D ist im Buy Pocket, der Trend bleibt jedoch auf 1D/1W bärisch.",
+          "1h zeigt ein Good Sell Signal, jedoch ist der Kurs auf 4h im GP überverkauft/überdehnt (RSI 67 auf 1h) und ein 4h Potential Buy Signal ist aktiv.",
+          "Bindende Lektion aus vergangenen Trades: Keine Shorts an der Unterkante/Mitte ohne klaren Sweep im oberen Premium-Bereich des Order Blocks."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Widersprüchliche HTF-Gefüge: 1D ist im Buy Pocket, der Trend bleibt jedoch auf 1D/1W bärisch.).",
+        "note": "ETHUSD zeigt widersprüchliche Signale zwischen dem 1D Buy Pocket und dem übergeordneten Bärenmarkttrend. Nach den gelernten Trading-Regeln wird ein Short im aktuellen Niveau ohne vorherigen Sweep der Premium-Zone (2337+) strikt abgelehnt, um Whipsaws zu vermeiden. Kapitalerhalt hat Priorität – wir verbleiben an der Seitenlinie bis zur klaren Strukturauflösung.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "TRADEGATE:RHM",
+        "name": "Rheinmetall",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 88,
+        "new_score": 44,
+        "price": 983.8,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          1020.0,
+          1034.0
+        ],
+        "stop_loss": 1042.0,
+        "take_profit_2": 935.0,
+        "reasons": [
+          "Trend auf 1W, 1D und 4h bärisch, jedoch ist die Abwärtsbewegung intraday mit einem 1h-RSI von 25.62 massiv überdehnt (imminente Mean-Reversion-Gefahr).",
+          "Kurs testet die Unterkante des bullischen Order Blocks (977.60 EUR, Retest R8); degencoder signalisiert 'Bear Alignment Ends' auf 4h sowie ein 1h 'Potential Buy Signal'.",
+          "Historische Lektion: Kein prozyklisches Short-Selling an der Unterkante einer überverkauften Struktur; Gewinnsicherung früherer Shorts und Warten auf Erholung in die Premium-Zone."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Trend auf 1W, 1D und 4h bärisch, jedoch ist die Abwärtsbewegung intraday mit einem 1h-RSI von 25.62 massiv überdehnt (imminente Mean-Reversion-Gefahr).).",
+        "note": "Der bisherige Short hat sein Erschöpfungsstadium an der Unterkante der Struktur erreicht. Bei einem 1h-RSI von 25.62 und dem Erlöschen des bärischen Alignments auf 4h verbietet sich jedes weitere Short-Chasing. Neue Trendfolge-Shorts werden erst nach einem Korrektur-Pullback an das obere Order-Block-Niveau (1.020 - 1.034 EUR) und bestätigter bärischer Umkehrkerze in Betracht gezogen.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🔴 ETHBTC (ETHBTC):\n   Score-Sprung: 95% ➔ 93% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R1] Rejection' (HTF Makro-Trend (1W, 3D, 1D) durchgehend bärisch unter der 233 EMA.).\n   📝 KI-Rationale: Das Paar verbleibt in einem intakten HTF-Abwärtstrend. Die Gegenbewegung auf 4h stellt eine klassische Bärenmarktrallye dar, die e...\n   Setup: Hypothese 1: SMC Order Block [R1] Rejection\n   Entry: 0.03 | SL: 0.03 | TP2: 0.03\n\n⚪ ETHUSD (ETHUSD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Widersprüchliche HTF-Gefüge: 1D ist im Buy Pocket, der Trend bleibt jedoch auf 1D/1W bärisch.).\n   📝 KI-Rationale: ETHUSD zeigt widersprüchliche Signale zwischen dem 1D Buy Pocket und dem übergeordneten Bärenmarkttrend. Nach den gelernten Tradin...\n   Setup: Beobachten / Warten auf Rejection im HTF Premium Bereich\n\n⚪ Rheinmetall (RHM):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 44%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Trend auf 1W, 1D und 4h bärisch, jedoch ist die Abwärtsbewegung intraday mit einem 1h-RSI von 25.62 massiv überdehnt (imminente Mean-Reversion-Gefahr).).\n   📝 KI-Rationale: Der bisherige Short hat sein Erschöpfungsstadium an der Unterkante der Struktur erreicht. Bei einem 1h-RSI von 25.62 und dem Erlös...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261104_082058",
     "timestamp": "2026-11-04T08:20:58.199182+00:00",
     "timestamp_display": "04.11.2026 08:20 UTC",
@@ -26816,38 +26907,5 @@
     "notification_sent": true,
     "provider": "ntfy",
     "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🟢 GMX (GMXUSDT):\n   Einstufung: NEUTRAL ➔ LONG (Score: 95%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 8.20 | SL: 7.86 | TP2: 9.58\n\n🟢 Polkadot (DOTUSDT):\n   Einstufung: NEUTRAL ➔ LONG (Score: 87%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 1.07 | SL: 1.03 | TP2: 1.24\n\n🟢 Aave (AAVEUSD):\n   Einstufung: NEUTRAL ➔ LONG (Score: 75%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 149.00 | SL: 142.69 | TP2: 174.23\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261018_153100",
-    "timestamp": "2026-10-18T15:31:00.194027+00:00",
-    "timestamp_display": "18.10.2026 15:31 UTC",
-    "title": "🔔 TV-Signaländerung: 1 Asset aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 1,
-    "changes": [
-      {
-        "symbol": "NASDAQ:GOOG",
-        "name": "Alphabet (Google)",
-        "category": "Big Tech",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 74,
-        "new_score": 42,
-        "price": 336.91,
-        "setup_name": "Beobachten / Warten auf HTF-Key-Level & Reversal-Trigger",
-        "entry_range": [
-          0.0,
-          0.0
-        ],
-        "stop_loss": 0.0,
-        "take_profit_2": 0.0,
-        "note": "Alphabet zeigt auf 1D und 4h einen synchronen Abwärtstrend mit intakter bärischer Fortsetzungsdynamik. Da der Kurs sich weder am oberen Kanalrand (für Short-Pullbacks) noch am 1D Golden Pocket / VSA-Kaufvolumen befindet, herrscht ein extremes No-Trade-Vakuum. Kapitalerhalt hat Vorrang: Wir warten auf einen Retest der übergeordneten FVG-Supply-Zone bei ~348–352 USD für Trendfolge-Shorts oder eine klare Bodenbildung vor jeglicher Long-Allokation.",
-        "evaluated_by": "gemini-2.5-flash [Fallback AI]"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "ntfy",
-    "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n⚪ Alphabet (Google) (GOOG):\n   Einstufung: SHORT ➔ NEUTRAL (Score: 42%)\n   Setup: Beobachten / Warten auf HTF-Key-Level & Reversal-Trigger\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]

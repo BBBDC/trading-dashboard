@@ -1,7 +1,199 @@
 {
-  "updated_at": "2026-11-04T10:34:34.635249+00:00",
-  "total_experience_records": 70,
+  "updated_at": "2026-11-04T11:18:30.378969+00:00",
+  "total_experience_records": 80,
   "learnings": [
+    {
+      "timestamp": "2026-11-04T11:18:26.618721+00:00",
+      "trade_id": "cross_rule_1793791106",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Stopps dürfen niemals kleiner sein als das statistische Volatilitätsrauschen (Mindestabstand: lokale ATR + Spread-Puffer), unabhängig von Zeitebene und Assetklasse.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Stopps von 0,07% bis 0,18% stellen reine Liquiditätsgeschenke an Market Maker und HFT-Algorithmen dar, da normales Orderflow-Rauschen die Position liquidiert, bevor die statistische Edge überhaupt greifen kann.",
+        "actionable_rule": "Stopps dürfen niemals kleiner sein als das statistische Volatilitätsrauschen (Mindestabstand: lokale ATR + Spread-Puffer), unabhängig von Zeitebene und Assetklasse."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T11:18:26.618687+00:00",
+      "trade_id": "cross_rule_1793791106",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Bänder und Oszillatoren definieren lediglich Risikozonen – der Trigger erfordert zwingend einen strukturellen Bruch (Sweep + CHoCH) vor Markteintritt.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "In starken Impulsen auf 5m wie auch auf 4h/1D führt 'Band-Walking' bei rein indikatorbasierten Signalen (Marker/Sell Pocket) ohne strukturelle Bestätigung zu garantierten Stop-Out-Kaskaden.",
+        "actionable_rule": "Bänder und Oszillatoren definieren lediglich Risikozonen – der Trigger erfordert zwingend einen strukturellen Bruch (Sweep + CHoCH) vor Markteintritt."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T11:18:26.618660+00:00",
+      "trade_id": "inc_ALV.DE_5m_1793788387",
+      "symbol": "ALV.DE",
+      "name": "Allianz",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.14,
+      "pnl_raw": -0.07,
+      "text": "Für XETRA-Einzeltitel ist ein Einstieg gegen die Mikro-Richtung erst zulässig, wenn der Kurs unter den volumenbasierten Session-VWAP zurückfällt; Stop-Abstände müssen Arbitrage- und Slippage-Puffer von mindestens 0,35% berücksichtigen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ALV.DE_5m_1793788387",
+        "verdict": "LOSS",
+        "driver": "Fehlkalibrierung auf traditionellen XETRA-Aktienmärkten: Ein Stopp-Abstand von 0,07% (0,30 EUR) kollidiert direkt mit der normalen Geld-Brief-Spanne und institutionellen Auktionsdynamiken.",
+        "technical_warning": "Kontinuierlicher Bid-Druck im Orderbuch ohne Anzeichen einer institutionellen Iceberg-Sell-Order oder Ablehnung am Session-VWAP.",
+        "actionable_rule": "Für XETRA-Einzeltitel ist ein Einstieg gegen die Mikro-Richtung erst zulässig, wenn der Kurs unter den volumenbasierten Session-VWAP zurückfällt; Stop-Abstände müssen Arbitrage- und Slippage-Puffer von mindestens 0,35% berücksichtigen."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T11:18:26.618626+00:00",
+      "trade_id": "inc_ETHUSDT_5m_1793788387",
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.36,
+      "pnl_raw": -0.18,
+      "text": "Shorts in Altcoins/High-Beta-Assets sind strikt gesperrt, solange BTC im selben 5m/15m-Zeitfenster impulsives Aufwärtsmomentum zeigt und keine relative Schwäche vorliegt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ETHUSDT_5m_1793788387",
+        "verdict": "LOSS",
+        "driver": "Klassischer Beta-Mitläufer-Fehltrade: ETH wurde synchron zu BTC geshortet, während der gesamte Krypto-Komplex gleichzeitig in eine koordinierte Trendfortsetzung drückte.",
+        "technical_warning": "Keine bärische Divergenz im RFE/Indikator-Cluster; Kerzen schlossen kraftvoll an ihren Hochs direkt am oberen Chaos Band, was 'Band-Walking' signalisierte.",
+        "actionable_rule": "Shorts in Altcoins/High-Beta-Assets sind strikt gesperrt, solange BTC im selben 5m/15m-Zeitfenster impulsives Aufwärtsmomentum zeigt und keine relative Schwäche vorliegt."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T11:18:26.618548+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1793788386",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.18,
+      "pnl_raw": -0.09,
+      "text": "Kein Micro-Short in 'Institutional Sell Pockets' ohne vorangegangenen Sweep des lokalen Hochs und Bestätigungskerze; der SL-Puffer muss zwingend mindestens 1,5x der 5m-ATR über dem Swing-High liegen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1793788386",
+        "verdict": "LOSS",
+        "driver": "Frontrunning einer theoretischen Band-Überdehnung in einer expansiven Momentum-Phase ohne Nachweis von institutioneller Absorption oder Liquiditäts-Sweep.",
+        "technical_warning": "Fehlendes VSA-Erschöpfungssignal (kein Climax-Volumen mit Dochtbildung); ein SL-Abstand von 0,09% (~68 USDT) liegt drastisch unterhalb des 5m-ATR-Grundrauschens von Bitcoin.",
+        "actionable_rule": "Kein Micro-Short in 'Institutional Sell Pockets' ohne vorangegangenen Sweep des lokalen Hochs und Bestätigungskerze; der SL-Puffer muss zwingend mindestens 1,5x der 5m-ATR über dem Swing-High liegen."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T11:17:50.170268+00:00",
+      "trade_id": "cross_rule_1793791070",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Effort-vs-Result-Filter bei Anomalie-Volumen",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ultra-High-Volume an Schlüsselzonen ohne sofortiges Kurs-Momentum ist auf allen Timeframes (5m bis 1D) das primäre Indiz für Absorption durch die Gegenseite und markiert Liquiditätsfallen statt Trendfortsetzungen.",
+        "actionable_rule": "Effort-vs-Result-Filter bei Anomalie-Volumen"
+      }
+    },
+    {
+      "timestamp": "2026-11-04T11:17:50.170248+00:00",
+      "trade_id": "cross_rule_1793791070",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Zone-Freshness-Limit (R <= 2)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Wie bei RENDER (R10) demonstriert, zehrt jeder Kontakt das aufliegende institutionelle Orderbuch auf; dieses Prinzip gilt auf 4h/1D identisch – ab dem 3. Kontakt steigt die Wahrscheinlichkeit eines Durchbruchs exponentiell gegenüber einem Abprall.",
+        "actionable_rule": "Fraktales Zone-Freshness-Limit (R <= 2)"
+      }
+    },
+    {
+      "timestamp": "2026-11-04T11:17:50.170236+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1793788385",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.42,
+      "pnl_raw": -0.21,
+      "text": "Max-Retest-Regel (R <= 2): Ein Orderblock darf maximal beim ersten oder zweiten Retest gehandelt werden; ab R3 gilt die Zone als mitigiert und verliert ihre Gültigkeit.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1793788385",
+        "verdict": "LOSS",
+        "driver": "Zonenerschöpfung (Mitigation Exhaustion): Ein Short beim 10. Retest (R10) missachtet, dass verbleibende Sell-Limit-Orders längst abgetragen waren und die Zone reif für einen Ausbruchssqueeze war.",
+        "technical_warning": "Retest-Zähler R10 bei gleichzeitiger Kompression am Chaos-Band signalisierte Akkumulation zum Durchbruch statt Abweisung.",
+        "actionable_rule": "Max-Retest-Regel (R <= 2): Ein Orderblock darf maximal beim ersten oder zweiten Retest gehandelt werden; ab R3 gilt die Zone als mitigiert und verliert ihre Gültigkeit."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T11:17:50.170219+00:00",
+      "trade_id": "inc_SUIUSDT_5m_1793788385",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.96,
+      "pnl_raw": -0.48,
+      "text": "Hard-Filter im Risk-Engine: Orderblöcke mit einem Rating schlechter als [B] sind auf M5/M15 strikt für Einstiege gesperrt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_5m_1793788385",
+        "verdict": "LOSS",
+        "driver": "Struktureller Qualitätsmangel: Einstieg an einem minderwertigen Grade-[D]-Orderblock ohne jegliche VSA-Volumenbestätigung bot keinerlei institutionellen Schutz.",
+        "technical_warning": "Niedriges Setup-Rating [D] gepaart mit anemischem Volumen beim Retest, was mangelndes institutionelles Interesse vorab offenkundig anzeigte.",
+        "actionable_rule": "Hard-Filter im Risk-Engine: Orderblöcke mit einem Rating schlechter als [B] sind auf M5/M15 strikt für Einstiege gesperrt."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T11:17:50.170157+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1793780374",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Bei VSA Ultra-High-Volume (>3.0x) an Support/OB ist ein Markt-Entry verboten; Einstieg nur nach einer bestätigten Displacement-Kerze (Close über Sweep-High).",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1793780374",
+        "verdict": "LOSS",
+        "driver": "Klassische Wyckoff-Effort-vs-Result-Falle: Das Ultra-High-Volume (3.5x) am Support war keine bullische Akkumulation, sondern institutionelle Verkaufsabsorption, die das Biet-Interesse vollständig liquidiert hat.",
+        "technical_warning": "Fehlendes impulsives Displacement nach dem Sweep trotz extremem 3.5x Volumen-Spike ('Churning' / Verharren am Entry anstatt sofortiger bullischer Expansion).",
+        "actionable_rule": "Bei VSA Ultra-High-Volume (>3.0x) an Support/OB ist ein Markt-Entry verboten; Einstieg nur nach einer bestätigten Displacement-Kerze (Close über Sweep-High)."
+      }
+    },
     {
       "timestamp": "2026-11-04T10:34:20.458579+00:00",
       "trade_id": "cross_rule_1793788460",
