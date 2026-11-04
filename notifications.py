@@ -466,6 +466,125 @@ def check_and_notify_user_positions(evaluated_positions):
         json.dump(new_state, f, indent=2, ensure_ascii=False)
 
 
+def send_user_position_closed_notification(closed_pos):
+    """
+    Sendet eine sofortige Push-Benachrichtigung an den Nutzer (und Admin),
+    wenn ein eigener Trade geschlossen wurde (SL-Trigger, TP-Trigger oder manuell).
+    Archiviert das Event auch in dashboard/history.json.
+    """
+    if not closed_pos:
+        return False
+        
+    sym = closed_pos.get("symbol", "")
+    name = closed_pos.get("name", sym)
+    direction = closed_pos.get("direction", "LONG")
+    sig_icon = "🟢" if direction == "LONG" else "🔴"
+    lev = float(closed_pos.get("leverage", 1.0))
+    entry_p = float(closed_pos.get("entry_price", 0.0))
+    exit_p = float(closed_pos.get("exit_price", entry_p))
+    raw_pnl = float(closed_pos.get("realized_pnl_pct", 0.0))
+    lev_pnl = float(closed_pos.get("realized_pnl_leveraged_pct", 0.0))
+    pnl_sign = "+" if lev_pnl >= 0 else ""
+    pnl_icon = "📈" if lev_pnl >= 0 else "📉"
+    
+    exit_reason = closed_pos.get("exit_reason", "MANUAL_CLOSE")
+    dur_str = closed_pos.get("holding_duration_str", "")
+    user_id = closed_pos.get("user_id")
+    uname = closed_pos.get("user_name") or f"User_{user_id}"
+    
+    if exit_reason == "STOP_LOSS_TRIGGERED":
+        title = f"🛑 Stop-Loss ausgelöst – {sym} geschlossen"
+        header = f"🛑 <b>Stop-Loss ausgelöst – Trade automatisch geschlossen!</b>"
+        reason_txt = closed_pos.get("exit_reason_display") or f"Stop-Loss bei {closed_pos.get('stop_loss', exit_p):,.2f} $ erreicht."
+    elif exit_reason == "TAKE_PROFIT_TRIGGERED":
+        title = f"🎯 Take-Profit erreicht – {sym} geschlossen (+{lev_pnl:.1f}%)"
+        header = f"🎯 <b>Take-Profit erreicht – Gewinne gesichert!</b>"
+        reason_txt = closed_pos.get("exit_reason_display") or f"Take-Profit Ziel bei {closed_pos.get('take_profit', exit_p):,.2f} $ voll erreicht."
+    else:
+        title = f"✅ Trade {sym} geschlossen ({pnl_sign}{lev_pnl:.1f}%)"
+        header = f"✅ <b>Position erfolgreich geschlossen</b>"
+        reason_txt = "Manuell durch Nutzer beendet."
+        
+    entry_fmt = f"{entry_p:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    exit_fmt = f"{exit_p:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    
+    lines = [
+        header,
+        "",
+        f"• <b>Asset:</b> {sig_icon} <b>{name}</b> (<code>{sym}</code>)",
+        f"• <b>Richtung:</b> <b>{direction}</b> ({lev:g}x Hebel)",
+        f"• <b>Einstieg:</b> {entry_fmt} $ ➔ <b>Ausstieg:</b> {exit_fmt} $",
+        f"• {pnl_icon} <b>Realisierte Performance:</b> <b>{pnl_sign}{lev_pnl:.2f}%</b> ({pnl_sign}{raw_pnl:.2f}% Basis)",
+        f"• 💡 <b>Auslöser:</b> {reason_txt}",
+    ]
+    if dur_str and dur_str != "-":
+        lines.append(f"• ⏱️ <b>Haltedauer:</b> {dur_str}")
+        
+    lines.append("")
+    lines.append(f"📜 <i>In deiner Trade-Historie archiviert.</i>")
+    
+    click_url = "https://bbbdc.github.io/trading-dashboard/"
+    lines.append(f"🌐 <a href=\"{click_url}\">Web-Dashboard & Historie öffnen</a>")
+    
+    tg_msg = "\n".join(lines)
+    
+    # 1. An den betroffenen Nutzer senden
+    if user_id:
+        send_telegram_alert(tg_msg, parse_mode="HTML", target_chat_ids=[str(user_id)])
+        
+    # 2. Master-Admin informieren falls abweichend
+    admin_cids = []
+    if TELEGRAM_CONFIG_FILE.exists():
+        try:
+            with open(TELEGRAM_CONFIG_FILE, "r", encoding="utf-8") as f:
+                admin_cids = json.load(f).get("admin_chat_ids", [])
+        except Exception:
+            pass
+            
+    admin_targets = [str(acid) for acid in admin_cids if str(acid) != str(user_id)]
+    if admin_targets:
+        admin_msg = f"👤 <b>Nutzer-Trade geschlossen (@{uname}):</b>\n\n{tg_msg}"
+        send_telegram_alert(admin_msg, parse_mode="HTML", target_chat_ids=admin_targets)
+        
+    # 3. Auch via ntfy pushen
+    send_ntfy_alert(
+        title=title,
+        message=f"{name} ({sym}) | {direction} {lev:g}x | PnL: {pnl_sign}{lev_pnl:.2f}% | {reason_txt}",
+        click_url=click_url,
+        priority="high" if exit_reason == "STOP_LOSS_TRIGGERED" else "default",
+        tags=["stop_sign" if exit_reason == "STOP_LOSS_TRIGGERED" else "dart", "chart_with_upwards_trend"]
+    )
+    
+    # 4. In dashboard/history.json registrieren
+    event_entry = {
+        "id": f"evt_trade_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}_{sym.split(':')[-1]}",
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp_display": datetime.now(timezone.utc).strftime("%d.%m.%Y %H:%M UTC"),
+        "title": title,
+        "type": "USER_TRADE_CLOSED",
+        "change_count": 1,
+        "changes": [{
+            "symbol": sym,
+            "name": name,
+            "category": "UserTrade",
+            "change_type": exit_reason,
+            "old_signal": direction,
+            "new_signal": "CLOSED",
+            "old_score": 0,
+            "new_score": 0,
+            "price": exit_p,
+            "reasons": [f"Realisierter PnL: {pnl_sign}{lev_pnl:.2f}% (Basis: {pnl_sign}{raw_pnl:.2f}%)", reason_txt],
+            "change_reason": reason_txt,
+            "note": f"Einstieg: {entry_fmt} $, Ausstieg: {exit_fmt} $, Hebel: {lev:g}x, Dauer: {dur_str}"
+        }],
+        "notification_sent": True,
+        "provider": "telegram",
+        "raw_message": f"{name} ({sym}) geschlossen mit {pnl_sign}{lev_pnl:.2f}% ({reason_txt})"
+    }
+    record_history_event(event_entry)
+    return True
+
+
 def format_change_notification(changes, click_url):
     """
     Formatiert eine kristallklare Benachrichtigung, die AUSSCHLIESSLICH die geänderten Assets

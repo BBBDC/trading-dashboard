@@ -928,6 +928,55 @@ def evaluate_user_positions(db_assets):
         except (ValueError, TypeError):
             tp_val = None
 
+        # Auto-Close Prüfung: Wurde Stop-Loss oder Take-Profit erreicht?
+        is_sl_triggered = False
+        is_tp_triggered = False
+
+        if sl_val is not None and curr_p > 0:
+            if direction == "LONG" and curr_p <= sl_val:
+                is_sl_triggered = True
+            elif direction == "SHORT" and curr_p >= sl_val:
+                is_sl_triggered = True
+
+        if tp_val is not None and curr_p > 0:
+            if direction == "LONG" and curr_p >= tp_val:
+                is_tp_triggered = True
+            elif direction == "SHORT" and curr_p <= tp_val:
+                is_tp_triggered = True
+
+        if is_sl_triggered or is_tp_triggered:
+            # Trade automatisch schließen & in Historie archivieren!
+            exit_reason = "STOP_LOSS_TRIGGERED" if is_sl_triggered else "TAKE_PROFIT_TRIGGERED"
+            exit_p = curr_p
+            if is_sl_triggered:
+                cmp_sym = "<=" if direction == "LONG" else ">="
+                reason_disp = f"🛑 Stop-Loss ausgelöst ({curr_p:,.2f} {cmp_sym} {sl_val:,.2f} $)"
+            else:
+                cmp_sym = ">=" if direction == "LONG" else "<="
+                reason_disp = f"🎯 Take-Profit erreicht ({curr_p:,.2f} {cmp_sym} {tp_val:,.2f} $)"
+
+            try:
+                from manage_positions import archive_closed_position
+                from notifications import send_user_position_closed_notification
+
+                pos_to_close = dict(pos)
+                pos_to_close["current_price"] = curr_p
+                pos_to_close["name"] = asset_name
+
+                closed_rec = archive_closed_position(
+                    pos_to_close,
+                    exit_price=exit_p,
+                    exit_reason=exit_reason,
+                    exit_reason_display=reason_disp
+                )
+                send_user_position_closed_notification(closed_rec)
+                print(f"⚡ [AUTO-CLOSE] Position {sym} ({direction}) automatisch geschlossen: {reason_disp} | PnL: {closed_rec.get('realized_pnl_leveraged_pct'):+.2f}%")
+            except Exception as ace:
+                print(f"Fehler bei Auto-Close für {sym}: {ace}")
+
+            # Position scheidet aus den aktiven Positionen aus
+            continue
+
         sl_dist_pct = None
         if sl_val is not None and curr_p > 0:
             if direction == "LONG":

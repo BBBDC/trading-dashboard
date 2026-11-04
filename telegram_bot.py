@@ -1085,6 +1085,7 @@ def get_user_positions_text_and_markup(user_id=None, username=None):
         kb = {
             "inline_keyboard": [
                 [{"text": "➕ Jetzt ersten Trade anlegen", "callback_data": "menu_new_trade"}],
+                [{"text": "📜 Meine Trade-Historie", "callback_data": "menu_my_history"}],
                 [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
             ]
         }
@@ -1141,11 +1142,130 @@ def get_user_positions_text_and_markup(user_id=None, username=None):
         ])
 
     buttons.append([
-        {"text": "➕ Weiteren Trade anlegen", "callback_data": "menu_new_trade"},
-        {"text": "🔄 Aktualisieren", "callback_data": "menu_my_trades"}
+        {"text": "📜 Meine Trade-Historie", "callback_data": "menu_my_history"},
+        {"text": "➕ Neuer Trade", "callback_data": "menu_new_trade"}
     ])
     buttons.append([
+        {"text": "🔄 Aktualisieren", "callback_data": "menu_my_trades"},
         {"text": "🔙 Zurück zum Hauptmenü", "callback_data": "menu_main"}
+    ])
+
+    return "\n".join(lines), {"inline_keyboard": buttons}
+
+
+def get_user_history_text_and_markup(user_id=None, username=None, page=1):
+    """Generiert Text & Buttons für die Historie der geschlossenen Nutzer-Trades."""
+    try:
+        from manage_positions import load_history
+        history = load_history()
+    except Exception:
+        history = []
+
+    user_id_str = str(user_id) if user_id else ""
+    user_name_str = (username or "").lstrip("@").lower()
+
+    # Filtern nach Nutzer (oder alle falls leer / Altdaten)
+    matched = []
+    for h in history:
+        h_uid = str(h.get("user_id", ""))
+        h_uname = (h.get("user_name", "")).lstrip("@").lower()
+        if not h_uid and not h_uname:
+            matched.append(h)
+        elif h_uid == user_id_str or (user_name_str and h_uname == user_name_str):
+            matched.append(h)
+
+    if not matched:
+        kb = {
+            "inline_keyboard": [
+                [{"text": "📊 Zu den aktiven Trades", "callback_data": "menu_my_trades"}],
+                [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
+            ]
+        }
+        return (
+            "📜 <b>Deine Trade-Historie</b>\n\n"
+            "Noch keine geschlossenen Trades vorhanden.\n"
+            "Sobald ein Trade manuell oder durch Stop-Loss / Take-Profit beendet wird, erscheint er hier mit vollständiger Auswertung.",
+            kb
+        )
+
+    # Statistiken berechnen
+    total_count = len(matched)
+    wins = [t for t in matched if (float(t.get("realized_pnl_pct", 0.0)) > 0)]
+    losses = [t for t in matched if (float(t.get("realized_pnl_pct", 0.0)) < 0)]
+    win_rate = (len(wins) / total_count * 100.0) if total_count > 0 else 0.0
+    tot_lev_pnl = sum(float(t.get("realized_pnl_leveraged_pct", 0.0)) for t in matched)
+    pnl_sign = "+" if tot_lev_pnl >= 0 else ""
+
+    per_page = 4
+    total_pages = max(1, (total_count + per_page - 1) // per_page)
+    page = max(1, min(page, total_pages))
+    start_idx = (page - 1) * per_page
+    end_idx = start_idx + per_page
+    page_items = matched[start_idx:end_idx]
+
+    lines = [
+        f"📜 <b>Deine Trade-Historie ({total_count} Trades)</b>\n",
+        f"• <b>Win-Rate:</b> <b>{win_rate:.1f}%</b> ({len(wins)}W / {len(losses)}L)",
+        f"• <b>Gesamt-Performance:</b> <b>{pnl_sign}{tot_lev_pnl:.2f}%</b> (gehebelt)\n",
+        "━━━━━━━━━━━━━━━━━━━━\n"
+    ]
+
+    for idx, t in enumerate(page_items, start=start_idx + 1):
+        sym = t.get("symbol", "Unbekannt")
+        sig = t.get("direction", "LONG")
+        entry = float(t.get("entry_price", 0.0))
+        exit_p = float(t.get("exit_price", entry))
+        lev = float(t.get("leverage", 1.0))
+        pnl_base = float(t.get("realized_pnl_pct", 0.0))
+        pnl_lev = float(t.get("realized_pnl_leveraged_pct", 0.0))
+        reason_disp = t.get("exit_reason_display", t.get("exit_reason", "Geschlossen"))
+        dur = t.get("holding_duration_str", "")
+
+        icon = "🟢" if sig == "LONG" else "🔴"
+        pnl_icon = "📈" if pnl_lev >= 0 else "📉"
+        pnl_s = "+" if pnl_lev >= 0 else ""
+
+        entry_fmt = f"{entry:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+        exit_fmt = f"{exit_p:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
+        dur_info = f" | ⏱️ {dur}" if dur and dur != "-" else ""
+        closed_date = (t.get("closed_at") or "")[:10]
+        if closed_date:
+            try:
+                parts = closed_date.split("-")
+                closed_date_fmt = f"{parts[2]}.{parts[1]}."
+            except Exception:
+                closed_date_fmt = closed_date
+        else:
+            closed_date_fmt = ""
+
+        lines.append(
+            f"<b>{idx}. {icon} {t.get('name', sym)}</b> (<code>{sym}</code>)\n"
+            f"   • <b>Typ:</b> {sig} ({lev:g}x Hebel)\n"
+            f"   • <b>Kurs:</b> {entry_fmt} $ ➔ {exit_fmt} $\n"
+            f"   • {pnl_icon} <b>Realisierter PnL:</b> <b>{pnl_s}{pnl_lev:.2f}%</b> ({pnl_s}{pnl_base:.2f}% Basis)\n"
+            f"   • 💡 <b>Grund:</b> {reason_disp}\n"
+            f"   • 📅 <b>Ende:</b> {closed_date_fmt}{dur_info}\n"
+        )
+
+    buttons = []
+    # Pagination
+    if total_pages > 1:
+        nav_row = []
+        if page > 1:
+            nav_row.append({"text": "⬅️ Vorherige", "callback_data": f"my_history_page_{page - 1}"})
+        nav_row.append({"text": f"Seite {page}/{total_pages}", "callback_data": "noop"})
+        if page < total_pages:
+            nav_row.append({"text": "Nächste ➡️", "callback_data": f"my_history_page_{page + 1}"})
+        buttons.append(nav_row)
+
+    buttons.append([
+        {"text": "📊 Zu den aktiven Trades", "callback_data": "menu_my_trades"},
+        {"text": "🔄 Aktualisieren", "callback_data": f"my_history_page_{page}"}
+    ])
+    buttons.append([
+        {"text": "🌐 Im Web-Dashboard öffnen", "url": "https://bbbdc.github.io/trading-dashboard/"},
+        {"text": "🔙 Hauptmenü", "callback_data": "menu_main"}
     ])
 
     return "\n".join(lines), {"inline_keyboard": buttons}
@@ -1433,6 +1553,21 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
     if data == "menu_my_trades":
         text, kb = get_user_positions_text_and_markup(user_id, username)
         api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
+
+    if data == "menu_my_history" or data.startswith("my_history_page_"):
+        page = 1
+        if data.startswith("my_history_page_"):
+            try:
+                page = int(data[len("my_history_page_"):])
+            except Exception:
+                page = 1
+        text, kb = get_user_history_text_and_markup(user_id, username, page=page)
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
+
+    if data == "noop":
+        api.answer_callback_query(callback_query_id)
         return
 
     if data == "menu_top_setups":
@@ -1987,14 +2122,26 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
         pos_id = data[14:]
         api.edit_message_text(chat_id, message_id, f"⏳ Schließe Position <b>{pos_id}</b>...")
         try:
-            from manage_positions import remove_position
-            success = remove_position(pos_id, user_id=str(user_id), sync_db=True, git_push=True)
-            if success:
+            from manage_positions import close_position
+            closed_rec = close_position(pos_id, user_id=str(user_id), exit_reason="MANUAL_CLOSE", sync_db=True, git_push=True, notify=True)
+            if closed_rec:
+                sym = closed_rec.get("symbol", pos_id)
+                lev_pnl = closed_rec.get("realized_pnl_leveraged_pct", 0.0)
+                pnl_s = "+" if lev_pnl >= 0 else ""
+                kb = {
+                    "inline_keyboard": [
+                        [{"text": "📜 Trade-Historie ansehen", "callback_data": "menu_my_history"}],
+                        [{"text": "📊 Zu meinen Trades", "callback_data": "menu_my_trades"}],
+                        [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
+                    ]
+                }
                 api.edit_message_text(
                     chat_id,
                     message_id,
-                    f"✅ <b>Position {pos_id} wurde erfolgreich geschlossen!</b>\n\nDas Dashboard wurde aktualisiert.",
-                    reply_markup=get_main_menu_keyboard(role)
+                    f"✅ <b>Position {sym} erfolgreich geschlossen!</b>\n\n"
+                    f"• Realisierter PnL: <b>{pnl_s}{lev_pnl:.2f}%</b>\n"
+                    f"• Der Trade wurde in deiner <b>Trade-Historie</b> archiviert und das Dashboard aktualisiert.",
+                    reply_markup=kb
                 )
             else:
                 api.edit_message_text(

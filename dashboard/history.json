@@ -1,5 +1,104 @@
 [
   {
+    "id": "evt_trade_20261104_152714_ETHUSDT",
+    "timestamp": "2026-11-04T15:27:14.873253+00:00",
+    "timestamp_display": "04.11.2026 15:27 UTC",
+    "title": "🛑 Stop-Loss ausgelöst – BINANCE:ETHUSDT geschlossen",
+    "type": "USER_TRADE_CLOSED",
+    "change_count": 1,
+    "changes": [
+      {
+        "symbol": "BINANCE:ETHUSDT",
+        "name": "ETHUSD",
+        "category": "UserTrade",
+        "change_type": "STOP_LOSS_TRIGGERED",
+        "old_signal": "SHORT",
+        "new_signal": "CLOSED",
+        "old_score": 0,
+        "new_score": 0,
+        "price": 2433.89,
+        "reasons": [
+          "Realisierter PnL: -74.68% (Basis: -6.22%)",
+          "🛑 Stop-Loss ausgelöst (2,433.89 >= 2,393.00 $)"
+        ],
+        "change_reason": "🛑 Stop-Loss ausgelöst (2,433.89 >= 2,393.00 $)",
+        "note": "Einstieg: 2.291,30 $, Ausstieg: 2.433,89 $, Hebel: 12x, Dauer: 1T"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "ETHUSD (BINANCE:ETHUSDT) geschlossen mit -74.68% (🛑 Stop-Loss ausgelöst (2,433.89 >= 2,393.00 $))"
+  },
+  {
+    "id": "evt_trade_20261104_152713_BTCUSDT",
+    "timestamp": "2026-11-04T15:27:13.978262+00:00",
+    "timestamp_display": "04.11.2026 15:27 UTC",
+    "title": "🛑 Stop-Loss ausgelöst – BINANCE:BTCUSDT geschlossen",
+    "type": "USER_TRADE_CLOSED",
+    "change_count": 1,
+    "changes": [
+      {
+        "symbol": "BINANCE:BTCUSDT",
+        "name": "BTCUSD",
+        "category": "UserTrade",
+        "change_type": "STOP_LOSS_TRIGGERED",
+        "old_signal": "SHORT",
+        "new_signal": "CLOSED",
+        "old_score": 0,
+        "new_score": 0,
+        "price": 80409.45,
+        "reasons": [
+          "Realisierter PnL: +25.17% (Basis: +2.80%)",
+          "🛑 Stop-Loss ausgelöst (80,409.45 >= 79,950.00 $)"
+        ],
+        "change_reason": "🛑 Stop-Loss ausgelöst (80,409.45 >= 79,950.00 $)",
+        "note": "Einstieg: 82.723,00 $, Ausstieg: 80.409,45 $, Hebel: 9x, Dauer: 15T 5Std."
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "BTCUSD (BINANCE:BTCUSDT) geschlossen mit +25.17% (🛑 Stop-Loss ausgelöst (80,409.45 >= 79,950.00 $))"
+  },
+  {
+    "id": "evt_20261104_151638",
+    "timestamp": "2026-11-04T15:16:38.073118+00:00",
+    "timestamp_display": "04.11.2026 15:16 UTC",
+    "title": "🔔 TV-Signaländerung: 1 Asset aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 1,
+    "changes": [
+      {
+        "symbol": "TVC:DXY",
+        "name": "US Dollar Index",
+        "category": "Forex / Makro",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 86,
+        "new_score": 75,
+        "price": 101.487,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          101.446,
+          101.576
+        ],
+        "stop_loss": 101.15,
+        "take_profit_2": 102.95,
+        "reasons": [
+          "Makro-Trend (1D/1W) ist intakt bullisch über dem 233 EMA, 4h/1h Konsolidierung stellt lediglich eine Korrektur dar.",
+          "Kurs liegt in der 4h Golden Pocket Zone am bullischen Order Block (101.446 - 101.707).",
+          "Mehrfache Kauf-Trigger (Good Buy Signals auf 4h/1h und bullische RSI-Divergenz auf 4h) vorhanden, jedoch bremst die 1D bärische Divergenz übergeordnet."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1D/1W) ist intakt bullisch über dem 233 EMA, 4h/1h Konsolidierung stellt lediglich eine Korrektur dar.).",
+        "note": "Der Makro-Trend für den US-Dollar bleibt auf Tages- und Wochenbasis klar bullisch. Die Korrektur auf den untergeordneten Zeitebenen trifft nun im Bereich von 101.45 auf soliden Support und das 4h Golden Pocket. Aufgrund des bestehenden Hysterese-Prinzips und der Verfeinerung des Timings verbleiben wir zunächst auf NEUTRAL mit striktem Kauflimit in der Support-Zone, um ein asymmetrisches CRV von > 2.5:1 abzusichern.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...pOzg]"
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n⚪ US Dollar Index (DXY):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 75%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1D/1W) ist intakt bullisch über dem 233 EMA, 4h/1h Konsolidierung stellt lediglich eine Korrektur dar.).\n   📝 KI-Rationale: Der Makro-Trend für den US-Dollar bleibt auf Tages- und Wochenbasis klar bullisch. Die Korrektur auf den untergeordneten Zeitebene...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261104_143808",
     "timestamp": "2026-11-04T14:38:08.814092+00:00",
     "timestamp_display": "04.11.2026 14:38 UTC",
@@ -25974,904 +26073,5 @@
     "notification_sent": true,
     "provider": "ntfy",
     "raw_message": "🔄 Folgende 20 Einstufungen haben sich geändert:\n\n🟢 Robinhood (HOOD):\n   Einstufung: NEUTRAL ➔ LONG (Score: 96%)\n   Setup: Hypothese 1: SMC Golden Confluence Reversal\n   Entry: 98.46 | SL: 95.78 | TP2: 110.35\n\n🟢 ether.fi (ETHFIUSDT):\n   Score-Sprung: 81% ➔ 95% (LONG)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 0.68 | SL: 0.65 | TP2: 0.81\n\n🔴 Alphabet (Google) (GOOG):\n   Score-Sprung: 74% ➔ 95% (SHORT)\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 341.44 | SL: 354.09 | TP2: 303.82\n\n🟢 Curve DAO (CRVUSD):\n   Score-Sprung: 96% ➔ 90% (LONG)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 0.36 | SL: 0.35 | TP2: 0.41\n\n🟢 Polkadot (DOTUSDT):\n   Score-Sprung: 96% ➔ 90% (LONG)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 1.14 | SL: 1.09 | TP2: 1.34\n\n🟢 Kupfer Future (HG1!):\n   Score-Sprung: 87% ➔ 90% (LONG)\n   Setup: Hypothese 1: SMC Golden Confluence Reversal\n   Entry: 6.49 | SL: 6.31 | TP2: 7.28\n\n... und 14 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261019_110929",
-    "timestamp": "2026-10-19T11:09:29.104522+00:00",
-    "timestamp_display": "19.10.2026 11:09 UTC",
-    "title": "🔔 TV-Signaländerung: 16 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 16,
-    "changes": [
-      {
-        "symbol": "COINBASE:BTCUSD",
-        "name": "Bitcoin",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 48,
-        "new_score": 96,
-        "price": 82221.4,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          81563.63,
-          82385.84
-        ],
-        "stop_loss": 78110.33,
-        "take_profit_2": 95376.82,
-        "note": "Strikte bullische Konfluenz (96%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "COINBASE:CRVUSD",
-        "name": "Curve DAO",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 47,
-        "new_score": 96,
-        "price": 0.3492,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          0.35,
-          0.35
-        ],
-        "stop_loss": 0.33,
-        "take_profit_2": 0.41,
-        "note": "Strikte bullische Konfluenz (96%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "CRYPTOCAP:TOTAL",
-        "name": "Total Crypto Market Cap",
-        "category": "Krypto-Makro",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 46,
-        "new_score": 96,
-        "price": 2719302979044,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          2697548555211.65,
-          2724741585002.09
-        ],
-        "stop_loss": 2624127374777.46,
-        "take_profit_2": 3023864912696.93,
-        "note": "Strikte bullische Konfluenz (96%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "BINANCE:DOTUSDT",
-        "name": "Polkadot",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 45,
-        "new_score": 96,
-        "price": 1.1,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          1.09,
-          1.1
-        ],
-        "stop_loss": 1.04,
-        "take_profit_2": 1.29,
-        "note": "Strikte bullische Konfluenz (96%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NYSE:UBER",
-        "name": "Uber",
-        "category": "Mobility / Tech",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 45,
-        "new_score": 96,
-        "price": 70.35,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          69.79,
-          70.49
-        ],
-        "stop_loss": 67.89,
-        "take_profit_2": 78.22,
-        "note": "Strikte bullische Konfluenz (96%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NYSE:UAA",
-        "name": "Under Armour",
-        "category": "Consumer",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 42,
-        "new_score": 92,
-        "price": 4.74,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          4.7,
-          4.75
-        ],
-        "stop_loss": 4.57,
-        "take_profit_2": 5.28,
-        "note": "Strikte bullische Konfluenz (92%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NASDAQ:META",
-        "name": "Meta Platforms",
-        "category": "Big Tech",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 48,
-        "new_score": 90,
-        "price": 709.33,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          703.66,
-          710.75
-        ],
-        "stop_loss": 684.5,
-        "take_profit_2": 788.79,
-        "note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "BINANCE:GMXUSDT",
-        "name": "GMX",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 45,
-        "new_score": 90,
-        "price": 8.32,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          8.25,
-          8.34
-        ],
-        "stop_loss": 7.9,
-        "take_profit_2": 9.66,
-        "note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NASDAQ:MRVL",
-        "name": "Marvell",
-        "category": "Halbleiter",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 44,
-        "new_score": 87,
-        "price": 227.83,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          226.01,
-          228.29
-        ],
-        "stop_loss": 219.86,
-        "take_profit_2": 253.33,
-        "note": "Strikte bullische Konfluenz (87%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "COMEX:HG1!",
-        "name": "Kupfer Future",
-        "category": "Industriemetalle",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 40,
-        "new_score": 87,
-        "price": 6.6,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          6.55,
-          6.61
-        ],
-        "stop_loss": 6.37,
-        "take_profit_2": 7.34,
-        "note": "Strikte bullische Konfluenz (87%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "BINANCE:AVAXUSDT",
-        "name": "Avalanche",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 44,
-        "new_score": 85,
-        "price": 9.65,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          9.57,
-          9.67
-        ],
-        "stop_loss": 9.17,
-        "take_profit_2": 11.19,
-        "note": "Strikte bullische Konfluenz (85%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "COINBASE:AAVEUSD",
-        "name": "Aave",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 42,
-        "new_score": 85,
-        "price": 150.96,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          149.75,
-          151.26
-        ],
-        "stop_loss": 143.41,
-        "take_profit_2": 175.12,
-        "note": "Strikte bullische Konfluenz (85%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "BINANCE:ETHFIUSDT",
-        "name": "ether.fi",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 52,
-        "new_score": 81,
-        "price": 0.694,
-        "setup_name": "Hypothese 2: Trend Continuation via Hidden Bullish Confluence",
-        "entry_range": [
-          0.675,
-          0.695
-        ],
-        "stop_loss": 0.618,
-        "take_profit_2": 0.965,
-        "note": "Saubere Trendfolge-Konstellation mit harmonisierenden 1D- und 4h-Strukturen fernab von Überkauft-Niveaus. Das Auftreten versteckter bullischer Divergenzen auf zwei Zeitebenen bestätigt, dass Rücksetzer institutionell akkumuliert werden. Der Stop-Loss liegt strukturell geschützt unter dem letzten 4h-Swing-Low und sichert ein attraktives CRV von über 2.8 ab.",
-        "evaluated_by": "gemini-3.8-flash-high [AI Studio Pro Key]"
-      },
-      {
-        "symbol": "NASDAQ:AMZN",
-        "name": "Amazon",
-        "category": "Big Tech",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 48,
-        "new_score": 80,
-        "price": 250,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          249.5,
-          252.0
-        ],
-        "stop_loss": 258.75,
-        "take_profit_2": 222.0,
-        "note": "Strikte bärische Erschöpfung (80%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NASDAQ:NVDA",
-        "name": "Nvidia",
-        "category": "Halbleiter",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 42,
-        "new_score": 80,
-        "price": 214.13,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          212.42,
-          214.56
-        ],
-        "stop_loss": 206.64,
-        "take_profit_2": 238.1,
-        "note": "Strikte bullische Konfluenz (80%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NASDAQ:GOOG",
-        "name": "Alphabet (Google)",
-        "category": "Big Tech",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 52,
-        "new_score": 74,
-        "price": 336.91,
-        "setup_name": "Hypothese: Bärische Trendfortsetzung (Limit-Sell an 4h Supply / FVG)",
-        "entry_range": [
-          341.5,
-          344.5
-        ],
-        "stop_loss": 349.2,
-        "take_profit_2": 312.0,
-        "note": "Aufgrund der synchronen bärischen Timeframes und der multiplen bärischen Divergenzen ist die Short-Hypothese intakt. Um Chasing im Kanalzentrum bei RSI 38 zu verhindern, wird die Position ausschließlich über eine Limit-Sell-Order im Retest des 341.50–344.50 USD Widerstandsclusters eröffnet. Ein 4h-Schlusskurs über 349.20 USD invalidiert das Setup vollständig.",
-        "evaluated_by": "gemini-3.8-flash-high [AI Studio Pro Key]"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "ntfy",
-    "raw_message": "🔄 Folgende 16 Einstufungen haben sich geändert:\n\n🟢 Bitcoin (BTCUSD):\n   Einstufung: NEUTRAL ➔ LONG (Score: 96%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 81,563.63 | SL: 78,110.33 | TP2: 95,376.82\n\n🟢 Curve DAO (CRVUSD):\n   Einstufung: NEUTRAL ➔ LONG (Score: 96%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 0.35 | SL: 0.33 | TP2: 0.41\n\n🟢 Total Crypto Market Cap (TOTAL):\n   Einstufung: NEUTRAL ➔ LONG (Score: 96%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 2,697,548,555,211.65 | SL: 2,624,127,374,777.46 | TP2: 3,023,864,912,696.93\n\n🟢 Polkadot (DOTUSDT):\n   Einstufung: NEUTRAL ➔ LONG (Score: 96%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 1.09 | SL: 1.04 | TP2: 1.29\n\n🟢 Uber (UBER):\n   Einstufung: NEUTRAL ➔ LONG (Score: 96%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 69.79 | SL: 67.89 | TP2: 78.22\n\n🟢 Under Armour (UAA):\n   Einstufung: NEUTRAL ➔ LONG (Score: 92%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 4.70 | SL: 4.57 | TP2: 5.28\n\n... und 10 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261019_072639",
-    "timestamp": "2026-10-19T07:26:39.036096+00:00",
-    "timestamp_display": "19.10.2026 07:26 UTC",
-    "title": "🔔 TV-Signaländerung: 15 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 15,
-    "changes": [
-      {
-        "symbol": "NASDAQ:MU",
-        "name": "Micron Technology",
-        "category": "Halbleiter",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 96,
-        "new_score": 52,
-        "price": 878.84,
-        "setup_name": "Beobachten / Warten auf HTF-Key-Level (Wyckoff Absorption Watch)",
-        "entry_range": [
-          870.0,
-          880.0
-        ],
-        "stop_loss": 845.0,
-        "take_profit_2": 1010.0,
-        "note": "Micron befindet sich in einer potenziell lukrativen Reversal-Zone (Golden Pocket + Oversold), verletzt jedoch das strikte Kriterium für Stopping Volume. Solange kein institutioneller Liquiditätsaufbau im Orderbuch nachgewiesen werden kann, verbietet das Risikomanagement ein Long-Engagement ins fallende Messer. Wir verbleiben an der Seitenlinie und warten auf einen 4h-Strukturbruch mit erhöhtem Volumen.",
-        "evaluated_by": "gemini-3.8-flash-high [AI Studio Pro Key]"
-      },
-      {
-        "symbol": "BINANCE:ETHFIUSDT",
-        "name": "ether.fi",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 90,
-        "new_score": 52,
-        "price": 0.7088,
-        "setup_name": "Beobachten / Warten auf HTF-Key-Level",
-        "entry_range": [
-          0.645,
-          0.665
-        ],
-        "stop_loss": 0.612,
-        "take_profit_2": 0.865,
-        "note": "Trotz übergeordnet intakter Bullenstruktur auf Tagesbasis verbietet die bärische Divergenz auf dem 4h-Chart bei erhöhtem Volumen einen Long-Einstieg zum aktuellen Kurs. Ein professioneller Einstieg erfordert einen sauberen Pullback in tiefere Liquiditätszonen oder ein Golden Pocket. Bis zur Bereinigung der 4h-Erschöpfung verbleiben wir strikt an der Seitenlinie.",
-        "evaluated_by": "gemini-3.8-flash-high [AI Studio Pro Key]"
-      },
-      {
-        "symbol": "COINBASE:BCHUSD",
-        "name": "Bitcoin Cash",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 95,
-        "new_score": 50,
-        "price": 278.57,
-        "setup_name": "Beobachten / Warten auf HTF-Key-Level",
-        "entry_range": [
-          255.0,
-          265.0
-        ],
-        "stop_loss": 238.0,
-        "take_profit_2": 350.0,
-        "note": "Bitcoin Cash hält zwar übergeordnete Aufwärtsstrukturen, bietet jedoch auf dem aktuellen Preisniveau ein unzureichendes Chance-Risiko-Profil mitten im Kanal. Die versteckte bärische Divergenz im Tageschart mahnt zur Vorsicht vor Bullenfallen. Ein Long-Szenario wird erst bei einem sauberen Retest tieferer institutioneller Liquiditätspools (255-265 USD) mit begleitender Volumenexpansion reevaluiert.",
-        "evaluated_by": "gemini-3.8-flash-high [AI Studio Pro Key]"
-      },
-      {
-        "symbol": "NASDAQ:HOOD",
-        "name": "Robinhood",
-        "category": "Fintech / Broker",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 85,
-        "new_score": 50,
-        "price": 98.87,
-        "setup_name": "Beobachten / Warten auf HTF-Key-Level",
-        "entry_range": [
-          96.5,
-          98.5
-        ],
-        "stop_loss": 91.8,
-        "take_profit_2": 121.5,
-        "note": "Obwohl HOOD das 1D Fibonacci Golden Pocket erreicht hat, fehlt der institutionelle Nachweis von Stopping Volume oder strukturellem No-Supply zur Validierung einer Trendwende. Die Koexistenz einer versteckten Bärendivergenz auf 4h mahnt zu äußerster Vorsicht vor einer Fortsetzung der Abwärtsstruktur. Eine Neubewertung erfolgt erst bei sichtbarer Bodenbildung und dynamischer Rückeroberung lokaler Hochs.",
-        "evaluated_by": "gemini-3.8-flash-high [AI Studio Pro Key]"
-      },
-      {
-        "symbol": "NASDAQ:CRWD",
-        "name": "CrowdStrike",
-        "category": "Cybersecurity",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 90,
-        "new_score": 48,
-        "price": 227.39,
-        "setup_name": "Beobachten / Überverkauft ohne Reversal-Bestätigung",
-        "entry_range": [
-          212.0,
-          218.0
-        ],
-        "stop_loss": 201.0,
-        "take_profit_2": 268.0,
-        "note": "CrowdStrike ist technisch stark überdehnt, ein Short auf diesem Niveau wäre unüberlegtes Chasing in eine Verkaufserschöpfung. Für einen regelkonformen Reversal-Long fehlt jedoch jegliche institutionelle Bodenbildung mit Volumenkonfluenz. Wir warten geduldig ab, bis sich entweder ein Ausverkaufstief mit Stopping Volume formiert oder eine signifikante Bärenmarktrallye liquidiert wird.",
-        "evaluated_by": "gemini-3.8-flash-high [AI Studio Pro Key]"
-      },
-      {
-        "symbol": "NASDAQ:AMZN",
-        "name": "Amazon",
-        "category": "Big Tech",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 80,
-        "new_score": 48,
-        "price": 250,
-        "setup_name": "Beobachten / Warten auf HTF-Key-Level (GP-Interaktion vs. Trend)",
-        "entry_range": [
-          242.0,
-          245.5
-        ],
-        "stop_loss": 236.8,
-        "take_profit_2": 268.0,
-        "note": "Amazon befindet sich in einem strukturellen Spannungsfeld zwischen bärischem HTF-Momentum und dem 1D Golden Pocket. Da das 4h-Volumen austrocknet und keine institutionelle Akkumulation erkennbar ist, verbietet das Risikomanagement ein voreiliges Long-Engagement. Wir warten auf einen klaren Bruch unter das GP für Trendfolge-Shorts oder ein verifiziertes Wyckoff-Reversal-Muster.",
-        "evaluated_by": "gemini-3.8-flash-high [AI Studio Pro Key]"
-      },
-      {
-        "symbol": "BINANCE:GMXUSDT",
-        "name": "GMX",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 95,
-        "new_score": 45,
-        "price": 8.57,
-        "setup_name": "Beobachten / Konsolidierung im Niemandsland",
-        "entry_range": [
-          7.8,
-          8.05
-        ],
-        "stop_loss": 7.35,
-        "take_profit_2": 10.8,
-        "note": "GMX konsolidiert ohne institutionellen Impuls in der Kanalmitte. Das Zusammentreffen von extrem schwachem Volumen mit widersprüchlichen RSI-Divergenzen signalisiert reines Rauschen ('Chop'). Kapital bleibt geschützt; ein Einstieg wird erst nach Rücklauf an die Value Area Low oder bei Ausbruch aus der Range evaluiert.",
-        "evaluated_by": "gemini-3.8-flash-high [AI Studio Pro Key]"
-      },
-      {
-        "symbol": "BINANCE:DOTUSDT",
-        "name": "Polkadot",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 95,
-        "new_score": 45,
-        "price": 1.12,
-        "setup_name": "Beobachten / Warten auf HTF-Key-Level (MTF-Trendkonflikt)",
-        "entry_range": [
-          1.02,
-          1.05
-        ],
-        "stop_loss": 0.97,
-        "take_profit_2": 1.38,
-        "note": "Aufgrund der divergierenden Trendrichtungen zwischen Tages- und 4-Stunden-Chart besteht ein unkalkulierbares Whipsaw-Risiko. Ein institutioneller Einstieg rechtfertigt sich erst bei einem sauberen Test des übergeordneten Golden Pockets um 1.02–1.05 USDT mit nachweisbarer Absorption. Bis dahin bleibt das Kapital an der Seitenlinie geschützt.",
-        "evaluated_by": "gemini-3.8-flash-high [AI Studio Pro Key]"
-      },
-      {
-        "symbol": "KRAKEN:KSMUSD",
-        "name": "Kusama",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 80,
-        "new_score": 45,
-        "price": 4.21,
-        "setup_name": "Beobachten / Überdehnter Abwärtstrend ohne Short-Einstiegsedge",
-        "entry_range": [
-          3.85,
-          3.98
-        ],
-        "stop_loss": 3.65,
-        "take_profit_2": 4.95,
-        "note": "Kusama verbleibt in einem intakten Abwärtstrend, bietet jedoch aufgrund des ungünstigen Einstiegsniveaus kein adäquates CRV für frische Shorts. Gleichzeitig verbietet das bärische HTF-Regime prozyklische Long-Versuche trotz 4h-Divergenz. Das Desk bleibt strikt an der Seitenlinie und wartet auf einen Liquiditäts-Sweep oder einen Pullback an die 4h-EMA-Resistenz.",
-        "evaluated_by": "gemini-3.8-flash-high [AI Studio Pro Key]"
-      },
-      {
-        "symbol": "NASDAQ:MRVL",
-        "name": "Marvell",
-        "category": "Halbleiter",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 87,
-        "new_score": 44,
-        "price": 227.83,
-        "setup_name": "Beobachten / Warten auf HTF-Key-Level",
-        "entry_range": [
-          242.0,
-          248.0
-        ],
-        "stop_loss": 257.5,
-        "take_profit_2": 210.0,
-        "note": "Marvell befindet sich im intakten Abwärtstrend, notiert jedoch bereits am unteren Extremband bei abnehmendem 4h-Volumen, was das Risiko einer scharfen Mean-Reversion erhöht. Ein Prozyklischer Short verbietet sich im überverkauften Bereich, während ein Long-Countertrend gegen das Trendfilter-Dogma verstößt. Erst ein Pullback an signifikante bärische FVGs im Bereich 242–248 USD würde ein valides Short-CRV bieten.",
-        "evaluated_by": "gemini-3.8-flash-high [AI Studio Pro Key]"
-      },
-      {
-        "symbol": "NYSE:UAA",
-        "name": "Under Armour",
-        "category": "Consumer",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 92,
-        "new_score": 42,
-        "price": 4.74,
-        "setup_name": "Beobachten / Konsolidierung im Niemandsland",
-        "entry_range": [
-          5.05,
-          5.15
-        ],
-        "stop_loss": 5.35,
-        "take_profit_2": 4.1,
-        "note": "Under Armour verharrt in einer strukturlosen Konsolidierung ohne hinreichende Liquiditätsbereinigung. Ein Short-Engagement kommt erst nach einem Liquiditätsabgriff an der oberen Begrenzung bzw. an einem bärischen 1D-FVG im Bereich 5.05–5.15 USD infrage. Vor Erreichen dieser Zone wird kein Kapital riskiert.",
-        "evaluated_by": "gemini-3.8-flash-high [AI Studio Pro Key]"
-      },
-      {
-        "symbol": "NASDAQ:NVDA",
-        "name": "Nvidia",
-        "category": "Halbleiter",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 80,
-        "new_score": 42,
-        "price": 214.13,
-        "setup_name": "Beobachten / Warten auf HTF-Key-Level",
-        "entry_range": [
-          228.0,
-          234.0
-        ],
-        "stop_loss": 242.0,
-        "take_profit_2": 195.0,
-        "note": "Nvidia ist übergeordnet schwer angeschlagen, bietet aber auf aktuellem Niveau keinerlei asymmetrisches Chance-Risiko-Verhältnis mehr für Neu-Shorts. Ein Einstieg an überdehnten Extremen birgt signifikantes Squeeze-Risiko, während antizyklische Longs institutionell untersagt sind. Wir warten diszipliniert auf eine Korrekturerholung in Richtung 230 USD, um Fehlausbrüche mit institutionellem Stop zu handeln.",
-        "evaluated_by": "gemini-3.8-flash-high [AI Studio Pro Key]"
-      },
-      {
-        "symbol": "COINBASE:AAVEUSD",
-        "name": "Aave",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 80,
-        "new_score": 42,
-        "price": 153.18,
-        "setup_name": "Beobachten / MTF-Trend-Konflikt & Divergenz-Cluster",
-        "entry_range": [
-          144.0,
-          147.5
-        ],
-        "stop_loss": 138.5,
-        "take_profit_2": 178.0,
-        "note": "Aave zeigt ein klassisches Lehrbuchbeispiel für interne Timeframe-Friktion. Die übergeordnete bullische 1D-Ausrichtung wird durch das bärische 4h-Momentum neutralisiert, während sich die Divergenzen gegenseitig aufheben. Kapitalerhalt hat Vorrang: Kein Trade, bis der 4h-Trend mit dem 1D-Trend synchronisiert ist und signifikante Liquidität abgeholt wurde.",
-        "evaluated_by": "gemini-3.8-flash-high [AI Studio Pro Key]"
-      },
-      {
-        "symbol": "COMEX:HG1!",
-        "name": "Kupfer Future",
-        "category": "Industriemetalle",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 95,
-        "new_score": 40,
-        "price": 6.61,
-        "setup_name": "Beobachten / Multi-Timeframe Trend-Konflikt",
-        "entry_range": [
-          6.15,
-          6.3
-        ],
-        "stop_loss": 5.85,
-        "take_profit_2": 7.65,
-        "note": "Kupfer zeigt einen klassischen Konflikt zwischen Tages- und 4-Stunden-Zeitebene, der gemäß institutionellen Handlungsregeln jedes Setup augenblicklich blockiert. Der Markt bietet derzeit keinerlei statistischen Edge, da sich bullische und bärische Divergenzen auf beiden Timeframes gegenseitig aufheben. Geduldiges Warten auf eine Neuausrichtung beider Trends ist zwingend geboten.",
-        "evaluated_by": "gemini-3.8-flash-high [AI Studio Pro Key]"
-      },
-      {
-        "symbol": "TVC:PALLADIUM",
-        "name": "Palladium (Spot)",
-        "category": "Edelmetalle",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 90,
-        "new_score": 40,
-        "price": 1129.71,
-        "setup_name": "Beobachten / Warten auf HTF-Key-Level",
-        "entry_range": [
-          1185.0,
-          1205.0
-        ],
-        "stop_loss": 1255.0,
-        "take_profit_2": 970.0,
-        "note": "Palladium befindet sich in einer illiquiden Schwebephase ohne erkennbaren Orderflow-Vorteil. Das Vorhandensein simultaner bullischer und bärischer Divergenzstrukturen mahnt zur strikten Zurückhaltung. Eine Neubewertung für Trendfolge-Shorts erfolgt erst bei einem korrektiven Rücklauf an die 1185–1205 USD Supply-Zone.",
-        "evaluated_by": "gemini-3.8-flash-high [AI Studio Pro Key]"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "ntfy",
-    "raw_message": "🔄 Folgende 15 Einstufungen haben sich geändert:\n\n⚪ Micron Technology (MU):\n   Einstufung: LONG ➔ NEUTRAL (Score: 52%)\n   Setup: Beobachten / Warten auf HTF-Key-Level (Wyckoff Absorption Watch)\n\n⚪ ether.fi (ETHFIUSDT):\n   Einstufung: LONG ➔ NEUTRAL (Score: 52%)\n   Setup: Beobachten / Warten auf HTF-Key-Level\n\n⚪ Bitcoin Cash (BCHUSD):\n   Einstufung: LONG ➔ NEUTRAL (Score: 50%)\n   Setup: Beobachten / Warten auf HTF-Key-Level\n\n⚪ Robinhood (HOOD):\n   Einstufung: LONG ➔ NEUTRAL (Score: 50%)\n   Setup: Beobachten / Warten auf HTF-Key-Level\n\n⚪ CrowdStrike (CRWD):\n   Einstufung: LONG ➔ NEUTRAL (Score: 48%)\n   Setup: Beobachten / Überverkauft ohne Reversal-Bestätigung\n\n⚪ Amazon (AMZN):\n   Einstufung: SHORT ➔ NEUTRAL (Score: 48%)\n   Setup: Beobachten / Warten auf HTF-Key-Level (GP-Interaktion vs. Trend)\n\n... und 9 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261019_030932",
-    "timestamp": "2026-10-19T03:09:32.268249+00:00",
-    "timestamp_display": "19.10.2026 03:09 UTC",
-    "title": "🔔 TV-Signaländerung: 12 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 12,
-    "changes": [
-      {
-        "symbol": "BINANCE:GMXUSDT",
-        "name": "GMX",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 46,
-        "new_score": 95,
-        "price": 8.49,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          8.42,
-          8.51
-        ],
-        "stop_loss": 8.07,
-        "take_profit_2": 9.83,
-        "note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "COMEX:HG1!",
-        "name": "Kupfer Future",
-        "category": "Industriemetalle",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 46,
-        "new_score": 95,
-        "price": 6.63,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          6.58,
-          6.64
-        ],
-        "stop_loss": 6.4,
-        "take_profit_2": 7.37,
-        "note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "COINBASE:BCHUSD",
-        "name": "Bitcoin Cash",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 46,
-        "new_score": 95,
-        "price": 277.56,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          275.34,
-          278.12
-        ],
-        "stop_loss": 263.68,
-        "take_profit_2": 321.98,
-        "note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "BINANCE:DOTUSDT",
-        "name": "Polkadot",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 44,
-        "new_score": 95,
-        "price": 1.12,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          1.11,
-          1.12
-        ],
-        "stop_loss": 1.06,
-        "take_profit_2": 1.31,
-        "note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NYSE:UAA",
-        "name": "Under Armour",
-        "category": "Consumer",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 46,
-        "new_score": 92,
-        "price": 4.74,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          4.7,
-          4.75
-        ],
-        "stop_loss": 4.57,
-        "take_profit_2": 5.28,
-        "note": "Strikte bullische Konfluenz (92%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "TVC:PALLADIUM",
-        "name": "Palladium (Spot)",
-        "category": "Edelmetalle",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 51,
-        "new_score": 90,
-        "price": 1130.89,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          1128.63,
-          1139.94
-        ],
-        "stop_loss": 1170.47,
-        "take_profit_2": 1004.23,
-        "note": "Strikte bärische Erschöpfung (90%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "BINANCE:ETHFIUSDT",
-        "name": "ether.fi",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 46,
-        "new_score": 90,
-        "price": 0.7015,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          0.7,
-          0.7
-        ],
-        "stop_loss": 0.67,
-        "take_profit_2": 0.8,
-        "note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "COINBASE:AAVEUSD",
-        "name": "Aave",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 48,
-        "new_score": 80,
-        "price": 152.28,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          151.06,
-          152.58
-        ],
-        "stop_loss": 144.67,
-        "take_profit_2": 176.63,
-        "note": "Strikte bullische Konfluenz (80%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "KRAKEN:KSMUSD",
-        "name": "Kusama",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 45,
-        "new_score": 80,
-        "price": 4.25,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          4.24,
-          4.28
-        ],
-        "stop_loss": 4.46,
-        "take_profit_2": 3.58,
-        "note": "Strikte bärische Erschöpfung (80%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "COINBASE:CRVUSD",
-        "name": "Curve DAO",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 90,
-        "new_score": 53,
-        "price": 0.3533,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          0.3533,
-          0.3533
-        ],
-        "stop_loss": 0.34,
-        "take_profit_2": 0.37,
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NASDAQ:META",
-        "name": "Meta Platforms",
-        "category": "Big Tech",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 90,
-        "new_score": 53,
-        "price": 709.33,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          709.33,
-          709.33
-        ],
-        "stop_loss": 688.05,
-        "take_profit_2": 751.89,
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "XETR:BAYN",
-        "name": "Bayer",
-        "category": "Pharma / DAX",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 90,
-        "new_score": 46,
-        "price": 44.46,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          44.46,
-          44.46
-        ],
-        "stop_loss": 43.13,
-        "take_profit_2": 47.13,
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "ntfy",
-    "raw_message": "🔄 Folgende 12 Einstufungen haben sich geändert:\n\n🟢 GMX (GMXUSDT):\n   Einstufung: NEUTRAL ➔ LONG (Score: 95%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 8.42 | SL: 8.07 | TP2: 9.83\n\n🟢 Kupfer Future (HG1!):\n   Einstufung: NEUTRAL ➔ LONG (Score: 95%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 6.58 | SL: 6.40 | TP2: 7.37\n\n🟢 Bitcoin Cash (BCHUSD):\n   Einstufung: NEUTRAL ➔ LONG (Score: 95%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 275.34 | SL: 263.68 | TP2: 321.98\n\n🟢 Polkadot (DOTUSDT):\n   Einstufung: NEUTRAL ➔ LONG (Score: 95%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 1.11 | SL: 1.06 | TP2: 1.31\n\n🟢 Under Armour (UAA):\n   Einstufung: NEUTRAL ➔ LONG (Score: 92%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 4.70 | SL: 4.57 | TP2: 5.28\n\n🔴 Palladium (Spot) (PALLADIUM):\n   Einstufung: NEUTRAL ➔ SHORT (Score: 90%)\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 1,128.63 | SL: 1,170.47 | TP2: 1,004.23\n\n... und 6 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]

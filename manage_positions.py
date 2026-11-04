@@ -14,6 +14,7 @@ from datetime import datetime, timezone
 
 BASE_DIR = Path(__file__).resolve().parent
 POSITIONS_FILE = BASE_DIR / "knowledge_base" / "user_positions.json"
+USER_HISTORY_FILE = BASE_DIR / "knowledge_base" / "user_positions_history.json"
 DB_FILE = BASE_DIR / "dashboard" / "market_analysis_db.json"
 
 
@@ -26,6 +27,7 @@ def sync_dashboard_state(git_push=True):
                 db = json.load(f)
             evaluated = evaluate_user_positions(db.get("assets", []))
             db["user_positions"] = evaluated.get("positions", [])
+            db["user_positions_history"] = load_history()
             with open(DB_FILE, "w", encoding="utf-8") as f:
                 json.dump(db, f, indent=2, ensure_ascii=False)
         
@@ -38,6 +40,66 @@ def sync_dashboard_state(git_push=True):
             git_sync_dashboard()
     except Exception as e:
         print(f"Sync Dashboard Fehler: {e}")
+
+
+def load_history(user_id=None):
+    """Lädt die Liste aller bisher geschlossenen Nutzer-Trades aus user_positions_history.json."""
+    if USER_HISTORY_FILE.exists():
+        try:
+            with open(USER_HISTORY_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                closed = data.get("closed_positions", []) if isinstance(data, dict) else (data if isinstance(data, list) else [])
+                if user_id:
+                    uid_str = str(user_id)
+                    return [p for p in closed if str(p.get("user_id", "")) == uid_str or not p.get("user_id")]
+                return closed
+        except Exception:
+            return []
+    return []
+
+
+def save_history(closed_positions):
+    """Speichert geschlossene Positionen atomar in user_positions_history.json."""
+    USER_HISTORY_FILE.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+        "closed_positions": closed_positions
+    }
+    with open(USER_HISTORY_FILE, "w", encoding="utf-8") as f:
+        json.dump(payload, f, indent=2, ensure_ascii=False)
+
+
+def format_duration(start_iso, end_iso=None):
+    """Berechnet und formatiert die Haltedauer als lesbaren String."""
+    if not start_iso:
+        return "Unbekannt"
+    try:
+        if isinstance(start_iso, str):
+            dt_start = datetime.fromisoformat(start_iso.replace("Z", "+00:00"))
+        else:
+            dt_start = start_iso
+        if end_iso:
+            if isinstance(end_iso, str):
+                dt_end = datetime.fromisoformat(end_iso.replace("Z", "+00:00"))
+            else:
+                dt_end = end_iso
+        else:
+            dt_end = datetime.now(timezone.utc)
+        
+        diff = dt_end - dt_start
+        total_seconds = max(0, int(diff.total_seconds()))
+        days = total_seconds // 86400
+        hours = (total_seconds % 86400) // 3600
+        minutes = (total_seconds % 3600) // 60
+        
+        if days > 0:
+            return f"{days}T {hours}Std." if hours > 0 else f"{days}T"
+        elif hours > 0:
+            return f"{hours}Std. {minutes}Min."
+        else:
+            return f"{max(1, minutes)}Min."
+    except Exception:
+        return "-"
 
 
 def load_positions():
@@ -176,7 +238,127 @@ def update_position(symbol_or_id, user_id=None, stop_loss=None, take_profit=None
     return updated_pos
 
 
-def remove_position(symbol_or_id, user_id=None, sync_db=True, git_push=True):
+def archive_closed_position(pos, exit_price=None, exit_reason="MANUAL_CLOSE", exit_reason_display=None):
+    """Archiviert einen geschlossenen Nutzer-Trade in user_positions_history.json."""
+    history = load_history()
+    now_dt = datetime.now(timezone.utc)
+    now_iso = now_dt.isoformat()
+    
+    direction = str(pos.get("direction", "LONG")).upper()
+    entry_p = float(pos.get("entry_price", 0.0))
+    lev = float(pos.get("leverage", 1.0))
+    
+    if exit_price is not None:
+        try:
+            exit_p = float(exit_price)
+        except (ValueError, TypeError):
+            exit_p = float(pos.get("current_price", entry_p))
+    else:
+        exit_p = float(pos.get("current_price", entry_p))
+        
+    if entry_p > 0:
+        if direction == "LONG":
+            raw_pnl = ((exit_p - entry_p) / entry_p) * 100.0
+        else:
+            raw_pnl = ((entry_p - exit_p) / entry_p) * 100.0
+    else:
+        raw_pnl = 0.0
+        
+    lev_pnl = raw_pnl * lev
+    is_win = raw_pnl > 0
+    result = "WIN" if is_win else ("LOSS" if raw_pnl < 0 else "BREAKEVEN")
+    
+    # Standard-Displaytext für Schließungsgrund
+    if not exit_reason_display:
+        if exit_reason == "STOP_LOSS_TRIGGERED":
+            sl_val = pos.get("stop_loss")
+            sl_str = f" bei {sl_val:,.2f} $" if sl_val is not None else ""
+            exit_reason_display = f"🛑 Stop-Loss ausgelöst{sl_str}"
+        elif exit_reason == "TAKE_PROFIT_TRIGGERED":
+            tp_val = pos.get("take_profit")
+            tp_str = f" bei {tp_val:,.2f} $" if tp_val is not None else ""
+            exit_reason_display = f"🎯 Take-Profit erreicht{tp_str}"
+        elif exit_reason == "MANUAL_CLOSE":
+            exit_reason_display = "✋ Manuell geschlossen"
+        else:
+            exit_reason_display = exit_reason
+            
+    closed_rec = {
+        "id": pos.get("id") or f"pos_{pos.get('symbol', '').replace(':', '_')}_{int(now_dt.timestamp())}",
+        "symbol": pos.get("symbol"),
+        "name": pos.get("name") or pos.get("symbol"),
+        "direction": direction,
+        "entry_price": round(entry_p, 4 if entry_p < 10 else 2),
+        "exit_price": round(exit_p, 4 if exit_p < 10 else 2),
+        "leverage": round(lev, 1),
+        "stop_loss": pos.get("stop_loss"),
+        "take_profit": pos.get("take_profit"),
+        "realized_pnl_pct": round(raw_pnl, 2),
+        "realized_pnl_leveraged_pct": round(lev_pnl, 2),
+        "result": result,
+        "exit_reason": exit_reason,
+        "exit_reason_display": exit_reason_display,
+        "created_at": pos.get("created_at", now_iso),
+        "closed_at": now_iso,
+        "holding_duration_str": format_duration(pos.get("created_at"), now_iso),
+        "user_id": str(pos.get("user_id", "")),
+        "user_name": str(pos.get("user_name", "")),
+        "note": pos.get("note", "")
+    }
+    
+    # Prepend zu bestehender Historie (vermeide Duplikate)
+    history = [h for h in history if h.get("id") != closed_rec["id"]]
+    history.insert(0, closed_rec)
+    save_history(history)
+    return closed_rec
+
+
+def close_position(symbol_or_id, exit_price=None, exit_reason="MANUAL_CLOSE", exit_reason_display=None, user_id=None, sync_db=True, git_push=True, notify=True):
+    """Schließt eine aktive Position, archiviert sie in der Historie und benachrichtigt optional."""
+    positions = load_positions()
+    found_pos = None
+    remaining_positions = []
+    
+    for p in positions:
+        match_id = (p.get("id") == symbol_or_id or p.get("symbol") == symbol_or_id)
+        match_user = (str(p.get("user_id")) == str(user_id)) if (user_id and p.get("user_id")) else True
+        if match_id and match_user and not found_pos:
+            found_pos = p
+        else:
+            remaining_positions.append(p)
+            
+    if not found_pos:
+        print(f"⚠️ Keine Position mit Symbol oder ID '{symbol_or_id}' gefunden.")
+        return None
+        
+    # In Historie archivieren
+    closed_rec = archive_closed_position(found_pos, exit_price=exit_price, exit_reason=exit_reason, exit_reason_display=exit_reason_display)
+    
+    # Aus aktiven Positionen entfernen
+    save_positions(remaining_positions)
+    print(f"✅ Position '{symbol_or_id}' geschlossen und archiviert:")
+    print(f"   Entry: {closed_rec['entry_price']} -> Exit: {closed_rec['exit_price']} | PnL: {closed_rec['realized_pnl_leveraged_pct']:+.2f}% | Grund: {closed_rec['exit_reason_display']}")
+    
+    # Optional Benachrichtigung senden
+    if notify:
+        try:
+            from notifications import send_user_position_closed_notification
+            send_user_position_closed_notification(closed_rec)
+        except Exception as ne:
+            print(f"Hinweis: Push-Benachrichtigung fehlgeschlagen ({ne})")
+            
+    if sync_db:
+        sync_dashboard_state(git_push=git_push)
+        
+    return closed_rec
+
+
+def remove_position(symbol_or_id, user_id=None, sync_db=True, git_push=True, archive=True):
+    """Löscht eine Position. Standardmäßig wird sie in die Trade-Historie archiviert."""
+    if archive:
+        closed = close_position(symbol_or_id, user_id=user_id, sync_db=sync_db, git_push=git_push, exit_reason="MANUAL_CLOSE")
+        return bool(closed)
+
     positions = load_positions()
     initial_len = len(positions)
     
@@ -187,7 +369,7 @@ def remove_position(symbol_or_id, user_id=None, sync_db=True, git_push=True):
 
     if len(positions) < initial_len:
         save_positions(positions)
-        print(f"✅ Position '{symbol_or_id}' erfolgreich entfernt.")
+        print(f"✅ Position '{symbol_or_id}' erfolgreich entfernt (ohne Archiv).")
         if sync_db:
             sync_dashboard_state(git_push=git_push)
         return True
@@ -240,6 +422,46 @@ def list_positions():
         print("-" * 65)
 
 
+def list_history(user_id=None):
+    """Gibt eine formatierte Tabelle aller bisher geschlossenen Nutzer-Trades aus."""
+    history = load_history(user_id=user_id)
+    print("=" * 70)
+    print(f"  GESCHLOSSENE NUTZER-TRADES / HISTORIE ({len(history)})")
+    print("=" * 70)
+    if not history:
+        print("Bisher keine geschlossenen Trades in der Historie vorhanden.")
+        print("=" * 70)
+        return
+        
+    wins = [t for t in history if t.get("realized_pnl_pct", 0) > 0]
+    wr = (len(wins) / len(history) * 100.0) if history else 0.0
+    tot_pnl = sum(t.get("realized_pnl_leveraged_pct", 0) for t in history)
+    print(f"  📊 Statistik: {len(history)} Trades | Win-Rate: {wr:.1f}% ({len(wins)}W/{len(history)-len(wins)}L) | Netto-PnL: {tot_pnl:+.2f}%")
+    print("-" * 70)
+    
+    for idx, t in enumerate(history, 1):
+        sym = t.get("symbol")
+        sig = t.get("direction", "LONG")
+        entry = t.get("entry_price", 0.0)
+        exit_p = t.get("exit_price", entry)
+        lev = t.get("leverage", 1.0)
+        pnl = t.get("realized_pnl_pct", 0.0)
+        lev_pnl = t.get("realized_pnl_leveraged_pct", 0.0)
+        reason = t.get("exit_reason_display", t.get("exit_reason", ""))
+        dur = t.get("holding_duration_str", "-")
+        closed_at = t.get("closed_at", "")[:16].replace("T", " ")
+        
+        icon = "🟢" if sig == "LONG" else "🔴"
+        res_badge = "✅ WIN" if pnl > 0 else ("❌ LOSS" if pnl < 0 else "⚪ BE")
+        pnl_sign = "+" if lev_pnl >= 0 else ""
+        
+        print(f"{idx}. {icon} {t.get('name', sym)} ({sym}) [{res_badge}]")
+        print(f"   Typ: {sig} {lev:g}x | Entry: {entry:,.2f} $ ➔ Exit: {exit_p:,.2f} $ | Dauer: {dur}")
+        print(f"   Realisierter PnL: {pnl_sign}{lev_pnl:.2f}% (Basis: {pnl_sign}{pnl:.2f}%)")
+        print(f"   Grund: {reason} | Geschlossen: {closed_at} UTC | User: {t.get('user_name', 'Default')}")
+        print("-" * 70)
+
+
 def run_api_server(port=8085):
     """Startet einen winzigen REST-Endpunkt zur sicheren Synchronisation vom Web-Dashboard."""
     from http.server import HTTPServer, BaseHTTPRequestHandler
@@ -257,13 +479,22 @@ def run_api_server(port=8085):
             self.end_headers()
 
         def do_GET(self):
-            if self.path == "/api/positions":
+            if self.path.startswith("/api/positions"):
                 positions = load_positions()
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json")
                 self._send_cors_headers()
                 self.end_headers()
                 self.wfile.write(json.dumps({"positions": positions}, ensure_ascii=False).encode("utf-8"))
+            elif self.path.startswith("/api/history"):
+                qs = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+                uid = qs.get("user_id", [None])[0]
+                history = load_history(user_id=uid)
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self._send_cors_headers()
+                self.end_headers()
+                self.wfile.write(json.dumps({"history": history}, ensure_ascii=False).encode("utf-8"))
             else:
                 self.send_response(404)
                 self.end_headers()
@@ -292,6 +523,37 @@ def run_api_server(port=8085):
                         self.end_headers()
                         self.wfile.write(json.dumps({"status": "ok", "position": res}).encode("utf-8"))
                         return
+                except Exception as e:
+                    self.send_response(400)
+                    self._send_cors_headers()
+                    self.end_headers()
+                    self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
+                    return
+            elif self.path == "/api/positions/close":
+                length = int(self.headers.get("Content-Length", 0))
+                body = self.rfile.read(length).decode("utf-8")
+                try:
+                    data = json.loads(body)
+                    pos_id = data.get("id") or data.get("symbol")
+                    exit_p = data.get("exit_price")
+                    exit_reason = data.get("exit_reason", "MANUAL_CLOSE")
+                    user_id = data.get("user_id")
+
+                    if pos_id:
+                        res = close_position(pos_id, exit_price=exit_p, exit_reason=exit_reason, user_id=user_id)
+                        if res:
+                            self.send_response(200)
+                            self.send_header("Content-Type", "application/json")
+                            self._send_cors_headers()
+                            self.end_headers()
+                            self.wfile.write(json.dumps({"status": "ok", "closed": res}).encode("utf-8"))
+                            return
+                        else:
+                            self.send_response(404)
+                            self._send_cors_headers()
+                            self.end_headers()
+                            self.wfile.write(json.dumps({"error": "Position not found"}).encode("utf-8"))
+                            return
                 except Exception as e:
                     self.send_response(400)
                     self._send_cors_headers()
@@ -338,6 +600,34 @@ def run_api_server(port=8085):
             self.send_response(404)
             self.end_headers()
 
+        def do_DELETE(self):
+            if self.path.startswith("/api/positions"):
+                length = int(self.headers.get("Content-Length", 0))
+                body = self.rfile.read(length).decode("utf-8") if length > 0 else "{}"
+                try:
+                    data = json.loads(body) if body.strip() else {}
+                    pos_id = data.get("id") or data.get("symbol")
+                    if not pos_id:
+                        qs = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+                        pos_id = qs.get("id", [None])[0] or qs.get("symbol", [None])[0]
+                    if pos_id:
+                        res = close_position(pos_id, exit_reason="MANUAL_CLOSE", user_id=data.get("user_id"))
+                        if res:
+                            self.send_response(200)
+                            self.send_header("Content-Type", "application/json")
+                            self._send_cors_headers()
+                            self.end_headers()
+                            self.wfile.write(json.dumps({"status": "ok", "closed": res}).encode("utf-8"))
+                            return
+                except Exception as e:
+                    self.send_response(400)
+                    self._send_cors_headers()
+                    self.end_headers()
+                    self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
+                    return
+            self.send_response(404)
+            self.end_headers()
+
     server = HTTPServer(("0.0.0.0", port), PositionsHandler)
     print(f"🚀 Positions Micro-API läuft auf Port {port} (0.0.0.0:{port})")
     server.serve_forever()
@@ -368,12 +658,23 @@ if __name__ == "__main__":
     upd_p.add_argument("--leverage", dest="leverage", type=float, default=None, help="Neuer Hebel")
     upd_p.add_argument("--note", default=None, help="Notiz aktualisieren")
 
+    # close
+    close_p = subparsers.add_parser("close", help="Position schließen und in Historie archivieren")
+    close_p.add_argument("symbol_or_id", help="Symbol oder Position ID")
+    close_p.add_argument("--price", dest="exit_price", type=float, default=None, help="Ausstiegskurs (Standard: aktueller Live-Kurs)")
+    close_p.add_argument("--reason", default="MANUAL_CLOSE", help="Schließungsgrund")
+
     # remove
     rem_p = subparsers.add_parser("remove", help="Position löschen")
     rem_p.add_argument("symbol_or_id", help="Symbol oder Position ID")
+    rem_p.add_argument("--no-archive", action="store_true", help="Ohne Archivierung endgültig löschen")
 
     # list
     subparsers.add_parser("list", help="Alle Positionen anzeigen")
+
+    # history
+    hist_p = subparsers.add_parser("history", help="Historie geschlossener Trades anzeigen")
+    hist_p.add_argument("--user-id", default=None, help="Nach User-ID filtern")
 
     # serve
     srv_p = subparsers.add_parser("serve", help="Micro-API starten")
@@ -385,8 +686,12 @@ if __name__ == "__main__":
         add_position(args.symbol, args.direction, args.entry_price, args.leverage, args.note, stop_loss=args.stop_loss, take_profit=args.take_profit)
     elif args.command in ("update", "edit"):
         update_position(args.symbol_or_id, stop_loss=args.stop_loss, take_profit=args.take_profit, clear_sl=args.clear_sl, clear_tp=args.clear_tp, entry_price=args.entry_price, leverage=args.leverage, note=args.note)
+    elif args.command == "close":
+        close_position(args.symbol_or_id, exit_price=args.exit_price, exit_reason=args.reason)
     elif args.command == "remove":
-        remove_position(args.symbol_or_id)
+        remove_position(args.symbol_or_id, archive=not args.no_archive)
+    elif args.command == "history":
+        list_history(user_id=args.user_id)
     elif args.command == "list" or not args.command:
         list_positions()
     elif args.command == "serve":

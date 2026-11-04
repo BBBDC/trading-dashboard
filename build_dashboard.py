@@ -86,6 +86,7 @@ except Exception as lqe:
 # Synchronisiere aktuelle Nutzer-Positionen & Portfolio mit Live-Preisen & TV-Daten
 try:
     from portfolio_engine import evaluate_user_positions, update_autonomous_portfolio
+    from manage_positions import load_history
     analyzed_assets = db_data.get("assets", [])
     if analyzed_assets:
         user_pos_data = evaluate_user_positions(analyzed_assets)
@@ -93,6 +94,7 @@ try:
         port_data, mem_data = update_autonomous_portfolio(analyzed_assets)
         db_data["portfolio"] = port_data
         db_data["trade_memory"] = mem_data
+    db_data["user_positions_history"] = load_history()
 except Exception as pe:
     print(f"Warnung beim Synchronisieren des Portfolios/Nutzer-Positionen: {pe}")
 
@@ -1492,6 +1494,23 @@ html_content = f"""<!DOCTYPE html>
               <span>+</span>
               <span>Position hinzufügen</span>
             </button>
+          </div>
+        </div>
+
+        <!-- Sub-Tabs: Aktive Trades vs. Trade-Historie -->
+        <div class="flex items-center justify-between flex-wrap gap-2 pt-0.5">
+          <div class="inline-flex p-1 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs font-semibold">
+            <button id="pos-tab-btn-active" onclick="switchUserPosTab('active')" class="px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5 bg-indigo-600 text-white shadow-sm">
+              <span>🟢 Aktive Trades</span>
+              <span id="pos-count-badge-active" class="px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-white/20">0</span>
+            </button>
+            <button id="pos-tab-btn-history" onclick="switchUserPosTab('history')" class="px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5 text-slate-400 hover:text-white">
+              <span>📜 Trade-Historie</span>
+              <span id="pos-count-badge-history" class="px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-slate-800 text-slate-300">0</span>
+            </button>
+          </div>
+          <div id="user-history-summary-stats" class="hidden flex items-center gap-2 text-xs font-mono">
+            <!-- Dynamisch durch JS befüllt -->
           </div>
         </div>
 
@@ -4064,6 +4083,40 @@ html_content = f"""<!DOCTYPE html>
       return positions;
     }}
 
+    let currentUserPosTab = 'active';
+
+    function switchUserPosTab(tab) {{
+      currentUserPosTab = tab;
+      const btnActive = document.getElementById('pos-tab-btn-active');
+      const btnHistory = document.getElementById('pos-tab-btn-history');
+      if (tab === 'active') {{
+        if (btnActive) btnActive.className = 'px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5 bg-indigo-600 text-white shadow-sm';
+        if (btnHistory) btnHistory.className = 'px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5 text-slate-400 hover:text-white';
+      }} else {{
+        if (btnHistory) btnHistory.className = 'px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5 bg-indigo-600 text-white shadow-sm';
+        if (btnActive) btnActive.className = 'px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5 text-slate-400 hover:text-white';
+      }}
+      renderUserPositions();
+    }}
+
+    function getUserPositionsHistory() {{
+      let history = [];
+      if (currentData.user_positions_history && Array.isArray(currentData.user_positions_history)) {{
+        history = [...currentData.user_positions_history];
+      }}
+      try {{
+        const localHist = JSON.parse(localStorage.getItem('tv_user_positions_history') || '[]');
+        if (Array.isArray(localHist)) {{
+          localHist.forEach(lh => {{
+            if (!history.some(h => (h.id && h.id === lh.id))) {{
+              history.unshift(lh);
+            }}
+          }});
+        }}
+      }} catch (e) {{}}
+      return history;
+    }}
+
     function saveUserPositionsLocally(positions) {{
       try {{
         localStorage.setItem('tv_user_positions', JSON.stringify(positions));
@@ -4075,8 +4128,10 @@ html_content = f"""<!DOCTYPE html>
       if (!container) return;
 
       const allPositions = getUserPositions();
+      const allHistory = getUserPositionsHistory();
       const authUser = getAuthenticatedUser();
       let displayPositions = allPositions;
+      let displayHistory = allHistory;
 
       // Filterung nach Nutzer
       if (authUser && authUser.role !== 'admin') {{
@@ -4087,14 +4142,28 @@ html_content = f"""<!DOCTYPE html>
           const pUid = String(p.user_id || '');
           return (pUname && pUname === myUname) || (pUid && pUid === myUid);
         }});
+        displayHistory = allHistory.filter(h => {{
+          const hUname = (h.user_name || '').toLowerCase();
+          const hUid = String(h.user_id || '');
+          return (hUname && hUname === myUname) || (hUid && hUid === myUid);
+        }});
       }} else if (authUser && authUser.role === 'admin') {{
         if (currentAdminPosFilter === 'mine') {{
           const myUname = (authUser.username || '').toLowerCase();
           displayPositions = allPositions.filter(p => (p.user_name || '').toLowerCase() === myUname);
+          displayHistory = allHistory.filter(h => (h.user_name || '').toLowerCase() === myUname);
         }} else if (currentAdminPosFilter !== 'all') {{
-          displayPositions = allPositions.filter(p => (p.user_name || '').toLowerCase() === currentAdminPosFilter.toLowerCase());
+          const targetU = currentAdminPosFilter.toLowerCase();
+          displayPositions = allPositions.filter(p => (p.user_name || '').toLowerCase() === targetU);
+          displayHistory = allHistory.filter(h => (h.user_name || '').toLowerCase() === targetU);
         }}
       }}
+
+      // Zähler-Badges auf Sub-Tabs aktualisieren
+      const badgeActive = document.getElementById('pos-count-badge-active');
+      const badgeHistory = document.getElementById('pos-count-badge-history');
+      if (badgeActive) badgeActive.innerText = displayPositions.length;
+      if (badgeHistory) badgeHistory.innerText = displayHistory.length;
 
       // Positionen-Badge in der Segment-Navigation aktualisieren
       const navBadge = document.getElementById('nav-badge-positions');
@@ -4109,15 +4178,18 @@ html_content = f"""<!DOCTYPE html>
 
       // Admin Filter Bar
       let adminFilterHtml = '';
-      if (authUser && authUser.role === 'admin' && allPositions.length > 0) {{
+      if (authUser && authUser.role === 'admin' && (allPositions.length > 0 || allHistory.length > 0)) {{
         const userSet = new Set();
         allPositions.forEach(p => {{ if (p.user_name) userSet.add(p.user_name); }});
+        allHistory.forEach(h => {{ if (h.user_name) userSet.add(h.user_name); }});
 
+        const activeTotal = allPositions.length;
+        const histTotal = allHistory.length;
         adminFilterHtml = `
           <div class="col-span-full flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 text-xs">
             <span class="text-[11px] text-slate-400 font-mono">Ansicht:</span>
             <button onclick="setAdminPosFilter('all')" class="px-2.5 py-1 rounded-lg font-semibold transition cursor-pointer ${{currentAdminPosFilter === 'all' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-300 hover:text-white'}}">
-              Alle Trades (${{allPositions.length}})
+              Alle Trades (${{currentUserPosTab === 'active' ? activeTotal : histTotal}})
             </button>
             <button onclick="setAdminPosFilter('mine')" class="px-2.5 py-1 rounded-lg font-semibold transition cursor-pointer ${{currentAdminPosFilter === 'mine' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-300 hover:text-white'}}">
               Nur meine
@@ -4130,6 +4202,121 @@ html_content = f"""<!DOCTYPE html>
           </div>
         `;
       }}
+
+      // --- RENDERING: HISTORIE ---
+      if (currentUserPosTab === 'history') {{
+        const statsEl = document.getElementById('user-history-summary-stats');
+        if (statsEl) {{
+          const histCount = displayHistory.length;
+          const wins = displayHistory.filter(h => (Number(h.realized_pnl_pct) || 0) > 0);
+          const wr = histCount > 0 ? ((wins.length / histCount) * 100).toFixed(1) : '0.0';
+          const netPnl = displayHistory.reduce((acc, h) => acc + (Number(h.realized_pnl_leveraged_pct) || 0), 0);
+          const pnlSign = netPnl >= 0 ? '+' : '';
+          const pnlColor = netPnl >= 0 ? 'text-emerald-400' : 'text-rose-400';
+          statsEl.innerHTML = `
+            <span class="px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-slate-300">Win-Rate: <b class="text-white">${{wr}}%</b></span>
+            <span class="px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-slate-300">Netto-PnL: <b class="${{pnlColor}}">${{pnlSign}}${{netPnl.toFixed(2)}}%</b></span>
+          `;
+          statsEl.classList.remove('hidden');
+        }}
+
+        if (displayHistory.length === 0) {{
+          container.innerHTML = adminFilterHtml + `
+            <div class="col-span-full p-8 rounded-2xl bg-slate-950/60 border border-slate-800 text-center space-y-3">
+              <div class="w-12 h-12 rounded-full bg-indigo-500/10 text-indigo-400 mx-auto flex items-center justify-center text-xl">
+                📜
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-white">Noch keine geschlossenen Trades vorhanden</h4>
+                <p class="text-xs text-slate-400 mt-1 max-w-md mx-auto">Sobald ein Trade manuell oder durch Stop-Loss / Take-Profit geschlossen wird, erscheint er hier in deiner lückenlosen Trade-Historie.</p>
+              </div>
+            </div>
+          `;
+          return;
+        }}
+
+        const histCardsHtml = displayHistory.map(h => {{
+          const sym = h.symbol || '';
+          const isLong = (h.direction || 'LONG').toUpperCase() === 'LONG';
+          const sigColor = isLong ? 'emerald' : 'rose';
+          const lev = Number(h.leverage) || 1;
+          const entry = Number(h.entry_price) || 0;
+          const exit = Number(h.exit_price) || entry;
+          const rawPnl = Number(h.realized_pnl_pct) || 0;
+          const levPnl = Number(h.realized_pnl_leveraged_pct) || (rawPnl * lev);
+          const pnlColor = levPnl >= 0 ? 'text-emerald-400' : 'text-rose-400';
+          const pnlSign = levPnl >= 0 ? '+' : '';
+          const ticker = sym.split(':').pop();
+          const reason = h.exit_reason_display || (h.exit_reason === 'STOP_LOSS_TRIGGERED' ? '🛑 Stop-Loss ausgelöst' : (h.exit_reason === 'TAKE_PROFIT_TRIGGERED' ? '🎯 Take-Profit erreicht' : '✋ Manuell geschlossen'));
+          let reasonBadgeClass = 'bg-slate-800/80 text-slate-300 border-slate-700/80';
+          if (h.exit_reason === 'TAKE_PROFIT_TRIGGERED') reasonBadgeClass = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+          else if (h.exit_reason === 'STOP_LOSS_TRIGGERED') reasonBadgeClass = 'bg-rose-500/10 text-rose-400 border-rose-500/30';
+
+          const closedDate = h.closed_at ? new Date(h.closed_at).toLocaleString('de-DE', {{day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit'}}) : '-';
+          const duration = h.holding_duration_str ? ` &bull; ⏱️ ${{h.holding_duration_str}}` : '';
+
+          return `
+            <div class="rounded-xl bg-slate-950/80 border border-slate-800/90 p-4 space-y-3 hover:border-slate-700 transition">
+              <div class="flex items-start justify-between">
+                <div>
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <span class="text-sm font-bold text-white">${{h.name || sym}}</span>
+                    <span class="text-xs font-mono text-slate-400">(${{ticker}})</span>
+                    ${{h.user_name ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-medium bg-indigo-500/10 text-indigo-300 border border-indigo-500/30">👤 ${{h.user_name}}</span>` : ''}}
+                  </div>
+                  <span class="text-[10px] text-slate-500 font-mono">${{sym}}</span>
+                </div>
+
+                <div class="flex items-center gap-1.5">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-${{sigColor}}-500/10 text-${{sigColor}}-400 border border-${{sigColor}}-500/30">
+                    ${{h.direction}}
+                  </span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                    ${{lev}}x
+                  </span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold ${{levPnl >= 0 ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'}}">
+                    ${{levPnl >= 0 ? 'WIN' : 'LOSS'}}
+                  </span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2 text-xs font-mono bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/60">
+                <div>
+                  <span class="text-[10px] text-slate-400 block">Einstieg:</span>
+                  <span class="text-slate-200 font-semibold">${{entry.toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}} $</span>
+                </div>
+                <div class="text-right">
+                  <span class="text-[10px] text-slate-400 block">Ausstieg:</span>
+                  <span class="text-white font-bold">${{exit.toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}} $</span>
+                </div>
+
+                <div class="pt-1 border-t border-slate-800/80 col-span-2 flex items-center justify-between">
+                  <div>
+                    <span class="text-[10px] text-slate-400 block">Realisierter PnL (${{lev}}x):</span>
+                    <span class="${{pnlColor}} font-extrabold text-base">${{pnlSign}}${{levPnl.toFixed(2)}}%</span>
+                  </div>
+                  <div class="text-right">
+                    <span class="text-[10px] text-slate-400 block">Basis:</span>
+                    <span class="text-slate-300 font-semibold text-xs">${{pnlSign}}${{rawPnl.toFixed(2)}}%</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-lg border text-xs ${{reasonBadgeClass}} flex items-center justify-between flex-wrap gap-1">
+                <span class="font-bold flex items-center gap-1">${{reason}}</span>
+                <span class="text-[10px] text-slate-400 font-mono">${{closedDate}}${{duration}}</span>
+              </div>
+            </div>
+          `;
+        }}).join('');
+
+        container.innerHTML = adminFilterHtml + histCardsHtml;
+        return;
+      }}
+
+      // --- RENDERING: AKTIVE POSITIONEN ---
+      const statsEl = document.getElementById('user-history-summary-stats');
+      if (statsEl) statsEl.classList.add('hidden');
 
       if (displayPositions.length === 0) {{
         container.innerHTML = adminFilterHtml + `
@@ -4524,8 +4711,82 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     function deleteUserPosition(id) {{
-      if (!confirm('Möchtest du diese Position wirklich schließen / entfernen?')) return;
+      if (!confirm('Möchtest du diese Position schließen und in der Trade-Historie archivieren?')) return;
       
+      const currentList = getUserPositions();
+      const pos = currentList.find(p => p.id === id || p.symbol === id);
+
+      if (pos) {{
+        // Live-Kurs und PnL für Archivierung ermitteln
+        const sym = pos.symbol;
+        const isLong = pos.direction === 'LONG';
+        const lev = Number(pos.leverage) || 1;
+        const entry = Number(pos.entry_price) || 0;
+        const matched = (currentData.assets || []).find(a => 
+          a.symbol === sym || 
+          a.symbol.endsWith(':' + sym) || 
+          a.symbol.toUpperCase() === sym.toUpperCase()
+        );
+        const curr = matched ? Number(matched.price) : (Number(pos.current_price) || entry);
+        const rawPnl = isLong 
+          ? (entry > 0 ? ((curr - entry) / entry) * 100 : 0)
+          : (entry > 0 ? ((entry - curr) / entry) * 100 : 0);
+        const levPnl = rawPnl * lev;
+
+        const closedRec = {{
+          id: pos.id || ('pos_' + sym.replace(/:/g, '_') + '_' + Date.now()),
+          symbol: pos.symbol,
+          name: pos.name || pos.symbol,
+          direction: pos.direction,
+          entry_price: entry,
+          exit_price: curr,
+          leverage: lev,
+          stop_loss: pos.stop_loss,
+          take_profit: pos.take_profit,
+          realized_pnl_pct: Number(rawPnl.toFixed(2)),
+          realized_pnl_leveraged_pct: Number(levPnl.toFixed(2)),
+          result: rawPnl > 0 ? 'WIN' : (rawPnl < 0 ? 'LOSS' : 'BREAKEVEN'),
+          exit_reason: 'MANUAL_CLOSE',
+          exit_reason_display: '✋ Manuell im Dashboard geschlossen',
+          created_at: pos.created_at || new Date().toISOString(),
+          closed_at: new Date().toISOString(),
+          holding_duration_str: 'Manuell geschlossen',
+          user_id: pos.user_id || '',
+          user_name: pos.user_name || '',
+          note: pos.note || ''
+        }};
+
+        // In lokale Historie ablegen
+        try {{
+          let hist = JSON.parse(localStorage.getItem('tv_user_positions_history') || '[]');
+          hist = hist.filter(h => h.id !== closedRec.id);
+          hist.unshift(closedRec);
+          localStorage.setItem('tv_user_positions_history', JSON.stringify(hist));
+        }} catch (e) {{}}
+
+        if (currentData.user_positions_history && Array.isArray(currentData.user_positions_history)) {{
+          currentData.user_positions_history = currentData.user_positions_history.filter(h => h.id !== closedRec.id);
+          currentData.user_positions_history.unshift(closedRec);
+        }} else {{
+          currentData.user_positions_history = [closedRec];
+        }}
+
+        // Optional Backend API benachrichtigen
+        try {{
+          fetch('http://localhost:8085/api/positions/close', {{
+            method: 'POST',
+            headers: {{ 'Content-Type': 'application/json' }},
+            body: JSON.stringify({{
+              id: pos.id || sym,
+              symbol: sym,
+              exit_price: curr,
+              exit_reason: 'MANUAL_CLOSE',
+              user_id: pos.user_id
+            }})
+          }}).catch(() => {{}});
+        }} catch (e) {{}}
+      }}
+
       // 1. Tombstone in localStorage anlegen, damit gelöschte Positionen nie wieder auftauchen
       try {{
         let deleted = JSON.parse(localStorage.getItem('tv_deleted_positions') || '[]');
@@ -4552,7 +4813,7 @@ html_content = f"""<!DOCTYPE html>
 
       // 4. Neu rendern & Feedback
       renderUserPositions();
-      showToast('Position entfernt.');
+      showToast('Position geschlossen & in Trade-Historie archiviert.');
     }}
 
     // Edit Modal Funktionen (SL & TP nachträglich anpassen)
