@@ -1,7 +1,103 @@
 {
-  "updated_at": "2026-11-04T22:26:18.573660+00:00",
-  "total_experience_records": 96,
+  "updated_at": "2026-11-04T23:11:42.566928+00:00",
+  "total_experience_records": 101,
   "learnings": [
+    {
+      "timestamp": "2026-11-04T23:11:38.482297+00:00",
+      "trade_id": "cross_rule_1793833898",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Strikte Korrelations- und Rausch-Sperre: Keine multiplen Positionseröffnungen desselben Sektors ohne Volatilitätsfilter.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Simultane Signale zur exakt selben Sekunde über SUI, RENDER und ETH stellen eine gehebelte Einbahnstraßen-Wette dar. Wenn Stops kleiner als das Grundrauschen kalibriert sind, degeneriert jedes Confluence-Setup zu reinem Glücksspiel.",
+        "actionable_rule": "Strikte Korrelations- und Rausch-Sperre: Keine multiplen Positionseröffnungen desselben Sektors ohne Volatilitätsfilter."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T23:11:38.482276+00:00",
+      "trade_id": "cross_rule_1793833898",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine Mean-Reversion-Trades ohne echten Liquidity Sweep und bestätigten Market Structure Shift (MSS/CHoCH).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf 5m als auch auf 4h/1D führt das bloße Berühren statistischer Extrembänder (Chaos/RFE) ohne vorherige Entnahme von Liquidität fast immer zu schmerzhaften Stop-Runs, da institutionelle Orderblöcke diese Niveaus für Breakout-Momentum nutzen.",
+        "actionable_rule": "Keine Mean-Reversion-Trades ohne echten Liquidity Sweep und bestätigten Market Structure Shift (MSS/CHoCH)."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T23:11:38.482263+00:00",
+      "trade_id": "inc_ETHUSDT_5m_1793831117",
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.06,
+      "pnl_raw": -0.03,
+      "text": "Absolutes Hard-Floor-Limit: Stop-Loss-Distanzen müssen zwingend strukturell hinter Liquiditäts-Pools liegen und mindestens 1,5x der lokalen ATR betragen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ETHUSDT_5m_1793831117",
+        "verdict": "LOSS",
+        "driver": "Völlig praxisferner Stop-Abstand von 0,03% (75 Cent bei einem $2430-Asset), der bereits durch reinen Bid-Ask-Spread und Tick-Noise liquidiert werden musste.",
+        "technical_warning": "Das 'Good Sell'-Signal feuerte mitten in einen laufenden Run auf Buy-Side Liquidity (BSL) oberhalb des Intraday-Widerstands ohne No-Demand-Volumenbestätigung.",
+        "actionable_rule": "Absolutes Hard-Floor-Limit: Stop-Loss-Distanzen müssen zwingend strukturell hinter Liquiditäts-Pools liegen und mindestens 1,5x der lokalen ATR betragen."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T23:11:38.482245+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1793831116",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.38,
+      "pnl_raw": -0.19,
+      "text": "High-Beta-Altcoins dürfen erst geshortet werden, wenn der Benchmark-Marktführer (ETH/BTC) einen bestätigten Market Structure Shift (MSS) auf 15m/1h vollzogen hat.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1793831116",
+        "verdict": "LOSS",
+        "driver": "Suizidales Top-Picking in einem hochvolatilen High-Beta-Asset gegen die aggregierte Marktdynamik.",
+        "technical_warning": "Stetig steigendes Kauf-Delta und Ausbleiben einer VSA-Upthrust-Wick-Struktur signalisierten anhaltende institutionelle Absorption statt Abverkauf.",
+        "actionable_rule": "High-Beta-Altcoins dürfen erst geshortet werden, wenn der Benchmark-Marktführer (ETH/BTC) einen bestätigten Market Structure Shift (MSS) auf 15m/1h vollzogen hat."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T23:11:38.482184+00:00",
+      "trade_id": "inc_SUIUSDT_5m_1793831115",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.14,
+      "pnl_raw": -0.07,
+      "text": "Kein Short-Einstieg an Überdehnungsbändern ohne vollendeten Sweep lokaler Liquidität und Bestätigung durch eine bearish schließende Impulskerze.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_5m_1793831115",
+        "verdict": "LOSS",
+        "driver": "Klassisches Front-Running einer Trendwende mit lächerlichen 0,07% Stop-Loss-Distanz ohne strukturelle Bestätigung.",
+        "technical_warning": "Fehlender Liquidity-Sweep des lokalen Swing-Highs gepaart mit ausbleibender VSA-Volumenerschöpfung beim Einlauf in das Chaos-Band.",
+        "actionable_rule": "Kein Short-Einstieg an Überdehnungsbändern ohne vollendeten Sweep lokaler Liquidität und Bestätigung durch eine bearish schließende Impulskerze."
+      }
+    },
     {
       "timestamp": "2026-11-04T22:26:14.842672+00:00",
       "trade_id": "cross_rule_1793831174",
