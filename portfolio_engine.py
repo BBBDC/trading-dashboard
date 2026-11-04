@@ -915,14 +915,53 @@ def evaluate_user_positions(db_assets):
 
         lev_pnl = raw_pnl * lev
 
-        # Handlungsempfehlung ableiten
-        rec = generate_actionable_recommendation(pos, a, curr_p, raw_pnl, lev_pnl)
+        # Stop-Loss und Take-Profit extrahieren & Abstände / CRV berechnen
+        sl_val = pos.get("stop_loss")
+        tp_val = pos.get("take_profit")
+        try:
+            sl_val = float(sl_val) if sl_val is not None and str(sl_val).strip() != "" else None
+        except (ValueError, TypeError):
+            sl_val = None
+
+        try:
+            tp_val = float(tp_val) if tp_val is not None and str(tp_val).strip() != "" else None
+        except (ValueError, TypeError):
+            tp_val = None
+
+        sl_dist_pct = None
+        if sl_val is not None and curr_p > 0:
+            if direction == "LONG":
+                sl_dist_pct = round(((curr_p - sl_val) / curr_p) * 100.0, 2)
+            else:
+                sl_dist_pct = round(((sl_val - curr_p) / curr_p) * 100.0, 2)
+
+        tp_dist_pct = None
+        if tp_val is not None and curr_p > 0:
+            if direction == "LONG":
+                tp_dist_pct = round(((tp_val - curr_p) / curr_p) * 100.0, 2)
+            else:
+                tp_dist_pct = round(((curr_p - tp_val) / curr_p) * 100.0, 2)
+
+        crv = None
+        if sl_val is not None and tp_val is not None:
+            risk = abs(entry_p - sl_val)
+            reward = abs(tp_val - entry_p)
+            if risk > 0:
+                crv = round(reward / risk, 2)
 
         pos_copy = dict(pos)
         pos_copy["name"] = asset_name
         pos_copy["current_price"] = curr_p
         pos_copy["pnl_pct"] = round(raw_pnl, 2)
         pos_copy["pnl_leveraged_pct"] = round(lev_pnl, 2)
+        pos_copy["stop_loss"] = sl_val
+        pos_copy["take_profit"] = tp_val
+        pos_copy["sl_distance_pct"] = sl_dist_pct
+        pos_copy["tp_distance_pct"] = tp_dist_pct
+        pos_copy["crv"] = crv
+
+        # Handlungsempfehlung ableiten
+        rec = generate_actionable_recommendation(pos_copy, a, curr_p, raw_pnl, lev_pnl)
         pos_copy["recommendation"] = rec
         pos_copy["last_price_update"] = price_update
         pos_copy["last_price_update_str"] = price_update_str
@@ -948,12 +987,100 @@ def evaluate_user_positions(db_assets):
 def generate_actionable_recommendation(pos, asset_data, curr_p, raw_pnl, lev_pnl):
     """
     Gibt NUR dann eine spezifische Handlungsempfehlung aus, wenn sie WIRKLICH relevant ist:
-    - SL-Gefahr / Strukturbruch
-    - Gewinnmitnahme (TP1 / TP2 / Überdehnung im Band)
+    - SL-Gefahr / Stop-Loss ausgelöst
+    - Take-Profit erreicht / Gewinnmitnahme
     - Reversal-Warnung durch RSI-Divergenzen
     """
     direction = pos.get("direction", "LONG").upper()
     lev = float(pos.get("leverage", 1.0))
+    sl = pos.get("stop_loss")
+    tp = pos.get("take_profit")
+
+    # 1. STOP-LOSS AUSGELÖST ODER IN AKUTER GEFAHR (Höchste Priorität!)
+    if sl is not None:
+        try:
+            sl_num = float(sl)
+            if direction == "LONG":
+                if curr_p <= sl_num:
+                    return {
+                        "status": "CRITICAL",
+                        "badge_color": "rose",
+                        "action": "STOP-LOSS AUSGELÖST",
+                        "title": f"🛑 Stop-Loss erreicht ({curr_p:,.2f} <= {sl_num:,.2f})",
+                        "message": f"Der Kurs ({curr_p:,.2f} $) hat deinen Stop-Loss von {sl_num:,.2f} $ erreicht oder unterschritten. Position zur Verlustbegrenzung schließen!"
+                    }
+                elif curr_p <= sl_num * 1.015:
+                    dist = ((curr_p - sl_num) / curr_p) * 100.0
+                    return {
+                        "status": "WARNING",
+                        "badge_color": "amber",
+                        "action": "STOP-LOSS IN GEFAHR",
+                        "title": f"⚠️ Stop-Loss in Reichweite (noch {dist:.1f}%)",
+                        "message": f"Der Kurs ({curr_p:,.2f} $) ist nur noch {dist:.1f}% von deinem Stop-Loss ({sl_num:,.2f} $) entfernt. Risikomanagement prüfen!"
+                    }
+            else: # SHORT
+                if curr_p >= sl_num:
+                    return {
+                        "status": "CRITICAL",
+                        "badge_color": "rose",
+                        "action": "STOP-LOSS AUSGELÖST",
+                        "title": f"🛑 Stop-Loss erreicht ({curr_p:,.2f} >= {sl_num:,.2f})",
+                        "message": f"Der Kurs ({curr_p:,.2f} $) hat deinen Stop-Loss von {sl_num:,.2f} $ erreicht oder überschritten. Position zur Verlustbegrenzung schließen!"
+                    }
+                elif curr_p >= sl_num * 0.985:
+                    dist = ((sl_num - curr_p) / curr_p) * 100.0
+                    return {
+                        "status": "WARNING",
+                        "badge_color": "amber",
+                        "action": "STOP-LOSS IN GEFAHR",
+                        "title": f"⚠️ Stop-Loss in Reichweite (noch {dist:.1f}%)",
+                        "message": f"Der Kurs ({curr_p:,.2f} $) ist nur noch {dist:.1f}% von deinem Stop-Loss ({sl_num:,.2f} $) entfernt. Risikomanagement prüfen!"
+                    }
+        except (ValueError, TypeError):
+            pass
+
+    # 2. TAKE-PROFIT ZIEL ERREICHT (Hohe Priorität!)
+    if tp is not None:
+        try:
+            tp_num = float(tp)
+            if direction == "LONG":
+                if curr_p >= tp_num:
+                    return {
+                        "status": "TAKE_PROFIT",
+                        "badge_color": "emerald",
+                        "action": "TAKE-PROFIT ERREICHT",
+                        "title": f"🎯 Kursziel erreicht ({curr_p:,.2f} >= {tp_num:,.2f})",
+                        "message": f"Dein Take-Profit von {tp_num:,.2f} $ wurde erreicht ({curr_p:,.2f} $)! Gewinne jetzt mitnehmen oder Stop auf Break-Even nachziehen."
+                    }
+                elif curr_p >= tp_num * 0.985:
+                    dist = ((tp_num - curr_p) / curr_p) * 100.0
+                    return {
+                        "status": "TAKE_PROFIT",
+                        "badge_color": "emerald",
+                        "action": "ZIEL FAST ERREICHT",
+                        "title": f"🎯 Take-Profit in Reichweite (noch {dist:.1f}%)",
+                        "message": f"Der Kurs ({curr_p:,.2f} $) nähert sich deinem Take-Profit Ziel ({tp_num:,.2f} $). Teilgewinne vorbereiten!"
+                    }
+            else: # SHORT
+                if curr_p <= tp_num:
+                    return {
+                        "status": "TAKE_PROFIT",
+                        "badge_color": "emerald",
+                        "action": "TAKE-PROFIT ERREICHT",
+                        "title": f"🎯 Kursziel erreicht ({curr_p:,.2f} <= {tp_num:,.2f})",
+                        "message": f"Dein Take-Profit von {tp_num:,.2f} $ wurde erreicht ({curr_p:,.2f} $)! Gewinne jetzt mitnehmen oder Stop auf Break-Even nachziehen."
+                    }
+                elif curr_p <= tp_num * 1.015:
+                    dist = ((curr_p - tp_num) / curr_p) * 100.0
+                    return {
+                        "status": "TAKE_PROFIT",
+                        "badge_color": "emerald",
+                        "action": "ZIEL FAST ERREICHT",
+                        "title": f"🎯 Take-Profit in Reichweite (noch {dist:.1f}%)",
+                        "message": f"Der Kurs ({curr_p:,.2f} $) nähert sich deinem Take-Profit Ziel ({tp_num:,.2f} $). Teilgewinne vorbereiten!"
+                    }
+        except (ValueError, TypeError):
+            pass
 
     if not asset_data:
         return {

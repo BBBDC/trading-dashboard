@@ -519,6 +519,114 @@ def get_confirm_trade_keyboard():
     }
 
 
+def fmt_price(val):
+    if val is None:
+        return "-"
+    try:
+        val = float(val)
+        if val >= 100:
+            return f"{val:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+        elif val >= 1:
+            return f"{val:,.4f}".replace(",", "X").replace(".", ",").replace("X", ".")
+        else:
+            return f"{val:,.6f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    except Exception:
+        return str(val)
+
+
+def get_stop_loss_keyboard(direction="LONG", entry_price=0.0):
+    buttons = []
+    if entry_price and entry_price > 0:
+        row = []
+        if direction.upper() == "LONG":
+            sl_pcts = [(-2, 0.98), (-5, 0.95), (-10, 0.90)]
+        else:
+            sl_pcts = [(2, 1.02), (5, 1.05), (10, 1.10)]
+        for pct, factor in sl_pcts:
+            val = round(entry_price * factor, 4 if entry_price < 10 else 2)
+            lbl = f"🛑 {pct:+d}% ({fmt_price(val)})"
+            row.append({"text": lbl, "callback_data": f"sl_quick_{val:g}"})
+        buttons.append(row)
+
+    buttons.append([{"text": "⏭️ Ohne Stop-Loss fortfahren", "callback_data": "sl_skip"}])
+    buttons.append([{"text": "❌ Abbrechen", "callback_data": "action_cancel"}])
+    return {"inline_keyboard": buttons}
+
+
+def get_take_profit_keyboard(direction="LONG", entry_price=0.0):
+    buttons = []
+    if entry_price and entry_price > 0:
+        row = []
+        if direction.upper() == "LONG":
+            tp_pcts = [(5, 1.05), (10, 1.10), (20, 1.20)]
+        else:
+            tp_pcts = [(-5, 0.95), (-10, 0.90), (-20, 0.80)]
+        for pct, factor in tp_pcts:
+            val = round(entry_price * factor, 4 if entry_price < 10 else 2)
+            lbl = f"🎯 {pct:+d}% ({fmt_price(val)})"
+            row.append({"text": lbl, "callback_data": f"tp_quick_{val:g}"})
+        buttons.append(row)
+
+    buttons.append([{"text": "⏭️ Ohne Take-Profit fortfahren", "callback_data": "tp_skip"}])
+    buttons.append([{"text": "❌ Abbrechen", "callback_data": "action_cancel"}])
+    return {"inline_keyboard": buttons}
+
+
+def get_edit_sl_keyboard(direction="LONG", entry_price=0.0, current_sl=None):
+    buttons = []
+    if current_sl is not None:
+        buttons.append([{"text": f"🔄 SL beibehalten ({fmt_price(current_sl)} $)", "callback_data": "edit_sl_keep"}])
+        buttons.append([{"text": "❌ Stop-Loss entfernen", "callback_data": "edit_sl_clear"}])
+    else:
+        buttons.append([{"text": "⏭️ Ohne Stop-Loss weiter", "callback_data": "edit_sl_keep"}])
+
+    if entry_price and entry_price > 0:
+        row = []
+        if direction.upper() == "LONG":
+            sl_pcts = [(-2, 0.98), (-5, 0.95), (-10, 0.90)]
+        else:
+            sl_pcts = [(2, 1.02), (5, 1.05), (10, 1.10)]
+        for pct, factor in sl_pcts:
+            val = round(entry_price * factor, 4 if entry_price < 10 else 2)
+            row.append({"text": f"{pct:+d}% ({fmt_price(val)})", "callback_data": f"edit_sl_quick_{val:g}"})
+        buttons.append(row)
+
+    buttons.append([{"text": "🔙 Abbrechen", "callback_data": "menu_my_trades"}])
+    return {"inline_keyboard": buttons}
+
+
+def get_edit_tp_keyboard(direction="LONG", entry_price=0.0, current_tp=None):
+    buttons = []
+    if current_tp is not None:
+        buttons.append([{"text": f"🔄 TP beibehalten ({fmt_price(current_tp)} $)", "callback_data": "edit_tp_keep"}])
+        buttons.append([{"text": "❌ Take-Profit entfernen", "callback_data": "edit_tp_clear"}])
+    else:
+        buttons.append([{"text": "⏭️ Ohne Take-Profit weiter", "callback_data": "edit_tp_keep"}])
+
+    if entry_price and entry_price > 0:
+        row = []
+        if direction.upper() == "LONG":
+            tp_pcts = [(5, 1.05), (10, 1.10), (20, 1.20)]
+        else:
+            tp_pcts = [(-5, 0.95), (-10, 0.90), (-20, 0.80)]
+        for pct, factor in tp_pcts:
+            val = round(entry_price * factor, 4 if entry_price < 10 else 2)
+            row.append({"text": f"{pct:+d}% ({fmt_price(val)})", "callback_data": f"edit_tp_quick_{val:g}"})
+        buttons.append(row)
+
+    buttons.append([{"text": "🔙 Abbrechen", "callback_data": "menu_my_trades"}])
+    return {"inline_keyboard": buttons}
+
+
+def get_confirm_edit_sltp_keyboard():
+    return {
+        "inline_keyboard": [
+            [{"text": "💾 Jetzt speichern & übernehmen", "callback_data": "edit_sltp_save"}],
+            [{"text": "❌ Abbrechen", "callback_data": "menu_my_trades"}]
+        ]
+    }
+
+
 # ==============================================================================
 # 4. DATEN-ABFRAGEN (LIVE-DATEN, PORTFOLIO, POSITIONEN)
 # ==============================================================================
@@ -1002,10 +1110,23 @@ def get_user_positions_text_and_markup(user_id=None, username=None):
         entry_fmt = f"{entry:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
         curr_fmt = f"{curr:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
+        sl = p.get("stop_loss")
+        tp = p.get("take_profit")
+        sl_str = f"{float(sl):,.2f} $".replace(",", "X").replace(".", ",").replace("X", ".") if sl is not None else "<i>-</i>"
+        tp_str = f"{float(tp):,.2f} $".replace(",", "X").replace(".", ",").replace("X", ".") if tp is not None else "<i>-</i>"
+
+        sltp_info = f"   • 🛑 <b>SL:</b> {sl_str} | 🎯 <b>TP:</b> {tp_str}"
+        if sl is not None and tp is not None:
+            risk = abs(entry - float(sl))
+            reward = abs(float(tp) - entry)
+            if risk > 0:
+                sltp_info += f" <i>(CRV 1:{reward / risk:.2f})</i>"
+
         lines.append(
             f"<b>{idx}. {icon} {p.get('name', sym)}</b> (<code>{sym}</code>)\n"
             f"   • <b>Richtung:</b> {sig} | <b>Hebel:</b> {lev:g}x\n"
             f"   • <b>Einstieg:</b> {entry_fmt} $ | <b>Aktuell:</b> {curr_fmt} $\n"
+            f"{sltp_info}\n"
             f"   • {pnl_icon} <b>PnL:</b> <b>{pnl_sign}{pnl_lev:.2f}%</b> (Basis: {pnl_sign}{pnl_base:.2f}%)\n"
         )
         if rec and rec.get("action"):
@@ -1013,8 +1134,10 @@ def get_user_positions_text_and_markup(user_id=None, username=None):
         lines.append("")
 
         pos_id = p.get("id") or sym
+        short_sym = sym.split(":")[-1]
         buttons.append([
-            {"text": f"🛑 {sym} schließen", "callback_data": f"close_confirm_{pos_id}"}
+            {"text": f"🎯 SL/TP anpassen", "callback_data": f"edit_sltp_{pos_id}"},
+            {"text": f"🛑 {short_sym} schließen", "callback_data": f"close_confirm_{pos_id}"}
         ])
 
     buttons.append([
@@ -1510,12 +1633,88 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
             return
 
         session["data"]["leverage"] = float(lev_val)
+        session["step"] = "WAITING_SL"
+        direction = session["data"].get("direction", "LONG")
+        entry_p = float(session["data"].get("entry_price", 0.0))
+        api.edit_message_text(
+            chat_id,
+            message_id,
+            f"Hebel: <b>{lev_val}x</b>\n\n"
+            f"Schritt 5: 🛑 <b>Stop-Loss (SL) festlegen</b>\n\n"
+            f"Gib deinen gewünschten Stop-Loss Kurs als Zahl in den Chat ein, "
+            f"wähle einen Schnell-Vorschlag oder überspringe diesen Schritt:",
+            reply_markup=get_stop_loss_keyboard(direction, entry_p)
+        )
+        return
+
+    # 6a. Stop-Loss gewählt (Button)
+    if data.startswith("sl_quick_"):
+        sl_val = float(data[9:])
+        session = USER_SESSIONS.get(chat_id)
+        if not session:
+            return
+        session["data"]["stop_loss"] = sl_val
+        session["step"] = "WAITING_TP"
+        direction = session["data"].get("direction", "LONG")
+        entry_p = float(session["data"].get("entry_price", 0.0))
+        api.edit_message_text(
+            chat_id,
+            message_id,
+            f"Stop-Loss: <b>{fmt_price(sl_val)} $</b>\n\n"
+            f"Schritt 6: 🎯 <b>Take-Profit (TP) festlegen</b>\n\n"
+            f"Gib dein Kursziel als Zahl in den Chat ein, wähle einen Schnell-Vorschlag oder überspringe:",
+            reply_markup=get_take_profit_keyboard(direction, entry_p)
+        )
+        return
+
+    if data == "sl_skip":
+        session = USER_SESSIONS.get(chat_id)
+        if not session:
+            return
+        session["data"]["stop_loss"] = None
+        session["step"] = "WAITING_TP"
+        direction = session["data"].get("direction", "LONG")
+        entry_p = float(session["data"].get("entry_price", 0.0))
+        api.edit_message_text(
+            chat_id,
+            message_id,
+            f"Stop-Loss: <i>Kein Stop-Loss gesetzt</i>\n\n"
+            f"Schritt 6: 🎯 <b>Take-Profit (TP) festlegen</b>\n\n"
+            f"Gib dein Kursziel als Zahl in den Chat ein, wähle einen Schnell-Vorschlag oder überspringe:",
+            reply_markup=get_take_profit_keyboard(direction, entry_p)
+        )
+        return
+
+    # 6b. Take-Profit gewählt (Button)
+    if data.startswith("tp_quick_"):
+        tp_val = float(data[9:])
+        session = USER_SESSIONS.get(chat_id)
+        if not session:
+            return
+        session["data"]["take_profit"] = tp_val
         session["step"] = "WAITING_NOTE"
         api.edit_message_text(
             chat_id,
             message_id,
-            f"Hebel: <b>{lev_val}x</b>\n\nSchritt 5: Optionale Notiz / Kursziel hinterlegen?\n"
-            "<i>(Einfach als Nachricht tippen oder überspringen)</i>",
+            f"Take-Profit: <b>{fmt_price(tp_val)} $</b>\n\n"
+            f"Schritt 7: Optionale Notiz hinterlegen?\n"
+            f"<i>(Einfach als Nachricht tippen oder überspringen)</i>",
+            reply_markup=get_note_keyboard()
+        )
+        return
+
+    if data == "tp_skip":
+        session = USER_SESSIONS.get(chat_id)
+        if not session:
+            return
+        session["data"]["take_profit"] = None
+        session["step"] = "WAITING_NOTE"
+        api.edit_message_text(
+            chat_id,
+            message_id,
+            f"Take-Profit: <i>Kein Take-Profit gesetzt</i>\n\n"
+            f"Schritt 7: Optionale Notiz hinterlegen?\n"
+            f"<i>(Einfach als Nachricht tippen oder überspringen)</i>",
             reply_markup=get_note_keyboard()
         )
         return
@@ -1544,23 +1743,31 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
 
         try:
             from manage_positions import add_position
+            sl_to_save = t_data.get("stop_loss")
+            tp_to_save = t_data.get("take_profit")
             add_position(
                 symbol=t_data["symbol"],
                 direction=t_data["direction"],
                 entry_price=t_data["entry_price"],
                 leverage=t_data.get("leverage", 1.0),
+                stop_loss=sl_to_save,
+                take_profit=tp_to_save,
                 note=t_data.get("note", ""),
                 user_id=str(user_id),
                 user_name=username or f"User_{user_id}",
                 sync_db=True,
                 git_push=True
             )
+            sl_info_txt = f"{fmt_price(sl_to_save)} $" if sl_to_save is not None else "Keiner"
+            tp_info_txt = f"{fmt_price(tp_to_save)} $" if tp_to_save is not None else "Keines"
             success_text = (
                 f"✅ <b>Position erfolgreich gespeichert!</b>\n\n"
                 f"• <b>Symbol:</b> {t_data['symbol']}\n"
                 f"• <b>Richtung:</b> {t_data['direction']}\n"
                 f"• <b>Einstieg:</b> {t_data['entry_price']:,.2f} $\n"
                 f"• <b>Hebel:</b> {t_data.get('leverage', 1.0)}x\n"
+                f"• 🛑 <b>Stop-Loss:</b> {sl_info_txt}\n"
+                f"• 🎯 <b>Take-Profit:</b> {tp_info_txt}\n"
                 f"• <b>Nutzer:</b> {username}\n\n"
                 f"🍓 Der Trade wird ab sofort 24/7 durch den Raspberry Pi überwacht und ist auf deinem Web-Dashboard live!"
             )
@@ -1574,6 +1781,184 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
             api.edit_message_text(chat_id, message_id, success_text, reply_markup=kb)
         except Exception as e:
             api.edit_message_text(chat_id, message_id, f"❌ Fehler beim Speichern: {e}", reply_markup=get_main_menu_keyboard(role))
+        return
+
+    # 7b. Stop-Loss & Take-Profit bei bestehenden Positionen anpassen
+    if data.startswith("edit_sltp_"):
+        pos_id = data[10:]
+        from manage_positions import load_positions
+        positions = load_positions()
+        target_pos = None
+        for p in positions:
+            if p.get("id") == pos_id or p.get("symbol") == pos_id:
+                target_pos = p
+                break
+        if not target_pos:
+            api.send_message(chat_id, "⚠️ Position nicht gefunden.")
+            return
+
+        session = USER_SESSIONS.setdefault(chat_id, {"wizard": "edit_sltp", "data": {}})
+        session["step"] = "WAITING_EDIT_SL"
+        session["pos_id"] = target_pos.get("id") or pos_id
+        session["symbol"] = target_pos.get("symbol")
+        session["direction"] = target_pos.get("direction", "LONG")
+        session["entry_price"] = float(target_pos.get("entry_price", 0.0))
+        session["orig_sl"] = target_pos.get("stop_loss")
+        session["orig_tp"] = target_pos.get("take_profit")
+        session["data"]["stop_loss"] = target_pos.get("stop_loss")
+        session["data"]["take_profit"] = target_pos.get("take_profit")
+
+        sym = target_pos.get("symbol")
+        entry = float(target_pos.get("entry_price", 0.0))
+        sl = target_pos.get("stop_loss")
+        tp = target_pos.get("take_profit")
+        sl_str = f"{fmt_price(sl)} $" if sl is not None else "Nicht gesetzt"
+        tp_str = f"{fmt_price(tp)} $" if tp is not None else "Nicht gesetzt"
+
+        msg = (
+            f"🎯 <b>SL & TP anpassen für {sym}</b> ({target_pos.get('direction')})\n\n"
+            f"• <b>Einstieg:</b> {entry:,.2f} $\n"
+            f"• <b>Aktueller SL:</b> {sl_str}\n"
+            f"• <b>Aktueller TP:</b> {tp_str}\n\n"
+            f"<b>Schritt 1 von 2: Neuer Stop-Loss (SL)</b>\n"
+            f"Tippe den neuen Kurs in den Chat oder nutze die Buttons:"
+        )
+        api.edit_message_text(
+            chat_id,
+            message_id,
+            msg,
+            reply_markup=get_edit_sl_keyboard(target_pos.get("direction"), entry, sl)
+        )
+        return
+
+    if data == "edit_sl_keep":
+        session = USER_SESSIONS.get(chat_id)
+        if not session or session.get("wizard") != "edit_sltp":
+            return
+        session["step"] = "WAITING_EDIT_TP"
+        entry = float(session.get("entry_price", 0.0))
+        direction = session.get("direction", "LONG")
+        current_tp = session.get("orig_tp")
+        sl_val = session["data"].get("stop_loss")
+        sl_str = f"{fmt_price(sl_val)} $" if sl_val is not None else "<i>Kein SL</i>"
+        api.edit_message_text(
+            chat_id,
+            message_id,
+            f"Stop-Loss: <b>{sl_str}</b>\n\n"
+            f"<b>Schritt 2 von 2: Neuer Take-Profit (TP)</b>\n"
+            f"Tippe das neue Kursziel in den Chat oder wähle eine Option:",
+            reply_markup=get_edit_tp_keyboard(direction, entry, current_tp)
+        )
+        return
+
+    if data == "edit_sl_clear":
+        session = USER_SESSIONS.get(chat_id)
+        if not session or session.get("wizard") != "edit_sltp":
+            return
+        session["data"]["stop_loss"] = None
+        session["step"] = "WAITING_EDIT_TP"
+        entry = float(session.get("entry_price", 0.0))
+        direction = session.get("direction", "LONG")
+        current_tp = session.get("orig_tp")
+        api.edit_message_text(
+            chat_id,
+            message_id,
+            f"Stop-Loss: <i>Gelöscht / entfernt</i>\n\n"
+            f"<b>Schritt 2 von 2: Neuer Take-Profit (TP)</b>\n"
+            f"Tippe das neue Kursziel in den Chat oder wähle eine Option:",
+            reply_markup=get_edit_tp_keyboard(direction, entry, current_tp)
+        )
+        return
+
+    if data.startswith("edit_sl_quick_"):
+        sl_val = float(data[14:])
+        session = USER_SESSIONS.get(chat_id)
+        if not session or session.get("wizard") != "edit_sltp":
+            return
+        session["data"]["stop_loss"] = sl_val
+        session["step"] = "WAITING_EDIT_TP"
+        entry = float(session.get("entry_price", 0.0))
+        direction = session.get("direction", "LONG")
+        current_tp = session.get("orig_tp")
+        api.edit_message_text(
+            chat_id,
+            message_id,
+            f"Neuer Stop-Loss: <b>{fmt_price(sl_val)} $</b>\n\n"
+            f"<b>Schritt 2 von 2: Neuer Take-Profit (TP)</b>\n"
+            f"Tippe das neue Kursziel in den Chat oder wähle eine Option:",
+            reply_markup=get_edit_tp_keyboard(direction, entry, current_tp)
+        )
+        return
+
+    if data == "edit_tp_keep":
+        session = USER_SESSIONS.get(chat_id)
+        if not session or session.get("wizard") != "edit_sltp":
+            return
+        render_edit_sltp_confirm(api, chat_id, message_id, session)
+        return
+
+    if data == "edit_tp_clear":
+        session = USER_SESSIONS.get(chat_id)
+        if not session or session.get("wizard") != "edit_sltp":
+            return
+        session["data"]["take_profit"] = None
+        render_edit_sltp_confirm(api, chat_id, message_id, session)
+        return
+
+    if data.startswith("edit_tp_quick_"):
+        tp_val = float(data[14:])
+        session = USER_SESSIONS.get(chat_id)
+        if not session or session.get("wizard") != "edit_sltp":
+            return
+        session["data"]["take_profit"] = tp_val
+        render_edit_sltp_confirm(api, chat_id, message_id, session)
+        return
+
+    if data == "edit_sltp_save":
+        session = USER_SESSIONS.get(chat_id)
+        if not session or session.get("wizard") != "edit_sltp":
+            return
+        target_pos_id = session.get("pos_id")
+        sym = session.get("symbol")
+        new_sl = session["data"].get("stop_loss")
+        new_tp = session["data"].get("take_profit")
+        clear_sl = (new_sl is None)
+        clear_tp = (new_tp is None)
+        USER_SESSIONS.pop(chat_id, None)
+
+        api.edit_message_text(chat_id, message_id, f"⏳ Speichere Änderungen für <b>{sym}</b> und aktualisiere Dashboard...")
+
+        try:
+            from manage_positions import update_position
+            update_position(
+                symbol_or_id=target_pos_id,
+                user_id=str(user_id),
+                stop_loss=new_sl,
+                take_profit=new_tp,
+                clear_sl=clear_sl,
+                clear_tp=clear_tp,
+                sync_db=True,
+                git_push=True
+            )
+            sl_fmt = f"{fmt_price(new_sl)} $" if new_sl is not None else "Kein SL"
+            tp_fmt = f"{fmt_price(new_tp)} $" if new_tp is not None else "Kein TP"
+            success_txt = (
+                f"✅ <b>Position erfolgreich aktualisiert!</b>\n\n"
+                f"• <b>Symbol:</b> {sym}\n"
+                f"• 🛑 <b>Stop-Loss:</b> {sl_fmt}\n"
+                f"• 🎯 <b>Take-Profit:</b> {tp_fmt}\n\n"
+                f"🍓 Die Parameter wurden synchronisiert und sind ab sofort im Bot und auf dem Web-Dashboard aktiv."
+            )
+            kb = {
+                "inline_keyboard": [
+                    [{"text": "📊 Meine Trades ansehen", "callback_data": "menu_my_trades"}],
+                    [{"text": "🌐 Im Web-Dashboard öffnen", "url": "https://bbbdc.github.io/trading-dashboard/"}],
+                    [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
+                ]
+            }
+            api.edit_message_text(chat_id, message_id, success_txt, reply_markup=kb)
+        except Exception as e:
+            api.edit_message_text(chat_id, message_id, f"❌ Fehler beim Aktualisieren: {e}", reply_markup=get_main_menu_keyboard(role))
         return
 
     # 8. Trade schließen – Bestätigung
@@ -1814,11 +2199,56 @@ def process_wizard_text_input(api, chat_id, user_id, username, session, text):
             return
 
         session["data"]["leverage"] = lev_val
+        session["step"] = "WAITING_SL"
+        direction = session["data"].get("direction", "LONG")
+        entry_p = float(session["data"].get("entry_price", 0.0))
+        api.send_message(
+            chat_id,
+            f"Hebel: <b>{lev_val:g}x</b>\n\nSchritt 5: 🛑 <b>Stop-Loss (SL) festlegen</b>\n\n"
+            f"Gib deinen gewünschten Stop-Loss Kurs als Zahl in den Chat ein, "
+            f"wähle einen Schnell-Vorschlag oder überspringe diesen Schritt:",
+            reply_markup=get_stop_loss_keyboard(direction, entry_p)
+        )
+        return
+
+    if step == "WAITING_SL":
+        cleaned = text.replace("$", "").replace("€", "").replace(",", ".").strip()
+        try:
+            sl_val = float(cleaned)
+            if sl_val <= 0:
+                raise ValueError()
+        except ValueError:
+            api.send_message(chat_id, "⚠️ Ungültiger Stop-Loss Kurs. Bitte gib eine positive Zahl ein (z. B. 65000 oder 270.50):")
+            return
+
+        session["data"]["stop_loss"] = sl_val
+        session["step"] = "WAITING_TP"
+        direction = session["data"].get("direction", "LONG")
+        entry_p = float(session["data"].get("entry_price", 0.0))
+        api.send_message(
+            chat_id,
+            f"Stop-Loss: <b>{fmt_price(sl_val)} $</b>\n\nSchritt 6: 🎯 <b>Take-Profit (TP) festlegen</b>\n\n"
+            f"Gib dein Kursziel als Zahl in den Chat ein, wähle einen Schnell-Vorschlag oder überspringe diesen Schritt:",
+            reply_markup=get_take_profit_keyboard(direction, entry_p)
+        )
+        return
+
+    if step == "WAITING_TP":
+        cleaned = text.replace("$", "").replace("€", "").replace(",", ".").strip()
+        try:
+            tp_val = float(cleaned)
+            if tp_val <= 0:
+                raise ValueError()
+        except ValueError:
+            api.send_message(chat_id, "⚠️ Ungültiger Take-Profit Kurs. Bitte gib eine positive Zahl ein (z. B. 92000 oder 310.00):")
+            return
+
+        session["data"]["take_profit"] = tp_val
         session["step"] = "WAITING_NOTE"
         api.send_message(
             chat_id,
-            f"Hebel: <b>{lev_val:g}x</b>\n\nSchritt 5: Optionale Notiz / Kursziel hinterlegen?\n"
-            "<i>(Einfach antworten oder Button unten nutzen)</i>",
+            f"Take-Profit: <b>{fmt_price(tp_val)} $</b>\n\nSchritt 7: Optionale Notiz hinterlegen?\n"
+            "<i>(Einfach als Nachricht antworten oder Button unten nutzen)</i>",
             reply_markup=get_note_keyboard()
         )
         return
@@ -1828,21 +2258,73 @@ def process_wizard_text_input(api, chat_id, user_id, username, session, text):
         render_trade_summary_and_confirm(api, chat_id, None, session["data"])
         return
 
+    if step == "WAITING_EDIT_SL":
+        cleaned = text.replace("$", "").replace("€", "").replace(",", ".").strip()
+        try:
+            sl_val = float(cleaned)
+            if sl_val <= 0:
+                raise ValueError()
+        except ValueError:
+            api.send_message(chat_id, "⚠️ Ungültiger Stop-Loss Kurs. Bitte gib eine positive Zahl ein:")
+            return
+
+        session["data"]["stop_loss"] = sl_val
+        session["step"] = "WAITING_EDIT_TP"
+        entry_p = float(session.get("entry_price", 0.0))
+        direction = session.get("direction", "LONG")
+        current_tp = session.get("orig_tp")
+        api.send_message(
+            chat_id,
+            f"Neuer Stop-Loss: <b>{fmt_price(sl_val)} $</b>\n\n"
+            f"<b>Schritt 2 von 2: Neuer Take-Profit (TP)</b>\n"
+            f"Tippe das neue Kursziel in den Chat oder wähle eine Option:",
+            reply_markup=get_edit_tp_keyboard(direction, entry_p, current_tp)
+        )
+        return
+
+    if step == "WAITING_EDIT_TP":
+        cleaned = text.replace("$", "").replace("€", "").replace(",", ".").strip()
+        try:
+            tp_val = float(cleaned)
+            if tp_val <= 0:
+                raise ValueError()
+        except ValueError:
+            api.send_message(chat_id, "⚠️ Ungültiger Take-Profit Kurs. Bitte gib eine positive Zahl ein:")
+            return
+
+        session["data"]["take_profit"] = tp_val
+        render_edit_sltp_confirm(api, chat_id, None, session)
+        return
+
 
 def render_trade_summary_and_confirm(api, chat_id, message_id, data):
     sym = data.get("symbol")
     sig = data.get("direction")
     entry = data.get("entry_price", 0.0)
     lev = data.get("leverage", 1.0)
+    sl = data.get("stop_loss")
+    tp = data.get("take_profit")
     note = data.get("note", "")
 
     sig_icon = "🟢" if sig == "LONG" else "🔴"
+    sl_str = f"{fmt_price(sl)} $" if sl is not None else "<i>Nicht gesetzt</i>"
+    tp_str = f"{fmt_price(tp)} $" if tp is not None else "<i>Nicht gesetzt</i>"
+
+    crv_line = ""
+    if sl is not None and tp is not None and entry > 0:
+        risk = abs(entry - float(sl))
+        reward = abs(float(tp) - entry)
+        if risk > 0:
+            crv_line = f"\n• ⚖️ <b>CRV:</b> 1 : {reward / risk:.2f}"
+
     summary_text = (
         f"📋 <b>Trade-Zusammenfassung</b>\n\n"
         f"• <b>Symbol:</b> <code>{sym}</code>\n"
         f"• <b>Richtung:</b> {sig_icon} <b>{sig}</b>\n"
         f"• <b>Einstiegskurs:</b> {entry:,.2f} $\n"
         f"• <b>Hebel:</b> {lev:g}x\n"
+        f"• 🛑 <b>Stop-Loss:</b> {sl_str}\n"
+        f"• 🎯 <b>Take-Profit:</b> {tp_str}{crv_line}\n"
     )
     if note:
         summary_text += f"• <b>Notiz:</b> <i>{note}</i>\n"
@@ -1853,6 +2335,37 @@ def render_trade_summary_and_confirm(api, chat_id, message_id, data):
         api.edit_message_text(chat_id, message_id, summary_text, reply_markup=get_confirm_trade_keyboard())
     else:
         api.send_message(chat_id, summary_text, reply_markup=get_confirm_trade_keyboard())
+
+
+def render_edit_sltp_confirm(api, chat_id, message_id, session):
+    sym = session.get("symbol")
+    sig = session.get("direction", "LONG")
+    entry = float(session.get("entry_price", 0.0))
+    sl = session["data"].get("stop_loss")
+    tp = session["data"].get("take_profit")
+
+    sl_str = f"{fmt_price(sl)} $" if sl is not None else "<i>Kein Stop-Loss</i>"
+    tp_str = f"{fmt_price(tp)} $" if tp is not None else "<i>Kein Take-Profit</i>"
+
+    crv_line = ""
+    if sl is not None and tp is not None and entry > 0:
+        risk = abs(entry - float(sl))
+        reward = abs(float(tp) - entry)
+        if risk > 0:
+            crv_line = f"\n• ⚖️ <b>Neues CRV:</b> 1 : {reward / risk:.2f}"
+
+    text = (
+        f"🎯 <b>Neue Parameter für {sym} ({sig})</b>\n\n"
+        f"• <b>Einstieg:</b> {entry:,.2f} $\n"
+        f"• 🛑 <b>Neuer Stop-Loss:</b> {sl_str}\n"
+        f"• 🎯 <b>Neuer Take-Profit:</b> {tp_str}{crv_line}\n\n"
+        f"Möchtest du diese Werte jetzt speichern & übernehmen?"
+    )
+
+    if message_id:
+        api.edit_message_text(chat_id, message_id, text, reply_markup=get_confirm_edit_sltp_keyboard())
+    else:
+        api.send_message(chat_id, text, reply_markup=get_confirm_edit_sltp_keyboard())
 
 
 # ==============================================================================
