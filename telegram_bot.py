@@ -1136,7 +1136,7 @@ def get_user_positions_text_and_markup(user_id=None, username=None):
         pos_id = p.get("id") or sym
         short_sym = sym.split(":")[-1]
         buttons.append([
-            {"text": f"🎯 SL/TP anpassen", "callback_data": f"edit_sltp_{pos_id}"},
+            {"text": f"🎯 SL/TP anpassen", "callback_data": f"edit_sltp_open_{pos_id}"},
             {"text": f"🛑 {short_sym} schließen", "callback_data": f"close_confirm_{pos_id}"}
         ])
 
@@ -1783,9 +1783,61 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
             api.edit_message_text(chat_id, message_id, f"❌ Fehler beim Speichern: {e}", reply_markup=get_main_menu_keyboard(role))
         return
 
-    # 7b. Stop-Loss & Take-Profit bei bestehenden Positionen anpassen
-    if data.startswith("edit_sltp_"):
-        pos_id = data[10:]
+    # 7b. Stop-Loss & Take-Profit: Änderungen final speichern
+    if data == "edit_sltp_save":
+        session = USER_SESSIONS.get(chat_id)
+        if not session or session.get("wizard") != "edit_sltp":
+            return
+        target_pos_id = session.get("pos_id")
+        sym = session.get("symbol")
+        new_sl = session["data"].get("stop_loss")
+        new_tp = session["data"].get("take_profit")
+        clear_sl = (new_sl is None)
+        clear_tp = (new_tp is None)
+        USER_SESSIONS.pop(chat_id, None)
+
+        api.edit_message_text(chat_id, message_id, f"⏳ Speichere Änderungen für <b>{sym}</b> und aktualisiere Dashboard...")
+
+        try:
+            from manage_positions import update_position
+            update_position(
+                symbol_or_id=target_pos_id,
+                user_id=str(user_id),
+                stop_loss=new_sl,
+                take_profit=new_tp,
+                clear_sl=clear_sl,
+                clear_tp=clear_tp,
+                sync_db=True,
+                git_push=True
+            )
+            sl_fmt = f"{fmt_price(new_sl)} $" if new_sl is not None else "Kein SL"
+            tp_fmt = f"{fmt_price(new_tp)} $" if new_tp is not None else "Kein TP"
+            success_txt = (
+                f"✅ <b>Position erfolgreich aktualisiert!</b>\n\n"
+                f"• <b>Symbol:</b> {sym}\n"
+                f"• 🛑 <b>Stop-Loss:</b> {sl_fmt}\n"
+                f"• 🎯 <b>Take-Profit:</b> {tp_fmt}\n\n"
+                f"🍓 Die Parameter wurden synchronisiert und sind ab sofort im Bot und auf dem Web-Dashboard aktiv."
+            )
+            kb = {
+                "inline_keyboard": [
+                    [{"text": "📊 Meine Trades ansehen", "callback_data": "menu_my_trades"}],
+                    [{"text": "🌐 Im Web-Dashboard öffnen", "url": "https://bbbdc.github.io/trading-dashboard/"}],
+                    [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
+                ]
+            }
+            api.edit_message_text(chat_id, message_id, success_txt, reply_markup=kb)
+        except Exception as e:
+            api.edit_message_text(chat_id, message_id, f"❌ Fehler beim Aktualisieren: {e}", reply_markup=get_main_menu_keyboard(role))
+        return
+
+    # 7c. Stop-Loss & Take-Profit bei bestehenden Positionen anpassen
+    if data.startswith("edit_sltp_open_") or (data.startswith("edit_sltp_") and not data.startswith("edit_sl_") and not data.startswith("edit_tp_")):
+        if data.startswith("edit_sltp_open_"):
+            pos_id = data[len("edit_sltp_open_"):]
+        else:
+            pos_id = data[len("edit_sltp_"):]
+
         from manage_positions import load_positions
         positions = load_positions()
         target_pos = None
@@ -1912,53 +1964,6 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
             return
         session["data"]["take_profit"] = tp_val
         render_edit_sltp_confirm(api, chat_id, message_id, session)
-        return
-
-    if data == "edit_sltp_save":
-        session = USER_SESSIONS.get(chat_id)
-        if not session or session.get("wizard") != "edit_sltp":
-            return
-        target_pos_id = session.get("pos_id")
-        sym = session.get("symbol")
-        new_sl = session["data"].get("stop_loss")
-        new_tp = session["data"].get("take_profit")
-        clear_sl = (new_sl is None)
-        clear_tp = (new_tp is None)
-        USER_SESSIONS.pop(chat_id, None)
-
-        api.edit_message_text(chat_id, message_id, f"⏳ Speichere Änderungen für <b>{sym}</b> und aktualisiere Dashboard...")
-
-        try:
-            from manage_positions import update_position
-            update_position(
-                symbol_or_id=target_pos_id,
-                user_id=str(user_id),
-                stop_loss=new_sl,
-                take_profit=new_tp,
-                clear_sl=clear_sl,
-                clear_tp=clear_tp,
-                sync_db=True,
-                git_push=True
-            )
-            sl_fmt = f"{fmt_price(new_sl)} $" if new_sl is not None else "Kein SL"
-            tp_fmt = f"{fmt_price(new_tp)} $" if new_tp is not None else "Kein TP"
-            success_txt = (
-                f"✅ <b>Position erfolgreich aktualisiert!</b>\n\n"
-                f"• <b>Symbol:</b> {sym}\n"
-                f"• 🛑 <b>Stop-Loss:</b> {sl_fmt}\n"
-                f"• 🎯 <b>Take-Profit:</b> {tp_fmt}\n\n"
-                f"🍓 Die Parameter wurden synchronisiert und sind ab sofort im Bot und auf dem Web-Dashboard aktiv."
-            )
-            kb = {
-                "inline_keyboard": [
-                    [{"text": "📊 Meine Trades ansehen", "callback_data": "menu_my_trades"}],
-                    [{"text": "🌐 Im Web-Dashboard öffnen", "url": "https://bbbdc.github.io/trading-dashboard/"}],
-                    [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
-                ]
-            }
-            api.edit_message_text(chat_id, message_id, success_txt, reply_markup=kb)
-        except Exception as e:
-            api.edit_message_text(chat_id, message_id, f"❌ Fehler beim Aktualisieren: {e}", reply_markup=get_main_menu_keyboard(role))
         return
 
     # 8. Trade schließen – Bestätigung

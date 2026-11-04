@@ -137,7 +137,7 @@ def update_position(symbol_or_id, user_id=None, stop_loss=None, take_profit=None
 
     for i, p in enumerate(positions):
         match_id = (p.get("id") == symbol_or_id or p.get("symbol") == symbol_or_id)
-        match_user = (str(p.get("user_id")) == str(user_id)) if user_id else True
+        match_user = (str(p.get("user_id")) == str(user_id)) if (user_id and p.get("user_id")) else True
         if match_id and match_user:
             if clear_sl:
                 p["stop_loss"] = None
