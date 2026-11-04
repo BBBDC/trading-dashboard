@@ -1,5 +1,72 @@
 [
   {
+    "id": "evt_20261104_071422",
+    "timestamp": "2026-11-04T07:14:22.517776+00:00",
+    "timestamp_display": "04.11.2026 07:14 UTC",
+    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 2,
+    "changes": [
+      {
+        "symbol": "TVC:GOLD",
+        "name": "Gold (Spot)",
+        "category": "Edelmetalle",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 45,
+        "new_score": 95,
+        "price": 4020.56,
+        "setup_name": "Hypothese 1: SMC Order Block [R1] Exhaustion",
+        "entry_range": [
+          4010.45,
+          4050.64
+        ],
+        "stop_loss": 4159.14,
+        "take_profit_2": 3568.41,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 1D Institutional BUY Pocket (Lower Chaos Band unter RFE 233)",
+          "degencoder: 1h Potential Buy Signal (Blaues Dreieck)"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "TVC:DJI",
+        "name": "DJI",
+        "category": "Indizes / Devisen",
+        "change_type": "SCORE_JUMP",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 95,
+        "new_score": 85,
+        "price": 51786.72,
+        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
+        "entry_range": [
+          51683.15,
+          52201.01
+        ],
+        "stop_loss": 53599.26,
+        "take_profit_2": 45986.59,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "degencoder: 4h Institutional BUY Pocket (Lower Chaos Band unter RFE 233)",
+          "degencoder: 1h Potential Buy Signal (Blaues Dreieck)",
+          "degencoder: 4h Potential Buy Signal (Blaues Dreieck)"
+        ],
+        "change_reason": "Konfluenz-Veränderung: Score springt von 95% auf 85% (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n🔴 Gold (Spot) (GOLD):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R1] Exhaustion\n   Entry: 4,010.45 | SL: 4,159.14 | TP2: 3,568.41\n\n🔴 DJI (DJI):\n   Score-Sprung: 95% ➔ 85% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 85% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 51,683.15 | SL: 53,599.26 | TP2: 45,986.59\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261104_063328",
     "timestamp": "2026-11-04T06:33:28.665201+00:00",
     "timestamp_display": "04.11.2026 06:33 UTC",
@@ -27424,37 +27491,5 @@
     "notification_sent": true,
     "provider": "ntfy",
     "raw_message": "🔄 Folgende 36 Einstufungen haben sich geändert:\n\n🔴 Alphabet (Google) (GOOG):\n   Score-Sprung: 95% ➔ 74% (SHORT)\n   Setup: Hypothese 2: Trend Continuation (MTF Bearish Alignment)\n   Entry: 338.50 | SL: 348.50 | TP2: 310.50\n\n⚪ Robinhood (HOOD):\n   Einstufung: LONG ➔ NEUTRAL (Score: 55%)\n   Setup: Beobachten / Warten auf Konfluenz-Bestätigung im 1D Golden Pocket\n\n⚪ Micron Technology (MU):\n   Einstufung: LONG ➔ NEUTRAL (Score: 52%)\n   Setup: Beobachten / Warten auf HTF Wyckoff-Validierung & 4h-Trendumkehr\n\n⚪ CrowdStrike (CRWD):\n   Einstufung: LONG ➔ NEUTRAL (Score: 52%)\n   Setup: Beobachten / Reversal Watchlist an Oversold-Zone\n\n⚪ DAX 40 (DAX):\n   Einstufung: LONG ➔ NEUTRAL (Score: 52%)\n   Setup: Beobachten / Warten auf HTF-Pullback & Bereinigung der Divergenzen\n\n⚪ WTI Rohöl Future (CL1!):\n   Einstufung: LONG ➔ NEUTRAL (Score: 52%)\n   Setup: Beobachten / Warten auf RSI-Abkühlung & FVG-Retest (Trend Continuation)\n\n... und 30 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261018_122912",
-    "timestamp": "2026-10-18T12:29:12.074874+00:00",
-    "timestamp_display": "18.10.2026 12:29 UTC",
-    "title": "🔔 TV-Signaländerung: 1 Asset aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 1,
-    "changes": [
-      {
-        "symbol": "BINANCE:AVAXUSDT",
-        "name": "Avalanche",
-        "category": "Crypto",
-        "change_type": "SETUP_UPDATE",
-        "old_signal": "LONG",
-        "new_signal": "LONG",
-        "old_score": 96,
-        "new_score": 96,
-        "price": 9.78,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          9.7,
-          9.8
-        ],
-        "stop_loss": 9.34,
-        "take_profit_2": 11.19,
-        "note": "Bullische Confluence (96%): 1D Trend über EMA 233 bullisch. VSA und RSI bestätigen nachlassenden Verkaufsdruck."
-      }
-    ],
-    "notification_sent": true,
-    "provider": "ntfy",
-    "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n🟢 Avalanche (AVAXUSDT):\n   Score-Sprung: 96% ➔ 96% (LONG)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 9.70 | SL: 9.34 | TP2: 11.19\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
