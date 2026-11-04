@@ -1,7 +1,199 @@
 {
-  "updated_at": "2026-11-04T09:06:21.596971+00:00",
-  "total_experience_records": 71,
+  "updated_at": "2026-11-04T10:34:34.635249+00:00",
+  "total_experience_records": 70,
   "learnings": [
+    {
+      "timestamp": "2026-11-04T10:34:20.458579+00:00",
+      "trade_id": "cross_rule_1793788460",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Asymmetrische Regime-Differenzierung: Struktureller TradFi-Aufwärtsdrift bestraft ungefilterte Shorts härter als Krypto-Märkte.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Während Krypto (RENDER) symmetrisch auf Liquiditätserschöpfung reagiert, tendieren DAX- und US-Large-Caps bei dünnem Volumen zu zähen Aufwärts-Grinds, weshalb Short-Setups auf Macro-Timeframes (4h/1D) signifikant strengere Sweep- und Reject-Kriterien verlangen als Long-Setups.",
+        "actionable_rule": "Asymmetrische Regime-Differenzierung: Struktureller TradFi-Aufwärtsdrift bestraft ungefilterte Shorts härter als Krypto-Märkte."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T10:34:20.458550+00:00",
+      "trade_id": "cross_rule_1793788460",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volumen-Validierung vor Indikator-Glauben: Keine Mean-Reversion gegen das übergeordnete Momentum ohne VSA-Absorption (Climax) oder SFP.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Wie das Scheitern bei ALV.DE zeigt, bedeutet ein Überdehnen der Chaos-Bänder ohne Volumenspike oft nur Trendbeschleunigung oder Fortsetzungskonsolidierung; Reversals auf 4h/1D benötigen zwingend institutionelle Volumenspikes zur Umkehr.",
+        "actionable_rule": "Volumen-Validierung vor Indikator-Glauben: Keine Mean-Reversion gegen das übergeordnete Momentum ohne VSA-Absorption (Climax) oder SFP."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T10:34:20.458529+00:00",
+      "trade_id": "inc_ALV.DE_5m_1793780376",
+      "symbol": "ALV.DE",
+      "name": "Allianz",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.22,
+      "pnl_raw": -0.11,
+      "text": "Absolutes Short-Verbot bei TradFi-Schwergewichten allein aufgrund von Band-Überdehnungen ohne vorherigen Liquiditäts-Sweep (SFP) des letzten Swing-Highs und VSA-Volumenexhaustion.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ALV.DE_5m_1793780376",
+        "verdict": "LOSS",
+        "driver": "Shorten gegen die vorherrschende Aufwärtsdynamik eines defensiven DAX-Titels ohne VSA-Volumenbestätigung – der bloße Indikator-Marker wurde durch einen klassischen Stop-Run über dem Widerstand pulverisiert.",
+        "technical_warning": "Niedriges Volumen und enge Kerzenspreads am Chaos-Band signalisierten keinen Verkaufsdruck (Distribution), sondern passiven Kaufüberhang und Liquiditätsmangel auf der Briefseite.",
+        "actionable_rule": "Absolutes Short-Verbot bei TradFi-Schwergewichten allein aufgrund von Band-Überdehnungen ohne vorherigen Liquiditäts-Sweep (SFP) des letzten Swing-Highs und VSA-Volumenexhaustion."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T10:34:20.458504+00:00",
+      "trade_id": "inc_SIE.DE_5m_1793780375",
+      "symbol": "SIE.DE",
+      "name": "Siemens",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 1.02,
+      "pnl_raw": 0.51,
+      "text": "Bei Longs in Buy-Pockets ohne VSA-Volumenbestätigung muss zwingend ein 5m-Strukturwechsel (CHoCH / Bruch des letzten lokalen Zwischenhochs) abgewartet werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SIE.DE_5m_1793780375",
+        "verdict": "WIN",
+        "driver": "Saubere Mean-Reversion aus einer überdehnten Liquiditätstasche (Chaos Band < RFE), bei der institutionelle Limit-Käufer im DAX-Large-Cap verlässlich den Boden stabilisierten.",
+        "technical_warning": "Das Fehlen eines expliziten VSA-Volumensurges barg das Risiko eines Durchsackens bei Eröffnungsschwäche oder institutionellem Order-Unbalance.",
+        "actionable_rule": "Bei Longs in Buy-Pockets ohne VSA-Volumenbestätigung muss zwingend ein 5m-Strukturwechsel (CHoCH / Bruch des letzten lokalen Zwischenhochs) abgewartet werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T10:34:20.458432+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1793780375",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 0.46,
+      "pnl_raw": 0.23,
+      "text": "Shorts an Chaos-Bändern in Krypto-Märkten sind nur freigegeben, wenn mindestens ein VSA-Surge ≥ 1.5x das Scheitern weiterer Hochs bestätigt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1793780375",
+        "verdict": "WIN",
+        "driver": "VSA High Volume Surge (1.6x) bestätigte an der Chaos-Band-Extremzone die institutionelle Verkaufsabsorption, wodurch der Verkaufsdruck sofort dynamisch nach unten durchschlug.",
+        "technical_warning": "Im 5m-Krypto-Tape drohen bei 1.6x Spikes aggressive Liquiditäts-Whipsaws, falls die Folgebalken trotz Volumenspike keine Spreaderweiterung nach unten zeigen.",
+        "actionable_rule": "Shorts an Chaos-Bändern in Krypto-Märkten sind nur freigegeben, wenn mindestens ein VSA-Surge ≥ 1.5x das Scheitern weiterer Hochs bestätigt."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T10:33:44.626331+00:00",
+      "trade_id": "cross_rule_1793788424",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Korrelations- und Latenz-Bremse: Verbot synchroner Positionseröffnungen in korrelierten Assets ohne übergeordneten 4h-Trendfilter.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "ADA und SUI wurden im selben Sekundenbruchteil (1793780374 / 1793780375) geshortet; damit verdoppelt das Modell unbemerkt das Beta-Risiko eines lokalen Markt-Squeezes auf Micro-Ebene.",
+        "actionable_rule": "Korrelations- und Latenz-Bremse: Verbot synchroner Positionseröffnungen in korrelierten Assets ohne übergeordneten 4h-Trendfilter."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T10:33:44.626308+00:00",
+      "trade_id": "cross_rule_1793788424",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Effort vs. Result Gesetz (Wyckoff/VSA): Volumenspitzen an Support/Resistance sind bis zum Beweis des Gegenteils Absorption (Climax) und niemals Ausbruchs-Momentum.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl ADA (2.3x) als auch SUI (1.9x) wurden binnen minimaler Ticks (+0.16% / +0.20%) gekillt, weil hohes Volumen in engen Kerzen passive Gegenliquidität bedeutet, nicht Trendbeschleunigung – dies gilt fraktal identisch auf 4h und 1D.",
+        "actionable_rule": "Effort vs. Result Gesetz (Wyckoff/VSA): Volumenspitzen an Support/Resistance sind bis zum Beweis des Gegenteils Absorption (Climax) und niemals Ausbruchs-Momentum."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T10:33:44.626294+00:00",
+      "trade_id": "inc_SUIUSDT_5m_1793780375",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.4,
+      "pnl_raw": -0.2,
+      "text": "Chaos-Band-Extrema sind dynamische Zonen: Ein Gegentrend-Short erfordert zwingend eine Kerzenablehnung (Rejection Wick) und das Re-Entering in das Band vor Ordereingabe.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_5m_1793780375",
+        "verdict": "LOSS",
+        "driver": "Gleichzeitiges Korrelations-Fehlfeuer mit ADA; ein Mean-Reversion-Short am Chaos-Band wurde gegen intaktes Mikro-Momentum ohne jegliche Bestätigung abgesetzt.",
+        "technical_warning": "Band-Riding-Phänomen: Der Kurs schloss am oberen Chaos-Band ohne bärische Divergenz oder Erschöpfungsdocht, während das 1.9x Volumen aggressiven Trend-Kaufdruck anzeigte.",
+        "actionable_rule": "Chaos-Band-Extrema sind dynamische Zonen: Ein Gegentrend-Short erfordert zwingend eine Kerzenablehnung (Rejection Wick) und das Re-Entering in das Band vor Ordereingabe."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T10:33:44.626276+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1793780374",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.32,
+      "pnl_raw": -0.16,
+      "text": "Ultra High Volume (>2.0x VSA) verbietet sofortige Pro-Market-Einstiege; es muss zwingend ein Folgebruch unter das Tief der Volumenkerze abgewartet werden, um Climax-Fallen auszuschließen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1793780374",
+        "verdict": "LOSS",
+        "driver": "Das 2.3x Ultra High Volume war kein Verkaufsdruck, sondern klassisches Stopping/Absorption-Volumen institutioneller Käufer, das den Short direkt ausgestoppt hat.",
+        "technical_warning": "Ultra-hohes Volumen bei minimalem bärischen Spread (Range-Kompression) signalisierte 'Effort vs. Result'-Divergenz nach Wyckoff – Verkäufer liefen direkt in passive Buy-Orders.",
+        "actionable_rule": "Ultra High Volume (>2.0x VSA) verbietet sofortige Pro-Market-Einstiege; es muss zwingend ein Folgebruch unter das Tief der Volumenkerze abgewartet werden, um Climax-Fallen auszuschließen."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T10:33:44.626206+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1793773912",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Ein Liquidity-Sweep an einem Order Block darf erst nach Bestätigung durch einen Kerzenschluss zurück über dem Sweep-Niveau und erfolgtem internen Structure-Shift (mCHoCH) gehandelt werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1793773912",
+        "verdict": "LOSS",
+        "driver": "Der angebliche Liquidity-Sweep [A] war kein Reversal-Sweep, sondern ein echter Durchbruch durch einen schwachen Order Block [C] ohne nennenswerte defensive Käuferaktivität.",
+        "technical_warning": "Fehlende Docht-Rejection auf Kerzenschlussbasis unterhalb des Sweep-Tiefs und Ausbleiben einer bullischen VSA-Absorptionskerze vor dem Retest.",
+        "actionable_rule": "Ein Liquidity-Sweep an einem Order Block darf erst nach Bestätigung durch einen Kerzenschluss zurück über dem Sweep-Niveau und erfolgtem internen Structure-Shift (mCHoCH) gehandelt werden."
+      }
+    },
     {
       "timestamp": "2026-11-04T09:05:29.906605+00:00",
       "trade_id": "trade_XETR_NOV_20261102_1416",
