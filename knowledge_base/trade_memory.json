@@ -1,7 +1,141 @@
 {
-  "updated_at": "2026-11-04T06:33:18.857188+00:00",
-  "total_experience_records": 70,
+  "updated_at": "2026-11-04T07:14:08.354663+00:00",
+  "total_experience_records": 77,
   "learnings": [
+    {
+      "timestamp": "2026-11-04T07:14:04.457589+00:00",
+      "trade_id": "cross_rule_1793776444",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
+        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T07:14:04.457549+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1793773914",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.46,
+      "pnl_raw": -0.23,
+      "text": "Bei RENDERUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1793773914",
+        "verdict": "LOSS",
+        "driver": "Trade RENDERUSDT schloss mit CLOSED_SL (-1.0R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei RENDERUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T07:12:32.838614+00:00",
+      "trade_id": "cross_rule_1793776352",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volatilitätsexpansion vs. Erschöpfung (Chaos Bands RFE)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein Ausbruch über Chaos-Bänder/RFE kennzeichnet fraktal den Beginn institutioneller Trendphasen. Reversal-Setups dürfen dort niemals antizipiert, sondern erst nach einem vollendeten Break of Structure (BoS/MSS) mit Volumenbestätigung gehandelt werden.",
+        "actionable_rule": "Volatilitätsexpansion vs. Erschöpfung (Chaos Bands RFE)"
+      }
+    },
+    {
+      "timestamp": "2026-11-04T07:12:32.838577+00:00",
+      "trade_id": "cross_rule_1793776352",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Orderblock-Degradation: R1 = Execution, R2+ = Liquidation Trap",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Jeder erneute Test einer Supply- oder Demand-Zone absorbiert ruhende Limit-Orders. Sowohl auf 5m als auch auf 4h/1D führt ein R2-Retest ohne frischen Sweeps meist zum Zonenbruch, da institutionelle Liquidität bereits beim R1 geräumt wurde.",
+        "actionable_rule": "Orderblock-Degradation: R1 = Execution, R2+ = Liquidation Trap"
+      }
+    },
+    {
+      "timestamp": "2026-11-04T07:12:32.838552+00:00",
+      "trade_id": "inc_SUIUSDT_5m_1793773914",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.5,
+      "pnl_raw": -0.25,
+      "text": "Wenn Chaos-Bänder oberhalb des RFE expandieren, ist Counter-Trend-Trading untersagt, bis eine geschlossene 5m-Kerze unter das letzte lokale Zwischentief (Market Structure Shift) bestätigt ist.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_5m_1793773914",
+        "verdict": "LOSS",
+        "driver": "Fehlinterpretation des 'Chaos Band > RFE' als Überkauft-Zustand statt als starkes Trend-Momentum, kombiniert mit einem R2-Test, der gegen die anhaltende Expansionsphase gerichtet war.",
+        "technical_warning": "Extreme Spreizung der Chaos-Bänder signalisierte starke Volatilitätsexpansion (Trendfortsetzung) anstatt Mean-Reversion; ein Stop über dem unmittelbaren Hoch war mathematisch unterdimensioniert.",
+        "actionable_rule": "Wenn Chaos-Bänder oberhalb des RFE expandieren, ist Counter-Trend-Trading untersagt, bis eine geschlossene 5m-Kerze unter das letzte lokale Zwischentief (Market Structure Shift) bestätigt ist."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T07:12:32.838520+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1793773913",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.42,
+      "pnl_raw": -0.21,
+      "text": "Verbot von Short-Einstiegen bei R2-Retests, sofern kein vorheriger übergeordneter Sweep lokaler Hochs die Käuferseite nachweislich erschöpft hat.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1793773913",
+        "verdict": "LOSS",
+        "driver": "Schwacher Einstieg in einen bereits mitigierten Orderblock (R2) gänzlich ohne Liquiditäts-Sweep, wodurch der Markt ohne Gegenwehr durch die ausgedünnte Restliquidität lief.",
+        "technical_warning": "Fehlendes Liquidity-Sweep-Signal [A] und abnehmendes Verkaufsvolumen (VSA) am zweiten Retest zeigten Liquiditäts-Absorption statt Rejection an.",
+        "actionable_rule": "Verbot von Short-Einstiegen bei R2-Retests, sofern kein vorheriger übergeordneter Sweep lokaler Hochs die Käuferseite nachweislich erschöpft hat."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T07:12:32.838437+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1793773913",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 0.76,
+      "pnl_raw": 0.38,
+      "text": "Priorisiere ausschließlich unmitigierte Erst-Retests (R1) in Verbindung mit einem Stop-Hunt [A]; dies bleibt das Kern-Setup mit der höchsten statistischen Edge.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1793773913",
+        "verdict": "WIN",
+        "driver": "Perfektes Zusammenspiel aus frischem Erstkontakt (R1) an der Supply-Zone und einem vorgeschalteten Stop-Hunt High [A], das aggressive Buy-Stops abholte und sofort institutionalisiertes Reversal einleitete.",
+        "technical_warning": "Keine signifikanten Warnsignale; die Kombination aus R1-Frische und High-A-Sweep bot die sauberste Asymmetrie des Batches.",
+        "actionable_rule": "Priorisiere ausschließlich unmitigierte Erst-Retests (R1) in Verbindung mit einem Stop-Hunt [A]; dies bleibt das Kern-Setup mit der höchsten statistischen Edge."
+      }
+    },
     {
       "timestamp": "2026-11-04T06:33:14.910856+00:00",
       "trade_id": "cross_rule_1793773994",
