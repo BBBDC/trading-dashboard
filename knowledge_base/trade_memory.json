@@ -1,7 +1,159 @@
 {
-  "updated_at": "2026-11-04T21:06:25.945471+00:00",
-  "total_experience_records": 88,
+  "updated_at": "2026-11-04T22:26:18.573660+00:00",
+  "total_experience_records": 96,
   "learnings": [
+    {
+      "timestamp": "2026-11-04T22:26:14.842672+00:00",
+      "trade_id": "cross_rule_1793831174",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Trendfilter-Priorität: Mikro-Gegenbewegungen dürfen niemals isoliert gegen das Momentum der nächsthöheren Zeitebene gehandelt werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Wenn der übergeordnete Trend (15m/1h/4h) expandiert, fungieren Bearish Orderblocks auf 5m nicht als Umkehrzonen, sondern lediglich als kurzfristige Liquiditätspools für den nächsten bullischen Schub.",
+        "actionable_rule": "Trendfilter-Priorität: Mikro-Gegenbewegungen dürfen niemals isoliert gegen das Momentum der nächsthöheren Zeitebene gehandelt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T22:26:14.842636+00:00",
+      "trade_id": "cross_rule_1793831174",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Bestätigungspflicht: Ein Liquidity-Sweep wird erst nach impulsivem Displacement und internem Strukturbruch handelbar.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf der 5m-Mikroebene als auch im 4h/1D-Bereich führt das bloße Berühren eines Orderblocks nach einem Sweep ohne echtes Verkaufs-Displacement regelmäßig zu Continuation-Breakouts statt Reversals.",
+        "actionable_rule": "Fraktale Bestätigungspflicht: Ein Liquidity-Sweep wird erst nach impulsivem Displacement und internem Strukturbruch handelbar."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T22:26:14.842561+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1793824230",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -1.34,
+      "pnl_raw": -0.67,
+      "text": "Kein Reversal-Short an Bearish Orderblocks auf 5m/15m ohne signifikanten strukturellen Bruch (Break of Structure / CHoCH) und volumenindizierte Ablehnung auf Kerzen-Schlusskursbasis.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1793824230",
+        "verdict": "LOSS",
+        "driver": "Der Short-Einstieg am Orderblock erfolgte blind ohne bestätigten Strukturbruch (CHoCH) und lief direkt in eine bullische Trendfortsetzung hinein.",
+        "technical_warning": "Fehlendes VSA-Erschöpfungsmuster (No Demand) beim Retest sowie ausbleibende Volumen-Absorption am Sweep-Hoch hätten vor aggressivem Rest-Momentum gewarnt.",
+        "actionable_rule": "Kein Reversal-Short an Bearish Orderblocks auf 5m/15m ohne signifikanten strukturellen Bruch (Break of Structure / CHoCH) und volumenindizierte Ablehnung auf Kerzen-Schlusskursbasis."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T22:25:54.182520+00:00",
+      "trade_id": "cross_rule_1793831154",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Prä-Konditionierung durch Liquiditäts-Sweep (No Sweep, No Trade)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ohne vorangegangenen Stop-Run auf Gegenseite (High-Sweep für Shorts, Low-Sweep für Longs) existiert kein struktureller Orderüberhang institutioneller Marktteilnehmer; Einstiege in 'nackte' Zonen sind systematisches Bereitstellen von Retail-Exit-Liquidität.",
+        "actionable_rule": "Prä-Konditionierung durch Liquiditäts-Sweep (No Sweep, No Trade)"
+      }
+    },
+    {
+      "timestamp": "2026-11-04T22:25:54.182484+00:00",
+      "trade_id": "cross_rule_1793831154",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "OB-Depletion-Gesetz (R1-Exklusivität & Qualitätsfilter)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Fraktal gilt von 5m bis 1D: Ein Orderblock besitzt seine maximale Asymmetrie ausschließlich beim ersten Retest (R1) der Klassen [A] und [B]; ab R2 und bei Güteklasse [D] fungiert das Level statistisch überwiegend als Liquiditätsziel für Breakouts.",
+        "actionable_rule": "OB-Depletion-Gesetz (R1-Exklusivität & Qualitätsfilter)"
+      }
+    },
+    {
+      "timestamp": "2026-11-04T22:25:54.182460+00:00",
+      "trade_id": "inc_SUIUSDT_5m_1793824229",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.0,
+      "pnl_raw": -0.5,
+      "text": "Long-Setups verlangen zwingend eine OB-Qualität von mindestens [B] gepaart mit einer VSA-bestätigten Absorption unterhalb der lokalen Tiefs.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_5m_1793824229",
+        "verdict": "LOSS",
+        "driver": "Minderwertige Support-Güte [D] ohne Sell-Side-Sweep bot gegen das herannahende Abwärtsmomentum keinerlei Gegenwehr und wurde direkt nach Entry überrollt.",
+        "technical_warning": "Hohes relatives Abwärtsvolumen (Effort without Result für die Bullen) direkt in die fragile D-Support-Zone hinein warnte vor unmittelbarem Durchbruch.",
+        "actionable_rule": "Long-Setups verlangen zwingend eine OB-Qualität von mindestens [B] gepaart mit einer VSA-bestätigten Absorption unterhalb der lokalen Tiefs."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T22:25:54.182427+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1793819480",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Short-Trade an OBs ohne verifizierten Liquidity Sweep des vorangegangenen lokalen Hochs unmittelbar vor dem Entry.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1793819480",
+        "verdict": "LOSS",
+        "driver": "Der Einstieg erfolgte blind an einem B-Level ohne vorherige Bereinigung der Buy-Side-Liquidität (kein Sweep High [A]), wodurch der Markt den Stop-Loss als Treibstoff für den Durchbruch nutzte.",
+        "technical_warning": "Fehlendes Stop-Hunt-Muster über dem Swing-High und schwache Verkaufsabsorption vor dem Retest signalisierten mangelndes institutionelles Interesse an fallenden Preisen.",
+        "actionable_rule": "Kein Short-Trade an OBs ohne verifizierten Liquidity Sweep des vorangegangenen lokalen Hochs unmittelbar vor dem Entry."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T22:25:54.182343+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1793817432",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Orderblöcke der Güteklasse [D] sind prinzipiell gesperrt; Retests ab R2 dürfen unabhängig von Sweeps keinesfalls mehr betreten werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1793817432",
+        "verdict": "LOSS",
+        "driver": "Trotz exzellentem Liquidity Sweep [A] war der Orderblock der schlechtesten Güteklasse [D] durch zwei vorherige Tests (R3) bereits vollständig liquiditätstechnisch entleert.",
+        "technical_warning": "Der R3-Retest kündigte die Erschöpfung der verbliebenen Limit-Verkaufsorders an; bei nachlassendem Abstoßungsvolumen wird ein D-Level zur Breakout-Zone statt zum Reversal.",
+        "actionable_rule": "Orderblöcke der Güteklasse [D] sind prinzipiell gesperrt; Retests ab R2 dürfen unabhängig von Sweeps keinesfalls mehr betreten werden."
+      }
+    },
     {
       "timestamp": "2026-11-04T20:31:11.490229+00:00",
       "trade_id": "cross_rule_1793824271",
