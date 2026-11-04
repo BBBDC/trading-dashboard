@@ -1,7 +1,255 @@
 {
-  "updated_at": "2026-11-04T13:05:55.544384+00:00",
-  "total_experience_records": 90,
+  "updated_at": "2026-11-04T14:37:47.411333+00:00",
+  "total_experience_records": 103,
   "learnings": [
+    {
+      "timestamp": "2026-11-04T14:37:43.496379+00:00",
+      "trade_id": "cross_rule_1793803063",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Zwingende Leitbörsen-Synchronisation bei Sekundär-Listings",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Mikro-Signale auf europäischen Dual-Listings (APC.F) sind Scheinkonfluenzen, solange die primäre US-Heimatbörse (AAPL) und deren übergeordneter 4h-Trend die Short-Richtung nicht durch VSA-Schwäche und echte Verkaufsvolumina bestätigen.",
+        "actionable_rule": "Zwingende Leitbörsen-Synchronisation bei Sekundär-Listings"
+      }
+    },
+    {
+      "timestamp": "2026-11-04T14:37:43.496360+00:00",
+      "trade_id": "cross_rule_1793803063",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Struktureller Liquiditäts-Puffer statt mathematischer Miniaturisierung",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Was auf 5m als 1-Cent-Stop sofort ausgestoppt wird, scheitert auf 4h/1D identisch, wenn Stops willkürlich eng an Indikatorbändern platziert werden, statt hinter signifikante Swing-Pivots und externe Liquiditätspools zu gehören.",
+        "actionable_rule": "Struktureller Liquiditäts-Puffer statt mathematischer Miniaturisierung"
+      }
+    },
+    {
+      "timestamp": "2026-11-04T14:37:43.496310+00:00",
+      "trade_id": "inc_APC.F_5m_1793794652",
+      "symbol": "APC.F",
+      "name": "Apple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.0,
+      "pnl_raw": -0.0,
+      "text": "Hard Pre-Trade Risk-Gate: Der Mindestabstand zum Stop-Loss muss zwingend mindestens 1,5x dem aktuellen Geld-Brief-Spread entsprechen und darf 1,0x der 5m-ATR zu keinem Zeitpunkt unterschreiten.",
+      "ai_post_mortem": {
+        "trade_id": "inc_APC.F_5m_1793794652",
+        "verdict": "LOSS",
+        "driver": "Tödlich enge Stop-Distanz von lediglich 0,0098 € bei 297,65 € Kursniveau (0,003% Puffer), wodurch der Trade sofort im Makler-Spread ohne tatsächliche Richtungsbewegung verstarb.",
+        "technical_warning": "Extremer Disconnect zwischen Stop-Abstand und lokaler Volatilität (5m-ATR) sowie fehlende Filterung des tatsächlichen XETRA/Frankfurt Bid-Ask-Spreads vor Order-Routing.",
+        "actionable_rule": "Hard Pre-Trade Risk-Gate: Der Mindestabstand zum Stop-Loss muss zwingend mindestens 1,5x dem aktuellen Geld-Brief-Spread entsprechen und darf 1,0x der 5m-ATR zu keinem Zeitpunkt unterschreiten."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T14:37:12.338895+00:00",
+      "trade_id": "cross_rule_1793803032",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Systemischer HTF-Korrelations- und Veto-Filter: Signalisiert das übergeordnete 4h-Chaos-Band eine bärische Expansionsphase, werden alle unkorrelierten Long-Setups im Mikrobereich (5m/15m) marktinstrumentenübergreifend blockiert.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Das synchrone Scheitern von ETH, SOL und TL0.F innerhalb derselben Minute belegt, dass Makro-Liquiditätsschocks jeden lokalen 5m-Support pulverisieren und unkorrelierte Einzel-Asset-Setups zur statistischen Falle werden lassen.",
+        "actionable_rule": "Systemischer HTF-Korrelations- und Veto-Filter: Signalisiert das übergeordnete 4h-Chaos-Band eine bärische Expansionsphase, werden alle unkorrelierten Long-Setups im Mikrobereich (5m/15m) marktinstrumentenübergreifend blockiert."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T14:37:12.338852+00:00",
+      "trade_id": "cross_rule_1793803032",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Entry ohne Grade-A Liquidity Sweep: Das bloße Berühren eines Chaos-Bandes oder Retests sekundärer Orderblöcke (B/C) ohne vorheriges Ausstoppen von Vor-Perioden-Tiefs ist fraktal auf allen Zeitebenen (5m bis 1D) verboten.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl im 5m-Mikro-Bereich als auch auf 4h/1D suchen Market Maker vor jeder signifikanten Trendwende zunächst die externe Liquidität unter markanten Tiefs; wer davor einsteigt, dient als Liquiditätsspender für den nächsten Abwärtsimpuls.",
+        "actionable_rule": "Kein Entry ohne Grade-A Liquidity Sweep: Das bloße Berühren eines Chaos-Bandes oder Retests sekundärer Orderblöcke (B/C) ohne vorheriges Ausstoppen von Vor-Perioden-Tiefs ist fraktal auf allen Zeitebenen (5m bis 1D) verboten."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T14:37:12.338817+00:00",
+      "trade_id": "inc_TL0.F_5m_1793794652",
+      "symbol": "TL0.F",
+      "name": "Tesla",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.78,
+      "pnl_raw": -0.39,
+      "text": "Handel von US-Werten über europäische Regionalbörsen (TL0.F) auf 5m-Ebene sperren, es sei denn, ein Mindestvolumen-Quorum ist erfüllt und der US-Pre-Market (NASDAQ/SPX) bestätigt die Long-Richtung im 4h-Trend.",
+      "ai_post_mortem": {
+        "trade_id": "inc_TL0.F_5m_1793794652",
+        "verdict": "LOSS",
+        "driver": "Fatales Cluster- und Liquiditätsrisiko: Long-Versuch auf einem US-Einzeltitel an einem illiquiden europäischen Börsenplatz (Frankfurt) zeitgleich mit marktweitem Krypto-Abverkauf ohne übergeordnete Trendabsicherung.",
+        "technical_warning": "Breiter bärischer Fair Value Gap (FVG) im Eröffnungsmomentum und asymmetrische Spread-Erweiterung im deutschen Orderbuch gegenüber dem US-Pre-Market.",
+        "actionable_rule": "Handel von US-Werten über europäische Regionalbörsen (TL0.F) auf 5m-Ebene sperren, es sei denn, ein Mindestvolumen-Quorum ist erfüllt und der US-Pre-Market (NASDAQ/SPX) bestätigt die Long-Richtung im 4h-Trend."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T14:37:12.338773+00:00",
+      "trade_id": "inc_SOLUSDT_5m_1793794651",
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.4,
+      "pnl_raw": -0.2,
+      "text": "Orderblöcke mit Qualitäts-Grade [C] werden systemweit aus der automatisierten Execution im 5m/15m-Bereich gestrichen; Einstiege erfordern mindestens Grade [A] mit nachgewiesenem Sweep unter signifikante Swing-Lows.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SOLUSDT_5m_1793794651",
+        "verdict": "LOSS",
+        "driver": "Mangelnde strukturelle Relevanz: Ein minderwertiger [C]-Orderblock (R4) besitzt im institutionellen Orderflow keinerlei Schutzwirkung und fungiert lediglich als Exit-Liquidität für Smart Money.",
+        "technical_warning": "Fehlender Sweep der lokalen Tagestiefs – der Kurs prallte ohne Liquidity Grab direkt in den C-Block ab, was ein Weiterlaufen der Stop-Run-Kaskade ankündigte.",
+        "actionable_rule": "Orderblöcke mit Qualitäts-Grade [C] werden systemweit aus der automatisierten Execution im 5m/15m-Bereich gestrichen; Einstiege erfordern mindestens Grade [A] mit nachgewiesenem Sweep unter signifikante Swing-Lows."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T14:37:12.338676+00:00",
+      "trade_id": "inc_ETHUSDT_5m_1793794651",
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.28,
+      "pnl_raw": -0.14,
+      "text": "Long-Einstiege an [B]-Orderblöcken sind strikt verboten, solange das Chaos-Band expandiert; zwingende Voraussetzung ist eine abgeschlossene 5m-VSA-Absorptionskerze mit hohem Volumen und Schließen in der oberen Kerzenhälfte.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ETHUSDT_5m_1793794651",
+        "verdict": "LOSS",
+        "driver": "Klassisches 'Falling Knife': Der Retest eines zweitklassigen [B]-Orderblocks bot bei dynamischer Abwärtsdrift null institutionelle Kaufunterstützung, da keine VSA-Absorptionskerze vorlag.",
+        "technical_warning": "Sinkendes bullisches Delta/Volumen beim Anlaufen der Buy-Pocket bei gleichzeitig sich weiter nach unten auffächerndem Chaos-Band statt einsetzender Volatilitätskontraktion.",
+        "actionable_rule": "Long-Einstiege an [B]-Orderblöcken sind strikt verboten, solange das Chaos-Band expandiert; zwingende Voraussetzung ist eine abgeschlossene 5m-VSA-Absorptionskerze mit hohem Volumen und Schließen in der oberen Kerzenhälfte."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T14:36:28.338996+00:00",
+      "trade_id": "cross_rule_1793802988",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Ausführen von Sweep-Setups ohne VSA-Absorptionsnachweis und Volatilitätspuffer.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Selbst technisch saubere Setups wie der BTC-Order-Block versagen sofort, wenn bei Kaskadenverkäufen ohne nachgewiesene Limit-Käufer-Absorption mit starren Tight-Stops gearbeitet wird.",
+        "actionable_rule": "Kein Ausführen von Sweep-Setups ohne VSA-Absorptionsnachweis und Volatilitätspuffer."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T14:36:28.338954+00:00",
+      "trade_id": "cross_rule_1793802988",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Bänder und Oszillatoren definieren Zonen des Interesses, niemals Einstiegssignale – Marktstruktur schlägt Indikator.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Alle drei Verluste entstanden durch reflexartiges Handeln von Chaos-Band-Extrema, während der übergeordnete Trend (4h/1D) die Mikro-Zonen mühelos überrannt hat.",
+        "actionable_rule": "Bänder und Oszillatoren definieren Zonen des Interesses, niemals Einstiegssignale – Marktstruktur schlägt Indikator."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T14:36:28.338920+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1793794650",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.32,
+      "pnl_raw": -0.16,
+      "text": "Auf 5m-Krypto-Setups muss der Stop-Loss mindestens 1,5x ATR (5m) Puffer unter dem Sweep-Tief aufweisen, und der Einstieg darf erst nach bullischem Kerzenschluss über dem OB erfolgen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1793794650",
+        "verdict": "LOSS",
+        "driver": "Trotz A-Grade-Confluence (OB Retest & Sweep) scheiterte der Trade an einem mit ca. 0,16% viel zu eng bemessenen Stop-Loss im hochvolatilen 5m-Krypto-Rauschen.",
+        "technical_warning": "Das VSA-Profil zeigte aggressive Market-Sell-Kaskaden; der Order Block wurde ohne Rejection-Docht oder Absorptionsvolumen glatt durchstoßen.",
+        "actionable_rule": "Auf 5m-Krypto-Setups muss der Stop-Loss mindestens 1,5x ATR (5m) Puffer unter dem Sweep-Tief aufweisen, und der Einstieg darf erst nach bullischem Kerzenschluss über dem OB erfolgen."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T14:36:28.338882+00:00",
+      "trade_id": "inc_NVD.F_15m_1793791012",
+      "symbol": "NVD.F",
+      "name": "Nvidia",
+      "category": "Micro-Incubator (15m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Micro-Confluence Short",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Shorts gegen HTF-Bullentrends erfordern zwingend den Sweep externer Liquidität gefolgt von einer impulsiven bärischen Displacement-Kerze zurück in die Range.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NVD.F_15m_1793791012",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Short-Versuch gegen das übergeordnete Momentum einer Trendaktie, ausgelöst lediglich durch eine temporäre Band-Überdehnung im Frankfurt-Handel.",
+        "technical_warning": "Fehlendes Sweep-Muster (kein SFP / Swing Failure Pattern) über dem Tages- bzw. Sitzungshoch bei kontinuierlich steigendem Delta-Kaufdruck.",
+        "actionable_rule": "Shorts gegen HTF-Bullentrends erfordern zwingend den Sweep externer Liquidität gefolgt von einer impulsiven bärischen Displacement-Kerze zurück in die Range."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T14:36:28.338792+00:00",
+      "trade_id": "inc_SAP.DE_15m_1793733115",
+      "symbol": "SAP.DE",
+      "name": "SAP SE",
+      "category": "Micro-Incubator (15m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Micro-Confluence Long",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Long-Einstieg in Buy Pockets ohne vorangegangene Absorption und einen expliziten 5m/15m Market Structure Shift (MSS) über das letzte lokale Zwischenhoch.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SAP.DE_15m_1793733115",
+        "verdict": "LOSS",
+        "driver": "Reines Oszillator-Fading im 15m-Chart ohne vorangegangenen Liquiditäts-Sweep oder Nachfragebestätigung führte direkt in das Stop-Out.",
+        "technical_warning": "Fehlendes VSA-Stopping-Volume bei anhaltend fallenden lokalen Tiefs unterhalb der dynamischen EMAs signalisierte intakten Abgabedruck.",
+        "actionable_rule": "Kein Long-Einstieg in Buy Pockets ohne vorangegangene Absorption und einen expliziten 5m/15m Market Structure Shift (MSS) über das letzte lokale Zwischenhoch."
+      }
+    },
     {
       "timestamp": "2026-11-04T12:18:52.818294+00:00",
       "trade_id": "cross_rule_1793794732",
