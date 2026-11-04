@@ -1,7 +1,220 @@
 {
-  "updated_at": "2026-11-04T05:06:37.978873+00:00",
-  "total_experience_records": 61,
+  "updated_at": "2026-11-04T06:33:18.857188+00:00",
+  "total_experience_records": 70,
   "learnings": [
+    {
+      "timestamp": "2026-11-04T06:33:14.910856+00:00",
+      "trade_id": "cross_rule_1793773994",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Mindest-Expansions-Schwelle für R-Multiples: Ein Setup muss auf HTF mindestens 2.0% reale Preiseskalation bis zum nächsten signifikanten Liquiditäts-Pool aufweisen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Während NEAR mit 2.31% gesunde Liquidität abschöpfte, frisst bei XRP (+1.37%) im Live-Desk-Betrieb die Summe aus Taker-Fees und Bid/Ask-Spread einen unverhältnismäßig großen Teil des theoretischen R:R auf.",
+        "actionable_rule": "Mindest-Expansions-Schwelle für R-Multiples: Ein Setup muss auf HTF mindestens 2.0% reale Preiseskalation bis zum nächsten signifikanten Liquiditäts-Pool aufweisen."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T06:33:14.910823+00:00",
+      "trade_id": "cross_rule_1793773994",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Trend-Kohärenz: 5m-Chaos-Band-Bounces dürfen nur bei übergeordnetem 4h-Bull-Regime (oder über 4h-Value-Area-Low) mit voller R-Größe allokiert werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die zeitgleiche 3.0R-Zielerreichung aller drei Assets zur identischen Minute belegt einen externen Gesamtmarkt-Schub; ohne diesen Makro-Rückenwind enden isolierte 5m-Extrema in Abwärtstrends meist in tödlichen Fortsetzungs-Dumps.",
+        "actionable_rule": "Fraktale Trend-Kohärenz: 5m-Chaos-Band-Bounces dürfen nur bei übergeordnetem 4h-Bull-Regime (oder über 4h-Value-Area-Low) mit voller R-Größe allokiert werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T06:33:14.910796+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1793761837",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 2.74,
+      "pnl_raw": 1.37,
+      "text": "Mikro-Setups mit einem Stop-Loss-Abstand von unter 0.5% sind im Krypto-Orderbuch entweder mit reduzierter Size zu handeln oder durch Mindest-Range-Filter zu sperren.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1793761837",
+        "verdict": "WIN",
+        "driver": "Extrem enge Volatilitätskompression erlaubte eine 3.0R-Realisierung trotz geringer absoluter Kursbewegung (+1.37%).",
+        "technical_warning": "Niedrige absolute Schwankungsbreite barg extremes Risiko, bei minimalem Orderbuch-Slippage vor dem Trigger ausgestoppt zu werden.",
+        "actionable_rule": "Mikro-Setups mit einem Stop-Loss-Abstand von unter 0.5% sind im Krypto-Orderbuch entweder mit reduzierter Size zu handeln oder durch Mindest-Range-Filter zu sperren."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T06:33:14.910764+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1793761837",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 4.62,
+      "pnl_raw": 2.31,
+      "text": "Bei High-Beta-Setups nach Erreichen von 1.5R den Stop zwingend auf Break-Even setzen, um scharfe Reversals nach Liquiditätsspitzen abzusichern.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1793761837",
+        "verdict": "WIN",
+        "driver": "Hervorragende relative Stärke und impulsive V-förmige Rückkehr in die Value Area nach vollständigem Liquidity-Sweep.",
+        "technical_warning": "Rasche Überhitzung im lokalen Momentum-Oszillator vor TP2, was das Risiko eines vorzeitigen Trailing-Stop-Outs erhöhte.",
+        "actionable_rule": "Bei High-Beta-Setups nach Erreichen von 1.5R den Stop zwingend auf Break-Even setzen, um scharfe Reversals nach Liquiditätsspitzen abzusichern."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T06:33:14.910684+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1793761836",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 4.18,
+      "pnl_raw": 2.09,
+      "text": "Long-Einstiege an der Buy Pocket dürfen erst ausgeführt werden, wenn die Trigger-Kerze bullisch schließt und das Chaos-Band wieder nach oben schneidet.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1793761836",
+        "verdict": "WIN",
+        "driver": "Lehrbuchartige Mean-Reversion durch institutionelle Absorption am Chaos-Band-Extremum mit sofortiger bullischer Impulsfolge.",
+        "technical_warning": "Mögliche Erschöpfungsdochte und abnehmendes Delta im 5m-Bounce kurz vor Erreichen der RFE-Widerstandszone.",
+        "actionable_rule": "Long-Einstiege an der Buy Pocket dürfen erst ausgeführt werden, wenn die Trigger-Kerze bullisch schließt und das Chaos-Band wieder nach oben schneidet."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T06:32:39.502515+00:00",
+      "trade_id": "cross_rule_1793773959",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Chaos-Dislokation mit zwingender Absorptions-Validierung (Chaos Band < RFE)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Das Setup 'Chaos Band unter RFE' generiert fraktal auf 5m ebenso wie auf 4h/1D exzellente R:R-Verhältnisse, ist aber ein reiner Kontratrend-Impuls; es darf auf höheren Zeitebenen nur getradet werden, wenn ein klares VSA-Volumenumkehrsignal (Absorptionsdocht/Divergenz) das Erschöpfen des Verkaufsdrucks bestätigt.",
+        "actionable_rule": "Fraktale Chaos-Dislokation mit zwingender Absorptions-Validierung (Chaos Band < RFE)"
+      }
+    },
+    {
+      "timestamp": "2026-11-04T06:32:39.502483+00:00",
+      "trade_id": "cross_rule_1793773959",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Synthetisches Korrelations-Cap für simultane Cluster-Setups",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die synchrone Triggerung von drei Longs binnen einer Sekunde belegt einen marktweiten Makro-/BTC-Sweep; scheitert der Sweep, führt die 100%ige Richtungskorrelation zum dreifachen Stop-Out. Auf allen Zeitebenen (5m bis 1D) darf das Gesamtrisiko zeitgleicher Basket-Trades auf denselben Impuls maximal 1.5R bis 2.0R Portfolio-Risk betragen.",
+        "actionable_rule": "Synthetisches Korrelations-Cap für simultane Cluster-Setups"
+      }
+    },
+    {
+      "timestamp": "2026-11-04T06:32:39.502463+00:00",
+      "trade_id": "inc_DOGEUSDT_5m_1793761836",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 4.5,
+      "pnl_raw": 2.25,
+      "text": "Bei hochvolatilen Meme-Assets muss der Stop-Loss unmittelbar nach Erreichen von 1.5R auf Break-Even nachgezogen werden, um scharfe Reversals abzufedern.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_5m_1793761836",
+        "verdict": "WIN",
+        "driver": "Explosiver Short-Squeeze im Retail-Segment nach extremer Chaos-Band-Überdehnung, der trotz höherem Spread die größte prozentuale Ausdehnung (+2.25%) lieferte.",
+        "technical_warning": "Ein massiver Volumen-Climax ohne unmittelbares Follow-Through über das Hoch der Triggerkerze hätte auf eine Liquiditätsfalle (Trap-Sweep) hingedeutet.",
+        "actionable_rule": "Bei hochvolatilen Meme-Assets muss der Stop-Loss unmittelbar nach Erreichen von 1.5R auf Break-Even nachgezogen werden, um scharfe Reversals abzufedern."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T06:32:39.502435+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1793761835",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 4.44,
+      "pnl_raw": 2.22,
+      "text": "High-Beta Mid-Caps erfordern zwingend eine sichtbare Rejection-Lunte (mindestens 30% der Kerzenspanne) unter dem Chaos-Band vor Freigabe des Einstiegs.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1793761835",
+        "verdict": "WIN",
+        "driver": "Hohe Beta-Elastizität nach dem Liquidity-Sweep, die eine dynamische V-förmige Erholung und zügige TP2-Expansionswelle (+2.22%) erzeugte.",
+        "technical_warning": "Anhaltendes aggressives Netto-Verkaufsdelta im Orderbuch trotz Good-Buy-Signals hätte auf Kaskaden-Liquidierungen hingewiesen.",
+        "actionable_rule": "High-Beta Mid-Caps erfordern zwingend eine sichtbare Rejection-Lunte (mindestens 30% der Kerzenspanne) unter dem Chaos-Band vor Freigabe des Einstiegs."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T06:32:39.502358+00:00",
+      "trade_id": "inc_BNBUSDT_5m_1793761835",
+      "symbol": "BNBUSDT",
+      "name": "BNB",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 3.04,
+      "pnl_raw": 1.52,
+      "text": "Bei Large-Cap Sweeps (BNB) nur einsteigen, wenn die Mean-Reversion-Distanz bis zum RFE-Mittelwert mindestens das 2,5-fache des Stop-Loss-Abstands bietet.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BNBUSDT_5m_1793761835",
+        "verdict": "WIN",
+        "driver": "Disziplinierte Mean-Reversion an einem Large-Cap durch saubere Rejektion des überdehnten Chaos-Bandes unterhalb der RFE mit minimalem Slippage und stetigem Ordermatching.",
+        "technical_warning": "Eine ausbleibende Delta-Absorptionsbestätigung (CVD-Flachlauf) während des Sweeps hätte vor einer fortgesetzten Range-Kompression ohne TP2-Reichweite gewarnt.",
+        "actionable_rule": "Bei Large-Cap Sweeps (BNB) nur einsteigen, wenn die Mean-Reversion-Distanz bis zum RFE-Mittelwert mindestens das 2,5-fache des Stop-Loss-Abstands bietet."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T06:05:36.318194+00:00",
+      "trade_id": "trade_TVC_NI225_20261030_1911",
+      "symbol": "TVC:NI225",
+      "name": "NI225",
+      "category": "Aktien",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "Hypothese 1: Bearish Confluence Reversal",
+      "pnl_leveraged": 8.6,
+      "pnl_raw": 2.15,
+      "text": "Saubere fundamentale und technische HTF-Ausrichtung, aber mangelhaftes Trade-Management: Wer 1.713 Indexpunkte vom Extrempunkt wieder an den Markt verschenkt, lässt massiv Alpha auf dem Tisch liegen.",
+      "ai_post_mortem": {
+        "verdict": "WIN",
+        "driver": "Die übergeordnete bärische HTF-Confluence lieferte planmäßig den Abverkauf, jedoch vernichtete ein viel zu träger Trailing-Stop über 55% des maximalen Buchgewinns vom Tief bei 60.216.",
+        "technical_warning": "Das Abprallen an der psychologischen Unterstützungszone um 60.000/60.200 gepaart mit überverkauftem Intraday-Momentum (1h-RSI-Erschöpfung) hätte die sofortige Sicherung aufgelaufener Gewinne erzwingen müssen.",
+        "actionable_rule": "Erreicht ein Index-Swing-Trade >4% unhebelten Buchgewinn oder eine signifikante HTF-Rundzahl-Unterstützung, sind zwingend 50% Teilgewinne zu realisieren und der Reststop auf das letzte lokale 1h/4h-Strukturhoch nachzuziehen.",
+        "recommended_leverage_adjustment": 0,
+        "summary_text": "Saubere fundamentale und technische HTF-Ausrichtung, aber mangelhaftes Trade-Management: Wer 1.713 Indexpunkte vom Extrempunkt wieder an den Markt verschenkt, lässt massiv Alpha auf dem Tisch liegen."
+      }
+    },
     {
       "timestamp": "2026-11-04T05:05:51.158182+00:00",
       "trade_id": "trade_BITSTAMP_ETHUSD_20261103_2031",
@@ -1138,30 +1351,21 @@
         "technical_warning": "Überdurchschnittliches Sell-Volumen ohne Delta-Divergenz beim Sweep sowie ein Kerzenschluss unterhalb der Order-Block-Basis signalisierten fehlende Absorption.",
         "actionable_rule": "Order Blocks mit Qualitätsgrad unter [A] sind auf 5m-Zeitskalen ausnahmslos verboten, wenn kein synchroner Richtungsentscheid des BTC-Lead-Marktes vorliegt."
       }
-    },
-    {
-      "timestamp": "2026-11-03T16:33:41.762315+00:00",
-      "trade_id": "inc_MSFT_1793672760",
-      "symbol": "MSFT",
-      "name": "Microsoft",
-      "category": "Micro-Incubator (15m)",
-      "direction": "LONG",
-      "result": "WIN",
-      "setup_name": "degencoder Micro Confluence Long",
-      "pnl_leveraged": 3.48,
-      "pnl_raw": 1.74,
-      "text": "Institutional Buy Pockets (Chaos < RFE) auf Zeitebenen >= 15m berechtigen zum aggressiven Skalieren auf volle TP-Ziele (3.0R), solange das RFE-Niveau vorab ein erschöpftes Volatilitätsregime belegt.",
-      "ai_post_mortem": {
-        "trade_id": "inc_MSFT_1793672760",
-        "verdict": "WIN",
-        "driver": "Perfekte Konfluenz aus statistischer Mean-Reversion ('Institutional Buy Pocket' durch Chaos Band < RFE) und sauberer Liquiditätsstruktur auf einem liquiden Mega-Cap-Titel im 15m-Zeitfenster.",
-        "technical_warning": "Kein Warnsignal bei Entry; ein frühes Ausbleiben von Folgevolumen bei Erreichen des ersten Chaos-Band-Mittelwerts hätte als Warnung für Teilschließungen gedient.",
-        "actionable_rule": "Institutional Buy Pockets (Chaos < RFE) auf Zeitebenen >= 15m berechtigen zum aggressiven Skalieren auf volle TP-Ziele (3.0R), solange das RFE-Niveau vorab ein erschöpftes Volatilitätsregime belegt."
-      }
     }
   ],
   "setup_statistics": {},
   "setup_performance": {
+    "Hypothese 1: Bearish Confluence Reversal": {
+      "trades": 11,
+      "wins": 4,
+      "losses": 7,
+      "win_rate": 36.4,
+      "total_lev_pnl": 64.6,
+      "profit_factor": 2.05,
+      "status": "CAUTION",
+      "min_score": 90,
+      "leverage_adjustment": -1
+    },
     "Hypothese 1: SMC Order Block [R1] Exhaustion": {
       "trades": 1,
       "wins": 0,
@@ -1172,17 +1376,6 @@
       "status": "BALANCED",
       "min_score": 88,
       "leverage_adjustment": 0
-    },
-    "Hypothese 1: Bearish Confluence Reversal": {
-      "trades": 10,
-      "wins": 3,
-      "losses": 7,
-      "win_rate": 30.0,
-      "total_lev_pnl": 56.0,
-      "profit_factor": 1.91,
-      "status": "UNDERPERFORMING",
-      "min_score": 92,
-      "leverage_adjustment": -2
     },
     "Hypothese 1: degencoder Institutional Buy Pocket Reversal": {
       "trades": 2,
@@ -1274,6 +1467,17 @@
     }
   },
   "category_performance": {
+    "Aktien": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate": 100.0,
+      "total_lev_pnl": 8.6,
+      "profit_factor": 9.99,
+      "status": "STANDARD",
+      "min_score": 88,
+      "leverage_cap": 5
+    },
     "Crypto": {
       "trades": 26,
       "wins": 2,
