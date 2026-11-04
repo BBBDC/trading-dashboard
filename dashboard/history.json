@@ -1,5 +1,122 @@
 [
   {
+    "id": "evt_20261104_111846",
+    "timestamp": "2026-11-04T11:18:46.119920+00:00",
+    "timestamp_display": "04.11.2026 11:18 UTC",
+    "title": "🔔 TV-Signaländerung: 4 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 4,
+    "changes": [
+      {
+        "symbol": "TVC:DXY",
+        "name": "US Dollar Index",
+        "category": "Forex / Makro",
+        "change_type": "SCORE_JUMP",
+        "old_signal": "LONG",
+        "new_signal": "LONG",
+        "old_score": 96,
+        "new_score": 86,
+        "price": 101.464,
+        "setup_name": "Hypothese 1: degencoder Institutional Buy Pocket Reversal",
+        "entry_range": [
+          101.4,
+          101.55
+        ],
+        "stop_loss": 101.2,
+        "take_profit_2": 103.1,
+        "reasons": [
+          "Makro-Trend (1W/1D) ist intakt bullisch; 4h/1h Konsolidierung bietet einen gesunden Pullback auf HTF-Support.",
+          "4h und 1h degencoder 'Potential Buy Signal' (blaues Dreieck) synchronisiert mit regulären bullischen Divergenzen.",
+          "Re-Test eines Sweep Bullish Order Blocks mit gesichertem Risiko unter dem lokalen Tief."
+        ],
+        "change_reason": "Konfluenz-Veränderung: Score springt von 96% auf 86% (Makro-Trend (1W/1D) ist intakt bullisch; 4h/1h Konsolidierung bietet einen gesunden Pullback auf HTF-Support.).",
+        "note": "Der US-Dollar-Index hält seine übergeordnete bullische Struktur (1D/1W) aufrecht. Der Rücksetzer auf den 4h/1h-Zeiteinheiten hat sich durch eine reguläre bullische Divergenz erschöpft und löst ein valides degencoder-Kaufsignal aus. Das Chance-Risiko-Verhältnis ist mit Ziel im Bereich der nächsten FVG-Liquidität sehr attraktiv.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...j2vQ]"
+      },
+      {
+        "symbol": "TVC:DJI",
+        "name": "DJI",
+        "category": "Indizes / Devisen",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 85,
+        "new_score": 52,
+        "price": 51786.72,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          52350.0,
+          52550.0
+        ],
+        "stop_loss": 52850.0,
+        "take_profit_2": 50600.0,
+        "reasons": [
+          "Regime-Divergenz: 1W ist bullisch, während 1D bärisch notiert; die aktiven 4h/1h 'Potential Buy'-Signale erzwingen die sofortige Neutralisierung der bisherigen Short-Position.",
+          "SMC-Struktur: Der Kurs sitzt direkt im Bullish OB (51563–52380), der jedoch mit R7 bereits stark verbraucht ist und keine frische Grade-A-Qualität für Longs aufweist.",
+          "Institutioneller Risikofilter: Der Math-Score von 85 verfehlt die geforderte 88%-Mindesthürde für Indizes; Einstiege sind erst nach Pullback in die Premium-Supply-Zone zulässig."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Regime-Divergenz: 1W ist bullisch, während 1D bärisch notiert; die aktiven 4h/1h 'Potential Buy'-Signale erzwingen die sofortige Neutralisierung der bisherigen Short-Position.).",
+        "note": "Der Dow Jones generiert am Support des R7-Bullish-Order-Blocks bullische Degencoder-Kaufsignale auf 1h und 4h, wodurch ein Verbleib im Short-Signal unverantwortlich wäre. Da der 1D-Trend jedoch weiterhin unter der 233 EMA verläuft, verbieten unsere institutionellen Filterregeln gleichzeitig das Eröffnen einer Long-Position gegen das Tagesregime. Wir stufen konsequent auf NEUTRAL herab und lauern auf einen Retest der Premium-Widerstandszone bei 52.350–52.550 Punkten für ein erneutes Short-Setup mit echtem Edge.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      },
+      {
+        "symbol": "XETR:NOV",
+        "name": "Novartis",
+        "category": "Pharma",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 89,
+        "new_score": 46,
+        "price": 36.705,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          35.2,
+          35.6
+        ],
+        "stop_loss": 34.4,
+        "take_profit_2": 39.5,
+        "reasons": [
+          "Makro-Trendwechsel (1D): Der 1D-Trend ist bullisch gedreht (RSI 62.8); ein Short gegen eine intakte 1D-Bullenstruktur ist gemäß Filterregel 1 und 3 strikt verboten.",
+          "Anti-Chasing-Regel: 4h-RSI steht bei 76.7 (massiv überkauft mit Very High Volume); ein Pro-Trend Long-Einstieg ist bei RSI > 62 absolut unzulässig.",
+          "Historische Lektion & OB-Qualität: Der Bearish OB (Grad B) ist mit R12 strukturell völlig entwertet; der schwache Math-Score von 42 verfehlt die 88%-Hürde des Pharma-Sektors drastisch."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trendwechsel (1D): Der 1D-Trend ist bullisch gedreht (RSI 62.8); ein Short gegen eine intakte 1D-Bullenstruktur ist gemäß Filterregel 1 und 3 strikt verboten.).",
+        "note": "Novartis hat mit massivem Volumenaufbau den 1D-Trend ins Bullische gedreht und die frühere Short-Hypothese vollständig invalidiert. Der Bearish OB ist nach 12 Retests bedeutungslos geworden. Aufgrund der extremen Überhitzung (4h-RSI 76.7) jagen wir dem Momentum keinesfalls hinterher, sondern verharren diszipliniert NEUTRAL, um einen gesunden Rücksetzer in den Discount-Support bei 35.20–35.60 EUR für einen risikoarmen Long-Einstieg abzuwarten.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      },
+      {
+        "symbol": "TVC:GOLD",
+        "name": "Gold (Spot)",
+        "category": "Edelmetalle",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 45,
+        "price": 4042.967,
+        "setup_name": "Beobachten / Lauerstellung am Support",
+        "entry_range": [
+          0.0,
+          0.0
+        ],
+        "stop_loss": 0.0,
+        "take_profit_2": 0.0,
+        "reasons": [
+          "Makro-Trend (1D/1W) ist klar bärisch (unter 233 EMA), was pauschale Long-Signale ausschließt.",
+          "Aktive Erholung trifft auf einen bärischen 4h Order Block bei sehr geringem Volumen (Very Low Volume = geringe Bären-Erschöpfung).",
+          "1h RSI mit 77.7 stark überkauft; Anstieg gegen den 1D-Trend ist als reine Bärenmarktrallye einzustufen."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1D/1W) ist klar bärisch (unter 233 EMA), was pauschale Long-Signale ausschließt.).",
+        "note": "Gold befindet sich in einer intakten HTF-Abwärtsstruktur (1W/1D bärisch). Die aktuelle Erholung erreicht das 4h Golden Pocket und stößt auf einen bärischen Order Block, während der 1h-RSI bereits überkauft ist. Es liegt kein valider Trendwechsel vor; ein Kaufeinstieg wäre regelwidriges Counter-Trend-Trading.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...j2vQ]"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 4 Einstufungen haben sich geändert:\n\n🟢 US Dollar Index (DXY):\n   Score-Sprung: 96% ➔ 86% (LONG)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 96% auf 86% (Makro-Trend (1W/1D) ist intakt bullisch; 4h/1h Konsolidierung bietet einen gesunden Pullback auf HTF-Support.).\n   📝 KI-Rationale: Der US-Dollar-Index hält seine übergeordnete bullische Struktur (1D/1W) aufrecht. Der Rücksetzer auf den 4h/1h-Zeiteinheiten hat s...\n   Setup: Hypothese 1: degencoder Institutional Buy Pocket Reversal\n   Entry: 101.40 | SL: 101.20 | TP2: 103.10\n\n⚪ DJI (DJI):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Regime-Divergenz: 1W ist bullisch, während 1D bärisch notiert; die aktiven 4h/1h 'Potential Buy'-Signale erzwingen die sofortige Neutralisierung der bisherigen Short-Position.).\n   📝 KI-Rationale: Der Dow Jones generiert am Support des R7-Bullish-Order-Blocks bullische Degencoder-Kaufsignale auf 1h und 4h, wodurch ein Verblei...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ Novartis (NOV):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 46%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trendwechsel (1D): Der 1D-Trend ist bullisch gedreht (RSI 62.8); ein Short gegen eine intakte 1D-Bullenstruktur ist gemäß Filterregel 1 und 3 strikt verboten.).\n   📝 KI-Rationale: Novartis hat mit massivem Volumenaufbau den 1D-Trend ins Bullische gedreht und die frühere Short-Hypothese vollständig invalidiert...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n⚪ Gold (Spot) (GOLD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 45%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1D/1W) ist klar bärisch (unter 233 EMA), was pauschale Long-Signale ausschließt.).\n   📝 KI-Rationale: Gold befindet sich in einer intakten HTF-Abwärtsstruktur (1W/1D bärisch). Die aktuelle Erholung erreicht das 4h Golden Pocket und ...\n   Setup: Beobachten / Lauerstellung am Support\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261104_103506",
     "timestamp": "2026-11-04T10:35:06.099175+00:00",
     "timestamp_display": "04.11.2026 10:35 UTC",
@@ -26834,78 +26951,5 @@
     "notification_sent": true,
     "provider": "ntfy",
     "raw_message": "🔄 Folgende 12 Einstufungen haben sich geändert:\n\n🟢 Micron Technology (MU):\n   Einstufung: NEUTRAL ➔ LONG (Score: 96%)\n   Setup: Hypothese 1: SMC Golden Confluence Reversal\n   Entry: 871.81 | SL: 848.08 | TP2: 977.27\n\n🔴 Curve DAO (CRVUSD):\n   Einstufung: NEUTRAL ➔ SHORT (Score: 90%)\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 0.33 | SL: 0.35 | TP2: 0.28\n\n🟢 Meta Platforms (META):\n   Einstufung: NEUTRAL ➔ LONG (Score: 90%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 703.66 | SL: 684.50 | TP2: 788.79\n\n🟢 CrowdStrike (CRWD):\n   Einstufung: NEUTRAL ➔ LONG (Score: 90%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 225.57 | SL: 219.43 | TP2: 252.86\n\n🔴 Bayer (BAYN):\n   Einstufung: NEUTRAL ➔ SHORT (Score: 90%)\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 44.37 | SL: 46.02 | TP2: 39.47\n\n🟢 Marvell (MRVL):\n   Einstufung: NEUTRAL ➔ LONG (Score: 87%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 226.01 | SL: 219.86 | TP2: 253.33\n\n... und 6 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261018_194028",
-    "timestamp": "2026-10-18T19:40:28.155861+00:00",
-    "timestamp_display": "18.10.2026 19:40 UTC",
-    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 3,
-    "changes": [
-      {
-        "symbol": "BINANCE:GMXUSDT",
-        "name": "GMX",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 42,
-        "new_score": 95,
-        "price": 8.27,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          8.2,
-          8.29
-        ],
-        "stop_loss": 7.86,
-        "take_profit_2": 9.58,
-        "note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "BINANCE:DOTUSDT",
-        "name": "Polkadot",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 42,
-        "new_score": 87,
-        "price": 1.08,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          1.07,
-          1.08
-        ],
-        "stop_loss": 1.03,
-        "take_profit_2": 1.24,
-        "note": "Strikte bullische Konfluenz (87%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "COINBASE:AAVEUSD",
-        "name": "Aave",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 42,
-        "new_score": 75,
-        "price": 150.2,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          149.0,
-          150.5
-        ],
-        "stop_loss": 142.69,
-        "take_profit_2": 174.23,
-        "note": "Strikte bullische Konfluenz (75%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "ntfy",
-    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🟢 GMX (GMXUSDT):\n   Einstufung: NEUTRAL ➔ LONG (Score: 95%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 8.20 | SL: 7.86 | TP2: 9.58\n\n🟢 Polkadot (DOTUSDT):\n   Einstufung: NEUTRAL ➔ LONG (Score: 87%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 1.07 | SL: 1.03 | TP2: 1.24\n\n🟢 Aave (AAVEUSD):\n   Einstufung: NEUTRAL ➔ LONG (Score: 75%)\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 149.00 | SL: 142.69 | TP2: 174.23\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
