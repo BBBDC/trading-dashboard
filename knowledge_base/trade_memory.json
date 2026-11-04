@@ -1,7 +1,28 @@
 {
-  "updated_at": "2026-11-03T23:10:55.013104+00:00",
-  "total_experience_records": 71,
+  "updated_at": "2026-11-04T00:06:09.881216+00:00",
+  "total_experience_records": 72,
   "learnings": [
+    {
+      "timestamp": "2026-11-04T00:05:25.290947+00:00",
+      "trade_id": "trade_COINBASE_BCHUSD_20261102_1414",
+      "symbol": "COINBASE:BCHUSD",
+      "name": "Bitcoin Cash",
+      "category": "Crypto",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "Hypothese 1: degencoder Institutional Buy Pocket Reversal",
+      "pnl_leveraged": -6.35,
+      "pnl_raw": -1.59,
+      "text": "Eine Reversal-Zone ist lediglich ein Beobachtungsbereich, kein blinder Kaufauftrag. Ohne Momentum-Bestätigung kauft man nur die Abgabewelle des Marktes.",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Der Einstieg erfolgte ungeprüft an einer potenziellen Unterstützungszone ohne jegliche Reversal-Bestätigung, wodurch die Position unmittelbar am absoluten Hochpunkt des Trades eröffnet wurde und sofort ins Minus drehte.",
+        "technical_warning": "Das Ausbleiben einer bullischen Volumenabsorption im 4h-Chart und das Fehlen einer Bestätigungskerze (Close über dem Hoch der Signal-Bar) hätten den verfrühten Einstieg verhindern müssen.",
+        "actionable_rule": "In Krypto-Reversal-Setups ('Buy Pockets') wird erst nach einem validierten 4h-Schlusskurs über dem vorherigen Kerzenhoch eingestiegen, bei maximal 2x Hebel für Counter-Trend-Käufe.",
+        "recommended_leverage_adjustment": -1,
+        "summary_text": "Eine Reversal-Zone ist lediglich ein Beobachtungsbereich, kein blinder Kaufauftrag. Ohne Momentum-Bestätigung kauft man nur die Abgabewelle des Marktes."
+      }
+    },
     {
       "timestamp": "2026-11-03T23:10:51.194770+00:00",
       "trade_id": "cross_rule_1793747451",
@@ -1132,238 +1153,21 @@
         "technical_warning": "Das Fehlen eines echten A-Grade Liquidity Sweeps vor der Zone sowie ein B-Grade OB signalisierten unzureichende institutionelle Nachfrage, wodurch der Support unmittelbar ohne Reaktionsbounce durchschlagen wurde.",
         "actionable_rule": "B-Grade Order Blocks dürfen im 5m/15m-Bereich niemals blind per Limit/Market gefischt werden; zwingende Voraussetzung für den Entry ist ein vorangegangener Sweep externer Liquidität gefolgt von einem validierten Mikro-CHoCH mit VSA-Kaufvolumen."
       }
-    },
-    {
-      "timestamp": "2026-11-03T09:30:35.326263+00:00",
-      "trade_id": "cross_rule_1793698235",
-      "symbol": "MULTI-ASSET",
-      "name": "Cross-Market Confluence",
-      "category": "Global Heuristic (4h/1D Transfer)",
-      "direction": "NEUTRAL",
-      "result": "WIN",
-      "setup_name": "Synthesized Multi-Timeframe Heuristic",
-      "pnl_leveraged": 0.0,
-      "pnl_raw": 0.0,
-      "text": "Kein Einstieg ohne Volumen- und Absorptions-Validierung (Effort vs. Result)",
-      "ai_post_mortem": {
-        "verdict": "RULE",
-        "driver": "Indikatorbasierte Signale (wie Dreiecke oder Chaos-Bänder) scheitern über sämtliche Zeitebenen hinweg, wenn das begleitende Volumenprofil keine reale institutionelle Orderblock-Verteidigung nachweist.",
-        "actionable_rule": "Kein Einstieg ohne Volumen- und Absorptions-Validierung (Effort vs. Result)"
-      }
-    },
-    {
-      "timestamp": "2026-11-03T09:30:35.326240+00:00",
-      "trade_id": "cross_rule_1793698235",
-      "symbol": "MULTI-ASSET",
-      "name": "Cross-Market Confluence",
-      "category": "Global Heuristic (4h/1D Transfer)",
-      "direction": "NEUTRAL",
-      "result": "WIN",
-      "setup_name": "Synthesized Multi-Timeframe Heuristic",
-      "pnl_leveraged": 0.0,
-      "pnl_raw": 0.0,
-      "text": "Struktureller Stop-Puffer statt Punktlandung an offensichtlichen Swing-Levels",
-      "ai_post_mortem": {
-        "verdict": "RULE",
-        "driver": "Fraktal auf 5m wie auf 4h/1D werden exakt an Support-/Resistance-Marken platzierte Stops zum bevorzugten Ziel für Liquiditäts-Sweeps (Stop-Runs); Invalidierungslevel müssen stets hinter den Liquiditätspool zuzüglich Volatilitätsabschlag gelegt werden.",
-        "actionable_rule": "Struktureller Stop-Puffer statt Punktlandung an offensichtlichen Swing-Levels"
-      }
-    },
-    {
-      "timestamp": "2026-11-03T09:30:35.326216+00:00",
-      "trade_id": "inc_DOGEUSDT_5m_1793696812",
-      "symbol": "DOGEUSDT",
-      "name": "Dogecoin",
-      "category": "Micro-Incubator (5m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "pnl_leveraged": -0.26,
-      "pnl_raw": -0.13,
-      "text": "Long-Entries an B-Klasse-Orderblocks erfordern zwingend eine VSA-Reaktionsbestätigung (Delta-Absorption, Wick-Rejection) und dürfen den SL keinesfalls exakt auf das lokale Tief legen.",
-      "ai_post_mortem": {
-        "trade_id": "inc_DOGEUSDT_5m_1793696812",
-        "verdict": "LOSS",
-        "driver": "Der sekundäre Orderblock-Retest [B] bot keine institutionelle Kaufkraft, wodurch der Stop-Loss direkt unter dem offensichtlichen Support-Level durch simplen Verkaufsüberhang unterspült wurde.",
-        "technical_warning": "Versiegendes Volumen beim Rücklauf in die Support-Zone sowie die minderwertige B-Qualität des Blocks deuteten auf unvollständige Akkumulation und hohes Durchbruchsrisiko hin.",
-        "actionable_rule": "Long-Entries an B-Klasse-Orderblocks erfordern zwingend eine VSA-Reaktionsbestätigung (Delta-Absorption, Wick-Rejection) und dürfen den SL keinesfalls exakt auf das lokale Tief legen."
-      }
-    },
-    {
-      "timestamp": "2026-11-03T09:30:35.326160+00:00",
-      "trade_id": "inc_AVAXUSDT_5m_1793696812",
-      "symbol": "AVAXUSDT",
-      "name": "Avalanche",
-      "category": "Micro-Incubator (5m)",
-      "direction": "SHORT",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Short",
-      "pnl_leveraged": -0.1,
-      "pnl_raw": -0.05,
-      "text": "Kein Short-Einstieg an Sell-Pockets ohne vorangegangenen Sweep lokaler BSL (Buy-Side Liquidity) und zwingende SL-Platzierung außerhalb des statistischen ATR-Rauschens (mindestens 1.5x ATR Puffer über Swing-High).",
-      "ai_post_mortem": {
-        "trade_id": "inc_AVAXUSDT_5m_1793696812",
-        "verdict": "LOSS",
-        "driver": "Der Trade scheiterte an einem mit 0,05% untragbar engen Stop-Loss im 5m-Rauschen, welcher durch einen Standard-Liquiditäts-Spike über das lokale Widerstandslevel sofort abgeräumt wurde.",
-        "technical_warning": "Fehlende Volumenabsorption am Chaos-Band und das Ausbleiben eines klaren Buy-Side Liquidity Sweeps vor dem Sell-Marker signalisierten fehlenden institutionellen Verkaufsdruck.",
-        "actionable_rule": "Kein Short-Einstieg an Sell-Pockets ohne vorangegangenen Sweep lokaler BSL (Buy-Side Liquidity) und zwingende SL-Platzierung außerhalb des statistischen ATR-Rauschens (mindestens 1.5x ATR Puffer über Swing-High)."
-      }
-    },
-    {
-      "timestamp": "2026-11-03T09:13:52.206603+00:00",
-      "trade_id": "cross_rule_1793697232",
-      "symbol": "MULTI-ASSET",
-      "name": "Cross-Market Confluence",
-      "category": "Global Heuristic (4h/1D Transfer)",
-      "direction": "NEUTRAL",
-      "result": "WIN",
-      "setup_name": "Synthesized Multi-Timeframe Heuristic",
-      "pnl_leveraged": 0.0,
-      "pnl_raw": 0.0,
-      "text": "Güteklassen-Filter: Kein Kapitalrisiko für Subprime-Strukturen (OB-Rating unter B)",
-      "ai_post_mortem": {
-        "verdict": "RULE",
-        "driver": "Niedrig geratete Orderblöcke (Grade D) brechen bei Retests statistisch signifikant häufiger durch, da ihnen institutionelles Resting-Limit-Volumen fehlt; scheinbare Stop-Hunts entpuppen sich an solchen Niveaus regelmäßig als veritabler Trendwechsel.",
-        "actionable_rule": "Güteklassen-Filter: Kein Kapitalrisiko für Subprime-Strukturen (OB-Rating unter B)"
-      }
-    },
-    {
-      "timestamp": "2026-11-03T09:13:52.206571+00:00",
-      "trade_id": "cross_rule_1793697232",
-      "symbol": "MULTI-ASSET",
-      "name": "Cross-Market Confluence",
-      "category": "Global Heuristic (4h/1D Transfer)",
-      "direction": "NEUTRAL",
-      "result": "WIN",
-      "setup_name": "Synthesized Multi-Timeframe Heuristic",
-      "pnl_leveraged": 0.0,
-      "pnl_raw": 0.0,
-      "text": "Fraktale Exhaustion-Sperre nach voller Expansionsabwicklung (TP2-Cooldown)",
-      "ai_post_mortem": {
-        "verdict": "RULE",
-        "driver": "Nach Erreichen eines 3.0R-Ziels auf Zeitebene T vollzieht der Markt regelmäßig eine Mean-Reversion oder HTF-Korrektur; Folgetrades in Trendrichtung auf derselben oder untergeordneten Zeitebene sind gesperrt, bis ein neuer HTF-Market-Structure-Break (MSB) mit institutionellem Volumen etabliert ist.",
-        "actionable_rule": "Fraktale Exhaustion-Sperre nach voller Expansionsabwicklung (TP2-Cooldown)"
-      }
-    },
-    {
-      "timestamp": "2026-11-03T09:13:52.206546+00:00",
-      "trade_id": "rep_SOLUSDT_5m_1793687700",
-      "symbol": "SOLUSDT",
-      "name": "Solana",
-      "category": "Micro-Incubator (5m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "pnl_leveraged": -1.08,
-      "pnl_raw": -0.54,
-      "text": "Niemals Re-Entries an degradierten Order Blocks (Güte [C/D]) im Nachgang eines vollen TP2-Zyklus initiieren; ein Liquidity Sweep erfordert zwingend eine impulsive Volumen-Displacement-Kerze vor Order-Freigabe.",
-      "ai_post_mortem": {
-        "trade_id": "rep_SOLUSDT_5m_1793687700",
-        "verdict": "LOSS",
-        "driver": "Fatale Fehlallokation durch Long-Einstieg an einem minderwertigen Tier-D-Block unmittelbar nach einem abgeschlossenen 3R-Impuls, wodurch ein echter struktureller Durchbruch fälschlicherweise als harmloser Liquidity Sweep gewertet wurde.",
-        "technical_warning": "Mangelnde bullische VSA-Displacement-Reaktion nach dem Sweep sowie das Absacken unter das fragile Niveau von OB [D] bei fehlender Volumenabsorption offenbarten vorab aktiven Distributionsdruck.",
-        "actionable_rule": "Niemals Re-Entries an degradierten Order Blocks (Güte [C/D]) im Nachgang eines vollen TP2-Zyklus initiieren; ein Liquidity Sweep erfordert zwingend eine impulsive Volumen-Displacement-Kerze vor Order-Freigabe."
-      }
-    },
-    {
-      "timestamp": "2026-11-03T09:13:52.206474+00:00",
-      "trade_id": "rep_SOLUSDT_5m_1793677200",
-      "symbol": "SOLUSDT",
-      "name": "Solana",
-      "category": "Micro-Incubator (5m)",
-      "direction": "LONG",
-      "result": "WIN",
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "pnl_leveraged": 1.52,
-      "pnl_raw": 0.76,
-      "text": "Setups an validierten OBs der Güteklasse [A/B] mit Mehrfach-Reaktionsbestätigung (R3) sind mit vollem Risikobudget zu exekutieren und strikt bis zum finalen TP-Cluster laufen zu lassen.",
-      "ai_post_mortem": {
-        "trade_id": "rep_SOLUSDT_5m_1793677200",
-        "verdict": "WIN",
-        "driver": "Präziser Einstieg an einer hochqualitativen Nachfragezone (OB [B]) mit solider R3-Bestätigung, die sofortigen Verkaufsdruck absorbierte und eine saubere +3.0R Momentum-Expansion entfesselte.",
-        "technical_warning": "Keine nennenswerte Warnung im Setup; lediglich das Erreichen des 3.0R-Ziels bei 92.51 signalisierte die Erschöpfung des lokalen 5m-Momentums und mahnte zur konsequenten Gewinnmitnahme.",
-        "actionable_rule": "Setups an validierten OBs der Güteklasse [A/B] mit Mehrfach-Reaktionsbestätigung (R3) sind mit vollem Risikobudget zu exekutieren und strikt bis zum finalen TP-Cluster laufen zu lassen."
-      }
-    },
-    {
-      "timestamp": "2026-11-03T09:13:14.222483+00:00",
-      "trade_id": "cross_rule_1793697194",
-      "symbol": "MULTI-ASSET",
-      "name": "Cross-Market Confluence",
-      "category": "Global Heuristic (4h/1D Transfer)",
-      "direction": "NEUTRAL",
-      "result": "WIN",
-      "setup_name": "Synthesized Multi-Timeframe Heuristic",
-      "pnl_leveraged": 0.0,
-      "pnl_raw": 0.0,
-      "text": "Wyckoff Effort-vs-Result-Axiom: Hohes Volumen auf einem Support ohne unmittelbare Richtungsfolge (Preisfortschritt) ist zwingend als verdeckte Distribution zu werten.",
-      "ai_post_mortem": {
-        "verdict": "RULE",
-        "driver": "In Trade 3 wurde das 1.8x-Volumen fälschlich als bullische Bestätigung gewertet, spiegelte jedoch das aggressive Durchreichen von institutionellem Verkaufsdruck wider, was den Support unmittelbar kollabieren ließ.",
-        "actionable_rule": "Wyckoff Effort-vs-Result-Axiom: Hohes Volumen auf einem Support ohne unmittelbare Richtungsfolge (Preisfortschritt) ist zwingend als verdeckte Distribution zu werten."
-      }
-    },
-    {
-      "timestamp": "2026-11-03T09:13:14.222458+00:00",
-      "trade_id": "cross_rule_1793697194",
-      "symbol": "MULTI-ASSET",
-      "name": "Cross-Market Confluence",
-      "category": "Global Heuristic (4h/1D Transfer)",
-      "direction": "NEUTRAL",
-      "result": "WIN",
-      "setup_name": "Synthesized Multi-Timeframe Heuristic",
-      "pnl_leveraged": 0.0,
-      "pnl_raw": 0.0,
-      "text": "HTF-Trend-Diktat: Lokale Mikro-Confluences (5m/15m) sind gegen eine übergeordnete 4h/1D-Trendausdehnung ungültig und dienen institutionell primär als Ausstiegsliquidität.",
-      "ai_post_mortem": {
-        "verdict": "RULE",
-        "driver": "Die drei sequenziellen Stop-Outs bei fallenden Einstiegspreisen (93.63 -> 92.21 -> 92.42) belegen, dass isolierte Kaufindikatoren im Abwärtstrend wertlos sind, solange der übergeordnete Timeframe bärische Expansion zeigt.",
-        "actionable_rule": "HTF-Trend-Diktat: Lokale Mikro-Confluences (5m/15m) sind gegen eine übergeordnete 4h/1D-Trendausdehnung ungültig und dienen institutionell primär als Ausstiegsliquidität."
-      }
-    },
-    {
-      "timestamp": "2026-11-03T09:13:14.222441+00:00",
-      "trade_id": "rep_SOLUSDT_5m_1793666700",
-      "symbol": "SOLUSDT",
-      "name": "Solana",
-      "category": "Micro-Incubator (5m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "pnl_leveraged": -0.3,
-      "pnl_raw": -0.15,
-      "text": "Bei VSA-Volumenspitzen an Unterstützungen muss ein Kerzenschluss über dem Hoch der Volumenkerze abgewartet werden, und der Stop-Loss darf niemals unterhalb des lokalen 5m-ATR-Rauschens platziert werden.",
-      "ai_post_mortem": {
-        "trade_id": "rep_SOLUSDT_5m_1793666700",
-        "verdict": "LOSS",
-        "driver": "Fehlinterpretation von VSA-Volumen als Kaufdruck bei gleichzeitig fataler Erdrosselung des Trades durch einen 0,15%-Stop im normalen Marktrauschen.",
-        "technical_warning": "VSA High Volume Surge (1.8x) ohne korrespondierende bullische Kerzenspanne (Effort vs. Result) signalisiert institutionellen Abverkauf in passive Limit-Orders statt echter Nachfrage.",
-        "actionable_rule": "Bei VSA-Volumenspitzen an Unterstützungen muss ein Kerzenschluss über dem Hoch der Volumenkerze abgewartet werden, und der Stop-Loss darf niemals unterhalb des lokalen 5m-ATR-Rauschens platziert werden."
-      }
-    },
-    {
-      "timestamp": "2026-11-03T09:13:14.222421+00:00",
-      "trade_id": "rep_SOLUSDT_5m_1793645700",
-      "symbol": "SOLUSDT",
-      "name": "Solana",
-      "category": "Micro-Incubator (5m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "pnl_leveraged": -1.08,
-      "pnl_raw": -0.54,
-      "text": "Nach einem direkten Stop-Loss-Event sind Folgetrades an Zonen unter Güteklasse [A] strikt untersagt; Re-Entries erfordern zwingend eine bestätigte Absorptionskerze.",
-      "ai_post_mortem": {
-        "trade_id": "rep_SOLUSDT_5m_1793645700",
-        "verdict": "LOSS",
-        "driver": "Einstieg an einer minderwertigen [C]-Zone nach vorangegangenem Fehlversuch, wodurch die Abwärtsdynamik den schwachen Support mühelos überrollte.",
-        "technical_warning": "Retest eines minderwertigen Orderblocks der Güteklasse [C] direkt nach einem Stop-Out ohne vorherige bullische Stabilisierungskerze.",
-        "actionable_rule": "Nach einem direkten Stop-Loss-Event sind Folgetrades an Zonen unter Güteklasse [A] strikt untersagt; Re-Entries erfordern zwingend eine bestätigte Absorptionskerze."
-      }
     }
   ],
   "setup_statistics": {},
   "setup_performance": {
+    "Hypothese 1: degencoder Institutional Buy Pocket Reversal": {
+      "trades": 2,
+      "wins": 1,
+      "losses": 1,
+      "win_rate": 50.0,
+      "total_lev_pnl": -1.2,
+      "profit_factor": 0.82,
+      "status": "BALANCED",
+      "min_score": 88,
+      "leverage_adjustment": 0
+    },
     "Hypothese 1: degencoder Institutional Sell Pocket Reversal": {
       "trades": 2,
       "wins": 0,
@@ -1371,17 +1175,6 @@
       "win_rate": 0.0,
       "total_lev_pnl": -0.0,
       "profit_factor": 0.0,
-      "status": "BALANCED",
-      "min_score": 88,
-      "leverage_adjustment": 0
-    },
-    "Hypothese 1: degencoder Institutional Buy Pocket Reversal": {
-      "trades": 1,
-      "wins": 1,
-      "losses": 0,
-      "win_rate": 100.0,
-      "total_lev_pnl": 5.2,
-      "profit_factor": 9.99,
       "status": "BALANCED",
       "min_score": 88,
       "leverage_adjustment": 0
@@ -1466,11 +1259,11 @@
   },
   "category_performance": {
     "Crypto": {
-      "trades": 23,
+      "trades": 24,
       "wins": 1,
-      "losses": 19,
-      "win_rate": 4.3,
-      "total_lev_pnl": -176.0,
+      "losses": 20,
+      "win_rate": 4.2,
+      "total_lev_pnl": -182.3,
       "profit_factor": 0.03,
       "status": "UNDERPERFORMING",
       "min_score": 92,
