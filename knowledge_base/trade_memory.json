@@ -1,7 +1,103 @@
 {
-  "updated_at": "2026-11-04T19:12:06.503377+00:00",
-  "total_experience_records": 83,
+  "updated_at": "2026-11-04T20:31:15.462110+00:00",
+  "total_experience_records": 88,
   "learnings": [
+    {
+      "timestamp": "2026-11-04T20:31:11.490229+00:00",
+      "trade_id": "cross_rule_1793824271",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Liquiditäts-Axiom: Ein 'Sweep [A]' ohne anschließende Delta-Erschöpfung ist kein Wendepunkt, sondern Treibstoff für einen Breakout.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Über alle Zeitebenen hinweg markiert ein Liquiditätsabgriff nur dann ein valides Hoch/Tief, wenn der Markt die Zone sofort aggressiv ablehnt; verharrt der Preis am Level oder schließt darüber, beschleunigt der Short-Covering- oder FOMO-Effekt die Bewegung.",
+        "actionable_rule": "Fraktales Liquiditäts-Axiom: Ein 'Sweep [A]' ohne anschließende Delta-Erschöpfung ist kein Wendepunkt, sondern Treibstoff für einen Breakout."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T20:31:11.490206+00:00",
+      "trade_id": "cross_rule_1793824271",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Strikter 'Order-Block-Quality-Filter': Zonen unterhalb Güteklasse [B] (insbesondere [D]) werden systemweit für Reversal-Trigger gesperrt.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl im 5m-Rauschen als auch auf 4h/1D sind D-Level keine stabilen Barrieren, sondern bloße Durchlaufstationen (Restliquidität), an denen Retail-Trader als Exit-Liquidität für Trendfortsetzungen missbraucht werden.",
+        "actionable_rule": "Strikter 'Order-Block-Quality-Filter': Zonen unterhalb Güteklasse [B] (insbesondere [D]) werden systemweit für Reversal-Trigger gesperrt."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T20:31:11.490194+00:00",
+      "trade_id": "inc_SUIUSDT_5m_1793819481",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 2.78,
+      "pnl_raw": 1.39,
+      "text": "Trades an Orderblöcken ab Tier B mit Trendausrichtung konsequent mit voller Zielgröße (3.0R TP2) durchlaufen lassen und SL erst nach Erreichen von 1.5R nachziehen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_5m_1793819481",
+        "verdict": "WIN",
+        "driver": "Saubere Respektierung eines frischen Tier-B-Orderblocks, der mit präzisem Retest echtes institutionelles Angebot freisetzte und den Sell-Off direkt zu 3.0R katalysierte.",
+        "technical_warning": "Keine Warnung: Geringes Retest-Volumen (Erschöpfung der Käufer) signalisierte sofortige Angebotsübernahme im OB [B].",
+        "actionable_rule": "Trades an Orderblöcken ab Tier B mit Trendausrichtung konsequent mit voller Zielgröße (3.0R TP2) durchlaufen lassen und SL erst nach Erreichen von 1.5R nachziehen."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T20:31:11.490176+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1793819480",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.24,
+      "pnl_raw": -0.62,
+      "text": "Long-Setups an lokalen Tiefs erfordern vor Entry den Nachweis echter Absorption durch Rückeroberung des lokalen POC/VAL anstelle blindem Limit-Kauf im Fall.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1793819480",
+        "verdict": "LOSS",
+        "driver": "Klassisches Messerfangen an einem bereits mitigierten Tier-D-Support, der mangels institutioneller Kaufliquidität vom Verkaufs-Momentum glatt durchschlagen wurde.",
+        "technical_warning": "Hohes Abwärts-Volumen beim Test des Supports ohne jegliche Absorptionsanzeichen (keine Divergenz zu den Chaos-Bändern, weite bärische FVG verblieb offen).",
+        "actionable_rule": "Long-Setups an lokalen Tiefs erfordern vor Entry den Nachweis echter Absorption durch Rückeroberung des lokalen POC/VAL anstelle blindem Limit-Kauf im Fall."
+      }
+    },
+    {
+      "timestamp": "2026-11-04T20:31:11.490114+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1793817433",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Short-Entries an Tier-D-Orderblöcken sind verboten; Setups nach Sweeps verlangen zwingend eine VSA-Bestätigung (No-Demand-Bar) und Kerzenschluss unter dem Sweep-High.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1793817433",
+        "verdict": "LOSS",
+        "driver": "Der Short wurde unmittelbar am Einstieg ausgestoppt, da ein degenerierter Tier-D-Block ohne volumenseitige Erschöpfung gegen anhaltenden Kaufdruck verteidigt werden sollte.",
+        "technical_warning": "Fehlende Docht-Rejektion auf der 5m-Kerze sowie anhaltend positives Delta/Kaufvolumen während des Sweeps, was auf Trendfortsetzung statt Reversal hinwies.",
+        "actionable_rule": "Short-Entries an Tier-D-Orderblöcken sind verboten; Setups nach Sweeps verlangen zwingend eine VSA-Bestätigung (No-Demand-Bar) und Kerzenschluss unter dem Sweep-High."
+      }
+    },
     {
       "timestamp": "2026-11-04T19:12:02.734237+00:00",
       "trade_id": "cross_rule_1793819522",
