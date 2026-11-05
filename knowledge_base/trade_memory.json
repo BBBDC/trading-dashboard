@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-05T19:11:57.898418+00:00",
-  "total_experience_records": 68,
+  "updated_at": "2026-11-05T20:31:36.251784+00:00",
+  "total_experience_records": 71,
   "learnings": [
+    {
+      "timestamp": "2026-11-05T20:31:32.346282+00:00",
+      "trade_id": "cross_rule_1793910692",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Statistische Überdehnung (Chaos-Bänder) benötigt zwingend diskrete Marktstruktur für asymmetrisches R:R.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Eine 'Institutional Buy Pocket' (< RFE) allein ist kein Kaufgrund; erst die Koinzidenz mit einem verifizierten Orderblock generiert das enge Invalidierungsniveau für 3R+-Pockets.",
+        "actionable_rule": "Statistische Überdehnung (Chaos-Bänder) benötigt zwingend diskrete Marktstruktur für asymmetrisches R:R."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T20:31:32.346249+00:00",
+      "trade_id": "cross_rule_1793910692",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein HTF-Orderblock-Retest ohne vorgelagerten Liquidity Sweep (Stop-Hunt).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf 5m als auch auf 4h/1D scheitern reine Limit-Orders an Orderblöcken überproportional oft, solange Retail-Liquidität oberhalb/unterhalb des Blocks nicht durch Smart Money abgefischt wurde.",
+        "actionable_rule": "Kein HTF-Orderblock-Retest ohne vorgelagerten Liquidity Sweep (Stop-Hunt)."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T20:31:32.346186+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1793905887",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 0.68,
+      "pnl_raw": 0.34,
+      "text": "Orderblock-Retests auf Micro-Zeitskalen dürfen nur dann aggressiv long gehandelt werden, wenn der Einstieg zwingend durch einen vorherigen Sweep lokaler Tiefs (Stop-Hunt) und eine Unterdeckung des Chaos-Bandes (< RFE) geschützt ist.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1793905887",
+        "verdict": "WIN",
+        "driver": "Perfekt getimtes Zusammentreffen von Liquiditäts-Sweep [A] und Retest des Bullish Orderblocks [C] innerhalb der statistischen Erschöpfungszone (Chaos Band < RFE).",
+        "technical_warning": "Ein Ausbleiben von Reabsorptions-Dochtbildung (Rejection Wick) oder ein 5m-Kerzenschluss unterhalb der Orderblock-Basis (R6) hätte vor einer Trendfortsetzung nach unten gewarnt.",
+        "actionable_rule": "Orderblock-Retests auf Micro-Zeitskalen dürfen nur dann aggressiv long gehandelt werden, wenn der Einstieg zwingend durch einen vorherigen Sweep lokaler Tiefs (Stop-Hunt) und eine Unterdeckung des Chaos-Bandes (< RFE) geschützt ist."
+      }
+    },
     {
       "timestamp": "2026-11-05T19:11:54.242170+00:00",
       "trade_id": "cross_rule_1793905914",
