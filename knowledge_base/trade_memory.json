@@ -1,7 +1,159 @@
 {
-  "updated_at": "2026-11-05T08:49:44.528370+00:00",
-  "total_experience_records": 73,
+  "updated_at": "2026-11-05T09:07:05.200420+00:00",
+  "total_experience_records": 81,
   "learnings": [
+    {
+      "timestamp": "2026-11-05T09:07:01.282494+00:00",
+      "trade_id": "cross_rule_1793869621",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Invaliderungs-Levels dürfen niemals direkt an offensichtlichen Swing-Peaks platziert werden, sondern müssen außerhalb der statistischen Market-Maker-Sweep-Toleranz liegen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein Stop-Loss-Abstand von nur 0.16% bei einer DAX-Large-Cap auf 5m ignoriert das normale Spread- und Intraday-Rauschen an XETRA-Liquiditätspools.",
+        "actionable_rule": "Invaliderungs-Levels dürfen niemals direkt an offensichtlichen Swing-Peaks platziert werden, sondern müssen außerhalb der statistischen Market-Maker-Sweep-Toleranz liegen."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T09:07:01.282464+00:00",
+      "trade_id": "cross_rule_1793869621",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Prinzip: Kein Counter-Trend-Trade ohne vorangegangenen Sweep übergeordneter Liquidität und bestätigten Strukturwechsel (ChoCh/Displacement).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Überdehnungsindikatoren (wie Chaos-Bänder) verharren in starken Trendphasen auf 4h/1D wie auf 5m über lange Strecken im Extrembereich; Einstiege ohne Liquiditätsabräumung führen systematisch zum -1.0R Knockout.",
+        "actionable_rule": "Fraktales Prinzip: Kein Counter-Trend-Trade ohne vorangegangenen Sweep übergeordneter Liquidität und bestätigten Strukturwechsel (ChoCh/Displacement)."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T09:07:01.282397+00:00",
+      "trade_id": "inc_SIE.DE_5m_1793868503",
+      "symbol": "SIE.DE",
+      "name": "Siemens",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.32,
+      "pnl_raw": -0.16,
+      "text": "Kein Short-Einstieg allein durch Band-Überdehnung: Der Trigger erfordert zwingend einen abgeschlossenen Sweep des letzten Swing-Highs inklusive Rejection-Dochtes vor Order-Freigabe.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SIE.DE_5m_1793868503",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Short-Einstieg direkt unter eine sichtbare Widerstandszone ohne vorherigen Buy-Side-Liquidity-Sweep, wodurch der extrem enge Stop-Loss als Exit-Liquidität für Trendfortsetzer absorbiert wurde.",
+        "technical_warning": "Fehlende Volumenerschöpfung (keine VSA No-Demand-Bar / fallendes Volumen in den Push) und das Fehlen eines klaren bärischen Micro-Displacements (MSS) vor dem Entry.",
+        "actionable_rule": "Kein Short-Einstieg allein durch Band-Überdehnung: Der Trigger erfordert zwingend einen abgeschlossenen Sweep des letzten Swing-Highs inklusive Rejection-Dochtes vor Order-Freigabe."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T09:06:34.798494+00:00",
+      "trade_id": "cross_rule_1793869594",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Hohes Volumen in Unterstützungen ist Primärangebot (Distribution), solange kein Preisrückprall mit signifikantem Docht die Absorption beweist.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Wie bei XRP verdeutlicht, führt die Gleichsetzung von 'High Volume' mit 'Käuferaktivität' an Support-Levels zu fatalen Fehlschlüssen; institutionelle Akkumulation zeichnet sich durch Absorption oder volumenarme Tests ('No Supply') aus, während unkontrolliertes Volumen den Bruch ankündigt.",
+        "actionable_rule": "Hohes Volumen in Unterstützungen ist Primärangebot (Distribution), solange kein Preisrückprall mit signifikantem Docht die Absorption beweist."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T09:06:34.798470+00:00",
+      "trade_id": "cross_rule_1793869594",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein isolierter Orderblock-Retest ohne vorherigen fraktalen Market Structure Shift (MSS) in Trendrichtung des 4h/1D-Kontexts.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf Mikro-Zeitskalen (5m) werden Orderblocks bei fehlender HTF-Unterstützung regelmäßig als reine Ausstiegsliquidität überrollt; ADA und XRP litten unter dem Versuch, fallende Messer ohne strukturelle Trendwende aufzufangen.",
+        "actionable_rule": "Kein isolierter Orderblock-Retest ohne vorherigen fraktalen Market Structure Shift (MSS) in Trendrichtung des 4h/1D-Kontexts."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T09:06:34.798458+00:00",
+      "trade_id": "inc_SAP.DE_5m_1793868503",
+      "symbol": "SAP.DE",
+      "name": "SAP SE",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 0.44,
+      "pnl_raw": 0.22,
+      "text": "Exhaustion-Shorts an Chaos-Bändern dürfen nur ausgeführt werden, wenn die relative Fraktal-Effizienz (RFE) eine Dynamikabnahme bestätigt und der Kurs die Bandgrenze nicht impulsiv expandiert.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SAP.DE_5m_1793868503",
+        "verdict": "WIN",
+        "driver": "Perfekte antizyklische Positionierung in einer Zone extremer Erschöpfung, bei der Käufer über dem Chaos Band gefangen wurden und der Kurs rasch zum Mean zurückkehrte.",
+        "technical_warning": "Keine Warnung – saubere Signalkonfluenz aus RFE-Erschöpfung, Bandüberdehnung und unmittelbarem Verkaufsmarker.",
+        "actionable_rule": "Exhaustion-Shorts an Chaos-Bändern dürfen nur ausgeführt werden, wenn die relative Fraktal-Effizienz (RFE) eine Dynamikabnahme bestätigt und der Kurs die Bandgrenze nicht impulsiv expandiert."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T09:06:34.798439+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1793868502",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.24,
+      "pnl_raw": -0.12,
+      "text": "An B-Tier Orderblocks ist ein Long-Entry bei erhöhtem Volumen strikt untersagt; gefordert ist ein volumenarmer Test ('No Supply', Volumen < 0.8x) oder eine signifikante Absorptions-Lunte mit Volumen-Peak im Docht.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1793868502",
+        "verdict": "LOSS",
+        "driver": "Das erhöhte VSA-Volumen (1.5x) am minderwertigen B-Orderblock signalisierte aggressiven Verkaufsdruck (Supply Penetration) und keinen erfolgreichen Nachfragetest.",
+        "technical_warning": "Hohes Volumen bei dominanter Bärenkerze direkt in die Support-Zone, was auf Breakout-Selling statt Absorption hinwies.",
+        "actionable_rule": "An B-Tier Orderblocks ist ein Long-Entry bei erhöhtem Volumen strikt untersagt; gefordert ist ein volumenarmer Test ('No Supply', Volumen < 0.8x) oder eine signifikante Absorptions-Lunte mit Volumen-Peak im Docht."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T09:06:34.798297+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1793860242",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Ein Liquidity Sweep [A] darf erst nach einer Kerzenschließung oberhalb des Sweep-Pivots und der Ausbildung eines validen 5m Fair Value Gaps (FVG) gehandelt werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1793860242",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Einstieg unmittelbar im Sweep-Bereich, der sich als Fortsetzung des Abwärtsimpulses statt als institutionelle Absorption entpuppte.",
+        "technical_warning": "Fehlendes bullisches Displacement und Ausbleiben eines internen Strukturwechsels (CHoCH) nach dem Durchstich des Levels.",
+        "actionable_rule": "Ein Liquidity Sweep [A] darf erst nach einer Kerzenschließung oberhalb des Sweep-Pivots und der Ausbildung eines validen 5m Fair Value Gaps (FVG) gehandelt werden."
+      }
+    },
     {
       "timestamp": "2026-11-05T08:49:35.462257+00:00",
       "trade_id": "cross_rule_1793868575",
