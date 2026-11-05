@@ -1,7 +1,179 @@
 {
-  "updated_at": "2026-11-05T16:42:09.394521+00:00",
-  "total_experience_records": 72,
+  "updated_at": "2026-11-05T17:07:39.661361+00:00",
+  "total_experience_records": 81,
   "learnings": [
+    {
+      "timestamp": "2026-11-05T17:07:35.798572+00:00",
+      "trade_id": "cross_rule_1793898455",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Cluster-Risiko-Sperre: Keine gleichgerichteten Neu-Positionierungen bei systemischer Korrelation ohne relative Stärke.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Simultane Long-Signale über BTC und Altcoins bei fallendem Gesamtmarkt verdoppeln lediglich das Richtungsrisiko (Drawdown-Korrelation), statt echte Diversifikation zu bieten.",
+        "actionable_rule": "Cluster-Risiko-Sperre: Keine gleichgerichteten Neu-Positionierungen bei systemischer Korrelation ohne relative Stärke."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T17:07:35.798540+00:00",
+      "trade_id": "cross_rule_1793898455",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Überdehnung ist kein Einstiegssignal: Kein Antizyklik-Trade ohne strukturellen Bruch (MSS) und VSA-Stopping-Volume.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf 5m als auch auf 4h/1D bleiben Chaos-Bänder oder RFE-Indikatoren in starken Trendphasen persistent überdehnt; wer ohne Bestätigung von Absorption kauft, fungiert als Exit-Liquidität für HTF-Trendfolger.",
+        "actionable_rule": "Überdehnung ist kein Einstiegssignal: Kein Antizyklik-Trade ohne strukturellen Bruch (MSS) und VSA-Stopping-Volume."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T17:07:35.798514+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1793896724",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.68,
+      "pnl_raw": -0.84,
+      "text": "Ein Reversal-Setup erfordert zwingend einen abgeschlossenen Liquidity-Sweep mit nachfolgendem Market Structure Shift (MSS) auf Kerzenschlussbasis vor Orderaufgabe.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1793896724",
+        "verdict": "LOSS",
+        "driver": "Einstieg in eine laufende impulsive Liquiditätskaskade rein basierend auf Band-Überdehnung, statt auf die Bereinigung der Sell-Side-Liquidity zu warten.",
+        "technical_warning": "Hohe Verkaufs-Delta-Volumina ohne Anzeichen von Exhaustion und das Fehlen eines klaren Sweeps von signifikanter Sell-Side-Liquidität.",
+        "actionable_rule": "Ein Reversal-Setup erfordert zwingend einen abgeschlossenen Liquidity-Sweep mit nachfolgendem Market Structure Shift (MSS) auf Kerzenschlussbasis vor Orderaufgabe."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T17:07:35.798442+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1793896723",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -2.74,
+      "pnl_raw": -1.37,
+      "text": "Keine Micro-Timeframe-Longs in High-Beta-Altcoins, solange BTC im selben 5m/15m-Zeitfenster impulsive Sell-Side-Imbalances generiert.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1793896723",
+        "verdict": "LOSS",
+        "driver": "Systemischer Beta-Abverkauf durch synchronen BTC-Verfall zerschlug den lokalen 5m-Support ohne jede Gegenwehr institutioneller Käufer.",
+        "technical_warning": "Fehlendes VSA-Absorptionsvolumen (kein Buying Climax mit Wick-Rejection) bei gleichzeitig impulsiv fallendem BTC-Orderbuch.",
+        "actionable_rule": "Keine Micro-Timeframe-Longs in High-Beta-Altcoins, solange BTC im selben 5m/15m-Zeitfenster impulsive Sell-Side-Imbalances generiert."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T17:07:07.874042+00:00",
+      "trade_id": "cross_rule_1793898427",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Basket-Korrelationsbremse für synchrone Cluster-Signale",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Treten identische Signale über mehrere Assets exakt im selben Zeitintervall auf, handelt es sich um systemisches Marktrisiko. Das Lab muss in solchen Momenten auf maximal 1 Position mit der höchsten relativen Stärke limitieren oder den Trade-Block sperren.",
+        "actionable_rule": "Basket-Korrelationsbremse für synchrone Cluster-Signale"
+      }
+    },
+    {
+      "timestamp": "2026-11-05T17:07:07.874020+00:00",
+      "trade_id": "cross_rule_1793898427",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volatilitätsexpansions-Veto: Kein Kontratrend-Einstieg bei expandierenden Bändern ohne bestätigten Sweep [A] und VSA-Climax",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf 5m als auch auf 4h/1D bedeutet ein Ausbruch aus dem Chaos Band/Keltner Channel oft starken Trendbeginn und keine Mean-Reversion. Ein Long-Einstieg benötigt zwingend das Abfischen externer Liquidität mit hohem Absorptionsvolumen.",
+        "actionable_rule": "Volatilitätsexpansions-Veto: Kein Kontratrend-Einstieg bei expandierenden Bändern ohne bestätigten Sweep [A] und VSA-Climax"
+      }
+    },
+    {
+      "timestamp": "2026-11-05T17:07:07.874008+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1793896722",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -2.5,
+      "pnl_raw": -1.25,
+      "text": "Retests von Order Blocks der Qualitätsstufe [B] dürfen nur ausgeführt werden, wenn auf 1m/Mikro-Ebene ein nachgewiesener Choch/Strukturwechsel mit erhöhtem Volumen vorliegt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1793896722",
+        "verdict": "LOSS",
+        "driver": "Fehlspekulation auf einen minderwertigen B-Klasse Order Block, der in impulsiven Abwärtswellen nicht stützt, sondern als Liquiditätsmagnet durchschlagen wird.",
+        "technical_warning": "Der OB [B] zeigte vor dem Retest keinen signifikanten mMSB (Micro Market Structure Break) und die Fair Value Gap (FVG) darüber blieb unberührt.",
+        "actionable_rule": "Retests von Order Blocks der Qualitätsstufe [B] dürfen nur ausgeführt werden, wenn auf 1m/Mikro-Ebene ein nachgewiesener Choch/Strukturwechsel mit erhöhtem Volumen vorliegt."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T17:07:07.873991+00:00",
+      "trade_id": "inc_DOGEUSDT_5m_1793896722",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.92,
+      "pnl_raw": -0.46,
+      "text": "Enge 5m-Support-Stops bei High-Beta-Coins sind verboten, wenn zeitgleich BTC/ETH neues lokales Abwärtsmomentum aufbauen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_5m_1793896722",
+        "verdict": "LOSS",
+        "driver": "Mangelnde relative Stärke des High-Beta-Memecoins führte bei eng gesetztem Stop-Loss zum sofortigen Ausstoppen im Sog des Marktes.",
+        "technical_warning": "Kein vorangehender Liquiditätsabgriff (Liquidity Sweep) der Vortiefs; der Preis fiel ohne Rejection-Docht direkt durch den Support-Level.",
+        "actionable_rule": "Enge 5m-Support-Stops bei High-Beta-Coins sind verboten, wenn zeitgleich BTC/ETH neues lokales Abwärtsmomentum aufbauen."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T17:07:07.873933+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1793896722",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -2.14,
+      "pnl_raw": -1.07,
+      "text": "Kein Long-Entry über Chaos-Band-Erschöpfung, solange das Band expandiert; zwingende Wartepflicht auf Re-Entry der Kerze in die Bandstruktur.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1793896722",
+        "verdict": "LOSS",
+        "driver": "Aggressives Bottom-Fishing bei expandierender Volatilität nach unten (Band-Walk), ohne dass Verkäuferabsorption im Orderflow stattfand.",
+        "technical_warning": "Das untere Chaos Band spreizte sich nach außen bei gleichzeitig fehlender bullischer VSA-Divergenz (kein Ultra-High Volume Exhaustion Bar).",
+        "actionable_rule": "Kein Long-Entry über Chaos-Band-Erschöpfung, solange das Band expandiert; zwingende Wartepflicht auf Re-Entry der Kerze in die Bandstruktur."
+      }
+    },
     {
       "timestamp": "2026-11-05T16:42:05.568690+00:00",
       "trade_id": "cross_rule_1793896925",

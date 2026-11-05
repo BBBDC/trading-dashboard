@@ -1,5 +1,96 @@
 [
   {
+    "id": "evt_20261105_164241",
+    "timestamp": "2026-11-05T16:42:41.437529+00:00",
+    "timestamp_display": "05.11.2026 16:42 UTC",
+    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 3,
+    "changes": [
+      {
+        "symbol": "AMEX:GLD",
+        "name": "GLD",
+        "category": "Aktien",
+        "change_type": "SETUP_UPDATE",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 89,
+        "new_score": 90,
+        "price": 376.605,
+        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
+        "entry_range": [
+          375.5,
+          376.5
+        ],
+        "stop_loss": 378.2,
+        "take_profit_2": 368.5,
+        "reasons": [
+          " HTF-Makrotrend (1W/1D) ist klar bärisch strukturiert, 1h degencoder liefert ein bestätigtes 'Good Sell Signal'.",
+          "1D und 4h weisen versteckte bärische Trendfolge-Divergenzen auf, was die übergeordnete Abwärtsdynamik bestätigt.",
+          "Untergeordneter 1h-Anstieg bei 'Very Low Volume' signalisiert eine schwache Korrektur (Bearish Relief Rally) in den Widerstand hinein."
+        ],
+        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 1: Bearish Confluence Reversal' ( HTF-Makrotrend (1W/1D) ist klar bärisch strukturiert, 1h degencoder liefert ein bestätigtes 'Good Sell Signal'.).",
+        "note": "Gemäß den gelernten Regeln erfordert dieser Trade Geduld: Der Short-Einstieg setzt voraus, dass auf den kleineren Zeitebenen (1m/5m) ein klarer Market Structure Shift (MSS) mit bärischem Displacement erfolgt. Solange kein starkes bullisches Eröffnungsvolumen dagegenhält, bietet die bärische Konfluenz ein sehr solides CRV von 2.85.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...pOzg]"
+      },
+      {
+        "symbol": "NASDAQ:NFLX",
+        "name": "Netflix",
+        "category": "Entertainment",
+        "change_type": "SETUP_UPDATE",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 87,
+        "new_score": 89,
+        "price": 65.81,
+        "setup_name": "Hypothese 1: SMC Order Block [R4] Exhaustion",
+        "entry_range": [
+          65.46,
+          66.27
+        ],
+        "stop_loss": 67.55,
+        "take_profit_2": 60.2,
+        "reasons": [
+          "1W/1D Makrotrend ist bärisch, der Kurs prallt an einem stark getesteten Bearish Order Block (Grade A, R4, Top 67.48) ab.",
+          "Perfekte Konfluenz durch synchrone degencoder 'Good Sell Signals' auf 4h und 1h Zeithorizont.",
+          "1h zeigt eine reguläre bärische Divergenz bei 'Very Low Volume', was auf eine vollständige Erschöpfung der Käufer hinweist."
+        ],
+        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R4] Exhaustion' (1W/1D Makrotrend ist bärisch, der Kurs prallt an einem stark getesteten Bearish Order Block (Grade A, R4, Top 67.48) ab.).",
+        "note": "Der Wert reagiert präzise am Bearish Order Block und zeigt klare Erschöpfungszeichen im Volumen. Trotz der historischen Schwäche des Setups ist die Konfluenz aus 4h/1h Sell-Signalen und bärischer 1h Divergenz im übergeordneten Bärenmarkt extrem hoch. Risk-Management bleibt strikt mit Stop knapp über dem OB-Top bei 67.55.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...pOzg]"
+      },
+      {
+        "symbol": "NASDAQ:CRWD",
+        "name": "CrowdStrike",
+        "category": "Cybersecurity",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 96,
+        "new_score": 48,
+        "price": 221.235,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          0,
+          0
+        ],
+        "stop_loss": 0.0,
+        "take_profit_2": 0.0,
+        "reasons": [
+          "Makro-Trend (1W und 1D) ist strikt BEARISH – Long-Signale entgegen dem Trend sind verboten.",
+          "Der aktive Bullish OB hat Grade D, ist bereits mitigated und weist keinen Liquiditäts-Sweep auf.",
+          "Gemäß der CRWD-Sonderregel fehlt ein LTF-Strukturwechsel (CHoCH/MSS) sowie der vorgelagerte Intraday-Sweep."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W und 1D) ist strikt BEARISH – Long-Signale entgegen dem Trend sind verboten.).",
+        "note": "CRWD befindet sich im übergeordneten Abwärtstrend. Das vorherige LONG-Signal wird aufgrund fehlender LTF-Bestätigung und schwacher OB-Qualität (Grad D, retested) auf NEUTRAL downgraded. Wir verharren diszipliniert an der Seitenlinie und warten auf eine klare Bärenmarktrallye in den FVG-Bereich (214.34 - 239.20), um eine risikoarme Short-Opportunity zu prüfen.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...oFUw]"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🔴 GLD (GLD):\n   Score-Sprung: 89% ➔ 90% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: Bearish Confluence Reversal' ( HTF-Makrotrend (1W/1D) ist klar bärisch strukturiert, 1h degencoder liefert ein bestätigtes 'Good Sell Signal'.).\n   📝 KI-Rationale: Gemäß den gelernten Regeln erfordert dieser Trade Geduld: Der Short-Einstieg setzt voraus, dass auf den kleineren Zeitebenen (1m/5...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 375.50 | SL: 378.20 | TP2: 368.50\n\n🔴 Netflix (NFLX):\n   Score-Sprung: 87% ➔ 89% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R4] Exhaustion' (1W/1D Makrotrend ist bärisch, der Kurs prallt an einem stark getesteten Bearish Order Block (Grade A, R4, Top 67.48) ab.).\n   📝 KI-Rationale: Der Wert reagiert präzise am Bearish Order Block und zeigt klare Erschöpfungszeichen im Volumen. Trotz der historischen Schwäche d...\n   Setup: Hypothese 1: SMC Order Block [R4] Exhaustion\n   Entry: 65.46 | SL: 67.55 | TP2: 60.20\n\n⚪ CrowdStrike (CRWD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W und 1D) ist strikt BEARISH – Long-Signale entgegen dem Trend sind verboten.).\n   📝 KI-Rationale: CRWD befindet sich im übergeordneten Abwärtstrend. Das vorherige LONG-Signal wird aufgrund fehlender LTF-Bestätigung und schwacher...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_trade_20261105_151515_GOOGL",
     "timestamp": "2026-11-05T15:15:15.882958+00:00",
     "timestamp_display": "05.11.2026 15:15 UTC",
@@ -22628,287 +22719,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 10 Einstufungen haben sich geändert:\n\n🟢 Solana (SOLUSD):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 86%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (Vollständige MTF-Harmonie: 1D und 4h Trends synchron bullisch über relevanten Durchschnitten).\n   📝 KI-Rationale: Solana zeigt seltene institutionelle Stärke mit anziehendem Volumen und intakter bullischer Divergenz auf Tagesbasis. Der Stop-Los...\n   Setup: Hypothese 2: Trend Continuation mit VSA-Expansion\n   Entry: 105.50 | SL: 99.80 | TP2: 128.00\n\n🔴 Accenture (ACN):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 85%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (Klares Erschöpfungsszenario am oberen degencoder-Kanalband (Overbought)).\n   📝 KI-Rationale: Accenture ist massiv überdehnt und stößt bei extremen RSI-Messungen an das obere Kanalband. Das austrocknende Volumen (No Demand) ...\n   Setup: Hypothese 3: Overbought Channel Exhaustion Reversal\n   Entry: 237.50 | SL: 243.20 | TP2: 221.00\n\n⚪ WTI Rohöl Future (CL1!):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 53%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D RSI liegt bei 60.09 und verletzt die No-Chasing-Regel (RSI > 60)).\n   📝 KI-Rationale: WTI Öl verzeichnet eine starke Aufwärtsbewegung, ist jedoch kurzfristig überdehnt. Der 1D RSI über 60 schließt einen risikoarmen L...\n   Setup: Beobachten / Konsolidierung\n\n⚪ Netflix (NFLX):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Notiert im 1D Oversold-Band mit RSI 32.84, aber Trend ist übergeordnet intakt bärisch).\n   📝 KI-Rationale: Trotz stark überverkaufter Indikatoren und Reversal-Divergenzen fehlt institutionelles Akkumulationsvolumen. Ein Long-Einstieg geg...\n   Setup: Beobachten / Reversal-Watchlist\n\n⚪ Nvidia (NVDA):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Übergeordneter 1D-Trend ist bärisch, kein Setup im Golden Pocket).\n   📝 KI-Rationale: Nvidia konsolidiert nach Abwärtsimpulsen im Niemandsland des Trendkanals. Die bullischen Divergenzen werden durch fehlende Liquidi...\n   Setup: Beobachten / Konsolidierung\n\n⚪ Oracle (ORCL):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 46%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D und 4h Trend bärisch, jedoch kein Einstieg im Retracement).\n   📝 KI-Rationale: Oracle verbleibt in einem intakten Abwärtstrend, bietet aktuell jedoch kein vorteilhaftes Chance-Risiko-Verhältnis für Neueinstieg...\n   Setup: Beobachten / Warten auf HTF-Key-Level\n\n... und 4 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261021_152113",
-    "timestamp": "2026-10-21T15:21:13.963830+00:00",
-    "timestamp_display": "21.10.2026 15:21 UTC",
-    "title": "🔔 TV-Signaländerung: 10 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 10,
-    "changes": [
-      {
-        "symbol": "NYSE:ORCL",
-        "name": "Oracle",
-        "category": "Enterprise Software",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 48,
-        "new_score": 95,
-        "price": 129.51,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          129.25,
-          130.55
-        ],
-        "stop_loss": 134.04,
-        "take_profit_2": 115.01,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NASDAQ:NFLX",
-        "name": "Netflix",
-        "category": "Entertainment",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 48,
-        "new_score": 90,
-        "price": 65.7,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          65.17,
-          65.83
-        ],
-        "stop_loss": 63.4,
-        "take_profit_2": 73.06,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1D Kurs überdehnt unteres degencoder-Band (Oversold)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "COMEX:HG1!",
-        "name": "Kupfer Future",
-        "category": "Industriemetalle",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 48,
-        "new_score": 90,
-        "price": 6.56,
-        "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
-        "entry_range": [
-          6.51,
-          6.57
-        ],
-        "stop_loss": 6.33,
-        "take_profit_2": 7.3,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Kurs im 1D Golden Pocket (6.51 - 6.53)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bärische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "TVC:PLATINUM",
-        "name": "Platin (Spot)",
-        "category": "Edelmetalle",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 47,
-        "new_score": 87,
-        "price": 1631.9,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          1618.84,
-          1635.16
-        ],
-        "stop_loss": 1574.78,
-        "take_profit_2": 1814.68,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bullische Konfluenz (87%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NASDAQ:NVDA",
-        "name": "Nvidia",
-        "category": "Halbleiter",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 48,
-        "new_score": 82,
-        "price": 220.15,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          218.39,
-          220.59
-        ],
-        "stop_loss": 212.44,
-        "take_profit_2": 244.82,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bullische Konfluenz (82%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NASDAQ:HOOD",
-        "name": "Robinhood",
-        "category": "Fintech / Broker",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 49,
-        "new_score": 80,
-        "price": 100.59,
-        "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
-        "entry_range": [
-          99.79,
-          100.79
-        ],
-        "stop_loss": 97.07,
-        "take_profit_2": 111.85,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Kurs im 1D Golden Pocket (98.75 - 100.13)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bullische Konfluenz (80%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NASDAQ:MRVL",
-        "name": "Marvell",
-        "category": "Halbleiter",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 47,
-        "new_score": 77,
-        "price": 242.69,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          240.75,
-          243.18
-        ],
-        "stop_loss": 234.2,
-        "take_profit_2": 269.86,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bullische Konfluenz (77%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NYMEX:CL1!",
-        "name": "WTI Rohöl Future",
-        "category": "Energie",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 48,
-        "new_score": 75,
-        "price": 97.68,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          96.9,
-          97.88
-        ],
-        "stop_loss": 94.26,
-        "take_profit_2": 108.62,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bärische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (75%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "XETR:ADS",
-        "name": "Adidas",
-        "category": "Consumer / DAX",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 82,
-        "new_score": 48,
-        "price": 160.95,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          160.95,
-          160.95
-        ],
-        "stop_loss": 156.12,
-        "take_profit_2": 170.61,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "1D Kurs überdehnt oberes degencoder-Band (Overbought)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bärische Divergenz (Reversal)"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend über EMA 233 bullisch).",
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NASDAQ:AVGO",
-        "name": "Broadcom",
-        "category": "Halbleiter",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 78,
-        "new_score": 46,
-        "price": 335,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          335,
-          335
-        ],
-        "stop_loss": 324.95,
-        "take_profit_2": 355.1,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 10 Einstufungen haben sich geändert:\n\n🔴 Oracle (ORCL):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 129.25 | SL: 134.04 | TP2: 115.01\n\n🟢 Netflix (NFLX):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 90%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 65.17 | SL: 63.40 | TP2: 73.06\n\n🟢 Kupfer Future (HG1!):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 90%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 1: SMC Golden Confluence Reversal\n   Entry: 6.51 | SL: 6.33 | TP2: 7.30\n\n🟢 Platin (Spot) (PLATINUM):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 87%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (87%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 1,618.84 | SL: 1,574.78 | TP2: 1,814.68\n\n🟢 Nvidia (NVDA):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 82%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (82%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 218.39 | SL: 212.44 | TP2: 244.82\n\n🟢 Robinhood (HOOD):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 80%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (80%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 1: SMC Golden Confluence Reversal\n   Entry: 99.79 | SL: 97.07 | TP2: 111.85\n\n... und 4 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
