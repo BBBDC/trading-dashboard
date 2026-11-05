@@ -1,7 +1,258 @@
 {
-  "updated_at": "2026-11-05T15:15:59.947007+00:00",
-  "total_experience_records": 74,
+  "updated_at": "2026-11-05T16:42:09.394521+00:00",
+  "total_experience_records": 72,
   "learnings": [
+    {
+      "timestamp": "2026-11-05T16:42:05.568690+00:00",
+      "trade_id": "cross_rule_1793896925",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
+        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T16:42:05.568641+00:00",
+      "trade_id": "inc_FB2A.F_5m_1793891563",
+      "symbol": "FB2A.F",
+      "name": "Meta Platforms",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.44,
+      "pnl_raw": -0.22,
+      "text": "Bei FB2A.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_FB2A.F_5m_1793891563",
+        "verdict": "LOSS",
+        "driver": "Trade FB2A.F schloss mit CLOSED_SL (-1.0R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei FB2A.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T16:39:50.489937+00:00",
+      "trade_id": "cross_rule_1793896790",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volumenspikes am Support sind 'Verkaufsdruck bis zum Gegenbeweis' (Absorption vs. Climax-Filter).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein isolierter VSA-Surge auf 5m (wie bei LINK) darf fraktal niemals als automatisches Kaufsignal gewertet werden, solange der Preis nicht die Eröffnung des Spike-Bars zurückerobert und einen strukturellen Bruch im Orderflow nachweist.",
+        "actionable_rule": "Volumenspikes am Support sind 'Verkaufsdruck bis zum Gegenbeweis' (Absorption vs. Climax-Filter)."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T16:39:50.489918+00:00",
+      "trade_id": "cross_rule_1793896790",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine Mean-Reversion ohne Liquidity Sweep [A] und HTF-Strukturkonsistenz (4h/1D).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die synchrone Ausstoppung über Krypto und US-Equities demonstriert, dass isolierte Oszillator- und Band-Erschöpfungssignale (Chaos Band < RFE, 'Blaues Dreieck') auf Micro-TFs wertlos sind, wenn übergeordnet Verkaufsdruck dominiert; erst das Herausnehmen von externer Liquidität schafft die Basis für ein nachhaltiges Reversal.",
+        "actionable_rule": "Keine Mean-Reversion ohne Liquidity Sweep [A] und HTF-Strukturkonsistenz (4h/1D)."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T16:39:50.489906+00:00",
+      "trade_id": "inc_MSF.F_5m_1793891563",
+      "symbol": "MSF.F",
+      "name": "Microsoft",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.5,
+      "pnl_raw": -0.25,
+      "text": "Orderblock-Retests dürfen auf 5m/15m nur ausgeführt werden, wenn der OB mindestens Grade [A] aufweist und ein vorgelagertes FVG verteidigt wird.",
+      "ai_post_mortem": {
+        "trade_id": "inc_MSF.F_5m_1793891563",
+        "verdict": "LOSS",
+        "driver": "Fehlgeschlagener Retest eines minderwertigen B-Grade-Orderblocks gegen starken Intraday-Abwärtsdruck ohne vorheriges Abfischen der Sell-Side-Liquidity.",
+        "technical_warning": "Niedrige OB-Klassifikation [B] gepaart mit ausbleibendem Sweep unter das lokale Swing-Tief vor dem Wiedereintritt.",
+        "actionable_rule": "Orderblock-Retests dürfen auf 5m/15m nur ausgeführt werden, wenn der OB mindestens Grade [A] aufweist und ein vorgelagertes FVG verteidigt wird."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T16:39:50.489891+00:00",
+      "trade_id": "inc_AMZ.F_5m_1793891562",
+      "symbol": "AMZ.F",
+      "name": "Amazon",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.08,
+      "pnl_raw": -0.04,
+      "text": "Die Stop-Loss-Distanz auf Micro-TFs muss zwingend an die lokale Volatilität gekoppelt sein (mind. 1.5x ATR 5m); blinde Indikator-Trigger ohne VSA-Volumenfilter sind verboten.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AMZ.F_5m_1793891562",
+        "verdict": "LOSS",
+        "driver": "Tödliche Kombination aus fehlender Volumen-/Orderflow-Bestätigung und einer mit -0.04% absurd engen Stop-Distanz, die direkt im natürlichen Spread- und Orderbuchrauschen verbrannt wurde.",
+        "technical_warning": "Fehlendes VSA-Volumen und eine Stop-Loss-Distanz weit unterhalb des 5m-ATR-Rauschens für Aktien im europäischen Sekundärhandel.",
+        "actionable_rule": "Die Stop-Loss-Distanz auf Micro-TFs muss zwingend an die lokale Volatilität gekoppelt sein (mind. 1.5x ATR 5m); blinde Indikator-Trigger ohne VSA-Volumenfilter sind verboten."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T16:39:50.489835+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1793891562",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.38,
+      "pnl_raw": -0.69,
+      "text": "Kein Long-Einstieg bei hohem VSA-Volumen (>1.5x) am Support ohne vorherigen externen Liquidity Sweep und nachfolgendem bullischen MSS auf Kerzenschlussbasis.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1793891562",
+        "verdict": "LOSS",
+        "driver": "Fehlinterpretation des VSA High Volume Surges (1.7x) als Akkumulation, obwohl institutionelle Verkaufsabgabe (Supply Dominance) ungebremst durch das Support-Niveau schlug.",
+        "technical_warning": "Der 1.7x Volumenspike ohne bullische Kerzenablehnung (Lower Wick) signalisierte aggressives 'Sell into Support' statt einer erfolgreichen Absorption.",
+        "actionable_rule": "Kein Long-Einstieg bei hohem VSA-Volumen (>1.5x) am Support ohne vorherigen externen Liquidity Sweep und nachfolgendem bullischen MSS auf Kerzenschlussbasis."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T16:39:14.891814+00:00",
+      "trade_id": "cross_rule_1793896754",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "VSA Effort vs. Result: Volumen-Absorption verlangt Preisreaktion",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Hohes oder ultra-hohes Volumen am Support ist solange bearisher Verkaufsdruck, bis der Preis beweist, dass das smarte Geld die Sell-Orders absorbiert hat (z.B. durch Reclaim oder starke Rejection-Wicks). Fehlt die bullische Preisreaktion, impliziert hohes Volumen Trendfortsetzung, nicht Umkehr.",
+        "actionable_rule": "VSA Effort vs. Result: Volumen-Absorption verlangt Preisreaktion"
+      }
+    },
+    {
+      "timestamp": "2026-11-05T16:39:14.891792+00:00",
+      "trade_id": "cross_rule_1793896754",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Systemischer Korrelations- und Makro-Regime-Filter",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Zeitgleiche Signale (innerhalb derselben Sekunde/Minute) über mehrere unkorrelierte Altcoins hinweg weisen auf marktweite BTC-/Makro-Liquidationen hin. In solchen Phasen sind aggregierte Long-Exposures über ein Basket-Risk-Limit abzufangen, da Mikro-Supports fraktal kollabieren.",
+        "actionable_rule": "Systemischer Korrelations- und Makro-Regime-Filter"
+      }
+    },
+    {
+      "timestamp": "2026-11-05T16:39:14.891779+00:00",
+      "trade_id": "inc_DOGEUSDT_5m_1793891562",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.42,
+      "pnl_raw": -0.71,
+      "text": "Volumen-Spikes > 2.5x am Support sperren Direkt-Entries (Hard Freeze für min. 3 Bars); ein Einstieg ist erst nach Etablierung eines Higher Lows erlaubt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_5m_1793891562",
+        "verdict": "LOSS",
+        "driver": "Klassisches 'Falling Knife': Ultra High Volume (2.6x) markierte eine aggressive Kapitulationskaskade mit direktem Durchmarsch durch den Stop-Loss.",
+        "technical_warning": "Ultra High Volume bei Kerzenschluss nahe dem absoluten Tief – klares Indiz für Sell-Side-Dominanz und ungedeckte Sell-Market-Orders.",
+        "actionable_rule": "Volumen-Spikes > 2.5x am Support sperren Direkt-Entries (Hard Freeze für min. 3 Bars); ein Einstieg ist erst nach Etablierung eines Higher Lows erlaubt."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T16:39:14.891762+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1793891562",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.52,
+      "pnl_raw": -0.76,
+      "text": "Fällt der Kurs mit > 2.0x Volumen unter das RFE/Chaos-Band, darf erst nach erfolgreichem Reclaim (Swing Failure Pattern) der Range per Candle-Close getriggert werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1793891562",
+        "verdict": "LOSS",
+        "driver": "Systemischer Fehlausbruch nach unten, bei dem Very High Volume (2.1x) unterhalb des Chaos-Bandes den Trend beschleunigte anstatt zu drehen.",
+        "technical_warning": "Dynamischer Durchstich des Support-Bandes ohne bullische Divergenz oder sofortigen Reclaim der Range.",
+        "actionable_rule": "Fällt der Kurs mit > 2.0x Volumen unter das RFE/Chaos-Band, darf erst nach erfolgreichem Reclaim (Swing Failure Pattern) der Range per Candle-Close getriggert werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T16:39:14.891702+00:00",
+      "trade_id": "inc_BNBUSDT_5m_1793891561",
+      "symbol": "BNBUSDT",
+      "name": "BNB",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.9,
+      "pnl_raw": -0.45,
+      "text": "Long-Einstiege bei High Volume (1.5x–2.0x) erfordern zwingend eine abgeschlossene Reversal-Schlusskerze mit reduziertem Folgevolumen (Effort vs. Result).",
+      "ai_post_mortem": {
+        "trade_id": "inc_BNBUSDT_5m_1793891561",
+        "verdict": "LOSS",
+        "driver": "Long-Einstieg gegen einen intakten Mikro-Abverkauf; das 1.7x Volumen signalisierte aktiven Angebotsüberhang und keine stattfand-gefundene Absorption.",
+        "technical_warning": "Fehlende Rejection-Dochtbildung am Support sowie das Ausbleiben eines 'No Supply'-Tests nach dem Volumenstoß.",
+        "actionable_rule": "Long-Einstiege bei High Volume (1.5x–2.0x) erfordern zwingend eine abgeschlossene Reversal-Schlusskerze mit reduziertem Folgevolumen (Effort vs. Result)."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T16:37:41.654645+00:00",
+      "trade_id": "trade_NASDAQ_CRWD_20261105_1605",
+      "symbol": "NASDAQ:CRWD",
+      "name": "CrowdStrike",
+      "category": "Cybersecurity",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "Hypothese 1: SMC Order Block [R4] Confluence",
+      "pnl_leveraged": -2.81,
+      "pnl_raw": -0.7,
+      "text": "Ein übergeordnet bullischer Trend schützt nicht vor kurzfristigem Verkaufsdruck. Wer Order Blocks ohne untergeordnete Reaktionsbestätigung kauft, fängt fallende Messer.",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Der Trade wurde blind gegen starkes Intraday-Momentum eröffnet und erzielte null positives Momentum (0% MFE), da HTF-Trends fälschlicherweise ohne Bestätigung auf kleinerer Zeitebene gehandelt wurden.",
+        "technical_warning": "Fehlende bullische Umkehrstruktur (kein Change of Character / CHoCH auf M5) sowie anhaltend hoher Verkaufsdruck beim Auftreffen auf den Order Block signalisierten unmittelbare Bruchgefahr.",
+        "actionable_rule": "SMC-Order-Blocks dürfen niemals per Blind-Entry betreten werden; Voraussetzung ist immer ein bestätigter LTF-Strukturwechsel (CHoCH/MSS) mit erkennbarem Volumenimpuls.",
+        "recommended_leverage_adjustment": -1,
+        "summary_text": "Ein übergeordnet bullischer Trend schützt nicht vor kurzfristigem Verkaufsdruck. Wer Order Blocks ohne untergeordnete Reaktionsbestätigung kauft, fängt fallende Messer."
+      }
+    },
     {
       "timestamp": "2026-11-05T15:15:59.945966+00:00",
       "trade_id": "trade_NASDAQ_CRWD_20261105_1512",
@@ -1135,40 +1386,20 @@
         "driver": "Auf Mikro-Zeitskalen (5m) werden Orderblocks bei fehlender HTF-Unterstützung regelmäßig als reine Ausstiegsliquidität überrollt; ADA und XRP litten unter dem Versuch, fallende Messer ohne strukturelle Trendwende aufzufangen.",
         "actionable_rule": "Kein isolierter Orderblock-Retest ohne vorherigen fraktalen Market Structure Shift (MSS) in Trendrichtung des 4h/1D-Kontexts."
       }
-    },
-    {
-      "timestamp": "2026-11-05T09:06:34.798458+00:00",
-      "trade_id": "inc_SAP.DE_5m_1793868503",
-      "symbol": "SAP.DE",
-      "name": "SAP SE",
-      "category": "Micro-Incubator (5m)",
-      "direction": "SHORT",
-      "result": "WIN",
-      "setup_name": "degencoder 5m Micro-Confluence Short",
-      "pnl_leveraged": 0.44,
-      "pnl_raw": 0.22,
-      "text": "Exhaustion-Shorts an Chaos-Bändern dürfen nur ausgeführt werden, wenn die relative Fraktal-Effizienz (RFE) eine Dynamikabnahme bestätigt und der Kurs die Bandgrenze nicht impulsiv expandiert.",
-      "ai_post_mortem": {
-        "trade_id": "inc_SAP.DE_5m_1793868503",
-        "verdict": "WIN",
-        "driver": "Perfekte antizyklische Positionierung in einer Zone extremer Erschöpfung, bei der Käufer über dem Chaos Band gefangen wurden und der Kurs rasch zum Mean zurückkehrte.",
-        "technical_warning": "Keine Warnung – saubere Signalkonfluenz aus RFE-Erschöpfung, Bandüberdehnung und unmittelbarem Verkaufsmarker.",
-        "actionable_rule": "Exhaustion-Shorts an Chaos-Bändern dürfen nur ausgeführt werden, wenn die relative Fraktal-Effizienz (RFE) eine Dynamikabnahme bestätigt und der Kurs die Bandgrenze nicht impulsiv expandiert."
-      }
     }
   ],
   "setup_statistics": {},
   "setup_performance": {
     "Hypothese 1: SMC Order Block [R4] Confluence": {
-      "trades": 2,
+      "trades": 3,
       "wins": 1,
-      "losses": 1,
-      "win_rate": 50.0,
-      "total_lev_pnl": -1.2,
-      "profit_factor": 0.4,
-      "status": "BALANCED",
-      "min_score": 88,
-      "leverage_adjustment": 0
+      "losses": 2,
+      "win_rate": 33.3,
+      "total_lev_pnl": -4.0,
+      "profit_factor": 0.17,
+      "status": "CAUTION",
+      "min_score": 90,
+      "leverage_adjustment": -1
     },
     "Hypothese 1: degencoder Institutional Buy Pocket Reversal": {
       "trades": 5,
@@ -1349,15 +1580,15 @@
   },
   "category_performance": {
     "Cybersecurity": {
-      "trades": 2,
+      "trades": 3,
       "wins": 1,
-      "losses": 1,
-      "win_rate": 50.0,
-      "total_lev_pnl": -1.2,
-      "profit_factor": 0.4,
-      "status": "STANDARD",
-      "min_score": 88,
-      "leverage_cap": 5
+      "losses": 2,
+      "win_rate": 33.3,
+      "total_lev_pnl": -4.0,
+      "profit_factor": 0.17,
+      "status": "CAUTION",
+      "min_score": 90,
+      "leverage_cap": 3
     },
     "Crypto": {
       "trades": 32,
