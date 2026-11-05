@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-05T20:31:36.251784+00:00",
-  "total_experience_records": 71,
+  "updated_at": "2026-11-05T21:06:59.026284+00:00",
+  "total_experience_records": 75,
   "learnings": [
+    {
+      "timestamp": "2026-11-05T21:06:55.182360+00:00",
+      "trade_id": "cross_rule_1793912815",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Qualitätsfilter-Hierarchie: C-Grade Strukturen erfordern zwingend HTF-Trendkonfluenz und einen vorangehenden Sweep [A], um exekutierbar zu sein.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Indikatorbasierte Überverkauft-Signale (Chaos Band / Dreiecke) innerhalb von C-Zonen verleiten Algorithmen zum Verfrühen von Reversals, während übergeordnete 4h-Trends schwache Zonen ohne Gegenwehr überrollen.",
+        "actionable_rule": "Qualitätsfilter-Hierarchie: C-Grade Strukturen erfordern zwingend HTF-Trendkonfluenz und einen vorangehenden Sweep [A], um exekutierbar zu sein."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T21:06:55.182339+00:00",
+      "trade_id": "cross_rule_1793912815",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Max-Retest-Gesetz (R2-Limit): Ein Order Block verliert fraktal mit jeder Mitigation exponentiell an Schutzkraft – Zonen ab R3 sind Liquiditätsziele, keine Einstiegslevel.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Wie bei XRP (5m) demonstriert, akkumulieren sich unter mehrfach getesteten Zonen Stop-Loss-Cluster; auf 4h/1D führt das Kaufen von Zonen >R2 nicht zu Rallies, sondern direkt in volatile Liquidation-Events.",
+        "actionable_rule": "Max-Retest-Gesetz (R2-Limit): Ein Order Block verliert fraktal mit jeder Mitigation exponentiell an Schutzkraft – Zonen ab R3 sind Liquiditätsziele, keine Einstiegslevel."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T21:06:55.182323+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1793910674",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.54,
+      "pnl_raw": -0.27,
+      "text": "Strikte R2-Obergrenze: Order Blocks dürfen maximal bei R1 oder R2 gehandelt werden; ab R3 gilt die Zone als erschöpft und wird automatisch aus dem Long-Execution-Pool gestrichen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1793910674",
+        "verdict": "LOSS",
+        "driver": "Einstieg in einen strukturell toten Support: Ein Order Block im sechsten Retest (R6) besitzt keinerlei unbediente institutionelle Kaufaufträge mehr und dient den Verkäufern lediglich als Durchbruchsliquidität.",
+        "technical_warning": "Die Retest-Kaskade (R6) mit zunehmend schwächeren Rebounds und clusternden Kerzenschlüssen an der Unterkante warnte frühzeitig vor dem strukturellen Bruch.",
+        "actionable_rule": "Strikte R2-Obergrenze: Order Blocks dürfen maximal bei R1 oder R2 gehandelt werden; ab R3 gilt die Zone als erschöpft und wird automatisch aus dem Long-Execution-Pool gestrichen."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T21:06:55.182263+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1793903968",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Long-Einstieg an [C]-Qualität Order Blocks ohne vorgelagerten Sweep externer Sell-Side Liquidity und Bestätigung durch eine bullische VSA-Absorptionskerze.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1793903968",
+        "verdict": "LOSS",
+        "driver": "Messerfangen in dynamischem Abwärtsdruck: Ein qualitativ schwacher C-Grade OB bot keinerlei institutionelle Absorption, wodurch die Position trotz 'Buy Pocket' unmittelbar am Einstiegsniveau ausgestoppt wurde.",
+        "technical_warning": "Fehlen eines qualifizierten Liquidity Sweeps [A] vor dem Retest sowie aggressives VSA-Verkaufsvolumen beim Durchschlagen des Chaos-Bandes.",
+        "actionable_rule": "Kein Long-Einstieg an [C]-Qualität Order Blocks ohne vorgelagerten Sweep externer Sell-Side Liquidity und Bestätigung durch eine bullische VSA-Absorptionskerze."
+      }
+    },
     {
       "timestamp": "2026-11-05T20:31:32.346282+00:00",
       "trade_id": "cross_rule_1793910692",
