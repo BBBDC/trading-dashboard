@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-05T18:40:03.040182+00:00",
-  "total_experience_records": 65,
+  "updated_at": "2026-11-05T19:11:57.898418+00:00",
+  "total_experience_records": 68,
   "learnings": [
+    {
+      "timestamp": "2026-11-05T19:11:54.242170+00:00",
+      "trade_id": "cross_rule_1793905914",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Minderwertige Zonen (Rating < B) bedürfen fraktal eines Market Structure Shifts (MSS) mit klarem Displacement, bevor Kapital riskiert wird.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl im 5m-Scalping als auch im 1D-Swing-Trading enden unbestätigte Re-Tests schwacher Zonen in Fortsetzungsausbrüchen der Gegenseite.",
+        "actionable_rule": "Minderwertige Zonen (Rating < B) bedürfen fraktal eines Market Structure Shifts (MSS) mit klarem Displacement, bevor Kapital riskiert wird."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T19:11:54.242144+00:00",
+      "trade_id": "cross_rule_1793905914",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Marktstruktur und Liquiditäts-Sweeps dominieren Indikatoren-Extreme: Kein Einstieg allein auf Basis überdehnter Bänder oder Oszillatoren.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die 5m-Chaos-Band-Überdehnung führte direkt ins SL; dasselbe Phänomen führt auf 4h/1D zu verheerenden Trendfolge-Verlusten, wenn ein starker Impuls überverkaufte Zustände tagelang ignoriert.",
+        "actionable_rule": "Marktstruktur und Liquiditäts-Sweeps dominieren Indikatoren-Extreme: Kein Einstieg allein auf Basis überdehnter Bänder oder Oszillatoren."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T19:11:54.242091+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1793903968",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.56,
+      "pnl_raw": -0.28,
+      "text": "Order Blocks mit einem internen Rating unterhalb von [B] dürfen nicht blind per Limit/Confluence akkumuliert werden; Long-Entries erfordern zwingend einen Sweep des lokalen Tiefs plus eine bullische Bestätigungskerze mit überdurchschnittlichem Volumen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1793903968",
+        "verdict": "LOSS",
+        "driver": "Front-Running eines schwachen D-Grade Order Blocks gegen anhaltenden Verkaufsdruck ohne vorherigen Sell-Side Liquidity Sweep oder strukturelle Bestätigung (MSS).",
+        "technical_warning": "Das unzureichende OB-Qualitäts-Rating [D] sowie das Ausbleiben einer VSA-Volumenabsorption bei Erreichen des Chaos-Bandes warnten vor unvollständigem De-Risking der Marktteilnehmer.",
+        "actionable_rule": "Order Blocks mit einem internen Rating unterhalb von [B] dürfen nicht blind per Limit/Confluence akkumuliert werden; Long-Entries erfordern zwingend einen Sweep des lokalen Tiefs plus eine bullische Bestätigungskerze mit überdurchschnittlichem Volumen."
+      }
+    },
     {
       "timestamp": "2026-11-05T18:39:59.268756+00:00",
       "trade_id": "cross_rule_1793903999",
