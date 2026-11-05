@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-05T02:25:36.494805+00:00",
-  "total_experience_records": 109,
+  "updated_at": "2026-11-05T03:11:11.330050+00:00",
+  "total_experience_records": 112,
   "learnings": [
+    {
+      "timestamp": "2026-11-05T03:11:07.226881+00:00",
+      "trade_id": "cross_rule_1793848267",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Strikte Hierarchie: Tier-[C]-Zonen dürfen nur als Take-Profit, niemals als Entry-Katalysator dienen",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Micro-Zonen ohne übergeordnete Marktstruktur (HTF) bieten unzureichende Tiefe für institutionelle Orders und werden bei Volatilitätsschüben systematisch zur Liquiditätsbeschaffung abgefischt.",
+        "actionable_rule": "Strikte Hierarchie: Tier-[C]-Zonen dürfen nur als Take-Profit, niemals als Entry-Katalysator dienen"
+      }
+    },
+    {
+      "timestamp": "2026-11-05T03:11:07.226848+00:00",
+      "trade_id": "cross_rule_1793848267",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volumen-Climax ist Angebotsdominanz, bis die Absorption per Kerzenschluss bewiesen ist",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf der 5m- als auch auf der 4h/Daily-Skala bedeutet extremes Volumen (>3.0x Baseline) in Unterstützungszonen primär aggressiven Verkaufsfluss ('Effort to Fall'). Erst wenn der Spread verengt und die folgende Kerze bullish oberhalb der Zone schließt, gilt die Liquidität als absorbiert.",
+        "actionable_rule": "Volumen-Climax ist Angebotsdominanz, bis die Absorption per Kerzenschluss bewiesen ist"
+      }
+    },
+    {
+      "timestamp": "2026-11-05T03:11:07.226783+00:00",
+      "trade_id": "inc_BNBUSDT_5m_1793845473",
+      "symbol": "BNBUSDT",
+      "name": "BNB",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.46,
+      "pnl_raw": -0.23,
+      "text": "Keine Limit- oder Sofort-Entries an Order Blocks mit Rating [C]; bei VSA-Spikes > 3.0x ist zwingend ein Kerzenschluss (Spring/Rejection) über dem Pivot-Level abzuwarten.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BNBUSDT_5m_1793845473",
+        "verdict": "LOSS",
+        "driver": "Ein qualitativ minderwertiger Order Block (Grade C) wurde unter 5.0x Ultra-High-Volume ohne bullische Absorptionsbestätigung nach unten durchschlagen.",
+        "technical_warning": "Das 5.0x Ultra High Volume an einem schwachen Support signalisierte agressiven Verkaufsdruck (Supply Climax / Liquidation Run) statt defensiver Akkumulation; ohne Spreadeinengung und Sweep-Rejection war der Support nicht tragfähig.",
+        "actionable_rule": "Keine Limit- oder Sofort-Entries an Order Blocks mit Rating [C]; bei VSA-Spikes > 3.0x ist zwingend ein Kerzenschluss (Spring/Rejection) über dem Pivot-Level abzuwarten."
+      }
+    },
     {
       "timestamp": "2026-11-05T02:25:32.798488+00:00",
       "trade_id": "cross_rule_1793845532",
