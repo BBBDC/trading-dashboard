@@ -297,13 +297,22 @@ def check_portfolio_and_user_trades() -> Dict[str, Any]:
 
 
 def check_telegram_bot_service() -> Dict[str, Any]:
-    """Prüft den systemd Service des Telegram-Bots."""
+    """Prüft den systemd Service des Telegram-Bots auch in minimalen Umgebungen (Cron)."""
     try:
+        env = os.environ.copy()
+        uid = os.getuid()
+        runtime_dir = f"/run/user/{uid}"
+        if "XDG_RUNTIME_DIR" not in env and os.path.exists(runtime_dir):
+            env["XDG_RUNTIME_DIR"] = runtime_dir
+        if "DBUS_SESSION_BUS_ADDRESS" not in env and os.path.exists(f"{runtime_dir}/bus"):
+            env["DBUS_SESSION_BUS_ADDRESS"] = f"unix:path={runtime_dir}/bus"
+
         res = subprocess.run(
             ["systemctl", "--user", "is-active", "trading-telegram-bot.service"],
             capture_output=True,
             text=True,
-            timeout=5
+            timeout=5,
+            env=env
         )
         out = res.stdout.strip()
         if out == "active":
@@ -315,16 +324,39 @@ def check_telegram_bot_service() -> Dict[str, Any]:
                 "service_state": "active"
             }
         else:
-            # Fallback Check via pgrep
+            # Fallback Check via pgrep & cgroup
             pg = subprocess.run(["pgrep", "-f", "telegram_bot.py"], capture_output=True, text=True, timeout=3)
-            if pg.returncode == 0 and pg.stdout.strip():
-                return {
-                    "status": "WARNING",
-                    "score": 80,
-                    "label": "Telegram Bot Service",
-                    "message": "Prozess läuft, aber systemd meldet Nicht-Aktiv",
-                    "service_state": out or "unknown"
-                }
+            pids = pg.stdout.strip().split()
+            if pg.returncode == 0 and pids:
+                is_systemd_managed = False
+                for pid in pids:
+                    cgroup_path = Path(f"/proc/{pid}/cgroup")
+                    if cgroup_path.exists():
+                        try:
+                            cg_content = cgroup_path.read_text()
+                            if "trading-telegram-bot.service" in cg_content:
+                                is_systemd_managed = True
+                                break
+                        except Exception:
+                            pass
+
+                if is_systemd_managed:
+                    return {
+                        "status": "OK",
+                        "score": 100,
+                        "label": "Telegram Bot Service",
+                        "message": "Systemd Service aktiv (CGroup bestätigt)",
+                        "service_state": "active"
+                    }
+                else:
+                    return {
+                        "status": "WARNING",
+                        "score": 80,
+                        "label": "Telegram Bot Service",
+                        "message": "Prozess läuft manuell, aber nicht unter systemd Service",
+                        "service_state": out or "manual_process"
+                    }
+
             return {
                 "status": "CRITICAL",
                 "score": 0,
@@ -503,7 +535,7 @@ def generate_health_html_card(health: Dict[str, Any]) -> str:
 
     return f"""
       <!-- Card: 24/7 System-Gesundheits- & Funktions-Monitor -->
-      <section class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-teal-950/20 to-slate-900 border border-teal-500/40 p-5 shadow-xl space-y-4">
+      <section class="admin-group-system rounded-2xl bg-gradient-to-br from-slate-900/95 via-teal-950/20 to-slate-900 border border-teal-500/40 p-5 shadow-xl space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800">
           <div class="flex items-center gap-2.5">
             <span class="text-2xl">🏥</span>

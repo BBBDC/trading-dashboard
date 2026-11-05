@@ -250,7 +250,7 @@ health_dot = "bg-emerald-400 animate-pulse" if health_is_ok else "bg-amber-400 a
 
 routing_health_card_html = f"""
       <!-- Card Health & Routing: Übersicht Kaskade & Vorab-Check -->
-      <section class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-sky-950/20 to-slate-900 border border-sky-500/40 p-5 shadow-xl space-y-4">
+      <section class="admin-group-quota rounded-2xl bg-gradient-to-br from-slate-900/95 via-sky-950/20 to-slate-900 border border-sky-500/40 p-5 shadow-xl space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800">
           <div class="flex items-center gap-2.5">
             <span class="text-2xl">🛡️</span>
@@ -314,7 +314,7 @@ pro_badge = "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
 
 pro_card_html = f"""
       <!-- Card Pro-Abo: Google Pro Subscription Status (Stufe 1 Primär: pokeulm@gmail.com) -->
-      <section class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-indigo-950/30 to-slate-900 border border-indigo-500/40 p-5 shadow-xl space-y-4">
+      <section class="admin-group-quota rounded-2xl bg-gradient-to-br from-slate-900/95 via-indigo-950/30 to-slate-900 border border-indigo-500/40 p-5 shadow-xl space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800">
           <div class="flex items-center gap-2.5">
             <span class="text-2xl">⚡</span>
@@ -881,6 +881,11 @@ html_content = f"""<!DOCTYPE html>
     html.light .text-amber-300 {{
       color: #d97706 !important;
     }}
+    html.light .text-purple-400,
+    html.light .text-purple-300,
+    html.light .text-purple-200 {{
+      color: #6b21a8 !important;
+    }}
 
     html.light [class*="bg-emerald-500/"],
     html.light [class*="bg-emerald-600/"] {{
@@ -900,6 +905,47 @@ html_content = f"""<!DOCTYPE html>
       border-color: #c7d2fe !important;
       color: #4338ca !important;
     }}
+    html.light [class*="bg-purple-500/"],
+    html.light [class*="bg-purple-600/"],
+    html.light [class*="bg-purple-900/"],
+    html.light [class*="bg-purple-950/"] {{
+      background-color: #faf5ff !important;
+      border-color: #e9d5ff !important;
+      color: #6b21a8 !important;
+    }}
+
+    /* Post-Mortem & Callout Boxen im Light Mode */
+    html.light [id^="inc-pm-box-"],
+    html.light #incubator-learnings-feed > div {{
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      color: #0f172a !important;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    }}
+    html.light [id^="inc-pm-box-"] [class*="bg-slate-900"],
+    html.light [id^="inc-pm-box-"] [class*="bg-slate-950"],
+    html.light #incubator-learnings-feed [class*="bg-slate-950"] {{
+      background-color: #f8fafc !important;
+      border-color: #e2e8f0 !important;
+    }}
+    html.light [id^="inc-pm-box-"] p,
+    html.light [id^="inc-pm-box-"] .text-slate-100,
+    html.light [id^="inc-pm-box-"] .text-slate-200,
+    html.light [id^="inc-pm-box-"] .text-slate-300,
+    html.light #incubator-learnings-feed p,
+    html.light #incubator-learnings-feed .text-white,
+    html.light #incubator-learnings-feed .text-slate-200 {{
+      color: #1e293b !important;
+    }}
+    html.light [id^="inc-pm-box-"] [class*="bg-indigo-950"],
+    html.light #incubator-learnings-feed [class*="bg-indigo-950"] {{
+      background-color: #eef2ff !important;
+      border-color: #c7d2fe !important;
+    }}
+    html.light [id^="inc-pm-box-"] .text-indigo-300,
+    html.light #incubator-learnings-feed .text-indigo-300 {{
+      color: #4338ca !important;
+    }}
 
     /* Gradients in Light Mode */
     html.light [class*="from-emerald-950"] {{
@@ -907,6 +953,15 @@ html_content = f"""<!DOCTYPE html>
     }}
     html.light [class*="from-indigo-950"] {{
       background-image: linear-gradient(to bottom right, #eef2ff, #ffffff, #ffffff) !important;
+    }}
+    html.light [class*="from-purple-950"] {{
+      background-image: linear-gradient(to bottom right, #faf5ff, #ffffff, #ffffff) !important;
+    }}
+    html.light [class*="from-amber-950"] {{
+      background-image: linear-gradient(to right, #fffbeb, #ffffff, #ffffff) !important;
+    }}
+    html.light [class*="from-teal-950"] {{
+      background-image: linear-gradient(to bottom right, #f0fdfa, #ffffff, #ffffff) !important;
     }}
     html.light [class*="from-slate-900"] {{
       background-image: linear-gradient(to bottom right, #ffffff, #f8fafc) !important;
@@ -1126,6 +1181,12 @@ html_content = f"""<!DOCTYPE html>
         if (headerTrader) headerTrader.classList.add('hidden');
         if (typeof renderAdminUsersList === 'function') {{
           try {{ renderAdminUsersList(); }} catch(e) {{}}
+        }}
+        if (typeof switchAdminCategory === 'function') {{
+          try {{
+            const savedAdminCat = sessionStorage.getItem('active_admin_category') || 'all';
+            switchAdminCategory(savedAdminCat);
+          }} catch(e) {{}}
         }}
       }} else {{
         if (navTabAdmin) navTabAdmin.classList.add('hidden');
@@ -1771,6 +1832,28 @@ html_content = f"""<!DOCTYPE html>
         </button>
       </div>
 
+      <!-- Admin Sub-Category Navigation Bar -->
+      <div class="p-1.5 sm:p-2 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-lg flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+        <button id="admin-cat-btn-all" onclick="switchAdminCategory('all')" class="admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 cursor-pointer">
+          <span>📋</span> <span>Alle Bereiche</span>
+        </button>
+        <button id="admin-cat-btn-system" onclick="switchAdminCategory('system')" class="admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer">
+          <span>🏥</span> <span>System & Diagnose</span>
+          <span class="ml-1 px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">OK</span>
+        </button>
+        <button id="admin-cat-btn-quota" onclick="switchAdminCategory('quota')" class="admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer">
+          <span>🔑</span> <span>KI-Routing & Quotas</span>
+          <span class="ml-1 px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30">Pro & 4 Keys</span>
+        </button>
+        <button id="admin-cat-btn-trading" onclick="switchAdminCategory('trading')" class="admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer">
+          <span>🧪</span> <span>KI-Labs & Portfolio</span>
+          <span class="ml-1 px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">Labs</span>
+        </button>
+        <button id="admin-cat-btn-users" onclick="switchAdminCategory('users')" class="admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer">
+          <span>👥</span> <span>Benutzerverwaltung</span>
+        </button>
+      </div>
+
       <!-- Card: 24/7 System-Gesundheits- & Funktions-Monitor -->
       {system_health_card_html}
 
@@ -1781,7 +1864,7 @@ html_content = f"""<!DOCTYPE html>
       {pro_card_html}
 
       <!-- Card 2: Google Gemini API-Key Pool (Stufe 2 Failover-Reserve) -->
-      <section class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-[#0d1322] to-slate-900 border border-indigo-500/30 p-5 shadow-xl space-y-4">
+      <section class="admin-group-quota rounded-2xl bg-gradient-to-br from-slate-900/95 via-[#0d1322] to-slate-900 border border-indigo-500/30 p-5 shadow-xl space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800">
           <div class="flex items-center gap-2.5">
             <span class="text-xl">🔑</span>
@@ -1830,7 +1913,7 @@ html_content = f"""<!DOCTYPE html>
       </section>
 
       <!-- Card B: Autonomes KI High-Conviction Modell-Portfolio & Gedächtnis -->
-      <section id="portfolio-section" class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-emerald-950/20 to-slate-900 border border-emerald-500/30 p-5 shadow-xl space-y-5">
+      <section id="portfolio-section" class="admin-group-trading rounded-2xl bg-gradient-to-br from-slate-900/95 via-emerald-950/20 to-slate-900 border border-emerald-500/30 p-5 shadow-xl space-y-5">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3.5">
           <div>
             <div class="flex items-center gap-2">
@@ -1942,7 +2025,7 @@ html_content = f"""<!DOCTYPE html>
       </section>
 
       <!-- Card Incubator: AI Paper-Trading Incubator & Rapid Post-Mortem Lab (5m / 15m / 30m Micro-Trading) -->
-      <section id="incubator-section" class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-purple-950/20 to-slate-900 border border-purple-500/30 p-5 shadow-xl space-y-5">
+      <section id="incubator-section" class="admin-group-trading rounded-2xl bg-gradient-to-br from-slate-900/95 via-purple-950/20 to-slate-900 border border-purple-500/30 p-5 shadow-xl space-y-5">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3.5">
           <div>
             <div class="flex items-center gap-2">
@@ -2070,7 +2153,7 @@ html_content = f"""<!DOCTYPE html>
       </section>
 
       <!-- Card C: Autorisierte Benutzer & Rollenverwaltung -->
-      <section class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-[#0d1322] to-slate-900 border border-slate-800 p-5 shadow-xl space-y-4">
+      <section class="admin-group-users rounded-2xl bg-gradient-to-br from-slate-900/95 via-[#0d1322] to-slate-900 border border-slate-800 p-5 shadow-xl space-y-4">
         <div class="flex items-center justify-between pb-3 border-b border-slate-800">
           <div class="flex items-center gap-2.5">
             <span class="text-xl">👥</span>
@@ -2090,7 +2173,7 @@ html_content = f"""<!DOCTYPE html>
       </section>
 
       <!-- Card D: Raspberry Pi 24/7 Engine Status -->
-      <section class="rounded-2xl bg-gradient-to-br from-slate-900/95 via-[#0d1322] to-slate-900 border border-slate-800 p-5 shadow-xl space-y-4">
+      <section class="admin-group-system rounded-2xl bg-gradient-to-br from-slate-900/95 via-[#0d1322] to-slate-900 border border-slate-800 p-5 shadow-xl space-y-4">
         <div class="flex items-center justify-between pb-3 border-b border-slate-800">
           <div class="flex items-center gap-2.5">
             <span class="text-xl">🍓</span>
@@ -3774,19 +3857,24 @@ html_content = f"""<!DOCTYPE html>
             const isWin = ins.verdict === 'WIN';
             const badgeCol = isWin ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30' : 'text-rose-400 bg-rose-500/10 border-rose-500/30';
             return `
-              <div class="p-3 rounded-xl bg-slate-900/90 border border-purple-500/20 text-xs space-y-1.5">
+              <div class="p-3.5 rounded-xl bg-slate-900/90 border border-purple-500/30 text-xs space-y-2.5">
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
-                    <span class="px-1.5 py-0.5 rounded text-[9px] font-bold border ${{badgeCol}}">${{ins.verdict}}</span>
-                    <span class="font-bold text-white text-[11px]">${{ins.symbol}} (${{ins.direction}})</span>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${{badgeCol}}">${{ins.verdict}}</span>
+                    <span class="font-bold text-white text-xs">${{ins.symbol}} (${{ins.direction}})</span>
                   </div>
-                  <span class="text-[9px] text-purple-300 font-mono">${{ins.timeframe || '5m/15m'}} Confluence</span>
+                  <span class="text-[10px] text-purple-300 font-mono">${{ins.timeframe || '5m/15m'}} Confluence</span>
                 </div>
-                <div class="text-[10.5px] font-mono text-purple-200 bg-purple-950/40 p-2 rounded border border-purple-900/40">
-                  <span class="text-purple-400 font-bold block mb-0.5">📌 Gelernte Handlungsregel:</span>
-                  ${{ins.rule}}
+                <div class="p-2.5 rounded-lg bg-indigo-950/40 border border-indigo-500/30 space-y-1">
+                  <span class="text-[10.5px] font-bold text-indigo-300 flex items-center gap-1">
+                    <span>📌</span> Gelernte Handlungsregel:
+                  </span>
+                  <p class="text-xs text-white leading-relaxed font-sans">${{ins.rule}}</p>
                 </div>
-                ${{ins.warning ? `<p class="text-[10px] text-slate-400"><span class="text-sky-400">Frühwarnung:</span> ${{ins.warning}}</p>` : ''}}
+                ${{ins.warning ? `
+                  <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/80 text-[11px] leading-relaxed text-slate-200">
+                    <span class="text-sky-400 font-bold">⚡ Frühwarnung:</span> ${{ins.warning}}
+                  </div>` : ''}}
               </div>
             `;
           }}).join('');
@@ -3865,7 +3953,7 @@ html_content = f"""<!DOCTYPE html>
                   </div>
                   <div class="flex items-center gap-2">
                     <span class="font-mono text-xs font-bold ${{isWin ? 'text-emerald-400' : 'text-rose-400'}}">${{pnlStr}}</span>
-                    ${{pm ? `<button onclick="toggleIncubatorPm(${{idx}})" class="px-2 py-0.5 rounded bg-purple-900/40 hover:bg-purple-800/60 text-purple-300 border border-purple-500/30 text-[10px] font-bold cursor-pointer transition">KI-Bericht</button>` : ''}}
+                    ${{pm ? `<button onclick="toggleIncubatorPm(${{idx}})" class="px-2.5 py-1 rounded-lg bg-purple-900/40 hover:bg-purple-800/60 text-purple-200 border border-purple-500/40 text-[11px] font-bold cursor-pointer transition flex items-center gap-1 shadow-sm"><span>🧠</span> KI-Bericht</button>` : ''}}
                   </div>
                 </div>
 
@@ -3880,16 +3968,39 @@ html_content = f"""<!DOCTYPE html>
                 </div>
 
                 ${{pm ? `
-                  <div id="inc-pm-box-${{idx}}" class="hidden p-3 rounded-lg bg-purple-950/30 border border-purple-500/30 space-y-1.5 text-[11px] mt-2">
-                    <div class="flex items-center justify-between border-b border-purple-500/20 pb-1">
-                      <span class="font-bold text-purple-300 flex items-center gap-1">
-                        <span>🧠</span> KI Post-Mortem Analyse (Gemini 3.8 Flash High):
+                  <div id="inc-pm-box-${{idx}}" class="hidden p-3.5 rounded-xl bg-slate-950/95 border border-purple-500/40 space-y-2.5 text-xs mt-3 shadow-lg">
+                    <div class="flex items-center justify-between border-b border-purple-500/20 pb-2">
+                      <span class="font-bold text-purple-200 text-xs flex items-center gap-1.5">
+                        <span>🧠</span> Vergleichende KI-Post-Mortem Analyse (Gemini 3.8 Flash High):
                       </span>
-                      <span class="text-[10px] text-purple-400 font-mono">${{pm.verdict || 'ANALYSE'}}</span>
+                      <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono border ${{pm.verdict === 'WIN' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' : 'bg-rose-500/10 text-rose-400 border-rose-500/30'}}">${{pm.verdict || 'ANALYSE'}}</span>
                     </div>
-                    ${{pm.driver ? `<p class="text-slate-300"><span class="text-amber-400 font-bold">Ursache:</span> ${{pm.driver}}</p>` : ''}}
-                    ${{pm.technical_warning ? `<p class="text-slate-300"><span class="text-sky-400 font-bold">Frühwarnung:</span> ${{pm.technical_warning}}</p>` : ''}}
-                    ${{pm.actionable_rule ? `<p class="text-indigo-200 font-mono bg-purple-950/60 p-2 rounded border border-purple-800/40"><span class="text-indigo-300 font-bold block mb-0.5">📌 Gelernte System-Regel:</span> ${{pm.actionable_rule}}</p>` : ''}}
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                      ${{pm.driver ? `
+                        <div class="p-2.5 rounded-lg bg-slate-900/90 border-l-2 border-amber-400 border border-slate-800/80 space-y-1">
+                          <span class="text-[10px] font-bold text-amber-400 flex items-center gap-1">
+                            <span>🔍</span> Hauptursache (Driver):
+                          </span>
+                          <p class="text-slate-100 font-sans leading-relaxed text-[11.5px]">${{pm.driver}}</p>
+                        </div>` : ''}}
+
+                      ${{pm.technical_warning ? `
+                        <div class="p-2.5 rounded-lg bg-slate-900/90 border-l-2 border-sky-400 border border-slate-800/80 space-y-1">
+                          <span class="text-[10px] font-bold text-sky-400 flex items-center gap-1">
+                            <span>⚡</span> Technisches Frühwarn-Signal:
+                          </span>
+                          <p class="text-slate-100 font-sans leading-relaxed text-[11.5px]">${{pm.technical_warning}}</p>
+                        </div>` : ''}}
+                    </div>
+
+                    ${{pm.actionable_rule ? `
+                      <div class="p-3 rounded-xl bg-indigo-950/40 border border-indigo-500/40 space-y-1 shadow-sm">
+                        <span class="text-[10.5px] font-bold text-indigo-300 flex items-center gap-1">
+                          <span>📌</span> Bindende System-Handlungsregel:
+                        </span>
+                        <p class="text-white font-sans font-medium text-xs leading-relaxed">${{pm.actionable_rule}}</p>
+                      </div>` : ''}}
                   </div>
                 ` : ''}}
               </div>
@@ -3968,9 +4079,51 @@ html_content = f"""<!DOCTYPE html>
       if (tabId === 'admin') {{
         renderPortfolioSection();
         renderIncubatorSection();
+        try {{
+          const savedAdminCat = sessionStorage.getItem('active_admin_category') || 'all';
+          switchAdminCategory(savedAdminCat);
+        }} catch(e) {{}}
       }}
 
       window.scrollTo({{ top: 0, behavior: 'smooth' }});
+    }}
+
+    let currentAdminCategory = 'all';
+
+    function switchAdminCategory(cat) {{
+      currentAdminCategory = cat;
+      const cats = ['all', 'system', 'quota', 'trading', 'users'];
+      cats.forEach(c => {{
+        const btn = document.getElementById('admin-cat-btn-' + c);
+        if (btn) {{
+          if (c === cat) {{
+            btn.className = 'admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 cursor-pointer';
+          }} else {{
+            btn.className = 'admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer';
+          }}
+        }}
+      }});
+
+      const groups = {{
+        'system': document.querySelectorAll('.admin-group-system'),
+        'quota': document.querySelectorAll('.admin-group-quota'),
+        'trading': document.querySelectorAll('.admin-group-trading'),
+        'users': document.querySelectorAll('.admin-group-users')
+      }};
+
+      Object.keys(groups).forEach(gKey => {{
+        groups[gKey].forEach(el => {{
+          if (cat === 'all' || cat === gKey) {{
+            el.classList.remove('hidden');
+          }} else {{
+            el.classList.add('hidden');
+          }}
+        }});
+      }});
+
+      try {{
+        sessionStorage.setItem('active_admin_category', cat);
+      }} catch (e) {{}}
     }}
 
     function triggerSmartRefresh() {{
