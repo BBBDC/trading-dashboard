@@ -1,7 +1,159 @@
 {
-  "updated_at": "2026-11-05T08:18:30.494183+00:00",
-  "total_experience_records": 65,
+  "updated_at": "2026-11-05T08:49:44.528370+00:00",
+  "total_experience_records": 73,
   "learnings": [
+    {
+      "timestamp": "2026-11-05T08:49:35.462257+00:00",
+      "trade_id": "cross_rule_1793868575",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Stop-Loss-Platzierungen müssen zwingend volatilitätsbasiert (ATR) jenseits struktureller Invalidierungspunkte liegen, niemals innerhalb der Spread- und Rauschzone.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein Stop-Abstand von 0,06% bei einem Large-Cap-Wert von 217 € entspricht einem Zufallstreffer für Hochfrequenzhändler; fraktal betrachtet führt jeder Stopp innerhalb der durchschnittlichen Kerzenreichweite zwangsläufig zum mathematischen Ruin.",
+        "actionable_rule": "Stop-Loss-Platzierungen müssen zwingend volatilitätsbasiert (ATR) jenseits struktureller Invalidierungspunkte liegen, niemals innerhalb der Spread- und Rauschzone."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T08:49:35.462237+00:00",
+      "trade_id": "cross_rule_1793868575",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Fade-Einstieg an statistischen Extrembändern ohne verifizierten Liquidity Sweep und anschließenden Market Structure Shift (MSS).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Das Erreichen einer 'Chaos Band Sell Pocket' zeigt lediglich Überdehnung, kein Reversal; institutionelle Trendphasen walzen passive Bänder sowohl auf 5m als auch auf 4h/1D gnadenlos platt, solange keine Liquidität abgefischt und absorbiert wurde.",
+        "actionable_rule": "Kein Fade-Einstieg an statistischen Extrembändern ohne verifizierten Liquidity Sweep und anschließenden Market Structure Shift (MSS)."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T08:49:35.462186+00:00",
+      "trade_id": "inc_SAP.DE_5m_1793866653",
+      "symbol": "SAP.DE",
+      "name": "SAP SE",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.12,
+      "pnl_raw": -0.06,
+      "text": "Short-Einstiege an Chaos-Bändern/RFE dürfen erst nach einem bestätigten 5m-Strukturbruch (Close unter Vor-Bar-Tief) triggern, und der Stop-Loss muss zwingend mindestens 1.5x ATR(5m) über dem Swing-High liegen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SAP.DE_5m_1793866653",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Counter-Trend-Fade ohne strukturellen Bruch (MSS) mit einem Stop-Loss, der innerhalb des normalen Market-Maker-Liquiditätsrauschens lag.",
+        "technical_warning": "Fehlendes VSA-Ultra-High-Volume (kein Upthrust mit Churn) auf der Signalbar und das Ausbleiben eines 5m-Schlusskurses unter dem vorherigen Swingtief signalisierten fehlenden institutionellen Verkaufsdruck.",
+        "actionable_rule": "Short-Einstiege an Chaos-Bändern/RFE dürfen erst nach einem bestätigten 5m-Strukturbruch (Close unter Vor-Bar-Tief) triggern, und der Stop-Loss muss zwingend mindestens 1.5x ATR(5m) über dem Swing-High liegen."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T08:49:06.806331+00:00",
+      "trade_id": "cross_rule_1793868546",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Asymmetrie-Disziplin schlägt Orderblock-Güte",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Wie der Render-Trade gegenüber XRP und Rheinmetall beweist, schützt selbst ein [A]-Setup nicht vor Verlusten, wenn das Umfeld nicht passt. Umgekehrt kompensiert ein striktes R:R von >= 3:1 mit mechanischem Profit-Taking selbst schwächere Orderblöcke [D] und garantiert die mathematische Überlebensfähigkeit des Kontos.",
+        "actionable_rule": "Asymmetrie-Disziplin schlägt Orderblock-Güte"
+      }
+    },
+    {
+      "timestamp": "2026-11-05T08:49:06.806308+00:00",
+      "trade_id": "cross_rule_1793868546",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Liquiditäts-Gravitationsgesetz (Liquidity Magnet Principle)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf 5m als auch auf 4h/1D zieht ungeräumte Liquidität unter markanten Tiefs oder runden Zahlen den Kurs magisch an. Ein Trade VOR dem vollständigen Abräumen dieser Zonen hat einen negativen Erwartungswert, da der echte institutionelle Einstieg erst im Sweep des Pools stattfindet.",
+        "actionable_rule": "Liquiditäts-Gravitationsgesetz (Liquidity Magnet Principle)"
+      }
+    },
+    {
+      "timestamp": "2026-11-05T08:49:06.806275+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1793866652",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 1.52,
+      "pnl_raw": 0.76,
+      "text": "Bei Micro-Confluence-Trades in Krypto-Beta-Werten ist das volle Take-Profit bei 3.0R bindend mitzunehmen, da 5m-Impulse ohne übergeordnete Trendbestätigung eine hohe Mean-Reversion-Wahrscheinlichkeit aufweisen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1793866652",
+        "verdict": "WIN",
+        "driver": "Exzellente Risiko-Asymmetrie mit engem Entwertungs-Stopp ermöglichte das vollständige Abschöpfen des ersten Momentum-Impulses bis zum TP2 (+3.0R) bei minimalem Marktweg (+0.76%).",
+        "technical_warning": "Trotz schwacher OB-Klassifizierung [D] bot die enge Stopp-Platzierung Schutz vor Drawdown, verlangte aber zwingend nach hartem Limit-Profit-Taking ohne Trail-Gier.",
+        "actionable_rule": "Bei Micro-Confluence-Trades in Krypto-Beta-Werten ist das volle Take-Profit bei 3.0R bindend mitzunehmen, da 5m-Impulse ohne übergeordnete Trendbestätigung eine hohe Mean-Reversion-Wahrscheinlichkeit aufweisen."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T08:49:06.806258+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1793860241",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Signale aus sekundären Orderblöcken (Klasse B oder schlechter) ohne vorangehenden [A]-Liquiditäts-Sweep dürfen im 5m-Noise nicht ausgeführt werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1793860241",
+        "verdict": "LOSS",
+        "driver": "Mangelndes Momentum und fehlende Liquiditätsabräumung führten in einem B-Klasse-Orderblock zur sofortigen Stagnation und Ausstoppung am Mikro-Support durch Spread- und Orderbuch-Friktion.",
+        "technical_warning": "Fehlen eines echten Liquidity-Sweeps und Verlassen auf ein nachlaufendes Indikator-Dreieck in einer volumenarmen Konsolidierung.",
+        "actionable_rule": "Signale aus sekundären Orderblöcken (Klasse B oder schlechter) ohne vorangehenden [A]-Liquiditäts-Sweep dürfen im 5m-Noise nicht ausgeführt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T08:49:06.806200+00:00",
+      "trade_id": "inc_RHM.DE_5m_1793817434",
+      "symbol": "RHM.DE",
+      "name": "Rheinmetall",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.62,
+      "pnl_raw": -0.31,
+      "text": "TradFi-Einstiege unmittelbar über runden Jahrhundert-/Tausendermarken sind verboten, es sei denn, die Stopp-Liquidität darunter wurde bereits per tiefem Sweep geräumt und mit überdurchschnittlichem Volumen zurückerobert.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RHM.DE_5m_1793817434",
+        "verdict": "LOSS",
+        "driver": "Long-Einstieg knapp über der psychologischen Schlüsselmarke von 1.000 € scheiterte an mangelnder institutioneller Kaufabsorption und dem magnetischen Zug der darunterliegenden Stopp-Liquidität.",
+        "technical_warning": "Oberflächlicher Sweep ohne VSA-Volumen-Climax (fehlende Delta-Absorption) direkt vor einer markanten Großzahl.",
+        "actionable_rule": "TradFi-Einstiege unmittelbar über runden Jahrhundert-/Tausendermarken sind verboten, es sei denn, die Stopp-Liquidität darunter wurde bereits per tiefem Sweep geräumt und mit überdurchschnittlichem Volumen zurückerobert."
+      }
+    },
     {
       "timestamp": "2026-11-05T08:18:06.898621+00:00",
       "trade_id": "cross_rule_1793866686",

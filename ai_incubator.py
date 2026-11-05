@@ -584,8 +584,18 @@ def run_historical_replay_training(days: int = 30, max_replay_trades: int = 25) 
     # Dopplungen nach trade_id vermeiden
     existing_ids = {t.get("trade_id") for t in closed}
     new_adds = [t for t in replay_trades if t.get("trade_id") not in existing_ids]
-    closed.extend(new_adds)
-    data["closed_trades"] = closed[-80:]
+    if new_adds:
+        lt = data.setdefault("lifetime_metrics", {})
+        for t in new_adds:
+            lt["total_trades"] = lt.get("total_trades", len(closed)) + 1
+            realized_r = t.get("realized_r", 0.0)
+            if realized_r > 0:
+                lt["wins"] = lt.get("wins", 0) + 1
+            else:
+                lt["losses"] = lt.get("losses", 0) + 1
+            lt["total_r_profit"] = round(lt.get("total_r_profit", 0.0) + realized_r, 2)
+        closed.extend(new_adds)
+    data["closed_trades"] = closed[-200:]
 
     # Metriken aktualisieren
     recalculate_metrics(data)
@@ -614,6 +624,12 @@ def load_incubator_state() -> Dict[str, Any]:
             "avg_rr": 2.2,
             "active_count": 0
         },
+        "lifetime_metrics": {
+            "total_trades": 0,
+            "wins": 0,
+            "losses": 0,
+            "total_r_profit": 0.0
+        },
         "active_trades": [],
         "closed_trades": [],
         "ai_insights": []
@@ -628,6 +644,21 @@ def load_incubator_state() -> Dict[str, Any]:
                     data["all_matrix_assets"] = ALL_INCUBATOR_ASSETS
         except Exception:
             pass
+
+    # Initialisiere / synchronisiere lifetime_metrics
+    closed = data.get("closed_trades", [])
+    lt = data.setdefault("lifetime_metrics", {})
+    if not lt or lt.get("total_trades", 0) < len(closed):
+        existing_metrics = data.get("metrics", {})
+        tot = max(len(closed), existing_metrics.get("total_trades", 0))
+        w = existing_metrics.get("wins", sum(1 for t in closed if (t.get("realized_r", 0) > 0)))
+        l = existing_metrics.get("losses", sum(1 for t in closed if (t.get("realized_r", 0) <= 0)))
+        r = existing_metrics.get("total_r_profit", round(sum(t.get("realized_r", 0.0) for t in closed), 2))
+        lt["total_trades"] = tot
+        lt["wins"] = w
+        lt["losses"] = l
+        lt["total_r_profit"] = r
+
     return data
 
 
@@ -643,13 +674,15 @@ def save_incubator_state(data: Dict[str, Any]) -> None:
 
 
 def recalculate_metrics(data: Dict[str, Any]) -> None:
-    """Berechnet Gewinnraten und R-Multiples über alle geschlossenen Trades."""
+    """Berechnet Gewinnraten und R-Multiples über alle geschlossenen Trades (unterstützt kumulative Lifetime-Zähler)."""
     closed = data.get("closed_trades", [])
-    total = len(closed)
-    wins = sum(1 for t in closed if (t.get("realized_r", 0) > 0))
-    losses = sum(1 for t in closed if (t.get("realized_r", 0) <= 0))
+    lt = data.get("lifetime_metrics", {})
+
+    total = max(lt.get("total_trades", len(closed)), len(closed))
+    wins = lt.get("wins", sum(1 for t in closed if (t.get("realized_r", 0) > 0)))
+    losses = lt.get("losses", sum(1 for t in closed if (t.get("realized_r", 0) <= 0)))
+    total_r = round(lt.get("total_r_profit", sum(t.get("realized_r", 0.0) for t in closed)), 2)
     win_rate = round((wins / total) * 100.0, 1) if total > 0 else 0.0
-    total_r = round(sum(t.get("realized_r", 0.0) for t in closed), 2)
 
     # Extrahiere die besten KI-Erkenntnisse
     insights = []
@@ -732,7 +765,17 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
             still_active.append(trade)
 
     active_trades = still_active
-    closed_trades.extend(just_closed)
+    if just_closed:
+        lt = data.setdefault("lifetime_metrics", {})
+        for c_tr in just_closed:
+            lt["total_trades"] = lt.get("total_trades", len(closed_trades)) + 1
+            realized_r = c_tr.get("realized_r", 0.0)
+            if realized_r > 0:
+                lt["wins"] = lt.get("wins", 0) + 1
+            else:
+                lt["losses"] = lt.get("losses", 0) + 1
+            lt["total_r_profit"] = round(lt.get("total_r_profit", 0.0) + realized_r, 2)
+        closed_trades.extend(just_closed)
 
     # 2. Suche nach neuen 5m & 15m Setups (bis max 8 aktive Positionen)
     max_active = 8
@@ -775,7 +818,7 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
     closed_trades = trigger_comparative_batch_post_mortem(closed_trades)
 
     data["active_trades"] = active_trades
-    data["closed_trades"] = closed_trades[-80:]
+    data["closed_trades"] = closed_trades[-200:]
 
     # 5. Metriken berechnen & persistieren
     recalculate_metrics(data)

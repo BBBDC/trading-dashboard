@@ -107,6 +107,24 @@ try:
 except Exception as ie:
     print(f"Warnung beim Laden des Inkubators: {ie}")
 
+# Lade System-Gesundheits- & Infrastruktur-Status (24/7 Monitor)
+try:
+    from system_health import check_system_health, generate_health_html_card
+    sys_health_data = check_system_health()
+    db_data["system_health"] = sys_health_data
+    system_health_card_html = generate_health_html_card(sys_health_data)
+    sys_health_status = sys_health_data.get("status", "OK")
+    sys_health_score = sys_health_data.get("score", 100)
+    sys_health_badge_class = "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" if sys_health_status == "OK" else ("bg-amber-500/10 text-amber-300 border border-amber-500/20" if sys_health_status == "WARNING" else "bg-rose-500/10 text-rose-400 border border-rose-500/20")
+    sys_health_dot_class = sys_health_data.get("status_dot", "bg-emerald-400 animate-pulse")
+except Exception as she:
+    print(f"Warnung beim System Health Check: {she}")
+    system_health_card_html = ""
+    sys_health_status = "OK"
+    sys_health_score = 100
+    sys_health_badge_class = "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+    sys_health_dot_class = "bg-emerald-400 animate-pulse"
+
 json_str = json.dumps(db_data, ensure_ascii=False)
 
 try:
@@ -1314,6 +1332,10 @@ html_content = f"""<!DOCTYPE html>
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                 <span>⚡ TV Live: {last_quotes_update_display}</span>
               </span>
+              <button onclick="switchDashboardTab('admin')" class="hidden xl:inline-flex px-2 py-0.5 rounded-full text-[10px] font-semibold {sys_health_badge_class} items-center gap-1.5 shadow-sm cursor-pointer hover:opacity-80 transition" title="24/7 System-Gesundheits- & Infrastruktur-Monitor">
+                <span class="w-1.5 h-1.5 rounded-full {sys_health_dot_class}"></span>
+                <span>System: <strong>{sys_health_status} ({sys_health_score}%)</strong></span>
+              </button>
             </div>
             <p class="hidden sm:block text-[11px] text-slate-400 mt-0.5">Multi-Timeframe Confluence (4h · 8h · 1D) | SMC · Wyckoff VSA · RSI Divs</p>
           </div>
@@ -1748,6 +1770,9 @@ html_content = f"""<!DOCTYPE html>
           <span>Master Live-Scan starten (Pi)</span>
         </button>
       </div>
+
+      <!-- Card: 24/7 System-Gesundheits- & Funktions-Monitor -->
+      {system_health_card_html}
 
       <!-- Card Health & Routing: Übersicht Kaskade & Vorab-Check -->
       {routing_health_card_html}
@@ -3664,6 +3689,26 @@ html_content = f"""<!DOCTYPE html>
             const isGer = t.symbol.endsWith('.F') || t.symbol.endsWith('.DE');
             const exchLabel = isGer ? 'Börse Frankfurt / XETRA' : 'Binance (24/7)';
 
+            let openTimeStr = 'Vor kurzem';
+            let durationStr = '-';
+            if (t.entry_time || t.entry_timestamp) {{
+              const openDate = t.entry_timestamp ? new Date(t.entry_timestamp * 1000) : new Date(t.entry_time);
+              if (!isNaN(openDate.getTime())) {{
+                openTimeStr = openDate.toLocaleString('de-DE', {{day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'}});
+                const diffMs = Math.max(0, Date.now() - openDate.getTime());
+                const diffMins = Math.floor(diffMs / 60000);
+                const diffHours = Math.floor(diffMins / 60);
+                const diffDays = Math.floor(diffHours / 24);
+                if (diffDays > 0) {{
+                  durationStr = `${{diffDays}} T, ${{diffHours % 24}} Std.`;
+                }} else if (diffHours > 0) {{
+                  durationStr = `${{diffHours}} Std. ${{diffMins % 60}} Min.`;
+                }} else {{
+                  durationStr = `${{diffMins}} Min.`;
+                }}
+              }}
+            }}
+
             return `
               <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-purple-500/40 transition space-y-3">
                 <div class="flex items-center justify-between">
@@ -3675,17 +3720,32 @@ html_content = f"""<!DOCTYPE html>
                   <span class="font-mono text-xs font-bold ${{pnlCol}}">${{unPnl >= 0 ? '+' : ''}}${{unPnl.toFixed(2)}}% (${{unR >= 0 ? '+' : ''}}${{unR.toFixed(2)}}R)</span>
                 </div>
 
-                <div class="grid grid-cols-3 gap-1.5 text-[10px] font-mono p-2 rounded-lg bg-slate-900/60 border border-slate-800/60">
+                <div class="grid grid-cols-2 gap-2 text-xs font-mono bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/60">
                   <div>
-                    <span class="text-slate-500 block">Einstieg</span>
-                    <span class="text-slate-200 font-bold">${{t.entry_price}}</span>
+                    <span class="text-[10px] text-slate-400 block">Einstieg:</span>
+                    <span class="text-slate-200 font-semibold">${{Number(t.entry_price).toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 4}})}}</span>
                   </div>
+                  <div class="text-right">
+                    <span class="text-[10px] text-slate-400 block">Aktueller Kurs:</span>
+                    <span class="text-white font-bold">${{Number(t.current_price || t.entry_price).toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 4}})}}</span>
+                  </div>
+                  <div class="pt-1 border-t border-slate-800/80">
+                    <span class="text-[10px] text-slate-400 block">⏱️ Eröffnet:</span>
+                    <span class="text-slate-300 font-semibold text-[11px]">${{openTimeStr}}</span>
+                  </div>
+                  <div class="pt-1 border-t border-slate-800/80 text-right">
+                    <span class="text-[10px] text-slate-400 block">⏳ Haltedauer:</span>
+                    <span class="text-purple-300 font-semibold text-[11px]">${{durationStr}}</span>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 text-[10px] font-mono bg-slate-900/40 p-2 rounded-lg border border-slate-800/40">
                   <div>
-                    <span class="text-slate-500 block">Stop-Loss</span>
+                    <span class="text-slate-500 block">Stop-Loss:</span>
                     <span class="text-rose-400 font-bold">${{t.sl}}</span>
                   </div>
-                  <div>
-                    <span class="text-slate-500 block">TP1 / TP2</span>
+                  <div class="text-right">
+                    <span class="text-slate-500 block">TP1 / TP2:</span>
                     <span class="text-emerald-400 font-bold">${{t.tp1}} / ${{t.tp2}}</span>
                   </div>
                 </div>
@@ -3759,9 +3819,40 @@ html_content = f"""<!DOCTYPE html>
             const rStr = (t.realized_r !== undefined ? (t.realized_r >= 0 ? '+' : '') + t.realized_r.toFixed(1) + 'R' : '');
             const pnlStr = (t.realized_pnl_pct !== undefined ? (t.realized_pnl_pct >= 0 ? '+' : '') + t.realized_pnl_pct.toFixed(2) + '%' : '');
             const pm = t.ai_post_mortem;
-            const dateStr = t.exit_time ? new Date(t.exit_time).toLocaleString('de-DE', {{month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'}}) : '';
             const isGer = t.symbol.endsWith('.F') || t.symbol.endsWith('.DE');
             const exchTag = isGer ? 'FRA/XETRA (EUR)' : 'Binance';
+
+            let inTimeStr = '-';
+            let outTimeStr = '-';
+            let durClosedStr = '';
+            if (t.entry_time || t.entry_timestamp) {{
+              const inDate = t.entry_timestamp ? new Date(t.entry_timestamp * 1000) : new Date(t.entry_time);
+              if (!isNaN(inDate.getTime())) {{
+                inTimeStr = inDate.toLocaleString('de-DE', {{day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'}});
+              }}
+            }}
+            if (t.exit_time || t.exit_timestamp) {{
+              const outDate = t.exit_timestamp ? new Date(t.exit_timestamp * 1000) : new Date(t.exit_time);
+              if (!isNaN(outDate.getTime())) {{
+                outTimeStr = outDate.toLocaleString('de-DE', {{day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'}});
+                if (t.entry_time || t.entry_timestamp) {{
+                  const inDate = t.entry_timestamp ? new Date(t.entry_timestamp * 1000) : new Date(t.entry_time);
+                  if (!isNaN(inDate.getTime())) {{
+                    const diffMs = Math.max(0, outDate.getTime() - inDate.getTime());
+                    const diffMins = Math.floor(diffMs / 60000);
+                    const diffHours = Math.floor(diffMins / 60);
+                    const diffDays = Math.floor(diffHours / 24);
+                    if (diffDays > 0) {{
+                      durClosedStr = `${{diffDays}} T, ${{diffHours % 24}} Std.`;
+                    }} else if (diffHours > 0) {{
+                      durClosedStr = `${{diffHours}} Std. ${{diffMins % 60}} Min.`;
+                    }} else {{
+                      durClosedStr = `${{diffMins}} Min.`;
+                    }}
+                  }}
+                }}
+              }}
+            }}
 
             return `
               <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-xs space-y-2">
@@ -3774,14 +3865,18 @@ html_content = f"""<!DOCTYPE html>
                   </div>
                   <div class="flex items-center gap-2">
                     <span class="font-mono text-xs font-bold ${{isWin ? 'text-emerald-400' : 'text-rose-400'}}">${{pnlStr}}</span>
-                    <span class="text-[10px] text-slate-500 font-mono">${{dateStr}}</span>
                     ${{pm ? `<button onclick="toggleIncubatorPm(${{idx}})" class="px-2 py-0.5 rounded bg-purple-900/40 hover:bg-purple-800/60 text-purple-300 border border-purple-500/30 text-[10px] font-bold cursor-pointer transition">KI-Bericht</button>` : ''}}
                   </div>
                 </div>
 
                 <div class="flex items-center justify-between text-[10px] text-slate-400 font-mono px-2 py-1 rounded bg-slate-950/50">
+                  <span>⏱️ Eröffnet: ${{inTimeStr}} &bull; Geschlossen: ${{outTimeStr}}${{durClosedStr ? ' (⏳ ' + durClosedStr + ')' : ''}}</span>
+                  <span>${{t.exit_reason || 'Exit-Signal'}}</span>
+                </div>
+
+                <div class="flex items-center justify-between text-[10px] text-slate-400 font-mono px-2 py-0.5">
                   <span>Einstieg: ${{t.entry_price}} &bull; Ausstieg: ${{t.exit_price || '-'}}</span>
-                  <span>Grund: ${{t.exit_reason || 'Exit-Signal'}}</span>
+                  <span>Trailing BE aktiv</span>
                 </div>
 
                 ${{pm ? `

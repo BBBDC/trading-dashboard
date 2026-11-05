@@ -81,14 +81,19 @@ def run_pipeline(force_download=False, skip_download=False, git_push=False, forc
         from fetch_real_ohlcv_cache import sync_all_real_data
         open_symbols = [a["symbol"] for a in all_assets if a.get("market_state", {}).get("is_open", True)]
         sync_all_real_data(due_symbols=open_symbols, collect_only=True)
-        print("Aktualisiere stündliche Live-Kurse & Portfolio...")
+        print("Aktualisiere stündliche Live-Kurse, Portfolio & AI-Incubator...")
         from market_evaluator import analyze_all_markets
         analyze_all_markets(due_symbols=[])
+        try:
+            from ai_incubator import run_incubator_cycle
+            run_incubator_cycle()
+        except Exception as e:
+            print(f"Warnung beim AI-Incubator (Zwischen-Scan): {e}")
         import subprocess
         subprocess.run([sys.executable, str(BASE_DIR / "build_dashboard.py")], check=True)
         if git_push:
             git_sync_dashboard()
-        print("✅ Stündlicher Cache, Live-Kurse & Portfolio erfolgreich aktualisiert. Pipeline beendet.")
+        print("✅ Stündlicher Cache, Live-Kurse, Portfolio & Inkubator erfolgreich aktualisiert. Pipeline beendet.")
         return
 
     # STAGE 2: Echte Marktdaten herunterladen / cachen

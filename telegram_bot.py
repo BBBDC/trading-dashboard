@@ -800,6 +800,17 @@ def get_admin_hub_text_and_markup():
     cfg = load_config()
     auth_users = cfg.get("authorized_users", {})
 
+    sys_status_str = "🟢 OK (100/100)"
+    try:
+        from system_health import check_system_health
+        shealth = check_system_health()
+        stat = shealth.get("status", "OK")
+        score = shealth.get("score", 100)
+        s_icon = "🟢" if stat == "OK" else ("🟡" if stat == "WARNING" else "🔴")
+        sys_status_str = f"{s_icon} {stat} ({score}/100)"
+    except Exception:
+        pass
+
     used = quota.get("requests_used_today", 0)
     limit = quota.get("daily_limit", 80)
     pct = quota.get("percent_used", 0.0)
@@ -812,6 +823,8 @@ def get_admin_hub_text_and_markup():
     text = (
         f"⚙️ <b>Master-Admin Kontrollzentrum</b>\n"
         f"<i>Raspberry Pi 24/7 Trading Engine</i>\n\n"
+        f"🏥 <b>System-Gesundheit:</b> <b>{sys_status_str}</b>\n"
+        f"⚡ <b>Hintergrund-Dienst:</b> Systemd 24/7 aktiv\n\n"
         f"🔑 <b>Google Gemini API-Key Pool:</b>\n"
         f"• Keys aktiv: <b>{act_cnt} von {tot_cnt} Keys</b> ({masked})\n"
         f"• Verbrauch: <b>{used} / {limit} Anfragen</b> ({pct:.1f}%)\n"
@@ -820,11 +833,13 @@ def get_admin_hub_text_and_markup():
         f"• Win-Rate: <b>{win_rate}%</b> | Offene Trades: <b>{port_active}</b>\n"
         f"• Gehebelter Gesamt-PnL: <b>{lev_pnl:+.1f}%</b>\n\n"
         f"👥 <b>Benutzer:</b> {len(auth_users)} autorisiert\n"
-        f"⚡ <b>Hintergrund-Dienst:</b> Systemd 24/7 aktiv\n"
     )
 
     kb = {
         "inline_keyboard": [
+            [
+                {"text": "🏥 System-Gesundheit & Diagnose", "callback_data": "admin_health_check"}
+            ],
             [
                 {"text": "🔑 API-Quota Details", "callback_data": "admin_quota_details"},
                 {"text": "🏛️ Modell-Portfolio", "callback_data": "admin_model_portfolio"}
@@ -1401,6 +1416,15 @@ def handle_update(api, update):
             api.send_message(chat_id, t, reply_markup=kb)
             return
 
+        if text.startswith("/health") or text.startswith("/status"):
+            if role != "admin":
+                api.send_message(chat_id, "⚠️ Diese Funktion ist dem Master-Admin vorbehalten.", reply_markup=get_main_menu_keyboard(role))
+                return
+            from system_health import get_health_telegram_report
+            htext, hkb = get_health_telegram_report()
+            api.send_message(chat_id, htext, reply_markup=hkb)
+            return
+
         # Prüfen ob der Nutzer sich in einem Wizard befindet
         session = USER_SESSIONS.get(chat_id)
         if session:
@@ -1581,6 +1605,15 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
             return
         text, kb = get_admin_hub_text_and_markup()
         api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
+
+    if data == "admin_health_check":
+        if role != "admin":
+            api.edit_message_text(chat_id, message_id, "⚠️ Diese Funktion ist dem Master-Admin vorbehalten.", reply_markup=get_main_menu_keyboard(role))
+            return
+        from system_health import get_health_telegram_report
+        htext, hkb = get_health_telegram_report()
+        api.edit_message_text(chat_id, message_id, htext, reply_markup=hkb)
         return
 
     if data == "admin_quota_details":
