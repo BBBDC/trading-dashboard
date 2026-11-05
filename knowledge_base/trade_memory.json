@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-11-05T15:15:42.869396+00:00",
+  "updated_at": "2026-11-05T15:15:59.947007+00:00",
   "total_experience_records": 74,
   "learnings": [
     {
-      "timestamp": "2026-11-05T15:15:42.865877+00:00",
+      "timestamp": "2026-11-05T15:15:59.945966+00:00",
       "trade_id": "trade_NASDAQ_CRWD_20261105_1512",
       "symbol": "NASDAQ:CRWD",
       "name": "CrowdStrike",
@@ -11,16 +11,16 @@
       "direction": "LONG",
       "result": "WIN",
       "setup_name": "Hypothese 1: SMC Order Block [R4] Confluence",
-      "pnl_leveraged": 0.14,
-      "pnl_raw": 0.02,
-      "text": "Der nominale Mikro-Gewinn (+0.02% / +0.14% bei 6x) war reines Zufallsglück infolge eines invertierten Stop-Loss. Vor weiterem Hebeleinsatz muss die Order- und Risikologik auf Code-Ebene zwingend gehärtet werden.",
+      "pnl_leveraged": 0.82,
+      "pnl_raw": 0.14,
+      "text": "Ein profitabler Trade durch einen fehlerhaft platzierten Stop-Loss ist kein Gewinn, sondern ein inakzeptabler Kontrollverlust im Risikomanagement. Auf Prop-Desk-Ebene bedeutet Prozessdisziplin alles – Glück im Fehlerfall schützt vor dem nächsten Totalverlust nicht.",
       "ai_post_mortem": {
         "verdict": "WIN",
-        "driver": "Der minimale Scheingewinn entstand durch einen gravierenden Execution- und Parameterfehler, da der Long-Stop-Loss fälschlicherweise oberhalb des Einstiegskurses bei 232.56 statt darunter platziert und die Position nach zwei Minuten sofort fehlausgelöst wurde.",
-        "technical_warning": "Fehlende Bestätigung durch einen Lower-Timeframe-Strukturbruch (LTF-CHoCH/MSS) im SMC-Order-Block sowie das Fehlen einer automatisierten Plausibilitätsprüfung der Stop-Distanz vor der Orderübermittlung.",
-        "actionable_rule": "Jede Long-Order erfordert vor Markterfassung einen zwingenden Pre-Trade-Sanity-Check (Stop-Loss strikt unterhalb von Entry und Order-Block-Tief) sowie eine strukturelle Bestätigung auf niedrigeren Zeitebenen.",
-        "recommended_leverage_adjustment": 0,
-        "summary_text": "Der nominale Mikro-Gewinn (+0.02% / +0.14% bei 6x) war reines Zufallsglück infolge eines invertierten Stop-Loss. Vor weiterem Hebeleinsatz muss die Order- und Risikologik auf Code-Ebene zwingend gehärtet werden."
+        "driver": "Ein gravierender Parametrisierungsfehler setzte den Stop-Loss für einen Long-Trade mit 232.56 weit über das Einstiegsniveau von 220.15, wodurch die Position sofort nach drei Minuten zwangsliquidiert wurde und der Micro-Profit reines Zufallsprodukt von Marktrauschen war.",
+        "technical_warning": "Neben dem fatalen Stop-Loss-Mismatch fehlte vor der Orderausführung die mikrostrukturelle Bestätigung auf niedrigeren Zeitebenen (LTF-Orderflow, abnehmendes Verkaufsvolumen und Liquiditätsabgriff am Order Block), um ein verfrühtes Hineingreifen zu verhindern.",
+        "actionable_rule": "Vor jeder Orderplatzierung muss ein programmatischer Hard-Check die logische Konsistenz der Risikoparameter erzwingen (bei Long: Stop-Loss zwingend unter Entry und unter dem lokalen Tief des Order Blocks), andernfalls ist das Orderticket sofort zu verwerfen.",
+        "recommended_leverage_adjustment": -2,
+        "summary_text": "Ein profitabler Trade durch einen fehlerhaft platzierten Stop-Loss ist kein Gewinn, sondern ein inakzeptabler Kontrollverlust im Risikomanagement. Auf Prop-Desk-Ebene bedeutet Prozessdisziplin alles – Glück im Fehlerfall schützt vor dem nächsten Totalverlust nicht."
       }
     },
     {
@@ -1164,8 +1164,8 @@
       "wins": 1,
       "losses": 1,
       "win_rate": 50.0,
-      "total_lev_pnl": -1.9,
-      "profit_factor": 0.07,
+      "total_lev_pnl": -1.2,
+      "profit_factor": 0.4,
       "status": "BALANCED",
       "min_score": 88,
       "leverage_adjustment": 0
@@ -1353,8 +1353,8 @@
       "wins": 1,
       "losses": 1,
       "win_rate": 50.0,
-      "total_lev_pnl": -1.9,
-      "profit_factor": 0.07,
+      "total_lev_pnl": -1.2,
+      "profit_factor": 0.4,
       "status": "STANDARD",
       "min_score": 88,
       "leverage_cap": 5
