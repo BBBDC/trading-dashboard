@@ -1,7 +1,124 @@
 {
-  "updated_at": "2026-11-05T07:53:14.882552+00:00",
-  "total_experience_records": 63,
+  "updated_at": "2026-11-05T08:18:30.494183+00:00",
+  "total_experience_records": 65,
   "learnings": [
+    {
+      "timestamp": "2026-11-05T08:18:06.898621+00:00",
+      "trade_id": "cross_rule_1793866686",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volatilitäts-Invarianz & Trend-Hierarchie (ATR-Floor)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Strukturelle Stops dürfen niemals prozentual starr vergeben werden. Wie bei NEAR (-0,11%) führt die Ignoranz der Basis-Volatilität zu garantierten Zufalls-Stoppouts. Jeder Mikro-Einstieg (5m/15m) muss mathematisch mindestens der lokalen Volatilitätsspanne standhalten und in Richtung des 4h-Momentums expandieren.",
+        "actionable_rule": "Volatilitäts-Invarianz & Trend-Hierarchie (ATR-Floor)"
+      }
+    },
+    {
+      "timestamp": "2026-11-05T08:18:06.898581+00:00",
+      "trade_id": "cross_rule_1793866686",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Displacement-Primat vor Blind-Retests (No Reclaim, No Trade)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl bei LINK als auch bei SAP zeigte sich, dass das bloße Erreichen eines Levels (OB oder Chaos-Band) wertlos ist. Ob 5m oder 4h: Institutionelles Smart Money hinterlässt Spuren via Displacement (aggressives Delta + FVGs). Fehlt dieser Gegenimpuls, tradet man direkt in den Liquidationsfluss der Gegenpartei.",
+        "actionable_rule": "Displacement-Primat vor Blind-Retests (No Reclaim, No Trade)"
+      }
+    },
+    {
+      "timestamp": "2026-11-05T08:18:06.898554+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1793862688",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.22,
+      "pnl_raw": -0.11,
+      "text": "B- und C-Klasse Orderblocks werden ohne HTF-Konfluenz gänzlich gefiltert; jeder Stop-Loss muss zwingend mindestens 1,5x ATR(5m) Puffer unterhalb der invalidierenden Struktur aufweisen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1793862688",
+        "verdict": "LOSS",
+        "driver": "Kapitalvernichtung durch Rauschen: Ein sekundäres B-Klasse-Setup wurde mit einem toxisch engen Stop-Loss (0,11%) platziert, der bereits durch normalen 5m-Spread und Markttiefe liquidiert wird.",
+        "technical_warning": "Stop-Distanz lag weit unterhalb von 1,0x ATR(5m) bei gleichzeitig mangelhafter Orderblock-Qualität (B-Kategorie ohne Sweep-Herkunft).",
+        "actionable_rule": "B- und C-Klasse Orderblocks werden ohne HTF-Konfluenz gänzlich gefiltert; jeder Stop-Loss muss zwingend mindestens 1,5x ATR(5m) Puffer unterhalb der invalidierenden Struktur aufweisen."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T08:18:06.898516+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1793860241",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.28,
+      "pnl_raw": -0.64,
+      "text": "Ein Liquidity Sweep darf erst betreten werden, wenn die Kerze über dem Sweep-Level schließt und ein valides Fair Value Gap (FVG) in Gegenrichtung erzeugt wird.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1793860241",
+        "verdict": "LOSS",
+        "driver": "Der angebliche Liquidity Sweep war in Wahrheit eine dynamische Trendfortsetzung nach unten, da nach dem Durchstechen der Tiefs keinerlei impulsive Verdrängung (Displacement) stattfand.",
+        "technical_warning": "Keine bullische CVD/Delta-Divergenz beim Sweep und das Ausbleiben eines impulsiven Reclaims des Swept-Levels innerhalb von maximal zwei Folgekerzen.",
+        "actionable_rule": "Ein Liquidity Sweep darf erst betreten werden, wenn die Kerze über dem Sweep-Level schließt und ein valides Fair Value Gap (FVG) in Gegenrichtung erzeugt wird."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T08:18:06.898425+00:00",
+      "trade_id": "inc_SAP.DE_5m_1793817434",
+      "symbol": "SAP.DE",
+      "name": "SAP SE",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -1.66,
+      "pnl_raw": -0.83,
+      "text": "In übergeordneten Aufwärtstrends (4h/1D) ist das Shorten von Chaos-Band-Überdehnungen verboten, bis ein bestätigter Strukturbruch (CHoCH) mit anschließendem Low-Volume-Retest vorliegt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SAP.DE_5m_1793817434",
+        "verdict": "LOSS",
+        "driver": "Klassische Mean-Reversion-Falle: Ein stark trendierender Institutional Equity Runner wurde rein auf Basis überdehnter Bänder leerverkauft, ohne dass eine Erschöpfung oder ein bärischer Strukturbruch vorlag.",
+        "technical_warning": "Fehlendes VSA-Klimaxvolumen an der oberen Chaos-Band-Grenze und Ausbleiben eines 5m-Market-Structure-Break (kein CHoCH unter das letzte lokale Zwischentief).",
+        "actionable_rule": "In übergeordneten Aufwärtstrends (4h/1D) ist das Shorten von Chaos-Band-Überdehnungen verboten, bis ein bestätigter Strukturbruch (CHoCH) mit anschließendem Low-Volume-Retest vorliegt."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T08:17:18.926237+00:00",
+      "trade_id": "trade_TVC_GOLD_20261104_0819",
+      "symbol": "TVC:GOLD",
+      "name": "Gold (Spot)",
+      "category": "Edelmetalle",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "Hypothese 1: SMC Order Block [R1] Exhaustion",
+      "pnl_leveraged": -16.26,
+      "pnl_raw": -2.32,
+      "text": "Antizipation ohne Strukturwechsel ist pures Raten: Wer Gold blind an einer Widerstandszone shortet, zahlt bei 7x Hebel sofort ein brutales Lehrgeld.",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Der Short-Einstieg erfolgte blind an einem Order Block gegen massives Intraday-Kaufmomentum, ohne eine charttechnische Umkehrbestätigung (CHoCH) auf den kleineren Zeitebenen abzuwarten.",
+        "technical_warning": "Das Ausbleiben eines signifikanten Erschöpfungsvolumens sowie das Fehlen einer bearishen RSI-Divergenz im H1/M15-Chart zeigten frühzeitig an, dass der Order Block überrannt wird statt zu halten.",
+        "actionable_rule": "Bei SMC-Reversal-Setups in Edelmetallen ist der Einstieg strikt erst nach einem bestätigten Change of Character (CHoCH) samt Bruch des letzten M15-Tiefs erlaubt; Hebel über 5x sind ohne Break-Even-Absicherung verboten.",
+        "recommended_leverage_adjustment": -3,
+        "summary_text": "Antizipation ohne Strukturwechsel ist pures Raten: Wer Gold blind an einer Widerstandszone shortet, zahlt bei 7x Hebel sofort ein brutales Lehrgeld."
+      }
+    },
     {
       "timestamp": "2026-11-05T07:11:51.422277+00:00",
       "trade_id": "cross_rule_1793862711",
@@ -1127,86 +1244,21 @@
         "technical_warning": "Fehlende bärische Docht-Bildung (Rejection-Wick) und anhaltend hohes Kauf-Delta am oberen Chaos-Band vor Trigger-Auslösung.",
         "actionable_rule": "Kein Short-Trigger in einer Sell Pocket ohne bestätigten Close unterhalb der Trigger-Kerze und Stop-Loss-Platzierung mit Mindestabstand von 0.5x ATR über dem Swing-High."
       }
-    },
-    {
-      "timestamp": "2026-11-04T16:37:16.530643+00:00",
-      "trade_id": "inc_FB2A.F_5m_1793805277",
-      "symbol": "FB2A.F",
-      "name": "Meta Platforms",
-      "category": "Micro-Incubator (5m)",
-      "direction": "SHORT",
-      "result": "WIN",
-      "setup_name": "degencoder 5m Micro-Confluence Short",
-      "pnl_leveraged": -0.0,
-      "pnl_raw": -0.0,
-      "text": "Bei Erreichen von TP2 (3.0R) Position vollständig schließen und keinen Re-Entry im selben 5m-Zyklus ohne neuen strukturellen Sweep zulassen.",
-      "ai_post_mortem": {
-        "trade_id": "inc_FB2A.F_5m_1793805277",
-        "verdict": "WIN",
-        "driver": "Erfolgreiche Mean-Reversion durch echte Liquiditätsabsorption und Verkäufer-Dominanz an der oberen Band-Erschöpfung.",
-        "technical_warning": "Keine akute Warnung, jedoch erfordert die minimale PnL-Spanne bei +3.0R eine genaue Verifikation der Slippage- und Execution-Parameter auf Mikro-Ebene.",
-        "actionable_rule": "Bei Erreichen von TP2 (3.0R) Position vollständig schließen und keinen Re-Entry im selben 5m-Zyklus ohne neuen strukturellen Sweep zulassen."
-      }
-    },
-    {
-      "timestamp": "2026-11-04T16:36:50.229346+00:00",
-      "trade_id": "cross_rule_1793810210",
-      "symbol": "MULTI-ASSET",
-      "name": "Cross-Market Confluence",
-      "category": "Global Heuristic (4h/1D Transfer)",
-      "direction": "NEUTRAL",
-      "result": "WIN",
-      "setup_name": "Synthesized Multi-Timeframe Heuristic",
-      "pnl_leveraged": 0.0,
-      "pnl_raw": 0.0,
-      "text": "Fraktales Volumen-Postulat: Ultra-High-Volume an Key-Levels ist bis zum Beweis des Gegenteils (Rejection Wick & Displacement) ein Breakout-Katalysator, kein Reversal.",
-      "ai_post_mortem": {
-        "verdict": "RULE",
-        "driver": "Der LINKUSDT-Fehlschlag zeigt über alle Zeitebenen (von 5m bis 1D), dass massives Volumen an Widerständen meist institutionelle Liquiditätsaufnahme darstellt, die passive Short-Orders liquidiert.",
-        "actionable_rule": "Fraktales Volumen-Postulat: Ultra-High-Volume an Key-Levels ist bis zum Beweis des Gegenteils (Rejection Wick & Displacement) ein Breakout-Katalysator, kein Reversal."
-      }
-    },
-    {
-      "timestamp": "2026-11-04T16:36:50.229296+00:00",
-      "trade_id": "cross_rule_1793810210",
-      "symbol": "MULTI-ASSET",
-      "name": "Cross-Market Confluence",
-      "category": "Global Heuristic (4h/1D Transfer)",
-      "direction": "NEUTRAL",
-      "result": "WIN",
-      "setup_name": "Synthesized Multi-Timeframe Heuristic",
-      "pnl_leveraged": 0.0,
-      "pnl_raw": 0.0,
-      "text": "Übergeordnete Trend-Dominanz: Counter-Trend-Setups auf 5m/15m sind strikt verboten, solange 1h und 4h eine intakte bullische Marktstruktur (MSS/BOS) aufweisen.",
-      "ai_post_mortem": {
-        "verdict": "RULE",
-        "driver": "Indikatorüberdehnungen (Chaos Bands > RFE) verharren in starken Trends chronisch im Extrembereich; sie dienen in Trendmärkten als Einstieg für Trendfolger, nicht für Reversals.",
-        "actionable_rule": "Übergeordnete Trend-Dominanz: Counter-Trend-Setups auf 5m/15m sind strikt verboten, solange 1h und 4h eine intakte bullische Marktstruktur (MSS/BOS) aufweisen."
-      }
-    },
-    {
-      "timestamp": "2026-11-04T16:36:50.229258+00:00",
-      "trade_id": "inc_MSF.F_5m_1793805277",
-      "symbol": "MSF.F",
-      "name": "Microsoft",
-      "category": "Micro-Incubator (5m)",
-      "direction": "SHORT",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Short",
-      "pnl_leveraged": -0.0,
-      "pnl_raw": -0.0,
-      "text": "Der Mindestabstand für den Stop-Loss muss zwingend mindestens 1.5x ATR(5m) plus das Zweifache des aktuellen Börsen-Spreads betragen.",
-      "ai_post_mortem": {
-        "trade_id": "inc_MSF.F_5m_1793805277",
-        "verdict": "LOSS",
-        "driver": "Ausführungstechnischer Suizid durch einen absurden Stop-Loss-Abstand von nur 0,0134 EUR, der unvermeidlich im regulären XETRA/Frankfurt-Spread und Marktrauschen liquidiert wurde.",
-        "technical_warning": "Die SL-Distanz lag dramatisch unterhalb der 5m-ATR und ignorierte den effektiven Bid/Ask-Spread des europäischen Handelsplatzes vollständig.",
-        "actionable_rule": "Der Mindestabstand für den Stop-Loss muss zwingend mindestens 1.5x ATR(5m) plus das Zweifache des aktuellen Börsen-Spreads betragen."
-      }
     }
   ],
   "setup_statistics": {},
   "setup_performance": {
+    "Hypothese 1: SMC Order Block [R1] Exhaustion": {
+      "trades": 2,
+      "wins": 0,
+      "losses": 2,
+      "win_rate": 0.0,
+      "total_lev_pnl": -18.6,
+      "profit_factor": 0.0,
+      "status": "BALANCED",
+      "min_score": 88,
+      "leverage_adjustment": 0
+    },
     "Hypothese 1: SMC Order Block [R2] Confluence": {
       "trades": 1,
       "wins": 0,
@@ -1279,17 +1331,6 @@
       "losses": 1,
       "win_rate": 0.0,
       "total_lev_pnl": -26.6,
-      "profit_factor": 0.0,
-      "status": "BALANCED",
-      "min_score": 88,
-      "leverage_adjustment": 0
-    },
-    "Hypothese 1: SMC Order Block [R1] Exhaustion": {
-      "trades": 1,
-      "wins": 0,
-      "losses": 1,
-      "win_rate": 0.0,
-      "total_lev_pnl": -2.3,
       "profit_factor": 0.0,
       "status": "BALANCED",
       "min_score": 88,
@@ -1374,6 +1415,17 @@
     }
   },
   "category_performance": {
+    "Edelmetalle": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate": 0.0,
+      "total_lev_pnl": -16.3,
+      "profit_factor": 0.0,
+      "status": "STANDARD",
+      "min_score": 88,
+      "leverage_cap": 5
+    },
     "Tradegate / EU": {
       "trades": 3,
       "wins": 0,
