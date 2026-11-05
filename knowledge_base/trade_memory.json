@@ -1,7 +1,159 @@
 {
-  "updated_at": "2026-11-05T12:16:23.450483+00:00",
-  "total_experience_records": 98,
+  "updated_at": "2026-11-05T13:07:18.314927+00:00",
+  "total_experience_records": 106,
   "learnings": [
+    {
+      "timestamp": "2026-11-05T13:07:13.618726+00:00",
+      "trade_id": "cross_rule_1793884033",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales TP-Management: Bei Erreichen von 3R im Micro-Timeframe konsequent voll eindecken, wenn Makro-Liquiditätspools noch nicht synchronisiert sind.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die vollständige Schließung bei TP2 verhinderte ein Reversal im übergeordneten Rauschen; dieselbe strikte R-basierte Skalierung schützt Gewinne auf Tagesbasis vor V-förmigen Rejections.",
+        "actionable_rule": "Fraktales TP-Management: Bei Erreichen von 3R im Micro-Timeframe konsequent voll eindecken, wenn Makro-Liquiditätspools noch nicht synchronisiert sind."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T13:07:13.618689+00:00",
+      "trade_id": "cross_rule_1793884033",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine Trade-Exekution an B-Qualitätszonen ohne vorherige statistische Überdehnung und Trigger-Bestätigung.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m wie auf 4h/1D haben B-Zonen eine signifikant geringere Standfestigkeit als A-Liquidity-Sweeps; sie erfordern zwingend das Zusammenspiel mit Chaos-Band-Erschöpfung, um ein asymmetrisches Chance-Risiko-Verhältnis (>= 3R) zu gewährleisten.",
+        "actionable_rule": "Keine Trade-Exekution an B-Qualitätszonen ohne vorherige statistische Überdehnung und Trigger-Bestätigung."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T13:07:13.618614+00:00",
+      "trade_id": "inc_SOLUSDT_5m_1793880917",
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 2.18,
+      "pnl_raw": 1.09,
+      "text": "Short-Setups an sekundären Orderblocks [B] dürfen ausschließlich bei zeitgleicher Überdehnung (Chaos Band > RFE) und nachweislich versiegendem bullischen Kaufvolumen beim Retest ausgeführt werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SOLUSDT_5m_1793880917",
+        "verdict": "WIN",
+        "driver": "Perfekte Konfluenz aus Erschöpfung am oberen Chaos-Band, Liquiditäts-Antesten des bearishen Orderblocks und prompter Bestätigung durch das Sell-Signal führte ohne signifikanten Drawdown direkt zum vollen TP2 (+3.0R).",
+        "technical_warning": "Da es sich um einen Orderblock der B-Kategorie handelte, hätte ein VSA-Volumenspike beim Retest mit bullischem Kerzenschluss über 96.35 das Setup sofort invalidiert und vor dem Einstieg gewarnt.",
+        "actionable_rule": "Short-Setups an sekundären Orderblocks [B] dürfen ausschließlich bei zeitgleicher Überdehnung (Chaos Band > RFE) und nachweislich versiegendem bullischen Kaufvolumen beim Retest ausgeführt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T13:06:47.931760+00:00",
+      "trade_id": "cross_rule_1793884007",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Displacement-Pflicht vor Limit-/Market-Execution: Ein Liquidity Sweep oder Band-Extremum ist erst dann handelbar, wenn eine impulsive Umkehrkerze (Displacement) beweist, dass das Niveau von echtem institutionellen Orderflow verteidigt wird.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl ABEA.F als auch ETH zeigten passive Marktberührungen statt aktiver Richtungsablehnung; passiver Support/Widerstand wird im Trend ausnahmslos überrollt.",
+        "actionable_rule": "Displacement-Pflicht vor Limit-/Market-Execution: Ein Liquidity Sweep oder Band-Extremum ist erst dann handelbar, wenn eine impulsive Umkehrkerze (Displacement) beweist, dass das Niveau von echtem institutionellen Orderflow verteidigt wird."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T13:06:47.931708+00:00",
+      "trade_id": "cross_rule_1793884007",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Markt-Beta-Veto: Untergeordnete Trendwendemuster (Sweeps, Bänder) sind absolut ungültig, wenn das übergeordnete Leit-Asset (BTC / SPY) synchron eine pro-zyklische Trendexpansion in die Gegenrichtung triggert.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der identische Timestamp (1793880916) bei BTC-Short und ETH-Long beweist: Mikro-Liquidity-Sweeps auf Altcoins bieten keinerlei Support, wenn der Makro-Leader aggressiv Verkaufsliquidität abruft – gültig von 5m bis 1D.",
+        "actionable_rule": "Fraktales Markt-Beta-Veto: Untergeordnete Trendwendemuster (Sweeps, Bänder) sind absolut ungültig, wenn das übergeordnete Leit-Asset (BTC / SPY) synchron eine pro-zyklische Trendexpansion in die Gegenrichtung triggert."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T13:06:47.931671+00:00",
+      "trade_id": "inc_ETHUSDT_5m_1793880916",
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.42,
+      "pnl_raw": -0.21,
+      "text": "Kein Long auf Altcoins, solange die Leitwährung Bitcoin (BTC) zeitgleich ein aktives bärisches Breakout- oder OB-Retest-Setup ausführt (Beta-Veto).",
+      "ai_post_mortem": {
+        "trade_id": "inc_ETHUSDT_5m_1793880916",
+        "verdict": "LOSS",
+        "driver": "Eklatante Krypto-Beta-Divergenz: Ein isolierter 5m Bullish Sweep auf ETH wurde eröffnet, während BTC im exakt selben Timestamp (1793880916) einen Bearish-Trend-Short auslöste und ETH mit in die Tiefe riss.",
+        "technical_warning": "Sofortiges Ausbleiben von bullischem Displacement (kein FVG nach Sweep) gepaart mit dem simultanen Short-Trigger der Krypto-Leitwährung BTC.",
+        "actionable_rule": "Kein Long auf Altcoins, solange die Leitwährung Bitcoin (BTC) zeitgleich ein aktives bärisches Breakout- oder OB-Retest-Setup ausführt (Beta-Veto)."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T13:06:47.931622+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1793880916",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 1.22,
+      "pnl_raw": 0.61,
+      "text": "Order-Block-Retests in Richtung des übergeordneten Momentums sind das Core-Setup; hier darf kein vorzeitiger Exit vor TP2 erfolgen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1793880916",
+        "verdict": "WIN",
+        "driver": "Saubere Trendfortsetzung durch Retest eines frischen Bearish Order Blocks [B], bei dem institutionelles Angebot das Tief aggressiv expandierte und das 3.0R-Target mühelos abholte.",
+        "technical_warning": "Keine Warnung – perfektes Confluence-Setup; Disziplin beim Halten des festen 3.0R-Targets war der Schlüssel zum Payoff.",
+        "actionable_rule": "Order-Block-Retests in Richtung des übergeordneten Momentums sind das Core-Setup; hier darf kein vorzeitiger Exit vor TP2 erfolgen."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T13:06:47.931516+00:00",
+      "trade_id": "inc_ABEA.F_5m_1793810169",
+      "symbol": "ABEA.F",
+      "name": "Alphabet (Google)",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -1.36,
+      "pnl_raw": -0.68,
+      "text": "Keine Fades gegen Chaos-Band-Überdehnungen ohne vorangegangenen gescheiterten Strukturausbruch (SFP) und bestätigte Volumen-Erschöpfungskerze.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ABEA.F_5m_1793810169",
+        "verdict": "LOSS",
+        "driver": "Reines Mean-Reversion-Fading an den Chaos-Bändern ohne strukturelle Bestätigung in einem illiquiden Regional-Listing (Frankfurt), das schlicht dem US-Trend hinterhergelaufen ist.",
+        "technical_warning": "Fehlen eines VSA-Climax-Volumens und Ausbleiben einer bärischen Divergenz an der Band-Peripherie – die Bänder expandierten weiter, statt Umkehr anzuzeigen.",
+        "actionable_rule": "Keine Fades gegen Chaos-Band-Überdehnungen ohne vorangegangenen gescheiterten Strukturausbruch (SFP) und bestätigte Volumen-Erschöpfungskerze."
+      }
+    },
     {
       "timestamp": "2026-11-05T12:16:19.670157+00:00",
       "trade_id": "cross_rule_1793880979",
