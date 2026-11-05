@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-05T10:36:18.161722+00:00",
-  "total_experience_records": 86,
+  "updated_at": "2026-11-05T11:13:40.671088+00:00",
+  "total_experience_records": 90,
   "learnings": [
+    {
+      "timestamp": "2026-11-05T11:13:36.714224+00:00",
+      "trade_id": "cross_rule_1793877216",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volatilitätsbasierte Stop-Pufferung: Der minimale Stop-Abstand muss mindestens 1,5x ATR des Ausführungs-Timeframes betragen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Stops unter 0,10% Abstand auf 5m-Basis ignorieren Slippage, Spreads und normales Mikrorauschen und schneiden der Trade-Idee vor Entfaltung des Edge die Liquidität ab.",
+        "actionable_rule": "Volatilitätsbasierte Stop-Pufferung: Der minimale Stop-Abstand muss mindestens 1,5x ATR des Ausführungs-Timeframes betragen."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T11:13:36.714203+00:00",
+      "trade_id": "cross_rule_1793877216",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Strikte Mindestgüte für Reaktionszonen: Keine Exekution ohne Orderblock-Rating ≥ [B] und nachgewiesenen Liquidity Sweep.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl im Krypto- als auch im Aktienbereich führen zweit- und drittklassige Zonen (C/D) ohne Liquiditätsabgriff zu direkten Fehlausbrüchen auf allen Zeitebenen bis zum Daily.",
+        "actionable_rule": "Strikte Mindestgüte für Reaktionszonen: Keine Exekution ohne Orderblock-Rating ≥ [B] und nachgewiesenen Liquidity Sweep."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T11:13:36.714186+00:00",
+      "trade_id": "inc_NVD.F_5m_1793874939",
+      "symbol": "NVD.F",
+      "name": "Nvidia",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.1,
+      "pnl_raw": -0.05,
+      "text": "In extremen Reversionszonen (Chaos Band < RFE) darf der Einstieg erst nach einem bestätigten 5m-Displacement über das vorherige Bar-High erfolgen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NVD.F_5m_1793874939",
+        "verdict": "LOSS",
+        "driver": "Trotz Konfluenzzone (Buy Pocket / Chaos Band) wurde eine Mean-Reversion ohne abgeschlossene Bodenbildung long getriggert und durch einen unbrauchbar engen Stop (0,05%) im TradFi-Rauschen liquidiert.",
+        "technical_warning": "Extrem überdehntes Momentum unter das Chaos-Band erforderte eine VSA-Absorptionskerze (Stopping Volume), statt blind bei Erreichen der statistischen Schwelle zu limitieren.",
+        "actionable_rule": "In extremen Reversionszonen (Chaos Band < RFE) darf der Einstieg erst nach einem bestätigten 5m-Displacement über das vorherige Bar-High erfolgen."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T11:13:36.714125+00:00",
+      "trade_id": "inc_ETHUSDT_5m_1793874939",
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.18,
+      "pnl_raw": -0.09,
+      "text": "Orderblocks mit Rating schlechter als [B] sind ausnahmslos von der Ordergenerierung gesperrt, es sei denn, ein übergeordneter 4h-Trendfilter erzwingt die Trendfolge.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ETHUSDT_5m_1793874939",
+        "verdict": "LOSS",
+        "driver": "Einstieg an einem strukturell wertlosen Orderblock der Güteklasse [D] ohne übergeordnete Bestätigung führte zum sofortigen Durchrutschen in den Stop-Loss.",
+        "technical_warning": "Das schwache OB-Rating [D] und das Fehlen eines vorangegangenen Liquidity Sweeps kündigten mangelndes institutionelles Kaufinteresse bereits vor der Orderausführung an.",
+        "actionable_rule": "Orderblocks mit Rating schlechter als [B] sind ausnahmslos von der Ordergenerierung gesperrt, es sei denn, ein übergeordneter 4h-Trendfilter erzwingt die Trendfolge."
+      }
+    },
     {
       "timestamp": "2026-11-05T10:36:14.198309+00:00",
       "trade_id": "cross_rule_1793874974",
