@@ -1,7 +1,103 @@
 {
-  "updated_at": "2026-11-05T09:07:05.200420+00:00",
-  "total_experience_records": 81,
+  "updated_at": "2026-11-05T10:36:18.161722+00:00",
+  "total_experience_records": 86,
   "learnings": [
+    {
+      "timestamp": "2026-11-05T10:36:14.198309+00:00",
+      "trade_id": "cross_rule_1793874974",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Band-Überdehnung definiert keine Trendwende: Chaos-Bänder / RFE markieren Impulskraft, keine automatische Umkehr.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein Ausbrechen über Chaos-Bänder auf 5m spiegelt oft die Initialzündung einer 4h-Trendexpansion wider. Wer Überdehnungen ohne VSA-Volumendivergenz und CHoCH leershortet, stellt sich systematisch gegen die Orderflow-Initiative institutioneller Marktteilnehmer.",
+        "actionable_rule": "Band-Überdehnung definiert keine Trendwende: Chaos-Bänder / RFE markieren Impulskraft, keine automatische Umkehr."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T10:36:14.198287+00:00",
+      "trade_id": "cross_rule_1793874974",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Fading ohne externen Liquiditäts-Sweep: Mikro-Strukturen dürfen nur nach Abräumen übergeordneter Liquiditätspools gehandelt werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die Analyse zeigt über alle drei Assets hinweg, dass Stop-Losses knapp hinter ungesweepten Zonen platziert wurden; auf 4h/1D führt das Fading von Retests ohne vorangegangenen Sweep unweigerlich dazu, dass der Stop zur primären Ausstiegsliquidität des Smart Moneys wird.",
+        "actionable_rule": "Kein Fading ohne externen Liquiditäts-Sweep: Mikro-Strukturen dürfen nur nach Abräumen übergeordneter Liquiditätspools gehandelt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T10:36:14.198273+00:00",
+      "trade_id": "inc_SIE.DE_5m_1793869558",
+      "symbol": "SIE.DE",
+      "name": "Siemens",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.36,
+      "pnl_raw": -0.18,
+      "text": "Orderblocks unterhalb von Tier B (insbesondere Tier D) werden als primäre Entry-Trigger systemweit gesperrt; Entries verlangen stets nachweisbare institutionelle Nachfrage im Orderbuch.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SIE.DE_5m_1793869558",
+        "verdict": "LOSS",
+        "driver": "Auffangen eines fallenden Messers im XETRA-Handel an einem statistisch wertlosen Junk-Tier-D-Orderblock ohne institutionelle Akkumulation.",
+        "technical_warning": "Die mangelnde Kaufreaktion beim ersten Retest (R1) und das Fehlen einer VSA-Stopping-Volume-Signatur kündigten das Durchrutschen des Support-Levels frühzeitig an.",
+        "actionable_rule": "Orderblocks unterhalb von Tier B (insbesondere Tier D) werden als primäre Entry-Trigger systemweit gesperrt; Entries verlangen stets nachweisbare institutionelle Nachfrage im Orderbuch."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T10:36:14.198255+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1793869558",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.62,
+      "pnl_raw": -0.31,
+      "text": "Isolierte Sell-Pocket- und Chaos-Band-Signale ohne gleichzeitigen validierten Tier-A-Orderblock und bestätigten Mikro-Strukturbruch (CHoCH) sind strikt auszufiltern.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1793869558",
+        "verdict": "LOSS",
+        "driver": "Reines Indikator-Overfitting: Ein nackter Mean-Reversion-Short gegen starke Aufwärtsdynamik ohne jegliche strukturelle Orderblock-Verankerung oder MSS (Market Structure Shift).",
+        "technical_warning": "Das Chaos-Band wurde mit anhaltend hohem Delta und expandierender Kerzenspanne nach oben durchstoßen, was eine Trendbeschleunigung statt einer Erschöpfung anzeigte.",
+        "actionable_rule": "Isolierte Sell-Pocket- und Chaos-Band-Signale ohne gleichzeitigen validierten Tier-A-Orderblock und bestätigten Mikro-Strukturbruch (CHoCH) sind strikt auszufiltern."
+      }
+    },
+    {
+      "timestamp": "2026-11-05T10:36:14.198196+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1793869557",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.6,
+      "pnl_raw": -0.3,
+      "text": "Shorts an Tier-B Orderblocks erfordern zwingend einen vorherigen Sweep des lokalen Swing-Highs (Tier A Liquidity Grab) sowie eine bärische Bestätigungskerze mit erhöhtem Volumen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1793869557",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Short-Einstieg an einem zweitklassigen Tier-B Orderblock direkt in eine dynamische Mikro-Expansionsphase ohne vorherigen Buy-Side-Liquidity-Sweep.",
+        "technical_warning": "Fehlendes VSA-Exhaustion-Volumen und Ausbleiben einer langen oberen Ablehnungs-Lunte am Chaos-Band vor dem Retest signalisierten ungebrochenen Kaufdruck.",
+        "actionable_rule": "Shorts an Tier-B Orderblocks erfordern zwingend einen vorherigen Sweep des lokalen Swing-Highs (Tier A Liquidity Grab) sowie eine bärische Bestätigungskerze mit erhöhtem Volumen."
+      }
+    },
     {
       "timestamp": "2026-11-05T09:07:01.282494+00:00",
       "trade_id": "cross_rule_1793869621",
