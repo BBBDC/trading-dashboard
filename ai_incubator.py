@@ -755,6 +755,26 @@ def recalculate_metrics(data: Dict[str, Any]) -> None:
         if len(insights) >= 8:
             break
 
+    # Gleitende Metriken für Zeitfenster berechnen (closed: neueste am Ende)
+    rolling = {}
+    for w in [5, 10, 20, 50]:
+        subset = closed[-w:]
+        sub_len = len(subset)
+        if sub_len > 0:
+            sub_wins = sum(1 for t in subset if (t.get("realized_r", 0) > 0))
+            sub_losses = sum(1 for t in subset if (t.get("realized_r", 0) <= 0))
+            sub_wr = round(sub_wins / sub_len * 100.0, 1)
+            sub_r = round(sum(t.get("realized_r", 0.0) for t in subset), 2)
+            diff_wr = round(sub_wr - win_rate, 1)
+            rolling[f"last_{w}"] = {
+                "trades": sub_len,
+                "wins": sub_wins,
+                "losses": sub_losses,
+                "win_rate": sub_wr,
+                "diff_vs_all_time": diff_wr,
+                "total_r_profit": sub_r
+            }
+
     data["metrics"] = {
         "total_trades": total,
         "wins": wins,
@@ -762,7 +782,8 @@ def recalculate_metrics(data: Dict[str, Any]) -> None:
         "win_rate": win_rate,
         "total_r_profit": total_r,
         "active_count": len(data.get("active_trades", [])),
-        "avg_rr": 2.2
+        "avg_rr": 2.2,
+        "rolling": rolling
     }
     data["ai_insights"] = insights
 

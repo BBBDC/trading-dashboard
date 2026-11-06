@@ -1928,19 +1928,33 @@ html_content = f"""<!DOCTYPE html>
             <p class="text-xs text-slate-400 mt-0.5">Nur sicherste Setups (Score ≥ 88%) &bull; Identischer Einheitsbetrag (1.000 €) für relative Performance &bull; Hebel (max 10x) durch KI &bull; Permanenter Erfahrungsspeicher</p>
           </div>
 
-          <!-- Portfolio Performance KPIs -->
-          <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
-            <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
-              <span class="text-[10px] text-slate-400 block uppercase">Gehebelt</span>
-              <span class="font-bold text-sm text-emerald-400" id="port-metric-lev-pnl">+0.0%</span>
+          <!-- Portfolio Performance KPIs mit gleitenden Zeitfenstern -->
+          <div class="flex flex-col sm:items-end gap-1.5">
+            <!-- Rolling Window Filter Pills -->
+            <div class="flex items-center gap-1 bg-slate-950/80 p-1 rounded-xl border border-slate-800 text-[10px] font-mono">
+              <span class="text-slate-500 px-1.5 hidden md:inline">Fenster:</span>
+              <button onclick="setPortfolioWindow('all')" id="port-win-btn-all" class="px-2 py-0.5 rounded-lg bg-emerald-600 text-white font-bold transition">All-Time</button>
+              <button onclick="setPortfolioWindow(20)" id="port-win-btn-20" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L20</button>
+              <button onclick="setPortfolioWindow(10)" id="port-win-btn-10" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L10</button>
+              <button onclick="setPortfolioWindow(5)" id="port-win-btn-5" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L5</button>
             </div>
-            <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
-              <span class="text-[10px] text-slate-400 block uppercase">Basis (1x)</span>
-              <span class="font-bold text-sm text-white" id="port-metric-raw-pnl">+0.0%</span>
-            </div>
-            <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
-              <span class="text-[10px] text-slate-400 block uppercase">Win-Rate</span>
-              <span class="font-bold text-sm text-indigo-300" id="port-metric-winrate">0.0%</span>
+
+            <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+              <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
+                <div class="flex items-center justify-between gap-1.5">
+                  <span class="text-[10px] text-slate-400 block uppercase" id="port-metric-winrate-label">Win-Rate</span>
+                  <span id="port-metric-trend" class="text-[9px] px-1 py-0.2 rounded font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hidden">▲ +0%</span>
+                </div>
+                <span class="font-bold text-sm text-indigo-300" id="port-metric-winrate">0.0%</span>
+              </div>
+              <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
+                <span class="text-[10px] text-slate-400 block uppercase">Gehebelt</span>
+                <span class="font-bold text-sm text-emerald-400" id="port-metric-lev-pnl">+0.0%</span>
+              </div>
+              <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
+                <span class="text-[10px] text-slate-400 block uppercase">Basis (1x)</span>
+                <span class="font-bold text-sm text-white" id="port-metric-raw-pnl">+0.0%</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1956,6 +1970,44 @@ html_content = f"""<!DOCTYPE html>
           </div>
           <div id="portfolio-active-trades" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
             <!-- Dynamisch via JS -->
+          </div>
+        </div>
+
+        <!-- 📈 Interaktive KI-Lernkurve & Win-Rate Evolution (KI-Portfolio) -->
+        <div class="p-4 rounded-xl bg-slate-950/80 border border-emerald-500/30 space-y-3 shadow-lg">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-800/80 pb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="text-base">📈</span>
+              <div>
+                <h3 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                  <span>KI-Portfolio Lernkurve & Equity-Evolution</span>
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">65 High-Conviction Trades</span>
+                </h3>
+                <span class="text-[10px] text-slate-400">Gleitende Trefferquote (Rolling Win-Rate) & kumulierter Hebel-PnL im chronologischen Zeitverlauf</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 font-mono text-[10px]">
+              <div class="flex items-center gap-1 bg-slate-900 p-1 rounded-lg border border-slate-800">
+                <span class="text-slate-500 px-1">Trend-Glättung:</span>
+                <button onclick="setPortfolioChartTrend(5)" id="port-chart-btn-5" class="px-2 py-0.5 rounded text-slate-400 hover:text-white transition">5er</button>
+                <button onclick="setPortfolioChartTrend(10)" id="port-chart-btn-10" class="px-2 py-0.5 rounded bg-emerald-600 text-white font-bold transition">10er</button>
+                <button onclick="setPortfolioChartTrend(20)" id="port-chart-btn-20" class="px-2 py-0.5 rounded text-slate-400 hover:text-white transition">20er</button>
+              </div>
+              <label class="flex items-center gap-1.5 text-slate-300 hover:text-white cursor-pointer select-none bg-slate-900 p-1.5 rounded-lg border border-slate-800">
+                <input type="checkbox" id="port-chart-toggle-equity" checked onchange="togglePortfolioChartEquity()" class="rounded bg-slate-800 border-slate-700 text-emerald-600 focus:ring-0">
+                <span>PnL-Kurve</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- SVG Chart Container -->
+          <div id="portfolio-chart-container" class="relative w-full overflow-hidden">
+            <!-- Dynamisch via renderLearningCurveSVG -->
+          </div>
+
+          <!-- Chart Live-Inspector / Tooltip Bar -->
+          <div id="portfolio-chart-inspector" class="flex flex-wrap items-center justify-between text-[11px] font-mono bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/60 text-slate-300 min-h-[38px]">
+            <span class="text-slate-400 italic">💡 Fahre mit der Maus oder tippe auf das Diagramm, um jeden Trade im Zeitverlauf zu analysieren.</span>
           </div>
         </div>
 
@@ -2040,19 +2092,34 @@ html_content = f"""<!DOCTYPE html>
             <p class="text-xs text-slate-400 mt-0.5">Schnelle KI-Lernschleife auf 5m & 15m &bull; 24/7 Krypto (Binance REST) + Deutsche Börsen 08:00–22:00 MEZ (Börse Frankfurt & XETRA) &bull; 0 € API-Kosten &bull; Transferiert Lehren auf 4h/1D Setups</p>
           </div>
 
-          <!-- Incubator Performance KPIs -->
-          <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
-            <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
-              <span class="text-[10px] text-slate-400 block uppercase">Win-Rate</span>
-              <span class="font-bold text-sm text-purple-300" id="inc-metric-winrate">0.0%</span>
+          <!-- Incubator Performance KPIs mit gleitenden Zeitfenstern -->
+          <div class="flex flex-col sm:items-end gap-1.5">
+            <!-- Rolling Window Filter Pills -->
+            <div class="flex items-center gap-1 bg-slate-950/80 p-1 rounded-xl border border-slate-800 text-[10px] font-mono">
+              <span class="text-slate-500 px-1.5 hidden md:inline">Fenster:</span>
+              <button onclick="setIncubatorWindow('all')" id="inc-win-btn-all" class="px-2 py-0.5 rounded-lg bg-purple-600 text-white font-bold transition">All-Time</button>
+              <button onclick="setIncubatorWindow(50)" id="inc-win-btn-50" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L50</button>
+              <button onclick="setIncubatorWindow(20)" id="inc-win-btn-20" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L20</button>
+              <button onclick="setIncubatorWindow(10)" id="inc-win-btn-10" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L10</button>
+              <button onclick="setIncubatorWindow(5)" id="inc-win-btn-5" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L5</button>
             </div>
-            <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
-              <span class="text-[10px] text-slate-400 block uppercase">Total R-Profit</span>
-              <span class="font-bold text-sm text-white" id="inc-metric-total-r">+0.0R</span>
-            </div>
-            <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
-              <span class="text-[10px] text-slate-400 block uppercase">Trades Gesamt</span>
-              <span class="font-bold text-sm text-indigo-300" id="inc-metric-total-count">0</span>
+
+            <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+              <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
+                <div class="flex items-center justify-between gap-1.5">
+                  <span class="text-[10px] text-slate-400 block uppercase" id="inc-metric-winrate-label">Win-Rate</span>
+                  <span id="inc-metric-trend" class="text-[9px] px-1 py-0.2 rounded font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hidden">▲ +0%</span>
+                </div>
+                <span class="font-bold text-sm text-purple-300" id="inc-metric-winrate">0.0%</span>
+              </div>
+              <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
+                <span class="text-[10px] text-slate-400 block uppercase">Total R-Profit</span>
+                <span class="font-bold text-sm text-white" id="inc-metric-total-r">+0.0R</span>
+              </div>
+              <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
+                <span class="text-[10px] text-slate-400 block uppercase">Trades Basis</span>
+                <span class="font-bold text-sm text-indigo-300" id="inc-metric-total-count">0</span>
+              </div>
             </div>
           </div>
         </div>
@@ -2074,6 +2141,44 @@ html_content = f"""<!DOCTYPE html>
             </div>
           </div>
           <div class="flex flex-wrap gap-1.5" id="inc-focus-assets-list">Lade Rotations-Assets...</div>
+        </div>
+
+        <!-- 📈 Interaktive KI-Lernkurve & Win-Rate Evolution (Post-Mortem Lab) -->
+        <div class="p-4 rounded-xl bg-slate-950/80 border border-purple-500/30 space-y-3 shadow-lg">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-800/80 pb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="text-base">📈</span>
+              <div>
+                <h3 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                  <span>KI-Lernkurve & Performance-Evolution</span>
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-mono bg-purple-500/20 text-purple-300 border border-purple-500/30">187 Micro-Trades</span>
+                </h3>
+                <span class="text-[10px] text-slate-400">Gleitende Trefferquote (Rolling Win-Rate) & kumulativer R-Profit über alle bisherigen Trades</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 font-mono text-[10px]">
+              <div class="flex items-center gap-1 bg-slate-900 p-1 rounded-lg border border-slate-800">
+                <span class="text-slate-500 px-1">Trend-Glättung:</span>
+                <button onclick="setIncubatorChartTrend(10)" id="inc-chart-btn-10" class="px-2 py-0.5 rounded text-slate-400 hover:text-white transition">10er</button>
+                <button onclick="setIncubatorChartTrend(20)" id="inc-chart-btn-20" class="px-2 py-0.5 rounded bg-purple-600 text-white font-bold transition">20er</button>
+                <button onclick="setIncubatorChartTrend(50)" id="inc-chart-btn-50" class="px-2 py-0.5 rounded text-slate-400 hover:text-white transition">50er</button>
+              </div>
+              <label class="flex items-center gap-1.5 text-slate-300 hover:text-white cursor-pointer select-none bg-slate-900 p-1.5 rounded-lg border border-slate-800">
+                <input type="checkbox" id="inc-chart-toggle-equity" checked onchange="toggleIncubatorChartEquity()" class="rounded bg-slate-800 border-slate-700 text-purple-600 focus:ring-0">
+                <span>R-Profit</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- SVG Chart Container -->
+          <div id="incubator-chart-container" class="relative w-full overflow-hidden">
+            <!-- Dynamisch via renderLearningCurveSVG -->
+          </div>
+
+          <!-- Chart Live-Inspector / Tooltip Bar -->
+          <div id="incubator-chart-inspector" class="flex flex-wrap items-center justify-between text-[11px] font-mono bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/60 text-slate-300 min-h-[38px]">
+            <span class="text-slate-400 italic">💡 Fahre mit der Maus oder tippe auf das Diagramm, um jeden Trade im Zeitverlauf zu analysieren.</span>
+          </div>
         </div>
 
         <!-- Aktive Micro-Trades Header & Filter -->
@@ -3350,20 +3455,347 @@ html_content = f"""<!DOCTYPE html>
     setupPullToRefresh();
 
     // ==========================================
-    // 🏛️ KI High-Conviction Modell-Portfolio
+    // 📈 INTERAKTIVE KI-LERNKURVE & GLEITENDE WIN-RATE (SVG ENGINE)
     // ==========================================
-    function renderPortfolioSection() {{
+    function renderLearningCurveSVG(containerId, inspectorId, rawTrades, isIncubator, windowSize, showEquity) {{
+      const container = document.getElementById(containerId);
+      const inspector = document.getElementById(inspectorId);
+      if (!container) return;
+
+      // Chronologische Reihenfolge sicherstellen (Portfolio ist neueste zuerst, Inkubator älteste zuerst)
+      const trades = isIncubator ? (rawTrades || []).slice() : (rawTrades || []).slice().reverse();
+      if (trades.length < 2) {{
+        container.innerHTML = `
+          <div class="h-32 flex items-center justify-center text-xs text-slate-500 italic bg-slate-900/40 rounded-xl border border-slate-800/60">
+            Mindestens 2 geschlossene Trades erforderlich, um die Lernkurve zu zeichnen.
+          </div>
+        `;
+        return;
+      }}
+
+      // Berechnung der Punkte
+      const points = [];
+      let cumEquity = 0;
+      let totalWins = 0;
+
+      for (let i = 0; i < trades.length; i++) {{
+        const t = trades[i];
+        let isWin = false;
+        let outcomeVal = 0;
+
+        if (isIncubator) {{
+          isWin = (t.realized_r || 0) > 0 || ['CLOSED_TP1', 'CLOSED_TP2', 'CLOSED_BE'].includes(t.exit_reason);
+          outcomeVal = Number(t.realized_r || 0.0);
+        }} else {{
+          isWin = t.result === 'WIN' || (t.realized_pnl_pct || 0) > 0;
+          outcomeVal = Number(t.realized_pnl_leveraged_pct !== undefined ? t.realized_pnl_leveraged_pct : (t.realized_pnl_pct || 0) * (t.leverage || 1));
+        }}
+
+        if (isWin) totalWins++;
+        cumEquity += outcomeVal;
+
+        // Zeitfenster für gleitende Win-Rate
+        const wStart = Math.max(0, i - windowSize + 1);
+        const wSlice = trades.slice(wStart, i + 1);
+        let wWins = 0;
+        wSlice.forEach(x => {{
+          const win = isIncubator
+            ? ((x.realized_r || 0) > 0 || ['CLOSED_TP1', 'CLOSED_TP2', 'CLOSED_BE'].includes(x.exit_reason))
+            : (x.result === 'WIN' || (x.realized_pnl_pct || 0) > 0);
+          if (win) wWins++;
+        }});
+        const rollingWR = (wWins / wSlice.length) * 100;
+
+        points.push({{
+          idx: i,
+          trade: t,
+          isWin: isWin,
+          outcomeVal: outcomeVal,
+          rollingWR: rollingWR,
+          cumEquity: cumEquity
+        }});
+      }}
+
+      const allTimeWR = (totalWins / trades.length) * 100;
+
+      // SVG Dimensionen & Padding
+      const svgW = 760;
+      const svgH = 190;
+      const padL = 38;
+      const padR = showEquity ? 45 : 18;
+      const padT = 18;
+      const padB = 26;
+      const plotW = svgW - padL - padR;
+      const plotH = svgH - padT - padB;
+
+      function getX(idx) {{
+        return padL + (idx / Math.max(1, points.length - 1)) * plotW;
+      }}
+      function getY_WR(wr) {{
+        return padT + (100 - Math.max(0, Math.min(100, wr))) / 100 * plotH;
+      }}
+
+      // Equity Skalierung
+      const eqValues = points.map(p => p.cumEquity);
+      let minEq = Math.min(0, ...eqValues);
+      let maxEq = Math.max(0.1, ...eqValues);
+      if (minEq === maxEq) maxEq += 1;
+      const eqRange = maxEq - minEq || 1;
+      function getY_Eq(eq) {{
+        return padT + (maxEq - eq) / eqRange * plotH;
+      }}
+
+      // Pfade generieren
+      const wrCoords = points.map(p => `${{getX(p.idx).toFixed(1)}},${{getY_WR(p.rollingWR).toFixed(1)}}`);
+      const wrPathD = 'M ' + wrCoords.join(' L ');
+      const areaPathD = wrPathD + ` L ${{getX(points.length - 1).toFixed(1)}},${{(padT + plotH).toFixed(1)}} L ${{getX(0).toFixed(1)}},${{(padT + plotH).toFixed(1)}} Z`;
+
+      const eqCoords = points.map(p => `${{getX(p.idx).toFixed(1)}},${{getY_Eq(p.cumEquity).toFixed(1)}}`);
+      const eqPathD = 'M ' + eqCoords.join(' L ');
+
+      const gradId = isIncubator ? 'grad-inc-curve' : 'grad-port-curve';
+      const mainCol = isIncubator ? '#a855f7' : '#10b981';
+      const strokeCol = isIncubator ? '#c084fc' : '#34d399';
+      const unit = isIncubator ? 'R' : '%';
+
+      const y50 = getY_WR(50);
+      const yAll = getY_WR(allTimeWR);
+      const lastPt = points[points.length - 1];
+
+      let svgHtml = `
+        <svg viewBox="0 0 ${{svgW}} ${{svgH}}" class="w-full h-auto select-none overflow-visible">
+          <defs>
+            <linearGradient id="${{gradId}}" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="${{mainCol}}" stop-opacity="0.35"/>
+              <stop offset="60%" stop-color="${{mainCol}}" stop-opacity="0.10"/>
+              <stop offset="100%" stop-color="${{mainCol}}" stop-opacity="0.0"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Grid Lines -->
+          <line x1="${{padL}}" y1="${{padT}}" x2="${{padL + plotW}}" y2="${{padT}}" stroke="#334155" stroke-width="0.75" stroke-dasharray="2 3" opacity="0.3"/>
+          <text x="${{padL - 6}}" y="${{padT + 3}}" fill="#64748b" font-size="9" font-family="monospace" text-anchor="end">100%</text>
+
+          <line x1="${{padL}}" y1="${{padT + plotH * 0.25}}" x2="${{padL + plotW}}" y2="${{padT + plotH * 0.25}}" stroke="#334155" stroke-width="0.75" stroke-dasharray="2 3" opacity="0.25"/>
+          <text x="${{padL - 6}}" y="${{padT + plotH * 0.25 + 3}}" fill="#64748b" font-size="9" font-family="monospace" text-anchor="end">75%</text>
+
+          <!-- 50% Benchmark Referenz -->
+          <line x1="${{padL}}" y1="${{y50}}" x2="${{padL + plotW}}" y2="${{y50}}" stroke="#eab308" stroke-width="1.1" stroke-dasharray="4 4" opacity="0.6"/>
+          <text x="${{padL + 6}}" y="${{y50 - 4}}" fill="#eab308" font-size="8.5" font-family="monospace" opacity="0.85">50% Benchmark</text>
+          <text x="${{padL - 6}}" y="${{y50 + 3}}" fill="#eab308" font-size="9" font-family="monospace" text-anchor="end">50%</text>
+
+          <line x1="${{padL}}" y1="${{padT + plotH * 0.75}}" x2="${{padL + plotW}}" y2="${{padT + plotH * 0.75}}" stroke="#334155" stroke-width="0.75" stroke-dasharray="2 3" opacity="0.25"/>
+          <text x="${{padL - 6}}" y="${{padT + plotH * 0.75 + 3}}" fill="#64748b" font-size="9" font-family="monospace" text-anchor="end">25%</text>
+
+          <!-- 0% Baseline -->
+          <line x1="${{padL}}" y1="${{padT + plotH}}" x2="${{padL + plotW}}" y2="${{padT + plotH}}" stroke="#334155" stroke-width="0.75" opacity="0.4"/>
+          <text x="${{padL - 6}}" y="${{padT + plotH + 3}}" fill="#64748b" font-size="9" font-family="monospace" text-anchor="end">0%</text>
+
+          <!-- All-Time Schnitt -->
+          <line x1="${{padL}}" y1="${{yAll}}" x2="${{padL + plotW}}" y2="${{yAll}}" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="3 3" opacity="0.5"/>
+          <text x="${{padL + plotW - 4}}" y="${{yAll - 4}}" fill="#94a3b8" font-size="8.5" font-family="monospace" text-anchor="end" opacity="0.8">All-Time Schnitt: ${{allTimeWR.toFixed(1)}}%</text>
+
+          <!-- Kurve & Fläche -->
+          <path d="${{areaPathD}}" fill="url(#${{gradId}})"/>
+          <path d="${{wrPathD}}" fill="none" stroke="${{strokeCol}}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- Optionale Equity / PnL Kurve -->
+          ${{showEquity ? `
+            <path d="${{eqPathD}}" fill="none" stroke="#60a5fa" stroke-width="1.6" stroke-dasharray="3 3" opacity="0.85"/>
+            <text x="${{padL + plotW + 6}}" y="${{padT + 3}}" fill="#60a5fa" font-size="8.5" font-family="monospace">${{maxEq >= 0 ? '+' : ''}}${{maxEq.toFixed(1)}}${{unit}}</text>
+            <text x="${{padL + plotW + 6}}" y="${{padT + plotH + 3}}" fill="#60a5fa" font-size="8.5" font-family="monospace">${{minEq.toFixed(1)}}${{unit}}</text>
+          ` : ''}}
+
+          <!-- Punkt für jüngsten Trade -->
+          <circle cx="${{getX(lastPt.idx)}}" cy="${{getY_WR(lastPt.rollingWR)}}" r="4.5" fill="${{strokeCol}}" stroke="#ffffff" stroke-width="1.5"/>
+
+          <!-- Interaktive Overlay-Elemente -->
+          <line id="${{containerId}}-crosshair" x1="0" y1="${{padT}}" x2="0" y2="${{padT + plotH}}" stroke="#ffffff" stroke-width="1" stroke-dasharray="2 2" opacity="0" pointer-events="none"/>
+          <circle id="${{containerId}}-hoverdot" cx="0" cy="0" r="5" fill="#ffffff" stroke="${{strokeCol}}" stroke-width="2" opacity="0" pointer-events="none"/>
+
+          <!-- Transparenter Layer für Mouse/Touch Events -->
+          <rect id="${{containerId}}-overlay" x="${{padL}}" y="${{padT}}" width="${{plotW}}" height="${{plotH}}" fill="transparent" style="cursor: crosshair;"/>
+
+          <!-- X-Achsen Beschriftung -->
+          <text x="${{padL}}" y="${{svgH - 6}}" fill="#64748b" font-size="8.5" font-family="monospace">Trade #1</text>
+          <text x="${{padL + plotW * 0.5}}" y="${{svgH - 6}}" fill="#64748b" font-size="8.5" font-family="monospace" text-anchor="middle">Trade #${{Math.round(points.length / 2)}}</text>
+          <text x="${{padL + plotW}}" y="${{svgH - 6}}" fill="#64748b" font-size="8.5" font-family="monospace" text-anchor="end">Trade #${{points.length}} (Aktuell)</text>
+        </svg>
+      `;
+
+      container.innerHTML = svgHtml;
+
+      function setInspectorDefault() {{
+        if (!inspector) return;
+        const p = lastPt;
+        const isW = p.isWin;
+        const badgeCol = isW ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'bg-rose-500/20 text-rose-400 border-rose-500/30';
+        const resStr = (p.outcomeVal >= 0 ? '+' : '') + p.outcomeVal.toFixed(1) + unit;
+        const cumStr = (p.cumEquity >= 0 ? '+' : '') + p.cumEquity.toFixed(1) + unit;
+        inspector.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${{badgeCol}}">Jüngster Trade #${{p.idx + 1}} · ${{p.trade.symbol || 'Asset'}}</span>
+            <span class="font-bold text-white">${{resStr}} ${{isW ? '✅' : '❌'}}</span>
+            <span class="text-slate-400 text-[10px]">(${{p.trade.direction || 'LONG'}})</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-indigo-300 font-bold">Gleitend (L${{windowSize}}): <b class="text-white">${{p.rollingWR.toFixed(1)}}%</b></span>
+            ${{showEquity ? `<span class="text-sky-300">Kumulativer Ertrag: <b class="text-white">${{cumStr}}</b></span>` : ''}}
+          </div>
+        `;
+      }}
+      setInspectorDefault();
+
+      const overlay = document.getElementById(containerId + '-overlay');
+      const crosshair = document.getElementById(containerId + '-crosshair');
+      const hoverdot = document.getElementById(containerId + '-hoverdot');
+
+      if (overlay && crosshair && hoverdot) {{
+        function handlePointer(evt) {{
+          const rect = overlay.getBoundingClientRect();
+          const clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
+          const relX = Math.max(0, Math.min(plotW, (clientX - rect.left) * (svgW / rect.width)));
+          const targetIdx = Math.round((relX / plotW) * (points.length - 1));
+          const p = points[targetIdx];
+          if (!p) return;
+
+          const cx = getX(p.idx);
+          const cy = getY_WR(p.rollingWR);
+
+          crosshair.setAttribute('x1', cx);
+          crosshair.setAttribute('x2', cx);
+          crosshair.setAttribute('opacity', '0.7');
+
+          hoverdot.setAttribute('cx', cx);
+          hoverdot.setAttribute('cy', cy);
+          hoverdot.setAttribute('opacity', '1');
+
+          if (inspector) {{
+            const isW = p.isWin;
+            const badgeCol = isW ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'bg-rose-500/20 text-rose-400 border-rose-500/30';
+            const resStr = (p.outcomeVal >= 0 ? '+' : '') + p.outcomeVal.toFixed(1) + unit;
+            const cumStr = (p.cumEquity >= 0 ? '+' : '') + p.cumEquity.toFixed(1) + unit;
+            let timeStr = '';
+            if (p.trade.exit_time || p.trade.exit_timestamp) {{
+              const d = p.trade.exit_timestamp ? new Date(p.trade.exit_timestamp * 1000) : new Date(p.trade.exit_time);
+              if (!isNaN(d.getTime())) {{
+                timeStr = d.toLocaleDateString('de-DE', {{day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'}});
+              }}
+            }}
+
+            inspector.innerHTML = `
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${{badgeCol}}">Trade #${{p.idx + 1}} · ${{p.trade.symbol || 'Asset'}} (${{p.trade.direction || 'LONG'}})</span>
+                <span class="font-bold text-white">${{resStr}} ${{isW ? '✅' : '❌'}}</span>
+                ${{timeStr ? `<span class="text-slate-400 text-[10px]">⏱️ ${{timeStr}}</span>` : ''}}
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-indigo-300 font-bold">Gleitend (L${{windowSize}}): <b class="text-white">${{p.rollingWR.toFixed(1)}}%</b></span>
+                ${{showEquity ? `<span class="text-sky-300">Kumulativ: <b class="text-white">${{cumStr}}</b></span>` : ''}}
+              </div>
+            `;
+          }}
+        }}
+
+        overlay.addEventListener('mousemove', handlePointer);
+        overlay.addEventListener('touchmove', handlePointer, {{passive: true}});
+        overlay.addEventListener('mouseleave', () => {{
+          crosshair.setAttribute('opacity', '0');
+          hoverdot.setAttribute('opacity', '0');
+          setInspectorDefault();
+        }});
+        overlay.addEventListener('touchend', () => {{
+          crosshair.setAttribute('opacity', '0');
+          hoverdot.setAttribute('opacity', '0');
+          setInspectorDefault();
+        }});
+      }}
+    }}
+
+    // ==========================================
+    // 🏛️ KI High-Conviction Modell-Portfolio State & Controller
+    // ==========================================
+    let currentPortfolioWindow = 'all';
+    let currentPortfolioChartTrend = 10;
+    let currentPortfolioChartEquity = true;
+
+    function setPortfolioWindow(w) {{
+      currentPortfolioWindow = w;
+      ['all', 20, 10, 5].forEach(k => {{
+        const btn = document.getElementById('port-win-btn-' + k);
+        if (btn) {{
+          if (String(k) === String(w)) {{
+            btn.className = 'px-2 py-0.5 rounded-lg bg-emerald-600 text-white font-bold transition';
+          }} else {{
+            btn.className = 'px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition';
+          }}
+        }}
+      }});
+      updatePortfolioKPIs();
+    }}
+
+    function updatePortfolioKPIs() {{
       const port = currentData.portfolio || {{}};
       const metrics = port.metrics || {{}};
-      const activeTrades = port.active_trades || [];
       const closedTrades = port.closed_trades || [];
-      const memory = currentData.trade_memory || {{}};
-      const learnings = memory.learnings || [];
+      const allTimeWr = metrics.win_rate_pct !== undefined ? metrics.win_rate_pct : 0;
 
-      // KPIs
-      const levPnl = metrics.total_leveraged_pnl_pct || 0;
-      const rawPnl = metrics.total_pnl_pct || 0;
-      const winRate = metrics.win_rate_pct || 0;
+      let targetTrades = closedTrades;
+      let label = 'Win-Rate (All)';
+      let isWindow = (currentPortfolioWindow !== 'all');
+
+      if (isWindow) {{
+        const w = parseInt(currentPortfolioWindow, 10);
+        targetTrades = closedTrades.slice(0, w);
+        label = `Win-Rate (L${{Math.min(w, closedTrades.length)}})`;
+      }}
+
+      let winCount = 0;
+      let lossCount = 0;
+      let levPnl = 0;
+      let rawPnl = 0;
+
+      if (!isWindow) {{
+        winCount = metrics.win_count || 0;
+        lossCount = metrics.loss_count || 0;
+        levPnl = metrics.total_leveraged_pnl_pct || 0;
+        rawPnl = metrics.total_pnl_pct || 0;
+      }} else {{
+        targetTrades.forEach(t => {{
+          if (t.result === 'WIN' || (t.realized_pnl_pct || 0) > 0) winCount++;
+          else lossCount++;
+          levPnl += (t.realized_pnl_leveraged_pct !== undefined ? t.realized_pnl_leveraged_pct : (t.realized_pnl_pct || 0) * (t.leverage || 1));
+          rawPnl += (t.realized_pnl_pct || 0);
+        }});
+      }}
+
+      const totalCount = winCount + lossCount;
+      const winRate = totalCount > 0 ? (winCount / totalCount * 100) : 0;
+      const diff = winRate - allTimeWr;
+
+      const lblElem = document.getElementById('port-metric-winrate-label');
+      if (lblElem) lblElem.textContent = label;
+
+      const wrElem = document.getElementById('port-metric-winrate');
+      if (wrElem) {{
+        wrElem.textContent = winRate.toFixed(1) + '% (' + winCount + 'W / ' + lossCount + 'L)';
+      }}
+
+      const trendElem = document.getElementById('port-metric-trend');
+      if (trendElem) {{
+        if (isWindow && Math.abs(diff) >= 0.1) {{
+          trendElem.classList.remove('hidden');
+          if (diff > 0) {{
+            trendElem.textContent = `▲ +${{diff.toFixed(1)}}%`;
+            trendElem.className = 'text-[9px] px-1.5 py-0.2 rounded font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+          }} else {{
+            trendElem.textContent = `▼ ${{diff.toFixed(1)}}%`;
+            trendElem.className = 'text-[9px] px-1.5 py-0.2 rounded font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30';
+          }}
+        }} else {{
+          trendElem.classList.add('hidden');
+        }}
+      }}
 
       const levElem = document.getElementById('port-metric-lev-pnl');
       if (levElem) {{
@@ -3376,11 +3808,184 @@ html_content = f"""<!DOCTYPE html>
         rawElem.textContent = (rawPnl >= 0 ? '+' : '') + rawPnl.toFixed(1) + '%';
         rawElem.className = 'font-bold text-sm ' + (rawPnl >= 0 ? 'text-slate-200' : 'text-rose-300');
       }}
+    }}
 
-      const wrElem = document.getElementById('port-metric-winrate');
-      if (wrElem) {{
-        wrElem.textContent = winRate.toFixed(1) + '% (' + (metrics.win_count || 0) + 'W / ' + (metrics.loss_count || 0) + 'L)';
+    function setPortfolioChartTrend(trendSize) {{
+      currentPortfolioChartTrend = trendSize;
+      [5, 10, 20].forEach(k => {{
+        const btn = document.getElementById('port-chart-btn-' + k);
+        if (btn) {{
+          if (k === trendSize) {{
+            btn.className = 'px-2 py-0.5 rounded bg-emerald-600 text-white font-bold transition';
+          }} else {{
+            btn.className = 'px-2 py-0.5 rounded text-slate-400 hover:text-white transition';
+          }}
+        }}
+      }});
+      renderPortfolioChart();
+    }}
+
+    function togglePortfolioChartEquity() {{
+      const el = document.getElementById('port-chart-toggle-equity');
+      if (el) currentPortfolioChartEquity = el.checked;
+      renderPortfolioChart();
+    }}
+
+    function renderPortfolioChart() {{
+      const port = currentData.portfolio || {{}};
+      const closed = port.closed_trades || [];
+      renderLearningCurveSVG(
+        'portfolio-chart-container',
+        'portfolio-chart-inspector',
+        closed,
+        false,
+        currentPortfolioChartTrend,
+        currentPortfolioChartEquity
+      );
+    }}
+
+    // ==========================================
+    // 🧪 AI Incubator & Post-Mortem Lab State & Controller
+    // ==========================================
+    let currentIncubatorWindow = 'all';
+    let currentIncubatorChartTrend = 20;
+    let currentIncubatorChartEquity = true;
+
+    function setIncubatorWindow(w) {{
+      currentIncubatorWindow = w;
+      ['all', 50, 20, 10, 5].forEach(k => {{
+        const btn = document.getElementById('inc-win-btn-' + k);
+        if (btn) {{
+          if (String(k) === String(w)) {{
+            btn.className = 'px-2 py-0.5 rounded-lg bg-purple-600 text-white font-bold transition';
+          }} else {{
+            btn.className = 'px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition';
+          }}
+        }}
+      }});
+      updateIncubatorKPIs();
+    }}
+
+    function updateIncubatorKPIs() {{
+      const inc = currentData.incubator || {{}};
+      const metrics = inc.metrics || {{}};
+      const closedTrades = inc.closed_trades || [];
+      const totalAll = metrics.total_trades || closedTrades.length;
+      const allTimeWr = metrics.win_rate !== undefined ? metrics.win_rate : 0;
+
+      let targetTrades = closedTrades;
+      let label = 'Win-Rate (All)';
+      let isWindow = (currentIncubatorWindow !== 'all');
+
+      if (isWindow) {{
+        const w = parseInt(currentIncubatorWindow, 10);
+        targetTrades = closedTrades.slice(-w);
+        label = `Win-Rate (L${{Math.min(w, closedTrades.length)}})`;
       }}
+
+      let winCount = 0;
+      let lossCount = 0;
+      let totalR = 0;
+
+      if (!isWindow) {{
+        winCount = metrics.wins || 0;
+        lossCount = metrics.losses || 0;
+        totalR = metrics.total_r_profit || 0;
+      }} else {{
+        targetTrades.forEach(t => {{
+          const isWin = (t.realized_r || 0) > 0 || ['CLOSED_TP1', 'CLOSED_TP2', 'CLOSED_BE'].includes(t.exit_reason);
+          if (isWin) winCount++;
+          else lossCount++;
+          totalR += (t.realized_r || 0);
+        }});
+      }}
+
+      const totalCount = winCount + lossCount;
+      const winRate = totalCount > 0 ? (winCount / totalCount * 100) : 0;
+      const diff = winRate - allTimeWr;
+
+      const lblElem = document.getElementById('inc-metric-winrate-label');
+      if (lblElem) lblElem.textContent = label;
+
+      const wrElem = document.getElementById('inc-metric-winrate');
+      if (wrElem) {{
+        wrElem.textContent = winRate.toFixed(1) + '% (' + winCount + 'W / ' + lossCount + 'L)';
+      }}
+
+      const trendElem = document.getElementById('inc-metric-trend');
+      if (trendElem) {{
+        if (isWindow && Math.abs(diff) >= 0.1) {{
+          trendElem.classList.remove('hidden');
+          if (diff > 0) {{
+            trendElem.textContent = `▲ +${{diff.toFixed(1)}}%`;
+            trendElem.className = 'text-[9px] px-1.5 py-0.2 rounded font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+          }} else {{
+            trendElem.textContent = `▼ ${{diff.toFixed(1)}}%`;
+            trendElem.className = 'text-[9px] px-1.5 py-0.2 rounded font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30';
+          }}
+        }} else {{
+          trendElem.classList.add('hidden');
+        }}
+      }}
+
+      const rElem = document.getElementById('inc-metric-total-r');
+      if (rElem) {{
+        rElem.textContent = (totalR >= 0 ? '+' : '') + totalR.toFixed(1) + 'R';
+        rElem.className = 'font-bold text-sm ' + (totalR >= 0 ? 'text-emerald-400' : 'text-rose-400');
+      }}
+
+      const cntElem = document.getElementById('inc-metric-total-count');
+      if (cntElem) cntElem.textContent = isWindow ? targetTrades.length : totalAll;
+    }}
+
+    function setIncubatorChartTrend(trendSize) {{
+      currentIncubatorChartTrend = trendSize;
+      [10, 20, 50].forEach(k => {{
+        const btn = document.getElementById('inc-chart-btn-' + k);
+        if (btn) {{
+          if (k === trendSize) {{
+            btn.className = 'px-2 py-0.5 rounded bg-purple-600 text-white font-bold transition';
+          }} else {{
+            btn.className = 'px-2 py-0.5 rounded text-slate-400 hover:text-white transition';
+          }}
+        }}
+      }});
+      renderIncubatorChart();
+    }}
+
+    function toggleIncubatorChartEquity() {{
+      const el = document.getElementById('inc-chart-toggle-equity');
+      if (el) currentIncubatorChartEquity = el.checked;
+      renderIncubatorChart();
+    }}
+
+    function renderIncubatorChart() {{
+      const inc = currentData.incubator || {{}};
+      const closed = inc.closed_trades || [];
+      renderLearningCurveSVG(
+        'incubator-chart-container',
+        'incubator-chart-inspector',
+        closed,
+        true,
+        currentIncubatorChartTrend,
+        currentIncubatorChartEquity
+      );
+    }}
+
+    // ==========================================
+    // 🏛️ KI High-Conviction Modell-Portfolio
+    // ==========================================
+    function renderPortfolioSection() {{
+      const port = currentData.portfolio || {{}};
+      const metrics = port.metrics || {{}};
+      const activeTrades = port.active_trades || [];
+      const closedTrades = port.closed_trades || [];
+      const memory = currentData.trade_memory || {{}};
+      const learnings = memory.learnings || [];
+
+      // KPIs & Chart initialisieren
+      updatePortfolioKPIs();
+      renderPortfolioChart();
 
       const cntElem = document.getElementById('port-active-count');
       if (cntElem) cntElem.textContent = activeTrades.length;
@@ -3733,19 +4338,9 @@ html_content = f"""<!DOCTYPE html>
       const focusAssets = inc.today_focus_assets || [];
       const insights = inc.ai_insights || [];
 
-      // KPIs
-      const wrElem = document.getElementById('inc-metric-winrate');
-      if (wrElem) {{
-        wrElem.textContent = (metrics.win_rate !== undefined ? metrics.win_rate.toFixed(1) : '0.0') + '% (' + (metrics.wins || 0) + 'W / ' + (metrics.losses || 0) + 'L)';
-      }}
-      const rElem = document.getElementById('inc-metric-total-r');
-      if (rElem) {{
-        const rVal = metrics.total_r_profit || 0;
-        rElem.textContent = (rVal >= 0 ? '+' : '') + rVal.toFixed(1) + 'R';
-        rElem.className = 'font-bold text-sm ' + (rVal >= 0 ? 'text-emerald-400' : 'text-rose-400');
-      }}
-      const cntElem = document.getElementById('inc-metric-total-count');
-      if (cntElem) cntElem.textContent = metrics.total_trades || closedTrades.length;
+      // KPIs & Chart initialisieren
+      updateIncubatorKPIs();
+      renderIncubatorChart();
 
       const actCnt = document.getElementById('inc-active-count');
       if (actCnt) actCnt.textContent = activeTrades.length;

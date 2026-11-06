@@ -846,6 +846,28 @@ def update_autonomous_portfolio(db_assets):
     sum_loss_val = abs(sum(t.get("realized_pnl_pct", 0.0) for t in losses))
     profit_factor = round(sum_win_val / sum_loss_val, 2) if sum_loss_val > 0 else (round(sum_win_val, 2) if sum_win_val > 0 else 1.0)
 
+    # Gleitende Metriken berechnen (neueste zuerst in all_closed)
+    rolling = {}
+    for w in [5, 10, 20]:
+        subset = all_closed[:w]
+        sub_len = len(subset)
+        if sub_len > 0:
+            sub_wins = sum(1 for t in subset if t.get("result") == "WIN")
+            sub_losses = sum(1 for t in subset if t.get("result") == "LOSS")
+            sub_wr = round(sub_wins / sub_len * 100.0, 1)
+            sub_raw = round(sum(t.get("realized_pnl_pct", 0.0) for t in subset), 2)
+            sub_lev = round(sum(t.get("realized_pnl_leveraged_pct", 0.0) for t in subset), 2)
+            diff_wr = round(sub_wr - win_rate, 1)
+            rolling[f"last_{w}"] = {
+                "trades": sub_len,
+                "wins": sub_wins,
+                "losses": sub_losses,
+                "win_rate_pct": sub_wr,
+                "diff_vs_all_time": diff_wr,
+                "total_pnl_pct": sub_raw,
+                "total_leveraged_pnl_pct": sub_lev
+            }
+
     portfolio["active_trades"] = remaining_active
     portfolio["closed_trades"] = closed_trades[:100]  # Letzte 100 im Speicher
     portfolio["metrics"] = {
@@ -856,7 +878,8 @@ def update_autonomous_portfolio(db_assets):
         "win_rate_pct": win_rate,
         "total_pnl_pct": round(sum_raw_pnl, 2),
         "total_leveraged_pnl_pct": round(sum_lev_pnl, 2),
-        "profit_factor": profit_factor
+        "profit_factor": profit_factor,
+        "rolling": rolling
     }
 
     # Closed-Loop Scorecard rekalibrieren (Performance-Matrix für Setups und Kategorien)

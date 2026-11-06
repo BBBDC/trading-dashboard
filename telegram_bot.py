@@ -1145,10 +1145,22 @@ def get_admin_model_portfolio_text_and_markup():
     win_rate = metrics.get("win_rate_pct", 0)
     lev_pnl = metrics.get("total_leveraged_pnl_pct", 0.0)
     closed = port.get("closed_trades", [])
+    rolling = metrics.get("rolling", {})
+    r5 = rolling.get("last_5", {})
+    r10 = rolling.get("last_10", {})
+
+    wr_line = f"• <b>Win-Rate (All-Time):</b> {win_rate}%"
+    if r10 or r5:
+        wr10 = r10.get("win_rate_pct", 0)
+        wr5 = r5.get("win_rate_pct", 0)
+        wr_line = (
+            f"• <b>Win-Rate:</b> {win_rate}% (All-Time)\n"
+            f"   ↳ <b>Gleitend L10:</b> <b>{wr10}%</b> | <b>L5:</b> <b>{wr5}%</b> 🔥"
+        )
 
     lines = [
         f"🏛️ <b>Autonomes KI-High-Conviction Modell-Portfolio</b>\n",
-        f"• <b>Win-Rate:</b> {win_rate}%",
+        wr_line,
         f"• <b>Offene Trades:</b> {len(active)}",
         f"• <b>Geschlossene Trades:</b> {len(closed)}",
         f"• <b>Gehebelter PnL:</b> {lev_pnl:+.2f}%\n"
