@@ -1,7 +1,103 @@
 {
-  "updated_at": "2026-11-06T11:15:40.022900+00:00",
-  "total_experience_records": 86,
+  "updated_at": "2026-11-06T12:20:27.189183+00:00",
+  "total_experience_records": 91,
   "learnings": [
+    {
+      "timestamp": "2026-11-06T12:20:23.178275+00:00",
+      "trade_id": "cross_rule_1793967623",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Liquiditäts- und Marktplatz-Hierarchie: Mikro-Struktursignale auf synthetischen oder arbitrierten Sekundärhandelsplätzen (.F) sind bis zur Eröffnung des Hauptmarkts (US Cash) systemisch zu sperren.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sweep-Muster auf NVD.F und APC.F reflektieren keine echte institutionelle Akkumulation, sondern Arbitrage-Spreads gegenüber US-Futures, wodurch Stop-Loss-Level systematisch abgefischt werden.",
+        "actionable_rule": "Liquiditäts- und Marktplatz-Hierarchie: Mikro-Struktursignale auf synthetischen oder arbitrierten Sekundärhandelsplätzen (.F) sind bis zur Eröffnung des Hauptmarkts (US Cash) systemisch zu sperren."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T12:20:23.178253+00:00",
+      "trade_id": "cross_rule_1793967623",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale 3-Säulen-Pflicht: Kein Setup besitzt statistischen Edge ohne synchrone Erfüllung von Marktstruktur (OB/Sweep), statistischer Abweichung (Chaos Band Extreme) und Ausführungs-Trigger.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die 5m-Verluste demonstrieren, dass isolierte Sweeps und Orderblöcke ohne statistische Überdehnung reine Rauschen-Fallen sind; erst die Einbettung in die Chaos-Bänder schützt vor fortlaufenden Trend-Kaskaden.",
+        "actionable_rule": "Fraktale 3-Säulen-Pflicht: Kein Setup besitzt statistischen Edge ohne synchrone Erfüllung von Marktstruktur (OB/Sweep), statistischer Abweichung (Chaos Band Extreme) und Ausführungs-Trigger."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T12:20:23.178240+00:00",
+      "trade_id": "inc_APC.F_5m_1793963456",
+      "symbol": "APC.F",
+      "name": "Apple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.36,
+      "pnl_raw": -0.18,
+      "text": "Short-Positionen erfordern zwingend eine Sell-Pocket-Kondition (Chaos Band > RFE) und dürfen bei OBs mit B-Rating nicht ohne bestätigtes VSA-Reversal-Signal eröffnet werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_APC.F_5m_1793963456",
+        "verdict": "LOSS",
+        "driver": "Prozyklisch abgestrafter Counter-Trend-Short an einem schwachen B-Klasse-OB ohne Sell-Pocket-Erschöpfung oder bestätigtes Verkaufssignal gegen den übergeordneten Index-Drift.",
+        "technical_warning": "Der Sweep des Hochs zeigte keinen VSA-Upthrust mit signifikantem Abweisungswolkendocht, sondern schlichtes Durchrutschen dünner Ask-Liquidität ohne Verkaufsbereitschaft.",
+        "actionable_rule": "Short-Positionen erfordern zwingend eine Sell-Pocket-Kondition (Chaos Band > RFE) und dürfen bei OBs mit B-Rating nicht ohne bestätigtes VSA-Reversal-Signal eröffnet werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T12:20:23.178222+00:00",
+      "trade_id": "inc_NVD.F_5m_1793963456",
+      "symbol": "NVD.F",
+      "name": "Nvidia",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.0,
+      "pnl_raw": -0.5,
+      "text": "Verbot von Long-Entries an EU-Nebenhandelsplätzen (.F) ohne bestätigtes VSA-Ultra-High-Volume (Absorption) und synchronisierte US-Kassamarkt-Teilnahme.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NVD.F_5m_1793963456",
+        "verdict": "LOSS",
+        "driver": "Mangelnde Setup-Reife durch Beschränkung auf lediglich zwei isolierte Trigger ohne Chaos-Band-Überdehnung, gehandelt auf einem illiquiden Frankfurter Sekundär-Listing ohne eigene Orderbuchtiefe.",
+        "technical_warning": "Fehlendes VSA-Absorptionsvolumen am OB-Retest sowie das Ausbleiben einer statistischen Überdehnung (fehlende Buy Pocket) signalisierten eine intakte Fortsetzung des Abwärtsdrucks.",
+        "actionable_rule": "Verbot von Long-Entries an EU-Nebenhandelsplätzen (.F) ohne bestätigtes VSA-Ultra-High-Volume (Absorption) und synchronisierte US-Kassamarkt-Teilnahme."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T12:20:23.178164+00:00",
+      "trade_id": "inc_ETHUSDT_5m_1793963455",
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 1.06,
+      "pnl_raw": 0.53,
+      "text": "5m-Scalps dürfen nur ausgeführt werden, wenn neben der Strukturmarke zwingend eine statistische Extremzone (Chaos Band) UND ein diskretes Trigger-Signal vorliegen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ETHUSDT_5m_1793963455",
+        "verdict": "WIN",
+        "driver": "Perfekte Synergie aus strukturellem Liquidity Sweep [A], statistischer Erschöpfung in der Institutional Buy Pocket (Chaos Band < RFE) und sauberem Momentum-Trigger (Blaues Dreieck) im hochliquiden Krypto-Kernmarkt.",
+        "technical_warning": "Keine primäre Warnung; prompte Volumen-Absorption am OB [B] mit direktem Momentum-Follow-Through ohne verharrende Konsolidierung im Verlustbereich.",
+        "actionable_rule": "5m-Scalps dürfen nur ausgeführt werden, wenn neben der Strukturmarke zwingend eine statistische Extremzone (Chaos Band) UND ein diskretes Trigger-Signal vorliegen."
+      }
+    },
     {
       "timestamp": "2026-11-06T11:12:24.629578+00:00",
       "trade_id": "cross_rule_1793963544",
