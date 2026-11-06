@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-06T03:12:03.680740+00:00",
-  "total_experience_records": 76,
+  "updated_at": "2026-11-06T04:06:21.334791+00:00",
+  "total_experience_records": 80,
   "learnings": [
+    {
+      "timestamp": "2026-11-06T04:06:17.418890+00:00",
+      "trade_id": "cross_rule_1793937977",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Strikte Hierarchie der OB-Güteklassen: B/C-Qualität erfordert zwingend HTF-Konfluenz (4h/1D).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Suboptimale Zonen (B und C) besitzen im 5m-Rauschen ohne VSA-Climax statistisch negativen Erwartungswert. Sie werden nur dann handelbar, wenn der 4h-Trend klar bullisch expandiert und das Chaos-Band im übergeordneten Zeitrahmen als dynamischer Support dient.",
+        "actionable_rule": "Strikte Hierarchie der OB-Güteklassen: B/C-Qualität erfordert zwingend HTF-Konfluenz (4h/1D)."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T04:06:17.418861+00:00",
+      "trade_id": "cross_rule_1793937977",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Trade ohne validierten A-Sweep bei synchronem Marktdruck (Korrelations-Kopplung).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Wenn BTC und ETH simultan auf 5m Kaufsignale an nicht-bereinigten Zonen generieren, handelt es sich meist um eine 'Liquidity Trap' für Retail-Indikatoren. Erst wenn die externe HTF-Liquidität unter den Vortagestiefs abgefischt wurde, entsteht echter institutioneller Boden.",
+        "actionable_rule": "Kein Trade ohne validierten A-Sweep bei synchronem Marktdruck (Korrelations-Kopplung)."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T04:06:17.418837+00:00",
+      "trade_id": "inc_ETHUSDT_5m_1793923552",
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.16,
+      "pnl_raw": -0.58,
+      "text": "Mikro-Setups auf [C]-Order-Blocks sind auf 5m/15m ausnahmslos zu sperren; sie dürfen selbst im 4h-Kontext nur mit 50% Positionsgröße und nachweislicher Trendfolge gehandelt werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ETHUSDT_5m_1793923552",
+        "verdict": "LOSS",
+        "driver": "Fatales Einsteigen an einem Schrott-Order-Block der Güteklasse [C] bei gleichzeitiger Korrelationsschwäche zu Bitcoin.",
+        "technical_warning": "Ausbleiben jeglicher relativen Stärke (SMT-Divergenz zu BTC) und Durchschlagen des unteren Chaos-Bandes mit expansivem Momentum.",
+        "actionable_rule": "Mikro-Setups auf [C]-Order-Blocks sind auf 5m/15m ausnahmslos zu sperren; sie dürfen selbst im 4h-Kontext nur mit 50% Positionsgröße und nachweislicher Trendfolge gehandelt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T04:06:17.418765+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1793923552",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.02,
+      "pnl_raw": -0.51,
+      "text": "Bullish OBs der Güteklasse [B] dürfen auf 5m nur exekutiert werden, wenn der Retest mit signifikant abnehmendem Volumen erfolgt und eine 5m-Kerze über dem lokalen Fair Value Gap (FVG) schließt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1793923552",
+        "verdict": "LOSS",
+        "driver": "Einstieg an einem zweitklassigen [B]-Order-Block mitten in eine übergeordnete Verkaufs-Dynamik hinein ohne nachweisbare Volumenerschöpfung.",
+        "technical_warning": "Fehlen eines tiefen Sweeps der vorangegangenen 5m-Tiefs sowie aggressives Verkaufsvolumen beim Retest der Zone statt eines volumenschwachen 'No-Supply'-Rücksetzers.",
+        "actionable_rule": "Bullish OBs der Güteklasse [B] dürfen auf 5m nur exekutiert werden, wenn der Retest mit signifikant abnehmendem Volumen erfolgt und eine 5m-Kerze über dem lokalen Fair Value Gap (FVG) schließt."
+      }
+    },
     {
       "timestamp": "2026-11-06T00:06:54.472266+00:00",
       "trade_id": "cross_rule_1793923614",
