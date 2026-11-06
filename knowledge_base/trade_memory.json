@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-06T04:06:21.334791+00:00",
-  "total_experience_records": 80,
+  "updated_at": "2026-11-06T05:06:25.895232+00:00",
+  "total_experience_records": 84,
   "learnings": [
+    {
+      "timestamp": "2026-11-06T05:06:22.098295+00:00",
+      "trade_id": "cross_rule_1793941582",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Stop-Loss-Platzierung an Volatilitätsregime koppeln, nicht an Mikrostufen (ATR-Floor)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein Stop-Abstand von 0.08% bis 0.14% ist kein Risikomanagement, sondern garantierte Spende an die Arbitrageure. Auch auf 4h/1D führt das Festklammern an zu engen Strukturpunkten ohne Einberechnung des Volatilitätskorridors zur vorzeitigen Exekution profitabler Makro-Thesen.",
+        "actionable_rule": "Stop-Loss-Platzierung an Volatilitätsregime koppeln, nicht an Mikrostufen (ATR-Floor)"
+      }
+    },
+    {
+      "timestamp": "2026-11-06T05:06:22.098273+00:00",
+      "trade_id": "cross_rule_1793941582",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine Trade-Exekution ohne vorherigen Sweep externer Liquidität (Fraktales Liquiditäts-Gesetz)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl der AVAX- als auch der DOGE-Loss entstanden, weil institutionelle Akteure die Sell-Side-Liquidität unter den offensichtlichen Supports erst abholen mussten, bevor echter Kaufdruck entstehen kann. Dies gilt auf 5m ebenso wie auf 4h/1D: Reversals ohne vorherigen Sweep sind statistische Verlustgeschäfte.",
+        "actionable_rule": "Keine Trade-Exekution ohne vorherigen Sweep externer Liquidität (Fraktales Liquiditäts-Gesetz)"
+      }
+    },
+    {
+      "timestamp": "2026-11-06T05:06:22.098256+00:00",
+      "trade_id": "inc_DOGEUSDT_5m_1793937949",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.16,
+      "pnl_raw": -0.08,
+      "text": "Einstiege in 'Institutional Buy Pockets' erfordern zwingend einen Kerzenschluss zurück über das untere Band sowie einen Mindest-Stop-Abstand von 1.5x ATR.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_5m_1793937949",
+        "verdict": "LOSS",
+        "driver": "Klassischer 'Falling Knife'-Kauf in einer Band-Überdehnung ohne Bestätigung durch VSA-Stopping-Volume oder Reversal-Struktur.",
+        "technical_warning": "Ein Stop-Loss-Abstand von lediglich 0.08% bei einem hochvolatilen Meme-Asset liegt weit unterhalb der 5m-ATR und ignoriert Market-Maker-Spreads komplett.",
+        "actionable_rule": "Einstiege in 'Institutional Buy Pockets' erfordern zwingend einen Kerzenschluss zurück über das untere Band sowie einen Mindest-Stop-Abstand von 1.5x ATR."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T05:06:22.098197+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1793937948",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.28,
+      "pnl_raw": -0.14,
+      "text": "Kein Long-Einstieg an Orderblöcken unter Rating [B], es sei denn, ein sauberer Liquidity-Sweep [A] unter das letzte Swing-Low ging unmittelbar voraus.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1793937948",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Einstieg an einem schwachen [D]-Orderblock gegen den lokalen Verkaufsdruck ohne vorherigen Sell-Side-Liquidity-Sweep.",
+        "technical_warning": "Minderwertiges Orderblock-Rating [D] in Kombination mit fehlender VSA-Volumenabsorption bei Retest des Niveaus 8.276.",
+        "actionable_rule": "Kein Long-Einstieg an Orderblöcken unter Rating [B], es sei denn, ein sauberer Liquidity-Sweep [A] unter das letzte Swing-Low ging unmittelbar voraus."
+      }
+    },
     {
       "timestamp": "2026-11-06T04:06:17.418890+00:00",
       "trade_id": "cross_rule_1793937977",
