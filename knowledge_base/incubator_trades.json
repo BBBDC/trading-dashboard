@@ -1,13 +1,6 @@
 {
-  "updated_at": "2026-11-06T10:50:02.962061+00:00",
+  "updated_at": "2026-11-06T11:12:25.139035+00:00",
   "today_focus_assets": [
-    {
-      "symbol": "SUIUSDT",
-      "name": "Sui",
-      "exchange": "BINANCE (24/7)",
-      "source": "binance",
-      "category": "Crypto"
-    },
     {
       "symbol": "RENDERUSDT",
       "name": "Render",
@@ -30,12 +23,11 @@
       "category": "Crypto"
     },
     {
-      "symbol": "ALV.DE",
-      "name": "Allianz",
-      "exchange": "XETRA (09-17:30h)",
-      "source": "yahoo",
-      "category": "DAX / Financial (EUR)",
-      "currency": "EUR"
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "exchange": "BINANCE (24/7)",
+      "source": "binance",
+      "category": "Crypto"
     },
     {
       "symbol": "DTE.DE",
@@ -56,6 +48,14 @@
     {
       "symbol": "TL0.F",
       "name": "Tesla",
+      "exchange": "FRA / Tradegate (08-22h)",
+      "source": "yahoo",
+      "category": "US-Tech (EUR)",
+      "currency": "EUR"
+    },
+    {
+      "symbol": "APC.F",
+      "name": "Apple",
       "exchange": "FRA / Tradegate (08-22h)",
       "source": "yahoo",
       "category": "US-Tech (EUR)",
@@ -245,19 +245,19 @@
     }
   ],
   "metrics": {
-    "total_trades": 162,
-    "wins": 55,
-    "losses": 107,
-    "win_rate": 34.0,
-    "total_r_profit": -18.5,
+    "total_trades": 167,
+    "wins": 56,
+    "losses": 111,
+    "win_rate": 33.5,
+    "total_r_profit": -20.25,
     "active_count": 8,
     "avg_rr": 2.2
   },
   "lifetime_metrics": {
-    "total_trades": 162,
-    "wins": 55,
-    "losses": 107,
-    "total_r_profit": -18.5
+    "total_trades": 167,
+    "wins": 56,
+    "losses": 111,
+    "total_r_profit": -20.25
   },
   "active_trades": [
     {
@@ -282,11 +282,11 @@
       "vsa_class": "Very Low Volume",
       "status": "OPEN",
       "highest_price": 26.479999542236328,
-      "lowest_price": 25.780000686645508,
+      "lowest_price": 25.770000457763672,
       "trade_id": "inc_DTE.DE_15m_1793869558",
-      "current_price": 25.799999237060547,
-      "unrealized_pnl_pct": 1.98,
-      "unrealized_r": 1.41
+      "current_price": 25.84000015258789,
+      "unrealized_pnl_pct": 1.82,
+      "unrealized_r": 1.3
     },
     {
       "symbol": "FB2A.F",
@@ -312,140 +312,9 @@
       "highest_price": 550.7999877929688,
       "lowest_price": 536.9000244140625,
       "trade_id": "inc_FB2A.F_5m_1793896723",
-      "current_price": 546.0999755859375,
-      "unrealized_pnl_pct": 1.37,
-      "unrealized_r": 0.5
-    },
-    {
-      "symbol": "SUIUSDT",
-      "name": "Sui",
-      "exchange": "BINANCE (24/7)",
-      "source": "binance",
-      "timeframe": "5m",
-      "direction": "LONG",
-      "entry_time": "2026-11-06T10:45:00+00:00",
-      "entry_timestamp": 1793961900,
-      "entry_price": 0.866,
-      "sl": 0.8646,
-      "tp1": 0.8681,
-      "tp2": 0.8702,
-      "risk_amount": 0.0014,
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "setup_tags": [
-        "Bullish OB [C] Retest (R1)",
-        "Liquidity Sweep Stop-Hunt [A]",
-        "Good Buy Signal (Blaues Dreieck)"
-      ],
-      "vsa_class": "Low Volume",
-      "status": "OPEN",
-      "highest_price": 0.866,
-      "lowest_price": 0.866,
-      "trade_id": "inc_SUIUSDT_5m_1793962004"
-    },
-    {
-      "symbol": "BTCUSDT",
-      "name": "Bitcoin",
-      "exchange": "BINANCE (24/7)",
-      "source": "binance",
-      "timeframe": "5m",
-      "direction": "LONG",
-      "entry_time": "2026-11-06T10:45:00+00:00",
-      "entry_timestamp": 1793961900,
-      "entry_price": 76187.65,
-      "sl": 76076.6207,
-      "tp1": 76354.1939,
-      "tp2": 76520.7379,
-      "risk_amount": 111.0293,
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "setup_tags": [
-        "Bullish OB [C] Retest (R1)",
-        "Liquidity Sweep Stop-Hunt [A]",
-        "Institutional Buy Pocket (Chaos Band < RFE)",
-        "Good Buy Signal (Blaues Dreieck)"
-      ],
-      "vsa_class": "Very Low Volume",
-      "status": "OPEN",
-      "highest_price": 76187.65,
-      "lowest_price": 76187.65,
-      "trade_id": "inc_BTCUSDT_5m_1793962005"
-    },
-    {
-      "symbol": "ETHUSDT",
-      "name": "Ethereum",
-      "exchange": "BINANCE (24/7)",
-      "source": "binance",
-      "timeframe": "5m",
-      "direction": "LONG",
-      "entry_time": "2026-11-06T10:45:00+00:00",
-      "entry_timestamp": 1793961900,
-      "entry_price": 2240.45,
-      "sl": 2235.8789,
-      "tp1": 2247.3066,
-      "tp2": 2254.1633,
-      "risk_amount": 4.5711,
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "setup_tags": [
-        "Bullish OB [C] Retest (R1)",
-        "Liquidity Sweep Stop-Hunt [A]",
-        "Institutional Buy Pocket (Chaos Band < RFE)",
-        "Good Buy Signal (Blaues Dreieck)"
-      ],
-      "vsa_class": "Very Low Volume",
-      "status": "OPEN",
-      "highest_price": 2240.45,
-      "lowest_price": 2240.45,
-      "trade_id": "inc_ETHUSDT_5m_1793962006"
-    },
-    {
-      "symbol": "ALV.DE",
-      "name": "Allianz",
-      "exchange": "XETRA (09-17:30h)",
-      "source": "yahoo",
-      "timeframe": "5m",
-      "direction": "LONG",
-      "entry_time": "2026-11-06T10:31:44+00:00",
-      "entry_timestamp": 1793961104,
-      "entry_price": 450.70001220703125,
-      "sl": 450.5286,
-      "tp1": 450.9571,
-      "tp2": 451.2142,
-      "risk_amount": 0.1714,
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "setup_tags": [
-        "Institutional Buy Pocket (Chaos Band < RFE)",
-        "Good Buy Signal (Blaues Dreieck)"
-      ],
-      "vsa_class": "Very Low Volume",
-      "status": "OPEN",
-      "highest_price": 450.70001220703125,
-      "lowest_price": 450.70001220703125,
-      "trade_id": "inc_ALV.DE_5m_1793962006"
-    },
-    {
-      "symbol": "NVD.F",
-      "name": "Nvidia",
-      "exchange": "FRA / Tradegate (08-22h)",
-      "source": "yahoo",
-      "timeframe": "5m",
-      "direction": "SHORT",
-      "entry_time": "2026-11-06T10:31:05+00:00",
-      "entry_timestamp": 1793961065,
-      "entry_price": 169.3000030517578,
-      "sl": 169.8318,
-      "tp1": 168.5023,
-      "tp2": 167.7046,
-      "risk_amount": 0.5318,
-      "setup_name": "degencoder 5m Micro-Confluence Short",
-      "setup_tags": [
-        "Bearish OB [A] Retest (A)",
-        "Liquidity Sweep Stop-Hunt High [A]",
-        "Good Sell Signal (Kreis/Marker)"
-      ],
-      "vsa_class": "Very Low Volume",
-      "status": "OPEN",
-      "highest_price": 169.3000030517578,
-      "lowest_price": 169.3000030517578,
-      "trade_id": "inc_NVD.F_5m_1793962006"
+      "current_price": 545.4000244140625,
+      "unrealized_pnl_pct": 1.24,
+      "unrealized_r": 0.45
     },
     {
       "symbol": "TL0.F",
@@ -469,9 +338,140 @@
       ],
       "vsa_class": "Very Low Volume",
       "status": "OPEN",
-      "highest_price": 313.0,
+      "highest_price": 313.6000061035156,
       "lowest_price": 313.0,
-      "trade_id": "inc_TL0.F_15m_1793962007"
+      "trade_id": "inc_TL0.F_15m_1793962007",
+      "current_price": 313.6000061035156,
+      "unrealized_pnl_pct": 0.19,
+      "unrealized_r": 0.4
+    },
+    {
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "exchange": "BINANCE (24/7)",
+      "source": "binance",
+      "timeframe": "5m",
+      "direction": "LONG",
+      "entry_time": "2026-11-06T11:10:00+00:00",
+      "entry_timestamp": 1793963400,
+      "entry_price": 76046.01,
+      "sl": 75915.5357,
+      "tp1": 76241.7214,
+      "tp2": 76437.4329,
+      "risk_amount": 130.4743,
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "setup_tags": [
+        "Bullish OB [B] Retest (R12)",
+        "Institutional Buy Pocket (Chaos Band < RFE)",
+        "Good Buy Signal (Blaues Dreieck)"
+      ],
+      "vsa_class": "Very Low Volume",
+      "status": "OPEN",
+      "highest_price": 76046.01,
+      "lowest_price": 76046.01,
+      "trade_id": "inc_BTCUSDT_5m_1793963455"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "exchange": "BINANCE (24/7)",
+      "source": "binance",
+      "timeframe": "5m",
+      "direction": "LONG",
+      "entry_time": "2026-11-06T11:10:00+00:00",
+      "entry_timestamp": 1793963400,
+      "entry_price": 2236.15,
+      "sl": 2232.1979,
+      "tp1": 2242.0782,
+      "tp2": 2248.0063,
+      "risk_amount": 3.9521,
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "setup_tags": [
+        "Bullish OB [B] Retest (R5)",
+        "Liquidity Sweep Stop-Hunt [A]",
+        "Institutional Buy Pocket (Chaos Band < RFE)",
+        "Good Buy Signal (Blaues Dreieck)"
+      ],
+      "vsa_class": "Very Low Volume",
+      "status": "OPEN",
+      "highest_price": 2236.15,
+      "lowest_price": 2236.15,
+      "trade_id": "inc_ETHUSDT_5m_1793963455"
+    },
+    {
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "exchange": "BINANCE (24/7)",
+      "source": "binance",
+      "timeframe": "5m",
+      "direction": "LONG",
+      "entry_time": "2026-11-06T11:10:00+00:00",
+      "entry_timestamp": 1793963400,
+      "entry_price": 90.04,
+      "sl": 89.8179,
+      "tp1": 90.3732,
+      "tp2": 90.7063,
+      "risk_amount": 0.2221,
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "setup_tags": [
+        "Institutional Buy Pocket (Chaos Band < RFE)",
+        "Good Buy Signal (Blaues Dreieck)"
+      ],
+      "vsa_class": "Very Low Volume",
+      "status": "OPEN",
+      "highest_price": 90.04,
+      "lowest_price": 90.04,
+      "trade_id": "inc_SOLUSDT_5m_1793963455"
+    },
+    {
+      "symbol": "NVD.F",
+      "name": "Nvidia",
+      "exchange": "FRA / Tradegate (08-22h)",
+      "source": "yahoo",
+      "timeframe": "5m",
+      "direction": "LONG",
+      "entry_time": "2026-11-06T10:55:25+00:00",
+      "entry_timestamp": 1793962525,
+      "entry_price": 169.6199951171875,
+      "sl": 168.7657,
+      "tp1": 170.9014,
+      "tp2": 172.1829,
+      "risk_amount": 0.8543,
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "setup_tags": [
+        "Bullish OB [A] Retest (A)",
+        "Liquidity Sweep Stop-Hunt [A]"
+      ],
+      "vsa_class": "Very Low Volume",
+      "status": "OPEN",
+      "highest_price": 169.6199951171875,
+      "lowest_price": 169.6199951171875,
+      "trade_id": "inc_NVD.F_5m_1793963456"
+    },
+    {
+      "symbol": "APC.F",
+      "name": "Apple",
+      "exchange": "FRA / Tradegate (08-22h)",
+      "source": "yahoo",
+      "timeframe": "5m",
+      "direction": "SHORT",
+      "entry_time": "2026-11-06T10:51:52+00:00",
+      "entry_timestamp": 1793962312,
+      "entry_price": 305.1499938964844,
+      "sl": 305.6857,
+      "tp1": 304.3464,
+      "tp2": 303.5429,
+      "risk_amount": 0.5357,
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "setup_tags": [
+        "Bearish OB [B] Retest (B)",
+        "Liquidity Sweep Stop-Hunt High [A]"
+      ],
+      "vsa_class": "Very Low Volume",
+      "status": "OPEN",
+      "highest_price": 305.1499938964844,
+      "lowest_price": 305.1499938964844,
+      "trade_id": "inc_APC.F_5m_1793963456"
     }
   ],
   "closed_trades": [
@@ -6891,9 +6891,253 @@
         "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
         "actionable_rule": "Bei SUIUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
       }
+    },
+    {
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "exchange": "BINANCE (24/7)",
+      "source": "binance",
+      "timeframe": "5m",
+      "direction": "LONG",
+      "entry_time": "2026-11-06T10:45:00+00:00",
+      "entry_timestamp": 1793961900,
+      "entry_price": 0.866,
+      "sl": 0.8646,
+      "tp1": 0.8681,
+      "tp2": 0.8702,
+      "risk_amount": 0.0014,
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "setup_tags": [
+        "Bullish OB [C] Retest (R1)",
+        "Liquidity Sweep Stop-Hunt [A]",
+        "Good Buy Signal (Blaues Dreieck)"
+      ],
+      "vsa_class": "Low Volume",
+      "status": "CLOSED_SL",
+      "highest_price": 0.8662,
+      "lowest_price": 0.8645,
+      "trade_id": "inc_SUIUSDT_5m_1793962004",
+      "exit_price": 0.8646,
+      "exit_time": "2026-11-06T10:45:00+00:00",
+      "exit_timestamp": 1793961900,
+      "realized_r": -1.0,
+      "realized_pnl_pct": -0.16,
+      "exit_reason": "Stop-Loss unter Support-Level getroffen",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_5m_1793962004",
+        "verdict": "LOSS",
+        "driver": "SUI besaß als einziger Trade der Gruppe keine 'Institutional Buy Pocket'-Bestätigung und wurde als High-Beta-Altcoin vom synchronen BTC-Abwärtsimpuls gnadenlos überrollt.",
+        "technical_warning": "Fehlen eines defensiven VSA-Absorptionsvolumens am OB [C] sowie eine marginale Sweep-Tiefe, die eine Trendfortsetzung nach unten statt eines Reversals anzeigte.",
+        "actionable_rule": "Keine unkorrelierten Long-Entries auf Altcoins, solange der BTC-Leitmarkt seinen eigenen Sweep nicht per 5m-Kerzenschlusskurs über dem Swing-Tief validiert hat."
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "exchange": "BINANCE (24/7)",
+      "source": "binance",
+      "timeframe": "5m",
+      "direction": "LONG",
+      "entry_time": "2026-11-06T10:45:00+00:00",
+      "entry_timestamp": 1793961900,
+      "entry_price": 76187.65,
+      "sl": 76076.6207,
+      "tp1": 76354.1939,
+      "tp2": 76520.7379,
+      "risk_amount": 111.0293,
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "setup_tags": [
+        "Bullish OB [C] Retest (R1)",
+        "Liquidity Sweep Stop-Hunt [A]",
+        "Institutional Buy Pocket (Chaos Band < RFE)",
+        "Good Buy Signal (Blaues Dreieck)"
+      ],
+      "vsa_class": "Very Low Volume",
+      "status": "CLOSED_SL",
+      "highest_price": 76240.0,
+      "lowest_price": 76072.0,
+      "trade_id": "inc_BTCUSDT_5m_1793962005",
+      "exit_price": 76076.6207,
+      "exit_time": "2026-11-06T10:55:00+00:00",
+      "exit_timestamp": 1793962500,
+      "realized_r": -1.0,
+      "realized_pnl_pct": -0.15,
+      "exit_reason": "Stop-Loss unter Support-Level getroffen",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1793962005",
+        "verdict": "LOSS",
+        "driver": "Der vermeintliche Liquidity Sweep war kein Erschöpfungspunkt, sondern ein dynamischer Durchstich durch den Support mit zu eng gesetztem Noise-Stop (0.14%).",
+        "technical_warning": "Anhaltend hohes negatives CVD-Delta ohne sichtbare Wick-Rejection (Dochtabweisung) an der Unterkante des Bullish OB [C].",
+        "actionable_rule": "Ein 'Sweep [A]' darf erst nach einem bestätigten Market Structure Shift (MSS) im Sub-Timeframe und einer Re-Acceptance über dem Level ausgeführt werden."
+      }
+    },
+    {
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "exchange": "BINANCE (24/7)",
+      "source": "binance",
+      "timeframe": "5m",
+      "direction": "LONG",
+      "entry_time": "2026-11-06T10:45:00+00:00",
+      "entry_timestamp": 1793961900,
+      "entry_price": 2240.45,
+      "sl": 2235.8789,
+      "tp1": 2247.3066,
+      "tp2": 2254.1633,
+      "risk_amount": 4.5711,
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "setup_tags": [
+        "Bullish OB [C] Retest (R1)",
+        "Liquidity Sweep Stop-Hunt [A]",
+        "Institutional Buy Pocket (Chaos Band < RFE)",
+        "Good Buy Signal (Blaues Dreieck)"
+      ],
+      "vsa_class": "Very Low Volume",
+      "status": "CLOSED_SL",
+      "highest_price": 2241.52,
+      "lowest_price": 2235.08,
+      "trade_id": "inc_ETHUSDT_5m_1793962006",
+      "exit_price": 2235.8789,
+      "exit_time": "2026-11-06T11:00:00+00:00",
+      "exit_timestamp": 1793962800,
+      "realized_r": -1.0,
+      "realized_pnl_pct": -0.2,
+      "exit_reason": "Stop-Loss unter Support-Level getroffen",
+      "ai_post_mortem": {
+        "trade_id": "inc_ETHUSDT_5m_1793962006",
+        "verdict": "LOSS",
+        "driver": "ETH folgte BTC blindlings nach unten, wobei die Indikation 'Chaos Band < RFE' fälschlicherweise als sofortige Umkehr statt als extremes Bären-Momentum interpretiert wurde.",
+        "technical_warning": "Aggressive FVG-Expansion auf der Verkäuferseite ohne Anzeichen von 'Stopp-Volumen' (Climactic Absorption) an der 2240er-Marke.",
+        "actionable_rule": "Der Zustand 'Chaos Band < RFE' dient ausschließlich als Setup-Filter für die Watchlist, niemals als direkter Execution-Trigger ohne bullisches Umkehrsignal."
+      }
+    },
+    {
+      "symbol": "ALV.DE",
+      "name": "Allianz",
+      "exchange": "XETRA (09-17:30h)",
+      "source": "yahoo",
+      "timeframe": "5m",
+      "direction": "LONG",
+      "entry_time": "2026-11-06T10:31:44+00:00",
+      "entry_timestamp": 1793961104,
+      "entry_price": 450.70001220703125,
+      "sl": 450.70001220703125,
+      "tp1": 450.9571,
+      "tp2": 451.2142,
+      "risk_amount": 0.1714,
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "setup_tags": [
+        "Institutional Buy Pocket (Chaos Band < RFE)",
+        "Good Buy Signal (Blaues Dreieck)"
+      ],
+      "vsa_class": "Very Low Volume",
+      "status": "CLOSED_TP2",
+      "highest_price": 451.3999938964844,
+      "lowest_price": 450.5,
+      "trade_id": "inc_ALV.DE_5m_1793962006",
+      "tp1_reached": true,
+      "tp1_price": 450.9571,
+      "tp1_time": "2026-11-06T10:35:00+00:00",
+      "exit_price": 451.2142,
+      "exit_time": "2026-11-06T10:35:00+00:00",
+      "exit_timestamp": 1793961300,
+      "realized_r": 2.25,
+      "realized_pnl_pct": 0.11,
+      "exit_reason": "Maximaler Take-Profit 2 (TP2) vollständig erreicht (Gewinn voll realisiert)",
+      "ai_post_mortem": {
+        "trade_id": "inc_ALV.DE_5m_1793962006",
+        "verdict": "WIN",
+        "driver": "Präzises Abgreifen einer statistischen Untertreibung (Chaos Band < RFE) mit sauberer Signal-Konfluenz in einem strukturell mean-revertierenden Blue-Chip-Umfeld.",
+        "technical_warning": "Ein Ausbleiben von anziehendem Delta-Volumen beim Bounce oder ein fortlaufendes Aufspreizen der Volatilitätsbänder hätte vor weiterem Abwärtsdrall gewarnt.",
+        "actionable_rule": "Institutional Buy Pockets bei defensiven Werten sind nur tradebar, wenn das Chaos-Band Anzeichen von Kontraktion zeigt und der SL zwingend unter der Sweep-Lunte der Erschöpfungskerze liegt."
+      }
+    },
+    {
+      "symbol": "NVD.F",
+      "name": "Nvidia",
+      "exchange": "FRA / Tradegate (08-22h)",
+      "source": "yahoo",
+      "timeframe": "5m",
+      "direction": "SHORT",
+      "entry_time": "2026-11-06T10:31:05+00:00",
+      "entry_timestamp": 1793961065,
+      "entry_price": 169.3000030517578,
+      "sl": 169.8318,
+      "tp1": 168.5023,
+      "tp2": 167.7046,
+      "risk_amount": 0.5318,
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "setup_tags": [
+        "Bearish OB [A] Retest (A)",
+        "Liquidity Sweep Stop-Hunt High [A]",
+        "Good Sell Signal (Kreis/Marker)"
+      ],
+      "vsa_class": "Very Low Volume",
+      "status": "CLOSED_SL",
+      "highest_price": 170.0,
+      "lowest_price": 169.3000030517578,
+      "trade_id": "inc_NVD.F_5m_1793962006",
+      "exit_price": 169.8318,
+      "exit_time": "2026-11-06T10:35:00+00:00",
+      "exit_timestamp": 1793961300,
+      "realized_r": -1.0,
+      "realized_pnl_pct": -0.31,
+      "exit_reason": "Stop-Loss über Widerstands-Level getroffen",
+      "ai_post_mortem": {
+        "trade_id": "inc_NVD.F_5m_1793962006",
+        "verdict": "LOSS",
+        "driver": "Tödlicher Kontratrend-Short gegen ein dominantes Momentum-Asset, bei dem der angebliche Sweep in Wahrheit eine bullische Liquiditäts-Absorption zur Trendfortsetzung darstellte.",
+        "technical_warning": "Fehlendes climaktisches Verkäufervolumen am Hoch und das Ausbleiben eines impulsiven Displacements (kein Bruch der lokalen 5m-Marktstruktur nach unten) direkt nach dem Sweep.",
+        "actionable_rule": "Absolutes Short-Verbot an 5m-Orderblocks bei High-Beta-/Growth-Titeln ohne vorgeschalteten Market Structure Break (MSS) auf mindestens 15m-Ebene."
+      }
     }
   ],
   "ai_insights": [
+    {
+      "symbol": "NVD.F",
+      "direction": "SHORT",
+      "timeframe": "5m",
+      "verdict": "LOSS",
+      "driver": "Tödlicher Kontratrend-Short gegen ein dominantes Momentum-Asset, bei dem der angebliche Sweep in Wahrheit eine bullische Liquiditäts-Absorption zur Trendfortsetzung darstellte.",
+      "rule": "Absolutes Short-Verbot an 5m-Orderblocks bei High-Beta-/Growth-Titeln ohne vorgeschalteten Market Structure Break (MSS) auf mindestens 15m-Ebene.",
+      "warning": "Fehlendes climaktisches Verkäufervolumen am Hoch und das Ausbleiben eines impulsiven Displacements (kein Bruch der lokalen 5m-Marktstruktur nach unten) direkt nach dem Sweep."
+    },
+    {
+      "symbol": "ALV.DE",
+      "direction": "LONG",
+      "timeframe": "5m",
+      "verdict": "WIN",
+      "driver": "Präzises Abgreifen einer statistischen Untertreibung (Chaos Band < RFE) mit sauberer Signal-Konfluenz in einem strukturell mean-revertierenden Blue-Chip-Umfeld.",
+      "rule": "Institutional Buy Pockets bei defensiven Werten sind nur tradebar, wenn das Chaos-Band Anzeichen von Kontraktion zeigt und der SL zwingend unter der Sweep-Lunte der Erschöpfungskerze liegt.",
+      "warning": "Ein Ausbleiben von anziehendem Delta-Volumen beim Bounce oder ein fortlaufendes Aufspreizen der Volatilitätsbänder hätte vor weiterem Abwärtsdrall gewarnt."
+    },
+    {
+      "symbol": "ETHUSDT",
+      "direction": "LONG",
+      "timeframe": "5m",
+      "verdict": "LOSS",
+      "driver": "ETH folgte BTC blindlings nach unten, wobei die Indikation 'Chaos Band < RFE' fälschlicherweise als sofortige Umkehr statt als extremes Bären-Momentum interpretiert wurde.",
+      "rule": "Der Zustand 'Chaos Band < RFE' dient ausschließlich als Setup-Filter für die Watchlist, niemals als direkter Execution-Trigger ohne bullisches Umkehrsignal.",
+      "warning": "Aggressive FVG-Expansion auf der Verkäuferseite ohne Anzeichen von 'Stopp-Volumen' (Climactic Absorption) an der 2240er-Marke."
+    },
+    {
+      "symbol": "BTCUSDT",
+      "direction": "LONG",
+      "timeframe": "5m",
+      "verdict": "LOSS",
+      "driver": "Der vermeintliche Liquidity Sweep war kein Erschöpfungspunkt, sondern ein dynamischer Durchstich durch den Support mit zu eng gesetztem Noise-Stop (0.14%).",
+      "rule": "Ein 'Sweep [A]' darf erst nach einem bestätigten Market Structure Shift (MSS) im Sub-Timeframe und einer Re-Acceptance über dem Level ausgeführt werden.",
+      "warning": "Anhaltend hohes negatives CVD-Delta ohne sichtbare Wick-Rejection (Dochtabweisung) an der Unterkante des Bullish OB [C]."
+    },
+    {
+      "symbol": "SUIUSDT",
+      "direction": "LONG",
+      "timeframe": "5m",
+      "verdict": "LOSS",
+      "driver": "SUI besaß als einziger Trade der Gruppe keine 'Institutional Buy Pocket'-Bestätigung und wurde als High-Beta-Altcoin vom synchronen BTC-Abwärtsimpuls gnadenlos überrollt.",
+      "rule": "Keine unkorrelierten Long-Entries auf Altcoins, solange der BTC-Leitmarkt seinen eigenen Sweep nicht per 5m-Kerzenschlusskurs über dem Swing-Tief validiert hat.",
+      "warning": "Fehlen eines defensiven VSA-Absorptionsvolumens am OB [C] sowie eine marginale Sweep-Tiefe, die eine Trendfortsetzung nach unten statt eines Reversals anzeigte."
+    },
     {
       "symbol": "SUIUSDT",
       "direction": "LONG",
@@ -6919,51 +7163,6 @@
       "verdict": "LOSS",
       "driver": "Trade RENDERUSDT schloss mit CLOSED_SL (-1.0R).",
       "rule": "Bei RENDERUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten."
-    },
-    {
-      "symbol": "ADAUSDT",
-      "direction": "LONG",
-      "timeframe": "5m",
-      "verdict": "LOSS",
-      "driver": "Trade ADAUSDT schloss mit CLOSED_SL (-1.0R).",
-      "rule": "Bei ADAUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten."
-    },
-    {
-      "symbol": "XRPUSDT",
-      "direction": "LONG",
-      "timeframe": "5m",
-      "verdict": "LOSS",
-      "driver": "Trade XRPUSDT schloss mit CLOSED_SL (-1.0R).",
-      "rule": "Bei XRPUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten."
-    },
-    {
-      "symbol": "DOGEUSDT",
-      "direction": "LONG",
-      "timeframe": "5m",
-      "verdict": "LOSS",
-      "driver": "Trade DOGEUSDT schloss mit CLOSED_SL (-1.0R).",
-      "rule": "Bei DOGEUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten."
-    },
-    {
-      "symbol": "SUIUSDT",
-      "direction": "LONG",
-      "timeframe": "5m",
-      "verdict": "LOSS",
-      "driver": "Trade SUIUSDT schloss mit CLOSED_SL (-1.0R).",
-      "rule": "Bei SUIUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten."
-    },
-    {
-      "symbol": "NEARUSDT",
-      "direction": "LONG",
-      "timeframe": "5m",
-      "verdict": "LOSS",
-      "driver": "Trade NEARUSDT schloss mit CLOSED_SL (-1.0R).",
-      "rule": "Bei NEARUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
       "warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten."
     }
   ]
