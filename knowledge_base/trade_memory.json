@@ -1,7 +1,65 @@
 {
-  "updated_at": "2026-11-06T05:06:25.895232+00:00",
-  "total_experience_records": 84,
+  "updated_at": "2026-11-06T06:42:20.647115+00:00",
+  "total_experience_records": 87,
   "learnings": [
+    {
+      "timestamp": "2026-11-06T06:42:16.600190+00:00",
+      "trade_id": "cross_rule_1793947336",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
+        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T06:42:16.600174+00:00",
+      "trade_id": "inc_LINKUSDT_15m_1793941551",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (15m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Micro-Confluence Long",
+      "pnl_leveraged": -0.64,
+      "pnl_raw": -0.32,
+      "text": "Bei LINKUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_15m_1793941551",
+        "verdict": "LOSS",
+        "driver": "Trade LINKUSDT schloss mit CLOSED_SL (-1.0R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei LINKUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T06:42:16.600129+00:00",
+      "trade_id": "inc_SOLUSDT_5m_1793923553",
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.5,
+      "pnl_raw": -0.75,
+      "text": "Bei SOLUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SOLUSDT_5m_1793923553",
+        "verdict": "LOSS",
+        "driver": "Trade SOLUSDT schloss mit CLOSED_SL (-1.0R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei SOLUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
     {
       "timestamp": "2026-11-06T05:06:22.098295+00:00",
       "trade_id": "cross_rule_1793941582",
