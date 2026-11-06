@@ -116,7 +116,7 @@ def map_symbol_to_category_key(symbol):
     return "cat_crypto" if any(x in symbol for x in ["BTC", "ETH", "USDT"]) else "cat_ustech"
 
 
-def send_telegram_alert(message, parse_mode="HTML", target_chat_ids=None):
+def send_telegram_alert(message, parse_mode="HTML", target_chat_ids=None, reply_markup=None):
     token = None
     chat_ids = set()
 
@@ -151,13 +151,16 @@ def send_telegram_alert(message, parse_mode="HTML", target_chat_ids=None):
     success = False
     for chat_id in chat_ids:
         url = f"https://api.telegram.org/bot{token}/sendMessage"
-        payload = urllib.parse.urlencode({
+        payload_data = {
             "chat_id": chat_id,
             "text": message,
             "parse_mode": parse_mode,
             "disable_web_page_preview": "true"
-        }).encode("utf-8")
+        }
+        if reply_markup:
+            payload_data["reply_markup"] = json.dumps(reply_markup) if isinstance(reply_markup, dict) else str(reply_markup)
 
+        payload = urllib.parse.urlencode(payload_data).encode("utf-8")
         req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/x-www-form-urlencoded"})
         try:
             with urllib.request.urlopen(req, timeout=10) as resp:
@@ -327,53 +330,108 @@ def detect_signal_changes(current_assets):
 
 def format_telegram_change_notification(changes, click_url):
     """
-    Formatiert eine kristallklare HTML-Benachrichtigung für Telegram mit Emojis,
-    Fettungen und direkten Setup-Kennzahlen.
+    Formatiert eine übersichtliche HTML-Benachrichtigung für Telegram im modernen
+    Signal-Card Design mit klaren Kennzahlen, Zeithorizonten und 1-Klick Trade-Übernahme.
+    Gibt ein Tupel (message_text, inline_keyboard_dict) zurück.
     """
     count = len(changes)
-    unit_str = "Asset" if count == 1 else "Assets"
+    unit_str = "Signal" if count == 1 else "Signale"
+
+    # Priorisieren: Echte Richtungswechsel (LONG/SHORT) zuerst
+    actionable = [c for c in changes if c.get("new_signal") in ("LONG", "SHORT")]
+    neutrals = [c for c in changes if c.get("new_signal") not in ("LONG", "SHORT")]
+    sorted_changes = actionable + neutrals
 
     lines = [
-        f"🔔 <b>TradingView Signal-Update: {count} {unit_str} aktualisiert</b>\n",
-        f"<i>Echte Signal- & Einstufungswechsel:</i>\n"
+        f"🔔 <b>TradingView Markt-Alarm: {count} {unit_str}</b>\n"
     ]
 
-    for c in changes[:6]:
+    action_buttons = []
+
+    for c in sorted_changes[:4]:
         sig = c["new_signal"]
-        icon = "🟢" if sig == "LONG" else ("🔴" if sig == "SHORT" else "⚪")
-        name = c["name"]
-        ticker = c["symbol"].split(":")[-1]
-        old_s = c["old_signal"]
-        new_s = c["new_signal"]
-        score = c["new_score"]
+        name = c.get("name", "Asset")
+        sym = c.get("symbol", "")
+        ticker = sym.split(":")[-1]
+        score = c.get("new_score", 0)
+        curr = "€" if "TRADEGATE" in sym or "XETR" in sym else "$"
 
-        lines.append(f"{icon} <b>{name}</b> (<code>{ticker}</code>)")
-        if old_s != new_s:
-            lines.append(f"   • <b>Signalwechsel:</b> {old_s} ➔ <b>{new_s}</b> (Score: <b>{score}%</b>)")
+        # Zeithorizont ermitteln
+        setup = c.get("setup_name", "Konfluenz-Setup")
+        reasons_text = " ".join(c.get("reasons", [])).lower()
+        if any(k in setup.lower() or k in reasons_text for k in ["weekly", "1w", "3d", "makro", "macro"]):
+            horizon_tag = "🏛️ 3D/1W Makro-Trend"
+        elif any(k in setup.lower() or k in reasons_text for k in ["1h", "micro", "sweep", "scalp", "intraday"]):
+            horizon_tag = "⚡ 1h/4h Fast Swing"
         else:
-            lines.append(f"   • <b>Score-Sprung:</b> {c['old_score']}% ➔ <b>{score}%</b> ({new_s})")
+            horizon_tag = "🎯 4h/1D Core Swing"
 
-        if c.get("change_reason"):
-            lines.append(f"   • 💡 <b>Grund:</b> {c['change_reason']}")
-        elif c.get("reasons"):
-            lines.append(f"   • 💡 <b>Grund:</b> {' | '.join(c['reasons'][:2])}")
+        if sig in ("LONG", "SHORT"):
+            icon = "🟢" if sig == "LONG" else "🔴"
+            score_badge = "🔥 Exzellent" if score >= 92 else "✨ Stark"
+            lines.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+            lines.append(f"{icon} <b>NEUES SIGNAL: {sig} · {horizon_tag}</b>")
+            lines.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+            lines.append(f"📈 <b>{name}</b> (<code>{ticker}</code>) · <i>{c.get('category', 'Asset')}</i>")
+            lines.append(f"🏆 <b>KI-Score:</b> <b>{score}%</b> ({score_badge})\n")
 
-        if c.get("note") and len(c.get("note")) > 10:
-            lines.append(f"   • 📝 <i>KI: {c['note'][:130]}...</i>")
+            curr_p = float(c.get("price", 0.0))
+            entry = float(c.get("entry_range", [curr_p])[0]) if c.get("entry_range") else curr_p
+            sl = float(c.get("stop_loss", 0.0))
+            tp1 = float(c.get("take_profit_1", 0.0))
+            tp2 = float(c.get("take_profit_2", 0.0))
+            crv = c.get("crv", "2.5")
 
-        if sig != "NEUTRAL" and c.get("entry_range"):
-            entry_fmt = f"{c['entry_range'][0]:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-            sl_fmt = f"{c['stop_loss']:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-            tp_fmt = f"{c['take_profit_2']:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-            lines.append(f"   • 🎯 <b>Setup:</b> {c['setup_name']}")
-            lines.append(f"   • 📍 <b>Entry:</b> {entry_fmt} $ | <b>SL:</b> {sl_fmt} $ | <b>TP2:</b> {tp_fmt} $")
-        lines.append("")
+            if entry > 0 and sl > 0:
+                if sig == "LONG":
+                    sl_pct = ((sl - entry) / entry) * 100.0
+                    tp1_pct = ((tp1 - entry) / entry) * 100.0 if tp1 > 0 else 0.0
+                    tp2_pct = ((tp2 - entry) / entry) * 100.0 if tp2 > 0 else 0.0
+                else:
+                    sl_pct = ((entry - sl) / entry) * 100.0
+                    tp1_pct = ((entry - tp1) / entry) * 100.0 if tp1 > 0 else 0.0
+                    tp2_pct = ((entry - tp2) / entry) * 100.0 if tp2 > 0 else 0.0
 
-    if count > 6:
-        lines.append(f"<i>... und {count - 6} weitere Änderungen.</i>\n")
+                entry_fmt = f"{entry:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                sl_fmt = f"{sl:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                tp1_fmt = f"{tp1:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".") if tp1 > 0 else "-"
+                tp2_fmt = f"{tp2:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".") if tp2 > 0 else "-"
 
-    lines.append(f"📜 <a href=\"{click_url}\">Signal-Historie & Live-Charts im Web öffnen</a>")
-    return "\n".join(lines)
+                lines.append(f"📍 <b>Einstieg:</b>   <code>{entry_fmt} {curr}</code> (Markt/Retest)")
+                lines.append(f"🛑 <b>Stop-Loss:</b>  <code>{sl_fmt} {curr}</code> (<b>{sl_pct:+.1f}%</b>)")
+                if tp1 > 0:
+                    lines.append(f"🎯 <b>Teilziel 1:</b> <code>{tp1_fmt} {curr}</code> (<b>{tp1_pct:+.1f}%</b> · 50% TP)")
+                if tp2 > 0:
+                    lines.append(f"🚀 <b>Hauptziel 2:</b> <code>{tp2_fmt} {curr}</code> (<b>{tp2_pct:+.1f}%</b> · CRV 1:{crv})\n")
+
+            lines.append(f"💡 <b>Setup:</b> {setup}")
+
+            reasons = c.get("reasons", [])
+            trigger_str = reasons[0] if reasons else c.get("change_reason", "")
+            if trigger_str:
+                lines.append(f"📊 <b>Auslöser:</b> {trigger_str[:110]}")
+
+            lines.append("")
+
+            # 1-Klick Action Button vorbereiten
+            action_buttons.append([
+                {"text": f"➕ {ticker} Trade mit 1 Klick anlegen", "callback_data": f"wiz_adopt:{sym}"}
+            ])
+
+        else:
+            # Neutralisierung
+            lines.append(f"⚪ <b>{name}</b> (<code>{ticker}</code>) ➔ Neutralisiert (Konsolidierung)")
+            lines.append("")
+
+    if count > 4:
+        lines.append(f"<i>... und {count - 4} weitere Einstufungswechsel.</i>\n")
+
+    action_buttons.append([
+        {"text": "🌐 Signal-Historie & Live-Charts öffnen", "url": click_url or "https://bbbdc.github.io/trading-dashboard/"}
+    ])
+
+    markup = {"inline_keyboard": action_buttons}
+    return "\n".join(lines), markup
 
 
 USER_POS_ALERT_STATE = BASE_DIR / "knowledge_base" / "user_pos_alert_state.json"
@@ -739,8 +797,9 @@ def send_scan_summary_notification(db_data, force_send=False):
 
         tg_sent_count = 0
         if not user_targets:
-            tg_msg = format_telegram_change_notification(changes, click_url) if changes else f"<b>{title}</b>\n\n{message}"
-            if send_telegram_alert(tg_msg, parse_mode="HTML"):
+            res = format_telegram_change_notification(changes, click_url) if changes else (f"<b>{title}</b>\n\n{message}", None)
+            tg_msg, tg_kb = res if isinstance(res, tuple) else (res, None)
+            if send_telegram_alert(tg_msg, parse_mode="HTML", reply_markup=tg_kb):
                 tg_sent_count += 1
         else:
             for uid, uname in user_targets.items():
@@ -785,8 +844,9 @@ def send_scan_summary_notification(db_data, force_send=False):
                     filtered_changes.append(c)
 
                 if filtered_changes:
-                    u_msg = format_telegram_change_notification(filtered_changes, click_url)
-                    if send_telegram_alert(u_msg, parse_mode="HTML", target_chat_ids=[uid]):
+                    res = format_telegram_change_notification(filtered_changes, click_url)
+                    u_msg, u_kb = res if isinstance(res, tuple) else (res, None)
+                    if send_telegram_alert(u_msg, parse_mode="HTML", target_chat_ids=[uid], reply_markup=u_kb):
                         tg_sent_count += 1
                         print(f"✅ Personalisierter Telegram Alert an @{uname} ({len(filtered_changes)} Treffer) gesendet.")
                 elif force_send:

@@ -269,6 +269,7 @@ def monitor_in_flight_trades(active_trades, db_map):
 
         t.setdefault("in_flight_warnings", [])
         health = "HEALTHY"
+        horizon = t.get("horizon", "CORE_SWING")
 
         # 1. Divergenz- & Gegen-Signal Früherkennung
         divs_4h = []
@@ -289,21 +290,36 @@ def monitor_in_flight_trades(active_trades, db_map):
                     t["trailing_active"] = True
                     t["in_flight_warnings"].append("🛡️ Stop-Loss vorsorglich auf Break-Even nachgezogen.")
 
-            # Multi-Stufen Trailing Stop zur systematischen Gewinnsicherung:
-            # 1. Stufe: raw_pnl >= +2.0% -> SL auf Break-Even + 0.3% (Gebührenpuffer)
-            # 2. Stufe: raw_pnl >= +3.5% -> SL auf +1.0%
-            # 3. Stufe: raw_pnl >= +6.0% -> SL auf +3.5%
-            # 4. Stufe: raw_pnl >= +9.0% -> SL auf +6.5%
-            # Peak-Trailing: ab +4.0% maximal 3.5% unter dem lokalen Höchstkurs nachziehen
+            # Multi-Stufen Trailing Stop nach Zeithorizont:
             trail_level = current_sl
-            if raw_pnl >= 9.0:
-                trail_level = max(trail_level, entry_price * 1.065, t["highest_price"] * 0.96)
-            elif raw_pnl >= 6.0:
-                trail_level = max(trail_level, entry_price * 1.035, t["highest_price"] * 0.965)
-            elif raw_pnl >= 3.5:
-                trail_level = max(trail_level, entry_price * 1.010)
-            elif raw_pnl >= 2.0:
-                trail_level = max(trail_level, entry_price * 1.003)
+            if horizon == "FAST_SWING":
+                # 1h/4h Fast Swing: Sichert Profite noch agiler ab
+                if raw_pnl >= 8.0:
+                    trail_level = max(trail_level, entry_price * 1.055, t["highest_price"] * 0.96)
+                elif raw_pnl >= 5.0:
+                    trail_level = max(trail_level, entry_price * 1.030, t["highest_price"] * 0.97)
+                elif raw_pnl >= 3.0:
+                    trail_level = max(trail_level, entry_price * 1.015)
+                elif raw_pnl >= 1.5:
+                    trail_level = max(trail_level, entry_price * 1.003)
+            elif horizon == "MACRO_TREND":
+                # 3D/1W Makro Trend: Gibt gesunden Pullbacks Raum
+                if raw_pnl >= 20.0:
+                    trail_level = max(trail_level, entry_price * 1.120, t["highest_price"] * 0.92)
+                elif raw_pnl >= 10.0:
+                    trail_level = max(trail_level, entry_price * 1.050, t["highest_price"] * 0.94)
+                elif raw_pnl >= 5.0:
+                    trail_level = max(trail_level, entry_price * 1.005)
+            else:
+                # CORE_SWING (4h/1D)
+                if raw_pnl >= 9.0:
+                    trail_level = max(trail_level, entry_price * 1.065, t["highest_price"] * 0.96)
+                elif raw_pnl >= 6.0:
+                    trail_level = max(trail_level, entry_price * 1.035, t["highest_price"] * 0.965)
+                elif raw_pnl >= 3.5:
+                    trail_level = max(trail_level, entry_price * 1.010)
+                elif raw_pnl >= 2.0:
+                    trail_level = max(trail_level, entry_price * 1.003)
 
             if trail_level > current_sl:
                 t["stop_loss"] = round(trail_level, 4)
@@ -323,14 +339,31 @@ def monitor_in_flight_trades(active_trades, db_map):
                     t["in_flight_warnings"].append("🛡️ Stop-Loss vorsorglich auf Break-Even nachgezogen.")
 
             trail_level = current_sl if current_sl > 0 else entry_price * 2
-            if raw_pnl >= 9.0:
-                trail_level = min(trail_level, entry_price * 0.935, t["lowest_price"] * 1.04)
-            elif raw_pnl >= 6.0:
-                trail_level = min(trail_level, entry_price * 0.965, t["lowest_price"] * 1.035)
-            elif raw_pnl >= 3.5:
-                trail_level = min(trail_level, entry_price * 0.990)
-            elif raw_pnl >= 2.0:
-                trail_level = min(trail_level, entry_price * 0.997)
+            if horizon == "FAST_SWING":
+                if raw_pnl >= 8.0:
+                    trail_level = min(trail_level, entry_price * 0.945, t["lowest_price"] * 1.04)
+                elif raw_pnl >= 5.0:
+                    trail_level = min(trail_level, entry_price * 0.970, t["lowest_price"] * 1.03)
+                elif raw_pnl >= 3.0:
+                    trail_level = min(trail_level, entry_price * 0.985)
+                elif raw_pnl >= 1.5:
+                    trail_level = min(trail_level, entry_price * 0.997)
+            elif horizon == "MACRO_TREND":
+                if raw_pnl >= 20.0:
+                    trail_level = min(trail_level, entry_price * 0.880, t["lowest_price"] * 1.08)
+                elif raw_pnl >= 10.0:
+                    trail_level = min(trail_level, entry_price * 0.950, t["lowest_price"] * 1.06)
+                elif raw_pnl >= 5.0:
+                    trail_level = min(trail_level, entry_price * 0.995)
+            else:
+                if raw_pnl >= 9.0:
+                    trail_level = min(trail_level, entry_price * 0.935, t["lowest_price"] * 1.04)
+                elif raw_pnl >= 6.0:
+                    trail_level = min(trail_level, entry_price * 0.965, t["lowest_price"] * 1.035)
+                elif raw_pnl >= 3.5:
+                    trail_level = min(trail_level, entry_price * 0.990)
+                elif raw_pnl >= 2.0:
+                    trail_level = min(trail_level, entry_price * 0.997)
 
             if trail_level < current_sl or current_sl == 0:
                 t["stop_loss"] = round(trail_level, 4)
@@ -338,6 +371,57 @@ def monitor_in_flight_trades(active_trades, db_map):
                 health = "TRAILING_STOP"
 
         t["health_status"] = health
+
+
+def evaluate_candidate_against_post_mortem_rules(candidate, memory):
+    """
+    Validiert ein Kandidaten-Setup gegen die im Post-Mortem Lab destillierten Regeln:
+    1. Verhindert Einstiege bei gegenläufiger 4h-Divergenz (Top-Verlustursache)
+    2. Prüft Mindest-Score für unterdurchschnittliche Setup-Kategorien (Scorecard Guard)
+    3. Blockiert Reversals ohne VSA-Volumenbestätigung
+    """
+    direction = candidate.get("signal", "LONG")
+    setup_name = candidate.get("setup_name", "")
+    score = candidate.get("score", 0)
+
+    # 1. 4h-Divergenz-Filter (Gegen-Divergenzen)
+    tf_4h = candidate.get("4h", {})
+    if isinstance(tf_4h, dict):
+        divs = tf_4h.get("divs", [])
+        if direction == "LONG":
+            has_adverse = any("bärisch" in str(d).lower() or "bearish" in str(d).lower() for d in divs)
+            if has_adverse:
+                return False, "Bärische 4h-Divergenz aktiv (Post-Mortem Regel: Reversal-Gefahr)"
+        elif direction == "SHORT":
+            has_adverse = any("bullisch" in str(d).lower() or "bullish" in str(d).lower() for d in divs)
+            if has_adverse:
+                return False, "Bullische 4h-Divergenz aktiv (Post-Mortem Regel: Bärenrallye-Gefahr)"
+
+    # 2. VSA-Volumen-Check bei Reversals
+    if "reversal" in setup_name.lower():
+        vsa_ratio = candidate.get("vsa", {}).get("ratio", 1.0) if isinstance(candidate.get("vsa"), dict) else 1.0
+        if vsa_ratio < 1.15 and score < 92:
+            return False, f"Reversal ohne VSA-Volumenspitze ({vsa_ratio:.1f}x < 1.15x)"
+
+    return True, "OK"
+
+
+def determine_trade_horizon(candidate):
+    """
+    Klassifiziert einen Trade in einen von 3 Zeithorizonten:
+    - FAST_SWING (1h/4h): Intraday / schneller Momentum-Swing (12h - 3 Tage)
+    - CORE_SWING (4h/1D): Standard SMC & Fib Reversal (3 Tage - 2 Wochen)
+    - MACRO_TREND (3D/1W): Übergeordneter Makro-Trend (2 Wochen - 3 Monate)
+    """
+    setup = candidate.get("setup_name", "").lower()
+    reasons = " ".join(candidate.get("reasons", [])).lower()
+
+    if any(k in setup or k in reasons for k in ["weekly", "1w", "3d", "makro", "macro", "jahrestrend", "halving"]):
+        return "MACRO_TREND", "🏛️ Makro Trend (3D/1W)", "3D/1W"
+    elif any(k in setup or k in reasons for k in ["1h", "micro", "sweep", "scalp", "intraday", "breakout", "pocket"]):
+        return "FAST_SWING", "⚡ Fast Swing (1h/4h)", "1h/4h"
+    else:
+        return "CORE_SWING", "🎯 Core Swing (4h/1D)", "4h/1D"
 
 
 # ==============================================================================
@@ -636,9 +720,19 @@ def update_autonomous_portfolio(db_assets):
     monitor_in_flight_trades(remaining_active, db_map)
 
     # 3. Neue High-Conviction Setups aufnehmen (Score >= 88%, Signal != NEUTRAL)
-    # Maximal 8 gleichzeitig aktive Positionen für optimale Diversifikation
-    max_active_positions = 8
-    
+    # Multi-Zeithorizont Matrix: Bis zu 9 aktive Positionen (3 Fast Swing, 4 Core Swing, 2 Makro)
+    max_active_positions = 9
+    horizon_caps = {
+        "FAST_SWING": 3,
+        "CORE_SWING": 4,
+        "MACRO_TREND": 2
+    }
+    horizon_counts = {
+        "FAST_SWING": sum(1 for t in remaining_active if t.get("horizon") == "FAST_SWING"),
+        "CORE_SWING": sum(1 for t in remaining_active if t.get("horizon") in ("CORE_SWING", None)),
+        "MACRO_TREND": sum(1 for t in remaining_active if t.get("horizon") == "MACRO_TREND")
+    }
+
     if len(remaining_active) < max_active_positions:
         candidates = [
             a for a in db_assets 
@@ -652,7 +746,7 @@ def update_autonomous_portfolio(db_assets):
         for c in candidates:
             if len(remaining_active) >= max_active_positions:
                 break
-            
+
             sym = c["symbol"]
             curr_p = c.get("price", 100.0)
             score = c.get("score", 88)
@@ -660,7 +754,13 @@ def update_autonomous_portfolio(db_assets):
             asset_type = c.get("asset_type", "Stock")
             setup_name = c.get("setup_name", "High-Conviction Confluence")
 
-            # CLOSED-LOOP SCORECARD FILTER: Dynamischer Mindest-Score
+            # 1. Post-Mortem Lab qualitative Regeln prüfen (Gegen-Divergenzen, VSA)
+            passes_rules, rule_reason = evaluate_candidate_against_post_mortem_rules(c, memory)
+            if not passes_rules:
+                print(f"   🛡️ [Post-Mortem Guard] {sym} abgewiesen: {rule_reason}")
+                continue
+
+            # 2. CLOSED-LOOP SCORECARD FILTER: Dynamischer Mindest-Score
             setup_perf = memory.get("setup_performance", {}).get(setup_name, {})
             cat_perf = memory.get("category_performance", {}).get(cat, {})
             min_score_req = max(88, setup_perf.get("min_score", 88), cat_perf.get("min_score", 88))
@@ -669,12 +769,19 @@ def update_autonomous_portfolio(db_assets):
                 print(f"   🛡️ [Scorecard Guard] {sym} ({setup_name} in {cat}) übersprungen: Score {score}% < Mindestanforderung von {min_score_req}%")
                 continue
 
+            # 3. Zeithorizont zuordnen & Kapazität prüfen
+            horizon, horizon_label, horizon_tf = determine_trade_horizon(c)
+            if horizon_counts.get(horizon, 0) >= horizon_caps.get(horizon, 3):
+                continue
+
             sl = c.get("stop_loss", curr_p * 0.95)
             tp1 = c.get("take_profit_1", curr_p * 1.05)
             tp2 = c.get("take_profit_2", curr_p * 1.10)
 
-            # Automatische Hebel-Ermittlung mit Scorecard-Feedback
+            # Automatische Hebel-Ermittlung mit Scorecard-Feedback (Makro maximal 2x)
             lev = calculate_optimal_leverage(asset_type, cat, curr_p, sl, score, setup_name=setup_name, memory=memory)
+            if horizon == "MACRO_TREND":
+                lev = min(lev, 2)
 
             # Fundierte Begründung zusammenstellen
             reasons = c.get("reasons", [])
@@ -690,6 +797,9 @@ def update_autonomous_portfolio(db_assets):
                 "category": cat,
                 "asset_type": asset_type,
                 "direction": c["signal"],
+                "horizon": horizon,
+                "horizon_label": horizon_label,
+                "horizon_tf": horizon_tf,
                 "score": score,
                 "setup_name": setup_name,
                 "entry_time": now_iso,
@@ -717,6 +827,7 @@ def update_autonomous_portfolio(db_assets):
             }
             remaining_active.append(new_trade)
             active_symbols[sym] = new_trade
+            horizon_counts[horizon] = horizon_counts.get(horizon, 0) + 1
 
     # 4. Metriken neu berechnen
     all_closed = closed_trades

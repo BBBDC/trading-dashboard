@@ -3413,6 +3413,20 @@ html_content = f"""<!DOCTYPE html>
               healthBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">🟢 Intakt</span>`;
             }}
 
+            // Zeithorizont Badge
+            let horizonBadge = '';
+            if (t.horizon === 'FAST_SWING') {{
+              horizonBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30" title="1h/4h Momentum & Intraday Swing">⚡ 1h/4h Fast</span>`;
+            }} else if (t.horizon === 'MACRO_TREND') {{
+              horizonBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-purple-500/20 text-purple-300 border border-purple-500/30" title="3D/1W Makro Supercycle Trend">🏛️ 3D/1W Makro</span>`;
+            }} else {{
+              horizonBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-indigo-500/20 text-indigo-300 border border-indigo-500/30" title="4h/1D Standard Swing Trade">🎯 4h/1D Core</span>`;
+            }}
+
+            const tp1Badge = t.tp1_partial_closed
+              ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" title="50% Teilgewinn bei TP1 realisiert">🎯 50% TP1 gesichert</span>`
+              : '';
+
             const warningsHtml = (t.in_flight_warnings && t.in_flight_warnings.length > 0)
               ? `<div class="space-y-1 pt-1 border-t border-slate-800/60">${{t.in_flight_warnings.map(w => `<div class="text-[10px] text-amber-300 bg-amber-500/10 border border-amber-500/20 px-2 py-1 rounded font-mono">${{w}}</div>`).join('')}}</div>`
               : '';
@@ -3427,8 +3441,10 @@ html_content = f"""<!DOCTYPE html>
                     </div>
                     <span class="text-[10px] text-slate-500 font-mono">${{t.setup_name || 'SMC Confluence'}}</span>
                   </div>
-                  <div class="flex items-center gap-1.5">
+                  <div class="flex items-center gap-1.5 flex-wrap justify-end">
                     ${{healthBadge}}
+                    ${{horizonBadge}}
+                    ${{tp1Badge}}
                     ${{(t.tranches && t.tranches > 1) ? `<span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30" title="Position bei Signalverstärkung aufgestockt">Tranche ${{t.tranches}}/3</span>` : ''}}
                     <span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-${{sigColor}}-500/10 text-${{sigColor}}-400 border border-${{sigColor}}-500/30">
                       ${{t.direction}}

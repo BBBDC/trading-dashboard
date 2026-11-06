@@ -822,9 +822,10 @@ def get_market_overview(role="trader"):
 
 
 def get_top_setups_text_and_markup():
-    """Erstellt eine detaillierte Top-Setups Übersicht für Chat-Nutzer."""
+    """Generiert die formatierten Top-Setups als übersichtliche Signal-Cards mit 1-Klick-Aktionen."""
     if not DB_FILE.exists():
-        return "⚠️ Noch keine Marktdaten vorhanden.", None
+        return "⚠️ Noch keine Marktdatenbank vorhanden. Bitte starte zuerst einen Scan.", None
+
     try:
         with open(DB_FILE, "r", encoding="utf-8") as f:
             db = json.load(f)
@@ -832,63 +833,103 @@ def get_top_setups_text_and_markup():
         ts = db.get("timestamp", "Unbekannt")
         assets = db.get("assets", [])
 
-        long_candidates = sorted([a for a in assets if a.get("signal") == "LONG"], key=lambda x: x.get("score", 0), reverse=True)[:3]
-        short_candidates = sorted([a for a in assets if a.get("signal") == "SHORT"], key=lambda x: x.get("score", 0), reverse=True)[:3]
+        # Top High-Conviction Setups filtern (Score >= 85%)
+        candidates = sorted(
+            [a for a in assets if a.get("signal") in ("LONG", "SHORT") and a.get("score", 0) >= 85],
+            key=lambda x: x.get("score", 0),
+            reverse=True
+        )[:4]
+
+        if not candidates:
+            return (
+                "🎯 <b>Aktuell keine Top-Setups mit Score ≥ 85% aktiv.</b>\n\n"
+                "Der Markt konsolidiert oder bildet aktuell neue Liquiditätszonen. "
+                "Sobald neue High-Conviction Signale vorliegen, wirst du sofort benachrichtigt.",
+                {"inline_keyboard": [
+                    [{"text": "⚡ Jetzt Live-Scan starten", "callback_data": "action_trigger_scan"}],
+                    [{"text": "➕ Eigenen Trade anlegen", "callback_data": "menu_new_trade"}],
+                    [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
+                ]}
+            )
 
         lines = [
-            f"🎯 <b>High-Conviction Top-Setups</b>",
+            f"🎯 <b>High-Conviction Top-Setups ({len(candidates)})</b>",
             f"<i>Stand: {ts} · Multi-Timeframe Confluence</i>\n"
         ]
 
-        if long_candidates:
-            lines.append("🟢 <b>TOP LONG CHANCEN:</b>")
-            for a in long_candidates:
-                sym = a.get("symbol", "")
-                name = a.get("name", sym)
-                score = a.get("score", 0)
-                setup = a.get("setup_name", "Trend-Setup")
-                price = a.get("price", 0)
-                entry = a.get("entry_range", "-")
-                sl = a.get("stop_loss", "-")
-                tp2 = a.get("take_profit_2", "-")
-                crv = a.get("crv", "-")
+        buttons = []
 
-                lines.append(
-                    f"• <b>{name}</b> (<code>{sym}</code>) – <b>{score}% Score</b>\n"
-                    f"   <i>{setup}</i>\n"
-                    f"   Kurs: {price:,.2f} $ | Entry: {entry}\n"
-                    f"   SL: {sl} | TP2: {tp2} (CRV: {crv})"
-                )
+        for a in candidates:
+            sig = a.get("signal", "LONG")
+            icon = "🟢" if sig == "LONG" else "🔴"
+            sym = a.get("symbol", "")
+            name = a.get("name", sym)
+            ticker = sym.split(":")[-1]
+            score = a.get("score", 0)
+            curr = "€" if "TRADEGATE" in sym or "XETR" in sym else "$"
+
+            # Zeithorizont ermitteln
+            setup = a.get("setup_name", "Konfluenz-Setup")
+            reasons = a.get("reasons", [])
+            reasons_text = " ".join(reasons).lower()
+            if any(k in setup.lower() or k in reasons_text for k in ["weekly", "1w", "3d", "makro"]):
+                horizon = "🏛️ 3D/1W Makro-Trend"
+            elif any(k in setup.lower() or k in reasons_text for k in ["1h", "micro", "sweep", "scalp"]):
+                horizon = "⚡ 1h/4h Fast Swing"
+            else:
+                horizon = "🎯 4h/1D Core Swing"
+
+            score_badge = "🔥 Exzellent" if score >= 92 else "✨ Stark"
+
+            lines.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+            lines.append(f"{icon} <b>{sig} · {horizon}</b>")
+            lines.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+            lines.append(f"📈 <b>{name}</b> (<code>{ticker}</code>) · <i>{a.get('category', 'Asset')}</i>")
+            lines.append(f"🏆 <b>KI-Score:</b> <b>{score}%</b> ({score_badge})\n")
+
+            curr_p = float(a.get("price", 0.0))
+            entry = float(a.get("entry_range", [curr_p])[0]) if a.get("entry_range") else curr_p
+            sl = float(a.get("stop_loss", 0.0))
+            tp1 = float(a.get("take_profit_1", 0.0))
+            tp2 = float(a.get("take_profit_2", 0.0))
+            crv = a.get("crv", "2.5")
+
+            if entry > 0 and sl > 0:
+                if sig == "LONG":
+                    sl_pct = ((sl - entry) / entry) * 100.0
+                    tp1_pct = ((tp1 - entry) / entry) * 100.0 if tp1 > 0 else 0.0
+                    tp2_pct = ((tp2 - entry) / entry) * 100.0 if tp2 > 0 else 0.0
+                else:
+                    sl_pct = ((entry - sl) / entry) * 100.0
+                    tp1_pct = ((entry - tp1) / entry) * 100.0 if tp1 > 0 else 0.0
+                    tp2_pct = ((entry - tp2) / entry) * 100.0 if tp2 > 0 else 0.0
+
+                entry_fmt = f"{entry:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                sl_fmt = f"{sl:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                tp1_fmt = f"{tp1:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".") if tp1 > 0 else "-"
+                tp2_fmt = f"{tp2:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".") if tp2 > 0 else "-"
+
+                lines.append(f"📍 <b>Einstieg:</b>   <code>{entry_fmt} {curr}</code>")
+                lines.append(f"🛑 <b>Stop-Loss:</b>  <code>{sl_fmt} {curr}</code> (<b>{sl_pct:+.1f}%</b>)")
+                if tp1 > 0:
+                    lines.append(f"🎯 <b>Teilziel 1:</b> <code>{tp1_fmt} {curr}</code> (<b>{tp1_pct:+.1f}%</b> · 50% TP)")
+                if tp2 > 0:
+                    lines.append(f"🚀 <b>Hauptziel 2:</b> <code>{tp2_fmt} {curr}</code> (<b>{tp2_pct:+.1f}%</b> · CRV 1:{crv})\n")
+
+            lines.append(f"💡 <b>Setup:</b> {setup}")
+            if reasons:
+                lines.append(f"📊 <b>Auslöser:</b> {reasons[0][:110]}")
             lines.append("")
 
-        if short_candidates:
-            lines.append("🔴 <b>TOP SHORT CHANCEN:</b>")
-            for a in short_candidates:
-                sym = a.get("symbol", "")
-                name = a.get("name", sym)
-                score = a.get("score", 0)
-                setup = a.get("setup_name", "Reversal-Setup")
-                price = a.get("price", 0)
-                entry = a.get("entry_range", "-")
-                sl = a.get("stop_loss", "-")
-                tp2 = a.get("take_profit_2", "-")
-                crv = a.get("crv", "-")
+            buttons.append([
+                {"text": f"➕ {ticker} Trade mit 1 Klick anlegen", "callback_data": f"wiz_adopt:{sym}"}
+            ])
 
-                lines.append(
-                    f"• <b>{name}</b> (<code>{sym}</code>) – <b>{score}% Score</b>\n"
-                    f"   <i>{setup}</i>\n"
-                    f"   Kurs: {price:,.2f} $ | Entry: {entry}\n"
-                    f"   SL: {sl} | TP2: {tp2} (CRV: {crv})"
-                )
-            lines.append("")
+        buttons.append([{"text": "➕ Eigenen Trade manuell anlegen", "callback_data": "menu_new_trade"}])
+        buttons.append([{"text": "🌐 Charts im Web-Dashboard öffnen", "url": "https://bbbdc.github.io/trading-dashboard/"}])
+        buttons.append([{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}])
 
-        kb = {
-            "inline_keyboard": [
-                [{"text": "➕ Eigenen Trade anlegen", "callback_data": "menu_new_trade"}],
-                [{"text": "🌐 Charts im Web-Dashboard öffnen", "url": "https://bbbdc.github.io/trading-dashboard/"}],
-                [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
-            ]
-        }
+        kb = {"inline_keyboard": buttons}
         return "\n".join(lines), kb
     except Exception as e:
         return f"Fehler bei Top-Setups: {e}", None
@@ -1848,6 +1889,57 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
             "Schreibe einfach den Namen oder Ticker als Nachricht in den Chat\n"
             "<i>(z. B. <code>BTC</code>, <code>NVDA</code>, <code>SOL</code> oder <code>BINANCE:ETHUSDT</code>):</i>"
         )
+        return
+
+    # 2b. 1-Klick Signal-Übernahme (Direktes Vorbefüllen von Symbol, Richtung, Entry, SL, TP)
+    if data.startswith("wiz_adopt:"):
+        symbol = data[len("wiz_adopt:"):]
+        asset = None
+        if DB_FILE.exists():
+            try:
+                with open(DB_FILE, "r", encoding="utf-8") as f:
+                    for a in json.load(f).get("assets", []):
+                        if a.get("symbol") == symbol:
+                            asset = a
+                            break
+            except Exception:
+                pass
+
+        if not asset:
+            api.send_message(chat_id, f"⚠️ Setup für {symbol} nicht mehr aktuell oder nicht gefunden.")
+            return
+
+        direction = asset.get("signal", "LONG")
+        entry = float(asset.get("price", 0.0))
+        sl = float(asset.get("stop_loss", entry * 0.96 if direction == "LONG" else entry * 1.04))
+        tp1 = float(asset.get("take_profit_1", 0.0))
+        if tp1 <= 0:
+            tp1 = float(asset.get("take_profit_2", entry * 1.08 if direction == "LONG" else entry * 0.92))
+
+        session = USER_SESSIONS.setdefault(chat_id, {"wizard": "new_trade", "data": {}})
+        session["data"] = {
+            "symbol": symbol,
+            "direction": direction,
+            "entry_price": entry,
+            "stop_loss": sl,
+            "take_profit": tp1,
+            "user_id": str(user_id),
+            "user_name": username or f"User_{user_id}",
+            "note": f"Übernommen aus Signal ({asset.get('score', 88)}% Score)"
+        }
+        session["step"] = "SELECT_LEVERAGE"
+
+        curr_sym = "€" if "TRADEGATE" in symbol or "XETR" in symbol else "$"
+        msg = (
+            f"🎯 <b>Signal-Setup übernommen: {asset.get('name', symbol)}</b>\n\n"
+            f"• <b>Symbol:</b> <code>{symbol}</code>\n"
+            f"• <b>Richtung:</b> {'🟢 LONG' if direction == 'LONG' else '🔴 SHORT'}\n"
+            f"• <b>Einstiegskurs:</b> <code>{entry:,.2f} {curr_sym}</code>\n"
+            f"• 🛑 <b>Stop-Loss:</b> <code>{sl:,.2f} {curr_sym}</code>\n"
+            f"• 🎯 <b>Take-Profit:</b> <code>{tp1:,.2f} {curr_sym}</code>\n\n"
+            f"Wähle deinen <b>Hebel</b> für diese Position:"
+        )
+        api.send_message(chat_id, msg, reply_markup=get_leverage_keyboard())
         return
 
     # 3. Symbol gewählt (Kategorie, Vorschlags-Button oder direkte Auswahl)
