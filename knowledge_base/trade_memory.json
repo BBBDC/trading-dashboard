@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-06T12:20:27.189183+00:00",
-  "total_experience_records": 91,
+  "updated_at": "2026-11-06T13:07:02.155214+00:00",
+  "total_experience_records": 94,
   "learnings": [
+    {
+      "timestamp": "2026-11-06T13:06:58.226325+00:00",
+      "trade_id": "cross_rule_1793970418",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Messerfangen bei Chaos-Band-Expansion ohne VSA-Klimax",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein Kurs unterhalb des unteren Bandes (Chaos < RFE) reflektiert eine Volatilitätsexpansion des Momentums. Ohne signifikantes Ultra-High-Volume (Selling Climax) und unmittelbare Re-Inklusion in die Value Area ist der Einstieg auf allen Zeitebenen mathematisch negativ-erwartend.",
+        "actionable_rule": "Kein Messerfangen bei Chaos-Band-Expansion ohne VSA-Klimax"
+      }
+    },
+    {
+      "timestamp": "2026-11-06T13:06:58.226298+00:00",
+      "trade_id": "cross_rule_1793970418",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Degradations-Gesetz für Liquiditätszonen (Fraktale R3-Regel)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Jeder erneute Test eines Levels absorbiert bestehende Limit-Orders. Sowohl auf 5m als auch auf 4h/1D transformiert ein dritter Test eine Unterstützungszone von einer Reaktionsbasis in ein primäres Liquiditätsziel für Breakout-Trader und Stop-Runs.",
+        "actionable_rule": "Degradations-Gesetz für Liquiditätszonen (Fraktale R3-Regel)"
+      }
+    },
+    {
+      "timestamp": "2026-11-06T13:06:58.226245+00:00",
+      "trade_id": "inc_ETHUSDT_5m_1793967579",
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.48,
+      "pnl_raw": -0.24,
+      "text": "Orderblocks dürfen maximal bis zum zweiten Retest (R2) direkt gefischt werden; ab R3 ist ein Einstieg nur nach vollzogenem Market Structure Shift (MSS) und Displacement-Kerze im 5m-Chart zulässig.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ETHUSDT_5m_1793967579",
+        "verdict": "LOSS",
+        "driver": "Einstieg in einen erschöpften Orderblock beim dritten Retest (R3), bei dem die passive Kaufliquidität bereits absorbiert war und kein bullisches Displacement entstand.",
+        "technical_warning": "Fehlende VSA-Absorptionskerze mit hohem Volumen beim Sweep sowie das Ausbleiben einer sofortigen Rejektion nach Verlassen des unteren Chaos-Bands signalisierten Trendbeschleunigung statt Mean-Reversion.",
+        "actionable_rule": "Orderblocks dürfen maximal bis zum zweiten Retest (R2) direkt gefischt werden; ab R3 ist ein Einstieg nur nach vollzogenem Market Structure Shift (MSS) und Displacement-Kerze im 5m-Chart zulässig."
+      }
+    },
     {
       "timestamp": "2026-11-06T12:20:23.178275+00:00",
       "trade_id": "cross_rule_1793967623",
