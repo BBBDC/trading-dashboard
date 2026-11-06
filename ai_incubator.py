@@ -237,6 +237,9 @@ def scan_for_micro_setup(
     active_bull_ob = None
     for ob in obs:
         if ob["type"] == "Bullish OB":
+            # Qualitäts-Filter aus Post-Mortem Lab: C-Grade OBs ohne Sweep erzeugen gehäuft Fehlsignale
+            if ob.get("grade") == "C" and not ob.get("is_sweep"):
+                continue
             if ob["bottom"] * 0.998 <= curr_p <= ob["top"] * 1.004:
                 active_bull_ob = ob
                 long_triggers.append(f"Bullish OB [{ob['grade']}] Retest ({ob['badge']})")
@@ -250,8 +253,8 @@ def scan_for_micro_setup(
     if any("Buy" in s for s in signals) or any("Buy" in s for s in recent_sig_names):
         long_triggers.append("Good Buy Signal (Blaues Dreieck)")
 
-    # Auf 5m ist hohes VSA-Volumen zur Reversal-Bestätigung Pflicht
-    min_vsa = 1.4 if timeframe == "5m" else 1.2
+    # Auf 5m ist hohes VSA-Volumen zur Reversal-Bestätigung Pflicht (gemäß Post-Mortem Erkenntnissen >= 1.5x)
+    min_vsa = 1.5 if timeframe == "5m" else 1.2
     if vsa_ratio >= min_vsa:
         long_triggers.append(f"VSA High Volume Surge ({vsa_class} {vsa_ratio:.1f}x)")
 
@@ -260,6 +263,9 @@ def scan_for_micro_setup(
     active_bear_ob = None
     for ob in obs:
         if ob["type"] == "Bearish OB":
+            # Qualitäts-Filter aus Post-Mortem Lab: C-Grade OBs ohne Sweep filtern
+            if ob.get("grade") == "C" and not ob.get("is_sweep"):
+                continue
             if ob["bottom"] * 0.996 <= curr_p <= ob["top"] * 1.002:
                 active_bear_ob = ob
                 short_triggers.append(f"Bearish OB [{ob['grade']}] Retest ({ob['badge']})")
@@ -291,11 +297,11 @@ def scan_for_micro_setup(
     # Entscheidung (Mindestens 2 harte Trigger)
     if len(long_triggers) >= 2:
         ref_low = active_bull_ob["bottom"] if active_bull_ob else min(lows[-5:])
-        # 5m nutzt engeren Stop-Puffer (0.25x ATR) für asymmetrisches CRV
-        buffer_atr = 0.25 if timeframe == "5m" else 0.4
+        # Puffer auf 1.0x ATR (5m) bzw. 1.2x ATR (15m) erweitert, um vorzeitige Spread-/Noise-Stopouts zu verhindern
+        buffer_atr = 1.0 if timeframe == "5m" else 1.2
         sl = round(ref_low - buffer_atr * atr_approx, 4)
         risk = curr_p - sl
-        if risk > 0 and (risk / curr_p) <= 0.04:  # Max 4% Risiko pro Micro-Trade
+        if risk > 0 and (risk / curr_p) <= 0.05:  # Bis max 5% Risiko pro Micro-Trade
             tp1 = round(curr_p + 1.5 * risk, 4)
             tp2 = round(curr_p + 3.0 * risk, 4)
             return {
@@ -322,10 +328,11 @@ def scan_for_micro_setup(
 
     elif len(short_triggers) >= 2:
         ref_high = active_bear_ob["top"] if active_bear_ob else max(highs[-5:])
-        buffer_atr = 0.25 if timeframe == "5m" else 0.4
+        # Puffer auf 1.0x ATR (5m) bzw. 1.2x ATR (15m) erweitert
+        buffer_atr = 1.0 if timeframe == "5m" else 1.2
         sl = round(ref_high + buffer_atr * atr_approx, 4)
         risk = sl - curr_p
-        if risk > 0 and (risk / curr_p) <= 0.04:
+        if risk > 0 and (risk / curr_p) <= 0.05:
             tp1 = round(curr_p - 1.5 * risk, 4)
             tp2 = round(curr_p - 3.0 * risk, 4)
             return {
@@ -354,8 +361,8 @@ def scan_for_micro_setup(
 
 
 def update_open_trade_with_bars(trade: Dict[str, Any], future_bars: List[Dict[str, Any]]) -> Dict[str, Any]:
-    """Verfolgt einen offenen Trade anhand nachfolgender Kerzen (TP1 1.5R, TP2 3.0R, SL -1.0R)."""
-    if trade.get("status") != "OPEN":
+    """Verfolgt einen offenen Trade anhand nachfolgender Kerzen (TP1 1.5R Teilgewinn 50%, TP2 3.0R Vollziel, SL Breakeven/Verlust)."""
+    if trade.get("status") not in ("OPEN", None):
         return trade
 
     entry_p = trade["entry_price"]
@@ -373,50 +380,88 @@ def update_open_trade_with_bars(trade: Dict[str, Any], future_bars: List[Dict[st
         trade["lowest_price"] = min(trade.get("lowest_price", entry_p), l)
 
         if direction == "LONG":
-            if l <= sl:
-                trade["status"] = "CLOSED_SL"
-                trade["exit_price"] = sl
-                trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
-                trade["exit_timestamp"] = t
-                trade["realized_r"] = -1.0
-                trade["realized_pnl_pct"] = round(((sl - entry_p) / entry_p) * 100.0, 2)
-                trade["exit_reason"] = "Stop-Loss unter Support-Level getroffen"
-                break
-            elif h >= tp2:
+            # 1. Zuerst prüfen, ob TP1 erreicht wurde
+            if h >= tp1 and not trade.get("tp1_reached"):
+                trade["tp1_reached"] = True
+                trade["tp1_price"] = tp1
+                trade["tp1_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
+                sl = entry_p  # Stop-Loss sofort auf Breakeven nachziehen
+                trade["sl"] = entry_p
+
+            # 2. Vollziel TP2 erreicht
+            if h >= tp2:
                 trade["status"] = "CLOSED_TP2"
                 trade["exit_price"] = tp2
                 trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
                 trade["exit_timestamp"] = t
-                trade["realized_r"] = +3.0
+                # 50% bei TP1 (+1.5R * 0.5 = +0.75R) + 50% bei TP2 (+3.0R * 0.5 = +1.5R) = +2.25R
+                trade["realized_r"] = +2.25 if trade.get("tp1_reached") else +3.0
                 trade["realized_pnl_pct"] = round(((tp2 - entry_p) / entry_p) * 100.0, 2)
-                trade["exit_reason"] = "Maximaler Take-Profit 2 (3.0R) vollständig realisiert"
+                trade["exit_reason"] = "Maximaler Take-Profit 2 (TP2) vollständig erreicht (Gewinn voll realisiert)"
                 break
-            elif h >= tp1 and trade.get("status") == "OPEN":
-                trade["tp1_reached"] = True
-                trade["sl"] = entry_p  # Breakeven
+
+            # 3. Stop-Loss berührt
+            elif l <= sl:
+                if trade.get("tp1_reached"):
+                    # TP1 wurde bereits erreicht! 50% Teilgewinn gesichert, Rest bei BE ausgestoppt
+                    trade["status"] = "CLOSED_BE"
+                    trade["exit_price"] = sl  # entry_p
+                    trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
+                    trade["exit_timestamp"] = t
+                    trade["realized_r"] = +0.75  # 50% Tranche TP1 (+1.5R) + 50% Tranche BE (0.0R) = +0.75R Netto-Gewinn
+                    trade["realized_pnl_pct"] = round(((tp1 - entry_p) / entry_p) * 50.0, 2)
+                    trade["exit_reason"] = "Teilgewinn TP1 (+1.5R) realisiert; Restposition bei Break-Even risikofrei ausgestoppt"
+                    break
+                else:
+                    trade["status"] = "CLOSED_SL"
+                    trade["exit_price"] = sl
+                    trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
+                    trade["exit_timestamp"] = t
+                    trade["realized_r"] = -1.0
+                    trade["realized_pnl_pct"] = round(((sl - entry_p) / entry_p) * 100.0, 2)
+                    trade["exit_reason"] = "Stop-Loss unter Support-Level getroffen"
+                    break
 
         elif direction == "SHORT":
-            if h >= sl:
-                trade["status"] = "CLOSED_SL"
-                trade["exit_price"] = sl
-                trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
-                trade["exit_timestamp"] = t
-                trade["realized_r"] = -1.0
-                trade["realized_pnl_pct"] = round(((entry_p - sl) / entry_p) * 100.0, 2)
-                trade["exit_reason"] = "Stop-Loss über Widerstands-Level getroffen"
-                break
-            elif l <= tp2:
+            # 1. Zuerst prüfen, ob TP1 erreicht wurde
+            if l <= tp1 and not trade.get("tp1_reached"):
+                trade["tp1_reached"] = True
+                trade["tp1_price"] = tp1
+                trade["tp1_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
+                sl = entry_p  # Stop-Loss sofort auf Breakeven nachziehen
+                trade["sl"] = entry_p
+
+            # 2. Vollziel TP2 erreicht
+            if l <= tp2:
                 trade["status"] = "CLOSED_TP2"
                 trade["exit_price"] = tp2
                 trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
                 trade["exit_timestamp"] = t
-                trade["realized_r"] = +3.0
+                trade["realized_r"] = +2.25 if trade.get("tp1_reached") else +3.0
                 trade["realized_pnl_pct"] = round(((entry_p - tp2) / entry_p) * 100.0, 2)
-                trade["exit_reason"] = "Maximaler Take-Profit 2 (3.0R) vollständig realisiert"
+                trade["exit_reason"] = "Maximaler Take-Profit 2 (TP2) vollständig erreicht (Gewinn voll realisiert)"
                 break
-            elif l <= tp1 and trade.get("status") == "OPEN":
-                trade["tp1_reached"] = True
-                trade["sl"] = entry_p
+
+            # 3. Stop-Loss berührt
+            elif h >= sl:
+                if trade.get("tp1_reached"):
+                    trade["status"] = "CLOSED_BE"
+                    trade["exit_price"] = sl  # entry_p
+                    trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
+                    trade["exit_timestamp"] = t
+                    trade["realized_r"] = +0.75
+                    trade["realized_pnl_pct"] = round(((entry_p - tp1) / entry_p) * 50.0, 2)
+                    trade["exit_reason"] = "Teilgewinn TP1 (+1.5R) realisiert; Restposition bei Break-Even risikofrei ausgestoppt"
+                    break
+                else:
+                    trade["status"] = "CLOSED_SL"
+                    trade["exit_price"] = sl
+                    trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
+                    trade["exit_timestamp"] = t
+                    trade["realized_r"] = -1.0
+                    trade["realized_pnl_pct"] = round(((entry_p - sl) / entry_p) * 100.0, 2)
+                    trade["exit_reason"] = "Stop-Loss über Widerstands-Level getroffen"
+                    break
 
     return trade
 
@@ -564,7 +609,7 @@ def run_historical_replay_training(days: int = 30, max_replay_trades: int = 25) 
                     setup["trade_id"] = f"rep_{asset['symbol']}_{tf}_{window[-1]['t']}"
                     # Walk-forward mit den nachfolgenden Kerzen
                     outcome = update_open_trade_with_bars(setup, bars[start_idx:start_idx + 25])
-                    if outcome.get("status") in ["CLOSED_SL", "CLOSED_TP1", "CLOSED_TP2"]:
+                    if outcome.get("status") in ["CLOSED_SL", "CLOSED_BE", "CLOSED_TP1", "CLOSED_TP2"]:
                         replay_trades.append(outcome)
                         if len(replay_trades) >= max_replay_trades:
                             break
@@ -676,13 +721,22 @@ def save_incubator_state(data: Dict[str, Any]) -> None:
 def recalculate_metrics(data: Dict[str, Any]) -> None:
     """Berechnet Gewinnraten und R-Multiples über alle geschlossenen Trades (unterstützt kumulative Lifetime-Zähler)."""
     closed = data.get("closed_trades", [])
-    lt = data.get("lifetime_metrics", {})
+    lt = data.setdefault("lifetime_metrics", {})
+
+    wins_in_closed = sum(1 for t in closed if (t.get("realized_r", 0) > 0))
+    losses_in_closed = sum(1 for t in closed if (t.get("realized_r", 0) <= 0))
+    r_in_closed = round(sum(t.get("realized_r", 0.0) for t in closed), 2)
 
     total = max(lt.get("total_trades", len(closed)), len(closed))
-    wins = lt.get("wins", sum(1 for t in closed if (t.get("realized_r", 0) > 0)))
-    losses = lt.get("losses", sum(1 for t in closed if (t.get("realized_r", 0) <= 0)))
-    total_r = round(lt.get("total_r_profit", sum(t.get("realized_r", 0.0) for t in closed)), 2)
+    wins = max(lt.get("wins", 0), wins_in_closed)
+    losses = total - wins if total >= wins else losses_in_closed
+    total_r = round(max(lt.get("total_r_profit", 0.0), r_in_closed), 2)
     win_rate = round((wins / total) * 100.0, 1) if total > 0 else 0.0
+
+    lt["total_trades"] = total
+    lt["wins"] = wins
+    lt["losses"] = losses
+    lt["total_r_profit"] = total_r
 
     # Extrahiere die besten KI-Erkenntnisse
     insights = []
@@ -750,7 +804,7 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
         future_bars = [b for b in bars if b["t"] >= entry_ts]
         updated = update_open_trade_with_bars(trade, future_bars)
 
-        if updated.get("status") in ["CLOSED_SL", "CLOSED_TP1", "CLOSED_TP2"]:
+        if updated.get("status") in ["CLOSED_SL", "CLOSED_BE", "CLOSED_TP1", "CLOSED_TP2"]:
             just_closed.append(updated)
             print(f"  🏁 Micro-Trade {sym} ({tf}, {updated['direction']}) geschlossen: {updated['status']} ({updated.get('realized_r', 0):+.1f}R)")
         else:

@@ -4735,12 +4735,8 @@ html_content = f"""<!DOCTYPE html>
       const m = document.getElementById('positions-modal');
       if (!m) return;
 
-      // Dropdown mit allen gescannten Assets befüllen
-      const sel = document.getElementById('pos-symbol-select');
-      if (sel && sel.options.length <= 1) {{
-        sel.innerHTML = '<option value="">-- Wähle aus überwachten Assets --</option>' + 
-          currentData.assets.map(a => `<option value="${{a.symbol}}" data-price="${{a.price}}" data-name="${{a.name}}">${{a.name}} (${{a.symbol.split(':').pop()}}) - ${{Number(a.price).toLocaleString('de-DE', {{minimumFractionDigits: 2}})}}</option>`).join('');
-      }}
+      clearPosSymbolInput();
+      handleDashboardSymbolInput('');
 
       m.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
@@ -4749,6 +4745,8 @@ html_content = f"""<!DOCTYPE html>
     function closePositionsModal() {{
       const m = document.getElementById('positions-modal');
       if (m) m.classList.add('hidden');
+      const sug = document.getElementById('pos-symbol-suggestions');
+      if (sug) sug.classList.add('hidden');
       if (!isAnyModalOpen()) document.body.style.overflow = '';
     }}
 
@@ -4763,32 +4761,208 @@ html_content = f"""<!DOCTYPE html>
         btnShort.className = 'py-1.5 rounded-md font-bold text-center bg-rose-600 text-white';
         btnLong.className = 'py-1.5 rounded-md font-bold text-center text-slate-400 hover:text-white';
       }}
+      const priceInp = document.getElementById('pos-entry-price');
+      if (priceInp && priceInp.value) {{
+        const price = parseFloat(priceInp.value);
+        if (!isNaN(price) && price > 0) {{
+          updateDefaultSlTpPlaceholders(price);
+        }}
+      }}
     }}
 
-    function onAssetSelectChange() {{
-      const sel = document.getElementById('pos-symbol-select');
-      const customInp = document.getElementById('pos-symbol-custom');
-      const priceInp = document.getElementById('pos-entry-price');
-      if (!sel || !sel.value) return;
-
-      const opt = sel.options[sel.selectedIndex];
-      if (opt && opt.dataset.price && priceInp) {{
-        priceInp.value = opt.dataset.price;
+    function updateDefaultSlTpPlaceholders(price) {{
+      const slInp = document.getElementById('pos-stop-loss');
+      const tpInp = document.getElementById('pos-take-profit');
+      if (currentPosDirection === 'LONG') {{
+        if (slInp) slInp.placeholder = `z.B. ${{(price * 0.96).toFixed(2)}} (-4%)`;
+        if (tpInp) tpInp.placeholder = `z.B. ${{(price * 1.08).toFixed(2)}} (+8%)`;
+      }} else {{
+        if (slInp) slInp.placeholder = `z.B. ${{(price * 1.04).toFixed(2)}} (+4%)`;
+        if (tpInp) tpInp.placeholder = `z.B. ${{(price * 0.92).toFixed(2)}} (-8%)`;
       }}
-      if (customInp) customInp.value = '';
+    }}
+
+    function handleDashboardSymbolInput(query) {{
+      const container = document.getElementById('pos-symbol-suggestions');
+      const clearBtn = document.getElementById('pos-symbol-clear-btn');
+      if (!container) return;
+
+      const q = (query || '').trim();
+      if (clearBtn) {{
+        if (q.length > 0) clearBtn.classList.remove('hidden');
+        else clearBtn.classList.add('hidden');
+      }}
+
+      if (q.length === 0) {{
+        const quickAssets = (currentData.assets || []).slice(0, 6);
+        renderPosSuggestions(quickAssets, q, true);
+        return;
+      }}
+
+      const qLower = q.toLowerCase();
+      const qUpper = q.toUpperCase();
+
+      const aliasMap = {{
+        'PAY': ['TRADEGATE:2PP', 'NASDAQ:PYPL'],
+        'PAYPAL': ['TRADEGATE:2PP', 'NASDAQ:PYPL'],
+        'RHEIN': ['TRADEGATE:RHM'],
+        'RHEINMETALL': ['TRADEGATE:RHM'],
+        'BITCOIN': ['COINBASE:BTCUSD', 'INDEX:BTCUSD'],
+        'BTC': ['COINBASE:BTCUSD', 'INDEX:BTCUSD'],
+        'ETH': ['COINBASE:ETHUSD', 'BITSTAMP:ETHUSD'],
+        'ETHEREUM': ['COINBASE:ETHUSD'],
+        'SOL': ['COINBASE:SOLUSD'],
+        'SOLANA': ['COINBASE:SOLUSD'],
+        'APPLE': ['NASDAQ:AAPL'],
+        'NVIDIA': ['NASDAQ:NVDA'],
+        'MICROSOFT': ['NASDAQ:MSFT'],
+        'TESLA': ['NASDAQ:TSLA'],
+        'ALLIANZ': ['XETR:ALV', 'TRADEGATE:ALV'],
+        'SIEMENS': ['TRADEGATE:SIE', 'XETR:SIE'],
+        'SAP': ['TRADEGATE:SAP', 'XETR:SAP']
+      }};
+
+      const targets = aliasMap[qUpper] || [];
+
+      const matches = [];
+      for (const a of (currentData.assets || [])) {{
+        const sym = a.symbol || '';
+        const name = a.name || sym;
+        const ticker = sym.split(':').pop() || '';
+        const nameLower = name.toLowerCase();
+        let score = 0;
+
+        if (sym.toUpperCase() === qUpper) score = 100;
+        else if (targets.includes(sym)) score = 95;
+        else if (ticker.toUpperCase() === qUpper) score = 90;
+        else if (nameLower === qLower) score = 88;
+        else if (ticker.toUpperCase().startsWith(qUpper)) score = 80;
+        else if (nameLower.startsWith(qLower)) score = 75;
+        else if (nameLower.includes(qLower)) score = 70;
+        else if (sym.toUpperCase().includes(qUpper)) score = 65;
+
+        if (score > 0) {{
+          matches.push({{ score, asset: a }});
+        }}
+      }}
+
+      matches.sort((a, b) => b.score - a.score);
+      const topMatches = matches.slice(0, 7).map(m => m.asset);
+      renderPosSuggestions(topMatches, q, false);
+    }}
+
+    function renderPosSuggestions(assetsList, q, isQuickList) {{
+      const container = document.getElementById('pos-symbol-suggestions');
+      if (!container) return;
+
+      let html = '';
+      if (isQuickList) {{
+        html += '<div class="px-3 py-1.5 text-[10px] uppercase font-bold tracking-wider text-slate-500 bg-slate-900/90">⚡ Schnellauswahl beliebter Assets:</div>';
+      }} else {{
+        html += `<div class="px-3 py-1.5 text-[10px] uppercase font-bold tracking-wider text-indigo-400 bg-slate-900/90">🔍 Gefundene Assets für "${{q}}":</div>`;
+      }}
+
+      if (assetsList.length === 0 && q) {{
+        html += `<div class="p-3 text-center text-slate-400 text-xs">Kein exaktes System-Asset gefunden.</div>`;
+      }}
+
+      for (const a of assetsList) {{
+        const sym = a.symbol;
+        const name = a.name || sym;
+        const ticker = sym.split(':').pop();
+        const price = Number(a.price) || 0;
+        const curr = (sym.includes('TRADEGATE') || sym.includes('XETR')) ? '€' : '$';
+        const priceFmt = price.toLocaleString('de-DE', {{ minimumFractionDigits: 2, maximumFractionDigits: 4 }}) + ' ' + curr;
+        const sig = a.signal || 'NEUTRAL';
+        const sigColor = sig.includes('BUY') ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : (sig.includes('SELL') ? 'bg-rose-500/20 text-rose-400 border-rose-500/30' : 'bg-slate-800 text-slate-400 border-slate-700');
+
+        html += `
+          <div onclick="selectDashboardPosAsset('${{sym}}', '${{name.replace(/'/g, "\\\\\\'")}}', ${{price}})" class="px-3 py-2 hover:bg-indigo-600/20 transition cursor-pointer flex items-center justify-between group">
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-white group-hover:text-indigo-300 transition">${{name}}</span>
+              <span class="font-mono text-[10px] text-slate-400 px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">${{sym}}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-xs font-semibold text-slate-200">${{priceFmt}}</span>
+              <span class="px-1.5 py-0.5 rounded text-[9px] font-bold border ${{sigColor}}">${{sig}}</span>
+            </div>
+          </div>
+        `;
+      }}
+
+      if (q && q.length > 0) {{
+        const rawUpper = q.toUpperCase();
+        html += `
+          <div onclick="selectDashboardPosAsset('${{rawUpper}}', '${{rawUpper}}', null)" class="px-3 py-2 bg-slate-950 hover:bg-slate-900 transition cursor-pointer flex items-center justify-between text-indigo-400 font-semibold border-t border-slate-800/80">
+            <span>✏️ Eigenen Ticker <b>"${{rawUpper}}"</b> verwenden</span>
+            <span class="text-[10px] text-slate-500">Manuell eingeben →</span>
+          </div>
+        `;
+      }}
+
+      container.innerHTML = html;
+      container.classList.remove('hidden');
+    }}
+
+    function selectDashboardPosAsset(symbol, name, price) {{
+      const searchInp = document.getElementById('pos-symbol-search');
+      const hiddenSym = document.getElementById('pos-symbol-selected');
+      const hiddenName = document.getElementById('pos-name-selected');
+      const priceInp = document.getElementById('pos-entry-price');
+      const badge = document.getElementById('pos-selected-badge');
+      const label = document.getElementById('pos-selected-label');
+      const priceLabel = document.getElementById('pos-selected-price');
+      const container = document.getElementById('pos-symbol-suggestions');
+
+      if (hiddenSym) hiddenSym.value = symbol;
+      if (hiddenName) hiddenName.value = name;
+      if (searchInp) searchInp.value = `${{name}} (${{symbol}})`;
+
+      if (price !== null && price > 0 && priceInp) {{
+        priceInp.value = price;
+        const curr = (symbol.includes('TRADEGATE') || symbol.includes('XETR')) ? '€' : '$';
+        if (priceLabel) priceLabel.textContent = `Live-Kurs: ~${{price.toLocaleString('de-DE', {{ minimumFractionDigits: 2 }})}} ${{curr}}`;
+        updateDefaultSlTpPlaceholders(price);
+      }}
+
+      if (badge && label) {{
+        label.textContent = `${{name}} (${{symbol}})`;
+        badge.classList.remove('hidden');
+      }}
+
+      if (container) container.classList.add('hidden');
+    }}
+
+    function clearPosSymbolInput() {{
+      const searchInp = document.getElementById('pos-symbol-search');
+      const hiddenSym = document.getElementById('pos-symbol-selected');
+      const hiddenName = document.getElementById('pos-name-selected');
+      const badge = document.getElementById('pos-selected-badge');
+      const container = document.getElementById('pos-symbol-suggestions');
+      const clearBtn = document.getElementById('pos-symbol-clear-btn');
+      if (searchInp) searchInp.value = '';
+      if (hiddenSym) hiddenSym.value = '';
+      if (hiddenName) hiddenName.value = '';
+      if (badge) badge.classList.add('hidden');
+      if (container) container.classList.add('hidden');
+      if (clearBtn) clearBtn.classList.add('hidden');
     }}
 
     function saveUserPosition(e) {{
       e.preventDefault();
-      const sel = document.getElementById('pos-symbol-select');
-      const customInp = document.getElementById('pos-symbol-custom');
+      const hiddenSym = document.getElementById('pos-symbol-selected');
+      const searchInp = document.getElementById('pos-symbol-search');
       const priceInp = document.getElementById('pos-entry-price');
       const levInp = document.getElementById('pos-leverage-val');
       const slInp = document.getElementById('pos-stop-loss');
       const tpInp = document.getElementById('pos-take-profit');
       const noteInp = document.getElementById('pos-note');
 
-      let rawSymbol = (customInp && customInp.value.trim()) ? customInp.value.trim() : (sel ? sel.value : '');
+      let rawSymbol = (hiddenSym && hiddenSym.value.trim()) ? hiddenSym.value.trim() : (searchInp ? searchInp.value.trim() : '');
+      if (rawSymbol.includes('(') && rawSymbol.includes(')')) {{
+        const m = rawSymbol.match(/\\(([^)]+)\\)/);
+        if (m && m[1]) rawSymbol = m[1].trim();
+      }}
       if (!rawSymbol) {{
         alert('Bitte wähle ein Symbol aus oder gib ein Kürzel ein.');
         return;
@@ -5369,6 +5543,15 @@ html_content = f"""<!DOCTYPE html>
       }}
     }}, 60000);
 
+    // Klick-Outside Listener für Autocomplete-Dropdown
+    document.addEventListener('click', function(e) {{
+      const sug = document.getElementById('pos-symbol-suggestions');
+      const inp = document.getElementById('pos-symbol-search');
+      if (sug && !sug.contains(e.target) && e.target !== inp) {{
+        sug.classList.add('hidden');
+      }}
+    }});
+
     // Initial render
     initAuthOnLoad();
     updateStats();
@@ -5405,16 +5588,32 @@ html_content = f"""<!DOCTYPE html>
       </div>
 
       <form id="position-form" onsubmit="saveUserPosition(event)" class="p-4 sm:p-5 overflow-y-auto space-y-3.5 text-xs flex-1 overscroll-contain">
-        <div>
-          <label class="block text-slate-400 font-semibold mb-1">Asset / Symbol auswählen:</label>
-          <select id="pos-symbol-select" onchange="onAssetSelectChange()" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700/80 text-white font-mono focus:outline-none focus:border-indigo-500">
-            <!-- Dynamisch befüllt mit allen 58 Assets -->
-          </select>
-        </div>
+        <div class="relative">
+          <label class="block text-slate-300 font-semibold mb-1 flex items-center justify-between">
+            <span>Asset suchen & auswählen:</span>
+            <span class="text-[10px] text-indigo-400 font-normal">Tippe Name oder Ticker</span>
+          </label>
+          <div class="relative">
+            <input type="text" id="pos-symbol-search" autocomplete="off" oninput="handleDashboardSymbolInput(this.value)" onfocus="handleDashboardSymbolInput(this.value)" placeholder="z.B. PayPal, Rheinmetall, BTC, NVDA, 2PP..." class="w-full pl-9 pr-8 py-2.5 rounded-xl bg-slate-950 border border-slate-700/80 text-white font-mono text-xs focus:outline-none focus:border-indigo-500 transition shadow-inner">
+            <span class="absolute left-3 top-2.5 text-slate-500 text-sm pointer-events-none">🔎</span>
+            <button type="button" onclick="clearPosSymbolInput()" id="pos-symbol-clear-btn" class="hidden absolute right-2.5 top-2.5 text-slate-400 hover:text-white text-xs cursor-pointer">✕</button>
+          </div>
+          <!-- Versteckte Felder für den ausgewählten Ticker & Namen -->
+          <input type="hidden" id="pos-symbol-selected">
+          <input type="hidden" id="pos-name-selected">
 
-        <div>
-          <label class="block text-slate-400 font-semibold mb-1">Oder alternatives Symbol eingeben:</label>
-          <input type="text" id="pos-symbol-custom" placeholder="z.B. BINANCE:SOLUSDT oder NASDAQ:TSLA" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700/80 text-white font-mono focus:outline-none focus:border-indigo-500">
+          <!-- Dropdown Vorschläge -->
+          <div id="pos-symbol-suggestions" class="hidden absolute left-0 right-0 top-full mt-1.5 max-h-56 overflow-y-auto rounded-xl bg-[#090d16] border border-indigo-500/50 shadow-2xl z-50 divide-y divide-slate-800/80 text-xs">
+            <!-- Dynamisch via handleDashboardSymbolInput() -->
+          </div>
+
+          <div id="pos-selected-badge" class="hidden mt-2 p-2 rounded-lg bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-xs">🎯</span>
+              <span id="pos-selected-label" class="font-bold text-white text-xs"></span>
+            </div>
+            <span id="pos-selected-price" class="font-mono text-indigo-300 text-xs font-semibold"></span>
+          </div>
         </div>
 
         <div class="grid grid-cols-2 gap-3">

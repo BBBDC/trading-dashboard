@@ -289,13 +289,26 @@ def monitor_in_flight_trades(active_trades, db_map):
                     t["trailing_active"] = True
                     t["in_flight_warnings"].append("🛡️ Stop-Loss vorsorglich auf Break-Even nachgezogen.")
 
-            # Profit Locking: Wenn Gewinn >= 2.5% und neuer Peak erreicht, Trailing Stop auf 50% des Peaks
-            if raw_pnl >= 2.5:
-                trail_level = entry_price + (t["highest_price"] - entry_price) * 0.5
-                if trail_level > current_sl:
-                    t["stop_loss"] = round(trail_level, 4)
-                    t["trailing_active"] = True
-                    health = "TRAILING_STOP"
+            # Multi-Stufen Trailing Stop zur systematischen Gewinnsicherung:
+            # 1. Stufe: raw_pnl >= +2.0% -> SL auf Break-Even + 0.3% (Gebührenpuffer)
+            # 2. Stufe: raw_pnl >= +3.5% -> SL auf +1.0%
+            # 3. Stufe: raw_pnl >= +6.0% -> SL auf +3.5%
+            # 4. Stufe: raw_pnl >= +9.0% -> SL auf +6.5%
+            # Peak-Trailing: ab +4.0% maximal 3.5% unter dem lokalen Höchstkurs nachziehen
+            trail_level = current_sl
+            if raw_pnl >= 9.0:
+                trail_level = max(trail_level, entry_price * 1.065, t["highest_price"] * 0.96)
+            elif raw_pnl >= 6.0:
+                trail_level = max(trail_level, entry_price * 1.035, t["highest_price"] * 0.965)
+            elif raw_pnl >= 3.5:
+                trail_level = max(trail_level, entry_price * 1.010)
+            elif raw_pnl >= 2.0:
+                trail_level = max(trail_level, entry_price * 1.003)
+
+            if trail_level > current_sl:
+                t["stop_loss"] = round(trail_level, 4)
+                t["trailing_active"] = True
+                health = "TRAILING_STOP"
 
         elif direction == "SHORT":
             has_adverse_div = any("bullisch" in str(d).lower() or "bullish" in str(d).lower() for d in divs_4h)
@@ -309,12 +322,20 @@ def monitor_in_flight_trades(active_trades, db_map):
                     t["trailing_active"] = True
                     t["in_flight_warnings"].append("🛡️ Stop-Loss vorsorglich auf Break-Even nachgezogen.")
 
-            if raw_pnl >= 2.5:
-                trail_level = entry_price - (entry_price - t["lowest_price"]) * 0.5
-                if trail_level < current_sl:
-                    t["stop_loss"] = round(trail_level, 4)
-                    t["trailing_active"] = True
-                    health = "TRAILING_STOP"
+            trail_level = current_sl if current_sl > 0 else entry_price * 2
+            if raw_pnl >= 9.0:
+                trail_level = min(trail_level, entry_price * 0.935, t["lowest_price"] * 1.04)
+            elif raw_pnl >= 6.0:
+                trail_level = min(trail_level, entry_price * 0.965, t["lowest_price"] * 1.035)
+            elif raw_pnl >= 3.5:
+                trail_level = min(trail_level, entry_price * 0.990)
+            elif raw_pnl >= 2.0:
+                trail_level = min(trail_level, entry_price * 0.997)
+
+            if trail_level < current_sl or current_sl == 0:
+                t["stop_loss"] = round(trail_level, 4)
+                t["trailing_active"] = True
+                health = "TRAILING_STOP"
 
         t["health_status"] = health
 
@@ -468,14 +489,38 @@ def update_autonomous_portfolio(db_assets):
             elif curr_sig == "NEUTRAL" and holding_hours >= 24 and raw_pnl_pct < -1.5:
                 exit_triggered = True
                 exit_reason = f"Vorzeitiger Kapitalschutz: Setup nach {holding_days} Tagen invalidiert (Signal NEUTRAL)."
-            elif direction == "LONG" and tp1 > 0 and curr_price >= tp1 and t.get("tp1_reached") is not True:
+            elif direction == "LONG" and tp1 > 0 and curr_price >= tp1 and not t.get("tp1_partial_closed"):
+                t["tp1_partial_closed"] = True
                 t["tp1_reached"] = True
-                t["stop_loss"] = entry_price  # Stop-Loss auf Break-Even nachziehen!
+                t["partial_tp_price"] = tp1
+                t["partial_tp_time"] = now_iso
+                part_raw = round(((tp1 - entry_price) / entry_price) * 100.0 * 0.5, 2)
+                part_lev = round(part_raw * lev, 2)
+                t["partial_tp_realized_raw_pct"] = part_raw
+                t["partial_tp_realized_lev_pct"] = part_lev
+                be_sl = round(entry_price * 1.003, 4)
+                if be_sl > sl:
+                    t["stop_loss"] = be_sl
                 t["trailing_active"] = True
-            elif direction == "SHORT" and tp1 > 0 and curr_price <= tp1 and t.get("tp1_reached") is not True:
+                t.setdefault("in_flight_warnings", []).append(
+                    f"🎯 TP1 Teilgewinn (50% Tranche, +{part_raw:.2f}%) gesichert! Restposition läuft risikofrei mit Trailing-SL."
+                )
+            elif direction == "SHORT" and tp1 > 0 and curr_price <= tp1 and not t.get("tp1_partial_closed"):
+                t["tp1_partial_closed"] = True
                 t["tp1_reached"] = True
-                t["stop_loss"] = entry_price  # Stop-Loss auf Break-Even nachziehen!
+                t["partial_tp_price"] = tp1
+                t["partial_tp_time"] = now_iso
+                part_raw = round(((entry_price - tp1) / entry_price) * 100.0 * 0.5, 2)
+                part_lev = round(part_raw * lev, 2)
+                t["partial_tp_realized_raw_pct"] = part_raw
+                t["partial_tp_realized_lev_pct"] = part_lev
+                be_sl = round(entry_price * 0.997, 4)
+                if sl == 0 or be_sl < sl:
+                    t["stop_loss"] = be_sl
                 t["trailing_active"] = True
+                t.setdefault("in_flight_warnings", []).append(
+                    f"🎯 TP1 Teilgewinn (50% Tranche, +{part_raw:.2f}%) gesichert! Restposition läuft risikofrei mit Trailing-SL."
+                )
 
         # D) AUTONOME POSITIONSERWEITERUNG (PYRAMIDING) BEI VERSTÄRKTEN SIGNALEN
         if not exit_triggered:
@@ -528,9 +573,18 @@ def update_autonomous_portfolio(db_assets):
                     print(f"   📈 [PYRAMIDING] Position {t['name']} ({sym}) erweitert: Tranche {new_tranches} @ {curr_price:,.2f} | Neuer Mischkurs: {blended_entry:,.2f} | SL nachgezogen: {new_sl:,.2f}")
 
         if exit_triggered:
-            # Trade abschließen
-            final_raw_pnl = ((exit_price - entry_price) / entry_price) * 100.0 if direction == "LONG" else ((entry_price - exit_price) / entry_price) * 100.0
-            final_lev_pnl = final_raw_pnl * lev
+            # Trade abschließen (unter Berücksichtigung von 50% Teilgewinnmitnahmen)
+            if t.get("tp1_partial_closed"):
+                part_raw = t.get("partial_tp_realized_raw_pct", 0.0)
+                part_lev = t.get("partial_tp_realized_lev_pct", 0.0)
+                rem_raw = (((exit_price - entry_price) / entry_price) * 100.0 if direction == "LONG" else ((entry_price - exit_price) / entry_price) * 100.0) * 0.5
+                rem_lev = rem_raw * lev
+                final_raw_pnl = round(part_raw + rem_raw, 2)
+                final_lev_pnl = round(part_lev + rem_lev, 2)
+                exit_reason += f" [Teil-TP1 50%: +{part_raw:.2f}% | Rest 50%: {rem_raw:+.2f}%]"
+            else:
+                final_raw_pnl = ((exit_price - entry_price) / entry_price) * 100.0 if direction == "LONG" else ((entry_price - exit_price) / entry_price) * 100.0
+                final_lev_pnl = final_raw_pnl * lev
             is_win = final_raw_pnl > 0
 
             closed_entry = {

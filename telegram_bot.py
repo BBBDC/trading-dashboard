@@ -647,6 +647,129 @@ def find_asset_price(symbol):
     return None
 
 
+def search_matching_assets(query: str, max_results: int = 6):
+    """
+    Sucht fuzzy nach passenden Assets in market_analysis_db.json
+    anhand von Ticker, Name, Symbol, Börse oder Alias.
+    """
+    if not query or not query.strip():
+        return []
+
+    q = query.strip()
+    q_lower = q.lower()
+    q_upper = q.upper()
+
+    # Bekannte Ticker- und Namen-Aliase
+    aliases = {
+        "PAY": ["TRADEGATE:2PP", "NASDAQ:PYPL"],
+        "PAYPAL": ["TRADEGATE:2PP", "NASDAQ:PYPL"],
+        "RHEIN": ["TRADEGATE:RHM", "XETR:RHM"],
+        "RHEINMETALL": ["TRADEGATE:RHM", "XETR:RHM"],
+        "BTC": ["COINBASE:BTCUSD", "BINANCE:BTCUSD", "INDEX:BTCUSD"],
+        "BITCOIN": ["COINBASE:BTCUSD", "BINANCE:BTCUSD"],
+        "ETH": ["COINBASE:ETHUSD", "BITSTAMP:ETHUSD"],
+        "ETHEREUM": ["COINBASE:ETHUSD", "BITSTAMP:ETHUSD"],
+        "SOL": ["COINBASE:SOLUSD"],
+        "SOLANA": ["COINBASE:SOLUSD"],
+        "XRP": ["BINANCE:XRPUSDT", "KRAKEN:XRPUSD"],
+        "RIPPLE": ["BINANCE:XRPUSDT"],
+        "APPLE": ["NASDAQ:AAPL"],
+        "AAPL": ["NASDAQ:AAPL"],
+        "NVIDIA": ["NASDAQ:NVDA", "TRADEGATE:NVD"],
+        "NVDA": ["NASDAQ:NVDA"],
+        "MICROSOFT": ["NASDAQ:MSFT", "TRADEGATE:MSF"],
+        "MSFT": ["NASDAQ:MSFT"],
+        "TESLA": ["NASDAQ:TSLA", "TRADEGATE:TL0"],
+        "TSLA": ["NASDAQ:TSLA"],
+        "AMAZON": ["NASDAQ:AMZN", "TRADEGATE:AMZ"],
+        "AMZN": ["NASDAQ:AMZN"],
+        "META": ["NASDAQ:META", "TRADEGATE:FB2A"],
+        "ALV": ["XETR:ALV", "TRADEGATE:ALV"],
+        "ALLIANZ": ["XETR:ALV", "TRADEGATE:ALV"],
+        "SIE": ["XETR:SIE", "TRADEGATE:SIE"],
+        "SIEMENS": ["XETR:SIE", "TRADEGATE:SIE"],
+        "SAP": ["XETR:SAP", "TRADEGATE:SAP"],
+        "BMW": ["XETR:BMW", "TRADEGATE:BMW"],
+        "MBG": ["XETR:MBG", "TRADEGATE:MBG"],
+        "MERCEDES": ["XETR:MBG", "TRADEGATE:MBG"],
+        "GOLD": ["TVC:GOLD", "AMEX:GLD"],
+        "SILVER": ["TVC:SILVER"],
+        "SILBER": ["TVC:SILVER"],
+        "GAS": ["NYMEX:NG1!"],
+        "ERDGAS": ["NYMEX:NG1!"],
+        "OEL": ["TVC:USOIL"],
+        "OIL": ["TVC:USOIL"]
+    }
+
+    db_assets = []
+    if DB_FILE.exists():
+        try:
+            with open(DB_FILE, "r", encoding="utf-8") as f:
+                db_assets = json.load(f).get("assets", [])
+        except Exception:
+            pass
+
+    alias_targets = []
+    for k, v in aliases.items():
+        if k == q_upper or k in q_upper or q_upper in k:
+            alias_targets.extend(v)
+
+    scored_candidates = []
+    for a in db_assets:
+        sym = a.get("symbol", "")
+        name = a.get("name", "")
+        ticker = sym.split(":")[-1].upper()
+        name_lower = name.lower()
+        score = 0
+
+        # Exact Matches
+        if sym.upper() == q_upper:
+            score = 100
+        elif sym in alias_targets:
+            score = 95
+        elif ticker == q_upper:
+            score = 90
+        elif name_lower == q_lower:
+            score = 88
+        elif ticker.startswith(q_upper) or q_upper.startswith(ticker):
+            score = 80
+        elif name_lower.startswith(q_lower):
+            score = 75
+        elif q_lower in name_lower:
+            score = 70
+        elif q_upper in ticker or q_upper in sym.upper():
+            score = 65
+        elif any(part in name_lower for part in q_lower.split() if len(part) > 2):
+            score = 50
+
+        if score > 0:
+            scored_candidates.append((score, a))
+
+    # Sortieren nach Relevanz
+    scored_candidates.sort(key=lambda x: x[0], reverse=True)
+
+    seen = set()
+    final_list = []
+    for score, a in scored_candidates:
+        sym = a.get("symbol", "")
+        if sym in seen:
+            continue
+        seen.add(sym)
+        final_list.append({
+            "symbol": sym,
+            "name": a.get("name", sym),
+            "ticker": sym.split(":")[-1],
+            "price": float(a.get("price", 0.0)),
+            "signal": a.get("signal", "NEUTRAL"),
+            "score": a.get("score", 0),
+            "currency": "€" if "TRADEGATE" in sym or "XETR" in sym else "$"
+        })
+        if len(final_list) >= max_results:
+            break
+
+    return final_list
+
+
 def get_market_overview(role="trader"):
     """Gibt eine kurze Zusammenfassung des letzten Scans zurück."""
     if not DB_FILE.exists():
@@ -1727,16 +1850,37 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
         )
         return
 
-    # 3. Symbol gewählt
-    if data.startswith("sym_"):
-        symbol = data[4:]
+    # 3. Symbol gewählt (Kategorie, Vorschlags-Button oder direkte Auswahl)
+    if data.startswith("sym_") or data.startswith("wiz_sel_sym:") or data.startswith("wiz_sel_sym_raw:"):
+        if data.startswith("sym_"):
+            symbol = data[4:]
+        elif data.startswith("wiz_sel_sym:"):
+            symbol = data[len("wiz_sel_sym:"):]
+        else:
+            raw_s = data[len("wiz_sel_sym_raw:"):]
+            # Falls kein Doppelpunkt vorhanden, passende Standard-Präfixe prüfen
+            if ":" not in raw_s:
+                if raw_s in ("BTC", "ETH", "SOL", "XRP", "DOGE", "BNB", "ADA", "AVAX"):
+                    symbol = f"BINANCE:{raw_s}USDT"
+                elif raw_s in ("NVDA", "AAPL", "TSLA", "MSFT", "AMZN", "META", "GOOGL"):
+                    symbol = f"NASDAQ:{raw_s}"
+                elif raw_s in ("SAP", "SIE", "ALV", "MBG", "BMW"):
+                    symbol = f"XETR:{raw_s}"
+                elif raw_s in ("GOLD", "SILVER"):
+                    symbol = f"TVC:{raw_s}"
+                else:
+                    symbol = raw_s
+            else:
+                symbol = raw_s
+
         session = USER_SESSIONS.setdefault(chat_id, {"wizard": "new_trade", "data": {}})
         session["data"]["symbol"] = symbol
         session["step"] = "SELECT_DIRECTION"
 
         live_price = find_asset_price(symbol)
         session["data"]["live_price"] = live_price
-        price_info = f" (Live-Referenzpreis: ~{live_price:,.2f} $)" if live_price else ""
+        curr_sym = "€" if "TRADEGATE" in symbol or "XETR" in symbol else "$"
+        price_info = f" (Live-Referenzpreis: ~{fmt_price(live_price)} {curr_sym})" if live_price else ""
 
         api.edit_message_text(
             chat_id,
@@ -2325,34 +2469,65 @@ def process_wizard_text_input(api, chat_id, user_id, username, session, text):
     step = session.get("step")
 
     if step == "WAITING_TICKER":
-        raw_ticker = text.upper().strip()
-        # Automatisches Präfixen falls nötig
-        if ":" not in raw_ticker:
-            if raw_ticker in ("BTC", "ETH", "SOL", "XRP", "DOGE", "BNB", "ADA", "AVAX"):
-                symbol = f"BINANCE:{raw_ticker}USDT"
-            elif raw_ticker in ("NVDA", "AAPL", "TSLA", "MSFT", "AMZN", "META", "GOOGL"):
-                symbol = f"NASDAQ:{raw_ticker}"
-            elif raw_ticker in ("SAP", "SIE", "ALV", "MBG", "BMW"):
-                symbol = f"XETR:{raw_ticker}"
-            elif raw_ticker in ("GOLD", "SILVER"):
-                symbol = f"TVC:{raw_ticker}"
-            else:
-                symbol = raw_ticker
+        raw_ticker = text.strip()
+        candidates = search_matching_assets(raw_ticker, max_results=5)
+
+        # Fall 1: Exakt ein eindeutiges Ergebnis
+        if len(candidates) == 1:
+            cand = candidates[0]
+            symbol = cand["symbol"]
+            session["data"]["symbol"] = symbol
+            session["data"]["name"] = cand["name"]
+            session["data"]["live_price"] = cand["price"]
+            session["step"] = "SELECT_DIRECTION"
+            p_fmt = f"{fmt_price(cand['price'])} {cand['currency']}"
+            api.send_message(
+                chat_id,
+                f"🎯 <b>Asset erkannt:</b> {cand['name']} (<code>{symbol}</code>)\n"
+                f"• Aktueller Live-Kurs: ~<b>{p_fmt}</b>\n\n"
+                f"Schritt 2: Wähle die Richtung:",
+                reply_markup=get_direction_keyboard()
+            )
+            return
+
+        # Fall 2: Mehrere Vorschläge gefunden (Fuzzy-Matches & Alternativen)
+        elif len(candidates) > 1:
+            buttons = []
+            for c in candidates:
+                p_fmt = f"{fmt_price(c['price'])} {c['currency']}"
+                btn_txt = f"🟢 {c['name']} ({c['ticker']}) - {p_fmt}"
+                buttons.append([{"text": btn_txt, "callback_data": f"wiz_sel_sym:{c['symbol']}"}])
+
+            raw_upper = raw_ticker.upper()
+            buttons.append([{"text": f"✏️ '{raw_upper}' manuell verwenden", "callback_data": f"wiz_sel_sym_raw:{raw_upper}"}])
+            buttons.append([{"text": "❌ Abbrechen", "callback_data": "action_cancel"}])
+
+            kb = {"inline_keyboard": buttons}
+            api.send_message(
+                chat_id,
+                f"🔍 <b>Vorschläge für '{raw_ticker}':</b>\n"
+                f"Meintest du eines dieser Assets? Bitte wähle aus:",
+                reply_markup=kb
+            )
+            return
+
+        # Fall 3: Kein Match gefunden
         else:
-            symbol = raw_ticker
-
-        session["data"]["symbol"] = symbol
-        session["step"] = "SELECT_DIRECTION"
-        live_price = find_asset_price(symbol)
-        session["data"]["live_price"] = live_price
-        price_info = f" (Live-Preis: ~{live_price:,.2f} $)" if live_price else ""
-
-        api.send_message(
-            chat_id,
-            f"Ausgewählt: <b>{symbol}</b>{price_info}\n\nSchritt 2: Wähle die Richtung:",
-            reply_markup=get_direction_keyboard()
-        )
-        return
+            raw_upper = raw_ticker.upper()
+            kb = {
+                "inline_keyboard": [
+                    [{"text": f"✅ Als '{raw_upper}' anlegen", "callback_data": f"wiz_sel_sym_raw:{raw_upper}"}],
+                    [{"text": "🔄 Anderen Ticker eingeben", "callback_data": "cat_custom"}],
+                    [{"text": "❌ Abbrechen", "callback_data": "action_cancel"}]
+                ]
+            }
+            api.send_message(
+                chat_id,
+                f"⚠️ Kein bekanntes Asset für '<b>{raw_ticker}</b>' im System gefunden.\n\n"
+                f"Möchtest du <code>{raw_upper}</code> trotzdem als individuelles Symbol tracken oder einen anderen Begriff eingeben?",
+                reply_markup=kb
+            )
+            return
 
     if step == "WAITING_PRICE":
         cleaned = text.replace("$", "").replace("€", "").replace(",", ".").strip()
