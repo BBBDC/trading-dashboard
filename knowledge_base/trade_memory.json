@@ -1,7 +1,161 @@
 {
-  "updated_at": "2026-11-06T13:07:02.155214+00:00",
-  "total_experience_records": 94,
+  "updated_at": "2026-11-06T14:48:06.251312+00:00",
+  "total_experience_records": 102,
   "learnings": [
+    {
+      "timestamp": "2026-11-06T14:48:02.462573+00:00",
+      "trade_id": "cross_rule_1793976482",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Systemischer Korrelations-Lock: Parallele Micro-Setups in hochkorrelierten Assets (SOL/AVAX) dürfen nur exekutiert werden, wenn der übergeordnete Markt (BTC/Gesamtmarkt) ein klares bullisches Reversal auf mindestens 15m/1h bestätigt.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der synchrone Stop-Loss-Treffer beider Trades zur identischen Zeitspanne zeigt, dass Micro-Signale gegen marktweite Abverkaufsströme statistisch wertlos sind.",
+        "actionable_rule": "Systemischer Korrelations-Lock: Parallele Micro-Setups in hochkorrelierten Assets (SOL/AVAX) dürfen nur exekutiert werden, wenn der übergeordnete Markt (BTC/Gesamtmarkt) ein klares bullisches Reversal auf mindestens 15m/1h bestätigt."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T14:48:02.462531+00:00",
+      "trade_id": "cross_rule_1793976482",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Order-Block-Degenerationsgesetz: Unterstützungszonen sind nach maximal zwei Tests (R1/R2) als Einstiegszone entwertet und wandeln sich fraktal auf 5m wie auf 4h/1D in Liquiditätspools für die Gegenseite um.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die extreme Fragilität von R7 bei AVAX belegt, dass wiederholtes Testen keinen starken Support beweist, sondern die kontinuierliche Absorption von Bids bis zum strukturellen Bruch.",
+        "actionable_rule": "Order-Block-Degenerationsgesetz: Unterstützungszonen sind nach maximal zwei Tests (R1/R2) als Einstiegszone entwertet und wandeln sich fraktal auf 5m wie auf 4h/1D in Liquiditätspools für die Gegenseite um."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T14:48:02.462498+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1793970355",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.94,
+      "pnl_raw": -0.47,
+      "text": "Order-Block-Einstiege sind ab dem dritten Retest (R3+) strikt verboten, da Rest-Liquidität erschöpft ist und das Durchbruchrisiko dominiert.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1793970355",
+        "verdict": "LOSS",
+        "driver": "Ein Order-Block beim siebten Retest (R7) verfügt über keine institutionellen Kauf-Orders mehr und dient dem Markt nur noch als Liquiditätsziel für Breakdowns.",
+        "technical_warning": "Der Retest-Zähler (R7) warnte eindeutig vor struktureller Materialermüdung des Levels.",
+        "actionable_rule": "Order-Block-Einstiege sind ab dem dritten Retest (R3+) strikt verboten, da Rest-Liquidität erschöpft ist und das Durchbruchrisiko dominiert."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T14:48:02.462417+00:00",
+      "trade_id": "inc_SOLUSDT_5m_1793970355",
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.82,
+      "pnl_raw": -0.41,
+      "text": "Kein Long-Einstieg in Buy-Pockets ohne vorherigen bestätigten Sweep des letzten lokalen Swing-Lows und sofortige Volumenabsorption.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SOLUSDT_5m_1793970355",
+        "verdict": "LOSS",
+        "driver": "Der Einstieg erfolgte bei intaktem bärischem Abwärtsimpuls ohne vorgelagerten echten Liquidity-Sweep, wodurch die Support-Zone mühelos überrollt wurde.",
+        "technical_warning": "Fehlende Volumenerschöpfung (VSA Climax) bei Annäherung an das Chaos-Band sowie das Ausbleiben einer bullischen Reaktionskerze vor Ordererteilung.",
+        "actionable_rule": "Kein Long-Einstieg in Buy-Pockets ohne vorherigen bestätigten Sweep des letzten lokalen Swing-Lows und sofortige Volumenabsorption."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T14:46:49.580254+00:00",
+      "trade_id": "cross_rule_1793976409",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
+        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T14:46:49.580226+00:00",
+      "trade_id": "inc_ETHUSDT_5m_1793970355",
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.6,
+      "pnl_raw": -0.3,
+      "text": "Bei ETHUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ETHUSDT_5m_1793970355",
+        "verdict": "LOSS",
+        "driver": "Trade ETHUSDT schloss mit CLOSED_SL (-1.0R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei ETHUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T14:46:49.580190+00:00",
+      "trade_id": "inc_NVD.F_5m_1793967580",
+      "symbol": "NVD.F",
+      "name": "Nvidia",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 1.66,
+      "pnl_raw": 0.83,
+      "text": "Bei NVD.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NVD.F_5m_1793967580",
+        "verdict": "WIN",
+        "driver": "Trade NVD.F schloss mit CLOSED_TP2 (+2.2R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei NVD.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T14:46:49.580113+00:00",
+      "trade_id": "inc_BNBUSDT_5m_1793967579",
+      "symbol": "BNBUSDT",
+      "name": "BNB",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.7,
+      "pnl_raw": -0.35,
+      "text": "Bei BNBUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BNBUSDT_5m_1793967579",
+        "verdict": "LOSS",
+        "driver": "Trade BNBUSDT schloss mit CLOSED_SL (-1.0R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei BNBUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
     {
       "timestamp": "2026-11-06T13:06:58.226325+00:00",
       "trade_id": "cross_rule_1793970418",
