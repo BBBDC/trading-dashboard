@@ -1,7 +1,159 @@
 {
-  "updated_at": "2026-11-05T23:12:09.738433+00:00",
-  "total_experience_records": 68,
+  "updated_at": "2026-11-06T00:06:58.278678+00:00",
+  "total_experience_records": 76,
   "learnings": [
+    {
+      "timestamp": "2026-11-06T00:06:54.472266+00:00",
+      "trade_id": "cross_rule_1793923614",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volatilitäts-Filter vor Mean-Reversion: Befindet sich der Markt im Entropiemodus (Chaos Band überdehnt / unter Fair Value), sind statische Support-Einstiege ohne vorherigen Sweep und Marktstruktur-Shift (MSS) verboten.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Micro-Support-Zonen bieten in dynamischen Ausdehnungsphasen keinerlei strukturellen Halt, sondern dienen größeren Marktteilnehmern lediglich als Exit-Liquidität.",
+        "actionable_rule": "Volatilitäts-Filter vor Mean-Reversion: Befindet sich der Markt im Entropiemodus (Chaos Band überdehnt / unter Fair Value), sind statische Support-Einstiege ohne vorherigen Sweep und Marktstruktur-Shift (MSS) verboten."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T00:06:54.472246+00:00",
+      "trade_id": "cross_rule_1793923614",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "VSA Effort-vs-Result-Primat: Ein parabolischer Volumenspike markiert ein Liquiditätsereignis und niemals per se eine Trendwende; der Einstieg erfordert zwingend das Versiegen des Volumens im anschließenden Re-Test.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Fraktal identisch auf 5m wie auf 1D: Führt extremes Volumen nicht zu sofortigem Raumgewinn in Signalrichtung, absorbiert die Gegenseite den Trade und initiiert einen Stop-Run.",
+        "actionable_rule": "VSA Effort-vs-Result-Primat: Ein parabolischer Volumenspike markiert ein Liquiditätsereignis und niemals per se eine Trendwende; der Einstieg erfordert zwingend das Versiegen des Volumens im anschließenden Re-Test."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T00:06:54.472194+00:00",
+      "trade_id": "inc_SOLUSDT_5m_1793920272",
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.0,
+      "pnl_raw": -0.5,
+      "text": "Kein direkter Long-Einstieg bei VSA Ultra-High-Volume (>3.0x) im fallenden Messer; Einstieg zwingend erst nach einer No-Supply-Testkerze oder Rückeroberung der Kerzenspanne.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SOLUSDT_5m_1793920272",
+        "verdict": "LOSS",
+        "driver": "Fehlinterpretation eines 4.2x Ultra-High-Volume-Spikes als institutionelle Absorption, obwohl aktiver Verkaufsdruck (Supply Dominance) das Support-Level ohne Nachfrageüberhang durchschlug.",
+        "technical_warning": "VSA Effort-vs-Result-Divergenz: Extremes Volumen (4.2x) ohne bullische Preisreaktion sowie die anhaltende Expansion im Chaos-Band signalisierten ein unkontrolliertes Durchreichen der Liquidität.",
+        "actionable_rule": "Kein direkter Long-Einstieg bei VSA Ultra-High-Volume (>3.0x) im fallenden Messer; Einstieg zwingend erst nach einer No-Supply-Testkerze oder Rückeroberung der Kerzenspanne."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T00:06:31.094339+00:00",
+      "trade_id": "cross_rule_1793923591",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Altcoin-Beta-Korrelationsfilter: Ein Altcoin-Long erfordert zwingend relative Stärke zum Leitmarkt (BTC) oder mindestens die Abwesenheit von Supply-Divergenzen im lokalen Orderbuch.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Während BTC und ETH gleichzeitig expandierten, zeigte RENDER interne Schwäche durch Churning-Volumen. High-Beta-Altcoins bestrafen zu enge Stops (hier 0.38%), wenn der breite Markt sie nicht stützt.",
+        "actionable_rule": "Altcoin-Beta-Korrelationsfilter: Ein Altcoin-Long erfordert zwingend relative Stärke zum Leitmarkt (BTC) oder mindestens die Abwesenheit von Supply-Divergenzen im lokalen Orderbuch."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T00:06:31.094317+00:00",
+      "trade_id": "cross_rule_1793923591",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Das Effort-versus-Result-Absorptionsgesetz: Ein Volumenspike (>1.5x) an Support-/Pocket-Zonen ist solange als Verkaufsdruck zu werten, bis der Preis die Range der Volumenkerze per Schlusskurs zurückerobert hat.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf allen Zeitebenen (5m bis 1D) führt das Verwechseln von Liquidationsvolumen mit institutioneller Absorption zum Blindkauf in fallende Messer, wie RENDER drastisch demonstriert hat.",
+        "actionable_rule": "Das Effort-versus-Result-Absorptionsgesetz: Ein Volumenspike (>1.5x) an Support-/Pocket-Zonen ist solange als Verkaufsdruck zu werten, bis der Preis die Range der Volumenkerze per Schlusskurs zurückerobert hat."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T00:06:31.094304+00:00",
+      "trade_id": "inc_ETHUSDT_5m_1793920272",
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 2.64,
+      "pnl_raw": 1.32,
+      "text": "Zeigt ETH zeitgleich mit BTC ein valides Buy-Pocket-Signal ohne VSA-Exhaustion, ist ETH aufgrund des überlegenen Beta-Hebel-Profils bei identischem Stop-Risiko prioritär zu gewichten.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ETHUSDT_5m_1793920272",
+        "verdict": "WIN",
+        "driver": "Idealer Beta-Move synchron zum BTC-Impuls: Identische Signal-Geometrie wie BTC bei doppelter absoluter Range-Expansion (+1.32% vs. +0.71%) bei exakt kontrolliertem R-Risiko.",
+        "technical_warning": "Keine Warnung vorhanden – harmonische Korrelation zum Leitwolf BTC und sauberer Resonanz-Bounce am Chaos-Band.",
+        "actionable_rule": "Zeigt ETH zeitgleich mit BTC ein valides Buy-Pocket-Signal ohne VSA-Exhaustion, ist ETH aufgrund des überlegenen Beta-Hebel-Profils bei identischem Stop-Risiko prioritär zu gewichten."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T00:06:31.094286+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1793920271",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 1.42,
+      "pnl_raw": 0.71,
+      "text": "Wenn die Markt-Benchmark ein Confluence-Setup ohne anomalen VSA-Spike ausbildet, bleibt TP2 (3.0R) verbindlich das primäre Take-Profit-Target ohne vorzeitigen Diskretions-Exit.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1793920271",
+        "verdict": "WIN",
+        "driver": "Mustergültige institutionelle Mean-Reversion: Bereinigtes Orderbuch unterhalb des RFE ohne anomalen Sell-Volumendruck ermöglichte eine geradlinige Trendfortsetzung der Benchmark bis zum 3.0R-Ziel.",
+        "technical_warning": "Keine Warnung vorhanden – symmetrisches Verhältnis von Orderbuch-Liquidität zu Preisfortschritt ohne Climax-Störungen.",
+        "actionable_rule": "Wenn die Markt-Benchmark ein Confluence-Setup ohne anomalen VSA-Spike ausbildet, bleibt TP2 (3.0R) verbindlich das primäre Take-Profit-Target ohne vorzeitigen Diskretions-Exit."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T00:06:31.094227+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1793920271",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.76,
+      "pnl_raw": -0.38,
+      "text": "Bei VSA-Volumenspitzen (> 1.5x) an Support-Zonen ist der Markteintritt erst nach einem vollständigen Kerzenschluss ÜBER dem Hoch der Sweep-Kerze gestattet; kein Limit-Kauf in expandierenden Sell-Volumenspitzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1793920271",
+        "verdict": "LOSS",
+        "driver": "Effort-versus-Result-Versagen nach Wyckoff: Der 1.7x VSA-Volumenspike markierte aggressive Verkaufsorders (Supply Overhang) und fehlende passive Kaufunterstützung, nicht institutionelle Akkumulation.",
+        "technical_warning": "Der 1.7x Volumenspike ohne unmittelbare bullische Docht-Bildung oder Rejection-Candle signalisierte aktive Liquidations-Kaskaden und Durchbruchsdynamik des Supports.",
+        "actionable_rule": "Bei VSA-Volumenspitzen (> 1.5x) an Support-Zonen ist der Markteintritt erst nach einem vollständigen Kerzenschluss ÜBER dem Hoch der Sweep-Kerze gestattet; kein Limit-Kauf in expandierenden Sell-Volumenspitzen."
+      }
+    },
     {
       "timestamp": "2026-11-05T23:12:05.814192+00:00",
       "trade_id": "cross_rule_1793920325",
