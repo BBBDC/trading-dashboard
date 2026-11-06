@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-06T19:23:40.572405+00:00",
-  "total_experience_records": 63,
+  "updated_at": "2026-11-06T20:30:50.939376+00:00",
+  "total_experience_records": 66,
   "learnings": [
+    {
+      "timestamp": "2026-11-06T20:30:47.250571+00:00",
+      "trade_id": "cross_rule_1793997047",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Hierarchie der Konfluenz: Indikator-Cluster ('Buy Pockets' / Kaufsignale) sind wertlos, wenn sie gegen die übergeordnete Orderflow-Dynamik gerichtet sind.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sekundäre Indikatoren wie Oszillatoren oder Chaos-Bänder überdehnen sich in echten Trendimpulsen fraktal und erzeugen permanente Fehlsignale, solange HTF-Marktstruktur und Volumen nicht autorisieren.",
+        "actionable_rule": "Hierarchie der Konfluenz: Indikator-Cluster ('Buy Pockets' / Kaufsignale) sind wertlos, wenn sie gegen die übergeordnete Orderflow-Dynamik gerichtet sind."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T20:30:47.250520+00:00",
+      "trade_id": "cross_rule_1793997047",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Displacement-Axiom: Ein Liquiditäts-Sweep ohne unmittelbare, expansive Gegenbewegung ist kein Stop-Hunt, sondern ein echter Strukturbruch.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m wie auch auf 4h/1D unterscheidet sich eine Liquiditätsaufnahme von einem Trendbruch rein durch die Geschwindigkeit der Zurückweisung; verharrt der Kurs nach dem Sweep im Support-Tief, dient der Bereich lediglich als Liquiditätstrichter für die Fortsetzung.",
+        "actionable_rule": "Displacement-Axiom: Ein Liquiditäts-Sweep ohne unmittelbare, expansive Gegenbewegung ist kein Stop-Hunt, sondern ein echter Strukturbruch."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T20:30:47.250434+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1793990413",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.3,
+      "pnl_raw": -0.65,
+      "text": "Kein Long-Entry an B-Grade Order Blocks nach einem Liquidity Sweep ohne Bestätigung durch eine impulsive 5m-Schlusskerze oberhalb des Sweep-Levels (keine ungefilterten Limit-Orders in fallende Messer).",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1793990413",
+        "verdict": "LOSS",
+        "driver": "Front-Running eines 'Falling Knife' an einem schwachen B-Grade Order Block ohne Bestätigung durch aggressive Käufer-Absorption (Displacement/CHoCH).",
+        "technical_warning": "Ausbleiben einer impulsiven Rejection-Dochtbildung nach dem Sweep bei gleichzeitig fehlendem VSA-Kaufvolumen (Ultra High Volume Absorption), was die Fortsetzung des Verkaufsdrucks ankündigte.",
+        "actionable_rule": "Kein Long-Entry an B-Grade Order Blocks nach einem Liquidity Sweep ohne Bestätigung durch eine impulsive 5m-Schlusskerze oberhalb des Sweep-Levels (keine ungefilterten Limit-Orders in fallende Messer)."
+      }
+    },
     {
       "timestamp": "2026-11-06T18:41:17.496528+00:00",
       "trade_id": "cross_rule_1793990477",
