@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-06T15:14:08.502711+00:00",
-  "total_experience_records": 105,
+  "updated_at": "2026-11-06T16:38:44.942826+00:00",
+  "total_experience_records": 108,
   "learnings": [
+    {
+      "timestamp": "2026-11-06T16:38:40.842691+00:00",
+      "trade_id": "cross_rule_1793983120",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Trend-Veto-Klausel: Mikro-Setups (5m/15m) gegen die 4h/1D-Trendrichtung sind ausnahmslos verboten, solange der Markt nicht an den äußeren Chaos-Bändern der übergeordneten Zeitebene massiv überdehnt ist.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der isolierte 5m-Short bei MSF.F scheiterte am übergeordneten Momentum; Mikro-Signale dürfen ohne HTF-Erschöpfung niemals als Trendwende interpretiert werden.",
+        "actionable_rule": "Trend-Veto-Klausel: Mikro-Setups (5m/15m) gegen die 4h/1D-Trendrichtung sind ausnahmslos verboten, solange der Markt nicht an den äußeren Chaos-Bändern der übergeordneten Zeitebene massiv überdehnt ist."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T16:38:40.842643+00:00",
+      "trade_id": "cross_rule_1793983120",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Güte-Gebot: Zonenbasierte Reversals erfordern auf allen Zeitebenen (5m bis 1D) zwingend ein abgeschlossenes Liquidity-Run-Muster mit nachweisbarem institutionellen Displacement.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "B-Grade Zonen bieten keinen echten Liquiditätspuffer; ohne vorheriges Abfischen von Stops (Sweep) fungiert der Orderblock lediglich als Durchlaufstation für den übergeordneten Trend.",
+        "actionable_rule": "Fraktales Güte-Gebot: Zonenbasierte Reversals erfordern auf allen Zeitebenen (5m bis 1D) zwingend ein abgeschlossenes Liquidity-Run-Muster mit nachweisbarem institutionellen Displacement."
+      }
+    },
+    {
+      "timestamp": "2026-11-06T16:38:40.842562+00:00",
+      "trade_id": "inc_MSF.F_5m_1793970356",
+      "symbol": "MSF.F",
+      "name": "Microsoft",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.54,
+      "pnl_raw": -0.27,
+      "text": "Keine Trade-Freigabe für B-Klasse Orderblocks ohne vorgeschalteten Sweep externer Liquidität (A-Qualität) und zwingenden Schlusskurs unterhalb des Fair Value Gaps.",
+      "ai_post_mortem": {
+        "trade_id": "inc_MSF.F_5m_1793970356",
+        "verdict": "LOSS",
+        "driver": "Short-Einstieg an einem unbestätigten B-Grade Orderblock ohne vorherigen Buy-Side-Liquidity-Sweep, wodurch die Position direkt in den übergeordneten Aufwärtsdruck geriet und ausgestoppt wurde.",
+        "technical_warning": "Fehlendes VSA-Verkaufsvolumen (Displacement) am Retest sowie das Ausbleiben einer bearishen Delta-Divergenz am 5m-Widerstandslevel vor Erscheinen des Sell-Markers.",
+        "actionable_rule": "Keine Trade-Freigabe für B-Klasse Orderblocks ohne vorgeschalteten Sweep externer Liquidität (A-Qualität) und zwingenden Schlusskurs unterhalb des Fair Value Gaps."
+      }
+    },
     {
       "timestamp": "2026-11-06T15:14:04.621684+00:00",
       "trade_id": "cross_rule_1793978044",
