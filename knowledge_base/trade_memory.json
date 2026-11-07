@@ -1,7 +1,159 @@
 {
-  "updated_at": "2026-11-07T15:06:21.711335+00:00",
-  "total_experience_records": 96,
+  "updated_at": "2026-11-07T16:06:56.808074+00:00",
+  "total_experience_records": 104,
   "learnings": [
+    {
+      "timestamp": "2026-11-07T16:06:52.929032+00:00",
+      "trade_id": "cross_rule_1794067612",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Extremwert-Bänder (Chaos/Keltner/Bollinger) indizieren Trenddynamik, keine automatische Mean-Reversion ohne VSA-Volumenklimax.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Eine Notierung unterhalb des fairen Werts (Chaos Band < RFE) ist im Trend ein Zeichen massiven Verkaufsdrucks. Ein Blind-Entry ohne VSA-Stopping-Volume führt selbst bei extrem engen Stopps systematisch zu 1.0R-Verlustserien.",
+        "actionable_rule": "Extremwert-Bänder (Chaos/Keltner/Bollinger) indizieren Trenddynamik, keine automatische Mean-Reversion ohne VSA-Volumenklimax."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T16:06:52.928994+00:00",
+      "trade_id": "cross_rule_1794067612",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Order-Block-Integrität degradiert fraktal mit jedem Kontakt: R1 ist institutionelle Akkumulation, R3 ist Liquiditätsfalle für Retail-Trader.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Vom 5m- bis zum 1D-Chart gilt: Frühe Tests leeren das Orderbuch passiver Limit-Käufer. Ein dritter Anlauf dient Smart Money fast ausnahmslos als Exit-Liquidität zur Initiierung einer Stop-Run-Kaskade.",
+        "actionable_rule": "Order-Block-Integrität degradiert fraktal mit jedem Kontakt: R1 ist institutionelle Akkumulation, R3 ist Liquiditätsfalle für Retail-Trader."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T16:06:52.928916+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1794063950",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.34,
+      "pnl_raw": -0.17,
+      "text": "Order Blocks der Güteklasse [B] sind nach dem zweiten Retest (R2) strikt als invalide zu betrachten; Einstiege in überdehnte 'Buy Pockets' erfordern zwingend einen Sweep der lokalen Tiefs mit nachfolgendem 1m/5m Market Structure Shift (MSS).",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1794063950",
+        "verdict": "LOSS",
+        "driver": "Der Einstieg beim dritten Retest (R3) eines sekundären [B]-Order-Blocks führte mangels verbliebener institutioneller Kaufliquidität zum sofortigen Durchrutschen in den Stop-Loss.",
+        "technical_warning": "Der R3-Retest in Kombination mit einem bereits überdehnten Chaos-Band signalisierte Liquiditätserschöpfung statt frischer Nachfrage; das Fehlen eines vorangegangenen Liquidity Sweeps [A] verriet die Schwäche der Zone.",
+        "actionable_rule": "Order Blocks der Güteklasse [B] sind nach dem zweiten Retest (R2) strikt als invalide zu betrachten; Einstiege in überdehnte 'Buy Pockets' erfordern zwingend einen Sweep der lokalen Tiefs mit nachfolgendem 1m/5m Market Structure Shift (MSS)."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T16:06:23.474305+00:00",
+      "trade_id": "cross_rule_1794067583",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Orderblock-Qualitätsgebot: Retests zweitklassiger Zonen (Tier [B]/[C]) sind systemweit verboten.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der NEAR-Fehlschlag belegt, dass Randschwankungen ohne Liquiditätsnahme keine Angebots-/Nachfrage-Imbalance erzeugen; auf 4h/1D halten nur Zonen Stand, die substantielle Stops des Marktes absorbiert haben.",
+        "actionable_rule": "Fraktales Orderblock-Qualitätsgebot: Retests zweitklassiger Zonen (Tier [B]/[C]) sind systemweit verboten."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T16:06:23.474283+00:00",
+      "trade_id": "cross_rule_1794067583",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Mean-Reversion-Kauf ohne vorangehenden Liquidity Purge (Tier [A] Sweep) und strukturellen Displacement-Shift.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die 5m- und 15m-Verluste demonstrieren, dass Indikator-Überdehnungen (Chaos Band / Oszillatoren) in Trendphasen wertlos sind; derselbe Mechanismus führt auf 4h/1D zu verheerenden Fehlausbrüchen, wenn Unterstützungen ohne Sweep 'blind' gekauft werden.",
+        "actionable_rule": "Kein Mean-Reversion-Kauf ohne vorangehenden Liquidity Purge (Tier [A] Sweep) und strukturellen Displacement-Shift."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T16:06:23.474270+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1794061425",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.42,
+      "pnl_raw": -0.71,
+      "text": "Mikro-Orderblocks dürfen ausschließlich gehandelt werden, wenn sie Tier-[A]-Kriterien erfüllen (vorheriger externer Liquidity Sweep und anschließender Bruch der Gegenstruktur).",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1794061425",
+        "verdict": "LOSS",
+        "driver": "Handel eines schwachen Tier-[B]-Orderblocks (R3), der weder externe Liquidität abgeräumt noch vorherigen Displacement-Charakter bewiesen hat.",
+        "technical_warning": "Aggressive, voluminöse Anlaufkerzen in die R3-Zone hinein ohne jegliche Verlangsamung (Deceleration) der Range-Größe.",
+        "actionable_rule": "Mikro-Orderblocks dürfen ausschließlich gehandelt werden, wenn sie Tier-[A]-Kriterien erfüllen (vorheriger externer Liquidity Sweep und anschließender Bruch der Gegenstruktur)."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T16:06:23.474253+00:00",
+      "trade_id": "inc_DOGEUSDT_15m_1794027947",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (15m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Micro-Confluence Long",
+      "pnl_leveraged": -1.08,
+      "pnl_raw": -0.54,
+      "text": "Buy-Pocket-Trigger auf 15m erfordern zwingend RVOL > 1.5 auf der Signalbar; bleibt institutionelles Volumen aus, wird das Setup storniert.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_15m_1794027947",
+        "verdict": "LOSS",
+        "driver": "Scheitern des 15m Buy Pockets aufgrund fehlender institutioneller Volumennachfrage und verfrühter Stop-Platzierung direkt an leicht sweepbaren Liquiditätspools.",
+        "technical_warning": "Unterdurchschnittliches Relativvolumen (RVOL) am 'Blauen Dreieck', was auf reine Retail-Rebound-Spekulation statt institutioneller Akkumulation hinwies.",
+        "actionable_rule": "Buy-Pocket-Trigger auf 15m erfordern zwingend RVOL > 1.5 auf der Signalbar; bleibt institutionelles Volumen aus, wird das Setup storniert."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T16:06:23.474194+00:00",
+      "trade_id": "inc_SOLUSDT_5m_1793976316",
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -3.52,
+      "pnl_raw": -1.76,
+      "text": "Ein 'Chaos Band < RFE'-Signal darf erst exekutiert werden, wenn eine bullische 1m-Market-Structure-Shift (MSS) mit geschlossenem Fair Value Gap (FVG) die Absorption bestätigt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SOLUSDT_5m_1793976316",
+        "verdict": "LOSS",
+        "driver": "Klassischer Griff ins fallende Messer: Eintritt in eine rein rechnerische Überdehnung (Chaos Band < RFE) bei intakter bärischer Momentum-Expansion ohne vorherige Bodenbildung.",
+        "technical_warning": "Fehlende VSA-Absorptionskerze (keine lange untere Lunte bei überdurchschnittlichem Volumen) sowie ungebrochene Abfolge tieferer Tiefs auf der 1m/5m-Mikrostruktur.",
+        "actionable_rule": "Ein 'Chaos Band < RFE'-Signal darf erst exekutiert werden, wenn eine bullische 1m-Market-Structure-Shift (MSS) mit geschlossenem Fair Value Gap (FVG) die Absorption bestätigt."
+      }
+    },
     {
       "timestamp": "2026-11-07T15:06:17.510302+00:00",
       "trade_id": "cross_rule_1794063977",
