@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-07T13:06:23.654848+00:00",
-  "total_experience_records": 90,
+  "updated_at": "2026-11-07T14:24:15.354841+00:00",
+  "total_experience_records": 93,
   "learnings": [
+    {
+      "timestamp": "2026-11-07T14:24:11.654172+00:00",
+      "trade_id": "cross_rule_1794061451",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "HTF-Trend-Dominanz über LTF-Mikro-Konfluenzen",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Micro-Timeframe-Signale (5m/15m) dürfen niemals isoliert als Reversal gehandelt werden. Gegen einen übergeordneten 4h/1D Abwärtstrend besitzen bullische 5m Order Blocks eine statistisch signifikant reduzierte Halte-Wahrscheinlichkeit und dienen institutionellen Verkäufern lediglich als Exit-Liquidität.",
+        "actionable_rule": "HTF-Trend-Dominanz über LTF-Mikro-Konfluenzen"
+      }
+    },
+    {
+      "timestamp": "2026-11-07T14:24:11.654148+00:00",
+      "trade_id": "cross_rule_1794061451",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Sweep-Validierung durch Displacement-Zwang",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein Liquidity Sweep ist auf 5m genauso wie auf 4h/1D erst dann valide Liquiditätsaufnahme, wenn die Folgebewegung ein sofortiges, impulsives Displacement erzeugt. Bleibt der explosive Rückstoß aus, handelt es sich nicht um Akkumulation, sondern um Trendfortsetzung durch Liquidierung passiver Bids.",
+        "actionable_rule": "Fraktale Sweep-Validierung durch Displacement-Zwang"
+      }
+    },
+    {
+      "timestamp": "2026-11-07T14:24:11.654094+00:00",
+      "trade_id": "inc_ETHUSDT_5m_1794056746",
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.32,
+      "pnl_raw": -0.16,
+      "text": "Kein Reversal-Entry unmittelbar am Sweep-Tief: Der Einstieg erfordert zwingend den Schlusskurs einer Kerze über der Sweep-Initiierungskerze plus dynamischen ATR-Puffer für den Stop-Loss statt starrer Chart-Level-Platzierung.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ETHUSDT_5m_1794056746",
+        "verdict": "LOSS",
+        "driver": "Der Trade scheiterte an mangelnder Absorption aggressiver Sell-Orders: Ein mechanischer Sweep ohne anschließendes bullishes Displacement verwandelte den 5m Order Block in ein Durchlauf-Level, wodurch der mikroskopische Stop (3,61 USD / 0,16%) dem normalen Rauschen zum Opfer fiel.",
+        "technical_warning": "Fehlendes VSA-Climax-Volumen und Ausbleiben einer CVD-Divergenz beim Sweep sowie das Fehlen eines 5m Micro-Market-Structure-Breaks (mMSB) vor dem Einstieg.",
+        "actionable_rule": "Kein Reversal-Entry unmittelbar am Sweep-Tief: Der Einstieg erfordert zwingend den Schlusskurs einer Kerze über der Sweep-Initiierungskerze plus dynamischen ATR-Puffer für den Stop-Loss statt starrer Chart-Level-Platzierung."
+      }
+    },
     {
       "timestamp": "2026-11-07T13:06:19.806964+00:00",
       "trade_id": "cross_rule_1794056779",
