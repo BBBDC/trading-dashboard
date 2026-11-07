@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-07T12:05:52.487556+00:00",
-  "total_experience_records": 86,
+  "updated_at": "2026-11-07T13:06:23.654848+00:00",
+  "total_experience_records": 90,
   "learnings": [
+    {
+      "timestamp": "2026-11-07T13:06:19.806964+00:00",
+      "trade_id": "cross_rule_1794056779",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Cluster- und Mindestvolatilitäts-Bann: Korrelierte Simultan-Entries (BTC & ETH) erfordern relative Stärke-Divergenz (SMT) und einen Stop-Loss von mindestens 1.5x ATR.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Zeitgleiche Longs mit 0,05% SL hebeln das Gesamtrisiko auf ein einzelnes Marktereignis und sterben an regulären Spreads und Orderbuch-Gaps, statt an echtem Trendversagen.",
+        "actionable_rule": "Cluster- und Mindestvolatilitäts-Bann: Korrelierte Simultan-Entries (BTC & ETH) erfordern relative Stärke-Divergenz (SMT) und einen Stop-Loss von mindestens 1.5x ATR."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T13:06:19.806912+00:00",
+      "trade_id": "cross_rule_1794056779",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Mitigations-Gesetz: Order Blocks besitzen eine Halbwertszeit – nur R1 (Erstberührung) und R2 (Re-Test nach Swing-High) besitzen institutionelle Kante.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ob 5m oder 1D: Jeder weitere Tap absorbiert verbleibende Limit-Bids und akkumuliert Stops direkt unter dem Level; ab R3 kehrt sich die statistische Wahrscheinlichkeit von Rebound zu Liquiditäts-Sweep um.",
+        "actionable_rule": "Fraktales Mitigations-Gesetz: Order Blocks besitzen eine Halbwertszeit – nur R1 (Erstberührung) und R2 (Re-Test nach Swing-High) besitzen institutionelle Kante."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T13:06:19.806867+00:00",
+      "trade_id": "inc_ETHUSDT_5m_1794053148",
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.12,
+      "pnl_raw": -0.06,
+      "text": "Hard-Cap im Algorithmus: Ab Retest-Counter R >= 3 wird das Order-Block-Level unverzüglich invalidiert und automatisch auf die Watchlist für Breakout- und Sweep-Szenarien verschoben.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ETHUSDT_5m_1794053148",
+        "verdict": "LOSS",
+        "driver": "Ein achter Retest (R8) ist kein Support-Setup, sondern eine offene Einladung für institutionelle Stop-Hunts in eine massiv aufgelaufene Retail-Liquiditätspool-Zone.",
+        "technical_warning": "Die extreme Test-Häufigkeit ohne Trendfortsetzung kündigte das finale Durchsacken der Bids an; das 'Blaue Dreieck' feuerte in eine sterbende, komprimierte Range.",
+        "actionable_rule": "Hard-Cap im Algorithmus: Ab Retest-Counter R >= 3 wird das Order-Block-Level unverzüglich invalidiert und automatisch auf die Watchlist für Breakout- und Sweep-Szenarien verschoben."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T13:06:19.806761+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1794053148",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.1,
+      "pnl_raw": -0.05,
+      "text": "Order Blocks werden nach maximal zwei Retests (R > 2) im System als Entry-Zonen gesperrt, es sei denn, es ging ein eindeutiger Sell-Side Liquidity Sweep (Qualität [A]) unmittelbar voraus.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1794053148",
+        "verdict": "LOSS",
+        "driver": "Der Order Block war beim dritten Retest (R3) bereits liquiditätsseitig ausgezehrt, wodurch der mikroskopische Stop-Loss (0,05%) ohne institutionelle Gegenwehr direkt gerissen wurde.",
+        "technical_warning": "Mangelndes VSA-Kaufvolumen beim Retest sowie fehlende impulsive Expansion (Displacement) signalisierten passive Absorption durch Verkäufer statt aggressiver Bid-Verteidigung.",
+        "actionable_rule": "Order Blocks werden nach maximal zwei Retests (R > 2) im System als Entry-Zonen gesperrt, es sei denn, es ging ein eindeutiger Sell-Side Liquidity Sweep (Qualität [A]) unmittelbar voraus."
+      }
+    },
     {
       "timestamp": "2026-11-07T11:08:01.502778+00:00",
       "trade_id": "cross_rule_1794049681",
