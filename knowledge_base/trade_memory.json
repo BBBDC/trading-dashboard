@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-07T19:05:52.602431+00:00",
-  "total_experience_records": 109,
+  "updated_at": "2026-11-07T20:06:23.447599+00:00",
+  "total_experience_records": 64,
   "learnings": [
+    {
+      "timestamp": "2026-11-07T20:06:19.126280+00:00",
+      "trade_id": "cross_rule_1794081979",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Strikter Ausschluss von Sekundär-Signalen ([B]-Trigger) gegen übergeordnetes Trend-Momentum",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "ADA verdeutlicht fraktal für alle Timeframes, dass ein 'Institutional Buy Pocket' ohne bestätigte Marktreaktion wertlos ist: Zweitklassige Zonen dürfen nur prozyklisch mit dem übergeordneten 4h/1D-Trend gehandelt werden, niemals antizyklisch in starker Abwärtsbeschleunigung.",
+        "actionable_rule": "Strikter Ausschluss von Sekundär-Signalen ([B]-Trigger) gegen übergeordnetes Trend-Momentum"
+      }
+    },
+    {
+      "timestamp": "2026-11-07T20:06:19.126259+00:00",
+      "trade_id": "cross_rule_1794081979",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Dynamischer ATR-Mindestabstand für Stop-Loss-Platzierungen statt statischer Fraktal-Punkte",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "SUI beweist, dass selbst perfekte A-Trigger (OB [A] + Sweep [A]) unweigerlich scheitern, wenn der Stop-Loss im Markt-Rauschen platziert wird; auf 4h/1D muss der Stop stets jenseits von Liquiditäts-Clustern plus Volatilitätspuffer (ATR) liegen, um vor institutionellen Sweeps geschützt zu sein.",
+        "actionable_rule": "Dynamischer ATR-Mindestabstand für Stop-Loss-Platzierungen statt statischer Fraktal-Punkte"
+      }
+    },
+    {
+      "timestamp": "2026-11-07T20:06:19.126243+00:00",
+      "trade_id": "inc_SUIUSDT_5m_1794078349",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.2,
+      "pnl_raw": -0.1,
+      "text": "Der Stop-Loss darf niemals starr unter das letzte Mikro-Tief gequetscht werden, sondern muss zwingend mit mindestens 1,0x bis 1,5x 5m-ATR unter die Sweep-Struktur gepuffert werden (Mindestabstand bei Altcoins: 0,35%).",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_5m_1794078349",
+        "verdict": "LOSS",
+        "driver": "Der Stop-Loss war mit 0,10% Abstand rechnerisch unbrauchbar dimensioniert und ließ dem Trade keinerlei Raum für den normalen Retest des Sweep-Levels vor der Expansion.",
+        "technical_warning": "Die SL-Distanz (0,0009 Punkte) lag signifikant unterhalb des statistischen 5m-ATR-Grundrauschens, wodurch der Stop innerhalb der normalen Spread-/Volatilitäts-Spanne lag.",
+        "actionable_rule": "Der Stop-Loss darf niemals starr unter das letzte Mikro-Tief gequetscht werden, sondern muss zwingend mit mindestens 1,0x bis 1,5x 5m-ATR unter die Sweep-Struktur gepuffert werden (Mindestabstand bei Altcoins: 0,35%)."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T20:06:19.126185+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1794071147",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.54,
+      "pnl_raw": -0.27,
+      "text": "Kein Long-Entry an [B]-Orderblöcken, wenn der Kurs unter dem Chaos-Band notiert, es sei denn, ein valider Liquidity Sweep [A] mit direktem Schlusskurs zurück über dem Band liegt vor.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1794071147",
+        "verdict": "LOSS",
+        "driver": "Einstieg in einen zweitklassigen Orderblock ([B]) während aktiver Dynamik unter das Chaos-Band ohne vorherige volumenseitige Bodenbildung oder Reclaiming.",
+        "technical_warning": "Fehlende VSA-Absorptionskerze (High Volume Churn) und das Unterschreiten des RFE-Bandes signalisierten ungebrochenen Verkaufsdruck statt institutioneller Akkumulation.",
+        "actionable_rule": "Kein Long-Entry an [B]-Orderblöcken, wenn der Kurs unter dem Chaos-Band notiert, es sei denn, ein valider Liquidity Sweep [A] mit direktem Schlusskurs zurück über dem Band liegt vor."
+      }
+    },
     {
       "timestamp": "2026-11-07T18:22:22.126726+00:00",
       "trade_id": "trade_BINANCE_GLMRUSDT_20261107_0226",
