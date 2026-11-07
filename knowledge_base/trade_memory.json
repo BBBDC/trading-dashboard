@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-07T16:06:56.808074+00:00",
-  "total_experience_records": 104,
+  "updated_at": "2026-11-07T17:06:21.030237+00:00",
+  "total_experience_records": 108,
   "learnings": [
+    {
+      "timestamp": "2026-11-07T17:06:16.928117+00:00",
+      "trade_id": "cross_rule_1794071176",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales VSA-Absorptionsgebot: Ein Sweep ist erst nach Reclaim-Schlusskurs valide, niemals im Moment des Durchstichs.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "AVAX zeigt, dass selbst vierfache Confluence versagt, wenn aggressive Market-Sell-Orders ungebremst durch das Level rutschen; dieser Mechanismus führt auf 5m exakt wie auf 4h/1D zum direkten Durchschlagen des Stops.",
+        "actionable_rule": "Fraktales VSA-Absorptionsgebot: Ein Sweep ist erst nach Reclaim-Schlusskurs valide, niemals im Moment des Durchstichs."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T17:06:16.928075+00:00",
+      "trade_id": "cross_rule_1794071176",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Struktur dominiert Oszillation: Kein Trade ohne validierten institutionellen Pivot (OB/Sweep).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Wie bei NEAR demonstriert, verbrennen statistische Kaufzonen (Buy Pockets) und isolierte Indikatorsignale in Trendphasen systematisch Kapital, wenn kein übergeordnetes Liquiditätslevel den Orderflow stützt.",
+        "actionable_rule": "Struktur dominiert Oszillation: Kein Trade ohne validierten institutionellen Pivot (OB/Sweep)."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T17:06:16.928040+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1794067550",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.72,
+      "pnl_raw": -0.86,
+      "text": "Indikator-Erschöpfungssignale (Chaos Band / Blaues Dreieck) sind ohne gleichzeitigen Retest eines validen Orderblocks oder abgeschlossenen Liquiditäts-Sweeps hard-gecoded zu verwerfen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1794067550",
+        "verdict": "LOSS",
+        "driver": "Unzulässiger Low-Quality-Einstieg basierend auf bloßer statistischer Band-Überdehnung ohne jegliche strukturelle Orderblock- oder Liquiditäts-Verankerung.",
+        "technical_warning": "Vollständiges Fehlen eines validen Orderblocks oder Sweeps bei gleichzeitig ungebrochener Serie tieferer 5m-Tiefs (kein mBOS/CHoCH).",
+        "actionable_rule": "Indikator-Erschöpfungssignale (Chaos Band / Blaues Dreieck) sind ohne gleichzeitigen Retest eines validen Orderblocks oder abgeschlossenen Liquiditäts-Sweeps hard-gecoded zu verwerfen."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T17:06:16.927952+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1794067549",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.42,
+      "pnl_raw": -0.21,
+      "text": "Nach einem Liquidity-Sweep [A] ist zwingend eine 5m-Schlusskerze über dem Sweep-Niveau samt nachweislicher Volumendivergenz (Absorption) abzuwarten, bevor der Trigger freigegeben wird.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1794067549",
+        "verdict": "LOSS",
+        "driver": "Voreiliger Einstieg bei Berührung der Demand-Zone ohne Bestätigung, dass das institutionelle Verkaufs-Delta am Orderblock tatsächlich absorbiert wurde.",
+        "technical_warning": "Fehlen einer VSA-Rejection-Wick mit anziehendem Buy-Volumen am Sweep-Tief sowie ein extrem fragiler, zu eng gesetzter Stop-Loss von lediglich 0.21% im 5m-Krypto-Umfeld.",
+        "actionable_rule": "Nach einem Liquidity-Sweep [A] ist zwingend eine 5m-Schlusskerze über dem Sweep-Niveau samt nachweislicher Volumendivergenz (Absorption) abzuwarten, bevor der Trigger freigegeben wird."
+      }
+    },
     {
       "timestamp": "2026-11-07T16:06:52.929032+00:00",
       "trade_id": "cross_rule_1794067612",
