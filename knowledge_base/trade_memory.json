@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-07T04:08:43.722349+00:00",
-  "total_experience_records": 77,
+  "updated_at": "2026-11-07T05:06:16.802332+00:00",
+  "total_experience_records": 80,
   "learnings": [
+    {
+      "timestamp": "2026-11-07T05:06:12.586298+00:00",
+      "trade_id": "cross_rule_1794027972",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volatilitäts-Invarianz: Ein Stop-Loss darf niemals ausschließlich an geometrischen Mikro-Chartmarken kleben, sondern muss zwingend den Asset-spezifischen Volatilitätsboden (ATR) respektieren.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein Stop-Abstand von 0,13% bei DOGEUSDT garantiert selbst bei makellosem Timing ein Scheitern durch pure Slippage und Market-Maker-Spreads, bevor das Edge des Setups greifen kann.",
+        "actionable_rule": "Volatilitäts-Invarianz: Ein Stop-Loss darf niemals ausschließlich an geometrischen Mikro-Chartmarken kleben, sondern muss zwingend den Asset-spezifischen Volatilitätsboden (ATR) respektieren."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T05:06:12.586274+00:00",
+      "trade_id": "cross_rule_1794027972",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Trend-Hierarchie: Mikro-Setups (5m/15m) sind strikt verboten, wenn sie gegen die übergeordnete 4h-Trenddynamik agieren, es sei denn, ein 4h-Keylevel wurde mit dokumentierter Volumendivergenz erreicht.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m aggregierte Kaufsignale ('Good Buy' / Buy Pocket) besitzen bei übergeordnetem Abwärtsdruck statistisch negative Erwartungswerte, da institutionelle Verkäufer jeden Mikro-Bounce nutzen, um Restpositionen in frische Retail-Liquidität abzuladen.",
+        "actionable_rule": "Fraktale Trend-Hierarchie: Mikro-Setups (5m/15m) sind strikt verboten, wenn sie gegen die übergeordnete 4h-Trenddynamik agieren, es sei denn, ein 4h-Keylevel wurde mit dokumentierter Volumendivergenz erreicht."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T05:06:12.586224+00:00",
+      "trade_id": "inc_DOGEUSDT_5m_1794024348",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.26,
+      "pnl_raw": -0.13,
+      "text": "Kein Long-Entry auf 5m-Micro-Sweeps ohne bestätigten Schlusskurs über dem letzten Swing-High (1m/5m MSS) und einem zwingenden Stop-Puffer von mindestens 1.5x ATR unter dem Sweep-Tief.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_5m_1794024348",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Einstieg in ein fallendes Messer mit unrealistisch engem Stop-Abstand (ca. 0,12%), bevor ein struktureller Richtungswechsel (CHoCH/MSS) das angebliche Sweep-Tief absichern konnte.",
+        "technical_warning": "Fehlendes VSA-Climax-Volumen am Sweep-Tief sowie ein Stop-Loss-Abstand, der signifikant unterhalb des 5m-ATR-Rauschpegels lag und sofort durch normale Spread-/Orderbuch-Fluktuation getriggert werden konnte.",
+        "actionable_rule": "Kein Long-Entry auf 5m-Micro-Sweeps ohne bestätigten Schlusskurs über dem letzten Swing-High (1m/5m MSS) und einem zwingenden Stop-Puffer von mindestens 1.5x ATR unter dem Sweep-Tief."
+      }
+    },
     {
       "timestamp": "2026-11-07T04:08:39.671530+00:00",
       "trade_id": "cross_rule_1794024519",
