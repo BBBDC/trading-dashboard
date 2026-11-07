@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-06T23:05:51.971179+00:00",
-  "total_experience_records": 66,
+  "updated_at": "2026-11-07T00:06:16.189323+00:00",
+  "total_experience_records": 69,
   "learnings": [
+    {
+      "timestamp": "2026-11-07T00:06:12.343931+00:00",
+      "trade_id": "cross_rule_1794009972",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Asymmetrischer Qualitätsabgleich: Die niedrigste beteiligte Setup-Komponente bestimmt das Gesamtrisiko (Weakest-Link-Prinzip).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein erstklassiger Trigger ([A]-Sweep) verliert seine statistische Kante vollständig, wenn das Ziel/Strukturniveau ([C]-OB) von schlechter Qualität ist.",
+        "actionable_rule": "Asymmetrischer Qualitätsabgleich: Die niedrigste beteiligte Setup-Komponente bestimmt das Gesamtrisiko (Weakest-Link-Prinzip)."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T00:06:12.343892+00:00",
+      "trade_id": "cross_rule_1794009972",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Trade gegen den 4h-Trend ohne Tier-[A] Multi-Timeframe-Konfluenz und VSA-Bestätigung.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Schwache Mikro-Supports (wie der 5m [C]-OB) werden vom übergeordneten institutionellen Orderflow mühelos überrollt; fraktal gilt auf 5m wie auf 1D: Ein Stop-Hunt ohne unmittelbare Volumenabsorption ist kein Reversal, sondern Trendfortsetzung.",
+        "actionable_rule": "Kein Trade gegen den 4h-Trend ohne Tier-[A] Multi-Timeframe-Konfluenz und VSA-Bestätigung."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T00:06:12.343819+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1793983041",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.16,
+      "pnl_raw": -0.58,
+      "text": "Kein Long-Entry an Orderblöcken unter Güteklasse [B]; ein Liquidity-Sweep [A] erfordert zwingend eine impulsiv schließende Umkehrkerze mit überdurchschnittlichem Volumen vor Ausführung.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1793983041",
+        "verdict": "LOSS",
+        "driver": "Mangelnde HTF-Konfluenz und das Handeln eines unbestätigten Tier-[C] Orderblocks, wodurch der angebliche Liquidity-Sweep sich als echter Verkaufsdurchbruch entpuppte.",
+        "technical_warning": "Der Retest eines schwachen [C]-Orderblocks ohne VSA-Kaufvolumen (keine Absorptionskerze) sowie das Ausbleiben eines sofortigen 5m-Market-Structure-Shifts (MSS) nach dem Sweep.",
+        "actionable_rule": "Kein Long-Entry an Orderblöcken unter Güteklasse [B]; ein Liquidity-Sweep [A] erfordert zwingend eine impulsiv schließende Umkehrkerze mit überdurchschnittlichem Volumen vor Ausführung."
+      }
+    },
     {
       "timestamp": "2026-11-06T20:30:47.250571+00:00",
       "trade_id": "cross_rule_1793997047",
