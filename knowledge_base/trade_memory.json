@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-07T09:05:52.060825+00:00",
-  "total_experience_records": 80,
+  "updated_at": "2026-11-07T10:28:13.860184+00:00",
+  "total_experience_records": 84,
   "learnings": [
+    {
+      "timestamp": "2026-11-07T10:28:10.090429+00:00",
+      "trade_id": "cross_rule_1794047290",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volatilitätsbasierte Stop-Kalibrierung als fraktale Mindestanforderung gegen Noise-Outs.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Stops dürfen niemals rein willkürlich an Support-Ticks gelegt werden, wenn diese innerhalb des statistischen Volatilitätsrauschens liegen; dieser Schutzmechanismus schützt auf 5m vor Spread-Spikes ebenso wie auf 1D vor Liquiditäts-Docht-Spikes.",
+        "actionable_rule": "Volatilitätsbasierte Stop-Kalibrierung als fraktale Mindestanforderung gegen Noise-Outs."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T10:28:10.090396+00:00",
+      "trade_id": "cross_rule_1794047290",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Messerfangen: Überdehnte Bänder und Sweeps erfordern einen validierten Market Structure Shift (MSS) mit Volumen, bevor kontra-trend gehandelt wird.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf 5m als auch auf 4h/1D bedeutet ein Unterschreiten von Bändern oder Zonen primär starkes Verkaufs-Momentum; ohne nachgewiesene Käufer-Absorption führt der blinde Einstieg in Trendrichtung zur direkten Vernichtung von Handelskapital.",
+        "actionable_rule": "Kein Messerfangen: Überdehnte Bänder und Sweeps erfordern einen validierten Market Structure Shift (MSS) mit Volumen, bevor kontra-trend gehandelt wird."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T10:28:10.090368+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1794042348",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.22,
+      "pnl_raw": -0.11,
+      "text": "Der minimale Stop-Loss-Abstand muss zwingend mindestens 1.2x ATR(14) betragen; Unterschreitungen unter 0,3% führen zum automatischen Order-Veto.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1794042348",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Mean-Reversion-Einstieg in ein abwärts expandierendes Chaos-Band, kombiniert mit einem suizidal engen Stop-Loss von nur 0,11%, der direkt vom Marktrauschen und Spread liquidiert wurde.",
+        "technical_warning": "Keine bullische RSI/Momentum-Divergenz an den Chaos-Bändern und ein Stop-Loss-Abstand, der weit unterhalb der 5m-ATR(14) lag.",
+        "actionable_rule": "Der minimale Stop-Loss-Abstand muss zwingend mindestens 1.2x ATR(14) betragen; Unterschreitungen unter 0,3% führen zum automatischen Order-Veto."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T10:28:10.090290+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1793983042",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -3.3,
+      "pnl_raw": -1.65,
+      "text": "Ein Liquidity-Sweep-Long darf erst exekutiert werden, wenn ein vollständiger 5m-Kerzenschluss über dem Swept-Level mit mindestens 1.5x Durchschnittsvolumen bestätigt ist.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1793983042",
+        "verdict": "LOSS",
+        "driver": "Der angebliche A-Grade Liquidity-Sweep entpuppte sich als Trendfortsetzungs-Breakdown, da nach dem Durchstoßen des Supports kein aggressives institutionelles Absorptionsvolumen den Preis zurückeroberte.",
+        "technical_warning": "Fehlendes VSA-Ultra-High-Volume (Absorption) bei der Sweep-Kerze sowie das Ausbleiben eines sofortigen Reclaim-Closes oberhalb des Support-Niveaus.",
+        "actionable_rule": "Ein Liquidity-Sweep-Long darf erst exekutiert werden, wenn ein vollständiger 5m-Kerzenschluss über dem Swept-Level mit mindestens 1.5x Durchschnittsvolumen bestätigt ist."
+      }
+    },
     {
       "timestamp": "2026-11-07T05:06:12.586298+00:00",
       "trade_id": "cross_rule_1794027972",
