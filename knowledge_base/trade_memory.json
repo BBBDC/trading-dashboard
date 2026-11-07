@@ -1,7 +1,65 @@
 {
-  "updated_at": "2026-11-07T03:06:48.024377+00:00",
-  "total_experience_records": 74,
+  "updated_at": "2026-11-07T04:08:43.722349+00:00",
+  "total_experience_records": 77,
   "learnings": [
+    {
+      "timestamp": "2026-11-07T04:08:39.671530+00:00",
+      "trade_id": "cross_rule_1794024519",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
+        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T04:08:39.671485+00:00",
+      "trade_id": "inc_DOGEUSDT_5m_1794018502",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.74,
+      "pnl_raw": -0.87,
+      "text": "Bei DOGEUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_5m_1794018502",
+        "verdict": "LOSS",
+        "driver": "Trade DOGEUSDT schloss mit CLOSED_SL (-1.0R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei DOGEUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T04:08:39.671397+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1793977952",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -2.92,
+      "pnl_raw": -1.46,
+      "text": "Bei LINKUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1793977952",
+        "verdict": "LOSS",
+        "driver": "Trade LINKUSDT schloss mit CLOSED_SL (-1.0R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei LINKUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
     {
       "timestamp": "2026-11-07T03:06:44.194769+00:00",
       "trade_id": "cross_rule_1794020804",
