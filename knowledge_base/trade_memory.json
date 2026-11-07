@@ -1,7 +1,103 @@
 {
-  "updated_at": "2026-11-07T20:06:23.447599+00:00",
-  "total_experience_records": 64,
+  "updated_at": "2026-11-07T21:06:30.152974+00:00",
+  "total_experience_records": 69,
   "learnings": [
+    {
+      "timestamp": "2026-11-07T21:06:26.078362+00:00",
+      "trade_id": "cross_rule_1794085586",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Ein Orderblock/POI ist kein Einstiegstrigger, sondern lediglich eine Alarmzone",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf 5m als auch auf 1D führt das blinde Setzen von Limit-Orders an Zonen (wie bei RENDER und XRP gesehen) zum Ausstoppen durch Slippage/Momentum – bindende Validierungspflicht durch VSA-Absorption und CHoCH vor Order-Aktivierung.",
+        "actionable_rule": "Ein Orderblock/POI ist kein Einstiegstrigger, sondern lediglich eine Alarmzone"
+      }
+    },
+    {
+      "timestamp": "2026-11-07T21:06:26.078341+00:00",
+      "trade_id": "cross_rule_1794085586",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine Trade-Exekution ohne fraktalen HTF-Trend-Bias (4h/1D Alignment)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m/15m isolierte Umkehrsignale (wie die Longs in XRP/ADA) scheitern systematisch mit 100% Verlustquote, wenn der übergeordnete 4h-Trend abwärts gerichtet ist; Mikro-Setups dürfen nur als Einstiegs-Präzisierung IN Richtung der dominanten HTF-Liquidität dienen.",
+        "actionable_rule": "Keine Trade-Exekution ohne fraktalen HTF-Trend-Bias (4h/1D Alignment)"
+      }
+    },
+    {
+      "timestamp": "2026-11-07T21:06:26.078328+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1794081948",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.82,
+      "pnl_raw": -0.41,
+      "text": "C- und D-Grade Orderblocks sind per Systemfilter aus der Signal-Generierung zu streichen; Shorts an Widerständen erfordern zwingend eine Volumen-Erschöpfung (Buying Climax) mit bärischem Engulfing.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1794081948",
+        "verdict": "LOSS",
+        "driver": "Versuchter Counter-Trend Short an einem wertlosen D-Grade Orderblock, der von einer bullischen Mikro-Expansion schlicht überrollt wurde.",
+        "technical_warning": "D-Grade Zonen besitzen keine institutionelle Liquidität; anstelle einer VSA-Upthrust-Rejection an R1 zeigte das Orderbuch aggressives Kauf-Volumen direkt in den Widerstand.",
+        "actionable_rule": "C- und D-Grade Orderblocks sind per Systemfilter aus der Signal-Generierung zu streichen; Shorts an Widerständen erfordern zwingend eine Volumen-Erschöpfung (Buying Climax) mit bärischem Engulfing."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T21:06:26.078311+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1794081947",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.66,
+      "pnl_raw": -0.33,
+      "text": "B-Grade Orderblocks dürfen niemals als isolierter Standalone-Retest gehandelt werden; ohne externe Liquiditätsabholung und Mindest-SL-Distanz von 1.5x ATR bleibt der Order-Button gesperrt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1794081947",
+        "verdict": "LOSS",
+        "driver": "Disziplinloses Kaufen eines schwachen B-Grade Orderblocks ohne jegliche Liquiditätsbereinigung direkt in anhaltenden Verkaufsdruck hinein bei winzigem, noise-anfälligem Stop (0,33%).",
+        "technical_warning": "Vollständiges Fehlen eines vorherigen Liquidity-Sweeps und unzureichende Distanz zum Rauschen des Spreads (Sub-0.5% SL im 5m-Altcoin-Bereich ist statistischer Selbstmord).",
+        "actionable_rule": "B-Grade Orderblocks dürfen niemals als isolierter Standalone-Retest gehandelt werden; ohne externe Liquiditätsabholung und Mindest-SL-Distanz von 1.5x ATR bleibt der Order-Button gesperrt."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T21:06:26.078250+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1794067550",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.22,
+      "pnl_raw": -0.61,
+      "text": "Ein Liquidity-Sweep an einem A-Grade OB ist nur ein Beobachtungsbereich (POI) – der Entry erfolgt ausnahmslos erst NACH Bestätigung eines Micro-CHoCH mit Schlusskurs über der Sweep-Initialkerze.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1794067550",
+        "verdict": "LOSS",
+        "driver": "Trotz rechnerischer A-Konfluenz (Sweep + Chaos Band) wurde ein fallendes Messer gegriffen, da der Sweep nicht absorbiert wurde, sondern in eine impulsive Trendfortsetzung nach unten überging.",
+        "technical_warning": "Fehlendes bullisches Delta/VSA-Absorptionsvolumen am Tief sowie kein nachweislicher Market Structure Shift (MSS) auf Kerzenbasis vor dem Einstieg.",
+        "actionable_rule": "Ein Liquidity-Sweep an einem A-Grade OB ist nur ein Beobachtungsbereich (POI) – der Entry erfolgt ausnahmslos erst NACH Bestätigung eines Micro-CHoCH mit Schlusskurs über der Sweep-Initialkerze."
+      }
+    },
     {
       "timestamp": "2026-11-07T20:06:19.126280+00:00",
       "trade_id": "cross_rule_1794081979",
