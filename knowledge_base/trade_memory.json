@@ -1,7 +1,103 @@
 {
-  "updated_at": "2026-11-07T21:06:30.152974+00:00",
-  "total_experience_records": 69,
+  "updated_at": "2026-11-07T22:25:12.334982+00:00",
+  "total_experience_records": 74,
   "learnings": [
+    {
+      "timestamp": "2026-11-07T22:25:08.374222+00:00",
+      "trade_id": "cross_rule_1794090308",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Trend-Alignment: Micro-Mean-Reversion (5m) ist an 4h-Expansionsphasen strikt zu sperren",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Bänder-Überdehnungen (Chaos Band < RFE) auf 5m generieren in einer übergeordneten 4h/1D-Abwärtswelle systematisch Fehlsignale ('Trend-Grinding'); 5m-Counter-Trend-Trades bedürfen zwingend einer 15m/1h-Struktur-Konvergenz.",
+        "actionable_rule": "Fraktales Trend-Alignment: Micro-Mean-Reversion (5m) ist an 4h-Expansionsphasen strikt zu sperren"
+      }
+    },
+    {
+      "timestamp": "2026-11-07T22:25:08.374199+00:00",
+      "trade_id": "cross_rule_1794090308",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Systemisches Korrelations-Gate: Maximal 1 Richtungs-Exposure pro Makro-Impuls",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Zeitgleiche Long-Trigger über BTC und Altcoins zur exakt selben Sekunde multiplizieren nicht das Alpha, sondern lediglich das Richtungsrisiko; versagt BTC am Support, werden alle Beta-Positionen instant ausgestoppt.",
+        "actionable_rule": "Systemisches Korrelations-Gate: Maximal 1 Richtungs-Exposure pro Makro-Impuls"
+      }
+    },
+    {
+      "timestamp": "2026-11-07T22:25:08.374186+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1794085547",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.26,
+      "pnl_raw": -0.13,
+      "text": "Reversal-Trigger (Blaues Dreieck) sind ungültig, wenn der Test des Supports nicht als echter Liquidity-Sweep mit schneller Rejection-Wick quittiert wird.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1794085547",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Einstieg an einem Mikro-Support ohne vorangegangenen Sweeping-Mechanismus oder bullische Delta-Divergenz.",
+        "technical_warning": "Fehlender Reclaim des getriggerten Levels bei anhaltend negativem kumulativen Volumen-Delta (CVD) und fehlendem Wyckoff-Spring.",
+        "actionable_rule": "Reversal-Trigger (Blaues Dreieck) sind ungültig, wenn der Test des Supports nicht als echter Liquidity-Sweep mit schneller Rejection-Wick quittiert wird."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T22:25:08.374169+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1794085547",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.22,
+      "pnl_raw": -0.61,
+      "text": "High-Beta-Assets dürfen bei Band-Extremen erst nach einem verifizierten 5m Market Structure Shift (MSS) per Kerzenschluss über dem letzten Lower High long getriggert werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1794085547",
+        "verdict": "LOSS",
+        "driver": "High-Beta-Sensitivität führte bei breiter Marktschwäche zu einem sofortigen Durchrutschen durch den lokalen Support.",
+        "technical_warning": "Impulsiver Bruch des Supports mit expandierendem Bearish Fair Value Gap (FVG) und ausbleibendem Dip-Buying vor dem Trigger.",
+        "actionable_rule": "High-Beta-Assets dürfen bei Band-Extremen erst nach einem verifizierten 5m Market Structure Shift (MSS) per Kerzenschluss über dem letzten Lower High long getriggert werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T22:25:08.374108+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1794085546",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.88,
+      "pnl_raw": -0.44,
+      "text": "Kein Long-Einstieg bei Altcoins über 5m-Chaos-Bänder, solange BTCUSDT nicht mindestens einen 5m-Higher-Low mit sinkendem Verkaufsvolumen ausgebildet hat.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1794085546",
+        "verdict": "LOSS",
+        "driver": "Überhasteter Reversal-Versuch in einem intakten Abwärtsmomentum ohne Bestätigung einer Bodenbildung durch den Leitmarkt.",
+        "technical_warning": "Ultra-High Volume Down-Bar mit Schließen auf dem Tief ohne nennenswerten unteren Docht und fehlende No-Supply-Testkerze.",
+        "actionable_rule": "Kein Long-Einstieg bei Altcoins über 5m-Chaos-Bänder, solange BTCUSDT nicht mindestens einen 5m-Higher-Low mit sinkendem Verkaufsvolumen ausgebildet hat."
+      }
+    },
     {
       "timestamp": "2026-11-07T21:06:26.078362+00:00",
       "trade_id": "cross_rule_1794085586",
