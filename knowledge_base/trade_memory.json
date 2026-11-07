@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-07T02:29:57.117288+00:00",
-  "total_experience_records": 71,
+  "updated_at": "2026-11-07T03:06:48.024377+00:00",
+  "total_experience_records": 74,
   "learnings": [
+    {
+      "timestamp": "2026-11-07T03:06:44.194769+00:00",
+      "trade_id": "cross_rule_1794020804",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volumen- und Delta-Validierung vor Strukturexekution",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein formaler Sweep oder Orderblock-Retest ist ohne signifikante Volumenausdehnung (Absorption) und sichtbare Rejektionsdochte lediglich eine passive Fortsetzung der Liquiditätsabwärtsspirale.",
+        "actionable_rule": "Volumen- und Delta-Validierung vor Strukturexekution"
+      }
+    },
+    {
+      "timestamp": "2026-11-07T03:06:44.194725+00:00",
+      "trade_id": "cross_rule_1794020804",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Micro-Countertrend-Trading ohne HTF-Regime-Alignment",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein 5m- oder 15m-Liquidity-Sweep ist wertlos, wenn der 4h/1D-Trend bärisch expandiert; Micro-Reversals fungieren in Trendphasen primär als günstige Nachladezone für HTF-Institutionelle statt als Trendwende.",
+        "actionable_rule": "Kein Micro-Countertrend-Trading ohne HTF-Regime-Alignment"
+      }
+    },
+    {
+      "timestamp": "2026-11-07T03:06:44.194648+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1794018501",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.4,
+      "pnl_raw": -0.2,
+      "text": "Kein Entry an 5m-Order-Blocks ohne bestätigten Market Structure Shift (MSS) auf Kerzenschlussbasis und eine Mindest-SL-Distanz, die oberhalb des 1.5x 5m-ATR-Rauschens liegt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1794018501",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Einstieg direkt in die Re-Test-Zone ohne Bestätigung durch aggressives Absorptionsvolumen, wodurch der übergeordnete Verkaufsdruck den fragilen 5m-Orderblock mühelos durchschlagen hat.",
+        "technical_warning": "Fehlende bullische Delta-/CVD-Divergenz beim Sweep sowie das Ausbleiben eines dynamischen Kerzen-Closes oberhalb des Sweep-Levels vor Entry.",
+        "actionable_rule": "Kein Entry an 5m-Order-Blocks ohne bestätigten Market Structure Shift (MSS) auf Kerzenschlussbasis und eine Mindest-SL-Distanz, die oberhalb des 1.5x 5m-ATR-Rauschens liegt."
+      }
+    },
     {
       "timestamp": "2026-11-07T02:29:53.380408+00:00",
       "trade_id": "cross_rule_1794018593",
