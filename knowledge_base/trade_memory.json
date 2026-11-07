@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-07T14:24:15.354841+00:00",
-  "total_experience_records": 93,
+  "updated_at": "2026-11-07T15:06:21.711335+00:00",
+  "total_experience_records": 96,
   "learnings": [
+    {
+      "timestamp": "2026-11-07T15:06:17.510302+00:00",
+      "trade_id": "cross_rule_1794063977",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Mindest-Invalidierungsdistanz (ATR-Floor): Ein Stop-Loss darf niemals enger als das 1,5-fache der lokalen True Range platziert werden, unabhängig von mikroskopischen Support-Linien.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein Risikoabstand von nur 0,18% bei einem High-Beta-Krypto-Asset garantiert einen fast sicheren 'Stop-Out by Market Noise', selbst wenn die Zonen-These mittelfristig gehalten hätte.",
+        "actionable_rule": "Mindest-Invalidierungsdistanz (ATR-Floor): Ein Stop-Loss darf niemals enger als das 1,5-fache der lokalen True Range platziert werden, unabhängig von mikroskopischen Support-Linien."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T15:06:17.510278+00:00",
+      "trade_id": "cross_rule_1794063977",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Sweep-Vorbedingung: Ein Order Block (egal ob 5m, 4h oder 1D) besitzt erst dann institutionelle Relevanz, wenn vor dem Retest externe Liquidität (Swing-Low) geräumt und per Candle-Close zurückerobert wurde.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Indikatoren ('Blaues Dreieck', Chaos-Bänder) suggerieren oft fälschlich Überdehnung, während Smart Money ungeräumte Tiefs gezielt durchbricht, um Füllvolumen für echte Akkumulation zu generieren.",
+        "actionable_rule": "Fraktale Sweep-Vorbedingung: Ein Order Block (egal ob 5m, 4h oder 1D) besitzt erst dann institutionelle Relevanz, wenn vor dem Retest externe Liquidität (Swing-Low) geräumt und per Candle-Close zurückerobert wurde."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T15:06:17.510225+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1794061425",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.36,
+      "pnl_raw": -0.18,
+      "text": "Kein Long-Entry an einem Bullish OB ohne vorherigen Liquiditätsabgriff (Sweep-and-Reclaim) und eindeutiges VSA-Absorptionsvolumen auf der Trigger-Kerze.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1794061425",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Einstieg in ein fallendes Messer allein auf Basis von Indikator-Erschöpfung (Chaos Band < RFE) und statischem Order-Block-Test, ohne Bestätigung durch Liquidity-Sweep oder Volumenabsorption.",
+        "technical_warning": "Fehlender Sweep der Sell-Side-Liquidity unterhalb des lokalen Swings sowie ein mit 0,18% SL-Abstand bei AVAX statistisch im reinen Spread- und Volatilitätsrauschen platzierter Stop-Loss.",
+        "actionable_rule": "Kein Long-Entry an einem Bullish OB ohne vorherigen Liquiditätsabgriff (Sweep-and-Reclaim) und eindeutiges VSA-Absorptionsvolumen auf der Trigger-Kerze."
+      }
+    },
     {
       "timestamp": "2026-11-07T14:24:11.654172+00:00",
       "trade_id": "cross_rule_1794061451",
