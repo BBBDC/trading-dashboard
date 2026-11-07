@@ -1,7 +1,45 @@
 {
-  "updated_at": "2026-11-07T01:05:50.681743+00:00",
-  "total_experience_records": 69,
+  "updated_at": "2026-11-07T02:29:57.117288+00:00",
+  "total_experience_records": 71,
   "learnings": [
+    {
+      "timestamp": "2026-11-07T02:29:53.380408+00:00",
+      "trade_id": "cross_rule_1794018593",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
+        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
+      }
+    },
+    {
+      "timestamp": "2026-11-07T02:29:53.380370+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1794009949",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.34,
+      "pnl_raw": -0.17,
+      "text": "Bei BTCUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1794009949",
+        "verdict": "LOSS",
+        "driver": "Trade BTCUSDT schloss mit CLOSED_SL (-1.0R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei BTCUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
     {
       "timestamp": "2026-11-07T00:06:12.343931+00:00",
       "trade_id": "cross_rule_1794009972",
