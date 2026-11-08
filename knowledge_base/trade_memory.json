@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-08T09:05:52.021993+00:00",
-  "total_experience_records": 90,
+  "updated_at": "2026-11-08T10:28:53.392200+00:00",
+  "total_experience_records": 94,
   "learnings": [
+    {
+      "timestamp": "2026-11-08T10:28:49.518861+00:00",
+      "trade_id": "cross_rule_1794133729",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Reclaim-Postulat: Ein Sweep ist erst dann ein Sweep, wenn die Liquiditätszone per Kerzenschluss zurückerobert wurde.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf 5m als auch auf 4h/1D mutiert jeder unbestätigte Antizipationseinstieg unter Support bei anhaltendem institutionellem Orderflow zu einem einfachen Trendfortsetzungs-Breakdown.",
+        "actionable_rule": "Fraktales Reclaim-Postulat: Ein Sweep ist erst dann ein Sweep, wenn die Liquiditätszone per Kerzenschluss zurückerobert wurde."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T10:28:49.518810+00:00",
+      "trade_id": "cross_rule_1794133729",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "HTF-Trendfilter & Absorptions-Pflicht: Kein Micro-TF Reversal-Trade gegen das 4h/1D-Momentum ohne vorgelagerte HTF-Key-Level-Reaktion.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Micro-Oszillatoren (5m Chaos Band) bleiben in dynamischen 4h-Trendphasen über viele Kerzen hinweg überdehnt; ohne HTF-Stützung führt prozyklisches Antizipieren von Böden zu systematischen Serienverlusten.",
+        "actionable_rule": "HTF-Trendfilter & Absorptions-Pflicht: Kein Micro-TF Reversal-Trade gegen das 4h/1D-Momentum ohne vorgelagerte HTF-Key-Level-Reaktion."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T10:28:49.518772+00:00",
+      "trade_id": "inc_DOGEUSDT_5m_1794107149",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.52,
+      "pnl_raw": -0.76,
+      "text": "Setups ohne strukturellen Anker (mindestens OB-Retest oder valider Sweep der Kategorie [A]) werden aus dem Live-Routing für Micro-Zeitskalen ausnahmslos verbannt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_5m_1794107149",
+        "verdict": "LOSS",
+        "driver": "Unzureichende Setup-Qualität: Der Trade basierte rein auf Oszillatoren-Überdehnung (Chaos Band < RFE) ohne Marktstruktur-Konfluenz (weder Orderblock noch Sweep vorhanden).",
+        "technical_warning": "Aggressive FVG-Ausdehnung nach unten mit dynamischen Folgekerzen, die das Chaos Band nach unten aufgeweitet anstatt abgefedert haben.",
+        "actionable_rule": "Setups ohne strukturellen Anker (mindestens OB-Retest oder valider Sweep der Kategorie [A]) werden aus dem Live-Routing für Micro-Zeitskalen ausnahmslos verbannt."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T10:28:49.518673+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1794107148",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.12,
+      "pnl_raw": -0.56,
+      "text": "Ein 'Liquidity Sweep' darf erst nach einem bestätigten 5m-Kerzenschluss zurück über dem vormaligen Swing-Tief (Reclaim) long ausgeführt werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1794107148",
+        "verdict": "LOSS",
+        "driver": "Trotz hochqualitativer Triggernennung ([A]-Sweep und OB-Retest) handelte es sich nicht um eine echte Liquiditätsabfischung, sondern um einen impulsiven Strukturbruch mit Anschlussverkäufen.",
+        "technical_warning": "Anhaltend hohes negatives Volumen-Delta beim Durchstoßen des Supports ohne VSA-Absorption (kein sofortiger Reclaim mit langer Dochtbildung der Sweep-Kerze).",
+        "actionable_rule": "Ein 'Liquidity Sweep' darf erst nach einem bestätigten 5m-Kerzenschluss zurück über dem vormaligen Swing-Tief (Reclaim) long ausgeführt werden."
+      }
+    },
     {
       "timestamp": "2026-11-08T07:06:31.206254+00:00",
       "trade_id": "cross_rule_1794121591",
