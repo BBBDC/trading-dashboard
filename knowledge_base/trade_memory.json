@@ -1,7 +1,159 @@
 {
-  "updated_at": "2026-11-08T01:05:51.259570+00:00",
-  "total_experience_records": 74,
+  "updated_at": "2026-11-08T02:27:12.986456+00:00",
+  "total_experience_records": 82,
   "learnings": [
+    {
+      "timestamp": "2026-11-08T02:27:09.086449+00:00",
+      "trade_id": "cross_rule_1794104829",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Überdehnung (Mean-Reversion-Metrik) ersetzt niemals die Volumenbestätigung (VSA Absorption).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Zustände wie 'Chaos Band < RFE' signalisieren lediglich statistische Überdehnung, nicht Trenderschöpfung; ohne Bestätigung durch Delta-Shift oder Climax-Volumen wird eine vermeintliche Buy-Pocket zur Falle eines dynamischen Trendausbruchs.",
+        "actionable_rule": "Überdehnung (Mean-Reversion-Metrik) ersetzt niemals die Volumenbestätigung (VSA Absorption)."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T02:27:09.086415+00:00",
+      "trade_id": "cross_rule_1794104829",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Engagement an Tier-B-Strukturen ohne vorherigen Sweep der gegnerischen Liquiditätspools.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf 5m als auch auf 4h/1D bieten sekundäre Zonen ohne vorangegangenen Sweep ('Purge & Reclaim') keinen Edge, da institutionelle Akteure erst Stop-Cluster abräumen, bevor Trendwenden kapitalisiert werden.",
+        "actionable_rule": "Kein Engagement an Tier-B-Strukturen ohne vorherigen Sweep der gegnerischen Liquiditätspools."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T02:27:09.086344+00:00",
+      "trade_id": "inc_SOLUSDT_5m_1794090281",
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.84,
+      "pnl_raw": -0.42,
+      "text": "Sekundäre Orderblocks [B] auf 5m/15m dürfen nur ausgeführt werden, wenn unmittelbar davor ein [A]-Qualitäts-Sweep lokaler Liquidität stattfand und das Rejection-Volumen signifikant über dem gleitenden 20-Perioden-Durchschnitt liegt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SOLUSDT_5m_1794090281",
+        "verdict": "LOSS",
+        "driver": "Der Long-Trade scheiterte an mangelnder Akzeptanz an einem minderwertigen B-Tier Orderblock, da rein mathematische Oszillationssignale (Chaos Band/Dreieck) ohne vorherige Liquiditätsbereinigung gegen den lokalen Abgabedruck gehandelt wurden.",
+        "technical_warning": "Fehlendes VSA-Absorptionsvolumen am Retest sowie das Ausbleiben eines Sell-Side-Liquidity-Sweeps (kein False-Breakout unter das lokale Zwischentief vor Entry).",
+        "actionable_rule": "Sekundäre Orderblocks [B] auf 5m/15m dürfen nur ausgeführt werden, wenn unmittelbar davor ein [A]-Qualitäts-Sweep lokaler Liquidität stattfand und das Rejection-Volumen signifikant über dem gleitenden 20-Perioden-Durchschnitt liegt."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T02:26:48.474306+00:00",
+      "trade_id": "cross_rule_1794104808",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Systemisches Portfolio-Korrelations-Veto: Zeitgleiche Richtungssignale über BTC und Alts dürfen bei ungeklärtem Makro-Impuls nicht parallel akkumuliert werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Das synchrone Triggern von BTC, SUI und RENDER zur selben Sekunde vervielfachte nicht den Erwartungswert, sondern trieb das Beta-Risiko bei einem übergeordneten Marktdrop auf ein 3.0R Gesamtverlust-Cluster.",
+        "actionable_rule": "Systemisches Portfolio-Korrelations-Veto: Zeitgleiche Richtungssignale über BTC und Alts dürfen bei ungeklärtem Makro-Impuls nicht parallel akkumuliert werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T02:26:48.474283+00:00",
+      "trade_id": "cross_rule_1794104808",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Liquiditäts-Gesetz: Keine Positionseröffnung an B-Tier Orderblocks ohne vorherigen echten Liquiditäts-Sweep (Quality [A]) und VSA-Absorptionsbestätigung.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf 5m als auch auf 4h/1D fungieren isolierte B-Tier Retests bei intaktem Abwärtsmomentum lediglich als Ausstoppungs-Liquidität; tragfähige Reversals erfordern das vorherige Abfischen signifikanter Stops.",
+        "actionable_rule": "Fraktales Liquiditäts-Gesetz: Keine Positionseröffnung an B-Tier Orderblocks ohne vorherigen echten Liquiditäts-Sweep (Quality [A]) und VSA-Absorptionsbestätigung."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T02:26:48.474269+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1794090280",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.34,
+      "pnl_raw": -0.17,
+      "text": "BTC-Setups erfordern ausnahmslos die vollständige Trigger-Konfluenz inklusive 'Institutional Buy Pocket' und einen klaren Sweep unter signifikante Swing-Lows.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1794090280",
+        "verdict": "LOSS",
+        "driver": "Der Einstieg ohne 'Institutional Buy Pocket'-Konfluenz an einem B-Grade Retest führte zum ungebremsten Durchrauschen in tiefere Liquiditätspools.",
+        "technical_warning": "Unvollständige Trigger-Matrix (fehlendes Chaos Band < RFE) bei anhaltendem Verkaufsdruck ohne Reclaim des letzten 5m-Tiefs.",
+        "actionable_rule": "BTC-Setups erfordern ausnahmslos die vollständige Trigger-Konfluenz inklusive 'Institutional Buy Pocket' und einen klaren Sweep unter signifikante Swing-Lows."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T02:26:48.474251+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1794090280",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.46,
+      "pnl_raw": -0.73,
+      "text": "High-Beta-Assets dürfen bei Micro-Setups nur long getriggert werden, wenn der Marktführer BTC zuvor eine verifizierte strukturelle Bodenbildung vollzogen hat.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1794090280",
+        "verdict": "LOSS",
+        "driver": "Als High-Beta-Altcoin wurde RENDER durch den simultanen BTC-Flush mitgerissen, da ein schwacher [R1]-Retest in einer dynamischen Abwärtsphase keinen institutionellen Halt bot.",
+        "technical_warning": "Große bearishe FVG-Kerzen unmittelbar vor Entry und das Ausbleiben einer bullischen RSI/Delta-Divergenz an den Chaos-Bändern.",
+        "actionable_rule": "High-Beta-Assets dürfen bei Micro-Setups nur long getriggert werden, wenn der Marktführer BTC zuvor eine verifizierte strukturelle Bodenbildung vollzogen hat."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T02:26:48.474191+00:00",
+      "trade_id": "inc_SUIUSDT_5m_1794090279",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.08,
+      "pnl_raw": -0.54,
+      "text": "Kein Long-Einstieg an Sub-Tier [B]-Orderblocks ohne signifikante VSA-Absorptionskerze und verifizierten Sweep externer Liquidität.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_5m_1794090279",
+        "verdict": "LOSS",
+        "driver": "Trotz 'Chaos Band < RFE' fehlte die VSA-Volumenabsorption am B-Tier Orderblock, wodurch der marktweite Abwärtsdruck das Niveau unmittelbar durchbrach.",
+        "technical_warning": "Mangelnde Sweep-Tiefe (fehlendes Tier-[A]-Muster) und abnehmendes bullisches Delta-Volumen bei Annäherung an den Support.",
+        "actionable_rule": "Kein Long-Einstieg an Sub-Tier [B]-Orderblocks ohne signifikante VSA-Absorptionskerze und verifizierten Sweep externer Liquidität."
+      }
+    },
     {
       "timestamp": "2026-11-07T22:25:08.374222+00:00",
       "trade_id": "cross_rule_1794090308",
