@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-08T06:23:18.853784+00:00",
-  "total_experience_records": 87,
+  "updated_at": "2026-11-08T07:06:35.065100+00:00",
+  "total_experience_records": 90,
   "learnings": [
+    {
+      "timestamp": "2026-11-08T07:06:31.206254+00:00",
+      "trade_id": "cross_rule_1794121591",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Displacement-Zwang vor Sweep-Monetarisierung: Ein Liquidity Sweep ist systemisch erst abgeschlossen, wenn eine impulsive Gegenbewegung mit Volumenexpansion das Sweep-Niveau innerhalb von 1-3 Folgekerzen zurückerobert.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf der 5m- als auch auf der Tages-Ebene führt das blinde Kaufen von Dochten ohne nachgewiesene Volumenabsorption zu systematischen Drawdowns durch fortgesetzte Durchbrüche ('Falling Knife'-Effekt).",
+        "actionable_rule": "Displacement-Zwang vor Sweep-Monetarisierung: Ein Liquidity Sweep ist systemisch erst abgeschlossen, wenn eine impulsive Gegenbewegung mit Volumenexpansion das Sweep-Niveau innerhalb von 1-3 Folgekerzen zurückerobert."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T07:06:31.206229+00:00",
+      "trade_id": "cross_rule_1794121591",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale HTF-Trend- und Liquiditätsdominanz: Mikro-Setups (5m/15m) sind nur in Richtung des übergeordneten 4h/1D-Trendbias oder an validierten HTF-Liquiditätszonen autorisiert.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Isolierte Mikro-Order-Blocks besitzen im Abwärtstrend keine strukturelle Haltbarkeit; sogenannte [A]-Sweeps auf 5m stellen ohne HTF-Konfluenz lediglich sekundäre Zwischenstopps einer intakten übergeordneten Trendexpansion dar.",
+        "actionable_rule": "Fraktale HTF-Trend- und Liquiditätsdominanz: Mikro-Setups (5m/15m) sind nur in Richtung des übergeordneten 4h/1D-Trendbias oder an validierten HTF-Liquiditätszonen autorisiert."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T07:06:31.206177+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1794107150",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.06,
+      "pnl_raw": -0.53,
+      "text": "Kein vorzeitiger Entry an 5m Order Blocks nach einem Liquidity Sweep ohne Kerzenschluss-Bestätigung (Reclaim) über dem vorangegangenen Sweep-Tief zur Verifizierung echter Rejection.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1794107150",
+        "verdict": "LOSS",
+        "driver": "Der Long-Einstieg erfolgte in eine ungebremste Abwärtsbewegung hinein, bei der der 5m Bullish Order Block ohne nennenswerte institutionelle Absorption nach unten überrannt wurde.",
+        "technical_warning": "Fehlendes VSA-Erschöpfungssignal beim Sweep (anhaltender Verkaufsdruck statt Volumen-Absorption) sowie das Ausbleiben eines bestätigten 5m Market Structure Shift (MSS) mit Displacement zurück in die vorherige Spanne.",
+        "actionable_rule": "Kein vorzeitiger Entry an 5m Order Blocks nach einem Liquidity Sweep ohne Kerzenschluss-Bestätigung (Reclaim) über dem vorangegangenen Sweep-Tief zur Verifizierung echter Rejection."
+      }
+    },
     {
       "timestamp": "2026-11-08T03:06:22.098331+00:00",
       "trade_id": "cross_rule_1794107182",
