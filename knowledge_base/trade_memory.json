@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-08T12:06:20.889222+00:00",
-  "total_experience_records": 97,
+  "updated_at": "2026-11-08T13:06:16.008110+00:00",
+  "total_experience_records": 100,
   "learnings": [
+    {
+      "timestamp": "2026-11-08T13:06:12.034824+00:00",
+      "trade_id": "cross_rule_1794143172",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Strukturelle Stop-Loss-Souveränität über Rauschabstände stellen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein Stop-Abstand von 0,07% auf BTCUSDT ist kein Risikomanagement, sondern reines Glücksspiel gegen den Spread und Market-Maker-Sweeps. Stops müssen auf allen Zeitebenen stets jenseits der strukturellen Invalidierungszone platziert und die Positionsgröße daran angepasst werden, niemals umgekehrt.",
+        "actionable_rule": "Strukturelle Stop-Loss-Souveränität über Rauschabstände stellen."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T13:06:12.034774+00:00",
+      "trade_id": "cross_rule_1794143172",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Validierungs-Gebot: Keine antizyklische Positionierung ohne nachgewiesene Volumen-Absorption und strukturellen Level-Reclaim.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ob auf 5m oder im 4h/1D-Chart: Ein Orderblock und ein Sweep sind reine Liquiditätsmagnete, keine Garanten für eine Trendwende. Ohne volumetrische Bestätigung (hohes VSA-Volumen mit geringem Fortschritt nach unten) setzt sich der übergeordnete Verkaufsdruck nahtlos durch die Support-Level hindurch fort.",
+        "actionable_rule": "Fraktales Validierungs-Gebot: Keine antizyklische Positionierung ohne nachgewiesene Volumen-Absorption und strukturellen Level-Reclaim."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T13:06:12.034688+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1794139550",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.14,
+      "pnl_raw": -0.07,
+      "text": "Kein Limit-Einstieg am Orderblock [C] nach Sweep [A] ohne vorherigen 5m-Kerzenschluss oberhalb der Sweep-Trigger-Range (Reclaim Validation) und Mindest-Stop-Distanz von 1.5x 5m-ATR unterhalb des Swings.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1794139550",
+        "verdict": "LOSS",
+        "driver": "Fehlschlag der Liquiditätsverteidigung: Der Einstieg erfolgte blind in fallende Restliquidität am Orderblock, ohne dass aggressives Käufervolumen (Delta/Absorption) die Unterstützung tatsächlich gesichert hat.",
+        "technical_warning": "Fehlendes relatives Spike-Volumen (RVOL) am Sweep-Tief sowie das Ausbleiben einer bullischen VSA-Rejection-Candle vor Entry; zudem lag der Stop-Loss mit ~0.07% Distanz mitten im statistischen Marktrauschen.",
+        "actionable_rule": "Kein Limit-Einstieg am Orderblock [C] nach Sweep [A] ohne vorherigen 5m-Kerzenschluss oberhalb der Sweep-Trigger-Range (Reclaim Validation) und Mindest-Stop-Distanz von 1.5x 5m-ATR unterhalb des Swings."
+      }
+    },
     {
       "timestamp": "2026-11-08T12:06:16.830003+00:00",
       "trade_id": "cross_rule_1794139576",
