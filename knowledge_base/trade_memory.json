@@ -1,7 +1,103 @@
 {
-  "updated_at": "2026-11-08T13:06:16.008110+00:00",
-  "total_experience_records": 100,
+  "updated_at": "2026-11-08T14:24:29.988326+00:00",
+  "total_experience_records": 105,
   "learnings": [
+    {
+      "timestamp": "2026-11-08T14:24:25.850211+00:00",
+      "trade_id": "cross_rule_1794147865",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Portfolio-weiter Korrelations-Circuit-Breaker: Maximal eine aktive Direktional-Wette über den gesamten Krypto-Basket auf Timeframes unter 15m.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die zeitgleiche Eröffnung von ETH, SOL und LINK im identischen Long-Setup stellte keinen Diversifikationseffekt dar, sondern verdreifachte das Verlustrisiko auf ein einzelnes Beta-Ereignis.",
+        "actionable_rule": "Portfolio-weiter Korrelations-Circuit-Breaker: Maximal eine aktive Direktional-Wette über den gesamten Krypto-Basket auf Timeframes unter 15m."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T14:24:25.850189+00:00",
+      "trade_id": "cross_rule_1794147865",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Hierarchie-Pflicht: 5m/15m Orderblöcke besitzen keine autonome Haltekraft und dürfen nur in Richtung des 4h/1D Market Structure Shifts (MSS) gehandelt werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ohne übergeordnete Trendstützung fungieren Micro-Orderblöcke lediglich als willkommene Exit-Liquidität für HTF-Verkäufer, was zum simultanen Versagen aller drei Setups führte.",
+        "actionable_rule": "Fraktale Hierarchie-Pflicht: 5m/15m Orderblöcke besitzen keine autonome Haltekraft und dürfen nur in Richtung des 4h/1D Market Structure Shifts (MSS) gehandelt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T14:24:25.850176+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1794143148",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.84,
+      "pnl_raw": -0.42,
+      "text": "Im 5m-Micro-Bereich sind Tier-B Setups ausnahmslos zu verwerfen; Trades erfordern zwingend Tier-A OBs in Kombination mit einem echten Sweep [A].",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1794143148",
+        "verdict": "LOSS",
+        "driver": "Substandard-Execution: Ein minderwertiger Tier-B Orderblock ohne Sweep-Bestätigung wurde blind getriggert, weil ein nachlaufender Indikator (blaues Dreieck) fälschlich als Confluence interpretiert wurde.",
+        "technical_warning": "Schwache OB-Qualitätsstufe [B] bei ausbleibendem Kaufvolumen und fehlender Liquiditätsbereinigung vor dem Retest.",
+        "actionable_rule": "Im 5m-Micro-Bereich sind Tier-B Setups ausnahmslos zu verwerfen; Trades erfordern zwingend Tier-A OBs in Kombination mit einem echten Sweep [A]."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T14:24:25.850159+00:00",
+      "trade_id": "inc_SOLUSDT_5m_1794143147",
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.68,
+      "pnl_raw": -0.34,
+      "text": "Sperre Micro-Longs bei High-Beta-Alts (SOL), wenn der Leitmarkt (ETH/BTC) im 5m/15m unterhalb der dynamischen Trendfilter (EMA/Bänder) notiert.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SOLUSDT_5m_1794143147",
+        "verdict": "LOSS",
+        "driver": "Toxische Beta-Verdopplung: Aggressiver Long-Einstieg in Solana parallel zur ETH-Schwäche ohne volumetrische Trendwende-Divergenz an den unteren Chaos-Bändern.",
+        "technical_warning": "Volumenexpansion auf der Verkaufsseite beim Bruch des Supports bei gleichzeitiger Spreizung der Chaos-Bänder nach unten.",
+        "actionable_rule": "Sperre Micro-Longs bei High-Beta-Alts (SOL), wenn der Leitmarkt (ETH/BTC) im 5m/15m unterhalb der dynamischen Trendfilter (EMA/Bänder) notiert."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T14:24:25.850098+00:00",
+      "trade_id": "inc_ETHUSDT_5m_1794143146",
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.36,
+      "pnl_raw": -0.18,
+      "text": "Kein Long-Entry an einem 5m-OB ohne sofortige Kerzenkörper-Rückeroberung (Bullish Displacement) über das Sweep-Origin-Level innerhalb von maximal zwei Folgekerzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ETHUSDT_5m_1794143146",
+        "verdict": "LOSS",
+        "driver": "Messergriff in fallende Kurse: Trotz A-Grade-Label war der Liquidity Sweep kein Erschöpfungssignal, sondern institutionelle Liquiditätsaufnahme zur Trendfortsetzung nach unten.",
+        "technical_warning": "Fehlendes bullisches Delta (CVD) und Schließen unterhalb des Sweep-Tiefs anstelle einer VSA-Absorptionskerze mit markanter Unterlunte.",
+        "actionable_rule": "Kein Long-Entry an einem 5m-OB ohne sofortige Kerzenkörper-Rückeroberung (Bullish Displacement) über das Sweep-Origin-Level innerhalb von maximal zwei Folgekerzen."
+      }
+    },
     {
       "timestamp": "2026-11-08T13:06:12.034824+00:00",
       "trade_id": "cross_rule_1794143172",
