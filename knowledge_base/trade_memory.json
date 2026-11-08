@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-08T19:05:51.619752+00:00",
-  "total_experience_records": 65,
+  "updated_at": "2026-11-08T20:06:17.585518+00:00",
+  "total_experience_records": 68,
   "learnings": [
+    {
+      "timestamp": "2026-11-08T20:06:13.531251+00:00",
+      "trade_id": "cross_rule_1794168373",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volumen-Absorption (Effort vs. Result) vor Mean-Reversion: Ein Überdehnungszustand (Chaos Band < RFE) ist Trendstärke, kein automatisches Kaufsignal.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m wie auf 1D schiebt aggressiver Verkaufsfluss die Bänder dynamisch nach unten aus; ein Reversal ist erst valide, wenn hohes Volumen ohne weiteren Raumgewinn nach unten absorbiert wird.",
+        "actionable_rule": "Volumen-Absorption (Effort vs. Result) vor Mean-Reversion: Ein Überdehnungszustand (Chaos Band < RFE) ist Trendstärke, kein automatisches Kaufsignal."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T20:06:13.531201+00:00",
+      "trade_id": "cross_rule_1794168373",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Hierarchie: Tier-B Zonen sind Reaktionszonen, keine Exekutionszonen; Einstiege erfordern zwingend einen vorgelagerten Sweep der externen Liquidität (Tier A).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Wie im 5m-Verlust sichtbar, führt das isolierte Anlaufen eines [B]-Blocks bei übergeordnetem Momentum zum direkten Bruch; dieses Verhalten skaliert 1:1 auf 4h/1D, wo ungeklärte Liquiditätspools unterhalb des Blocks den Preis magisch anziehen.",
+        "actionable_rule": "Fraktale Hierarchie: Tier-B Zonen sind Reaktionszonen, keine Exekutionszonen; Einstiege erfordern zwingend einen vorgelagerten Sweep der externen Liquidität (Tier A)."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T20:06:13.531112+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1794162814",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.6,
+      "pnl_raw": -0.3,
+      "text": "Keine Long-Exekution an Tier-[B] Order Blocks auf 5m/15m ohne vorherigen [A]-Liquiditätsabgriff und bestätigten Mikro-Strukturbruch (CHoCH) mit überdurchschnittlichem Delta-Volumen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1794162814",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Einstieg an einem schwachen Tier-[B] Order Block ohne vorherigen Sell-Side-Liquidity-Sweep und ohne volumenseitige Bestätigung institutioneller Absorption.",
+        "technical_warning": "Fehlen eines echten [A]-Sweeps unter das lokale Tief sowie das Ausbleiben einer VSA-Stopping-Volume-Kerze beim ersten Retest des [B]-Order-Blocks.",
+        "actionable_rule": "Keine Long-Exekution an Tier-[B] Order Blocks auf 5m/15m ohne vorherigen [A]-Liquiditätsabgriff und bestätigten Mikro-Strukturbruch (CHoCH) mit überdurchschnittlichem Delta-Volumen."
+      }
+    },
     {
       "timestamp": "2026-11-08T18:34:04.886256+00:00",
       "trade_id": "cross_rule_1794162844",
