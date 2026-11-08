@@ -1,7 +1,199 @@
 {
-  "updated_at": "2026-11-08T21:06:20.479189+00:00",
-  "total_experience_records": 72,
+  "updated_at": "2026-11-08T22:28:28.757049+00:00",
+  "total_experience_records": 82,
   "learnings": [
+    {
+      "timestamp": "2026-11-08T22:28:24.638241+00:00",
+      "trade_id": "cross_rule_1794176904",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Synchrone Beta-Expositions-Sperre",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "SUI und RENDER wurden zum exakt selben Timestamp (1794171948) long ausgestoppt. Ohne übergeordneten 4h/1D-Trendfilter führt das gleichzeitige Eingehen identischer Richtungs-Trades in Altcoins zu unzulässigem Klumpenrisiko gegen Marktimpulse.",
+        "actionable_rule": "Synchrone Beta-Expositions-Sperre"
+      }
+    },
+    {
+      "timestamp": "2026-11-08T22:28:24.638223+00:00",
+      "trade_id": "cross_rule_1794176904",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Order-Block-Degradations-Gesetz (R1–R2 Only)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Fraktal gültig von 5m bis 1D: Mit jedem Retest eines Levels wird passive Liquidität absorbiert. Während R1/R2 institutionelle Verteidigung widerspiegeln, führt R3+ auf jeder Zeitebene mit hoher Wahrscheinlichkeit zum Kaskadenbruch.",
+        "actionable_rule": "Order-Block-Degradations-Gesetz (R1–R2 Only)"
+      }
+    },
+    {
+      "timestamp": "2026-11-08T22:28:24.638211+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1794171948",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.88,
+      "pnl_raw": -0.44,
+      "text": "Order Blocks gelten ab dem dritten Retest (>= R3) als institutionell verbraucht und sind für Long-Setups ausnahmslos zu sperren.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1794171948",
+        "verdict": "LOSS",
+        "driver": "Kardinalfehler im Order-Flow: Einstieg an einem durch vierfaches Antesten (R4) vollständig entleerten Order Block, an dem keine passive Kaufliquidität mehr vorhanden war.",
+        "technical_warning": "Die Retest-Zählung (R4) zeigte eine fortgeschrittene Order-Block-Degradation an; der scheinbare Sweep war in Wahrheit der Beginn eines strukturellen Breakdown.",
+        "actionable_rule": "Order Blocks gelten ab dem dritten Retest (>= R3) als institutionell verbraucht und sind für Long-Setups ausnahmslos zu sperren."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T22:28:24.638196+00:00",
+      "trade_id": "inc_SUIUSDT_5m_1794171948",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.88,
+      "pnl_raw": -0.44,
+      "text": "In Buy Pockets (Chaos Band < RFE) darf der Einstieg erst nach bestätigtem Delta-Shift oder bullischer Rejection-Wick erfolgen, niemals per unbestätigter Limit-Order.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_5m_1794171948",
+        "verdict": "LOSS",
+        "driver": "Der First-Retest (R1) versagte aufgrund fehlender Absorption des aggressiven Verkaufsvolumens bei gleichzeitigem marktweiten Abwärtsdruck.",
+        "technical_warning": "Ungebremstes negatives Volumen-Delta beim Einlaufen in die Buy Pocket signalisierte ein 'Falling Knife' statt institutioneller Akkumulation.",
+        "actionable_rule": "In Buy Pockets (Chaos Band < RFE) darf der Einstieg erst nach bestätigtem Delta-Shift oder bullischer Rejection-Wick erfolgen, niemals per unbestätigter Limit-Order."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T22:28:24.638141+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1794162814",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 2.34,
+      "pnl_raw": 1.17,
+      "text": "Short-Exhaustion-Trades sind strikt beizubehalten, wenn Chaos-Band-Penetration und Verkaufsmarker ohne vorgeschaltete Konsolidierung zusammentreffen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1794162814",
+        "verdict": "WIN",
+        "driver": "Exzellente Ausnutzung statistischer Überdehnung: Der Short traf direkt in eine finale Erschöpfungszone (Chaos Band > RFE) mit prompter Bestätigung und sauberem Momentum-Follow-Through zu TP2.",
+        "technical_warning": "Kein Warnsignal gegen das Setup; die Divergenz zwischen extremer Band-Expansion und Momentum lieferte eine Lehrbuch-Short-Konfluenz.",
+        "actionable_rule": "Short-Exhaustion-Trades sind strikt beizubehalten, wenn Chaos-Band-Penetration und Verkaufsmarker ohne vorgeschaltete Konsolidierung zusammentreffen."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T22:27:58.514472+00:00",
+      "trade_id": "cross_rule_1794176878",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Struktur dominiert Oszillation: Band-Erschöpfung ist nur Bestätiger, niemals Trigger",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der Totalausfall bei LINK beweist, dass eine statistische Band-Überdehnung (Chaos Band < RFE) in Trendphasen über viele Kerzen hinweg extrem bleiben und ein Konto zerstören kann, wenn keine harte Marktstruktur (A-Grade OB) den Anker bildet.",
+        "actionable_rule": "Struktur dominiert Oszillation: Band-Erschöpfung ist nur Bestätiger, niemals Trigger"
+      }
+    },
+    {
+      "timestamp": "2026-11-08T22:27:58.514449+00:00",
+      "trade_id": "cross_rule_1794176878",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Reversal ohne vorherige Liquiditäts-Exekution (No Sweep, No Trade)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "DOGE erzielte TP2 mühelos, weil vor dem Einstieg die Stops oberhalb des Swings liquidiert wurden und frischer institutioneller Treibstoff frei wurde; BNB und LINK scheiterten, weil sie mitten in unvollendete Liquiditätssuchen hinein eröffnet wurden. Dieses Prinzip gilt fraktal identisch auf 4h und 1D.",
+        "actionable_rule": "Kein Reversal ohne vorherige Liquiditäts-Exekution (No Sweep, No Trade)"
+      }
+    },
+    {
+      "timestamp": "2026-11-08T22:27:58.514436+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1794162813",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.58,
+      "pnl_raw": -0.79,
+      "text": "Reine Indikator- oder Chaos-Band-Überdehnungen (Chaos Band < RFE) besitzen Entry-Sperre, solange keine fraktale Orderblock-Validierung (mindestens B-Grade) und kein Sweep vorliegen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1794162813",
+        "verdict": "LOSS",
+        "driver": "Isoliertes Fangen eines fallenden Messers rein basierend auf Band-Überdehnung (Chaos Band < RFE), ohne jegliche Verankerung in einem strukturellen Orderblock oder Support-Level.",
+        "technical_warning": "Vollständiges Fehlen eines Orderblock-Triggers (weder A noch B) und unvollendete Range-Expansion nach unten ohne Anzeichen institutioneller Absorption.",
+        "actionable_rule": "Reine Indikator- oder Chaos-Band-Überdehnungen (Chaos Band < RFE) besitzen Entry-Sperre, solange keine fraktale Orderblock-Validierung (mindestens B-Grade) und kein Sweep vorliegen."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T22:27:58.514417+00:00",
+      "trade_id": "inc_DOGEUSDT_5m_1794143147",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 6.76,
+      "pnl_raw": 3.38,
+      "text": "Reversal-Shorts sind aggressiv zu hebeln, wenn ein A-Grade Liquidity Sweep unmittelbar in einen A-Grade Bearish OB greift und das Chaos Band überdehnt ist.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_5m_1794143147",
+        "verdict": "WIN",
+        "driver": "Vollendete institutionelle Trap-Konfluenz aus Stop-Hunt des Hochs (Sweep Grade A), A-Grade Supply-Zone und maximaler Mean-Reversion-Spannung durch Chaos Band > RFE.",
+        "technical_warning": "Keine Warnung – mustergültige Erschöpfungsstruktur mit sauberem Trapping von Breakout-Käufern oberhalb des Sweep-Levels vor der expansiven Abwärtsbewegung.",
+        "actionable_rule": "Reversal-Shorts sind aggressiv zu hebeln, wenn ein A-Grade Liquidity Sweep unmittelbar in einen A-Grade Bearish OB greift und das Chaos Band überdehnt ist."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T22:27:58.514357+00:00",
+      "trade_id": "inc_BNBUSDT_5m_1793977952",
+      "symbol": "BNBUSDT",
+      "name": "BNB",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.42,
+      "pnl_raw": -0.71,
+      "text": "Orderblöcke der Güteklasse B dürfen im 5m-Chart keinesfalls 'blind' am Retest gekauft werden, sondern erfordern zwingend einen vorherigen Liquidity Sweep des Tiefs mit sofortiger Re-Kompression.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BNBUSDT_5m_1793977952",
+        "verdict": "LOSS",
+        "driver": "Front-Running eines Reversals an einem zweitklassigen B-Grade-Orderblock ohne vorherigen Sell-Side Liquidity Sweep, wodurch die Position von anhaltendem Verkaufsdruck überrollt wurde.",
+        "technical_warning": "Schwache Reaktionsdynamik am Retest (R3-Klassifizierung) und das Fehlen einer volumenstarken Absorptionskerze (kein Docht unter dem lokalen Tief).",
+        "actionable_rule": "Orderblöcke der Güteklasse B dürfen im 5m-Chart keinesfalls 'blind' am Retest gekauft werden, sondern erfordern zwingend einen vorherigen Liquidity Sweep des Tiefs mit sofortiger Re-Kompression."
+      }
+    },
     {
       "timestamp": "2026-11-08T21:06:16.462258+00:00",
       "trade_id": "cross_rule_1794171976",
