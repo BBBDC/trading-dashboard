@@ -1,7 +1,103 @@
 {
-  "updated_at": "2026-11-08T17:08:23.234635+00:00",
-  "total_experience_records": 69,
+  "updated_at": "2026-11-08T18:34:08.904265+00:00",
+  "total_experience_records": 65,
   "learnings": [
+    {
+      "timestamp": "2026-11-08T18:34:04.886256+00:00",
+      "trade_id": "cross_rule_1794162844",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Absorptions- und Reclaim-Pflicht vor Reversal-Entries",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Weder auf 5m noch auf 4h/1D fungieren Chaos-Bänder oder Orderblocks als magische Barrieren. Sie werden in Trendphasen pulverisiert. Ein Entry erfordert immer den empirischen Nachweis von institutioneller Absorption (hohes Volumen bei kleiner Spanne / Dochtbildung) gefolgt von einem validierten Reclaim.",
+        "actionable_rule": "Fraktale Absorptions- und Reclaim-Pflicht vor Reversal-Entries"
+      }
+    },
+    {
+      "timestamp": "2026-11-08T18:34:04.886235+00:00",
+      "trade_id": "cross_rule_1794162844",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Systemischer Korrelations-Lockout (Portfolio Heat Limit)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Parallele Mikro-Setups (5m/15m) über mehrere Altcoins hinweg repräsentieren kein diversifiziertes Risiko, sondern einen unzulässig gehebelten Trade auf die Gesamtmarkt-Richtung (BTC/ETH). Wenn Lead-Assets im HTF-Downtrend/Flush sind, müssen alle Long-Setups systemseitig geblockt werden.",
+        "actionable_rule": "Systemischer Korrelations-Lockout (Portfolio Heat Limit)"
+      }
+    },
+    {
+      "timestamp": "2026-11-08T18:34:04.886222+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1794157575",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.78,
+      "pnl_raw": -0.39,
+      "text": "Bei marktweiten Signalen darf maximal das relative Stärke-Asset (Leader) gehandelt werden; schwache Beta-Assets (Laggards wie ADA) sind strikt gesperrt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1794157575",
+        "verdict": "LOSS",
+        "driver": "Redundante Dritt-Exekution desselben systemischen Markt-Flushes ohne eigene relative Stärke oder institutionelle Akkumulationsanzeichen.",
+        "technical_warning": "Überdurchschnittliches Ausverkaufsvolumen bei gleichzeitig schrumpfenden Bounces (Bearish Continuation Pressure).",
+        "actionable_rule": "Bei marktweiten Signalen darf maximal das relative Stärke-Asset (Leader) gehandelt werden; schwache Beta-Assets (Laggards wie ADA) sind strikt gesperrt."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T18:34:04.886205+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1794157574",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.46,
+      "pnl_raw": -0.23,
+      "text": "Ein Liquidity Sweep [A] darf erst dann getriggert werden, wenn die Folgekerze per Schlusskurs wieder ÜBER dem Sweep-Level schließt (Reclaim-Confirmation).",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1794157574",
+        "verdict": "LOSS",
+        "driver": "Scheinbar hochqualitatives Confluence-Setup (OB Retest + Sweep [A]) scheiterte, da der Sweep nicht absorbiert, sondern dynamisch nach unten durchbrochen wurde (Failed Sweep).",
+        "technical_warning": "Sweep-Kerze schloss tief unter dem lokalen Tief mit persistent negativem kumulativen Delta statt einer V-förmigen Rejection.",
+        "actionable_rule": "Ein Liquidity Sweep [A] darf erst dann getriggert werden, wenn die Folgekerze per Schlusskurs wieder ÜBER dem Sweep-Level schließt (Reclaim-Confirmation)."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T18:34:04.886144+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1794157573",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.76,
+      "pnl_raw": -0.38,
+      "text": "Kein Long-Entry allein basierend auf Bändern oder Oszillator-Extremen; zwingende Voraussetzung ist ein 5m Market Structure Shift (MSS) mit geschlossenem Reclaim.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1794157573",
+        "verdict": "LOSS",
+        "driver": "Messer-Fangen im freien Fall: Reiner Indikatoren-Kauf ('Chaos Band < RFE' + 'Blaues Dreieck') ohne jegliche strukturelle Preis- und Orderflow-Bestätigung.",
+        "technical_warning": "Fehlende Volumen-Absorption (VSA Climax ohne Rebound-Docht) sowie ungebremste rote Momentum-Kerzen durch das Support-Niveau.",
+        "actionable_rule": "Kein Long-Entry allein basierend auf Bändern oder Oszillator-Extremen; zwingende Voraussetzung ist ein 5m Market Structure Shift (MSS) mit geschlossenem Reclaim."
+      }
+    },
     {
       "timestamp": "2026-11-08T17:08:23.233494+00:00",
       "trade_id": "trade_BINANCE_GLMRUSDT_20261108_1706",
