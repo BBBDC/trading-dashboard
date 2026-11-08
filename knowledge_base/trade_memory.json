@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-08T20:06:17.585518+00:00",
-  "total_experience_records": 68,
+  "updated_at": "2026-11-08T21:06:20.479189+00:00",
+  "total_experience_records": 72,
   "learnings": [
+    {
+      "timestamp": "2026-11-08T21:06:16.462258+00:00",
+      "trade_id": "cross_rule_1794171976",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Hierarchischer Filter: Micro-Confluences (5m/15m) sind nur in Richtung der 4h-Marktstruktur tradebar.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Das gleichzeitige Versagen beider 5m-Longs belegt, dass selbst hochwertige Setup-Trigger (Klasse [A]) zu reinen Verlustbringern werden, wenn sie isoliert im LTF-Rauschen gegen den übergeordneten Orderflow exekutiert werden.",
+        "actionable_rule": "Hierarchischer Filter: Micro-Confluences (5m/15m) sind nur in Richtung der 4h-Marktstruktur tradebar."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T21:06:16.462236+00:00",
+      "trade_id": "cross_rule_1794171976",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Counter-Trend-Trade ohne bestätigte VSA-Absorption und Re-Acceptance (Kerzenschluss im Range-Inneren).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein Sweep oder Band-Extremwert ohne unmittelbare Absorptionskerze und Rückkehr in die Value Area ist kein Reversal, sondern eine Trendbeschleunigung; LTF-Supports lösen sich gegen HTF-Expansionskerzen schlicht auf.",
+        "actionable_rule": "Kein Counter-Trend-Trade ohne bestätigte VSA-Absorption und Re-Acceptance (Kerzenschluss im Range-Inneren)."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T21:06:16.462220+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1794168348",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.48,
+      "pnl_raw": -0.24,
+      "text": "Harte Mindest-Trigger-Schranke: Signale aus Bandüberdehnungen oder Momentum-Dreiecken dürfen ohne verifizierten Orderblock-Retest oder validierten Liquiditäts-Sweep nicht ausgeführt werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1794168348",
+        "verdict": "LOSS",
+        "driver": "Klassischer Disziplinverstoß durch Einstieg rein basierend auf überverkauften Indikatoren (Chaos Band) ohne jegliche marktstrukturelle Bestätigung wie OB oder Liquidity Sweep.",
+        "technical_warning": "Fehlen jeglicher struktureller Confluence (weder OB noch Sweep vorhanden) bei gleichzeitig ungebremster bärischer Kerzenabfolge in das Support-Level.",
+        "actionable_rule": "Harte Mindest-Trigger-Schranke: Signale aus Bandüberdehnungen oder Momentum-Dreiecken dürfen ohne verifizierten Orderblock-Retest oder validierten Liquiditäts-Sweep nicht ausgeführt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-08T21:06:16.462162+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1794164748",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.58,
+      "pnl_raw": -0.79,
+      "text": "Kein Blind-Limit am OB/Sweep: Nach einem [A]-Sweep ist zwingend ein 5m-Candle-Close oberhalb des Sweep-Niveaus plus anschließender LTF-Market-Structure-Shift (MSS) abzuwarten.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1794164748",
+        "verdict": "LOSS",
+        "driver": "Der Orderblock-Support versagte trotz [A]-Sweep, da die Liquiditätsabfischung keine unmittelbare VSA-Absorption erzeugte und die 5m-Struktur gegen den übergeordneten Impuls kollabierte.",
+        "technical_warning": "Ausbleiben eines aggressiven bullishen VSA-Volumenspikes am Sweep-Tief sowie kein Kerzenschluss zurück über das Vor-Tief (fehlender Reclaim/MSS).",
+        "actionable_rule": "Kein Blind-Limit am OB/Sweep: Nach einem [A]-Sweep ist zwingend ein 5m-Candle-Close oberhalb des Sweep-Niveaus plus anschließender LTF-Market-Structure-Shift (MSS) abzuwarten."
+      }
+    },
     {
       "timestamp": "2026-11-08T20:06:13.531251+00:00",
       "trade_id": "cross_rule_1794168373",
