@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-09T19:31:27.434620+00:00",
-  "total_experience_records": 66,
+  "updated_at": "2026-11-09T20:02:42.522448+00:00",
+  "total_experience_records": 69,
   "learnings": [
+    {
+      "timestamp": "2026-11-09T20:02:38.661181+00:00",
+      "trade_id": "cross_rule_1794254558",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Einstieg gegen das lokale Momentum ohne nachgewiesene Volumen-Erschöpfung (No-Demand / Exhaustion).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Das Erreichen übergeordneter Zonen (R3/OB) generiert bei aktiver Trendstärke lediglich Liquidität für Trendfolge-Breakouts, statt verlässliche Wendepunkte zu markieren.",
+        "actionable_rule": "Kein Einstieg gegen das lokale Momentum ohne nachgewiesene Volumen-Erschöpfung (No-Demand / Exhaustion)."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T20:02:38.661156+00:00",
+      "trade_id": "cross_rule_1794254558",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Ein Liquidity-Sweep validiert sich ausschließlich durch unmittelbare Displacement in die Gegenrichtung, niemals durch die bloße Berührung des Niveaus.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf der 5m-Mikroebene als auch im 4h/1D-Gedächtnis führt das Shorten an Widerständen ohne Displacement-Rejection zum Überrennen des Stops durch institutionelle Trend-Absorption.",
+        "actionable_rule": "Ein Liquidity-Sweep validiert sich ausschließlich durch unmittelbare Displacement in die Gegenrichtung, niemals durch die bloße Berührung des Niveaus."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T20:02:38.661102+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1794250188",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -1.5,
+      "pnl_raw": -0.75,
+      "text": "Short-Entries an Bearish Orderblocks nach Sweep-Highs erfordern zwingend einen Market Structure Shift (MSS) mit Schlusskurs unterhalb des Sweep-Ursprungs.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1794250188",
+        "verdict": "LOSS",
+        "driver": "Der angebliche Liquidity-Sweep war eine bullische Expansion mit direkter Absorption des Bearish Orderblocks statt einer aggressiven Verkäufer-Rejection.",
+        "technical_warning": "Ausbleiben einer Docht-Rejection sowie fehlende VSA-Verkäuferabgabe (negatives Delta) nach dem High-Sweep vor dem Entry.",
+        "actionable_rule": "Short-Entries an Bearish Orderblocks nach Sweep-Highs erfordern zwingend einen Market Structure Shift (MSS) mit Schlusskurs unterhalb des Sweep-Ursprungs."
+      }
+    },
     {
       "timestamp": "2026-11-09T19:29:26.086247+00:00",
       "trade_id": "cross_rule_1794252566",
