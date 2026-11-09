@@ -2319,6 +2319,7 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
 
     # 7b1. Positionen anpassen Hub (Hebel, Entry, Richtung, SL/TP)
     if data.startswith("pos_manage_open_"):
+        USER_SESSIONS.pop(chat_id, None)
         pos_id = data[len("pos_manage_open_"):]
         text, kb = get_manage_position_text_and_markup(pos_id, user_id)
         api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
@@ -2332,6 +2333,12 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
         pos = next((p for p in positions if p.get("id") == pos_id or p.get("symbol") == pos_id), None)
         sym = pos.get("symbol", "") if pos else pos_id
         curr_lev = pos.get("leverage", 1.0) if pos else 1.0
+
+        session = USER_SESSIONS.setdefault(chat_id, {"wizard": "edit_pos", "data": {}})
+        session["step"] = "WAITING_EDIT_LEVERAGE"
+        session["pos_id"] = pos.get("id") or pos_id
+        session["symbol"] = sym
+        session["curr_lev"] = curr_lev
 
         kb = {
             "inline_keyboard": [
@@ -2350,11 +2357,17 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
                 ]
             ]
         }
-        api.edit_message_text(chat_id, message_id, f"⚡ <b>Hebel für {sym} anpassen:</b>\n\nAktueller Hebel: <b>{curr_lev:g}x</b>\nWähle den neuen Hebel aus:", reply_markup=kb)
+        msg = (
+            f"⚡ <b>Hebel für {sym} anpassen:</b>\n\n"
+            f"• <b>Aktueller Hebel:</b> <b>{curr_lev:g}x</b>\n\n"
+            f"Wähle einen Hebel per Button oder tippe deine Wunschzahl (z. B. <code>7</code>, <code>12.5</code> oder <code>50x</code>) direkt in den Chat:"
+        )
+        api.edit_message_text(chat_id, message_id, msg, reply_markup=kb)
         return
 
     # 7b3. Hebel direkt setzen
     if data.startswith("pos_set_lev_"):
+        USER_SESSIONS.pop(chat_id, None)
         parts = data[len("pos_set_lev_"):].rsplit("_", 1)
         if len(parts) == 2:
             pos_id, lev_str = parts
@@ -2972,6 +2985,32 @@ def process_wizard_text_input(api, chat_id, user_id, username, session, text):
             api.send_message(chat_id, f"✅ <b>Einstiegskurs für {sym} erfolgreich auf {fmt_price(entry_val)} $ geändert!</b>\n\n" + text_resp, reply_markup=kb)
         except Exception as e:
             api.send_message(chat_id, f"❌ Fehler beim Aktualisieren: {e}", reply_markup=get_main_menu_keyboard(role="trader"))
+        return
+
+    if step == "WAITING_EDIT_LEVERAGE":
+        cleaned = text.lower().replace("x", "").replace(",", ".").strip()
+        try:
+            lev_val = float(cleaned)
+            if lev_val < 1.0 or lev_val > 125.0:
+                raise ValueError("out_of_range")
+        except ValueError as ve:
+            if str(ve) == "out_of_range":
+                api.send_message(chat_id, "⚠️ Der Hebel muss zwischen <b>1x</b> (ungehebelt) und maximal <b>125x</b> liegen. Bitte gib einen gültigen Hebel ein (z. B. <code>5</code>, <code>7.5</code> oder <code>20x</code>):")
+            else:
+                api.send_message(chat_id, "⚠️ Ungültige Eingabe für den Hebel. Bitte gib eine Zahl ein (z. B. <code>5</code>, <code>10</code> oder <code>25x</code>):")
+            return
+
+        pos_id = session.get("pos_id")
+        sym = session.get("symbol", "")
+        USER_SESSIONS.pop(chat_id, None)
+
+        try:
+            from manage_positions import update_position
+            update_position(symbol_or_id=pos_id, user_id=str(user_id), leverage=lev_val, sync_db=True, git_push=True)
+            text_resp, kb = get_manage_position_text_and_markup(pos_id, user_id)
+            api.send_message(chat_id, f"✅ <b>Hebel für {sym} erfolgreich auf {lev_val:g}x geändert!</b>\n\n" + text_resp, reply_markup=kb)
+        except Exception as e:
+            api.send_message(chat_id, f"❌ Fehler beim Aktualisieren des Hebels: {e}", reply_markup=get_main_menu_keyboard(role="trader"))
         return
 
 
