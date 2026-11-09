@@ -1,5 +1,70 @@
 [
   {
+    "id": "evt_20261109_230907",
+    "timestamp": "2026-11-09T23:09:07.271443+00:00",
+    "timestamp_display": "09.11.2026 23:09 UTC",
+    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 2,
+    "changes": [
+      {
+        "symbol": "TVC:DXY",
+        "name": "US Dollar Index",
+        "category": "Forex / Makro",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 96,
+        "new_score": 52,
+        "price": 101.677,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          101.494,
+          101.739
+        ],
+        "stop_loss": 101.2,
+        "take_profit_2": 103.1,
+        "reasons": [
+          "Makro-Trend (1W & 1D) ist intakt bullisch, jedoch korrigieren 4h und 1h im bärischen Trend.",
+          "Untergeordnete Zeiteinheiten zeigen 4h/1h bärische Struktur ohne direkten Volumen-Ausbruchs-Trigger.",
+          "Hysterese-Regel greift: Konsolidierung erfordert das Abwarten einer Bodenbildung vor neuem Long-Entry."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W & 1D) ist intakt bullisch, jedoch korrigieren 4h und 1h im bärischen Trend.).",
+        "note": "Der US-Dollar-Index befindet sich übergeordnet auf Tages- und Wochenbasis weiterhin in einer intakten bullischen Struktur. Der aktuelle Rücksetzer auf den 4h/1h-Zeitebenen stellt eine gesunde Korrektur dar, bietet jedoch zum aktuellen Zeitpunkt noch keine bestätigte Wende. Vor dem Eingehen neuer Positionen muss der Support im Bereich 101.49-101.73 hält und eine klare Volumen-Erschöpfung auf kleineren Timeframes erkennbar sein.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...oFUw]"
+      },
+      {
+        "symbol": "TVC:GOLD",
+        "name": "Gold (Spot)",
+        "category": "Edelmetalle",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 48,
+        "price": 4136.59,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          4140.0,
+          4146.99
+        ],
+        "stop_loss": 4165.0,
+        "take_profit_2": 4020.0,
+        "reasons": [
+          "Makro-Trend (1W & 1D) ist klar bärisch, aber 4h und 1h zeigen eine Erholungsbewegung (Bärenmarktrallye).",
+          "4h RSI ist mit ~69.7 stark überkauft; der bestehende bärische Order Block Grad C (R20) ist bereits stark mitigiert.",
+          "Ein Einstieg erfordert geduldiges Abwarten von bärischer Volumen-Abgabe und einer klaren Rejection am Widerstand."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W & 1D) ist klar bärisch, aber 4h und 1h zeigen eine Erholungsbewegung (Bärenmarktrallye).).",
+        "note": "Gold befindet sich auf Wochen- und Tagesebene in einem intakten Abwärtstrend. Die aktuelle Erholung auf 4h/1h stößt an den bereits mehrfach getesteten bärischen Order Block (4146.99). Aufgrund der überkauften Indikatoren und des gegensätzlichen 4h-Signals (Good Buy) gilt absolutes Abwartedogma. Kein Short gegen das direkte lokale Momentum ohne bestätigte Volumen-Erschöpfung.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...oFUw]"
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n⚪ US Dollar Index (DXY):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W & 1D) ist intakt bullisch, jedoch korrigieren 4h und 1h im bärischen Trend.).\n   📝 KI-Rationale: Der US-Dollar-Index befindet sich übergeordnet auf Tages- und Wochenbasis weiterhin in einer intakten bullischen Struktur. Der akt...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n⚪ Gold (Spot) (GOLD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W & 1D) ist klar bärisch, aber 4h und 1h zeigen eine Erholungsbewegung (Bärenmarktrallye).).\n   📝 KI-Rationale: Gold befindet sich auf Wochen- und Tagesebene in einem intakten Abwärtstrend. Die aktuelle Erholung auf 4h/1h stößt an den bereits...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261109_205609",
     "timestamp": "2026-11-09T20:56:09.111047+00:00",
     "timestamp_display": "09.11.2026 20:56 UTC",
@@ -20078,153 +20143,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 8 Einstufungen haben sich geändert:\n\n⚪ Bitcoin Cash (BCHUSD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Trend ist bärisch, wenngleich der Kurs im 1D Fibonacci Golden Pocket notiert.).\n   📝 KI-Rationale: Obwohl sich BCH im täglichen Golden Pocket befindet und bullische Divergenzen aufweist, fehlt echtes Buying Volume zur Bestätigung...\n   Setup: Beobachten / Warten auf HTF-Key-Level\n\n⚪ BTC Dominanz (BTC.D):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 50%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D RSI nähert sich mit 67.27 der Overbought-Zone bei bestehender bärischer Reversal-Divergenz.).\n   📝 KI-Rationale: Die Bitcoin-Dominanz stößt auf Erschöpfungsanzeichen im 1D-Bereich. Das Signal bleibt rein analytisch neutral gewichtet, um Fehlin...\n   Setup: Beobachten / Konsolidierung\n\n⚪ GMX (GMXUSDT):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Widersprüchliche Divergenzen auf 1D und 4h (reguläre bärische vs. versteckte bullische Divergenz).).\n   📝 KI-Rationale: GMX zeigt im 1D und 4h eine intakte bullische Grundstruktur, wird jedoch durch aktive bärische Divergenzen gehemmt. Ein Einstieg b...\n   Setup: Beobachten / Konsolidierung\n\n⚪ Bitcoin (BTCUSDT):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 46%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Trend ist bärisch; Kurs notiert abseits des Golden Pockets.).\n   📝 KI-Rationale: Bitcoin zeigt zwar auf Tagesbasis zarte bullische Divergenzen, aber der 4h-Chart liefert keinerlei Bestätigung für einen tragfähig...\n   Setup: Beobachten / Warten auf HTF-Key-Level\n\n⚪ Bitcoin (BTCUSD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 46%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Synchron zur Binance-Notierung in bärischer HTF-Struktur gefangen.).\n   📝 KI-Rationale: Die Coinbase-Spot-Daten bestätigen das Bild fehlender Nachfrage auf aktuellen Niveaus. Vor einem nachhaltigen Reclaim der relevant...\n   Setup: Beobachten / Warten auf HTF-Key-Level\n\n⚪ Avalanche (AVAXUSDT):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 45%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D und 4h Trends sind klar bärisch unter Abgabedruck.).\n   📝 KI-Rationale: AVAX befindet sich zwar rechnerisch im Golden Pocket, doch das extrem niedrige Volumen zeigt absolute Nachfrageschwäche. Es besteh...\n   Setup: Beobachten / Warten auf HTF-Key-Level\n\n... und 2 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261025_101147",
-    "timestamp": "2026-10-25T10:11:47.266937+00:00",
-    "timestamp_display": "25.10.2026 10:11 UTC",
-    "title": "🔔 TV-Signaländerung: 5 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 5,
-    "changes": [
-      {
-        "symbol": "COINBASE:BCHUSD",
-        "name": "Bitcoin Cash",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 53,
-        "new_score": 96,
-        "price": 272.59,
-        "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
-        "entry_range": [
-          270.41,
-          273.14
-        ],
-        "stop_loss": 258.96,
-        "take_profit_2": 316.21,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Kurs im 1D Golden Pocket (266.45 - 271.36)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bullische Konfluenz (96%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "BINANCE:BTCUSDT",
-        "name": "Bitcoin",
-        "category": "Krypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 46,
-        "new_score": 77,
-        "price": 80360.49,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          79717.61,
-          80521.21
-        ],
-        "stop_loss": 76342.47,
-        "take_profit_2": 93218.15,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bullische Konfluenz (77%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "COINBASE:BTCUSD",
-        "name": "Bitcoin",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 46,
-        "new_score": 77,
-        "price": 80252.55,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          79610.53,
-          80413.06
-        ],
-        "stop_loss": 76239.92,
-        "take_profit_2": 93092.97,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bullische Konfluenz (77%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "COINBASE:AAVEUSD",
-        "name": "Aave",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 53,
-        "new_score": 75,
-        "price": 135.76,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          134.67,
-          136.03
-        ],
-        "stop_loss": 128.97,
-        "take_profit_2": 157.49,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bullische Konfluenz (75%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "CRYPTOCAP:TOTAL",
-        "name": "Total Crypto Market Cap",
-        "category": "Krypto-Makro",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 75,
-        "new_score": 51,
-        "price": 2659414334231,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          2659414334231,
-          2659414334231
-        ],
-        "stop_loss": 2579631904204.07,
-        "take_profit_2": 2818979194284.86,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 5 Einstufungen haben sich geändert:\n\n🟢 Bitcoin Cash (BCHUSD):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 1: SMC Golden Confluence Reversal\n   Entry: 270.41 | SL: 258.96 | TP2: 316.21\n\n🟢 Bitcoin (BTCUSDT):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 77%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (77%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 79,717.61 | SL: 76,342.47 | TP2: 93,218.15\n\n🟢 Bitcoin (BTCUSD):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 77%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (77%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 79,610.53 | SL: 76,239.92 | TP2: 93,092.97\n\n🟢 Aave (AAVEUSD):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 75%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (75%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 134.67 | SL: 128.97 | TP2: 157.49\n\n⚪ Total Crypto Market Cap (TOTAL):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 51%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]

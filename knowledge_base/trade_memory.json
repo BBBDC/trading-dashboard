@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-09T23:08:59.962389+00:00",
-  "total_experience_records": 69,
+  "updated_at": "2026-11-09T23:31:14.669927+00:00",
+  "total_experience_records": 72,
   "learnings": [
+    {
+      "timestamp": "2026-11-09T23:31:10.890230+00:00",
+      "trade_id": "cross_rule_1794267070",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Degradierung von Qualitäts-Klassen: Class-C Strukturen erfordern zwingend eine Bestätigung durch Volumen-Versiegen (No-Supply-Test) vor Ordereinstieg.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf Sub-15m-Ebenen besitzen tertiäre Zonen (C-Tier) kein intrinsisches institutionelles Interesse; blindes Einsteigen führt bei hoher Volatilität zu einer systematischen SL-Trefferquote von über 65%.",
+        "actionable_rule": "Degradierung von Qualitäts-Klassen: Class-C Strukturen erfordern zwingend eine Bestätigung durch Volumen-Versiegen (No-Supply-Test) vor Ordereinstieg."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T23:31:10.890206+00:00",
+      "trade_id": "cross_rule_1794267070",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Micro-Sweeps (5m/15m) dürfen nur in Richtung des übergeordneten 4h/1D-Trendregimes gehandelt werden (Fraktale Dominanz).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Gegen den HTF-Order-Flow stellen M5-Liquiditätsabgriffe meist keine Trendwenden dar, sondern fungieren als willkommene Exit-Liquidität für größere Marktteilnehmer, wodurch 'Sweeps' zu regulären Trendfortsetzungen degenerieren.",
+        "actionable_rule": "Micro-Sweeps (5m/15m) dürfen nur in Richtung des übergeordneten 4h/1D-Trendregimes gehandelt werden (Fraktale Dominanz)."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T23:31:10.890153+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1794264535",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.24,
+      "pnl_raw": -0.62,
+      "text": "Kein direkter Entry an Class-C Order Blocks auf dem 5m-TF ohne vorherigen Kerzenschluss zurück über dem Sweep-Niveau inklusive bullischer Delta-Bestätigung.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1794264535",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Long-Entry in einen Class-C Order Block, bei dem der angebliche Stop-Hunt [A] keine Käuferabsorption auslöste, sondern als Fortsetzungsimpuls die Mikro-Unterstützung durchbrach.",
+        "technical_warning": "Ausbleiben eines positiven CVD/Delta-Divergenz-Signals sowie aggressives Sell-Volumen (VSA Supply Bar) bei der Annäherung an das R1-Level ohne Bildung einer langen Rejection-Wick.",
+        "actionable_rule": "Kein direkter Entry an Class-C Order Blocks auf dem 5m-TF ohne vorherigen Kerzenschluss zurück über dem Sweep-Niveau inklusive bullischer Delta-Bestätigung."
+      }
+    },
     {
       "timestamp": "2026-11-09T20:02:38.661181+00:00",
       "trade_id": "cross_rule_1794254558",
