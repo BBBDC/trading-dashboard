@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-09T05:05:54.059427+00:00",
-  "total_experience_records": 85,
+  "updated_at": "2026-11-09T06:28:45.106092+00:00",
+  "total_experience_records": 89,
   "learnings": [
+    {
+      "timestamp": "2026-11-09T06:28:40.962409+00:00",
+      "trade_id": "cross_rule_1794205720",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Strikte Hierarchie-Pflicht: Signal-Trigger (z.B. Blaues Dreieck) sind nur Auslöser, niemals Validierungsgründe.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Lagging-Indikatoren generieren in starken Abverkäufen fortlaufend 'günstige' Kaufsignale. Ohne Bestätigung durch HTF-Trendausrichtung oder Marktstrukturwechsel erzeugt das blinde Vertrauen auf Mikro-Trigger systematischen Konto-Drawdown.",
+        "actionable_rule": "Strikte Hierarchie-Pflicht: Signal-Trigger (z.B. Blaues Dreieck) sind nur Auslöser, niemals Validierungsgründe."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T06:28:40.962386+00:00",
+      "trade_id": "cross_rule_1794205720",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine Ausführung passiver Zonen-Signale ohne aktiven Sell-Side Liquidity Sweep und VSA-Bestätigung.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf 5m als auch auf 4h/1D werden statische Bänder und sekundäre Orderblöcke in Trendrichtung des übergeordneten Momentums gnadenlos durchschlagen; erst das Abholen externer Liquidität ('Stop Hunt') dreht den Orderflow nachhaltig um.",
+        "actionable_rule": "Keine Ausführung passiver Zonen-Signale ohne aktiven Sell-Side Liquidity Sweep und VSA-Bestätigung."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T06:28:40.962370+00:00",
+      "trade_id": "inc_DOGEUSDT_5m_1794193958",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -2.16,
+      "pnl_raw": -1.08,
+      "text": "Order Blocks unterhalb der Qualitätsstufe [A] sind für ungefilterte Limit-/Sofort-Entries gesperrt und erfordern zwingend einen vorgelagerten Sell-Side Liquidity Sweep samt Delta-Divergenz.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_5m_1794193958",
+        "verdict": "LOSS",
+        "driver": "Fragiler Retest an einem minderwertigen Tier-B-Orderblock (R6), der von aggressivem Sell-Side-Flow ohne nennenswerte Gegenwehr einfach überrollt wurde.",
+        "technical_warning": "Die niedrige Qualitätsklasse des OBs ([B] / R6) bot keine ausreichende institutionelle Liquiditätsdichte; die Sweep-Tiefe unter vorherige Tiefs fehlte völlig vor dem Reversal-Versuch.",
+        "actionable_rule": "Order Blocks unterhalb der Qualitätsstufe [A] sind für ungefilterte Limit-/Sofort-Entries gesperrt und erfordern zwingend einen vorgelagerten Sell-Side Liquidity Sweep samt Delta-Divergenz."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T06:28:40.962309+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1794186350",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -2.76,
+      "pnl_raw": -1.38,
+      "text": "Ein 'Buy Pocket'-Trigger darf nur exekutiert werden, wenn eine 5m-Reversal-Kerze mit überdurchschnittlichem Volumen schließt und die lokale Mikro-Marktstruktur (mMSB) bricht.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1794186350",
+        "verdict": "LOSS",
+        "driver": "Klassisches Falling-Knife-Phänomen: Einstieg in eine theoretische 'Institutional Buy Pocket' allein auf Basis von Band-Überdehnung, ohne dass der Verkaufsfluss strukturell erschöpft war.",
+        "technical_warning": "Ausbleiben einer VSA-Ultra-High-Volume-Absorptionskerze und fehlende bullishe Dochtbildung an den Chaos-Bändern signalisierten intaktes bärisches Momentum.",
+        "actionable_rule": "Ein 'Buy Pocket'-Trigger darf nur exekutiert werden, wenn eine 5m-Reversal-Kerze mit überdurchschnittlichem Volumen schließt und die lokale Mikro-Marktstruktur (mMSB) bricht."
+      }
+    },
     {
       "timestamp": "2026-11-09T03:13:06.750169+00:00",
       "trade_id": "cross_rule_1794193986",
