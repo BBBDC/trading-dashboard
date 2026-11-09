@@ -1,5 +1,259 @@
 [
   {
+    "id": "evt_trade_20261109_163423_GOOG",
+    "timestamp": "2026-11-09T16:34:23.234506+00:00",
+    "timestamp_display": "09.11.2026 16:34 UTC",
+    "title": "✅ Trade NASDAQ:GOOG geschlossen (+16.7%)",
+    "type": "USER_TRADE_CLOSED",
+    "change_count": 1,
+    "changes": [
+      {
+        "symbol": "NASDAQ:GOOG",
+        "name": "Alphabet (Google)",
+        "category": "UserTrade",
+        "change_type": "MANUAL_CLOSE",
+        "old_signal": "LONG",
+        "new_signal": "CLOSED",
+        "old_score": 0,
+        "new_score": 0,
+        "price": 289.8,
+        "reasons": [
+          "Realisierter PnL: +16.71% (Basis: +2.09%)",
+          "Manuell durch Nutzer beendet."
+        ],
+        "change_reason": "Manuell durch Nutzer beendet.",
+        "note": "Einstieg: 283,87 $, Ausstieg: 289,80 $, Hebel: 8x, Dauer: 2T 21Std."
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "Alphabet (Google) (NASDAQ:GOOG) geschlossen mit +16.71% (Manuell durch Nutzer beendet.)"
+  },
+  {
+    "id": "evt_20261109_163232",
+    "timestamp": "2026-11-09T16:32:32.047304+00:00",
+    "timestamp_display": "09.11.2026 16:32 UTC",
+    "title": "🔔 TV-Signaländerung: 8 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 8,
+    "changes": [
+      {
+        "symbol": "TRADEGATE:ABEA",
+        "name": "Alphabet A (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 48,
+        "new_score": 95,
+        "price": 260.3,
+        "setup_name": "Hypothese 1: SMC Order Block [R4] Exhaustion",
+        "entry_range": [
+          261.78,
+          264.4
+        ],
+        "stop_loss": 271.48,
+        "take_profit_2": 232.92,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 1D Institutional BUY Pocket (Lower Chaos Band unter RFE 233)",
+          "degencoder: 1h Potential Buy Signal (Blaues Dreieck)"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NYSE:AG",
+        "name": "First Majestic Silver",
+        "category": "Edelmetall-Minen",
+        "change_type": "SETUP_UPDATE",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 91,
+        "new_score": 95,
+        "price": 15.885,
+        "setup_name": "Hypothese 1: SMC Order Block [R3] Exhaustion",
+        "entry_range": [
+          15.87,
+          16.03
+        ],
+        "stop_loss": 16.46,
+        "take_profit_2": 14.11,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 1h Sell Area (Rotes Kreuz)",
+          "degencoder: 4h Good Sell Signal (Kreis Top-Erschöpfung)"
+        ],
+        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R3] Exhaustion' (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "TRADEGATE:FB2A",
+        "name": "Meta Platforms (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 46,
+        "new_score": 95,
+        "price": 572.1,
+        "setup_name": "Hypothese 1: SMC Order Block [R4] Exhaustion",
+        "entry_range": [
+          570.16,
+          575.87
+        ],
+        "stop_loss": 591.3,
+        "take_profit_2": 507.3,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 1h Potential Buy Signal (Blaues Dreieck)",
+          "degencoder: 4h Potential Buy Signal (Blaues Dreieck)"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NASDAQ:NFLX",
+        "name": "Netflix",
+        "category": "Entertainment",
+        "change_type": "SETUP_UPDATE",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 95,
+        "new_score": 90,
+        "price": 63.505,
+        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
+        "entry_range": [
+          63.5,
+          64.5
+        ],
+        "stop_loss": 66.2,
+        "take_profit_2": 55.5,
+        "reasons": [
+          "Bärische Makro-Struktur über 1W, 1D und 4h unter allen wesentlichen Trendfiltern intakt",
+          "Aktive versteckte bärische Divergenz auf 1D und 4h signalisiert Fortsetzung des Abwärtstrends",
+          "4h degencoder Good Sell Signal (Kreis) als valider Trendfolge-Trigger bei sehr geringem Handelsvolumen (VSA)"
+        ],
+        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 2: Trend Continuation & Hidden Div' (Bärische Makro-Struktur über 1W, 1D und 4h unter allen wesentlichen Trendfiltern intakt).",
+        "note": "Netflix befindet sich in einem klaren bärischen Makro-Regime (1W und 1D unter Druck). Das 1h 'Good Buy Signal' stellt lediglich eine untergeordnete Gegenbewegung dar und wird im Sinne der Hysterese nicht als Long-Trigger gewertet. Der Hebel bleibt gemäß Sektor-Vorgabe bei maximal 5x beschränkt.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...j2vQ]"
+      },
+      {
+        "symbol": "NYSE:UBER",
+        "name": "Uber",
+        "category": "Mobility / Tech",
+        "change_type": "SCORE_JUMP",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 95,
+        "new_score": 89,
+        "price": 69.66,
+        "setup_name": "Hypothese 1: SMC Order Block Confluence",
+        "entry_range": [
+          69.3,
+          70.7
+        ],
+        "stop_loss": 72.3,
+        "take_profit_2": 60.0,
+        "reasons": [
+          "HTF-Struktur eindeutig bärisch (1W, 1D und 4h im Abwärtstrend)",
+          "Retest der aktivierten Bearish OB Zohne (Grade B, R14 mit Sweep) im Bereich 69.42 - 71.99",
+          "Doppelte Bärische Divergenz (Regulär & Versteckt) auf 1D sowie 4h/1h Sell Signals"
+        ],
+        "change_reason": "Konfluenz-Veränderung: Score springt von 95% auf 89% (HTF-Struktur eindeutig bärisch (1W, 1D und 4h im Abwärtstrend)).",
+        "note": "Der 1h-Bullen-Trend stellt eine untergeordnete Korrektur im übergeordneten bärischen Trend dar. Ein Einstieg erfolgt nahe der Unterkante des Bearish Order Blocks. Wegen des Sektor-Status CAUTION wird das Hebel-Cap auf maximal 3x begrenzt.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...j2vQ]"
+      },
+      {
+        "symbol": "AMEX:GLD",
+        "name": "GLD",
+        "category": "Aktien",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 86,
+        "new_score": 52,
+        "price": 377.9037,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          0.0,
+          0.0
+        ],
+        "stop_loss": 0.0,
+        "take_profit_2": 0.0,
+        "reasons": [
+          "Preis läuft über die Oberkante des Bearish Order Blocks (379.07) hinaus; Struktur unklar",
+          "1h RSI mit 67.67 stark überhitzt bei sehr geringem Volumen (Very Low Volume)",
+          "Aufgrund der historischen Fehler-Lehre aus vergangenen GLD-Trades ist strikte Disziplin gefordert; kein Risk-Taking ohne einwandfreies Trigger-Muster"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Preis läuft über die Oberkante des Bearish Order Blocks (379.07) hinaus; Struktur unklar).",
+        "note": "GLD zeigt auf 1h einen starken Push nach oben (RSI 67.67) direkt in den mitigated Bearish OB. Da der Stop-Loss der Historie nach konsequent am Break-Even geschützt werden muss und der Kurs aktuell ohne klaren Rejection-Sweep konsolidiert, gilt absolute Kapitalerhaltung. Wir verharren an der Seitenlinie.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...j2vQ]"
+      },
+      {
+        "symbol": "NASDAQ:SNDK",
+        "name": "SNDK",
+        "category": "Aktien",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 89,
+        "new_score": 52,
+        "price": 897.435,
+        "setup_name": "Beobachten / Lauerstellung am Support",
+        "entry_range": [
+          0.0,
+          0.0
+        ],
+        "stop_loss": 0.0,
+        "take_profit_2": 0.0,
+        "reasons": [
+          "Kurs befindet sich in der 1D Buy Pocket und im 1D Oversold Band bei stark überverkauftem HTF-RSI",
+          "Übergeordneter Trend (1W/1D/4h) stark BEARISH; das Greifen nach einem fallenden Messer ist ohne strukturellen 1D CHoCH verboten",
+          "1h-Volumen ist extrem niedrig ('Very Low Volume'), was auf fehlendes institutionelles Kaufinteresse hindeutet"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Kurs befindet sich in der 1D Buy Pocket und im 1D Oversold Band bei stark überverkauftem HTF-RSI).",
+        "note": "SNDK zeigt zwar ausgeprägte bullische Reversal-Divergenzen und befindet sich in der Buy Pocket, jedoch schützt unser Reglement vor verfrühten Bodenbildungs-Trades in stark bärischen Trends (Sektor-Hebel-Cap max 3x, Win-Rate-Dämpfer). Wir warten auf eine Bodenbildung mit Volumenausbruch und 1D-Strukturbruch.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...pOzg]"
+      },
+      {
+        "symbol": "NASDAQ:AMZN",
+        "name": "Amazon",
+        "category": "Big Tech",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 96,
+        "new_score": 52,
+        "price": 268.21,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          265.0,
+          267.5
+        ],
+        "stop_loss": 262.5,
+        "take_profit_2": 284.0,
+        "reasons": [
+          "HTF-Struktur: Übergeordneter 1W- und 1D-Trend ist klar bullisch (1D-RSI 60.23), was Short-Setups kategorisch ausschließt, aber taktisches Chasing nach starker Aufwärtsbewegung verbietet.",
+          "SMC & FVG: Der Kurs steht bei 269.56 noch über dem ungetesteten Bullish FVG (264.18 - 268.69, 50% Consequent Encroachment bei 266.44) und dem Grad-C Order Block (263.85 - 269.30).",
+          "Indikatoren & Risikofilter: Aktive 'Sell Area'-Signale auf 4h und 1h sowie ein überhitzter 1h-RSI von 63.60 mahnen zur Vorsicht; Sektor 'Big Tech' erfordert aufgrund historischer Underperformance strikte Selektivität (Mindest-Score 92%)."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Struktur: Übergeordneter 1W- und 1D-Trend ist klar bullisch (1D-RSI 60.23), was Short-Setups kategorisch ausschließt, aber taktisches Chasing nach starker Aufwärtsbewegung verbietet.).",
+        "note": "Amazon weist übergeordnete Stärke auf, befindet sich taktisch auf 1h-Basis mit einem RSI von 63.60 und aktiven 'Sell Area'-Markern jedoch in einer überdehnten Phase. Um Verluste aus verfrühten Trendfolge-Setups zu vermeiden, jagen wir dem Markt nicht hinterher, sondern warten diszipliniert auf einen Pullback in die FVG-Imbalance-Zone (265.00 - 267.50 USD). Dort bietet der Bereich um das 50%-Niveau (266.44 USD) in Konfluenz mit dem Order-Block-Zentrum das notwendige asymmetrische CRV für einen Neu-Einstieg.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 8 Einstufungen haben sich geändert:\n\n🔴 Alphabet A (Tradegate) (ABEA):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R4] Exhaustion\n   Entry: 261.78 | SL: 271.48 | TP2: 232.92\n\n🔴 First Majestic Silver (AG):\n   Score-Sprung: 91% ➔ 95% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R3] Exhaustion' (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R3] Exhaustion\n   Entry: 15.87 | SL: 16.46 | TP2: 14.11\n\n🔴 Meta Platforms (Tradegate) (FB2A):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R4] Exhaustion\n   Entry: 570.16 | SL: 591.30 | TP2: 507.30\n\n🔴 Netflix (NFLX):\n   Score-Sprung: 95% ➔ 90% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 2: Trend Continuation & Hidden Div' (Bärische Makro-Struktur über 1W, 1D und 4h unter allen wesentlichen Trendfiltern intakt).\n   📝 KI-Rationale: Netflix befindet sich in einem klaren bärischen Makro-Regime (1W und 1D unter Druck). Das 1h 'Good Buy Signal' stellt lediglich ei...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 63.50 | SL: 66.20 | TP2: 55.50\n\n🔴 Uber (UBER):\n   Score-Sprung: 95% ➔ 89% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 89% (HTF-Struktur eindeutig bärisch (1W, 1D und 4h im Abwärtstrend)).\n   📝 KI-Rationale: Der 1h-Bullen-Trend stellt eine untergeordnete Korrektur im übergeordneten bärischen Trend dar. Ein Einstieg erfolgt nahe der Unte...\n   Setup: Hypothese 1: SMC Order Block Confluence\n   Entry: 69.30 | SL: 72.30 | TP2: 60.00\n\n⚪ GLD (GLD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Preis läuft über die Oberkante des Bearish Order Blocks (379.07) hinaus; Struktur unklar).\n   📝 KI-Rationale: GLD zeigt auf 1h einen starken Push nach oben (RSI 67.67) direkt in den mitigated Bearish OB. Da der Stop-Loss der Historie nach k...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n... und 2 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261109_160647",
     "timestamp": "2026-11-09T16:06:47.470828+00:00",
     "timestamp_display": "09.11.2026 16:06 UTC",
@@ -19921,241 +20175,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🔴 Bitcoin Cash (BCHUSD):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 90%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (90%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 271.10 | SL: 285.22 | TP2: 228.18\n\n🔴 Zcash (ZECUSDT):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 90%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (90%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 1,159.05 | SL: 1,219.44 | TP2: 975.55\n\n🟢 Avalanche (AVAXUSDT):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 80%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (80%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 1: SMC Golden Confluence Reversal\n   Entry: 8.79 | SL: 8.42 | TP2: 10.27\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261024_100805",
-    "timestamp": "2026-10-24T10:08:05.927610+00:00",
-    "timestamp_display": "24.10.2026 10:08 UTC",
-    "title": "🔔 TV-Signaländerung: 6 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 6,
-    "changes": [
-      {
-        "symbol": "CRYPTOCAP:TOTAL",
-        "name": "Total Crypto Market Cap",
-        "category": "Krypto-Makro",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 96,
-        "new_score": 50,
-        "price": 2670255052638,
-        "setup_name": "Beobachten / Warten auf HTF-Key-Level",
-        "entry_range": [
-          0,
-          0
-        ],
-        "stop_loss": 0,
-        "take_profit_2": 0,
-        "reasons": [
-          "Gesamtmarktkapitalisierung zwar im 1D Golden Pocket, aber übergeordneter Trend 1D und 4h bärisch",
-          "4h zeigt reguläre bärische Divergenz gegen versteckte bullische Divergenz",
-          "Kein aktiver Handelswert (Makro-Index) – dient als selektiver Marktradar"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Gesamtmarktkapitalisierung zwar im 1D Golden Pocket, aber übergeordneter Trend 1D und 4h bärisch).",
-        "note": "Der Krypto-Gesamtmarkt testet das 1D Golden Pocket bei RSI 40.89. Aufgrund des aktiven 4h Abwärtstrends und gemischter Divergenzen ist eine Bodenbildung noch nicht bestätigt; selektive Zurückhaltung bleibt oberste Pflicht.",
-        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...pOzg]"
-      },
-      {
-        "symbol": "COINBASE:CRVUSD",
-        "name": "Curve DAO",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 95,
-        "new_score": 48,
-        "price": 0.3515,
-        "setup_name": "Beobachten / Trend-Konflikt",
-        "entry_range": [
-          0,
-          0
-        ],
-        "stop_loss": 0,
-        "take_profit_2": 0,
-        "reasons": [
-          "Multi-Timeframe Trend-Konflikt: 1D Trend bullisch vs. 4h Trend bärisch",
-          "Kurs befindet sich nicht im Golden Pocket (in_gp: false)",
-          "4h Volumen ist 'Ultra-Low', was eine valide Trendfortsetzung ausschließt"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Multi-Timeframe Trend-Konflikt: 1D Trend bullisch vs. 4h Trend bärisch).",
-        "note": "Der Bruch zwischen 1D-Bullenstruktur und 4h-Korrektur erfordert Geduld. Solange auf 4h kein bullischer Strukturbruch mit Volumen erfolgt, wird kein Risiko allokiert.",
-        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...pOzg]"
-      },
-      {
-        "symbol": "BINANCE:BTCUSDT",
-        "name": "Bitcoin",
-        "category": "Krypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 96,
-        "new_score": 45,
-        "price": 80658,
-        "setup_name": "Beobachten / Konsolidierung",
-        "entry_range": [
-          0,
-          0
-        ],
-        "stop_loss": 0,
-        "take_profit_2": 0,
-        "reasons": [
-          "1D und 4h Trend bärisch, Kurs nicht im Golden Pocket (in_gp: false)",
-          "Widersprüchliche Divergenzen auf 1D (sowohl bullisch als auch bärisch registriert)",
-          "VSA auf 4h zeigt geringes Volumen ('Low'), keine bestätigte institutionelle Absorption"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D und 4h Trend bärisch, Kurs nicht im Golden Pocket (in_gp: false)).",
-        "note": "Bitcoin verbleibt im übergeordneten Abwärtstrend ohne eindeutige Konfluenz. Da widersprüchliche Divergenzen vorliegen und das 1D Golden Pocket nicht erreicht ist, gebietet das Risikomanagement striktes Abwarten an der Seitenlinie.",
-        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...pOzg]"
-      },
-      {
-        "symbol": "COINBASE:BTCUSD",
-        "name": "Bitcoin",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 96,
-        "new_score": 45,
-        "price": 80545,
-        "setup_name": "Beobachten / Konsolidierung",
-        "entry_range": [
-          0,
-          0
-        ],
-        "stop_loss": 0,
-        "take_profit_2": 0,
-        "reasons": [
-          "Identische Marktstruktur wie Binance BTC: 1D und 4h Trend bärisch",
-          "VSA signalisiert 'Ultra-Low / No Supply-Demand' – mangelnde institutionelle Beteiligung",
-          "Widersprüchliche Signale schließen ein sauberes HTF-Setup aus"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Identische Marktstruktur wie Binance BTC: 1D und 4h Trend bärisch).",
-        "note": "Das extrem niedrige Volumen auf 4h deutet auf Desinteresse hin, nicht auf eine signifikante Wyckoff-Akkumulation. Gemäß Regel 1 bleibt das Signal zwingend Neutral.",
-        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...pOzg]"
-      },
-      {
-        "symbol": "COINBASE:SOLUSD",
-        "name": "Solana",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 87,
-        "new_score": 42,
-        "price": 101.33,
-        "setup_name": "Beobachten / Konsolidierung",
-        "entry_range": [
-          0,
-          0
-        ],
-        "stop_loss": 0,
-        "take_profit_2": 0,
-        "reasons": [
-          "Sowohl 1D als auch 4h Trend klar bärisch",
-          "Kein Golden Pocket Support (in_gp: false)",
-          "VSA auf 4h 'Ultra-Low', bärische Divergenz auf 4h deckelt Aufwärtsversuche"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Sowohl 1D als auch 4h Trend klar bärisch).",
-        "note": "Solana konsolidiert im Abwärtstrend nahe 101 USD. Ohne Anzeichen von echtem Stopping Volume oder HTF-Unterstützung verbietet sich ein vorzeitiger Long-Einstieg.",
-        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...pOzg]"
-      },
-      {
-        "symbol": "BINANCE:DOTUSDT",
-        "name": "Polkadot",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 77,
-        "new_score": 40,
-        "price": 1.06,
-        "setup_name": "Beobachten / Warten auf HTF-Key-Level",
-        "entry_range": [
-          0,
-          0
-        ],
-        "stop_loss": 0,
-        "take_profit_2": 0,
-        "reasons": [
-          "Konsequenter Abwärtstrend auf 1D und 4h",
-          "4h RSI bei 35.05 ohne jegliche bullische Divergenz oder VSA-Bestätigung",
-          "Kein Golden Pocket Kontakt vorhanden"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Konsequenter Abwärtstrend auf 1D und 4h).",
-        "note": "Polkadot zeigt anhaltende relative Schwäche über alle betrachteten Zeiteinheiten. Es existiert keinerlei statistischer Edge für eine Positionierung.",
-        "evaluated_by": "gemini-3.8-flash [AQ.Ab8...pOzg]"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 6 Einstufungen haben sich geändert:\n\n⚪ Total Crypto Market Cap (TOTAL):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 50%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Gesamtmarktkapitalisierung zwar im 1D Golden Pocket, aber übergeordneter Trend 1D und 4h bärisch).\n   📝 KI-Rationale: Der Krypto-Gesamtmarkt testet das 1D Golden Pocket bei RSI 40.89. Aufgrund des aktiven 4h Abwärtstrends und gemischter Divergenzen...\n   Setup: Beobachten / Warten auf HTF-Key-Level\n\n⚪ Curve DAO (CRVUSD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Multi-Timeframe Trend-Konflikt: 1D Trend bullisch vs. 4h Trend bärisch).\n   📝 KI-Rationale: Der Bruch zwischen 1D-Bullenstruktur und 4h-Korrektur erfordert Geduld. Solange auf 4h kein bullischer Strukturbruch mit Volumen e...\n   Setup: Beobachten / Trend-Konflikt\n\n⚪ Bitcoin (BTCUSDT):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 45%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D und 4h Trend bärisch, Kurs nicht im Golden Pocket (in_gp: false)).\n   📝 KI-Rationale: Bitcoin verbleibt im übergeordneten Abwärtstrend ohne eindeutige Konfluenz. Da widersprüchliche Divergenzen vorliegen und das 1D G...\n   Setup: Beobachten / Konsolidierung\n\n⚪ Bitcoin (BTCUSD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 45%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Identische Marktstruktur wie Binance BTC: 1D und 4h Trend bärisch).\n   📝 KI-Rationale: Das extrem niedrige Volumen auf 4h deutet auf Desinteresse hin, nicht auf eine signifikante Wyckoff-Akkumulation. Gemäß Regel 1 bl...\n   Setup: Beobachten / Konsolidierung\n\n⚪ Solana (SOLUSD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 42%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Sowohl 1D als auch 4h Trend klar bärisch).\n   📝 KI-Rationale: Solana konsolidiert im Abwärtstrend nahe 101 USD. Ohne Anzeichen von echtem Stopping Volume oder HTF-Unterstützung verbietet sich ...\n   Setup: Beobachten / Konsolidierung\n\n⚪ Polkadot (DOTUSDT):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 40%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Konsequenter Abwärtstrend auf 1D und 4h).\n   📝 KI-Rationale: Polkadot zeigt anhaltende relative Schwäche über alle betrachteten Zeiteinheiten. Es existiert keinerlei statistischer Edge für ei...\n   Setup: Beobachten / Warten auf HTF-Key-Level\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261024_060742",
-    "timestamp": "2026-10-24T06:07:42.330478+00:00",
-    "timestamp_display": "24.10.2026 06:07 UTC",
-    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 2,
-    "changes": [
-      {
-        "symbol": "BINANCE:DOTUSDT",
-        "name": "Polkadot",
-        "category": "Crypto",
-        "change_type": "SCORE_JUMP",
-        "old_signal": "LONG",
-        "new_signal": "LONG",
-        "old_score": 87,
-        "new_score": 77,
-        "price": 1.08,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          1.07,
-          1.08
-        ],
-        "stop_loss": 1.03,
-        "take_profit_2": 1.24,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)"
-        ],
-        "change_reason": "Konfluenz-Veränderung: Score springt von 87% auf 77% (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bullische Konfluenz (77%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "BINANCE:GMXUSDT",
-        "name": "GMX",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 95,
-        "new_score": 58,
-        "price": 8.46,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          8.46,
-          8.46
-        ],
-        "stop_loss": 8.21,
-        "take_profit_2": 8.97,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend über EMA 233 bullisch).",
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n🟢 Polkadot (DOTUSDT):\n   Score-Sprung: 87% ➔ 77% (LONG)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 87% auf 77% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (77%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 1.07 | SL: 1.03 | TP2: 1.24\n\n⚪ GMX (GMXUSDT):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 58%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
