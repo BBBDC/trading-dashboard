@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-09T15:12:01.871253+00:00",
-  "total_experience_records": 69,
+  "updated_at": "2026-11-09T16:06:25.384563+00:00",
+  "total_experience_records": 73,
   "learnings": [
+    {
+      "timestamp": "2026-11-09T16:06:21.664761+00:00",
+      "trade_id": "cross_rule_1794240381",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "VSA-Bestätigungspflicht: Ein Extremzonen-Reversal ist nur valide, wenn auf den Erschöpfungs-Push ('Effort vs. Result') eine expansive Abwärts-Volumenkerze folgt.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Bleibt der Verkaufsdruck nach dem Signalmarker aus, fungiert das Band nur als temporäre Konsolidierung vor der Trendfortsetzung. Echte Repreisung wie bei AMZ.F entsteht nur durch aggressive institutionelle Schieflage der Gegenpartei.",
+        "actionable_rule": "VSA-Bestätigungspflicht: Ein Extremzonen-Reversal ist nur valide, wenn auf den Erschöpfungs-Push ('Effort vs. Result') eine expansive Abwärts-Volumenkerze folgt."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T16:06:21.664738+00:00",
+      "trade_id": "cross_rule_1794240381",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Überdehnung ist kein Wendepunkt: Kontratrend-Setups erfordern zwingend einen strukturellen Liquidity-Sweep (Klasse A) vor der Order-Aktivierung.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Chaos-Bänder und RFE markieren lediglich statistische Extremzonen. Sowohl auf 5m als auch auf 4h/1D durchbricht starkes Momentum diese Bänder mühelos, wenn darüber noch ungetestete Liquiditätspools liegen (wie bei LINKUSDT gesehen).",
+        "actionable_rule": "Überdehnung ist kein Wendepunkt: Kontratrend-Setups erfordern zwingend einen strukturellen Liquidity-Sweep (Klasse A) vor der Order-Aktivierung."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T16:06:21.664721+00:00",
+      "trade_id": "inc_AMZ.F_5m_1794237077",
+      "symbol": "AMZ.F",
+      "name": "Amazon",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 2.94,
+      "pnl_raw": 1.47,
+      "text": "Bei bestätigter Sell-Pocket an liquiden Aktien-Benchmarks nach Erreichen von TP1 den Stop zwingend auf Breakeven nachziehen und TP2 an tiefer liegenden Fair Value Gaps (FVG) unerbittlich mitnehmen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AMZ.F_5m_1794237077",
+        "verdict": "WIN",
+        "driver": "Präzise institutionelle Ablehnung an der RFE-Distributionsgrenze mit sofortigem Nachlassen des Kaufvolumens und stringenter Repreisung bis zum TP2-Liquiditätsziel.",
+        "technical_warning": "Keine systemische Warnung; die Ausführung nutzte die strukturell höhere Orderbuch-Effizienz von Aktien-Equities bei Überdehnung ideal aus.",
+        "actionable_rule": "Bei bestätigter Sell-Pocket an liquiden Aktien-Benchmarks nach Erreichen von TP1 den Stop zwingend auf Breakeven nachziehen und TP2 an tiefer liegenden Fair Value Gaps (FVG) unerbittlich mitnehmen."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T16:06:21.664659+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1794237077",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -1.7,
+      "pnl_raw": -0.85,
+      "text": "Kein Short an Chaos-Bändern in Krypto-Assets, solange kein offensichtlicher Liquidity-Sweep der vorangegangenen 5m/15m-Hochs mit anschließender Delta-Divergenz stattgefunden hat.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1794237077",
+        "verdict": "LOSS",
+        "driver": "Fehlgeschlagene Absorption an der Chaos-Band-Kante ohne echten Liquidity-Sweep, wodurch verbliebene Buy-Side-Liquidität den Stop-Loss direkt überrollte.",
+        "technical_warning": "Fehlen einer VSA-Erschöpfung ('No Demand'-Volumendropp) und vorzeitiges Signal vor dem Abfischen der lokalen Key-Highs (Sweep-Qualität [A] fehlte völlig).",
+        "actionable_rule": "Kein Short an Chaos-Bändern in Krypto-Assets, solange kein offensichtlicher Liquidity-Sweep der vorangegangenen 5m/15m-Hochs mit anschließender Delta-Divergenz stattgefunden hat."
+      }
+    },
     {
       "timestamp": "2026-11-09T15:11:58.154395+00:00",
       "trade_id": "cross_rule_1794237118",
