@@ -1,5 +1,123 @@
 [
   {
+    "id": "evt_20261109_160647",
+    "timestamp": "2026-11-09T16:06:47.470828+00:00",
+    "timestamp_display": "09.11.2026 16:06 UTC",
+    "title": "🔔 TV-Signaländerung: 4 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 4,
+    "changes": [
+      {
+        "symbol": "NASDAQ:AMZN",
+        "name": "Amazon",
+        "category": "Big Tech",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "LONG",
+        "old_score": 47,
+        "new_score": 96,
+        "price": 269.205,
+        "setup_name": "Hypothese 1: degencoder Institutional Buy Pocket Reversal",
+        "entry_range": [
+          267.97,
+          270.67
+        ],
+        "stop_loss": 260.68,
+        "take_profit_2": 300.37,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "1W Makro-Trend bullisch bestätigt",
+          "degencoder: 1D Institutional BUY Pocket (Lower Chaos Band unter RFE 233)",
+          "degencoder: 1D Institutional SELL Pocket (Upper Chaos Band über RFE 233)"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
+        "note": "Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NYSE:AG",
+        "name": "First Majestic Silver",
+        "category": "Edelmetall-Minen",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 55,
+        "new_score": 91,
+        "price": 15.86,
+        "setup_name": "Hypothese 1: SMC Grad A Order Block Retest & Sweep",
+        "entry_range": [
+          15.65,
+          15.81
+        ],
+        "stop_loss": 16.05,
+        "take_profit_2": 14.2,
+        "reasons": [
+          "Makro-Trend (1W und 1D) ist bärisch bei übergeordnetem Verkaufsdruck.",
+          "Aktiver Grad A Bearish Order Block mit Liquiditäts-Sweep (Top 15.81) und 4h degencoder 'Good Sell Signal'.",
+          "Erholung auf 1h erfolgt ohne Volumen (Very Low Volume) und zeigt versteckte bärische Divergenzen im 4h/1D Kontext."
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (Makro-Trend (1W und 1D) ist bärisch bei übergeordnetem Verkaufsdruck.).",
+        "note": "First Majestic Silver testet den hochwertigen Grad-A Bearish Order Block inklusive erfolgtem Liquiditäts-Sweep. Das 4h 'Good Sell Signal' bestätigt die Ausführung der institutionellen Verkaufsorders an der Schlüsselzone. Das Setup bietet ein exzellentes Chance-Risiko-Verhältnis bei klar strukturierter Invalidierung über 16.05.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...oFUw]"
+      },
+      {
+        "symbol": "NASDAQ:SNDK",
+        "name": "SNDK",
+        "category": "Aktien",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "LONG",
+        "old_score": 58,
+        "new_score": 89,
+        "price": 883.74,
+        "setup_name": "Hypothese 1: degencoder Institutional Buy Pocket Reversal",
+        "entry_range": [
+          880.0,
+          885.57
+        ],
+        "stop_loss": 845.0,
+        "take_profit_2": 1050.0,
+        "reasons": [
+          "Preis befindet sich exakt in der institutional 1D Buy Pocket bei stark überverkaufter Lage (1D RSI 30.06, 1W RSI 29.85).",
+          "Klare Kauf-Bestätigung durch ein degencoder 4h 'Good Buy Signal' (blaues Dreieck) kombiniert mit bullischen Divergenzen auf 1D, 4h und 1h.",
+          "Extrem überdehnter Kurs am unteren 1D-Kanalband deutet auf unmittelbare Kapitulation und ein starkes Asymmetrisches Bounce-Potential hin."
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (Preis befindet sich exakt in der institutional 1D Buy Pocket bei stark überverkaufter Lage (1D RSI 30.06, 1W RSI 29.85).).",
+        "note": "Obwohl der übergeordnete Trend noch bärisch verläuft, erfüllt SNDK exakt die Ausnahmekriterien der strikten Filterregel 2 für ein Reversal-Setup (1D Buy Pocket + 4h Good Buy Signal + Mehrfache bullische Divergenzen). Das CRV von > 3.3:1 rechtfertigt eine Long-Positionierung zur Erholung an das primäre FVG/Widerstandsniveau.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...oFUw]"
+      },
+      {
+        "symbol": "AMEX:GLD",
+        "name": "GLD",
+        "category": "Aktien",
+        "change_type": "SCORE_JUMP",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 95,
+        "new_score": 86,
+        "price": 377.5,
+        "setup_name": "Hypothese 1: Bearish Order Block & Trend Continuation",
+        "entry_range": [
+          377.36,
+          379.07
+        ],
+        "stop_loss": 381.5,
+        "take_profit_2": 362.5,
+        "reasons": [
+          "Makro-Trend auf 1W und 1D ist bärisch; 1h RSI ist mit 67.15 überhitzt und zeigt eine reguläre bärische Divergenz.",
+          "4h und 1h degencoder-Signale zeigen klare 'Sell Area' an einem aktiven bärischen Order Block (Top bei 379.07).",
+          "Sehr geringes Volumen (Very Low Volume) auf 1h/4h bei der Erholungsbewegung signalisiert eine schwache Bärenmarktrallye (No Demand)."
+        ],
+        "change_reason": "Konfluenz-Veränderung: Score springt von 95% auf 86% (Makro-Trend auf 1W und 1D ist bärisch; 1h RSI ist mit 67.15 überhitzt und zeigt eine reguläre bärische Divergenz.).",
+        "note": "Der Makrotrend bleibt übergeordnet klar bärisch. Die untergeordnete Erholung auf 1h stößt bei extrem niedrigem Volumen in den übergeordneten bärischen Order Block vor und ist durch bärische Divergenzen erschöpft. Gemäß unseren Risikoregeln wird die Short-Hypothese weiterverfolgt; das Stop-Loss liegt strikt oberhalb der Order-Block-Struktur.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...oFUw]"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 4 Einstufungen haben sich geändert:\n\n🟢 Amazon (AMZN):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: degencoder Institutional Buy Pocket Reversal\n   Entry: 267.97 | SL: 260.68 | TP2: 300.37\n\n🔴 First Majestic Silver (AG):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 91%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (Makro-Trend (1W und 1D) ist bärisch bei übergeordnetem Verkaufsdruck.).\n   📝 KI-Rationale: First Majestic Silver testet den hochwertigen Grad-A Bearish Order Block inklusive erfolgtem Liquiditäts-Sweep. Das 4h 'Good Sell ...\n   Setup: Hypothese 1: SMC Grad A Order Block Retest & Sweep\n   Entry: 15.65 | SL: 16.05 | TP2: 14.20\n\n🟢 SNDK (SNDK):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 89%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (Preis befindet sich exakt in der institutional 1D Buy Pocket bei stark überverkaufter Lage (1D RSI 30.06, 1W RSI 29.85).).\n   📝 KI-Rationale: Obwohl der übergeordnete Trend noch bärisch verläuft, erfüllt SNDK exakt die Ausnahmekriterien der strikten Filterregel 2 für ein ...\n   Setup: Hypothese 1: degencoder Institutional Buy Pocket Reversal\n   Entry: 880.00 | SL: 845.00 | TP2: 1,050.00\n\n🔴 GLD (GLD):\n   Score-Sprung: 95% ➔ 86% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 86% (Makro-Trend auf 1W und 1D ist bärisch; 1h RSI ist mit 67.15 überhitzt und zeigt eine reguläre bärische Divergenz.).\n   📝 KI-Rationale: Der Makrotrend bleibt übergeordnet klar bärisch. Die untergeordnete Erholung auf 1h stößt bei extrem niedrigem Volumen in den über...\n   Setup: Hypothese 1: Bearish Order Block & Trend Continuation\n   Entry: 377.36 | SL: 381.50 | TP2: 362.50\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_trade_20261109_154503_BTCUSDT",
     "timestamp": "2026-11-09T15:45:03.721700+00:00",
     "timestamp_display": "09.11.2026 15:45 UTC",
@@ -20039,99 +20157,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n🟢 Polkadot (DOTUSDT):\n   Score-Sprung: 87% ➔ 77% (LONG)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 87% auf 77% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (77%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 1.07 | SL: 1.03 | TP2: 1.24\n\n⚪ GMX (GMXUSDT):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 58%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261024_021145",
-    "timestamp": "2026-10-24T02:11:45.611979+00:00",
-    "timestamp_display": "24.10.2026 02:11 UTC",
-    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 3,
-    "changes": [
-      {
-        "symbol": "COINBASE:BTCUSD",
-        "name": "Bitcoin",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 56,
-        "new_score": 95,
-        "price": 80822.61,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          80176.03,
-          80984.26
-        ],
-        "stop_loss": 76781.48,
-        "take_profit_2": 93754.23,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "BINANCE:DOTUSDT",
-        "name": "Polkadot",
-        "category": "Crypto",
-        "change_type": "SCORE_JUMP",
-        "old_signal": "LONG",
-        "new_signal": "LONG",
-        "old_score": 95,
-        "new_score": 87,
-        "price": 1.09,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          1.08,
-          1.09
-        ],
-        "stop_loss": 1.04,
-        "take_profit_2": 1.25,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Konfluenz-Veränderung: Score springt von 95% auf 87% (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bullische Konfluenz (87%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "COINBASE:SOLUSD",
-        "name": "Solana",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 53,
-        "new_score": 87,
-        "price": 102.42,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          101.6,
-          102.62
-        ],
-        "stop_loss": 97.3,
-        "take_profit_2": 118.8,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bullische Konfluenz (87%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🟢 Bitcoin (BTCUSD):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 80,176.03 | SL: 76,781.48 | TP2: 93,754.23\n\n🟢 Polkadot (DOTUSDT):\n   Score-Sprung: 95% ➔ 87% (LONG)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 87% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (87%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 1.08 | SL: 1.04 | TP2: 1.25\n\n🟢 Solana (SOLUSD):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 87%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (87%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 101.60 | SL: 97.30 | TP2: 118.80\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
