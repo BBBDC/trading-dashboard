@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-09T16:34:27.552117+00:00",
-  "total_experience_records": 73,
+  "updated_at": "2026-11-09T17:02:31.398685+00:00",
+  "total_experience_records": 76,
   "learnings": [
+    {
+      "timestamp": "2026-11-09T17:02:27.430298+00:00",
+      "trade_id": "cross_rule_1794243747",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Ein Orderblock-Retest (R1) besitzt nur dann institutionelle Tragfähigkeit, wenn vor dem Tap externe Liquidität geräumt oder eine Inbalance (FVG) sauber mitigiert wurde.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die Erfolgsursache im 5m-Micro-Setup beruht auf demselben Orderflow-Prinzip wie ein 1D-Institutional-Recharge: Ohne vorherigen Liquiditätsabgriff verkommt ein Retest zur Falle für Retail-Limit-Orders.",
+        "actionable_rule": "Ein Orderblock-Retest (R1) besitzt nur dann institutionelle Tragfähigkeit, wenn vor dem Tap externe Liquidität geräumt oder eine Inbalance (FVG) sauber mitigiert wurde."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T17:02:27.430275+00:00",
+      "trade_id": "cross_rule_1794243747",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Entwertungs-Präzision schlägt Volatilität: Trade-Setups müssen unabhängig von der Zeitebene so strukturiert sein, dass der Invalidation-Point ein R:R von mindestens 2.0R bei Erreichen der nächsten primären Liquiditätszone (TP2) garantiert.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m genügte MSF.F eine minimale Spanne von 0.18%, um +2.2R zu erzielen. Übertragen auf 4h/1D-Charts verhindert dieser Mechanismus weite, willkürliche Stops und erzwingt das Warten auf den exakten OB-Randkontakt.",
+        "actionable_rule": "Fraktale Entwertungs-Präzision schlägt Volatilität: Trade-Setups müssen unabhängig von der Zeitebene so strukturiert sein, dass der Invalidation-Point ein R:R von mindestens 2.0R bei Erreichen der nächsten primären Liquiditätszone (TP2) garantiert."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T17:02:27.430223+00:00",
+      "trade_id": "inc_MSF.F_5m_1794241940",
+      "symbol": "MSF.F",
+      "name": "Microsoft",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 0.36,
+      "pnl_raw": 0.18,
+      "text": "Micro-Confluence-Setups an OBs dürfen nur dann 'at market/limit' gefüllt werden, wenn der Retest mit abnehmendem Verkaufsdruck (Low-Volume Pullback) und unmittelbarer VSA-Reaktionskerze einhergeht.",
+      "ai_post_mortem": {
+        "trade_id": "inc_MSF.F_5m_1794241940",
+        "verdict": "WIN",
+        "driver": "Die saubere Konfluenz aus strukturellem Bullish-Orderblock-Retest (R1) und momentum-validiertem 'Good Buy Signal' ermöglichte eine unverzügliche Expansion ohne signifikantes Adverse Excursion direkt ins TP2.",
+        "technical_warning": "Ein potenzieller Fehlschlag hätte sich frühzeitig durch divergierendes/abnehmendes VSA-Delta beim OB-Anlauf oder ungeräumte Equal Lows knapp unterhalb der Entry-Zone angekündigt.",
+        "actionable_rule": "Micro-Confluence-Setups an OBs dürfen nur dann 'at market/limit' gefüllt werden, wenn der Retest mit abnehmendem Verkaufsdruck (Low-Volume Pullback) und unmittelbarer VSA-Reaktionskerze einhergeht."
+      }
+    },
     {
       "timestamp": "2026-11-09T16:06:21.664761+00:00",
       "trade_id": "cross_rule_1794240381",
