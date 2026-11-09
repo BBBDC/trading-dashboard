@@ -1,7 +1,103 @@
 {
-  "updated_at": "2026-11-09T14:48:47.521779+00:00",
-  "total_experience_records": 64,
+  "updated_at": "2026-11-09T15:12:01.871253+00:00",
+  "total_experience_records": 69,
   "learnings": [
+    {
+      "timestamp": "2026-11-09T15:11:58.154395+00:00",
+      "trade_id": "cross_rule_1794237118",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Venue- & Liquiditäts-Kongruenz: Das Handelsvehikel muss Primärmarkt-Volumen aufweisen, andernfalls greift ein striktes Handelsverbot für Mikro-Setups.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Das Ausführen von M5/M15-Signalmodellen auf illiquiden Sekundärlistings (.F statt US-Original) zerstört jeden statistischen Edge durch Spread-Widening und Slippage; auf HTF (4h/1D) gilt diese Disziplin analog für illiquide Krypto-Altcoins mit zu geringem Open Interest.",
+        "actionable_rule": "Venue- & Liquiditäts-Kongruenz: Das Handelsvehikel muss Primärmarkt-Volumen aufweisen, andernfalls greift ein striktes Handelsverbot für Mikro-Setups."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T15:11:58.154373+00:00",
+      "trade_id": "cross_rule_1794237118",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Counter-Trend-Entry ohne vorangegangenen Sweep externer Liquidität (Klasse A) und bestätigten Market Structure Shift (MSS).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Fraktal gültig von 5m bis 1D: Indikator-Überdehnungen (RSI, Chaos Bänder) und einfache Orderblöcke fungieren in starken Trendphasen als Beschleuniger und nicht als Wendepunkte, solange der Markt nicht zuvor die Stop-Liquidität der Gegenseite bereinigt hat.",
+        "actionable_rule": "Kein Counter-Trend-Entry ohne vorangegangenen Sweep externer Liquidität (Klasse A) und bestätigten Market Structure Shift (MSS)."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T15:11:58.154361+00:00",
+      "trade_id": "inc_AMZ.F_5m_1794235685",
+      "symbol": "AMZ.F",
+      "name": "Amazon",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -1.8,
+      "pnl_raw": -0.9,
+      "text": "Ein 'Sell Pocket'-Signal darf erst ausgeführt werden, wenn die M5-Kerze unter das letzte signifikante Swingtief schließt und damit einen strukturellen Bruch (Market Structure Shift) bestätigt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AMZ.F_5m_1794235685",
+        "verdict": "LOSS",
+        "driver": "Suizidales Shorten einer dynamischen Trendexpansion, bei dem eine bloße Band-Überdehnung ('Chaos Band > RFE') mit einer Trendumkehr verwechselt wurde.",
+        "technical_warning": "Sich öffnende (expandierende) Volatilitätsbänder und bullische FVG-Kaskaden im 5m-Chart warnten vor anhaltendem institutionellem Akkumulationsdruck.",
+        "actionable_rule": "Ein 'Sell Pocket'-Signal darf erst ausgeführt werden, wenn die M5-Kerze unter das letzte signifikante Swingtief schließt und damit einen strukturellen Bruch (Market Structure Shift) bestätigt."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T15:11:58.154343+00:00",
+      "trade_id": "inc_APC.F_5m_1794235685",
+      "symbol": "APC.F",
+      "name": "Apple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.02,
+      "pnl_raw": -0.01,
+      "text": "US-Einzeltitel sind auf Mikro-Zeitskalen (5m/15m) ausnahmslos an der Heimatbörse (NASDAQ/NYSE) im Haupthandelsfenster zu handeln; der Stop-Loss muss zwingend mindestens 1,5x ATR plus doppelten Spread abdecken.",
+      "ai_post_mortem": {
+        "trade_id": "inc_APC.F_5m_1794235685",
+        "verdict": "LOSS",
+        "driver": "Reiner Rausch- und Spread-Stop-Out (SL-Auslösung bei lediglich +0,02 EUR Kursbewegung) durch das Handeln eines US-Mega-Caps über die illiquide Frankfurter Parkettnotiz mit Mikroskop-Stop.",
+        "technical_warning": "Ungünstiges Verhältnis von Makler-Spread zu 5m-ATR-Distanz machte das Setup vor Orderaufgabe mathematisch zu negativem Erwartungswert.",
+        "actionable_rule": "US-Einzeltitel sind auf Mikro-Zeitskalen (5m/15m) ausnahmslos an der Heimatbörse (NASDAQ/NYSE) im Haupthandelsfenster zu handeln; der Stop-Loss muss zwingend mindestens 1,5x ATR plus doppelten Spread abdecken."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T15:11:58.154282+00:00",
+      "trade_id": "inc_BNBUSDT_5m_1794235684",
+      "symbol": "BNBUSDT",
+      "name": "BNB",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.56,
+      "pnl_raw": -0.28,
+      "text": "Orderblock-Retests [B] sind nur noch zulässig, wenn die anlaufende Liquiditätswelle zuvor ein klares Sweep-Muster [A] mit sichtbarer Ablehnung (Pinbar/Wick) gebildet hat.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BNBUSDT_5m_1794235684",
+        "verdict": "LOSS",
+        "driver": "Der Retest eines schwachen Bearish Orderblocks [Kategorie B] wurde ohne vorherige Absorption der Buy-Side-Liquidität angesteuert und vom übergeordneten Krypto-Momentum schlicht überrannt.",
+        "technical_warning": "Fehlendes VSA-Climax-Volumen auf den Vorläuferkerzen sowie das Ausbleiben eines echten Sweeps lokaler Hochs signalisierten ungebrochene Käuferdominanz.",
+        "actionable_rule": "Orderblock-Retests [B] sind nur noch zulässig, wenn die anlaufende Liquiditätswelle zuvor ein klares Sweep-Muster [A] mit sichtbarer Ablehnung (Pinbar/Wick) gebildet hat."
+      }
+    },
     {
       "timestamp": "2026-11-09T14:48:43.778578+00:00",
       "trade_id": "cross_rule_1794235723",

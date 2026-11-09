@@ -1,5 +1,99 @@
 [
   {
+    "id": "evt_20261109_144855",
+    "timestamp": "2026-11-09T14:48:55.884643+00:00",
+    "timestamp_display": "09.11.2026 14:48 UTC",
+    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 3,
+    "changes": [
+      {
+        "symbol": "NASDAQ:NFLX",
+        "name": "Netflix",
+        "category": "Entertainment",
+        "change_type": "SETUP_UPDATE",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 92,
+        "new_score": 95,
+        "price": 63.51,
+        "setup_name": "Hypothese 2: degencoder Indicator Sell Signal",
+        "entry_range": [
+          63.28,
+          63.92
+        ],
+        "stop_loss": 65.63,
+        "take_profit_2": 56.31,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 1h Buy Area (Grünes Kreuz)",
+          "degencoder: 4h Good Sell Signal (Kreis Top-Erschöpfung)"
+        ],
+        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 2: degencoder Indicator Sell Signal' (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NYSE:UBER",
+        "name": "Uber",
+        "category": "Mobility / Tech",
+        "change_type": "SETUP_UPDATE",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 90,
+        "new_score": 95,
+        "price": 69.43,
+        "setup_name": "Hypothese 2: degencoder Indicator Sell Signal",
+        "entry_range": [
+          68.45,
+          69.14
+        ],
+        "stop_loss": 70.99,
+        "take_profit_2": 60.91,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 1h Good Sell Signal (Kreis Top-Erschöpfung)",
+          "degencoder: 4h Good Sell Signal (Kreis Top-Erschöpfung)"
+        ],
+        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 2: degencoder Indicator Sell Signal' (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "AMEX:GLD",
+        "name": "GLD",
+        "category": "Aktien",
+        "change_type": "SCORE_JUMP",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 88,
+        "new_score": 95,
+        "price": 377.84,
+        "setup_name": "Hypothese 1: SMC Order Block [R10] Exhaustion",
+        "entry_range": [
+          371.77,
+          375.5
+        ],
+        "stop_loss": 385.56,
+        "take_profit_2": 330.79,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 1h Sell Area (Rotes Kreuz)",
+          "degencoder: 4h Sell Area (Rotes Kreuz)"
+        ],
+        "change_reason": "Konfluenz-Veränderung: Score springt von 88% auf 95% (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🔴 Netflix (NFLX):\n   Score-Sprung: 92% ➔ 95% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 2: degencoder Indicator Sell Signal' (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 2: degencoder Indicator Sell Signal\n   Entry: 63.28 | SL: 65.63 | TP2: 56.31\n\n🔴 Uber (UBER):\n   Score-Sprung: 90% ➔ 95% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 2: degencoder Indicator Sell Signal' (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 2: degencoder Indicator Sell Signal\n   Entry: 68.45 | SL: 70.99 | TP2: 60.91\n\n🔴 GLD (GLD):\n   Score-Sprung: 88% ➔ 95% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 88% auf 95% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R10] Exhaustion\n   Entry: 371.77 | SL: 385.56 | TP2: 330.79\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261109_022416",
     "timestamp": "2026-11-09T02:24:16.053911+00:00",
     "timestamp_display": "09.11.2026 02:24 UTC",
@@ -20211,180 +20305,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 7 Einstufungen haben sich geändert:\n\n🔴 Apple (AAPL):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 92%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (92%): Überhitzung an HTF-Widerstandszone (1D Trend über EMA 233 bullisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 346.10 | SL: 358.93 | TP2: 307.94\n\n🟢 Meta Platforms (META):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 85%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (85%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 639.78 | SL: 622.37 | TP2: 717.16\n\n🟢 Broadcom (AVGO):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 77%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (77%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 321.26 | SL: 312.52 | TP2: 360.11\n\n⚪ Micron Technology (MU):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 53%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n⚪ Uber (UBER):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 46%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n⚪ Under Armour (UAA):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 46%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n... und 1 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261023_180817",
-    "timestamp": "2026-10-23T18:08:17.624475+00:00",
-    "timestamp_display": "23.10.2026 18:08 UTC",
-    "title": "🔔 TV-Signaländerung: 6 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 6,
-    "changes": [
-      {
-        "symbol": "BINANCE:BTCUSDT",
-        "name": "Bitcoin",
-        "category": "Krypto",
-        "change_type": "SCORE_JUMP",
-        "old_signal": "LONG",
-        "new_signal": "LONG",
-        "old_score": 85,
-        "new_score": 95,
-        "price": 81529.16,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          80876.93,
-          81692.22
-        ],
-        "stop_loss": 77452.7,
-        "take_profit_2": 94573.83,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Konfluenz-Veränderung: Score springt von 85% auf 95% (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "COINBASE:CRVUSD",
-        "name": "Curve DAO",
-        "category": "Crypto",
-        "change_type": "SCORE_JUMP",
-        "old_signal": "LONG",
-        "new_signal": "LONG",
-        "old_score": 85,
-        "new_score": 95,
-        "price": 0.3685,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          0.37,
-          0.37
-        ],
-        "stop_loss": 0.35,
-        "take_profit_2": 0.43,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Konfluenz-Veränderung: Score springt von 85% auf 95% (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "COINBASE:BTCUSD",
-        "name": "Bitcoin",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 48,
-        "new_score": 95,
-        "price": 81470.66,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          80818.89,
-          81633.6
-        ],
-        "stop_loss": 77397.13,
-        "take_profit_2": 94505.96,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "TVC:DJI",
-        "name": "DJI",
-        "category": "Indizes / Devisen",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 53,
-        "new_score": 80,
-        "price": 52263.24,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          51845.13,
-          52367.77
-        ],
-        "stop_loss": 50434.03,
-        "take_profit_2": 58116.71,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (80%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "BINANCE:AVAXUSDT",
-        "name": "Avalanche",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 53,
-        "new_score": 77,
-        "price": 9.13,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          9.06,
-          9.15
-        ],
-        "stop_loss": 8.67,
-        "take_profit_2": 10.6,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bullische Konfluenz (77%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "CRYPTOCAP:TOTAL",
-        "name": "Total Crypto Market Cap",
-        "category": "Krypto-Makro",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 80,
-        "new_score": 56,
-        "price": 2704769598665,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          2704769598665,
-          2704769598665
-        ],
-        "stop_loss": 2623626510705.05,
-        "take_profit_2": 2867055774584.9,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 6 Einstufungen haben sich geändert:\n\n🟢 Bitcoin (BTCUSDT):\n   Score-Sprung: 85% ➔ 95% (LONG)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 85% auf 95% (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 80,876.93 | SL: 77,452.70 | TP2: 94,573.83\n\n🟢 Curve DAO (CRVUSD):\n   Score-Sprung: 85% ➔ 95% (LONG)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 85% auf 95% (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 0.37 | SL: 0.35 | TP2: 0.43\n\n🟢 Bitcoin (BTCUSD):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 80,818.89 | SL: 77,397.13 | TP2: 94,505.96\n\n🟢 DJI (DJI):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 80%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (80%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 51,845.13 | SL: 50,434.03 | TP2: 58,116.71\n\n🟢 Avalanche (AVAXUSDT):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 77%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (77%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 9.06 | SL: 8.67 | TP2: 10.60\n\n⚪ Total Crypto Market Cap (TOTAL):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 56%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
