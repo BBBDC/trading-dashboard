@@ -79,13 +79,13 @@ def check_pipeline_cron() -> Dict[str, Any]:
 
     age_minutes = max(0, (now - last_update).total_seconds() / 60.0)
 
-    # Cron läuft bei :05 jeder Stunde. Toleranz bis 95 Min für Stundentakt.
-    if age_minutes <= 95:
+    # Cron läuft alle 30 Min (*/30). Toleranz bis 60 Min.
+    if age_minutes <= 60:
         return {
             "status": "OK",
             "score": 100,
             "label": "Pipeline & Cron-Job",
-            "message": f"Letzter Scan vor {int(age_minutes)} Min. (Regulärer Stundentakt)",
+            "message": f"Letzter Scan vor {int(age_minutes)} Min. (30-Minuten-Takt aktiv)",
             "age_minutes": round(age_minutes, 1),
             "last_time": last_update.strftime("%H:%M UTC")
         }

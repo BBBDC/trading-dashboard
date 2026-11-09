@@ -123,7 +123,7 @@ def fetch_crypto_bars_direct(symbol: str, interval: str = "1D", count: int = 120
         clean_sym += "T"
 
     # Timeframe-Mapping
-    tf_map = {"1h": "1h", "4h": "4h", "1D": "1d", "1W": "1w", "3D": "3d"}
+    tf_map = {"5m": "5m", "15m": "15m", "30m": "30m", "1h": "1h", "4h": "4h", "1D": "1d", "1W": "1w", "3D": "3d"}
     binance_tf = tf_map.get(interval, "1d")
 
     url = f"https://api.binance.com/api/v3/klines?symbol={clean_sym}&interval={binance_tf}&limit={count}"

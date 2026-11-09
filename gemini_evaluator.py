@@ -263,7 +263,7 @@ def call_gemini_via_key_pool(prompt, model="gemini-3.8-flash", timeout=40):
     for key_str, masked in keys_pool:
         print(f" (Key: {masked})...", end="", flush=True)
         res, err = call_gemini_via_rest_api(prompt, model=model, api_key=key_str, timeout=timeout)
-        if res and isinstance(res, list) and len(res) > 0:
+        if res and ((isinstance(res, list) and len(res) > 0) or (isinstance(res, dict) and len(res) > 0)):
             return res, None, masked
         last_err = err
         print(f" [Failover auf nächsten Key]...", end="", flush=True)
