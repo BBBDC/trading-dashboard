@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-09T18:50:23.358135+00:00",
-  "total_experience_records": 63,
+  "updated_at": "2026-11-09T19:29:29.939867+00:00",
+  "total_experience_records": 66,
   "learnings": [
+    {
+      "timestamp": "2026-11-09T19:29:26.086247+00:00",
+      "trade_id": "cross_rule_1794252566",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "R-Multiples müssen über ATR-basierte Marktvolatilität definiert werden und dürfen niemals unter die strukturelle Rauschgrenze des jeweiligen Timeframes fallen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein rechnerischer 2.2R-Erfolg bei nur 0.04% Bewegung ist mikrostrukturelle Lotterie gegen die Market-Maker-Fee-Struktur; für 4h/1D-Systeme muss die Distanz zum Stop immer institutionellen Spielraum (mindestens 1x ATR oder klarer Swing-Point-Invalidation) bieten, um fraktale Robustheit zu gewährleisten.",
+        "actionable_rule": "R-Multiples müssen über ATR-basierte Marktvolatilität definiert werden und dürfen niemals unter die strukturelle Rauschgrenze des jeweiligen Timeframes fallen."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T19:29:26.086222+00:00",
+      "trade_id": "cross_rule_1794252566",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Extreme Band-Dislokationen (Chaos Band < RFE) sind fraktal nur dann valide Reversal-Zonen, wenn sie an einem HTF-Liquiditäts-Pool (Key Level / FVG) verankert sind.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Was auf 5m als schneller +0.04% Rebound funktioniert, wird auf 4h/1D ohne übergeordnete strukturelle Unterstützung zur tödlichen Trendfortsetzungsfalle, da 'unter dem Band' in starken Trends schlicht ein Zeichen institutioneller Kapitulation statt einer Buy Pocket sein kann.",
+        "actionable_rule": "Extreme Band-Dislokationen (Chaos Band < RFE) sind fraktal nur dann valide Reversal-Zonen, wenn sie an einem HTF-Liquiditäts-Pool (Key Level / FVG) verankert sind."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T19:29:26.086169+00:00",
+      "trade_id": "inc_ABEA.F_5m_1794250188",
+      "symbol": "ABEA.F",
+      "name": "Alphabet (Google)",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 0.08,
+      "pnl_raw": 0.04,
+      "text": "Bei Sub-15m-Setups auf Nicht-Heimatbörsen (wie ABEA.F statt NASDAQ GOOGL) darf der Stop-Loss niemals kleiner als das Dreifache des effektiven Spreads sein, und Eintritte müssen zwingend passiv per Limit in die Liquiditätstasche gefillt werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ABEA.F_5m_1794250188",
+        "verdict": "WIN",
+        "driver": "Exakte Mean-Reversion-Antizipation aus einer extremen Chaos-Band-Dislokation unterhalb des RFE (Institutional Buy Pocket) mit sofortiger Impulsbestätigung und sauberer TP2-Abarbeitung ohne nennenswerte Adverse Excursion.",
+        "technical_warning": "Das winzige Kursdelta von 0.04% für 2.2R impliziert einen SL von ca. 0.018%; bei geringstem Orderbuch-Rauschen oder Spread-Ausweitung im XETRA/Frankfurt-Sekundärhandel hätte bereits ein normaler Spread-Tick zum ungerechtfertigten Ausstoppen geführt.",
+        "actionable_rule": "Bei Sub-15m-Setups auf Nicht-Heimatbörsen (wie ABEA.F statt NASDAQ GOOGL) darf der Stop-Loss niemals kleiner als das Dreifache des effektiven Spreads sein, und Eintritte müssen zwingend passiv per Limit in die Liquiditätstasche gefillt werden."
+      }
+    },
     {
       "timestamp": "2026-11-09T18:50:19.660749+00:00",
       "trade_id": "cross_rule_1794250219",
