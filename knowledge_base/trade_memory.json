@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-09T06:28:45.106092+00:00",
-  "total_experience_records": 89,
+  "updated_at": "2026-11-09T07:10:42.306650+00:00",
+  "total_experience_records": 93,
   "learnings": [
+    {
+      "timestamp": "2026-11-09T07:10:37.986545+00:00",
+      "trade_id": "cross_rule_1794208237",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volumetrische Absorptionspflicht vor Strukturbestätigung: Ein Niveau gilt erst dann als Order Block oder Sweep, wenn VSA-Erschöpfungsvolumen (Climax Volume gefolgt von No-Supply) nachgewiesen ist.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m wie auf 1D sind Preis-Muster ohne Orderflow- bzw. Volumenbestätigung bloß Rauschen; passives Auffangen ohne aggressiven Buy-Reclaim führt unweigerlich zum Stop-Out.",
+        "actionable_rule": "Volumetrische Absorptionspflicht vor Strukturbestätigung: Ein Niveau gilt erst dann als Order Block oder Sweep, wenn VSA-Erschöpfungsvolumen (Climax Volume gefolgt von No-Supply) nachgewiesen ist."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T07:10:37.986502+00:00",
+      "trade_id": "cross_rule_1794208237",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "HTF-Dominanz & Korrelations-Veto: Keine Mikro-Countertrend-Käufe (5m/15m) ohne primäre Unterstützung durch den 4h/1D-Trend oder HTF-Key-Level-Reaktion.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Das simultane Scheitern beider Trades beweist Klumpenrisiko: Mikro-Order-Blocks und 5m-Sweeps bieten bei übergeordnetem Abwärts-Impuls null Support und werden von institutionellen Sell-Programmen friktionslos durchschlagen.",
+        "actionable_rule": "HTF-Dominanz & Korrelations-Veto: Keine Mikro-Countertrend-Käufe (5m/15m) ohne primäre Unterstützung durch den 4h/1D-Trend oder HTF-Key-Level-Reaktion."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T07:10:37.986464+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1794205693",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.84,
+      "pnl_raw": -0.42,
+      "text": "Nach einem 5m-Liquidity-Sweep ist zwingend ein Kerzenschluss zurück über dem Sweep-Level plus ATR-basierter Stop-Puffer vorgeschrieben, anstatt den SL direkt auf die Tick-Spitze der Liquiditätszone zu legen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1794205693",
+        "verdict": "LOSS",
+        "driver": "Klassische Bull-Trap: Scheinbar saubere Confluence (OB [C] + Sweep [A]) wurde durch systemischen Krypto-Beta-Abwärtsdruck überrollt, weil der Sweep kein Reversal, sondern ein Trendfortsetzungs-Breakdown war.",
+        "technical_warning": "Unzureichende Sweep-Tiefe ohne anschließende Delta-Divergenz sowie das Fehlen eines dynamischen Reclaims des Support-Niveaus vor Orderaufgabe.",
+        "actionable_rule": "Nach einem 5m-Liquidity-Sweep ist zwingend ein Kerzenschluss zurück über dem Sweep-Level plus ATR-basierter Stop-Puffer vorgeschrieben, anstatt den SL direkt auf die Tick-Spitze der Liquiditätszone zu legen."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T07:10:37.986315+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1794205693",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.98,
+      "pnl_raw": -0.49,
+      "text": "Kein Trade-Entry allein auf Basis mathematischer Band-Überdehnungen und isolierter Indikator-Dreiecke ohne bestätigten Market Structure Shift (MSS) auf Kerzen-Schlusskursbasis.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1794205693",
+        "verdict": "LOSS",
+        "driver": "Blinder Long-Einstieg in ungebremste Abwärtsdynamik basierend auf reinen Indikator-Extremen (Chaos-Band) völlig ohne strukturelle Preisanker wie Order Blocks oder Sweeps.",
+        "technical_warning": "Fehlende VSA-Absorptionskerze (kein Stopping Volume mit Rejection-Wick) und ungebrochen steil abwärtsgerichteter RFE-Momentum-Slope trotz 'Institutional Buy Pocket'.",
+        "actionable_rule": "Kein Trade-Entry allein auf Basis mathematischer Band-Überdehnungen und isolierter Indikator-Dreiecke ohne bestätigten Market Structure Shift (MSS) auf Kerzen-Schlusskursbasis."
+      }
+    },
     {
       "timestamp": "2026-11-09T06:28:40.962409+00:00",
       "trade_id": "cross_rule_1794205720",
