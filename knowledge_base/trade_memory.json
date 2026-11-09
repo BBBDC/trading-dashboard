@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-09T11:13:42.394982+00:00",
-  "total_experience_records": 65,
+  "updated_at": "2026-11-09T12:15:20.484889+00:00",
+  "total_experience_records": 64,
   "learnings": [
+    {
+      "timestamp": "2026-11-09T12:15:16.649877+00:00",
+      "trade_id": "cross_rule_1794226516",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine passive Limit-Exekution an Support-Zonen ohne nachgewiesene Orderflow-Rückeroberung (Aggressive Delta / Momentum-Trigger).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein Liquidity Sweep [A] ist erst dann ein vollwertiges Setup, wenn Marktteilnehmer die Zone aktiv mit Marktkäufen verteidigen (BTC-Dreieck); reines Eintauchen in ein Niveau ohne Impuls bestätigt lediglich das Übergewicht der Verkäufer.",
+        "actionable_rule": "Keine passive Limit-Exekution an Support-Zonen ohne nachgewiesene Orderflow-Rückeroberung (Aggressive Delta / Momentum-Trigger)."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T12:15:16.649823+00:00",
+      "trade_id": "cross_rule_1794226516",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Das Gesetz der abnehmenden Liquidität: Ein Order Block verliert mit jedem weiteren Retest exponentiell an Rebound-Kraft und mutiert ab R3 zur Liquiditätsfalle für die Gegenseite.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Fraktal über alle Timeframes (5m bis 1D) absorbieren wiederholte Tests die ruhenden Limit-Kaufaufträge; wo BTC bei R2 noch substanzielle Nachfrage fand, führte das Fehlen von Restliquidität bei RENDER (R3) zum direkten Durchstich.",
+        "actionable_rule": "Das Gesetz der abnehmenden Liquidität: Ein Order Block verliert mit jedem weiteren Retest exponentiell an Rebound-Kraft und mutiert ab R3 zur Liquiditätsfalle für die Gegenseite."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T12:15:16.649777+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1794220512",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": 1.04,
+      "pnl_raw": 0.52,
+      "text": "A-Setups mit Konfluenz aus frühem OB-Retest (R1/R2) und explizitem Momentum-Trigger sind mit vollem Risk-Weighting zu handeln und strikt nach TP1/TP2-Stufenplan zu managen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1794220512",
+        "verdict": "WIN",
+        "driver": "Perfekte Tri-Konfluenz aus frischer Order-Block-Liquidität (R2), aggressivem Liquidity-Sweep [A] und algorithmisch validiertem Momentum-Shift (Good Buy Signal).",
+        "technical_warning": "Keine strukturelle Warnung – die VSA-Konstellation zeigte klare Absorption des Sell-Offs mit unmittelbarer bullischer Anschlussdynamik bis zum vollen TP2.",
+        "actionable_rule": "A-Setups mit Konfluenz aus frühem OB-Retest (R1/R2) und explizitem Momentum-Trigger sind mit vollem Risk-Weighting zu handeln und strikt nach TP1/TP2-Stufenplan zu managen."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T12:15:16.649670+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1794220512",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.44,
+      "pnl_raw": -0.72,
+      "text": "Order Blocks sind ab dem dritten Test (R3+) per se als invalide zu betrachten; Long-Setups an Altcoins dürfen ab R2 nur noch mit zwingender Bestätigung durch aktives Delta/Momentum (Blaues Dreieck) ausgeführt werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1794220512",
+        "verdict": "LOSS",
+        "driver": "Einstieg in einen durch mehrfache Taps (R3) strukturell entwerteten Order Block ohne jegliche Momentum-Bestätigung für einsetzenden aggressiven Kaufdruck.",
+        "technical_warning": "Retest-Degradation (R3 signalisiert passive Liquiditätsleerung) gepaart mit dem Fehlen des 'Good Buy Signal'-Triggers und unzureichendem VSA-Absorptionsvolumen am Support.",
+        "actionable_rule": "Order Blocks sind ab dem dritten Test (R3+) per se als invalide zu betrachten; Long-Setups an Altcoins dürfen ab R2 nur noch mit zwingender Bestätigung durch aktives Delta/Momentum (Blaues Dreieck) ausgeführt werden."
+      }
+    },
     {
       "timestamp": "2026-11-09T09:53:13.574230+00:00",
       "trade_id": "trade_BINANCE_GLMRUSDT_20261108_1805",
