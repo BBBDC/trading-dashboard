@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-09T02:24:07.931388+00:00",
-  "total_experience_records": 82,
+  "updated_at": "2026-11-09T03:13:10.425777+00:00",
+  "total_experience_records": 85,
   "learnings": [
+    {
+      "timestamp": "2026-11-09T03:13:06.750169+00:00",
+      "trade_id": "cross_rule_1794193986",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Zustand ist kein Trigger: Extreme Oszillatoren/Chaos-Bänder definieren nur das Setup-Umfeld, nicht den Entry-Zeitpunkt",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Überdehnungen (Chaos Band < RFE) können sich in dynamischen Trendbewegungen fraktal über Stunden oder Tage weiter nach unten ausdehnen; der Einstieg erfordert zwingend eine VSA-Volumendivergenz oder strukturelle Umkehr.",
+        "actionable_rule": "Zustand ist kein Trigger: Extreme Oszillatoren/Chaos-Bänder definieren nur das Setup-Umfeld, nicht den Entry-Zeitpunkt"
+      }
+    },
+    {
+      "timestamp": "2026-11-09T03:13:06.750143+00:00",
+      "trade_id": "cross_rule_1794193986",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Strikte Hierarchie: Kein POI-Trading ohne Mindestqualitäts-Score [Tier-B oder höher] und vorgelagerten Liquidity Sweep",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m wie auch auf 4h/1D fungieren minderwertige Zonen (Tier-D) in Trendphasen nicht als Support, sondern als bloße Liquiditätspools für den Markt, die systematisch überrannt werden.",
+        "actionable_rule": "Strikte Hierarchie: Kein POI-Trading ohne Mindestqualitäts-Score [Tier-B oder höher] und vorgelagerten Liquidity Sweep"
+      }
+    },
+    {
+      "timestamp": "2026-11-09T03:13:06.750089+00:00",
+      "trade_id": "inc_DOGEUSDT_5m_1794191044",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.22,
+      "pnl_raw": -0.61,
+      "text": "Order Blocks mit einem Rating unterhalb von [B] sind ausnahmslos als Einstiegslevel gesperrt; 'Institutional Buy Pockets' dürfen erst nach einem bestätigten Market Structure Shift (MSS) auf Kerzenschlussbasis gehandelt werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_5m_1794191044",
+        "verdict": "LOSS",
+        "driver": "Der Long-Einstieg erfolgte blind in eine dynamische Abwärtsbewegung an einem schwachen D-Klasse Order Block, ohne dass vorab eine Liquiditätsabschöpfung (Sweep) oder ein VSA-Absorptionsmuster stattgefunden hat.",
+        "technical_warning": "Die niedrige Qualitätsstufe des OB [D] in Kombination mit einer Überdehnung im Chaos Band signalisierte starke Trendfortsetzung nach unten statt Trendwende; das Fehlen von VSA-Stopping-Volume warnte früh vor dem Durchbruch.",
+        "actionable_rule": "Order Blocks mit einem Rating unterhalb von [B] sind ausnahmslos als Einstiegslevel gesperrt; 'Institutional Buy Pockets' dürfen erst nach einem bestätigten Market Structure Shift (MSS) auf Kerzenschlussbasis gehandelt werden."
+      }
+    },
     {
       "timestamp": "2026-11-08T22:28:24.638241+00:00",
       "trade_id": "cross_rule_1794176904",
