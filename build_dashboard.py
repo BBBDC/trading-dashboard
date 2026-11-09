@@ -5849,7 +5849,9 @@ html_content = f"""<!DOCTYPE html>
       showToast('Position geschlossen & in Trade-Historie archiviert.');
     }}
 
-    // Edit Modal Funktionen (SL & TP nachträglich anpassen)
+    // Edit Modal Funktionen (Position vollumfänglich bearbeiten: Hebel, Entry, Richtung, SL, TP, Notiz)
+    let currentEditLivePrice = 0;
+
     function openEditPositionModal(posId) {{
       const posList = getUserPositions();
       const pos = posList.find(p => p.id === posId || p.symbol === posId);
@@ -5862,33 +5864,119 @@ html_content = f"""<!DOCTYPE html>
       document.getElementById('edit-pos-symbol').innerText = pos.name || pos.symbol;
       document.getElementById('edit-pos-ticker').innerText = pos.symbol;
 
-      const isLong = pos.direction === 'LONG';
-      const sigBadge = document.getElementById('edit-pos-badge');
-      if (sigBadge) {{
-        sigBadge.innerText = `${{pos.direction}} (${{pos.leverage || 1}}x)`;
-        sigBadge.className = `px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-${{isLong ? 'emerald' : 'rose'}}-500/20 text-${{isLong ? 'emerald' : 'rose'}}-400 border border-${{isLong ? 'emerald' : 'rose'}}-500/30`;
-      }}
-
-      const entry = Number(pos.entry_price) || 0;
-      document.getElementById('edit-pos-entry').innerText = entry.toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}}) + ' $';
-
-      // Aktuellen Live-Kurs ermitteln
+      // Live-Kurs ermitteln
       const matched = (currentData.assets || []).find(a => 
         a.symbol === pos.symbol || 
         a.symbol.endsWith(':' + pos.symbol) || 
         a.symbol.toUpperCase() === pos.symbol.toUpperCase() ||
         a.symbol.split(':').pop().toUpperCase() === pos.symbol.toUpperCase()
       );
-      const curr = matched ? Number(matched.price) : (Number(pos.current_price) || entry);
-      document.getElementById('edit-pos-current').innerText = curr.toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}}) + ' $';
+      const curr = matched ? Number(matched.price) : (Number(pos.current_price) || Number(pos.entry_price) || 0);
+      currentEditLivePrice = curr;
 
-      // SL & TP Inputs vorbefüllen
+      const currEl = document.getElementById('edit-pos-current');
+      if (currEl) currEl.innerText = curr.toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 4}}) + ' $';
+
+      // Richtung setzen
+      const dir = (pos.direction || 'LONG').toUpperCase();
+      setEditDirection(dir, false);
+
+      // Einstiegskurs setzen
+      const entryVal = Number(pos.entry_price) || 0;
+      const entryInp = document.getElementById('edit-pos-entry-input');
+      if (entryInp) entryInp.value = entryVal > 0 ? entryVal : '';
+
+      // Hebel setzen
+      const levVal = Number(pos.leverage) || 1;
+      setEditLeverage(levVal, false);
+
+      // SL & TP vorbefüllen
       const slInp = document.getElementById('edit-pos-sl');
       const tpInp = document.getElementById('edit-pos-tp');
       if (slInp) slInp.value = (pos.stop_loss !== undefined && pos.stop_loss !== null) ? pos.stop_loss : '';
       if (tpInp) tpInp.value = (pos.take_profit !== undefined && pos.take_profit !== null) ? pos.take_profit : '';
 
-      // Schnell-Buttons für SL generieren
+      // Notiz vorbefüllen
+      const noteInp = document.getElementById('edit-pos-note');
+      if (noteInp) noteInp.value = pos.note || '';
+
+      recalcEditSlTpQuickButtons();
+      updateEditCrvPreview();
+
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }}
+
+    function closeEditPositionModal() {{
+      const m = document.getElementById('edit-position-modal');
+      if (m) m.classList.add('hidden');
+      if (!isAnyModalOpen()) document.body.style.overflow = '';
+    }}
+
+    function setEditDirection(dir, updateQuick = true) {{
+      const d = dir.toUpperCase();
+      const dirInput = document.getElementById('edit-pos-direction');
+      if (dirInput) dirInput.value = d;
+      const longBtn = document.getElementById('edit-dir-long-btn');
+      const shortBtn = document.getElementById('edit-dir-short-btn');
+
+      if (d === 'LONG') {{
+        if (longBtn) longBtn.className = 'py-2 rounded-lg font-bold font-mono text-xs transition border bg-emerald-500/20 text-emerald-300 border-emerald-500 shadow-sm cursor-pointer';
+        if (shortBtn) shortBtn.className = 'py-2 rounded-lg font-bold font-mono text-xs transition border bg-slate-900/80 text-slate-400 border-slate-700/80 hover:bg-slate-800 cursor-pointer';
+      }} else {{
+        if (shortBtn) shortBtn.className = 'py-2 rounded-lg font-bold font-mono text-xs transition border bg-rose-500/20 text-rose-300 border-rose-500 shadow-sm cursor-pointer';
+        if (longBtn) longBtn.className = 'py-2 rounded-lg font-bold font-mono text-xs transition border bg-slate-900/80 text-slate-400 border-slate-700/80 hover:bg-slate-800 cursor-pointer';
+      }}
+
+      if (updateQuick) {{
+        recalcEditSlTpQuickButtons();
+        updateEditCrvPreview();
+      }}
+    }}
+
+    function setEditLeverage(lev, updatePreview = true) {{
+      const val = Math.max(1, Math.min(100, parseInt(lev, 10) || 1));
+      const levInp = document.getElementById('edit-pos-leverage');
+      if (levInp) levInp.value = val;
+
+      [1, 2, 3, 5, 10].forEach(k => {{
+        const btn = document.getElementById('edit-lev-btn-' + k);
+        if (btn) {{
+          if (k === val) {{
+            btn.className = 'px-2.5 py-1.5 rounded-lg bg-indigo-600 border border-indigo-500 text-white text-xs font-mono font-bold shadow-sm cursor-pointer';
+          }} else {{
+            btn.className = 'px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 text-xs font-mono font-bold hover:bg-slate-800 cursor-pointer';
+          }}
+        }}
+      }});
+
+      if (updatePreview) updateEditCrvPreview();
+    }}
+
+    function onEditLeverageChange() {{
+      const levInp = document.getElementById('edit-pos-leverage');
+      const val = parseInt(levInp ? levInp.value : 1, 10) || 1;
+      setEditLeverage(val, true);
+    }}
+
+    function setEditEntryToCurrent() {{
+      if (currentEditLivePrice > 0) {{
+        const entryInp = document.getElementById('edit-pos-entry-input');
+        if (entryInp) entryInp.value = currentEditLivePrice;
+        onEditEntryChange();
+      }}
+    }}
+
+    function onEditEntryChange() {{
+      recalcEditSlTpQuickButtons();
+      updateEditCrvPreview();
+    }}
+
+    function recalcEditSlTpQuickButtons() {{
+      const entryInp = document.getElementById('edit-pos-entry-input');
+      const entry = Number(entryInp ? entryInp.value : 0) || currentEditLivePrice || 0;
+      const isLong = (document.getElementById('edit-pos-direction').value || 'LONG') === 'LONG';
+
       const slQuickContainer = document.getElementById('edit-pos-sl-quick');
       if (slQuickContainer && entry > 0) {{
         const slFactors = isLong ? [[-2, 0.98], [-5, 0.95], [-10, 0.90]] : [[2, 1.02], [5, 1.05], [10, 1.10]];
@@ -5898,7 +5986,6 @@ html_content = f"""<!DOCTYPE html>
         }}).join('');
       }}
 
-      // Schnell-Buttons für TP generieren
       const tpQuickContainer = document.getElementById('edit-pos-tp-quick');
       if (tpQuickContainer && entry > 0) {{
         const tpFactors = isLong ? [[5, 1.05], [10, 1.10], [20, 1.20]] : [[-5, 0.95], [-10, 0.90], [-20, 0.80]];
@@ -5907,16 +5994,6 @@ html_content = f"""<!DOCTYPE html>
           return `<button type="button" onclick="setEditTpVal('${{val}}')" class="px-2 py-1 rounded bg-slate-900 hover:bg-slate-800 text-[10px] font-mono text-slate-300 border border-slate-700/60 cursor-pointer">${{pct > 0 ? '+' : ''}}${{pct}}% (${{val}})</button>`;
         }}).join('');
       }}
-
-      updateEditCrvPreview();
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }}
-
-    function closeEditPositionModal() {{
-      const m = document.getElementById('edit-position-modal');
-      if (m) m.classList.add('hidden');
-      if (!isAnyModalOpen()) document.body.style.overflow = '';
     }}
 
     function setEditSlVal(val) {{
@@ -5932,40 +6009,61 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     function updateEditCrvPreview() {{
-      const posId = document.getElementById('edit-pos-id').value;
-      const posList = getUserPositions();
-      const pos = posList.find(p => p.id === posId || p.symbol === posId);
-      if (!pos) return;
+      const entryInp = document.getElementById('edit-pos-entry-input');
+      const entry = Number(entryInp ? entryInp.value : 0) || 0;
+      const isLong = (document.getElementById('edit-pos-direction').value || 'LONG') === 'LONG';
+      const levInp = document.getElementById('edit-pos-leverage');
+      const lev = Number(levInp ? levInp.value : 1) || 1;
 
-      const entry = Number(pos.entry_price) || 0;
       const slInp = document.getElementById('edit-pos-sl');
       const tpInp = document.getElementById('edit-pos-tp');
       const crvValEl = document.getElementById('edit-pos-crv-val');
-      if (!crvValEl) return;
+      const pnlValEl = document.getElementById('edit-pos-pnl-val');
 
       const rawSl = (slInp ? slInp.value : '').trim().replace(',', '.');
       const rawTp = (tpInp ? tpInp.value : '').trim().replace(',', '.');
       const sl = rawSl ? parseFloat(rawSl) : null;
       const tp = rawTp ? parseFloat(rawTp) : null;
 
-      if (sl !== null && tp !== null && !isNaN(sl) && !isNaN(tp) && entry > 0) {{
-        const risk = Math.abs(entry - sl);
-        const reward = Math.abs(tp - entry);
-        if (risk > 0) {{
-          const crv = (reward / risk).toFixed(2);
-          crvValEl.innerHTML = `<span class="text-emerald-400 font-bold">1 : ${{crv}}</span> <span class="text-slate-400 text-[10px] ml-1">(Risiko: ${{risk.toFixed(2)}} $ | Chance: ${{reward.toFixed(2)}} $)</span>`;
-          return;
+      // 1. CRV Berechnung
+      if (crvValEl) {{
+        if (sl !== null && tp !== null && !isNaN(sl) && !isNaN(tp) && entry > 0) {{
+          const risk = Math.abs(entry - sl);
+          const reward = Math.abs(tp - entry);
+          if (risk > 0) {{
+            const crv = (reward / risk).toFixed(2);
+            crvValEl.innerHTML = `<span class="text-emerald-400 font-bold">1 : ${{crv}}</span> <span class="text-slate-400 text-[10px] font-normal">(SL: -${{(risk / entry * 100).toFixed(1)}}% | TP: +${{(reward / entry * 100).toFixed(1)}}%)</span>`;
+          }} else {{
+            crvValEl.innerHTML = `<span class="text-slate-400">SL liegt auf Entry</span>`;
+          }}
+        }} else {{
+          crvValEl.innerHTML = `<span class="text-slate-400">Trage SL und TP ein</span>`;
         }}
       }}
-      crvValEl.innerHTML = `<span class="text-slate-400">Trage SL und TP ein, um das CRV zu berechnen</span>`;
+
+      // 2. PnL Vorschau bei aktuellem Live-Kurs
+      if (pnlValEl && currentEditLivePrice > 0 && entry > 0) {{
+        const rawPnl = isLong 
+          ? ((currentEditLivePrice - entry) / entry * 100)
+          : ((entry - currentEditLivePrice) / entry * 100);
+        const levPnl = rawPnl * lev;
+        const col = levPnl >= 0 ? 'text-emerald-400' : 'text-rose-400';
+        pnlValEl.innerHTML = `<span class="${{col}} font-bold">${{levPnl >= 0 ? '+' : ''}}${{levPnl.toFixed(2)}}%</span> <span class="text-slate-400 font-normal">(${{rawPnl >= 0 ? '+' : ''}}${{rawPnl.toFixed(2)}}% Basis bei ${{lev}}x)</span>`;
+      }} else if (pnlValEl) {{
+        pnlValEl.innerHTML = `<span class="text-slate-400">-</span>`;
+      }}
     }}
 
     function saveEditedPosition(e) {{
       e.preventDefault();
       const posId = document.getElementById('edit-pos-id').value;
+      const direction = document.getElementById('edit-pos-direction').value || 'LONG';
+      const entry = parseFloat(document.getElementById('edit-pos-entry-input').value) || 0;
+      const leverage = parseFloat(document.getElementById('edit-pos-leverage').value) || 1;
+      const note = (document.getElementById('edit-pos-note').value || '').trim();
+
       const slInp = document.getElementById('edit-pos-sl');
       const tpInp = document.getElementById('edit-pos-tp');
-
       const rawSl = (slInp ? slInp.value : '').trim().replace(',', '.');
       const rawTp = (tpInp ? tpInp.value : '').trim().replace(',', '.');
       const stopLoss = rawSl ? parseFloat(rawSl) : null;
@@ -5987,8 +6085,12 @@ html_content = f"""<!DOCTYPE html>
           updated = true;
           return {{
             ...p,
+            direction: direction,
+            entry_price: entry,
+            leverage: leverage,
             stop_loss: finalSl,
             take_profit: finalTp,
+            note: note,
             updated_at: new Date().toISOString()
           }};
         }}
@@ -6000,8 +6102,12 @@ html_content = f"""<!DOCTYPE html>
         if (serverPos) {{
           const cloned = {{
             ...serverPos,
+            direction: direction,
+            entry_price: entry,
+            leverage: leverage,
             stop_loss: finalSl,
             take_profit: finalTp,
+            note: note,
             updated_at: new Date().toISOString()
           }};
           storedList.unshift(cloned);
@@ -6015,8 +6121,12 @@ html_content = f"""<!DOCTYPE html>
           if (p.id === posId || p.symbol === posId) {{
             return {{
               ...p,
+              direction: direction,
+              entry_price: entry,
+              leverage: leverage,
               stop_loss: finalSl,
               take_profit: finalTp,
+              note: note,
               updated_at: new Date().toISOString()
             }};
           }}
@@ -6024,22 +6134,26 @@ html_content = f"""<!DOCTYPE html>
         }});
       }}
 
-      // 3. Optional: Sync zu lokaler Micro-API (falls online)
+      // 3. Sync zu lokaler Micro-API (falls online)
       try {{
         fetch('http://localhost:8085/api/positions', {{
           method: 'PUT',
           headers: {{ 'Content-Type': 'application/json' }},
           body: JSON.stringify({{
             id: posId,
+            direction: direction,
+            entry_price: entry,
+            leverage: leverage,
             stop_loss: finalSl,
-            take_profit: finalTp
+            take_profit: finalTp,
+            note: note
           }})
         }}).catch(() => {{}});
       }} catch (fe) {{}}
 
       closeEditPositionModal();
       renderUserPositions();
-      showToast('Stop-Loss & Take-Profit erfolgreich aktualisiert!');
+      showToast('Position erfolgreich aktualisiert!');
     }}
 
     // Modal Management Helpers
@@ -6275,15 +6389,15 @@ html_content = f"""<!DOCTYPE html>
 
   <!-- Edit User Position Modal -->
   <div id="edit-position-modal" onclick="if(event.target === this) closeEditPositionModal()" ontouchend="if(event.target === this) {{ event.preventDefault(); closeEditPositionModal(); }}" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-    <div class="max-w-md w-full max-h-[88vh] flex flex-col rounded-2xl bg-[#0d1322] border border-indigo-500/40 shadow-2xl relative text-slate-200 my-auto overflow-hidden">
+    <div class="max-w-md w-full max-h-[92vh] flex flex-col rounded-2xl bg-[#0d1322] border border-indigo-500/40 shadow-2xl relative text-slate-200 my-auto overflow-hidden">
       <div class="flex items-center justify-between p-4 sm:p-5 pb-3 border-b border-slate-800 bg-[#0d1322] shrink-0">
         <div class="flex items-center gap-2.5">
           <div class="w-9 h-9 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-lg shrink-0">
-            🎯
+            ✏️
           </div>
           <div>
             <h3 class="text-base font-bold text-white tracking-tight">Position bearbeiten</h3>
-            <p class="text-xs text-slate-400">Stop-Loss & Take-Profit anpassen</p>
+            <p class="text-xs text-slate-400">Hebel, Einstieg, Richtung & SL/TP anpassen</p>
           </div>
         </div>
         <button onclick="closeEditPositionModal()" aria-label="Schließen" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer text-lg font-bold">✕</button>
@@ -6291,25 +6405,58 @@ html_content = f"""<!DOCTYPE html>
 
       <form id="edit-position-form" onsubmit="saveEditedPosition(event)" class="p-4 sm:p-5 overflow-y-auto space-y-4 text-xs flex-1 overscroll-contain">
         <input type="hidden" id="edit-pos-id">
+        <input type="hidden" id="edit-pos-direction" value="LONG">
 
-        <!-- Info-Kachel -->
+        <!-- Info-Kachel mit Live-Kurs -->
         <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-2">
           <div class="flex items-center justify-between">
             <div>
               <span class="font-bold text-white text-sm" id="edit-pos-symbol">-</span>
               <span class="text-[10px] text-slate-500 font-mono block" id="edit-pos-ticker">-</span>
             </div>
-            <span id="edit-pos-badge" class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">LONG</span>
-          </div>
-          <div class="grid grid-cols-2 gap-2 text-[11px] font-mono pt-1 border-t border-slate-800/60">
-            <div>
-              <span class="text-[10px] text-slate-400 block font-sans">Einstiegskurs:</span>
-              <span class="text-slate-200 font-semibold" id="edit-pos-entry">-</span>
-            </div>
             <div class="text-right">
               <span class="text-[10px] text-slate-400 block font-sans">Live-Kurs:</span>
-              <span class="text-white font-bold" id="edit-pos-current">-</span>
+              <span class="text-white font-bold font-mono text-sm" id="edit-pos-current">-</span>
             </div>
+          </div>
+        </div>
+
+        <!-- Richtung (LONG / SHORT) -->
+        <div class="space-y-1.5">
+          <label class="block text-slate-300 font-semibold">Richtung:</label>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" id="edit-dir-long-btn" onclick="setEditDirection('LONG')" class="py-2 rounded-lg font-bold font-mono text-xs transition border flex items-center justify-center gap-1.5 cursor-pointer">
+              <span>🟢</span> LONG
+            </button>
+            <button type="button" id="edit-dir-short-btn" onclick="setEditDirection('SHORT')" class="py-2 rounded-lg font-bold font-mono text-xs transition border flex items-center justify-center gap-1.5 cursor-pointer">
+              <span>🔴</span> SHORT
+            </button>
+          </div>
+        </div>
+
+        <!-- Einstiegskurs mit Live-Kurs 1-Klick Übernahme -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between">
+            <label class="block text-slate-300 font-semibold">📍 Einstiegskurs:</label>
+            <button type="button" onclick="setEditEntryToCurrent()" class="text-[10px] text-sky-400 hover:text-sky-300 font-mono flex items-center gap-1 cursor-pointer">
+              <span>⚡</span> Live-Kurs übernehmen
+            </button>
+          </div>
+          <input type="number" step="any" id="edit-pos-entry-input" oninput="onEditEntryChange()" placeholder="Einstiegskurs" required class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700/80 text-white font-mono focus:outline-none focus:border-indigo-500">
+        </div>
+
+        <!-- Hebel (Leverage) mit Quick-Pills -->
+        <div class="space-y-1.5">
+          <label class="block text-slate-300 font-semibold">⚡ Hebel (Leverage):</label>
+          <div class="flex items-center gap-2">
+            <div class="flex items-center gap-1">
+              <button type="button" onclick="setEditLeverage(1)" id="edit-lev-btn-1" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 text-xs font-mono font-bold hover:bg-slate-800 cursor-pointer">1x</button>
+              <button type="button" onclick="setEditLeverage(2)" id="edit-lev-btn-2" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 text-xs font-mono font-bold hover:bg-slate-800 cursor-pointer">2x</button>
+              <button type="button" onclick="setEditLeverage(3)" id="edit-lev-btn-3" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 text-xs font-mono font-bold hover:bg-slate-800 cursor-pointer">3x</button>
+              <button type="button" onclick="setEditLeverage(5)" id="edit-lev-btn-5" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 text-xs font-mono font-bold hover:bg-slate-800 cursor-pointer">5x</button>
+              <button type="button" onclick="setEditLeverage(10)" id="edit-lev-btn-10" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 text-xs font-mono font-bold hover:bg-slate-800 cursor-pointer">10x</button>
+            </div>
+            <input type="number" min="1" max="100" step="1" id="edit-pos-leverage" oninput="onEditLeverageChange()" class="w-16 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-white font-mono text-center font-bold focus:outline-none focus:border-indigo-500" title="Individueller Hebel">
           </div>
         </div>
 
@@ -6333,19 +6480,28 @@ html_content = f"""<!DOCTYPE html>
           <div class="flex items-center gap-1.5 pt-0.5 overflow-x-auto no-scrollbar" id="edit-pos-tp-quick"></div>
         </div>
 
-        <!-- CRV Vorschau Box -->
-        <div class="p-2.5 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-[11px] text-indigo-300 space-y-1">
-          <div class="font-bold flex items-center gap-1">
-            <span>⚖️</span>
-            <span>Chance-Risiko-Verhältnis:</span>
+        <!-- Notiz / Begründung -->
+        <div class="space-y-1.5">
+          <label class="block text-slate-300 font-semibold">📝 Notiz / Anpassungsgrund (optional):</label>
+          <input type="text" id="edit-pos-note" placeholder="z.B. Nach Ausbruch aufgestockt / Hebel angepasst" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700/80 text-white text-xs focus:outline-none focus:border-indigo-500">
+        </div>
+
+        <!-- CRV & PnL Live-Vorschau Box -->
+        <div class="p-2.5 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-[11px] text-indigo-300 space-y-1.5">
+          <div class="font-bold flex items-center justify-between">
+            <span class="flex items-center gap-1"><span>⚖️</span> Chance-Risiko-Verhältnis:</span>
+            <span id="edit-pos-crv-val" class="font-mono text-slate-200 font-bold">-</span>
           </div>
-          <div id="edit-pos-crv-val" class="font-mono text-slate-300 text-xs">-</div>
+          <div class="flex items-center justify-between border-t border-indigo-500/20 pt-1 text-[10.5px]">
+            <span class="text-slate-400">Erwarteter PnL bei Live-Kurs:</span>
+            <span id="edit-pos-pnl-val" class="font-mono font-bold text-slate-200">-</span>
+          </div>
         </div>
       </form>
 
       <div class="p-3 sm:p-4 border-t border-slate-800 bg-[#0d1322] flex items-center justify-end gap-2.5 shrink-0">
         <button type="button" onclick="closeEditPositionModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 font-semibold transition cursor-pointer active:scale-95 text-xs">Abbrechen</button>
-        <button type="submit" form="edit-position-form" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-lg shadow-indigo-600/30 cursor-pointer active:scale-95 text-xs">Speichern & Übernehmen</button>
+        <button type="submit" form="edit-position-form" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-lg shadow-indigo-600/30 cursor-pointer active:scale-95 text-xs">Änderungen speichern</button>
       </div>
     </div>
   </div>

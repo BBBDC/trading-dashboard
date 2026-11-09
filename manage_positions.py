@@ -191,8 +191,8 @@ def add_position(symbol, direction, entry_price, leverage=1.0, note="", user_id=
     return new_pos
 
 
-def update_position(symbol_or_id, user_id=None, stop_loss=None, take_profit=None, entry_price=None, leverage=None, note=None, clear_sl=False, clear_tp=False, sync_db=True, git_push=True):
-    """Aktualisiert Stop-Loss, Take-Profit oder Parameter einer bestehenden Position."""
+def update_position(symbol_or_id, user_id=None, stop_loss=None, take_profit=None, entry_price=None, leverage=None, direction=None, note=None, clear_sl=False, clear_tp=False, sync_db=True, git_push=True):
+    """Aktualisiert Stop-Loss, Take-Profit, Einstieg, Hebel, Richtung oder Notiz einer bestehenden Position."""
     positions = load_positions()
     found = False
     updated_pos = None
@@ -201,6 +201,11 @@ def update_position(symbol_or_id, user_id=None, stop_loss=None, take_profit=None
         match_id = (p.get("id") == symbol_or_id or p.get("symbol") == symbol_or_id)
         match_user = (str(p.get("user_id")) == str(user_id)) if (user_id and p.get("user_id")) else True
         if match_id and match_user:
+            if direction is not None:
+                d_up = str(direction).strip().upper()
+                if d_up in ("LONG", "SHORT"):
+                    p["direction"] = d_up
+
             if clear_sl:
                 p["stop_loss"] = None
             elif stop_loss is not None and str(stop_loss).strip() != "":
@@ -211,12 +216,12 @@ def update_position(symbol_or_id, user_id=None, stop_loss=None, take_profit=None
             elif take_profit is not None and str(take_profit).strip() != "":
                 p["take_profit"] = float(take_profit)
 
-            if entry_price is not None:
+            if entry_price is not None and str(entry_price).strip() != "":
                 p["entry_price"] = float(entry_price)
-            if leverage is not None:
+            if leverage is not None and str(leverage).strip() != "":
                 p["leverage"] = float(leverage)
             if note is not None:
-                p["note"] = note
+                p["note"] = str(note)
 
             p["updated_at"] = datetime.now(timezone.utc).isoformat()
             positions[i] = p
@@ -230,7 +235,14 @@ def update_position(symbol_or_id, user_id=None, stop_loss=None, take_profit=None
 
     save_positions(positions)
     print(f"✅ Position '{symbol_or_id}' erfolgreich aktualisiert:")
-    print(f"   SL: {updated_pos.get('stop_loss')} | TP: {updated_pos.get('take_profit')}")
+    print(f"   Richtung: {updated_pos.get('direction')} | Entry: {updated_pos.get('entry_price')} | Hebel: {updated_pos.get('leverage')}x | SL: {updated_pos.get('stop_loss')} | TP: {updated_pos.get('take_profit')}")
+
+    # Ad-hoc Einzelscan für dieses Asset anstoßen
+    try:
+        from single_asset_rescan import rescan_and_evaluate_asset
+        rescan_and_evaluate_asset(updated_pos.get("symbol"), user_pos=updated_pos)
+    except Exception:
+        pass
 
     if sync_db:
         sync_dashboard_state(git_push=git_push)
@@ -572,12 +584,27 @@ def run_api_server(port=8085):
                     pos_id = data.get("id") or data.get("symbol")
                     sl = data.get("stop_loss")
                     tp = data.get("take_profit")
+                    entry_p = data.get("entry_price")
+                    lev = data.get("leverage")
+                    direction = data.get("direction")
+                    note = data.get("note")
                     clear_sl = data.get("clear_sl", False)
                     clear_tp = data.get("clear_tp", False)
                     user_id = data.get("user_id")
 
                     if pos_id:
-                        res = update_position(pos_id, user_id=user_id, stop_loss=sl, take_profit=tp, clear_sl=clear_sl, clear_tp=clear_tp)
+                        res = update_position(
+                            pos_id,
+                            user_id=user_id,
+                            stop_loss=sl,
+                            take_profit=tp,
+                            entry_price=entry_p,
+                            leverage=lev,
+                            direction=direction,
+                            note=note,
+                            clear_sl=clear_sl,
+                            clear_tp=clear_tp
+                        )
                         if res:
                             self.send_response(200)
                             self.send_header("Content-Type", "application/json")

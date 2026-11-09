@@ -1328,7 +1328,7 @@ def get_user_positions_text_and_markup(user_id=None, username=None):
         pos_id = p.get("id") or sym
         short_sym = sym.split(":")[-1]
         buttons.append([
-            {"text": f"🎯 SL/TP anpassen", "callback_data": f"edit_sltp_open_{pos_id}"},
+            {"text": f"⚙️ {short_sym} anpassen", "callback_data": f"pos_manage_open_{pos_id}"},
             {"text": f"🛑 {short_sym} schließen", "callback_data": f"close_confirm_{pos_id}"}
         ])
 
@@ -1342,6 +1342,76 @@ def get_user_positions_text_and_markup(user_id=None, username=None):
     ])
 
     return "\n".join(lines), {"inline_keyboard": buttons}
+
+
+def get_manage_position_text_and_markup(pos_id, user_id=None):
+    """Generiert die detaillierte Bearbeitungs-Zentrale für eine einzelne Nutzer-Position."""
+    from manage_positions import load_positions
+    positions = load_positions()
+    pos = None
+    for p in positions:
+        if p.get("id") == pos_id or p.get("symbol") == pos_id:
+            pos = p
+            break
+
+    if not pos:
+        return "⚠️ Position nicht gefunden oder bereits geschlossen.", {"inline_keyboard": [[{"text": "🔙 Meine Trades", "callback_data": "menu_my_trades"}]]}
+
+    sym = pos.get("symbol", "Unbekannt")
+    short_sym = sym.split(":")[-1]
+    sig = pos.get("direction", "LONG").upper()
+    entry = float(pos.get("entry_price", 0.0))
+    lev = float(pos.get("leverage", 1.0))
+    curr = float(pos.get("current_price", entry))
+    note = pos.get("note", "")
+
+    pnl_base = ((curr - entry) / entry * 100) if sig == "LONG" else ((entry - curr) / entry * 100) if entry > 0 else 0.0
+    pnl_lev = pnl_base * lev
+    pnl_icon = "📈" if pnl_lev >= 0 else "📉"
+    pnl_sign = "+" if pnl_lev >= 0 else ""
+
+    sl = pos.get("stop_loss")
+    tp = pos.get("take_profit")
+    sl_str = f"{float(sl):,.2f} $".replace(",", "X").replace(".", ",").replace("X", ".") if sl is not None else "<i>Kein SL</i>"
+    tp_str = f"{float(tp):,.2f} $".replace(",", "X").replace(".", ",").replace("X", ".") if tp is not None else "<i>Kein TP</i>"
+
+    icon = "🟢" if sig == "LONG" else "🔴"
+    entry_fmt = f"{entry:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    curr_fmt = f"{curr:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
+    text = (
+        f"⚙️ <b>Trade bearbeiten: {pos.get('name', short_sym)}</b> (<code>{sym}</code>)\n\n"
+        f"• <b>Richtung:</b> {icon} <b>{sig}</b>\n"
+        f"• <b>Hebel:</b> <b>{lev:g}x</b>\n"
+        f"• <b>Einstieg:</b> <code>{entry_fmt} $</code> (Live: <code>{curr_fmt} $</code>)\n"
+        f"• 🛑 <b>Stop-Loss:</b> {sl_str}\n"
+        f"• 🎯 <b>Take-Profit:</b> {tp_str}\n"
+        f"• {pnl_icon} <b>Aktueller PnL:</b> <b>{pnl_sign}{pnl_lev:.2f}%</b> ({pnl_sign}{pnl_base:.2f}% Basis)\n"
+    )
+    if note:
+        text += f"• 📝 <i>Notiz: {note}</i>\n"
+
+    text += "\n<i>Welchen Parameter möchtest du verändern?</i>"
+
+    kb = {
+        "inline_keyboard": [
+            [
+                {"text": "⚡ Hebel anpassen", "callback_data": f"pos_lev_menu_{pos_id}"},
+                {"text": "📍 Einstieg ändern", "callback_data": f"pos_entry_menu_{pos_id}"}
+            ],
+            [
+                {"text": "🎯 SL & TP anpassen", "callback_data": f"edit_sltp_open_{pos_id}"},
+                {"text": "🔄 Richtung wechseln", "callback_data": f"pos_toggle_dir_{pos_id}"}
+            ],
+            [
+                {"text": "🛑 Position schließen", "callback_data": f"close_confirm_{pos_id}"}
+            ],
+            [
+                {"text": "🔙 Zurück zu Meinen Trades", "callback_data": "menu_my_trades"}
+            ]
+        ]
+    }
+    return text, kb
 
 
 def get_user_history_text_and_markup(user_id=None, username=None, page=1):
@@ -2247,6 +2317,127 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
             api.edit_message_text(chat_id, message_id, f"❌ Fehler beim Aktualisieren: {e}", reply_markup=get_main_menu_keyboard(role))
         return
 
+    # 7b1. Positionen anpassen Hub (Hebel, Entry, Richtung, SL/TP)
+    if data.startswith("pos_manage_open_"):
+        pos_id = data[len("pos_manage_open_"):]
+        text, kb = get_manage_position_text_and_markup(pos_id, user_id)
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
+
+    # 7b2. Hebel-Auswahl Menü
+    if data.startswith("pos_lev_menu_"):
+        pos_id = data[len("pos_lev_menu_"):]
+        from manage_positions import load_positions
+        positions = load_positions()
+        pos = next((p for p in positions if p.get("id") == pos_id or p.get("symbol") == pos_id), None)
+        sym = pos.get("symbol", "") if pos else pos_id
+        curr_lev = pos.get("leverage", 1.0) if pos else 1.0
+
+        kb = {
+            "inline_keyboard": [
+                [
+                    {"text": f"{'✅ ' if curr_lev == 1 else ''}1x (Basis)", "callback_data": f"pos_set_lev_{pos_id}_1"},
+                    {"text": f"{'✅ ' if curr_lev == 2 else ''}2x", "callback_data": f"pos_set_lev_{pos_id}_2"},
+                    {"text": f"{'✅ ' if curr_lev == 3 else ''}3x", "callback_data": f"pos_set_lev_{pos_id}_3"}
+                ],
+                [
+                    {"text": f"{'✅ ' if curr_lev == 5 else ''}5x", "callback_data": f"pos_set_lev_{pos_id}_5"},
+                    {"text": f"{'✅ ' if curr_lev == 10 else ''}10x", "callback_data": f"pos_set_lev_{pos_id}_10"},
+                    {"text": f"{'✅ ' if curr_lev == 20 else ''}20x", "callback_data": f"pos_set_lev_{pos_id}_20"}
+                ],
+                [
+                    {"text": "🔙 Abbrechen", "callback_data": f"pos_manage_open_{pos_id}"}
+                ]
+            ]
+        }
+        api.edit_message_text(chat_id, message_id, f"⚡ <b>Hebel für {sym} anpassen:</b>\n\nAktueller Hebel: <b>{curr_lev:g}x</b>\nWähle den neuen Hebel aus:", reply_markup=kb)
+        return
+
+    # 7b3. Hebel direkt setzen
+    if data.startswith("pos_set_lev_"):
+        parts = data[len("pos_set_lev_"):].rsplit("_", 1)
+        if len(parts) == 2:
+            pos_id, lev_str = parts
+            try:
+                new_lev = float(lev_str)
+                from manage_positions import update_position
+                update_position(symbol_or_id=pos_id, user_id=str(user_id), leverage=new_lev, sync_db=True, git_push=True)
+                text, kb = get_manage_position_text_and_markup(pos_id, user_id)
+                api.edit_message_text(chat_id, message_id, f"✅ <b>Hebel erfolgreich auf {new_lev:g}x geändert!</b>\n\n" + text, reply_markup=kb)
+            except Exception as e:
+                api.edit_message_text(chat_id, message_id, f"❌ Fehler beim Ändern des Hebels: {e}", reply_markup={"inline_keyboard": [[{"text": "🔙 Zurück", "callback_data": f"pos_manage_open_{pos_id}"}]]})
+        return
+
+    # 7b4. Einstiegskurs anpassen Menü
+    if data.startswith("pos_entry_menu_"):
+        pos_id = data[len("pos_entry_menu_"):]
+        from manage_positions import load_positions
+        positions = load_positions()
+        pos = next((p for p in positions if p.get("id") == pos_id or p.get("symbol") == pos_id), None)
+        if not pos:
+            api.send_message(chat_id, "⚠️ Position nicht gefunden.")
+            return
+
+        sym = pos.get("symbol", "")
+        entry = float(pos.get("entry_price", 0.0))
+        live_p = float(pos.get("current_price", 0.0))
+        if live_p <= 0:
+            live_p = find_asset_price(sym) or entry
+
+        session = USER_SESSIONS.setdefault(chat_id, {"wizard": "edit_pos", "data": {}})
+        session["step"] = "WAITING_EDIT_ENTRY"
+        session["pos_id"] = pos.get("id") or pos_id
+        session["symbol"] = sym
+        session["live_price"] = live_p
+
+        buttons = []
+        if live_p > 0:
+            buttons.append([{"text": f"⚡ Live-Kurs ({live_p:,.2f} $) übernehmen", "callback_data": f"pos_set_entry_live_{pos_id}"}])
+        buttons.append([{"text": "🔙 Abbrechen", "callback_data": f"pos_manage_open_{pos_id}"}])
+
+        msg = (
+            f"📍 <b>Einstiegskurs anpassen für {sym}</b>\n\n"
+            f"• <b>Bisheriger Einstieg:</b> {entry:,.2f} $\n"
+            f"• <b>Aktueller Marktpreis:</b> {live_p:,.2f} $\n\n"
+            f"Tippe den neuen Einstiegskurs einfach in den Chat oder übernimm den Live-Kurs mit 1 Klick:"
+        )
+        api.edit_message_text(chat_id, message_id, msg, reply_markup={"inline_keyboard": buttons})
+        return
+
+    # 7b5. Einstiegskurs auf Live-Kurs setzen
+    if data.startswith("pos_set_entry_live_"):
+        pos_id = data[len("pos_set_entry_live_"):]
+        session = USER_SESSIONS.pop(chat_id, None) or {}
+        live_p = session.get("live_price")
+        if not live_p:
+            from manage_positions import load_positions
+            positions = load_positions()
+            pos = next((p for p in positions if p.get("id") == pos_id or p.get("symbol") == pos_id), None)
+            if pos:
+                live_p = float(pos.get("current_price", 0.0)) or find_asset_price(pos.get("symbol"))
+        if live_p and live_p > 0:
+            from manage_positions import update_position
+            update_position(symbol_or_id=pos_id, user_id=str(user_id), entry_price=float(live_p), sync_db=True, git_push=True)
+            text, kb = get_manage_position_text_and_markup(pos_id, user_id)
+            api.edit_message_text(chat_id, message_id, f"✅ <b>Einstiegskurs erfolgreich auf Live-Kurs ({live_p:,.2f} $) geändert!</b>\n\n" + text, reply_markup=kb)
+        else:
+            api.send_message(chat_id, "⚠️ Live-Kurs konnte nicht ermittelt werden.")
+        return
+
+    # 7b6. Richtung umschalten (LONG ↔ SHORT)
+    if data.startswith("pos_toggle_dir_"):
+        pos_id = data[len("pos_toggle_dir_"):]
+        from manage_positions import load_positions, update_position
+        positions = load_positions()
+        pos = next((p for p in positions if p.get("id") == pos_id or p.get("symbol") == pos_id), None)
+        if pos:
+            curr_dir = pos.get("direction", "LONG").upper()
+            new_dir = "SHORT" if curr_dir == "LONG" else "LONG"
+            update_position(symbol_or_id=pos_id, user_id=str(user_id), direction=new_dir, sync_db=True, git_push=True)
+            text, kb = get_manage_position_text_and_markup(pos_id, user_id)
+            api.edit_message_text(chat_id, message_id, f"✅ <b>Richtung erfolgreich auf {new_dir} geändert!</b>\n\n" + text, reply_markup=kb)
+        return
+
     # 7c. Stop-Loss & Take-Profit bei bestehenden Positionen anpassen
     if data.startswith("edit_sltp_open_") or (data.startswith("edit_sltp_") and not data.startswith("edit_sl_") and not data.startswith("edit_tp_")):
         if data.startswith("edit_sltp_open_"):
@@ -2758,6 +2949,29 @@ def process_wizard_text_input(api, chat_id, user_id, username, session, text):
 
         session["data"]["take_profit"] = tp_val
         render_edit_sltp_confirm(api, chat_id, None, session)
+        return
+
+    if step == "WAITING_EDIT_ENTRY":
+        cleaned = text.replace("$", "").replace("€", "").replace(",", ".").strip()
+        try:
+            entry_val = float(cleaned)
+            if entry_val <= 0:
+                raise ValueError()
+        except ValueError:
+            api.send_message(chat_id, "⚠️ Ungültiger Einstiegskurs. Bitte gib eine positive Zahl ein (z. B. 125.50):")
+            return
+
+        pos_id = session.get("pos_id")
+        sym = session.get("symbol", "")
+        USER_SESSIONS.pop(chat_id, None)
+
+        try:
+            from manage_positions import update_position
+            update_position(symbol_or_id=pos_id, user_id=str(user_id), entry_price=entry_val, sync_db=True, git_push=True)
+            text_resp, kb = get_manage_position_text_and_markup(pos_id, user_id)
+            api.send_message(chat_id, f"✅ <b>Einstiegskurs für {sym} erfolgreich auf {fmt_price(entry_val)} $ geändert!</b>\n\n" + text_resp, reply_markup=kb)
+        except Exception as e:
+            api.send_message(chat_id, f"❌ Fehler beim Aktualisieren: {e}", reply_markup=get_main_menu_keyboard(role="trader"))
         return
 
 
