@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-09T17:02:31.398685+00:00",
-  "total_experience_records": 76,
+  "updated_at": "2026-11-09T18:01:19.751277+00:00",
+  "total_experience_records": 79,
   "learnings": [
+    {
+      "timestamp": "2026-11-09T18:01:15.686657+00:00",
+      "trade_id": "cross_rule_1794247275",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Zwingender HTF-Trend- und Zyklusfilter für LTF-Signale (5m/15m-Ausführung nur in Richtung der 4h/1D-Marktstruktur).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Indikatorbasierte Kaufsignale im Micro-Timeframe besitzen isoliert keinen statistischen Edge und führen zu systematischen Drawdowns, wenn sie gegen die übergeordnete 4h-Trenddynamik agieren.",
+        "actionable_rule": "Zwingender HTF-Trend- und Zyklusfilter für LTF-Signale (5m/15m-Ausführung nur in Richtung der 4h/1D-Marktstruktur)."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T18:01:15.686632+00:00",
+      "trade_id": "cross_rule_1794247275",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Sekundäre Orderblöcke (Grade B) dürfen niemals als primäre Entry-Zonen ohne vorangegangenen Sweep externer Liquidität genutzt werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Fraktal von 5m bis 1D gilt: Ein interner Orderblock ohne vorherigen Abgriff externer Liquidität dient Smart Money primär als Liquiditätspool, dessen Stop-Losses gezielt abgeräumt werden.",
+        "actionable_rule": "Sekundäre Orderblöcke (Grade B) dürfen niemals als primäre Entry-Zonen ohne vorangegangenen Sweep externer Liquidität genutzt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-09T18:01:15.686577+00:00",
+      "trade_id": "inc_DOGEUSDT_5m_1794241939",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.82,
+      "pnl_raw": -0.41,
+      "text": "Retests von [B]-Orderblocks auf 5m/15m dürfen nur noch ausgeführt werden, wenn unmittelbar davor ein [A]-Liquidity-Sweep stattfand oder der Einstieg durch eine signifikante Delta-/VSA-Volumenbestätigung gedeckt ist.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_5m_1794241939",
+        "verdict": "LOSS",
+        "driver": "Der Einstieg basierte auf einem schwachen B-Grade Orderblock-Retest (R9), der ohne vorangegangene Sell-Side-Liquiditätsbereinigung dem Durchrutschen in tiefere Zonen schutzlos ausgeliefert war.",
+        "technical_warning": "Die B-Klassifizierung des Orderblocks in Kombination mit ausbleibender VSA-Volumenabsorption (fehlende No-Supply-/Reversal-Kerze am Retest) signalisierte fehlende institutionelle Kaufnachfrage.",
+        "actionable_rule": "Retests von [B]-Orderblocks auf 5m/15m dürfen nur noch ausgeführt werden, wenn unmittelbar davor ein [A]-Liquidity-Sweep stattfand oder der Einstieg durch eine signifikante Delta-/VSA-Volumenbestätigung gedeckt ist."
+      }
+    },
     {
       "timestamp": "2026-11-09T17:02:27.430298+00:00",
       "trade_id": "cross_rule_1794243747",
