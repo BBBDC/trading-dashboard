@@ -1,7 +1,45 @@
 {
-  "updated_at": "2026-11-10T14:58:17.956112+00:00",
-  "total_experience_records": 105,
+  "updated_at": "2026-11-10T15:16:31.510471+00:00",
+  "total_experience_records": 107,
   "learnings": [
+    {
+      "timestamp": "2026-11-10T15:16:27.665647+00:00",
+      "trade_id": "cross_rule_1794323787",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
+        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
+      }
+    },
+    {
+      "timestamp": "2026-11-10T15:16:27.665576+00:00",
+      "trade_id": "inc_APC.F_5m_1794322562",
+      "symbol": "APC.F",
+      "name": "Apple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 0.22,
+      "pnl_raw": 0.11,
+      "text": "Bei APC.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_APC.F_5m_1794322562",
+        "verdict": "WIN",
+        "driver": "Trade APC.F schloss mit CLOSED_TP2 (+2.2R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei APC.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
     {
       "timestamp": "2026-11-10T14:58:13.906546+00:00",
       "trade_id": "cross_rule_1794322693",
