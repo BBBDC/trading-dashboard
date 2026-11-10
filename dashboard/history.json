@@ -1,5 +1,71 @@
 [
   {
+    "id": "evt_20261110_185123",
+    "timestamp": "2026-11-10T18:51:23.931320+00:00",
+    "timestamp_display": "10.11.2026 18:51 UTC",
+    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 2,
+    "changes": [
+      {
+        "symbol": "KRAKEN:MOVRUSD",
+        "name": "MOVRUSD",
+        "category": "Crypto",
+        "change_type": "SETUP_UPDATE",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 95,
+        "new_score": 90,
+        "price": 1.0312,
+        "setup_name": "Hypothese 2: degencoder Indicator Sell Signal",
+        "entry_range": [
+          1.04,
+          1.05
+        ],
+        "stop_loss": 1.09,
+        "take_profit_2": 0.88,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 4h Institutional BUY Pocket (Lower Chaos Band unter RFE 233)",
+          "degencoder: 1h Good Sell Signal (Kreis Top-Erschöpfung)"
+        ],
+        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 2: degencoder Indicator Sell Signal' (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bärische Erschöpfung (90%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "BINANCE:ETHFIUSDT",
+        "name": "ether.fi",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 48,
+        "price": 0.6348,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          0.575,
+          0.595
+        ],
+        "stop_loss": 0.55,
+        "take_profit_2": 0.73,
+        "reasons": [
+          "HTF-Marktstruktur ist übergeordnet bullisch (1W RSI 54.1, 3D und 1D im klaren Aufwärtstrend über 233 EMA); ein untergeordneter Rücksetzer darf nicht prozyklisch geshortet werden.",
+          "Kein Long-Einstieg auf aktuellem Niveau: 4h RSI notiert mit 62.37 im überkauften Bereich (>62) und testet einen mitigierten bärischen Order Block (0.628-0.634, Grad D) mit aktivem 1h-Verkaufssignal.",
+          "Bärische Divergenzen auf 4h und 1h signalisieren Momentum-Erschöpfung; disziplinierte Lauerstellung auf einen Pullback in die Discount-/Support-Zone zur Wahrung eines CRV >= 2.5:1."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Marktstruktur ist übergeordnet bullisch (1W RSI 54.1, 3D und 1D im klaren Aufwärtstrend über 233 EMA); ein untergeordneter Rücksetzer darf nicht prozyklisch geshortet werden.).",
+        "note": "Trotz intaktem übergeordneten 1D-Bullenregime verbietet das Risikomanagement einen Direkteinstieg, da der 4h-RSI mit 62.37 überdehnt ist und Verkaufsanzeichen auf 1h vorliegen. Gemäß institutionellen Vorgaben jagen wir dem Kurs nicht hinterher, sondern verharren in NEUTRAL. Ein Long-Setup wird erst nach einem gesunden Pullback in die Support-Zone zwischen 0.575 und 0.595 USD mit validiertem Trigger aktiviert.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n🔴 MOVRUSD (MOVRUSD):\n   Score-Sprung: 95% ➔ 90% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 2: degencoder Indicator Sell Signal' (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (90%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 2: degencoder Indicator Sell Signal\n   Entry: 1.04 | SL: 1.09 | TP2: 0.88\n\n⚪ ether.fi (ETHFIUSDT):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Marktstruktur ist übergeordnet bullisch (1W RSI 54.1, 3D und 1D im klaren Aufwärtstrend über 233 EMA); ein untergeordneter Rücksetzer darf nicht prozyklisch geshortet werden.).\n   📝 KI-Rationale: Trotz intaktem übergeordneten 1D-Bullenregime verbietet das Risikomanagement einen Direkteinstieg, da der 4h-RSI mit 62.37 überdeh...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261110_181722",
     "timestamp": "2026-11-10T18:17:22.985581+00:00",
     "timestamp_display": "10.11.2026 18:17 UTC",
@@ -19649,153 +19715,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🟢 Total Crypto Market Cap (TOTAL):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 1: SMC Golden Confluence Reversal\n   Entry: 2,643,584,495,697.98 | SL: 2,571,632,095,109.43 | TP2: 2,963,372,942,758.22\n\n⚪ Avalanche (AVAXUSDT):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 53%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n⚪ Curve DAO (CRVUSD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 51%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261026_171008",
-    "timestamp": "2026-10-26T17:10:08.396290+00:00",
-    "timestamp_display": "26.10.2026 17:10 UTC",
-    "title": "🔔 TV-Signaländerung: 5 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 5,
-    "changes": [
-      {
-        "symbol": "NASDAQ:NVDA",
-        "name": "Nvidia",
-        "category": "Halbleiter",
-        "change_type": "SETUP_UPDATE",
-        "old_signal": "LONG",
-        "new_signal": "LONG",
-        "old_score": 87,
-        "new_score": 82,
-        "price": 216.2,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          214.47,
-          216.63
-        ],
-        "stop_loss": 208.63,
-        "take_profit_2": 240.42,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 2: Trend Continuation & Hidden Div' (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bullische Konfluenz (82%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NASDAQ:AVGO",
-        "name": "Broadcom",
-        "category": "Halbleiter",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 77,
-        "new_score": 56,
-        "price": 329.9,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          329.9,
-          329.9
-        ],
-        "stop_loss": 320.0,
-        "take_profit_2": 349.69,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NASDAQ:META",
-        "name": "Meta Platforms",
-        "category": "Big Tech",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 85,
-        "new_score": 55,
-        "price": 642.52,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          642.52,
-          642.52
-        ],
-        "stop_loss": 623.24,
-        "take_profit_2": 681.07,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1D Kurs überdehnt unteres degencoder-Band (Oversold)",
-          "Aktiv: Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NYSE:UAA",
-        "name": "Under Armour",
-        "category": "Consumer",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 95,
-        "new_score": 46,
-        "price": 4.64,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          4.64,
-          4.64
-        ],
-        "stop_loss": 4.5,
-        "take_profit_2": 4.92,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NYSE:ORCL",
-        "name": "Oracle",
-        "category": "Enterprise Software",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 90,
-        "new_score": 42,
-        "price": 126.44,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          126.44,
-          126.44
-        ],
-        "stop_loss": 122.65,
-        "take_profit_2": 134.03,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bärische Divergenz (Reversal)"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 5 Einstufungen haben sich geändert:\n\n🟢 Nvidia (NVDA):\n   Score-Sprung: 87% ➔ 82% (LONG)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 2: Trend Continuation & Hidden Div' (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (82%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 214.47 | SL: 208.63 | TP2: 240.42\n\n⚪ Broadcom (AVGO):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 56%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n⚪ Meta Platforms (META):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 55%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n⚪ Under Armour (UAA):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 46%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n⚪ Oracle (ORCL):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 42%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
