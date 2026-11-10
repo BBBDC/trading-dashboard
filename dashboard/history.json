@@ -1,5 +1,72 @@
 [
   {
+    "id": "evt_20261110_164549",
+    "timestamp": "2026-11-10T16:45:49.493465+00:00",
+    "timestamp_display": "10.11.2026 16:45 UTC",
+    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 2,
+    "changes": [
+      {
+        "symbol": "TRADEGATE:MSF",
+        "name": "Microsoft (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "LONG",
+        "old_score": 48,
+        "new_score": 96,
+        "price": 486.65,
+        "setup_name": "Hypothese 1: SMC Order Block [R2] Confluence",
+        "entry_range": [
+          482.76,
+          487.62
+        ],
+        "stop_loss": 469.62,
+        "take_profit_2": 541.15,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "1W Makro-Trend bullisch bestätigt",
+          "degencoder: 1D Institutional SELL Pocket (Upper Chaos Band über RFE 233)",
+          "degencoder: 1h Potential Buy Signal (Blaues Dreieck)"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
+        "note": "Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "TRADEGATE:SIE",
+        "name": "Siemens",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "LONG",
+        "old_score": 45,
+        "new_score": 96,
+        "price": 272.8,
+        "setup_name": "Hypothese 1: degencoder Institutional Buy Pocket Reversal",
+        "entry_range": [
+          271.11,
+          273.85
+        ],
+        "stop_loss": 263.73,
+        "take_profit_2": 303.92,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "1W Makro-Trend bullisch bestätigt",
+          "degencoder: 1D Institutional BUY Pocket (Lower Chaos Band unter RFE 233)",
+          "degencoder: 1D Institutional SELL Pocket (Upper Chaos Band über RFE 233)"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
+        "note": "Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
+        "evaluated_by": "quantitative_engine"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n🟢 Microsoft (Tradegate) (MSF):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Order Block [R2] Confluence\n   Entry: 482.76 | SL: 469.62 | TP2: 541.15\n\n🟢 Siemens (SIE):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: degencoder Institutional Buy Pocket Reversal\n   Entry: 271.11 | SL: 263.73 | TP2: 303.92\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261110_163143",
     "timestamp": "2026-11-10T16:31:43.308797+00:00",
     "timestamp_display": "10.11.2026 16:31 UTC",
@@ -19792,72 +19859,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 6 Einstufungen haben sich geändert:\n\n🟢 BTC Dominanz (BTC.D):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (95%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 60.01 | SL: 58.37 | TP2: 67.27\n\n🔴 Bayer (BAYN):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 90%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (90%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 45.46 | SL: 47.14 | TP2: 40.46\n\n🔴 Curve DAO (CRVUSD):\n   Signalwechsel: LONG ➔ SHORT (Score: 80%)\n   💡 Grund: Signal-Drehung (LONG ➔ SHORT): Marktstruktur hat gedreht (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (80%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 0.35 | SL: 0.37 | TP2: 0.28\n\n⚪ Total Crypto Market Cap (TOTAL):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 56%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n⚪ Bitcoin (BTCUSD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 47%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n⚪ Kusama (KSMUSD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 46%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261026_131106",
-    "timestamp": "2026-10-26T13:11:06.861964+00:00",
-    "timestamp_display": "26.10.2026 13:11 UTC",
-    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 2,
-    "changes": [
-      {
-        "symbol": "NASDAQ:MSFT",
-        "name": "Microsoft",
-        "category": "Big Tech",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 48,
-        "new_score": 82,
-        "price": 524.51,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          523.46,
-          528.71
-        ],
-        "stop_loss": 542.87,
-        "take_profit_2": 465.76,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: Reguläre Bärische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bärische Erschöpfung (82%): Überhitzung an HTF-Widerstandszone (1D Trend über EMA 233 bullisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NYSE:ORCL",
-        "name": "Oracle",
-        "category": "Enterprise Software",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 90,
-        "new_score": 42,
-        "price": 126.16,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          126.16,
-          126.16
-        ],
-        "stop_loss": 122.38,
-        "take_profit_2": 133.73,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bärische Divergenz (Reversal)"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n🔴 Microsoft (MSFT):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 82%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (82%): Überhitzung an HTF-Widerstandszone (1D Trend über EMA 233 bullisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 523.46 | SL: 542.87 | TP2: 465.76\n\n⚪ Oracle (ORCL):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 42%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
