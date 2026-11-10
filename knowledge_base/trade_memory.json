@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-10T11:03:57.394181+00:00",
-  "total_experience_records": 89,
+  "updated_at": "2026-11-10T11:33:55.550459+00:00",
+  "total_experience_records": 92,
   "learnings": [
+    {
+      "timestamp": "2026-11-10T11:33:51.769376+00:00",
+      "trade_id": "cross_rule_1794310431",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "R2-Retest-Degradation: Die Trefferquote eines Order Blocks sinkt mit jedem weiteren Berührungspunkt ohne schnelles Displacement exponentiell.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Verweilt der Preis an einem Widerstand oder testet ihn mehrfach ohne impulsiven Abverkauf, wandelt sich die Zone von einer Angebotswand in einen Liquiditätspool für Durchbrüche – dies gilt fraktal vom 5m-Scalp bis zum 1D-Swing.",
+        "actionable_rule": "R2-Retest-Degradation: Die Trefferquote eines Order Blocks sinkt mit jedem weiteren Berührungspunkt ohne schnelles Displacement exponentiell."
+      }
+    },
+    {
+      "timestamp": "2026-11-10T11:33:51.769351+00:00",
+      "trade_id": "cross_rule_1794310431",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Primat der Liquiditätsqualität [A] über Indikator-Confluence: Kein Trade an sekundären [B]-Zonen ohne übergeordneten 4h-Trendbias.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Micro-Indikatoren ('Good Sell'-Marker) generieren auf 5m/15m signifikantes Rauschen; ohne HTF-Verankerung (4h/1D Order Flow) und echten Liquidity Sweep werden enge Stops im XETRA-Orderbuch durch institutionelle Re-Akkumulation systematisch herausgenommen.",
+        "actionable_rule": "Primat der Liquiditätsqualität [A] über Indikator-Confluence: Kein Trade an sekundären [B]-Zonen ohne übergeordneten 4h-Trendbias."
+      }
+    },
+    {
+      "timestamp": "2026-11-10T11:33:51.769297+00:00",
+      "trade_id": "inc_DTE.DE_5m_1794308590",
+      "symbol": "DTE.DE",
+      "name": "Dt. Telekom",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.42,
+      "pnl_raw": -0.21,
+      "text": "Kein Short-Einstieg bei B-Tier Order Blocks im R2-Retest ohne vorherige Liquiditäts-Räumung (Sweep [A]) und ohne bestätigten Fair Value Gap (FVG) Bruch in Trendrichtung.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DTE.DE_5m_1794308590",
+        "verdict": "LOSS",
+        "driver": "Fehlgeschlagener Short-Einstieg in den zweiten Anlauf (R2) eines qualitativ nachrangigen Bearish Order Blocks [B], dessen Zone mangels Verkaufs-Displacement schlichtweg überrannt und absorbiert wurde.",
+        "technical_warning": "Ausbleiben eines signifikanten Buy-Side Liquidity (BSL) Sweeps [A] vor dem Signal sowie mangelnde VSA-Volumendivergenz (fehlendes Abstoßungsvolumen/Verkaufs-Delta am Widerstand).",
+        "actionable_rule": "Kein Short-Einstieg bei B-Tier Order Blocks im R2-Retest ohne vorherige Liquiditäts-Räumung (Sweep [A]) und ohne bestätigten Fair Value Gap (FVG) Bruch in Trendrichtung."
+      }
+    },
     {
       "timestamp": "2026-11-10T11:03:53.482343+00:00",
       "trade_id": "cross_rule_1794308633",
