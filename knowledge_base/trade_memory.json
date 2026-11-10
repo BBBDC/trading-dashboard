@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-10T03:30:49.909561+00:00",
-  "total_experience_records": 78,
+  "updated_at": "2026-11-10T04:01:22.960626+00:00",
+  "total_experience_records": 81,
   "learnings": [
+    {
+      "timestamp": "2026-11-10T04:01:18.966224+00:00",
+      "trade_id": "cross_rule_1794283278",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "HTF-Orderflow-Dominanz: Micro-Setups (5m/15m) in Gegenrichtung des übergeordneten 4h-Trends erfordern ein HTF-Key-Level als Kausalanker.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein 5m Bullish Order Block bietet im übergeordneten Abwärtstrend keine strukturelle Barriere, sondern dient institutionellen Marktteilnehmern primär als günstige Ausstiegs- bzw. Nachladeliquidität.",
+        "actionable_rule": "HTF-Orderflow-Dominanz: Micro-Setups (5m/15m) in Gegenrichtung des übergeordneten 4h-Trends erfordern ein HTF-Key-Level als Kausalanker."
+      }
+    },
+    {
+      "timestamp": "2026-11-10T04:01:18.966201+00:00",
+      "trade_id": "cross_rule_1794283278",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Displacement-Bestätigung vor Sweep-Validierung: Ein Liquidity Sweep ist solange als Trendfortsetzung zu werten, bis die Folgestruktur das Liquiditätsniveau per Kerzenschluss zurückerobert.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Fraktal über alle Zeitebenen (5m bis 1D): Das bloße Unterschreiten eines Swing-Lows bildet oft den Beginn einer Expansionsphase und darf niemals ungefiltert als Umkehr antizipiert werden.",
+        "actionable_rule": "Displacement-Bestätigung vor Sweep-Validierung: Ein Liquidity Sweep ist solange als Trendfortsetzung zu werten, bis die Folgestruktur das Liquiditätsniveau per Kerzenschluss zurückerobert."
+      }
+    },
+    {
+      "timestamp": "2026-11-10T04:01:18.966148+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1794250187",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.8,
+      "pnl_raw": -0.9,
+      "text": "Kein Entry bei 5m Order Block Retests ohne bestätigten Market Structure Shift (MSS) mit impulsivem Displacement auf Kerzenschlussbasis.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1794250187",
+        "verdict": "LOSS",
+        "driver": "Der angenommene Liquidity Sweep war keine Erschöpfung, sondern ein impulsiver Breakdown durch den 5m Order Block ohne vorherige Käufer-Absorption.",
+        "technical_warning": "Fehlende bullische Delta-Divergenz beim Sweep sowie das Ausbleiben eines impulsiven Displacements (Schlusskurs über der Sweep-Kerze) vor dem Retest-Trigger.",
+        "actionable_rule": "Kein Entry bei 5m Order Block Retests ohne bestätigten Market Structure Shift (MSS) mit impulsivem Displacement auf Kerzenschlussbasis."
+      }
+    },
     {
       "timestamp": "2026-11-10T02:48:32.362259+00:00",
       "trade_id": "cross_rule_1794278912",
