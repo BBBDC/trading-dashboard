@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-10T08:31:01.884109+00:00",
-  "total_experience_records": 81,
+  "updated_at": "2026-11-10T09:14:52.252180+00:00",
+  "total_experience_records": 84,
   "learnings": [
+    {
+      "timestamp": "2026-11-10T09:14:48.410324+00:00",
+      "trade_id": "cross_rule_1794302088",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Ein Liquidity Sweep muss innerhalb von maximal 1-2 Folgekerzen per Reclaim validiert werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Verweilt der Preis nach dem Unterschreiten eines Tiefs unter dem Level oder konsolidiert dort, handelt es sich fraktal nicht um einen Stop-Hunt, sondern um echte Trendfortsetzung durch institutionelles Angebot.",
+        "actionable_rule": "Ein Liquidity Sweep muss innerhalb von maximal 1-2 Folgekerzen per Reclaim validiert werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-10T09:14:48.410299+00:00",
+      "trade_id": "cross_rule_1794302088",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine Trade-Execution an Orderblocks ohne nachgewiesene Volumen-Erschöpfung auf der Retest-Welle.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ob auf 5m oder 1D: Ein Orderblock ist erst dann ein valider Support, wenn der Anlauf dorthin auf sinkendem Volumen (Volume Contraction) erfolgt; starkes Verkaufs-Momentum neutralisiert jede strukturelle Zone.",
+        "actionable_rule": "Keine Trade-Execution an Orderblocks ohne nachgewiesene Volumen-Erschöpfung auf der Retest-Welle."
+      }
+    },
+    {
+      "timestamp": "2026-11-10T09:14:48.410243+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1794285051",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.82,
+      "pnl_raw": -0.91,
+      "text": "Kein Entry an einem 5m-Orderblock allein aufgrund statischer Signale; Voraussetzung ist ein vorangehender Market Structure Shift (MSS) mit geschlossenem Candle-Body über dem Sweep-Pivot.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1794285051",
+        "verdict": "LOSS",
+        "driver": "Der Orderblock-Retest scheiterte, da der vorangegangene Liquidity Sweep keine institutionelle Absorption (V-Reversal) erzeugte, sondern persistenter Verkaufsdruck die Nachfragezone überrollte.",
+        "technical_warning": "Fehlendes bullisches Delta beim Sweep sowie ausbleibende impulsive Verdrängungskerze (Displacement/FVG) vor dem R1-Retest zeigten unvollendete Liquidation an.",
+        "actionable_rule": "Kein Entry an einem 5m-Orderblock allein aufgrund statischer Signale; Voraussetzung ist ein vorangehender Market Structure Shift (MSS) mit geschlossenem Candle-Body über dem Sweep-Pivot."
+      }
+    },
     {
       "timestamp": "2026-11-10T04:01:18.966224+00:00",
       "trade_id": "cross_rule_1794283278",
