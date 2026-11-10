@@ -187,6 +187,7 @@ def git_sync_dashboard():
         subprocess.run(["git", "add", "dashboard/", "knowledge_base/live_watchlists.json", "knowledge_base/autonomous_portfolio.json", "knowledge_base/trade_memory.json", "knowledge_base/user_positions.json"], cwd=str(BASE_DIR), check=True)
 
         diff_res = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=str(BASE_DIR))
+        committed = False
         if diff_res.returncode == 0:
             print("Keine neuen Dashboard-Änderungen zum Committen.")
         else:
@@ -194,6 +195,14 @@ def git_sync_dashboard():
             commit_msg = f"chore(dashboard): auto-update scan results ({now_str})"
             subprocess.run(["git", "commit", "-m", commit_msg], cwd=str(BASE_DIR), check=True)
             print(f"✅ Dashboard erfolgreich committet: {commit_msg}")
+            committed = True
+
+        # Nur pushen, wenn tatsächlich ein neuer Commit vorliegt oder ungesendete Commits existieren
+        if not committed:
+            status_res = subprocess.run(["git", "status", "-sb"], cwd=str(BASE_DIR), capture_output=True, text=True)
+            if "ahead" not in status_res.stdout:
+                print("Dashboard ist bereits synchron mit Git-Hosting. Kein Push erforderlich.")
+                return
 
         remote_res = subprocess.run(["git", "remote", "get-url", "origin"], cwd=str(BASE_DIR), capture_output=True, text=True)
         if remote_res.returncode == 0 and remote_res.stdout.strip():
