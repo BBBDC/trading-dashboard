@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-10T00:00:50.655732+00:00",
-  "total_experience_records": 72,
+  "updated_at": "2026-11-10T00:31:13.256448+00:00",
+  "total_experience_records": 75,
   "learnings": [
+    {
+      "timestamp": "2026-11-10T00:31:09.438387+00:00",
+      "trade_id": "cross_rule_1794270669",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Liquidity-Sweep-Qualität schlägt Indikator-Marker: Entry-Trigger sind erst nach Abräumen relevanter Liquiditätspools valide.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein bloßes Sell-Signal (Marker) ohne vorherigen Sweep über lokalen Hochs bietet keinen asymmetrischen Edge, da die Liquidität für institutionelle Gegenpositionen fehlt – fraktal gültig von 5m bis 1D.",
+        "actionable_rule": "Liquidity-Sweep-Qualität schlägt Indikator-Marker: Entry-Trigger sind erst nach Abräumen relevanter Liquiditätspools valide."
+      }
+    },
+    {
+      "timestamp": "2026-11-10T00:31:09.438364+00:00",
+      "trade_id": "cross_rule_1794270669",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine Trade-Ausführung an sekundären [B]-Strukturzonen ohne übergeordneten HTF-Trend-Gleichlauf (4h/1D Alignment).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m/15m degenerieren Orderblock-Retests zweiter Klasse im Aufwärtstrend zu bloßen Konsolidierungsflaggen; auf 4h/1D führt das Missachten dieses Prinzips zu fatalen Kontratrend-Verlusten in starken Ausbruchsphasen.",
+        "actionable_rule": "Keine Trade-Ausführung an sekundären [B]-Strukturzonen ohne übergeordneten HTF-Trend-Gleichlauf (4h/1D Alignment)."
+      }
+    },
+    {
+      "timestamp": "2026-11-10T00:31:09.438311+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1794265736",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.68,
+      "pnl_raw": -0.34,
+      "text": "Kein Short-Einstieg an [B]-Level Orderblocks ohne zwingende Bestätigung durch Volumenerschöpfung der Bullen oder vorhergehenden Class-[A]-Sweep der lokalen Hochs.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1794265736",
+        "verdict": "LOSS",
+        "driver": "Einstieg in einen Short-Retest an einem schwachen [B]-Klasse Orderblock ohne vorherigen Buy-Side-Liquidity-Sweep, wodurch der Trade direkt in die Fortsetzung der Aufwärtsdynamik hineinlief.",
+        "technical_warning": "Fehlende VSA-Absorptionsanzeichen (kein 'No Demand' / abnehmendes Volumen beim Retest) sowie der Mangel an bearisher Divergenz an den oberen Volatilitätsbändern vor Trigger-Auslösung.",
+        "actionable_rule": "Kein Short-Einstieg an [B]-Level Orderblocks ohne zwingende Bestätigung durch Volumenerschöpfung der Bullen oder vorhergehenden Class-[A]-Sweep der lokalen Hochs."
+      }
+    },
     {
       "timestamp": "2026-11-09T23:31:10.890230+00:00",
       "trade_id": "cross_rule_1794267070",
