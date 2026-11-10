@@ -1,7 +1,103 @@
 {
-  "updated_at": "2026-11-10T10:01:04.629254+00:00",
-  "total_experience_records": 84,
+  "updated_at": "2026-11-10T11:03:57.394181+00:00",
+  "total_experience_records": 89,
   "learnings": [
+    {
+      "timestamp": "2026-11-10T11:03:53.482343+00:00",
+      "trade_id": "cross_rule_1794308633",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Orderblock-Degradationsgesetz: Die Validität jeder Supply/Demand-Zone degradiert exponentiell mit jedem Retest (R1 = 100%, R2 = 50%, R3+ = 0% / Breakout-Target).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der NEAR-Trade (R5) zeigt, dass Retail-Logiken 'mehrfach getestete Level' fälschlich als stabil betrachten, während an institutionellen Desks mehrfach angetestete Zonen als leergeräumt und reif für den Durchbruch klassifiziert werden.",
+        "actionable_rule": "Orderblock-Degradationsgesetz: Die Validität jeder Supply/Demand-Zone degradiert exponentiell mit jedem Retest (R1 = 100%, R2 = 50%, R3+ = 0% / Breakout-Target)."
+      }
+    },
+    {
+      "timestamp": "2026-11-10T11:03:53.482320+00:00",
+      "trade_id": "cross_rule_1794308633",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Higher-Timeframe Trend-Gating (Fraktales Regime-Filter): Keine Mean-Reversion-Longs im 5m/15m ohne übergeordneten 4h-Regime-Konsens (Preis über 4h EMA50 oder 4h Bullish Market Structure).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die Verluste in SOL, NEAR und SUI belegen, dass Mikro-Confluences (Chaos-Bänder, OBs, Dreiecks-Indikatoren) wertlos sind, wenn der 4h/1D-Trend abwärts gerichtet ist; Mikro-Supports dienen Großmarktakteuren dann primär als Exit-Liquidität.",
+        "actionable_rule": "Higher-Timeframe Trend-Gating (Fraktales Regime-Filter): Keine Mean-Reversion-Longs im 5m/15m ohne übergeordneten 4h-Regime-Konsens (Preis über 4h EMA50 oder 4h Bullish Market Structure)."
+      }
+    },
+    {
+      "timestamp": "2026-11-10T11:03:53.482307+00:00",
+      "trade_id": "inc_SUIUSDT_5m_1794302046",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.9,
+      "pnl_raw": -0.45,
+      "text": "VSA-Volumenspitzen (>1.5x) an Unterstützungen qualifizieren nur dann für Longs, wenn die Kerze als Pinbar/Hammer schließt oder der Folgebalken das High der Volumenkerze per Close bricht.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_5m_1794302046",
+        "verdict": "LOSS",
+        "driver": "Fehlinterpretation von aggressivem institutionellen Verkaufsdruck (VSA 1.7x Volume Surge) als angebliche Absorption, wodurch direkt in eine intakte Liquidationskaskade akkumuliert wurde.",
+        "technical_warning": "Die 1.7x-Volumenspitze trat auf einer voll ausgeprägten Bärenkerze ohne nennenswerten unteren Docht auf (VSA 'Effort to Fall' statt 'Absorption Volume').",
+        "actionable_rule": "VSA-Volumenspitzen (>1.5x) an Unterstützungen qualifizieren nur dann für Longs, wenn die Kerze als Pinbar/Hammer schließt oder der Folgebalken das High der Volumenkerze per Close bricht."
+      }
+    },
+    {
+      "timestamp": "2026-11-10T11:03:53.482289+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1794286851",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.6,
+      "pnl_raw": -0.8,
+      "text": "Orderblocks dürfen maximal bis zum zweiten Retest (R2) gehandelt werden; ab R3 wird die Zone als verbraucht ('mitigated/exhausted') markiert und jeglicher Entry blockiert.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1794286851",
+        "verdict": "LOSS",
+        "driver": "Eklatanter Anfängerfehler durch den Kauf eines B-Grade Orderblocks beim fünften Retest (R5), an dem die institutionelle Kaufliquidität längst vollständig erschöpft war.",
+        "technical_warning": "Retest-Zähler R5 an einem schwachen Level [B]: Jeder wiederholte Test schwächt eine Support-Zone und verwandelt sie in einen perfekten Liquidity-Pool für Bären-Breakdowns.",
+        "actionable_rule": "Orderblocks dürfen maximal bis zum zweiten Retest (R2) gehandelt werden; ab R3 wird die Zone als verbraucht ('mitigated/exhausted') markiert und jeglicher Entry blockiert."
+      }
+    },
+    {
+      "timestamp": "2026-11-10T11:03:53.482227+00:00",
+      "trade_id": "inc_SOLUSDT_5m_1794176846",
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -4.68,
+      "pnl_raw": -2.34,
+      "text": "Kein Entry allein auf Basis von 'Chaos Band < RFE' oder Sweep-Touch; ein Long-Entry erfordert zwingend eine Candle-Close-Rückeroberung über dem lokalen Sweep-Tief plus Bestätigungs-CHoCH.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SOLUSDT_5m_1794176846",
+        "verdict": "LOSS",
+        "driver": "Klassisches Greifen in ein fallendes Messer trotz nomineller A-Grade-Confluence, da der angebliche Liquidity-Sweep in Wahrheit eine impulsive Trendfortsetzungs-Expansion nach unten war.",
+        "technical_warning": "Fehlen jeglicher bullischer Strukturänderung (kein 1m/5m CHoCH/MSS) nach dem Sweep sowie ungebremste Trendkerzen unterhalb des Chaos-Bandes ohne Anzeichen von Absorption.",
+        "actionable_rule": "Kein Entry allein auf Basis von 'Chaos Band < RFE' oder Sweep-Touch; ein Long-Entry erfordert zwingend eine Candle-Close-Rückeroberung über dem lokalen Sweep-Tief plus Bestätigungs-CHoCH."
+      }
+    },
     {
       "timestamp": "2026-11-10T09:14:48.410324+00:00",
       "trade_id": "cross_rule_1794302088",
