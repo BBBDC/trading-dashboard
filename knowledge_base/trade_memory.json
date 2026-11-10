@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-10T02:00:52.989999+00:00",
-  "total_experience_records": 75,
+  "updated_at": "2026-11-10T02:48:36.068761+00:00",
+  "total_experience_records": 78,
   "learnings": [
+    {
+      "timestamp": "2026-11-10T02:48:32.362259+00:00",
+      "trade_id": "cross_rule_1794278912",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Konfluenz-Hierarchie vor Indikator-Lag: Kein Einstieg auf Basis isolierter Indikator-Signale ('Blaues Dreieck') an B-Tier-Strukturen ohne übergeordnetes HTF-Trend-Alignment (4h).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Oszillatoren und Trigger-Signale generieren in Seitwärts- oder Distributionsphasen an schwachen Strukturen statistisch verlässliche Fehlsignale, wenn das übergeordnete Makro-Momentum gegen die Position läuft.",
+        "actionable_rule": "Konfluenz-Hierarchie vor Indikator-Lag: Kein Einstieg auf Basis isolierter Indikator-Signale ('Blaues Dreieck') an B-Tier-Strukturen ohne übergeordnetes HTF-Trend-Alignment (4h)."
+      }
+    },
+    {
+      "timestamp": "2026-11-10T02:48:32.362234+00:00",
+      "trade_id": "cross_rule_1794278912",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Mitigations-Limit & Liquiditätsabnutzung: Zonen verlieren fraktal mit jedem Retest an Kante – ab dem dritten Kontakt (R3+) invertiert sich die Funktion von Support zu Breakout-Target.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Was auf 5m zum direkten Stop-Out führte, gilt 1:1 für 4h/1D: Institutionelle Limit-Orders puffern maximal 1-2 Tests ab. Folgetests dienen ausschließlich dem Aufbau von Retail-Stops, die von Smart Money systematisch abgeräumt werden.",
+        "actionable_rule": "Mitigations-Limit & Liquiditätsabnutzung: Zonen verlieren fraktal mit jedem Retest an Kante – ab dem dritten Kontakt (R3+) invertiert sich die Funktion von Support zu Breakout-Target."
+      }
+    },
+    {
+      "timestamp": "2026-11-10T02:48:32.362180+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1794276049",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.1,
+      "pnl_raw": -0.55,
+      "text": "Order-Block-Einstiege sind strikt auf R1 und maximal R2 limitiert; ab R3 ist jedes Long-Signal ohne vorherigen validierten A-Grade Liquidity Sweep und aggressiven Volume Spike hardcoded gesperrt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1794276049",
+        "verdict": "LOSS",
+        "driver": "Der Einstieg erfolgte an einem bereits viermal getesteten (R4) zweitklassigen [B]-Orderblock, dessen passive Kaufliquidität längst absorbiert war und der somit nur noch als Liquiditätsziel für Verkäufer diente.",
+        "technical_warning": "Die fortgeschrittene Retest-Erschöpfung (R4) gepaart mit fehlendem vorherigen Liquidity-Sweep unter das lokale Tief und ausbleibender VSA-Volumenbestätigung signalisierte akute Breakdown-Gefahr.",
+        "actionable_rule": "Order-Block-Einstiege sind strikt auf R1 und maximal R2 limitiert; ab R3 ist jedes Long-Signal ohne vorherigen validierten A-Grade Liquidity Sweep und aggressiven Volume Spike hardcoded gesperrt."
+      }
+    },
     {
       "timestamp": "2026-11-10T00:31:09.438387+00:00",
       "trade_id": "cross_rule_1794270669",
