@@ -1,7 +1,28 @@
 {
-  "updated_at": "2026-11-11T15:34:25.169813+00:00",
-  "total_experience_records": 62,
+  "updated_at": "2026-11-11T15:44:28.601510+00:00",
+  "total_experience_records": 63,
   "learnings": [
+    {
+      "timestamp": "2026-11-11T15:44:10.974140+00:00",
+      "trade_id": "trade_BINANCE_ETHFIUSDT_20261111_1531",
+      "symbol": "BINANCE:ETHFIUSDT",
+      "name": "ether.fi",
+      "category": "Crypto",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "Hypothese 1: SMC Order Block [R3] Exhaustion",
+      "pnl_leveraged": -1.29,
+      "pnl_raw": -0.43,
+      "text": "Wer in institutionelle Nachfragezonen shortet, dient Smart Money lediglich als billige Einstiegsliquidität am Tief. Kein Short-Einstieg ohne vorherigen Pullback in eine bärische Premium-Zone.",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Der Short wurde paradoxerweise direkt in eine identifizierte institutionelle Kaufzone ('1D Institutional BUY Pocket') eröffnet, wodurch exakt am absoluten Tiefstkurs verkauft wurde.",
+        "technical_warning": "Das Vorhandensein einer 'Institutional BUY Pocket' am Lower Chaos Band warnte vor extremer Überverkaufung und kündigte die sofortige Mean-Reversion an.",
+        "actionable_rule": "Niemals Short-Positionen triggern, wenn HTF-Indikatoren eine BUY-Pocket oder das untere Chaos-Band ausweisen; Shorts sind strikt auf Pullbacks in Premium-Order-Blocks zu beschränken.",
+        "recommended_leverage_adjustment": -1,
+        "summary_text": "Wer in institutionelle Nachfragezonen shortet, dient Smart Money lediglich als billige Einstiegsliquidität am Tief. Kein Short-Einstieg ohne vorherigen Pullback in eine bärische Premium-Zone."
+      }
+    },
     {
       "timestamp": "2026-11-11T15:34:21.189253+00:00",
       "trade_id": "cross_rule_1794411261",
@@ -1119,68 +1140,21 @@
         "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
         "actionable_rule": "Bei APC.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
       }
-    },
-    {
-      "timestamp": "2026-11-10T14:29:55.841157+00:00",
-      "trade_id": "cross_rule_1794320995",
-      "symbol": "MULTI-ASSET",
-      "name": "Cross-Market Confluence",
-      "category": "Global Heuristic (4h/1D Transfer)",
-      "direction": "NEUTRAL",
-      "result": "WIN",
-      "setup_name": "Synthesized Multi-Timeframe Heuristic",
-      "pnl_leveraged": 0.0,
-      "pnl_raw": 0.0,
-      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
-      "ai_post_mortem": {
-        "verdict": "RULE",
-        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
-        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
-      }
-    },
-    {
-      "timestamp": "2026-11-10T14:29:55.841141+00:00",
-      "trade_id": "inc_APC.F_5m_1794318515",
-      "symbol": "APC.F",
-      "name": "Apple",
-      "category": "Micro-Incubator (5m)",
-      "direction": "SHORT",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Short",
-      "pnl_leveraged": -0.02,
-      "pnl_raw": -0.01,
-      "text": "Bei APC.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "ai_post_mortem": {
-        "trade_id": "inc_APC.F_5m_1794318515",
-        "verdict": "LOSS",
-        "driver": "Trade APC.F schloss mit CLOSED_SL (-1.0R).",
-        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
-        "actionable_rule": "Bei APC.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
-      }
-    },
-    {
-      "timestamp": "2026-11-10T14:29:55.841095+00:00",
-      "trade_id": "inc_AVAXUSDT_5m_1794318515",
-      "symbol": "AVAXUSDT",
-      "name": "Avalanche",
-      "category": "Micro-Incubator (5m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "pnl_leveraged": -1.18,
-      "pnl_raw": -0.59,
-      "text": "Bei AVAXUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "ai_post_mortem": {
-        "trade_id": "inc_AVAXUSDT_5m_1794318515",
-        "verdict": "LOSS",
-        "driver": "Trade AVAXUSDT schloss mit CLOSED_SL (-1.0R).",
-        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
-        "actionable_rule": "Bei AVAXUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
-      }
     }
   ],
   "setup_statistics": {},
   "setup_performance": {
+    "Hypothese 1: SMC Order Block [R3] Exhaustion": {
+      "trades": 2,
+      "wins": 0,
+      "losses": 2,
+      "win_rate": 0.0,
+      "total_lev_pnl": -5.3,
+      "profit_factor": 0.0,
+      "status": "BALANCED",
+      "min_score": 88,
+      "leverage_adjustment": 0
+    },
     "Hypothese 1: degencoder Institutional Buy Pocket Reversal": {
       "trades": 9,
       "wins": 2,
@@ -1235,17 +1209,6 @@
       "status": "UNDERPERFORMING",
       "min_score": 92,
       "leverage_adjustment": -2
-    },
-    "Hypothese 1: SMC Order Block [R3] Exhaustion": {
-      "trades": 1,
-      "wins": 0,
-      "losses": 1,
-      "win_rate": 0.0,
-      "total_lev_pnl": -4.0,
-      "profit_factor": 0.0,
-      "status": "BALANCED",
-      "min_score": 88,
-      "leverage_adjustment": 0
     },
     "Hypothese 1: SMC Order Block [R5] Exhaustion": {
       "trades": 1,
@@ -1403,6 +1366,17 @@
     }
   },
   "category_performance": {
+    "Crypto": {
+      "trades": 40,
+      "wins": 3,
+      "losses": 34,
+      "win_rate": 7.5,
+      "total_lev_pnl": -267.8,
+      "profit_factor": 0.04,
+      "status": "UNDERPERFORMING",
+      "min_score": 92,
+      "leverage_cap": 2
+    },
     "Consumer": {
       "trades": 2,
       "wins": 1,
@@ -1446,17 +1420,6 @@
       "status": "CAUTION",
       "min_score": 90,
       "leverage_cap": 3
-    },
-    "Crypto": {
-      "trades": 39,
-      "wins": 3,
-      "losses": 33,
-      "win_rate": 7.7,
-      "total_lev_pnl": -266.6,
-      "profit_factor": 0.04,
-      "status": "UNDERPERFORMING",
-      "min_score": 92,
-      "leverage_cap": 2
     },
     "Krypto-Makro": {
       "trades": 3,
