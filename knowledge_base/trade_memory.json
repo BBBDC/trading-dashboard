@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-11T01:00:55.401148+00:00",
-  "total_experience_records": 66,
+  "updated_at": "2026-11-11T01:31:23.570293+00:00",
+  "total_experience_records": 69,
   "learnings": [
+    {
+      "timestamp": "2026-11-11T01:31:19.634276+00:00",
+      "trade_id": "cross_rule_1794360679",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "HTF-Momentum sticht LTF-Reversion: Setups gegen die übergeordnete 4h-Trendrichtung erfordern zwingend divergierende Chaos-Bänder oder VSA-Stopping-Volume.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf Mikro-Zeitskalen (5m/15m) erzeugt das Rauschen häufig Schein-Signale (wie das 'Blaue Dreieck'), die ohne Deckung durch übergeordnete Ineffizienzen (HTF-FVGs) statistisch eine signifikant negative R-Erwartung aufweisen.",
+        "actionable_rule": "HTF-Momentum sticht LTF-Reversion: Setups gegen die übergeordnete 4h-Trendrichtung erfordern zwingend divergierende Chaos-Bänder oder VSA-Stopping-Volume."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T01:31:19.634252+00:00",
+      "trade_id": "cross_rule_1794360679",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Reclaim-Pflicht: Kein Blind-Entry an Orderblöcken ohne validierten Marktstruktur-Shift (mSS) auf der Ausführungsebene.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf 5m als auch auf 4h/1D fungieren unbestätigte Orderblöcke bei starkem Momentum lediglich als Durchgangsliquidität für größere Marktteilnehmer; erst die sichtbare Preisakzeptanz oberhalb des Sweeps belegt institutionelle Absorption.",
+        "actionable_rule": "Fraktale Reclaim-Pflicht: Kein Blind-Entry an Orderblöcken ohne validierten Marktstruktur-Shift (mSS) auf der Ausführungsebene."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T01:31:19.634200+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1794357051",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.52,
+      "pnl_raw": -0.26,
+      "text": "Triggere Orderblock-Retests nach Sweeps erst nach einem bestätigten Kerzenschluss zurück über dem Sweep-Niveau (Reclaim) und bei nachweislich kontrahierendem Sell-Volumen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1794357051",
+        "verdict": "LOSS",
+        "driver": "Der Long-Entry antizipierte voreilig einen Support-Reversal, bevor der Liquiditätsabverkauf durch abnehmendes Volumen oder aggressives Bidding absorbiert war.",
+        "technical_warning": "Fehlendes VSA-Climax-Volumen mit nachfolgendem No-Supply-Test sowie eine zu tiefe Penetration des Orderblocks ohne unmittelbaren Reclaim innerhalb der nächsten 5m-Kerze.",
+        "actionable_rule": "Triggere Orderblock-Retests nach Sweeps erst nach einem bestätigten Kerzenschluss zurück über dem Sweep-Niveau (Reclaim) und bei nachweislich kontrahierendem Sell-Volumen."
+      }
+    },
     {
       "timestamp": "2026-11-11T00:31:14.938275+00:00",
       "trade_id": "cross_rule_1794357074",
