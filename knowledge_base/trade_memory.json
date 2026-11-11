@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-11T06:10:45.103226+00:00",
-  "total_experience_records": 75,
+  "updated_at": "2026-11-11T06:57:55.136171+00:00",
+  "total_experience_records": 78,
   "learnings": [
+    {
+      "timestamp": "2026-11-11T06:57:51.353038+00:00",
+      "trade_id": "cross_rule_1794380271",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Signal-Hierarchie vor Trigger-Konfluenz: Indikator-Trigger (wie Momentum-Dreiecke) sind strukturellen Faktoren und der Zonen-Klassifizierung strikt untergeordnet.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Verzögerte technische Trigger erzeugen in Seitwärts- und Erschöpfungsphasen systematische 'Bait'-Signale, wenn das HTF-Momentum fehlt und der zugrundeliegende Order Block keine A-Grade-Signatur (Displacement + unmitigated FVG) aufweist.",
+        "actionable_rule": "Signal-Hierarchie vor Trigger-Konfluenz: Indikator-Trigger (wie Momentum-Dreiecke) sind strukturellen Faktoren und der Zonen-Klassifizierung strikt untergeordnet."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T06:57:51.353008+00:00",
+      "trade_id": "cross_rule_1794380271",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Gesetz der Zonen-Degenerierung: Mit jedem Retest (R1 -> R2+) sinkt die Validität einer Support-/Demand-Zone drastisch – Einstiege ab R2 erfordern zwingend einen vorherigen Liquidity Sweep.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ob im 5m-Scalp oder auf dem 4h/1D-Chart: Wiederholte Zonentests absorbieren institutionelle Limit-Liquidität und ziehen Stop-Cluster an; wird die Zone nicht verteidigt, fungieren die akkumulierten Stops als Magnet und Treibstoff für den Breakout in Gegenrichtung.",
+        "actionable_rule": "Fraktales Gesetz der Zonen-Degenerierung: Mit jedem Retest (R1 -> R2+) sinkt die Validität einer Support-/Demand-Zone drastisch – Einstiege ab R2 erfordern zwingend einen vorherigen Liquidity Sweep."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T06:57:51.352938+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1794377416",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.9,
+      "pnl_raw": -0.45,
+      "text": "Keine Long-Positionen an B-Grade Order Blocks bei R2 oder höher ohne vorherigen Sell-Side Liquidity Sweep und nachgewiesene Volumenabsorption.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1794377416",
+        "verdict": "LOSS",
+        "driver": "Einstieg an einem erschöpften B-Grade Order Block im Sekundär-Retest (R2), bei dem die verbleibenden Limit-Kaufaufträge aufgezehrt waren und der Stop-Loss direkt in die Sell-Side Liquidity platziert wurde.",
+        "technical_warning": "Divergierendes, abnehmendes VSA-Kaufvolumen beim R2-Anlauf sowie das Ausbleiben eines aggressiven Liquidity Sweeps [A] vor dem Good-Buy-Trigger hätten die Zonen-Erschöpfung signalisiert.",
+        "actionable_rule": "Keine Long-Positionen an B-Grade Order Blocks bei R2 oder höher ohne vorherigen Sell-Side Liquidity Sweep und nachgewiesene Volumenabsorption."
+      }
+    },
     {
       "timestamp": "2026-11-11T06:10:41.282229+00:00",
       "trade_id": "cross_rule_1794377441",
