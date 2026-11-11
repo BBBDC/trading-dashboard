@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-11T09:10:56.298582+00:00",
-  "total_experience_records": 81,
+  "updated_at": "2026-11-11T09:31:24.638438+00:00",
+  "total_experience_records": 84,
   "learnings": [
+    {
+      "timestamp": "2026-11-11T09:31:20.630618+00:00",
+      "trade_id": "cross_rule_1794389480",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Trade ohne HTF-Volumenkonvergenz: Indikator-Trigger (wie blaue Dreiecke) sind ohne VSA-Kontext auf Mikro-Ebene Rauschen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Indikatorenbasierte Signale hinken der Orderbuch-Dynamik hinterher; auf 5m wie auf 1D entscheidet allein das Verhältnis von absorbiertem Volumen zu Preisfortschritt (Effort vs. Result), ob ein Level hält.",
+        "actionable_rule": "Kein Trade ohne HTF-Volumenkonvergenz: Indikator-Trigger (wie blaue Dreiecke) sind ohne VSA-Kontext auf Mikro-Ebene Rauschen."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T09:31:20.630583+00:00",
+      "trade_id": "cross_rule_1794389480",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Order-Block-Degeneration: Jeder Folgeretest (R2+) schwächt das strukturelle Level und wandelt Support in ein Magnetfeld für Gegenseiten-Liquidität um.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Was auf 5m durch Rauschen wie ein Support aussieht, ist auf 4h/1D die finale Phase institutioneller Distribution; ohne frischen Sweep ist ein Retest statistisch eine Falle statt ein Einstiegspunkt.",
+        "actionable_rule": "Order-Block-Degeneration: Jeder Folgeretest (R2+) schwächt das strukturelle Level und wandelt Support in ein Magnetfeld für Gegenseiten-Liquidität um."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T09:31:20.630515+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1794385856",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.92,
+      "pnl_raw": -0.46,
+      "text": "Keine Long-Entries an sekundären [B]-Order-Blocks ab dem zweiten Retest (R2+), es sei denn, es ging ein sauberer Sell-Side-Liquidity-Sweep (Klasse [A]) mit dynamischem Volume-Imbalance-Recovery voraus.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1794385856",
+        "verdict": "LOSS",
+        "driver": "Einstieg an einem erschöpften Tier-B Order Block beim zweiten Retest (R2), bei dem verbliebene Bids von den Bären absorbiert und Liquidität unter dem Support abgegriffen wurde.",
+        "technical_warning": "Ausbleibender VSA-Volumenspike (keine institutionelle Absorption) gepaart mit schwacher Rejection-Dochtbildung beim R2-Test zeigte fehlende Käuferdominanz vor dem SL-Run an.",
+        "actionable_rule": "Keine Long-Entries an sekundären [B]-Order-Blocks ab dem zweiten Retest (R2+), es sei denn, es ging ein sauberer Sell-Side-Liquidity-Sweep (Klasse [A]) mit dynamischem Volume-Imbalance-Recovery voraus."
+      }
+    },
     {
       "timestamp": "2026-11-11T08:31:37.842265+00:00",
       "trade_id": "cross_rule_1794385897",
