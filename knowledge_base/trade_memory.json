@@ -1,7 +1,103 @@
 {
-  "updated_at": "2026-11-11T22:01:28.933728+00:00",
-  "total_experience_records": 66,
+  "updated_at": "2026-11-11T22:49:38.299647+00:00",
+  "total_experience_records": 71,
   "learnings": [
+    {
+      "timestamp": "2026-11-11T22:49:34.150570+00:00",
+      "trade_id": "cross_rule_1794437374",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volatilitäts-Expansions-Veto gegen Mean-Reversion (Chaos Band Expansion Rule)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Wenn statistische Hüllkurven oder Chaos-Bänder dynamisch nach außen explodieren, mutieren Support-Pockets zu Liquidationszonen; institutionelle Reversals dürfen auf keiner Zeitebene gegen expandierende Volatilität initiiert werden.",
+        "actionable_rule": "Volatilitäts-Expansions-Veto gegen Mean-Reversion (Chaos Band Expansion Rule)"
+      }
+    },
+    {
+      "timestamp": "2026-11-11T22:49:34.150536+00:00",
+      "trade_id": "cross_rule_1794437374",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Orderblock-Retest ohne strukturellen Kerzenschluss über dem Sweep-Level (Fraktale Absorptions-Pflicht)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf der 5m- als auch auf der 4h/1D-Ebene ist ein Durchtauchen unter Supportlevels wertlos, solange 'Smart Money' die Liquidität nicht per Schlusskurs (Close-Back-Inside) absorbiert; ohne diesen Reclaim handelt es sich schlicht um eine Trendfortsetzung.",
+        "actionable_rule": "Kein Orderblock-Retest ohne strukturellen Kerzenschluss über dem Sweep-Level (Fraktale Absorptions-Pflicht)"
+      }
+    },
+    {
+      "timestamp": "2026-11-11T22:49:34.150514+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1794434450",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.38,
+      "pnl_raw": -0.69,
+      "text": "Notiert der Kurs unter dem Chaos Band (< RFE), ist jeder Long-Trade verboten, bis der Markt per Kerzenschluss wieder innerhalb des regulären Bandes schließt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1794434450",
+        "verdict": "LOSS",
+        "driver": "Trotz optischer 'High Confluence' scheiterte der Trade, weil das Chaos Band nach unten expandierte und als Trendbeschleuniger statt als Mean-Reversion-Stütze fungierte.",
+        "technical_warning": "Bänder-Spreizung nach unten (Volatilitätsexpansion) bei gleichzeitigem Unterschreiten des RFE signalisierte institutionelle Kapitulation statt Rebound.",
+        "actionable_rule": "Notiert der Kurs unter dem Chaos Band (< RFE), ist jeder Long-Trade verboten, bis der Markt per Kerzenschluss wieder innerhalb des regulären Bandes schließt."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T22:49:34.150483+00:00",
+      "trade_id": "inc_SUIUSDT_5m_1794425738",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.12,
+      "pnl_raw": -0.56,
+      "text": "Kein Micro-Long ohne vorherigen Sweep struktureller Tiefs; isolierte Retests von B-Klasse-Orderblöcken sind bei negativem Intraday-Momentum strikt gesperrt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_5m_1794425738",
+        "verdict": "LOSS",
+        "driver": "Völlig ungeschützter Einstieg mit schwächster Confluence (nur OB [B]) mitten in einen ungebremsten Intraday-Abverkauf ohne vorherige Liquiditätsbereinigung.",
+        "technical_warning": "Kein Sweep-Trigger vorhanden; der Preis lief frontal in offene Sell-Side Liquidity (SSL), wodurch ein Stop-Out mathematisch vorprogrammiert war.",
+        "actionable_rule": "Kein Micro-Long ohne vorherigen Sweep struktureller Tiefs; isolierte Retests von B-Klasse-Orderblöcken sind bei negativem Intraday-Momentum strikt gesperrt."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T22:49:34.150406+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1794414546",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.92,
+      "pnl_raw": -0.96,
+      "text": "Ein Stop-Hunt Sweep [A] darf erst gehandelt werden, wenn eine nachfolgende 5m-Bestätigungskerze wieder signifikant über dem Sweep-Niveau schließt (Confirmation vor Execution).",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1794414546",
+        "verdict": "LOSS",
+        "driver": "Der angebliche Liquidity Sweep [A] war kein Reversal, sondern eine impulsive Trendfortsetzung ohne jegliche Käufer-Absorption.",
+        "technical_warning": "Fehlende Rejection-Dochtbildung auf 5m und Schlusskurs direkt im tiefsten Drittel der Sweep-Kerze signalisierten aggressiven Sell-Flow.",
+        "actionable_rule": "Ein Stop-Hunt Sweep [A] darf erst gehandelt werden, wenn eine nachfolgende 5m-Bestätigungskerze wieder signifikant über dem Sweep-Niveau schließt (Confirmation vor Execution)."
+      }
+    },
     {
       "timestamp": "2026-11-11T22:01:24.992965+00:00",
       "trade_id": "cross_rule_1794434484",
