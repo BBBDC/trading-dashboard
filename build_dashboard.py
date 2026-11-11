@@ -568,17 +568,21 @@ def render_hero_cards_html(raw_assets):
         tp_tp_str = f"{tp_tp2:,.2f} {tp_curr_sym} ({tp_crv} CRV)"
         tp_sub_badge = f"{tp_score}% Score · {tp_sig}"
         tp_detail_link_color = "text-emerald-400 hover:text-emerald-300" if is_long else "text-rose-400 hover:text-rose-300"
+        tp_ev_badge = top_pick.get("evaluator_badge", "🤖 Gemini Pro")
+        tp_hw_badge = f'<span class="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold">{top_pick.get("headwind_label")}</span>' if top_pick.get("macro_headwind") else ''
 
         top_pick_html = f"""
         <!-- Top Pick Aktien/Traditionell: {tp_name} ({tp_sym}) -->
         <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900/90 via-[#0d1322] to-slate-900 border {tp_glow} p-5">
           <div class="absolute -right-12 -top-12 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
           <div class="flex items-start justify-between">
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 flex-wrap">
               <span class="px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider {tp_badge_bg}">
                 Top Opportunity · Aktien
               </span>
               <span class="text-xs font-mono {tp_score_color} font-semibold">{tp_sub_badge}</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-500/15 text-purple-300 border border-purple-500/30">{tp_ev_badge}</span>
+              {tp_hw_badge}
             </div>
             <span class="font-mono text-xs text-slate-400">{tp_sym}</span>
           </div>
@@ -661,17 +665,21 @@ def render_hero_cards_html(raw_assets):
         d_1d = crypto_pick.get("timeframes", {}).get("1D") or {}
         c_trend = d_1d.get("trend", "BULLISH")
         c_trend_badge = f"{c_trend} (1D)"
+        c_ev_badge = crypto_pick.get("evaluator_badge", "🤖 Gemini Pro")
+        c_hw_badge = f'<span class="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold">{crypto_pick.get("headwind_label")}</span>' if crypto_pick.get("macro_headwind") else ''
 
         crypto_card_html = f"""
         <!-- Top Crypto Opportunity: {c_name} ({c_sym}) -->
         <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-950/40 via-slate-900/90 to-slate-900 border {c_glow} p-5">
           <div class="absolute -right-12 -top-12 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
           <div class="flex items-start justify-between">
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 flex-wrap">
               <span class="px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider {c_badge_bg}">
                 Top Opportunity · Krypto
               </span>
               <span class="text-xs font-mono {c_score_color} font-semibold">{c_sub_badge}</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-500/15 text-purple-300 border border-purple-500/30">{c_ev_badge}</span>
+              {c_hw_badge}
             </div>
             <span class="font-mono text-xs text-slate-400">{c_sym}</span>
           </div>
@@ -2333,8 +2341,10 @@ html_content = f"""<!DOCTYPE html>
             <span id="modal-asset-ticker" class="text-xs font-mono text-slate-400"></span>
             <span id="modal-market-state" class="inline-flex items-center"></span>
           </div>
-          <div class="flex items-center gap-2 mt-1">
+          <div class="flex items-center gap-2 mt-1 flex-wrap">
             <p id="modal-setup-title" class="text-xs text-indigo-400 font-semibold"></p>
+            <span id="modal-evaluator-badge" class="inline-flex items-center"></span>
+            <span id="modal-headwind-badge" class="inline-flex items-center"></span>
             <button onclick="openHypothesesModal(document.getElementById('modal-setup-title').innerText)" class="px-2 py-0.5 rounded bg-indigo-500/10 hover:bg-indigo-500/25 text-indigo-300 hover:text-white border border-indigo-500/30 text-[10px] font-semibold transition cursor-pointer flex items-center gap-1" title="Erklärung zu dieser Setup-Hypothese anzeigen">
               💡 Setup-Logik
             </button>
@@ -2826,6 +2836,12 @@ html_content = f"""<!DOCTYPE html>
         const currSym = getAssetCurrencySymbol(a);
         const currCode = getAssetCurrencyCode(a);
 
+        const evBadge = a.evaluator_badge || (a.evaluated_by && a.evaluated_by.includes('gemini') ? '🤖 Gemini' : '📐 Quant');
+        const evColor = evBadge.includes('Gemini') ? 'bg-purple-500/15 text-purple-300 border-purple-500/30' : 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30';
+        const headwindHtml = a.macro_headwind
+          ? `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono bg-amber-500/15 text-amber-300 border border-amber-500/30" title="${{a.headwind_label || 'Makro-Gegenwind am Leitmarkt'}}">${{a.headwind_label || '⚠️ Gegenwind'}}</span>`
+          : '';
+
         // Grid Card
         const card = document.createElement('div');
         card.className = `p-4 rounded-xl bg-slate-900/90 border border-slate-800/90 transition shadow-sm hover:shadow-lg ${{cardBorder}} flex flex-col justify-between space-y-4`;
@@ -2838,9 +2854,11 @@ html_content = f"""<!DOCTYPE html>
                   <span class="font-bold text-white text-base tracking-tight">${{a.name}}</span>
                   <span class="text-xs font-mono text-slate-400">${{a.symbol.split(':')[1] || a.symbol}}</span>
                 </div>
-                <div class="flex items-center gap-2 mt-1">
+                <div class="flex items-center gap-1.5 mt-1 flex-wrap">
                   <span class="text-[11px] text-slate-400">${{a.category}}</span>
                   ${{marketBadgeHtml}}
+                  <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono border ${{evColor}}" title="Prüfung durch: ${{a.evaluated_by || 'Quantitative Engine'}}">${{evBadge}}</span>
+                  ${{headwindHtml}}
                 </div>
               </div>
               <div class="text-right">
@@ -2920,7 +2938,11 @@ html_content = f"""<!DOCTYPE html>
               <span class="font-bold text-white text-xs">${{a.name}}</span>
               ${{marketBadgeHtml}}
             </div>
-            <div class="text-[10px] text-slate-400">${{a.symbol}}</div>
+            <div class="text-[10px] text-slate-400 flex items-center gap-1.5 mt-0.5 flex-wrap">
+              <span>${{a.symbol}}</span>
+              <span class="px-1 py-0.2 rounded text-[9px] font-mono border ${{evColor}}">${{evBadge}}</span>
+              ${{a.macro_headwind ? `<span class="px-1 py-0.2 rounded text-[9px] font-mono bg-amber-500/15 text-amber-300 border border-amber-500/30" title="${{a.headwind_label}}">⚠️ Gegenwind</span>` : ''}}
+            </div>
           </td>
           <td class="p-3">
             <span class="px-2 py-0.5 rounded text-[11px] font-bold border ${{badgeColor}}">${{a.signal}}</span>
@@ -3093,6 +3115,26 @@ html_content = f"""<!DOCTYPE html>
         }} else {{
           mStateElem.className = 'inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-mono font-medium bg-slate-800 text-slate-400 border border-slate-700/60';
           mStateElem.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span>${{mState.session_name || 'Pausiert (Geschlossen)'}}`;
+        }}
+      }}
+
+      // Evaluator & Makro-Gegenwind Badges im Modal Header
+      const mEvElem = document.getElementById('modal-evaluator-badge');
+      if (mEvElem) {{
+        const evBadge = a.evaluator_badge || (a.evaluated_by && a.evaluated_by.includes('gemini') ? '🤖 Gemini Pro' : '📐 Quantitative Engine');
+        const evColor = evBadge.includes('Gemini') ? 'bg-purple-500/20 text-purple-300 border-purple-500/40' : 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40';
+        mEvElem.className = `px-2 py-0.5 rounded text-[11px] font-mono border ${{evColor}}`;
+        mEvElem.innerText = evBadge;
+        mEvElem.title = `Evaluator: ${{a.evaluated_by || 'Quantitative Engine'}}`;
+      }}
+      const mHwElem = document.getElementById('modal-headwind-badge');
+      if (mHwElem) {{
+        if (a.macro_headwind) {{
+          mHwElem.className = 'px-2 py-0.5 rounded text-[11px] font-mono bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1';
+          mHwElem.innerHTML = a.headwind_label || '⚠️ Makro-Gegenwind';
+          mHwElem.classList.remove('hidden');
+        }} else {{
+          mHwElem.classList.add('hidden');
         }}
       }}
 
@@ -4051,6 +4093,8 @@ html_content = f"""<!DOCTYPE html>
                     ${{horizonBadge}}
                     ${{tp1Badge}}
                     ${{(t.tranches && t.tranches > 1) ? `<span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30" title="Position bei Signalverstärkung aufgestockt">Tranche ${{t.tranches}}/3</span>` : ''}}
+                    ${{t.macro_headwind ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30" title="${{t.headwind_label || 'Makro-Gegenwind gedämpft'}}">🛡️ Makro-Dämpfer (${{t.leverage}}x)</span>` : ''}}
+                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-500/15 text-purple-300 border border-purple-500/30">${{t.evaluator_badge || '🤖 Gemini'}}</span>
                     <span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-${{sigColor}}-500/10 text-${{sigColor}}-400 border border-${{sigColor}}-500/30">
                       ${{t.direction}}
                     </span>

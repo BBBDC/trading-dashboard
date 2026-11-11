@@ -483,6 +483,67 @@ def evaluate_quantitative_confluence(timeframes, asset_info, prev_asset=None):
     }
 
 
+def assign_macro_headwind_and_evaluator_labels(analyzed_assets):
+    """
+    Ermittelt den übergeordneten Trend der Leitmärkte (SPY, DAX, BTC) und markiert
+    jedes Asset mit Makro-Gegenwind-Status und lesbarem Evaluator-Badge.
+    """
+    benchmark_trends = {}
+    for a in analyzed_assets:
+        sym = a.get("symbol", "")
+        tfs = a.get("timeframes") or {}
+        d1 = tfs.get("1D") or {}
+        t1d = d1.get("trend")
+        if sym == "AMEX:SPY":
+            benchmark_trends["US"] = t1d or "NEUTRAL"
+        elif sym == "XETR:DAX":
+            benchmark_trends["EU"] = t1d or "NEUTRAL"
+        elif "BTCUSD" in sym and "CRYPTO" not in benchmark_trends:
+            benchmark_trends["CRYPTO"] = t1d or "NEUTRAL"
+
+    for a in analyzed_assets:
+        cat = str(a.get("category", "")).lower()
+        sym = str(a.get("symbol", ""))
+        atype = str(a.get("asset_type", ""))
+
+        if atype == "Crypto" or "crypto" in cat or "btcusd" in sym.lower():
+            bm_key = "CRYPTO"
+            bm_name = "Bitcoin"
+        elif "dax" in cat or sym.startswith(("XETR:", "FWB:", "TRADEGATE:")):
+            bm_key = "EU"
+            bm_name = "DAX"
+        else:
+            bm_key = "US"
+            bm_name = "S&P 500"
+
+        bm_trend = benchmark_trends.get(bm_key, "NEUTRAL")
+        sig = a.get("signal", "NEUTRAL")
+
+        macro_headwind = False
+        headwind_label = ""
+        if sig == "LONG" and bm_trend == "BEARISH":
+            macro_headwind = True
+            headwind_label = f"⚠️ Makro-Gegenwind ({bm_name} 1D bärisch)"
+        elif sig == "SHORT" and bm_trend == "BULLISH":
+            macro_headwind = True
+            headwind_label = f"⚠️ Makro-Gegenwind gegen Short ({bm_name} 1D bullisch)"
+
+        a["macro_headwind"] = macro_headwind
+        a["headwind_label"] = headwind_label
+        a["benchmark_market"] = f"{bm_name} ({bm_trend})"
+
+        ev = str(a.get("evaluated_by", "quantitative_engine"))
+        if "gemini-3.8" in ev or "pro" in ev.lower():
+            eval_badge = "🤖 Gemini 3.8 Pro"
+        elif "gemini" in ev:
+            eval_badge = "⚡ Gemini Flash"
+        elif "quantitative" in ev or ev in ("math", "confluence"):
+            eval_badge = "📐 Quantitative Engine"
+        else:
+            eval_badge = "📐 Algorithmus"
+        a["evaluator_badge"] = eval_badge
+
+
 def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):
     """
     Hauptfunktion: Liest alle Assets, lädt frische Kerzen für fällige Märkte, berechnet Indikatoren,
@@ -722,6 +783,9 @@ def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):
             time.sleep(0.3)
 
         print(f"KI-Kaskadenauswertung abgeschlossen: {ai_success_count}/{len(gemini_batch)} Assets erfolgreich durch KI bewertet.")
+
+    # Makro-Gegenwind der Leitmärkte & Evaluator-Badges ermitteln
+    assign_macro_headwind_and_evaluator_labels(analyzed_assets)
 
     # Sortieren nach Score
     analyzed_assets.sort(key=lambda x: x.get("score", 0), reverse=True)

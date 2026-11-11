@@ -182,7 +182,7 @@ def update_setup_scorecard(memory, closed_trades):
     return memory
 
 
-def calculate_optimal_leverage(asset_type, category, current_price, stop_loss, score, setup_name=None, memory=None):
+def calculate_optimal_leverage(asset_type, category, current_price, stop_loss, score, setup_name=None, memory=None, macro_headwind=False):
     """
     Berechnet den verantwortungsvollen Hebel (1x bis max 10x):
     - Berücksichtigt Asset-Klasse (Krypto max 2-3x, Aktien 3-5x, Indizes 5-8x, Rohstoffe 4-6x)
@@ -190,6 +190,8 @@ def calculate_optimal_leverage(asset_type, category, current_price, stop_loss, s
     - Score-Bonus nur bei extrem hoher Konfluenz (Score >= 92%)
     - CLOSED-LOOP SCORECARD GOVERNOR: Drosselt den Hebel automatisch, falls Kategorie oder Setup
       in der historischen Auswertung unterdurchschnittlich abgeschnitten haben!
+    - MAKRO-GEGENWIND-DÄMPFER: Drosselt den Hebel defensiv (z.B. bei Long-Aktie in bärischem S&P 500)
+      auf max 2x (Krypto) bzw. 3x (Aktien) mit zusätzlichem Puffer, um vor Markt-Abstürzen zu schützen.
     """
     if not current_price or not stop_loss or current_price <= 0:
         return 3
@@ -238,6 +240,15 @@ def calculate_optimal_leverage(asset_type, category, current_price, stop_loss, s
         bonus = 2
 
     chosen_leverage = min(safe_max_lev, class_cap + bonus)
+
+    # Makro-Gegenwind Dämpfer (Defensiver Kapitalschutz bei divergentem Leitmarkt)
+    if macro_headwind:
+        if "crypto" in cat_lower or "krypto" in cat_lower or "crypto" in asset_lower:
+            chosen_leverage = min(chosen_leverage, 2)
+        else:
+            chosen_leverage = min(chosen_leverage, 3)
+        chosen_leverage = max(1, chosen_leverage - 1)
+
     # Strikte Obergrenze 10x, Untergrenze 1x
     return max(1, min(10, chosen_leverage))
 
@@ -778,8 +789,9 @@ def update_autonomous_portfolio(db_assets):
             tp1 = c.get("take_profit_1", curr_p * 1.05)
             tp2 = c.get("take_profit_2", curr_p * 1.10)
 
-            # Automatische Hebel-Ermittlung mit Scorecard-Feedback (Makro maximal 2x)
-            lev = calculate_optimal_leverage(asset_type, cat, curr_p, sl, score, setup_name=setup_name, memory=memory)
+            # Automatische Hebel-Ermittlung mit Scorecard-Feedback & Makro-Schutz (Makro maximal 2x)
+            macro_hw = c.get("macro_headwind", False)
+            lev = calculate_optimal_leverage(asset_type, cat, curr_p, sl, score, setup_name=setup_name, memory=memory, macro_headwind=macro_hw)
             if horizon == "MACRO_TREND":
                 lev = min(lev, 2)
 
@@ -802,6 +814,9 @@ def update_autonomous_portfolio(db_assets):
                 "horizon_tf": horizon_tf,
                 "score": score,
                 "setup_name": setup_name,
+                "macro_headwind": macro_hw,
+                "headwind_label": c.get("headwind_label", ""),
+                "evaluator_badge": c.get("evaluator_badge", "📐 Quantitative Engine"),
                 "entry_time": now_iso,
                 "entry_price": curr_p,
                 "current_price": curr_p,

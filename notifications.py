@@ -373,7 +373,21 @@ def format_telegram_change_notification(changes, click_url):
             lines.append(f"{icon} <b>NEUES SIGNAL: {sig} · {horizon_tag}</b>")
             lines.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
             lines.append(f"📈 <b>{name}</b> (<code>{ticker}</code>) · <i>{c.get('category', 'Asset')}</i>")
-            lines.append(f"🏆 <b>KI-Score:</b> <b>{score}%</b> ({score_badge})\n")
+            
+            ev_badge = c.get("evaluator_badge")
+            if not ev_badge:
+                ev_raw = str(c.get("evaluated_by", ""))
+                if "gemini-3.8" in ev_raw or "pro" in ev_raw.lower():
+                    ev_badge = "🤖 Gemini 3.8 Pro"
+                elif "gemini" in ev_raw:
+                    ev_badge = "⚡ Gemini Flash"
+                else:
+                    ev_badge = "📐 Quantitative Engine"
+
+            lines.append(f"🏆 <b>KI-Score:</b> <b>{score}%</b> ({score_badge}) · <code>{ev_badge}</code>")
+            if c.get("macro_headwind"):
+                lines.append(f"🛡️ <b>Makro-Status:</b> <i>{c.get('headwind_label')}</i> (Hebel defensiv gedämpft)")
+            lines.append("")
 
             curr_p = float(c.get("price", 0.0))
             entry = float(c.get("entry_range", [curr_p])[0]) if c.get("entry_range") else curr_p
