@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-11T18:09:35.951188+00:00",
-  "total_experience_records": 66,
+  "updated_at": "2026-11-11T19:05:00.982208+00:00",
+  "total_experience_records": 69,
   "learnings": [
+    {
+      "timestamp": "2026-11-11T19:04:56.969987+00:00",
+      "trade_id": "cross_rule_1794423896",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Displacement-Gebot: Jede valide Liquiditätsbereinigung erfordert zwingend eine sofortige, dynamische Expansion mit Range-Expansion und FVG-Generierung.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Stagniert der Kurs nach einem Sweep innerhalb der Support-Zone, signalisiert dies Akzeptanz unterhalb des Levels statt Ablehnung; der Trade muss vor Auslösen des Hard-SL manuell gekillt werden.",
+        "actionable_rule": "Fraktales Displacement-Gebot: Jede valide Liquiditätsbereinigung erfordert zwingend eine sofortige, dynamische Expansion mit Range-Expansion und FVG-Generierung."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T19:04:56.969963+00:00",
+      "trade_id": "cross_rule_1794423896",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "HTF-Trend-Priorität vor LTF-Confluences: Mikro-Sweeps (5m/15m) dürfen niemals gegen den übergeordneten 4h/1D-Trend gefischt werden, es sei denn, ein HTF-Key-Level wurde liquidiert.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m stellen vermeintliche Bullish OBs in einem Abwärtstrend lediglich temporäre Haltestellen dar, an denen Restliquidität absorbiert wird, bevor der übergeordnete Trend den Stop gnadenlos abholt.",
+        "actionable_rule": "HTF-Trend-Priorität vor LTF-Confluences: Mikro-Sweeps (5m/15m) dürfen niemals gegen den übergeordneten 4h/1D-Trend gefischt werden, es sei denn, ein HTF-Key-Level wurde liquidiert."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T19:04:56.969910+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1794416988",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.62,
+      "pnl_raw": -0.81,
+      "text": "Kein Ausführen von M5/M15 OB-Retests nach Sweeps ohne vorherigen Market Structure Shift (MSS) und bestätigenden FVG-Close in Gegenrichtung.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1794416988",
+        "verdict": "LOSS",
+        "driver": "Blinder Long-Einstieg in einen Orderblock-Retest nach Liquidity Sweep ohne Bestätigung durch institutionelle Absorption oder einen strukturellen Bruch auf der Mikroebene.",
+        "technical_warning": "Fehlende V-förmige Rejection (Lunte) am Sweep-Tief sowie ausbleibendes VSA-Kaufvolumen mit Verharren der Kerzenkörper tief im Orderblock statt impulsivem Displacement.",
+        "actionable_rule": "Kein Ausführen von M5/M15 OB-Retests nach Sweeps ohne vorherigen Market Structure Shift (MSS) und bestätigenden FVG-Close in Gegenrichtung."
+      }
+    },
     {
       "timestamp": "2026-11-11T17:10:20.146219+00:00",
       "trade_id": "cross_rule_1794417020",
