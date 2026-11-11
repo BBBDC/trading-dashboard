@@ -1,5 +1,99 @@
 [
   {
+    "id": "evt_20261111_151345",
+    "timestamp": "2026-11-11T15:13:45.891214+00:00",
+    "timestamp_display": "11.11.2026 15:13 UTC",
+    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 3,
+    "changes": [
+      {
+        "symbol": "BINANCE:ETHFIUSDT",
+        "name": "ether.fi",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "LONG",
+        "old_score": 42,
+        "new_score": 96,
+        "price": 0.6315,
+        "setup_name": "Hypothese 1: degencoder Institutional Buy Pocket Reversal",
+        "entry_range": [
+          0.63,
+          0.63
+        ],
+        "stop_loss": 0.6,
+        "take_profit_2": 0.74,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "1W Makro-Trend bullisch bestätigt",
+          "degencoder: 1D Institutional BUY Pocket (Lower Chaos Band unter RFE 233)",
+          "degencoder: 1h Good Sell Signal (Kreis Top-Erschöpfung)"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
+        "note": "Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NASDAQ:NFLX",
+        "name": "Netflix",
+        "category": "Entertainment",
+        "change_type": "SCORE_JUMP",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 88,
+        "new_score": 95,
+        "price": 63.225,
+        "setup_name": "Hypothese 2: degencoder Indicator Sell Signal",
+        "entry_range": [
+          63.04,
+          63.68
+        ],
+        "stop_loss": 65.38,
+        "take_profit_2": 56.1,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 1h Buy Area (Grünes Kreuz)",
+          "degencoder: 4h Good Sell Signal (Kreis Top-Erschöpfung)"
+        ],
+        "change_reason": "Konfluenz-Veränderung: Score springt von 88% auf 95% (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NYSE:ORCL",
+        "name": "Oracle",
+        "category": "Enterprise Software",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 55,
+        "new_score": 95,
+        "price": 125.15,
+        "setup_name": "Hypothese 1: SMC Order Block [R1] Exhaustion",
+        "entry_range": [
+          124.9,
+          126.15
+        ],
+        "stop_loss": 129.53,
+        "take_profit_2": 111.13,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 1D Institutional BUY Pocket (Lower Chaos Band unter RFE 233)",
+          "degencoder: 1h Sell Area (Rotes Kreuz)"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🟢 ether.fi (ETHFIUSDT):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: degencoder Institutional Buy Pocket Reversal\n   Entry: 0.63 | SL: 0.60 | TP2: 0.74\n\n🔴 Netflix (NFLX):\n   Score-Sprung: 88% ➔ 95% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 88% auf 95% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 2: degencoder Indicator Sell Signal\n   Entry: 63.04 | SL: 65.38 | TP2: 56.10\n\n🔴 Oracle (ORCL):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R1] Exhaustion\n   Entry: 124.90 | SL: 129.53 | TP2: 111.13\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261111_143202",
     "timestamp": "2026-11-11T14:32:02.243854+00:00",
     "timestamp_display": "11.11.2026 14:32 UTC",
@@ -19892,72 +19986,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 4 Einstufungen haben sich geändert:\n\n🟢 Meta Platforms (META):\n   Score-Sprung: 85% ➔ 92% (LONG)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 85% auf 92% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (92%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 1: SMC Golden Confluence Reversal\n   Entry: 625.52 | SL: 608.49 | TP2: 701.18\n\n🔴 Apple (AAPL):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 92%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (92%): Überhitzung an HTF-Widerstandszone (1D Trend über EMA 233 bullisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 343.22 | SL: 355.95 | TP2: 305.38\n\n🟢 Micron Technology (MU):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 90%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (90%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 1: SMC Golden Confluence Reversal\n   Entry: 896.47 | SL: 872.07 | TP2: 1,004.92\n\n⚪ Under Armour (UAA):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 46%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261027_111654",
-    "timestamp": "2026-10-27T11:16:54.618512+00:00",
-    "timestamp_display": "27.10.2026 11:16 UTC",
-    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 2,
-    "changes": [
-      {
-        "symbol": "COMEX:HG1!",
-        "name": "Kupfer Future",
-        "category": "Industriemetalle",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 90,
-        "new_score": 56,
-        "price": 6.6,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          6.6,
-          6.6
-        ],
-        "stop_loss": 6.4,
-        "take_profit_2": 7.0,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend über EMA 233 bullisch).",
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "XETR:DAX",
-        "name": "DAX 40",
-        "category": "Indizes",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 90,
-        "new_score": 48,
-        "price": 25491.54,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          25491.54,
-          25491.54
-        ],
-        "stop_loss": 24726.79,
-        "take_profit_2": 27021.03,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend über EMA 233 bullisch).",
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n⚪ Kupfer Future (HG1!):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 56%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n⚪ DAX 40 (DAX):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
