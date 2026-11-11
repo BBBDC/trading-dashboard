@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-11T21:30:54.988515+00:00",
-  "total_experience_records": 63,
+  "updated_at": "2026-11-11T22:01:28.933728+00:00",
+  "total_experience_records": 66,
   "learnings": [
+    {
+      "timestamp": "2026-11-11T22:01:24.992965+00:00",
+      "trade_id": "cross_rule_1794434484",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Strikter Hierarchie-Filter für Zonen: Order Blocks unterhalb von Tier-B besitzen weder auf 5m noch auf 1D Tragfähigkeit als primärer Entry-Anker.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Tier-C Blöcke fungieren im Orderflow nicht als Support, sondern als günstige Ausstiegsliquidität für übergeordnete Marktteilnehmer, die dynamisch in tiefere Zonen durchdrücken.",
+        "actionable_rule": "Strikter Hierarchie-Filter für Zonen: Order Blocks unterhalb von Tier-B besitzen weder auf 5m noch auf 1D Tragfähigkeit als primärer Entry-Anker."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T22:01:24.992908+00:00",
+      "trade_id": "cross_rule_1794434484",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Reclaim-Primat vor Sweep-Aktivierung: Ein Liquiditätsabgriff (Sweep [A]) ist erst durch Kerzenschluss zurück innerhalb der Referenzspanne validiert – niemals per Limit-Order im Durchstich.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Vermeintliche Sweeps in Überdehnung (Chaos Band < RFE) mutieren ohne sofortige Volumenabsorption zu trendfortsetzenden Durchbrüchen; diese Dynamik vernichtet auf 5m Kleinkapital und auf 4h/1D Portfolios.",
+        "actionable_rule": "Reclaim-Primat vor Sweep-Aktivierung: Ein Liquiditätsabgriff (Sweep [A]) ist erst durch Kerzenschluss zurück innerhalb der Referenzspanne validiert – niemals per Limit-Order im Durchstich."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T22:01:24.992815+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1794432103",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.88,
+      "pnl_raw": -0.44,
+      "text": "Kein Long-Entry an Tier-[C] Order Blocks in 5m/15m ohne bestätigten Reclaim-Kerzenschluss über dem Sweep-Tief und bullische Delta-/Volumendivergenz.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1794432103",
+        "verdict": "LOSS",
+        "driver": "Fehlschlag der Mean-Reversion durch front-runnendes Einstoppen an einem schwachen Tier-[C] Order Block während dynamischer Abwärtsausdehnung unter das Chaos-Band ohne VSA-Absorptionsnachweis.",
+        "technical_warning": "Das schwache OB-Rating [C] in Kombination mit fehlendem Kerzenschluss über dem Sweep-Niveau (kein Reclaim) signalisierte aggressive Verkäuferkontrolle statt institutioneller Rejection.",
+        "actionable_rule": "Kein Long-Entry an Tier-[C] Order Blocks in 5m/15m ohne bestätigten Reclaim-Kerzenschluss über dem Sweep-Tief und bullische Delta-/Volumendivergenz."
+      }
+    },
     {
       "timestamp": "2026-11-11T21:22:29.218175+00:00",
       "trade_id": "cross_rule_1794432149",
