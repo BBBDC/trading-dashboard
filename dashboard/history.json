@@ -1,5 +1,96 @@
 [
   {
+    "id": "evt_20261111_163001",
+    "timestamp": "2026-11-11T16:30:01.872434+00:00",
+    "timestamp_display": "11.11.2026 16:30 UTC",
+    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 3,
+    "changes": [
+      {
+        "symbol": "NYSE:ORCL",
+        "name": "Oracle",
+        "category": "Enterprise Software",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 52,
+        "price": 128.115,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          126.89,
+          129.85
+        ],
+        "stop_loss": 131.2,
+        "take_profit_2": 118.0,
+        "reasons": [
+          "Übergeordneter HTF-Trend (1W/1D) strikt bärisch",
+          "1D degencoder Buy Pocket signalisiert Überverkaufung – Long ist wegen bärischer 1D-Struktur jedoch regelwidrig",
+          "1h RSI überkauft (71.28) nahe Grad A Bearish OB – Abwarten auf Bestätigung des Top-Signals"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Übergeordneter HTF-Trend (1W/1D) strikt bärisch).",
+        "note": "ORCL zeigt eine 1D Institutional Buy Pocket, allerdings verbieten unsere institutionalen Filterregeln Long-Trades gegen den intakten 1D/1W-Bärenmarkt. Zudem ist das historische Setup 'Buy Pocket' im System unterperformend. Wir warten die Reaktion am übergeordneten Grad A Bearish OB (126.89 - 129.85 USD) ab, um nach Bestätigung ein trendkonformes Short-Setup zu evaluieren.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...oFUw]"
+      },
+      {
+        "symbol": "NASDAQ:NFLX",
+        "name": "Netflix",
+        "category": "Entertainment",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 48,
+        "price": 63.395,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          64.375,
+          66.0
+        ],
+        "stop_loss": 67.2,
+        "take_profit_2": 58.5,
+        "reasons": [
+          "Makro-Trend auf 1W, 1D und 4h durchgehend bärisch",
+          "Bullish Order Block bereits 5-fach getestet (mitigated) und geschwächt",
+          "Widersprüchliche LTF-Signale (4h Sell Signal vs 1h Potential Buy Signal) erfordern Abwarten"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend auf 1W, 1D und 4h durchgehend bärisch).",
+        "note": "Obwohl der übergeordnete Trend auf Tages- und Wochenbasis klar bärisch ist, befindet sich der Kurs aktuell an einem mehrfach retesteten Bullish Order Block. Da 1h-Signale eine Erholung andeuten, wird kein impulsiver Short auf diesem Niveau eingegangen. Ein präziser Short-Trigger wird erst nach einer Bärenmarktrallye in den Widerstandsbereich von 64.37-66.00 USD gesucht.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...oFUw]"
+      },
+      {
+        "symbol": "TVC:PALLADIUM",
+        "name": "Palladium (Spot)",
+        "category": "Edelmetalle",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 89,
+        "new_score": 45,
+        "price": 1058.199,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          1053.6,
+          1064.6
+        ],
+        "stop_loss": 1075.0,
+        "take_profit_2": 980.0,
+        "reasons": [
+          "Strikte HTF-Bärenmarktstruktur auf 1W und 1D",
+          "4h RSI mit 62.54 nahe Overbought-Zone, jedoch ohne sauberen LTF-Trigger",
+          "1h Trend lokal bullisch, was gegen sofortige Shorts auf aktuellem Niveau spricht"
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Strikte HTF-Bärenmarktstruktur auf 1W und 1D).",
+        "note": "Palladium befindet sich in einem intakten übergeordneten Abwärtstrend, reagiert jedoch kurzfristig auf 1h bullisch. Gemäß den strengen Sektor-Auflagen für Edelmetalle (0% Win-Rate in der Historie) werden Einstiege nur bei absoluter Konfluenz erlaubt. Wir bleiben diszipliniert an der Seitenlinie, bis eine klare bärische Erschöpfung an der Widerstandszone (1053-1064 USD) bestätigt wird.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...oFUw]"
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n⚪ Oracle (ORCL):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Übergeordneter HTF-Trend (1W/1D) strikt bärisch).\n   📝 KI-Rationale: ORCL zeigt eine 1D Institutional Buy Pocket, allerdings verbieten unsere institutionalen Filterregeln Long-Trades gegen den intakt...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ Netflix (NFLX):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend auf 1W, 1D und 4h durchgehend bärisch).\n   📝 KI-Rationale: Obwohl der übergeordnete Trend auf Tages- und Wochenbasis klar bärisch ist, befindet sich der Kurs aktuell an einem mehrfach retes...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ Palladium (Spot) (PALLADIUM):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 45%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Strikte HTF-Bärenmarktstruktur auf 1W und 1D).\n   📝 KI-Rationale: Palladium befindet sich in einem intakten übergeordneten Abwärtstrend, reagiert jedoch kurzfristig auf 1h bullisch. Gemäß den stre...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261111_154438",
     "timestamp": "2026-11-11T15:44:38.035003+00:00",
     "timestamp_display": "11.11.2026 15:44 UTC",
@@ -19754,180 +19845,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🔴 Tesla (TSLA):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 92%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (92%): Überhitzung an HTF-Widerstandszone (1D Trend über EMA 233 bullisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 3: Wyckoff Range Fakeout / Top Exhaustion\n   Entry: 405.93 | SL: 420.98 | TP2: 361.17\n\n🟢 Apple (AAPL):\n   Score-Sprung: 85% ➔ 80% (LONG)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 2: Trend Continuation & Hidden Div' (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (80%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 343.12 | SL: 333.78 | TP2: 384.64\n\n⚪ Nvidia (NVDA):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 56%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261027_150738",
-    "timestamp": "2026-10-27T15:07:38.479948+00:00",
-    "timestamp_display": "27.10.2026 15:07 UTC",
-    "title": "🔔 TV-Signaländerung: 6 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 6,
-    "changes": [
-      {
-        "symbol": "NASDAQ:AAPL",
-        "name": "Apple",
-        "category": "Big Tech",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "LONG",
-        "old_score": 92,
-        "new_score": 85,
-        "price": 347.28,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          344.5,
-          347.97
-        ],
-        "stop_loss": 335.13,
-        "take_profit_2": 386.16,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "Aktiv: Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Signal-Drehung (SHORT ➔ LONG): Marktstruktur hat gedreht (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (85%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "TVC:SILVER",
-        "name": "Silber (Spot)",
-        "category": "Edelmetalle",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 42,
-        "new_score": 80,
-        "price": 54.44,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          54.33,
-          54.88
-        ],
-        "stop_loss": 56.35,
-        "take_profit_2": 48.33,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (80%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NASDAQ:NVDA",
-        "name": "Nvidia",
-        "category": "Halbleiter",
-        "change_type": "SCORE_JUMP",
-        "old_signal": "LONG",
-        "new_signal": "LONG",
-        "old_score": 87,
-        "new_score": 77,
-        "price": 217.7,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          215.96,
-          218.14
-        ],
-        "stop_loss": 210.08,
-        "take_profit_2": 242.08,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Konfluenz-Veränderung: Score springt von 87% auf 77% (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bullische Konfluenz (77%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "TVC:PLATINUM",
-        "name": "Platin (Spot)",
-        "category": "Edelmetalle",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 85,
-        "new_score": 53,
-        "price": 1533.63,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          1533.63,
-          1533.63
-        ],
-        "stop_loss": 1487.62,
-        "take_profit_2": 1625.65,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NASDAQ:AVGO",
-        "name": "Broadcom",
-        "category": "Halbleiter",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 77,
-        "new_score": 51,
-        "price": 340.83,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          340.83,
-          340.83
-        ],
-        "stop_loss": 330.61,
-        "take_profit_2": 361.28,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "SP:SPX",
-        "name": "S&P 500",
-        "category": "Indizes",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 80,
-        "new_score": 43,
-        "price": 7708.78,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          7708.78,
-          7708.78
-        ],
-        "stop_loss": 7477.52,
-        "take_profit_2": 8171.31,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "Aktiv: Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bärische Divergenz (Reversal)"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend über EMA 233 bullisch).",
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 6 Einstufungen haben sich geändert:\n\n🟢 Apple (AAPL):\n   Signalwechsel: SHORT ➔ LONG (Score: 85%)\n   💡 Grund: Signal-Drehung (SHORT ➔ LONG): Marktstruktur hat gedreht (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (85%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 344.50 | SL: 335.13 | TP2: 386.16\n\n🔴 Silber (Spot) (SILVER):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 80%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (80%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 54.33 | SL: 56.35 | TP2: 48.33\n\n🟢 Nvidia (NVDA):\n   Score-Sprung: 87% ➔ 77% (LONG)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 87% auf 77% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (77%): Multi-Timeframe Support verifiziert (1D Trend unter EMA 233 bärisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 215.96 | SL: 210.08 | TP2: 242.08\n\n⚪ Platin (Spot) (PLATINUM):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 53%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n⚪ Broadcom (AVGO):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 51%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n⚪ S&P 500 (SPX):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 43%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
