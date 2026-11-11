@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-11T04:05:25.260682+00:00",
-  "total_experience_records": 69,
+  "updated_at": "2026-11-11T04:31:18.462378+00:00",
+  "total_experience_records": 72,
   "learnings": [
+    {
+      "timestamp": "2026-11-11T04:31:14.670823+00:00",
+      "trade_id": "cross_rule_1794371474",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volumen-Absorption muss vor Indikator-Trigger validiert sein (VSA-Gate).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein 'Good Buy'-Signal ist wertlos, wenn der Anlauf an die Zone mit hoher Verkaufsgeschwindigkeit und ohne Anstieg des relativen Kaufvolumens (Delta-Divergenz) erfolgt – dies gilt fraktal vom 5m- bis zum Tageschart.",
+        "actionable_rule": "Volumen-Absorption muss vor Indikator-Trigger validiert sein (VSA-Gate)."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T04:31:14.670775+00:00",
+      "trade_id": "cross_rule_1794371474",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine Trade-Exekution an unbestätigten Reaktionszonen ohne fraktale HTF-Trend- oder Liquiditäts-Konfluenz (4h/1D).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Micro-Timeframe-Signale (5m/15m) wie Dreiecke oder B-OBs erzeugen statistisches Rauschen; ohne übergeordneten 4h-Trendfilter oder 1D-Key-Level-Reaktion verkommen 1R-Stop-Losses zu vorprogrammierten Reibungsverlusten.",
+        "actionable_rule": "Keine Trade-Exekution an unbestätigten Reaktionszonen ohne fraktale HTF-Trend- oder Liquiditäts-Konfluenz (4h/1D)."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T04:31:14.670690+00:00",
+      "trade_id": "inc_SOLUSDT_5m_1794365439",
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.24,
+      "pnl_raw": -0.62,
+      "text": "Verbiete Entries an B-Grade Order Blocks, solange kein vorgelagerter Liquidity Sweep [A] mit anschließendem Market Structure Shift (MSS) auf 5m-Schlusskursbasis vorliegt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SOLUSDT_5m_1794365439",
+        "verdict": "LOSS",
+        "driver": "Der Long scheiterte an der unzureichenden Stärke des Supports, da ein sekundärer B-Grade Order Block ohne vorherigen validen Liquidity-Sweep [A] schlicht als Durchlauf-Liquidität von Verkäufern überrannt wurde.",
+        "technical_warning": "Fehlendes VSA-Absorptionsvolumen am Retest-Level sowie eine mangelnde bullische Docht-Ablehnung vor dem Auslösen des Indikatorsignals signalisierten anhaltenden Verkaufsdruck.",
+        "actionable_rule": "Verbiete Entries an B-Grade Order Blocks, solange kein vorgelagerter Liquidity Sweep [A] mit anschließendem Market Structure Shift (MSS) auf 5m-Schlusskursbasis vorliegt."
+      }
+    },
     {
       "timestamp": "2026-11-11T01:31:19.634276+00:00",
       "trade_id": "cross_rule_1794360679",
