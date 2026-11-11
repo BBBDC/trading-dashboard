@@ -1,7 +1,84 @@
 {
-  "updated_at": "2026-11-11T20:31:26.202027+00:00",
-  "total_experience_records": 72,
+  "updated_at": "2026-11-11T21:22:32.942703+00:00",
+  "total_experience_records": 63,
   "learnings": [
+    {
+      "timestamp": "2026-11-11T21:22:29.218175+00:00",
+      "trade_id": "cross_rule_1794432149",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Strikte Zonen-Hierarchie: [B]-Order-Blocks sind prozyklische Fortsetzungsmarken, keine Umkehrpunkte.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Zweitrangige Order-Blocks besitzen ohne institutionelle Imbalance keine autonome Haltekraft; wer sie gegen den übergeordneten Trend handelt, bezahlt verlässlich die Ausstopp-Prämie des Marktes.",
+        "actionable_rule": "Strikte Zonen-Hierarchie: [B]-Order-Blocks sind prozyklische Fortsetzungsmarken, keine Umkehrpunkte."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T21:22:29.218151+00:00",
+      "trade_id": "cross_rule_1794432149",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Liquiditäts-Primat: Kein Reversal-Trade ohne vorangegangenen Sweep externer Liquidität.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m wie auf 4h/1D gilt skaleninvariant: Ohne das Abfischen von Buy-Side-Liquidität fehlt Smart-Money-Akteuren der Treibstoff für eine nachhaltige Trendumkehr; stattdessen fungieren interne [B]-Widerstände lediglich als Durchbruchsliquidität.",
+        "actionable_rule": "Fraktales Liquiditäts-Primat: Kein Reversal-Trade ohne vorangegangenen Sweep externer Liquidität."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T21:22:29.218098+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1794425738",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -2.04,
+      "pnl_raw": -1.02,
+      "text": "Isolierte [B]-Order-Blocks auf 5m/15m dürfen niemals für Kontratrend-Shorts genutzt werden; Einstiege erfordern zwingend einen vorherigen [A]-Liquidity-Sweep und klares CVD-/Volumen-Versagen der Käufer.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1794425738",
+        "verdict": "LOSS",
+        "driver": "Der Trade scheiterte am Einstieg gegen den lokalen Impuls an einem minderwertigen [B]-Order-Block ohne vorangegangenen Liquidity Sweep oder Bestätigung durch Volumenabsorption.",
+        "technical_warning": "Fehlende Volumenerschöpfung (VSA 'No Demand') beim Retest sowie das Ausbleiben eines Liquiditäts-Abgriffs oberhalb der Range-Hochs signalisierten ungebrochenen Kaufdruck.",
+        "actionable_rule": "Isolierte [B]-Order-Blocks auf 5m/15m dürfen niemals für Kontratrend-Shorts genutzt werden; Einstiege erfordern zwingend einen vorherigen [A]-Liquidity-Sweep und klares CVD-/Volumen-Versagen der Käufer."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T21:21:39.331370+00:00",
+      "trade_id": "trade_NASDAQ_NFLX_20261105_2221",
+      "symbol": "NASDAQ:NFLX",
+      "name": "Netflix",
+      "category": "Entertainment",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "Hypothese 1: SMC Order Block Confluence",
+      "pnl_leveraged": 3.44,
+      "pnl_raw": 0.86,
+      "text": "Solide Trend-Hypothese mit diszipliniertem Kapitalschutz, aber ineffizienter Gewinnsicherung: Wer nach 6 Tagen Haltedauer einen 3%-Move sieht, darf die Restposition nicht auf Einstand zurücklaufen lassen.",
+      "ai_post_mortem": {
+        "verdict": "WIN",
+        "driver": "Erfolgreiche Makro-Konfluenz und planmäßiger Teil-TP1 sicherten ein positives Gesamtergebnis, wenngleich über zwei Drittel des maximalen Buchgewinns vom Tief bei 62.61 durch ein zu passives Trailing wieder abgegeben wurden.",
+        "technical_warning": "Das Ausbleiben von bärischem Anschlussvolumen am Support-Cluster um 62.61 sowie eine einsetzende bullische Divergenz auf dem 1h-Chart signalisierten die Trenderschöpfung vor dem Reversal deutlich.",
+        "actionable_rule": "Sobald ein Swing-Trade >2,5% MFE (Maximum Favorable Excursion) erreicht oder in eine HTF-Demand-Zone läuft, muss der Stop-Loss der Restposition zwingend auf mindestens +1,0% bzw. eng hinter das letzte 1h-Strukturhoch nachgezogen werden.",
+        "recommended_leverage_adjustment": 0,
+        "summary_text": "Solide Trend-Hypothese mit diszipliniertem Kapitalschutz, aber ineffizienter Gewinnsicherung: Wer nach 6 Tagen Haltedauer einen 3%-Move sieht, darf die Restposition nicht auf Einstand zurücklaufen lassen."
+      }
+    },
     {
       "timestamp": "2026-11-11T19:36:19.702582+00:00",
       "trade_id": "cross_rule_1794425779",
@@ -1112,262 +1189,21 @@
         "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
         "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
       }
-    },
-    {
-      "timestamp": "2026-11-10T16:31:30.178558+00:00",
-      "trade_id": "inc_MSF.F_5m_1794326570",
-      "symbol": "MSF.F",
-      "name": "Microsoft",
-      "category": "Micro-Incubator (5m)",
-      "direction": "SHORT",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Short",
-      "pnl_leveraged": -0.18,
-      "pnl_raw": -0.09,
-      "text": "Bei MSF.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "ai_post_mortem": {
-        "trade_id": "inc_MSF.F_5m_1794326570",
-        "verdict": "LOSS",
-        "driver": "Trade MSF.F schloss mit CLOSED_SL (-1.0R).",
-        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
-        "actionable_rule": "Bei MSF.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
-      }
-    },
-    {
-      "timestamp": "2026-11-10T16:05:53.676907+00:00",
-      "trade_id": "cross_rule_1794326753",
-      "symbol": "MULTI-ASSET",
-      "name": "Cross-Market Confluence",
-      "category": "Global Heuristic (4h/1D Transfer)",
-      "direction": "NEUTRAL",
-      "result": "WIN",
-      "setup_name": "Synthesized Multi-Timeframe Heuristic",
-      "pnl_leveraged": 0.0,
-      "pnl_raw": 0.0,
-      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
-      "ai_post_mortem": {
-        "verdict": "RULE",
-        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
-        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
-      }
-    },
-    {
-      "timestamp": "2026-11-10T16:05:53.676893+00:00",
-      "trade_id": "inc_LINKUSDT_5m_1794323696",
-      "symbol": "LINKUSDT",
-      "name": "Chainlink",
-      "category": "Micro-Incubator (5m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "pnl_leveraged": -2.62,
-      "pnl_raw": -1.31,
-      "text": "Bei LINKUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "ai_post_mortem": {
-        "trade_id": "inc_LINKUSDT_5m_1794323696",
-        "verdict": "LOSS",
-        "driver": "Trade LINKUSDT schloss mit CLOSED_SL (-1.0R).",
-        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
-        "actionable_rule": "Bei LINKUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
-      }
-    },
-    {
-      "timestamp": "2026-11-10T16:05:53.676878+00:00",
-      "trade_id": "inc_DOGEUSDT_5m_1794323696",
-      "symbol": "DOGEUSDT",
-      "name": "Dogecoin",
-      "category": "Micro-Incubator (5m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "pnl_leveraged": -2.0,
-      "pnl_raw": -1.0,
-      "text": "Bei DOGEUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "ai_post_mortem": {
-        "trade_id": "inc_DOGEUSDT_5m_1794323696",
-        "verdict": "LOSS",
-        "driver": "Trade DOGEUSDT schloss mit CLOSED_SL (-1.0R).",
-        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
-        "actionable_rule": "Bei DOGEUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
-      }
-    },
-    {
-      "timestamp": "2026-11-10T16:05:53.676834+00:00",
-      "trade_id": "inc_AVAXUSDT_5m_1794320903",
-      "symbol": "AVAXUSDT",
-      "name": "Avalanche",
-      "category": "Micro-Incubator (5m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "pnl_leveraged": -2.36,
-      "pnl_raw": -1.18,
-      "text": "Bei AVAXUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "ai_post_mortem": {
-        "trade_id": "inc_AVAXUSDT_5m_1794320903",
-        "verdict": "LOSS",
-        "driver": "Trade AVAXUSDT schloss mit CLOSED_SL (-1.0R).",
-        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
-        "actionable_rule": "Bei AVAXUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
-      }
-    },
-    {
-      "timestamp": "2026-11-10T16:04:21.939100+00:00",
-      "trade_id": "cross_rule_1794326661",
-      "symbol": "MULTI-ASSET",
-      "name": "Cross-Market Confluence",
-      "category": "Global Heuristic (4h/1D Transfer)",
-      "direction": "NEUTRAL",
-      "result": "WIN",
-      "setup_name": "Synthesized Multi-Timeframe Heuristic",
-      "pnl_leveraged": 0.0,
-      "pnl_raw": 0.0,
-      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
-      "ai_post_mortem": {
-        "verdict": "RULE",
-        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
-        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
-      }
-    },
-    {
-      "timestamp": "2026-11-10T16:04:21.939087+00:00",
-      "trade_id": "inc_BNBUSDT_5m_1794318514",
-      "symbol": "BNBUSDT",
-      "name": "BNB",
-      "category": "Micro-Incubator (5m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "pnl_leveraged": -2.1,
-      "pnl_raw": -1.05,
-      "text": "Bei BNBUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "ai_post_mortem": {
-        "trade_id": "inc_BNBUSDT_5m_1794318514",
-        "verdict": "LOSS",
-        "driver": "Trade BNBUSDT schloss mit CLOSED_SL (-1.0R).",
-        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
-        "actionable_rule": "Bei BNBUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
-      }
-    },
-    {
-      "timestamp": "2026-11-10T16:04:21.939069+00:00",
-      "trade_id": "inc_SOLUSDT_5m_1794318514",
-      "symbol": "SOLUSDT",
-      "name": "Solana",
-      "category": "Micro-Incubator (5m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "pnl_leveraged": -5.84,
-      "pnl_raw": -2.92,
-      "text": "Bei SOLUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "ai_post_mortem": {
-        "trade_id": "inc_SOLUSDT_5m_1794318514",
-        "verdict": "LOSS",
-        "driver": "Trade SOLUSDT schloss mit CLOSED_SL (-1.0R).",
-        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
-        "actionable_rule": "Bei SOLUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
-      }
-    },
-    {
-      "timestamp": "2026-11-10T16:04:21.939015+00:00",
-      "trade_id": "inc_ETHUSDT_5m_1794318514",
-      "symbol": "ETHUSDT",
-      "name": "Ethereum",
-      "category": "Micro-Incubator (5m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "pnl_leveraged": -6.04,
-      "pnl_raw": -3.02,
-      "text": "Bei ETHUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "ai_post_mortem": {
-        "trade_id": "inc_ETHUSDT_5m_1794318514",
-        "verdict": "LOSS",
-        "driver": "Trade ETHUSDT schloss mit CLOSED_SL (-1.0R).",
-        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
-        "actionable_rule": "Bei ETHUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
-      }
-    },
-    {
-      "timestamp": "2026-11-10T15:16:27.665647+00:00",
-      "trade_id": "cross_rule_1794323787",
-      "symbol": "MULTI-ASSET",
-      "name": "Cross-Market Confluence",
-      "category": "Global Heuristic (4h/1D Transfer)",
-      "direction": "NEUTRAL",
-      "result": "WIN",
-      "setup_name": "Synthesized Multi-Timeframe Heuristic",
-      "pnl_leveraged": 0.0,
-      "pnl_raw": 0.0,
-      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
-      "ai_post_mortem": {
-        "verdict": "RULE",
-        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
-        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
-      }
-    },
-    {
-      "timestamp": "2026-11-10T15:16:27.665576+00:00",
-      "trade_id": "inc_APC.F_5m_1794322562",
-      "symbol": "APC.F",
-      "name": "Apple",
-      "category": "Micro-Incubator (5m)",
-      "direction": "SHORT",
-      "result": "WIN",
-      "setup_name": "degencoder 5m Micro-Confluence Short",
-      "pnl_leveraged": 0.22,
-      "pnl_raw": 0.11,
-      "text": "Bei APC.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "ai_post_mortem": {
-        "trade_id": "inc_APC.F_5m_1794322562",
-        "verdict": "WIN",
-        "driver": "Trade APC.F schloss mit CLOSED_TP2 (+2.2R).",
-        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
-        "actionable_rule": "Bei APC.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
-      }
-    },
-    {
-      "timestamp": "2026-11-10T14:58:13.906546+00:00",
-      "trade_id": "cross_rule_1794322693",
-      "symbol": "MULTI-ASSET",
-      "name": "Cross-Market Confluence",
-      "category": "Global Heuristic (4h/1D Transfer)",
-      "direction": "NEUTRAL",
-      "result": "WIN",
-      "setup_name": "Synthesized Multi-Timeframe Heuristic",
-      "pnl_leveraged": 0.0,
-      "pnl_raw": 0.0,
-      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
-      "ai_post_mortem": {
-        "verdict": "RULE",
-        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
-        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
-      }
-    },
-    {
-      "timestamp": "2026-11-10T14:58:13.906467+00:00",
-      "trade_id": "inc_APC.F_5m_1794320904",
-      "symbol": "APC.F",
-      "name": "Apple",
-      "category": "Micro-Incubator (5m)",
-      "direction": "SHORT",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Short",
-      "pnl_leveraged": -0.02,
-      "pnl_raw": -0.01,
-      "text": "Bei APC.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "ai_post_mortem": {
-        "trade_id": "inc_APC.F_5m_1794320904",
-        "verdict": "LOSS",
-        "driver": "Trade APC.F schloss mit CLOSED_SL (-1.0R).",
-        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
-        "actionable_rule": "Bei APC.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
-      }
     }
   ],
   "setup_statistics": {},
   "setup_performance": {
+    "Hypothese 1: SMC Order Block Confluence": {
+      "trades": 6,
+      "wins": 1,
+      "losses": 5,
+      "win_rate": 16.7,
+      "total_lev_pnl": -15.8,
+      "profit_factor": 0.18,
+      "status": "UNDERPERFORMING",
+      "min_score": 92,
+      "leverage_adjustment": -2
+    },
     "Hypothese 1: SMC Order Block [R3] Exhaustion": {
       "trades": 2,
       "wins": 0,
@@ -1411,17 +1247,6 @@
       "status": "CAUTION",
       "min_score": 90,
       "leverage_adjustment": -1
-    },
-    "Hypothese 1: SMC Order Block Confluence": {
-      "trades": 5,
-      "wins": 0,
-      "losses": 5,
-      "win_rate": 0.0,
-      "total_lev_pnl": -19.3,
-      "profit_factor": 0.0,
-      "status": "UNDERPERFORMING",
-      "min_score": 92,
-      "leverage_adjustment": -2
     },
     "Hypothese 2: Trend Continuation & Hidden Div": {
       "trades": 16,
@@ -1590,6 +1415,17 @@
     }
   },
   "category_performance": {
+    "Entertainment": {
+      "trades": 2,
+      "wins": 2,
+      "losses": 0,
+      "win_rate": 100.0,
+      "total_lev_pnl": 9.7,
+      "profit_factor": 9.99,
+      "status": "STANDARD",
+      "min_score": 88,
+      "leverage_cap": 5
+    },
     "Crypto": {
       "trades": 40,
       "wins": 3,
@@ -1666,17 +1502,6 @@
       "status": "UNDERPERFORMING",
       "min_score": 92,
       "leverage_cap": 2
-    },
-    "Entertainment": {
-      "trades": 1,
-      "wins": 1,
-      "losses": 0,
-      "win_rate": 100.0,
-      "total_lev_pnl": 6.2,
-      "profit_factor": 9.99,
-      "status": "STANDARD",
-      "min_score": 88,
-      "leverage_cap": 5
     },
     "Cybersecurity": {
       "trades": 3,
