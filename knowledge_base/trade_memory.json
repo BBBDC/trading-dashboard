@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-11T09:31:24.638438+00:00",
-  "total_experience_records": 84,
+  "updated_at": "2026-11-11T10:01:25.637875+00:00",
+  "total_experience_records": 87,
   "learnings": [
+    {
+      "timestamp": "2026-11-11T10:01:21.630549+00:00",
+      "trade_id": "cross_rule_1794391281",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Limit-Einstieg in ungebremst anlaufende R-Level/Orderblöcke ohne VSA-Absorptionsnachweis.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Wenn der Kurs eine Zone mit steigendem Volumen und intakten bullischen Kerzenkörpern anläuft, wird das passive Sell-Interesse absorbiert; ein Trade darf erst nach sichtbarer Ablehnung exekutiert werden.",
+        "actionable_rule": "Kein Limit-Einstieg in ungebremst anlaufende R-Level/Orderblöcke ohne VSA-Absorptionsnachweis."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T10:01:21.630512+00:00",
+      "trade_id": "cross_rule_1794391281",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Sweep ohne Displacement ist kein Reversal, sondern Treibstoff für den Trend.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf 5m als auch auf 4h/1D führt ein Liquidity Sweep ohne unmittelbaren, impulsiven Bruch der lokalen Marktstruktur (MSS) fast immer zum Stop-Run und zur Trendbeschleunigung statt zur Umkehr.",
+        "actionable_rule": "Sweep ohne Displacement ist kein Reversal, sondern Treibstoff für den Trend."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T10:01:21.630440+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1794389456",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -1.0,
+      "pnl_raw": -0.5,
+      "text": "Kein Short-Einstieg an Bearish OBs/R3 ohne bestätigten 5m-Schlusskurs unter dem lokalen Sweep-Tief und negativer Delta-Divergenz.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1794389456",
+        "verdict": "LOSS",
+        "driver": "Der Einstieg erfolgte verfrüht in eine bullische Expansion hinein, bei der das R3-Level nicht verteidigt, sondern durch aggressiven Kaufüberhang überrannt wurde.",
+        "technical_warning": "Fehlendes VSA-Erschöpfungsvolumen (Climax/Buying Exhaustion) und das Ausbleiben eines bärischen Kerzenschlusses (Displacement) unterhalb des Sweep-Hochs vor der Orderausführung.",
+        "actionable_rule": "Kein Short-Einstieg an Bearish OBs/R3 ohne bestätigten 5m-Schlusskurs unter dem lokalen Sweep-Tief und negativer Delta-Divergenz."
+      }
+    },
     {
       "timestamp": "2026-11-11T09:31:20.630618+00:00",
       "trade_id": "cross_rule_1794389480",
