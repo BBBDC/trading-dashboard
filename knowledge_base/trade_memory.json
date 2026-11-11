@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-11T19:05:00.982208+00:00",
-  "total_experience_records": 69,
+  "updated_at": "2026-11-11T19:36:23.684224+00:00",
+  "total_experience_records": 72,
   "learnings": [
+    {
+      "timestamp": "2026-11-11T19:36:19.702582+00:00",
+      "trade_id": "cross_rule_1794425779",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volumen-Surges bedürfen zwingend der Kontextualisierung durch den übergeordneten HTF-Liquiditätsstatus (HTF Liquidity Bias).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Prozyklische Mikro-Kaufsignale (5m/15m) ohne vorherigen Sweep der Sell-Side-Liquidity (SSL) besitzen eine statistisch signifikant negative Erwartungshaltung, wenn sie direkt in HTF-Supply-Zonen feuern.",
+        "actionable_rule": "Volumen-Surges bedürfen zwingend der Kontextualisierung durch den übergeordneten HTF-Liquiditätsstatus (HTF Liquidity Bias)."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T19:36:19.702531+00:00",
+      "trade_id": "cross_rule_1794425779",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Trade ohne Bestätigung von 'Effort vs. Result': Ultra-hohes Volumen am lokalen Hoch ist Distribution, solange kein struktureller Range-Close folgt.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Was auf 5m als schneller Stop-Out durch eine Bull-Trap endet, formiert auf 4h/1D fatale Upthrust-After-Distribution-Muster (UTAD), die Mehrtagestrends abrupt beenden.",
+        "actionable_rule": "Kein Trade ohne Bestätigung von 'Effort vs. Result': Ultra-hohes Volumen am lokalen Hoch ist Distribution, solange kein struktureller Range-Close folgt."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T19:36:19.702450+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1794423861",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.78,
+      "pnl_raw": -0.39,
+      "text": "Bei VSA-Volumenspitzen (>2.0x) auf 5m ist ein Long-Einstieg erst nach einer Bestätigungskerze zulässig, die stabil oberhalb der High-Volume-Spike-Range schließt (Proof of Follow-Through).",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1794423861",
+        "verdict": "LOSS",
+        "driver": "Klassische 'Effort vs. Result'-Anomalie: Der 2.2x VSA-Volumensurge repräsentierte einen Buying Climax bzw. Distribution in Retail-Kauforder hinein, anstatt echten Absorptionsdruck zu etablieren.",
+        "technical_warning": "Dochtbildung/Abweisung an lokalem Widerstand trotz Ultra-High-Volume sowie das Ausbleiben eines soliden Kerzen-Closes über dem Ausbruchsniveau.",
+        "actionable_rule": "Bei VSA-Volumenspitzen (>2.0x) auf 5m ist ein Long-Einstieg erst nach einer Bestätigungskerze zulässig, die stabil oberhalb der High-Volume-Spike-Range schließt (Proof of Follow-Through)."
+      }
+    },
     {
       "timestamp": "2026-11-11T19:04:56.969987+00:00",
       "trade_id": "cross_rule_1794423896",
