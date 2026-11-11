@@ -107,6 +107,15 @@ try:
 except Exception as ie:
     print(f"Warnung beim Laden des Inkubators: {ie}")
 
+# Lade Indikator Predictive Power Deep-Dive Daten
+try:
+    deepdive_file = BASE_DIR / "knowledge_base" / "indicator_predictive_deepdive.json"
+    if deepdive_file.exists():
+        with open(deepdive_file, "r", encoding="utf-8") as f_dd:
+            db_data["indicator_deepdive"] = json.load(f_dd)
+except Exception as dde:
+    print(f"Warnung beim Laden des Indikator Deep-Dives: {dde}")
+
 # Lade System-Gesundheits- & Infrastruktur-Status (24/7 Monitor)
 try:
     from system_health import check_system_health, generate_health_html_card
@@ -1855,7 +1864,7 @@ html_content = f"""<!DOCTYPE html>
         </button>
         <button id="admin-cat-btn-trading" onclick="switchAdminCategory('trading')" class="admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer">
           <span>🧪</span> <span>KI-Labs & Portfolio</span>
-          <span class="ml-1 px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">Labs</span>
+          <span class="ml-1 px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">3 Labs & Deep-Dive</span>
         </button>
         <button id="admin-cat-btn-users" onclick="switchAdminCategory('users')" class="admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer">
           <span>👥</span> <span>Benutzerverwaltung</span>
@@ -2263,6 +2272,132 @@ html_content = f"""<!DOCTYPE html>
             </div>
           </div>
         </div>
+      </section>
+
+      <!-- Card: Indikator Predictive Power Labor (Historischer Deep-Dive) -->
+      <section id="indicator-deepdive-section" class="admin-group-trading rounded-2xl bg-gradient-to-br from-slate-900/95 via-indigo-950/20 to-slate-900 border border-indigo-500/30 p-5 shadow-xl space-y-5">
+        
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3.5">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+                <span>🔬</span> Indikator Predictive Power Labor
+              </h2>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse inline-block mr-1"></span>
+                Walk-Forward Empirie
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">Empirische Vorhersagekraft aller degencoder-, SMC-, VSA- & Konfluenz-Indikatoren auf Basis von 80.150 Signal-Events (61.595 Kerzen, 1h / 4h / 1D)</p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono bg-slate-800 text-slate-300 border border-slate-700/60" id="deepdive-metadata-badge">
+              Stand: 80.150 Signale kalibriert &bull; 100% Point-in-Time
+            </span>
+          </div>
+        </div>
+
+        <!-- 4 KPI High-Impact Tiles -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs font-mono">
+          <div class="p-3.5 rounded-xl bg-slate-950/80 border border-indigo-500/20 hover:border-indigo-500/40 transition">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] text-slate-400 block uppercase">🌟 Höchste Win-Rate</span>
+              <span class="text-[10px] font-bold text-purple-400">62.9%</span>
+            </div>
+            <span class="font-bold text-sm text-white block mt-1 truncate">Institutional Pocket + Trigger</span>
+            <span class="text-[10px] text-emerald-400 block mt-0.5">+0.39% Return &bull; 302 Tests</span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-950/80 border border-indigo-500/20 hover:border-indigo-500/40 transition">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] text-slate-400 block uppercase">🚀 Höchste Asymmetrie</span>
+              <span class="text-[10px] font-bold text-purple-400">6.81x</span>
+            </div>
+            <span class="font-bold text-sm text-white block mt-1 truncate">degencoder Good Buy Reversal</span>
+            <span class="text-[10px] text-emerald-400 block mt-0.5">MFE/MAE: 6.8:1 &bull; +22.4% Return</span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-950/80 border border-indigo-500/20 hover:border-indigo-500/40 transition">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] text-slate-400 block uppercase">🛡️ SMC OB Grade A Sweep</span>
+              <span class="text-[10px] font-bold text-purple-400">2.89x Payoff</span>
+            </div>
+            <span class="font-bold text-sm text-white block mt-1 truncate">Bullish OB Sweep Retest</span>
+            <span class="text-[10px] text-sky-400 block mt-0.5">2.691 Stichproben &bull; +5.5% Return</span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-950/80 border border-indigo-500/20 hover:border-indigo-500/40 transition">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] text-slate-400 block uppercase">🎯 Konfluenz-Vorteil</span>
+              <span class="text-[10px] font-bold text-emerald-400">+16.9%</span>
+            </div>
+            <span class="font-bold text-sm text-white block mt-1 truncate">Konfluenz vs. Solo-OB</span>
+            <span class="text-[10px] text-amber-300 block mt-0.5">62.9% vs. 46.0% (Massiver Edge)</span>
+          </div>
+        </div>
+
+        <!-- Quantitative Key Takeaways Callout -->
+        <div class="p-4 rounded-xl bg-indigo-950/30 border border-indigo-500/30 text-xs space-y-2">
+          <div class="flex items-center gap-2 text-indigo-300 font-bold text-xs uppercase tracking-wider">
+            <span>💡</span> <span>Wissenschaftliche Erkenntnisse für die Live-Trade-Selektion</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-slate-300 text-[11px] leading-relaxed">
+            <div class="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80">
+              <span class="font-bold text-white block mb-1">1. Konfluenz schlägt Einzelindikatoren</span>
+              Ein isolierter SMC Order Block Retest erzielt nur ~46% Win-Rate. Sobald jedoch ein degencoder Trigger (Pocket/Dreieck) oder der 233-EMA Trend bestätigt, springt die Trefferquote auf 55% bis 63%!
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80">
+              <span class="font-bold text-white block mb-1">2. Asymmetrie erzeugt den Gewinn</span>
+              Diskrete degencoder 'Good Buy' Signale bieten mit bis zu 6.81x ein explosives Chance-Risiko-Verhältnis. Selbst bei ~52% Trefferquote explodiert der mathematische Erwartungswert durch weite MFE-Gewinnwellen.
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80">
+              <span class="font-bold text-white block mb-1">3. Trendfilterung schützt Kapital</span>
+              Signale entgegen dem übergeordneten 233-EMA Trend (z.B. Shorting im Bullenmarkt) zeigen systematisch unterlegene Erträge. Longs in Trendrichtung übertreffen Counter-Trends konsistent.
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter & Search Controls -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-1">
+          <!-- Filter Buttons -->
+          <div class="flex flex-wrap items-center gap-1.5 text-xs">
+            <button onclick="setIndicatorFilter('all')" id="ind-filter-all" class="ind-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-indigo-600 text-white shadow-md shadow-indigo-600/20 cursor-pointer">
+              Alle (27)
+            </button>
+            <button onclick="setIndicatorFilter('elite')" id="ind-filter-elite" class="ind-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold transition border border-slate-800 bg-slate-950/60 text-purple-300 hover:text-white hover:bg-slate-800/60 cursor-pointer">
+              🌟 Elite Edge
+            </button>
+            <button onclick="setIndicatorFilter('strong')" id="ind-filter-strong" class="ind-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold transition border border-slate-800 bg-slate-950/60 text-emerald-300 hover:text-white hover:bg-slate-800/60 cursor-pointer">
+              🟢 Starker Edge
+            </button>
+            <button onclick="setIndicatorFilter('confluence')" id="ind-filter-confluence" class="ind-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold transition border border-slate-800 bg-slate-950/60 text-sky-300 hover:text-white hover:bg-slate-800/60 cursor-pointer">
+              🎯 Konfluenz
+            </button>
+            <button onclick="setIndicatorFilter('smc')" id="ind-filter-smc" class="ind-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold transition border border-slate-800 bg-slate-950/60 text-slate-300 hover:text-white hover:bg-slate-800/60 cursor-pointer">
+              🏛️ SMC (OB / FVG)
+            </button>
+            <button onclick="setIndicatorFilter('degencoder')" id="ind-filter-degencoder" class="ind-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold transition border border-slate-800 bg-slate-950/60 text-slate-300 hover:text-white hover:bg-slate-800/60 cursor-pointer">
+              📐 degencoder
+            </button>
+            <button onclick="setIndicatorFilter('noisy')" id="ind-filter-noisy" class="ind-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold transition border border-slate-800 bg-slate-950/60 text-rose-300 hover:text-white hover:bg-slate-800/60 cursor-pointer">
+              🔴 Hohes Rauschen
+            </button>
+          </div>
+
+          <!-- Search Input -->
+          <div class="relative w-full sm:w-64">
+            <input type="text" id="indicator-search-input" oninput="filterIndicatorSearch(this.value)" placeholder="Indikator filtern..." class="w-full px-3 py-1.5 pl-8 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition">
+            <span class="absolute left-2.5 top-2 text-slate-500 text-xs">🔍</span>
+          </div>
+        </div>
+
+        <!-- Indicator Deepdive List -->
+        <div id="indicator-deepdive-container" class="space-y-3">
+          <!-- Dynamisch via JS gerendert -->
+        </div>
+
       </section>
 
       <!-- Card C: Autorisierte Benutzer & Rollenverwaltung -->
@@ -4666,6 +4801,190 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     // ==========================================
+    // 🔬 Indikator Predictive Power Labor Controller
+    // ==========================================
+    let currentIndicatorFilter = 'all';
+    let currentIndicatorSearch = '';
+
+    function setIndicatorFilter(filterKey) {{
+      currentIndicatorFilter = filterKey;
+      const keys = ['all', 'elite', 'strong', 'confluence', 'smc', 'degencoder', 'noisy'];
+      keys.forEach(k => {{
+        const btn = document.getElementById('ind-filter-' + k);
+        if (btn) {{
+          if (k === filterKey) {{
+            btn.className = 'ind-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-indigo-600 text-white shadow-md shadow-indigo-600/20 cursor-pointer';
+          }} else {{
+            btn.className = 'ind-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold transition border border-slate-800 bg-slate-950/60 text-slate-300 hover:text-white hover:bg-slate-800/60 cursor-pointer';
+          }}
+        }}
+      }});
+      renderIndicatorDeepdiveSection();
+    }}
+
+    function filterIndicatorSearch(query) {{
+      currentIndicatorSearch = (query || '').toLowerCase().trim();
+      renderIndicatorDeepdiveSection();
+    }}
+
+    function renderIndicatorDeepdiveSection() {{
+      const deepdive = currentData.indicator_deepdive || {{}};
+      const indicators = deepdive.indicators || [];
+      const meta = deepdive.metadata || {{}};
+
+      const badgeElem = document.getElementById('deepdive-metadata-badge');
+      if (badgeElem && meta.total_signal_events) {{
+        badgeElem.textContent = `Stand: ${{meta.total_signal_events.toLocaleString('de-DE')}} Signale kalibriert • 100% Point-in-Time`;
+      }}
+
+      let filtered = indicators.filter(ind => {{
+        // Filter nach Kategorie
+        if (currentIndicatorFilter === 'elite') {{
+          if (ind.verdict !== 'ELITE') return false;
+        }} else if (currentIndicatorFilter === 'strong') {{
+          if (ind.verdict !== 'STRONG') return false;
+        }} else if (currentIndicatorFilter === 'confluence') {{
+          if (!ind.name.includes('KONFLUENZ')) return false;
+        }} else if (currentIndicatorFilter === 'smc') {{
+          if (!ind.name.startsWith('SMC')) return false;
+        }} else if (currentIndicatorFilter === 'degencoder') {{
+          if (!ind.name.startsWith('degencoder')) return false;
+        }} else if (currentIndicatorFilter === 'noisy') {{
+          if (ind.verdict !== 'NOISY') return false;
+        }}
+
+        // Filter nach Suchtext
+        if (currentIndicatorSearch) {{
+          const target = (ind.name + ' ' + (ind.verdict_desc || '')).toLowerCase();
+          if (!target.includes(currentIndicatorSearch)) return false;
+        }}
+
+        return true;
+      }});
+
+      const container = document.getElementById('indicator-deepdive-container');
+      if (!container) return;
+
+      if (filtered.length === 0) {{
+        container.innerHTML = `
+          <div class="p-6 rounded-xl bg-slate-950/40 border border-slate-800 text-center text-xs text-slate-400">
+            Keine Indikatoren für die aktuellen Filterkriterien gefunden.
+          </div>
+        `;
+        return;
+      }}
+
+      container.innerHTML = filtered.map(ind => {{
+        const score = ind.edge_score || 50;
+        let scoreCol = 'bg-purple-500';
+        let badgeBg = 'bg-purple-900/40 text-purple-300 border-purple-500/30';
+        if (ind.verdict === 'STRONG') {{
+          scoreCol = 'bg-emerald-500';
+          badgeBg = 'bg-emerald-950/40 text-emerald-300 border-emerald-500/30';
+        }} else if (ind.verdict === 'NEUTRAL') {{
+          scoreCol = 'bg-amber-500';
+          badgeBg = 'bg-amber-950/40 text-amber-300 border-amber-500/30';
+        }} else if (ind.verdict === 'NOISY') {{
+          scoreCol = 'bg-rose-500';
+          badgeBg = 'bg-rose-950/40 text-rose-300 border-rose-500/30';
+        }}
+
+        const hit5 = ind.hit_rate_5bars || 0.0;
+        const hit5Col = hit5 >= 55.0 ? 'text-emerald-400 font-bold' : (hit5 >= 50.0 ? 'text-amber-300' : 'text-rose-400');
+        const asym = ind.asymmetry_ratio || 1.0;
+        const asymCol = asym >= 2.0 ? 'text-purple-300 font-bold' : (asym >= 1.2 ? 'text-emerald-400' : (asym >= 0.95 ? 'text-slate-300' : 'text-rose-400'));
+        const ret5 = ind.avg_return_5bars_pct || 0.0;
+        const retCol = ret5 > 0 ? 'text-emerald-400' : (ret5 < 0 ? 'text-rose-400' : 'text-slate-400');
+
+        // Timeframe Badges
+        const tfHtml = Object.entries(ind.timeframe_breakdown || {{}}).map(([tf, data]) => {{
+          const tfHit = data.hit_rate_5;
+          const tfCol = tfHit >= 55 ? 'text-emerald-400' : (tfHit >= 50 ? 'text-amber-300' : 'text-slate-400');
+          return `<span class="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] font-mono text-slate-300"><strong>${{tf}}:</strong> <span class="${{tfCol}}">${{tfHit}}%</span> <span class="text-slate-500">(${{data.count}})</span></span>`;
+        }}).join(' ');
+
+        // Asset Class Badges
+        const assetHtml = Object.entries(ind.asset_breakdown || {{}}).map(([ast, data]) => {{
+          return `<span class="px-1.5 py-0.5 rounded bg-slate-900/60 border border-slate-800/80 text-[10px] font-mono text-slate-400">${{ast}}: <span class="text-white">${{data.count}}</span></span>`;
+        }}).join(' ');
+
+        return `
+          <div class="p-4 rounded-xl bg-slate-950/70 border border-slate-800/90 hover:border-slate-700 transition space-y-3">
+            
+            <!-- Top Row: Name, Verdict Badge, Samples & Score -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="font-bold text-white text-xs sm:text-sm tracking-tight">${{ind.name}}</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${{badgeBg}}">
+                  ${{ind.verdict_badge}}
+                </span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-900 text-slate-400 border border-slate-800">
+                  N = ${{ind.sample_size.toLocaleString('de-DE')}}
+                </span>
+              </div>
+
+              <!-- Edge Score Pill & Bar -->
+              <div class="flex items-center gap-2 shrink-0">
+                <div class="w-20 bg-slate-800 rounded-full h-1.5 overflow-hidden hidden sm:block">
+                  <div class="h-1.5 rounded-full ${{scoreCol}}" style="width: ${{Math.min(100, Math.max(0, score))}}%"></div>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-lg text-xs font-mono font-bold bg-slate-900 border border-slate-700/80 text-white">
+                  Score: <span class="${{ind.verdict_color}}">${{score}}</span>/100
+                </span>
+              </div>
+            </div>
+
+            <!-- Quantitative Forward Metrics Grid -->
+            <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 text-xs font-mono">
+              <div class="p-2 rounded-lg bg-slate-900/80 border border-slate-800/80">
+                <span class="text-[9px] text-slate-400 uppercase block">1 Kerze</span>
+                <span class="font-bold text-slate-200">${{ind.hit_rate_1bar}}%</span>
+              </div>
+              <div class="p-2 rounded-lg bg-slate-900/80 border border-slate-800/80">
+                <span class="text-[9px] text-slate-400 uppercase block">3 Kerzen</span>
+                <span class="font-bold text-slate-200">${{ind.hit_rate_3bars}}%</span>
+              </div>
+              <div class="p-2 rounded-lg bg-indigo-950/40 border border-indigo-500/30">
+                <span class="text-[9px] text-indigo-300 uppercase font-bold block">5 Kerzen (Kern)</span>
+                <span class="${{hit5Col}} text-xs">${{ind.hit_rate_5bars}}%</span>
+              </div>
+              <div class="p-2 rounded-lg bg-slate-900/80 border border-slate-800/80">
+                <span class="text-[9px] text-slate-400 uppercase block">10 Kerzen</span>
+                <span class="font-bold text-slate-200">${{ind.hit_rate_10bars}}%</span>
+              </div>
+              <div class="p-2 rounded-lg bg-slate-900/80 border border-slate-800/80">
+                <span class="text-[9px] text-slate-400 uppercase block">Asymmetrie (MFE/MAE)</span>
+                <span class="${{asymCol}}">${{asym}}x</span>
+              </div>
+              <div class="p-2 rounded-lg bg-slate-900/80 border border-slate-800/80">
+                <span class="text-[9px] text-slate-400 uppercase block">Ø Rendite (5k)</span>
+                <span class="${{retCol}}">${{ret5 > 0 ? '+' : ''}}${{ret5}}%</span>
+              </div>
+            </div>
+
+            <!-- Footer: Timeframes, Asset Classes & Actionable Rule -->
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 pt-1 border-t border-slate-800/60 text-[11px]">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] text-slate-500 uppercase font-mono mr-1">Timeframes:</span>
+                ${{tfHtml || '<span class=\"text-slate-500 text-[10px]\">-</span>'}}
+              </div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] text-slate-500 uppercase font-mono mr-1">Assets:</span>
+                ${{assetHtml || '<span class=\"text-slate-500 text-[10px]\">-</span>'}}
+              </div>
+            </div>
+
+            <div class="p-2 rounded-lg bg-slate-900/40 border border-slate-800/60 text-[11px] text-slate-300 flex items-start gap-1.5">
+              <span class="text-indigo-400 shrink-0">🎯</span>
+              <span>${{ind.verdict_desc}}</span>
+            </div>
+
+          </div>
+        `;
+      }}).join('');
+    }}
+
+    // ==========================================
     // 👤 Eigene Nutzer-Positionen Management
     // ==========================================
     let currentPosDirection = 'LONG';
@@ -4734,6 +5053,7 @@ html_content = f"""<!DOCTYPE html>
       if (tabId === 'admin') {{
         renderPortfolioSection();
         renderIncubatorSection();
+        renderIndicatorDeepdiveSection();
         try {{
           const savedAdminCat = sessionStorage.getItem('active_admin_category') || 'all';
           switchAdminCategory(savedAdminCat);
@@ -6327,6 +6647,7 @@ html_content = f"""<!DOCTYPE html>
     applyFilters();
     renderPortfolioSection();
     renderIncubatorSection();
+    renderIndicatorDeepdiveSection();
     renderUserPositions();
     applyTheme(getThemeMode(), false);
 
