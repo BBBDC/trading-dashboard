@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-11T10:01:25.637875+00:00",
-  "total_experience_records": 87,
+  "updated_at": "2026-11-11T10:55:50.525835+00:00",
+  "total_experience_records": 90,
   "learnings": [
+    {
+      "timestamp": "2026-11-11T10:55:46.790174+00:00",
+      "trade_id": "cross_rule_1794394546",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Displacement-Postulat: Ein Liquiditätsabgriff ist erst bei nachgewiesener Momentum-Umkehr ein Trade-Setup, niemals beim bloßen Test.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der Unterschied zwischen einem fatalen Trend-Breakout und einem profitablen SFP (Swing Failure Pattern) liegt ausschließlich in der Schnelligkeit und Härte, mit der Preis und Delta nach dem Sweep zurück in die Range gedrückt werden.",
+        "actionable_rule": "Displacement-Postulat: Ein Liquiditätsabgriff ist erst bei nachgewiesener Momentum-Umkehr ein Trade-Setup, niemals beim bloßen Test."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T10:55:46.790148+00:00",
+      "trade_id": "cross_rule_1794394546",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale HTF-Dominanz: Micro-TF Reversals (5m/15m) sind strikt verboten, wenn sie gegen die übergeordnete 4h/1D Trend- und Liquiditätsrichtung laufen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein 5m Orderblock besitzt gegen institutionellen 4h-Orderflow keinerlei Stützkraft; vermeintliche Topsweeps im 5m-Chart sind in starken Trendphasen schlichte Akkumulations- und Fortsetzungsstrukturen.",
+        "actionable_rule": "Fraktale HTF-Dominanz: Micro-TF Reversals (5m/15m) sind strikt verboten, wenn sie gegen die übergeordnete 4h/1D Trend- und Liquiditätsrichtung laufen."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T10:55:46.790095+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1794380240",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -1.26,
+      "pnl_raw": -0.63,
+      "text": "Kein Short-Einstieg an Micro-OBs direkt am Hoch: Ein Stop-Hunt gilt erst dann als validiert, wenn eine Folgekerze impulsiv unter die Sweep-Origin-Range schließt (MSS-Bestätigung).",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1794380240",
+        "verdict": "LOSS",
+        "driver": "Blinder Entry am 5m Bearish OB nach vermeintlichem Sweep, ohne dass der Markt ein impulsives Verkaufs-Displacement oder einen bestätigten Market Structure Shift (MSS) zeigte.",
+        "technical_warning": "Ausbleiben einer impulsiven Docht-Rejection mit hohem Verkaufsvolumen (VSA-Exhaustion) sowie das Fehlen eines 5m-Kerzenschlusses unter das letzte lokale Validierungs-Tief vor Entry.",
+        "actionable_rule": "Kein Short-Einstieg an Micro-OBs direkt am Hoch: Ein Stop-Hunt gilt erst dann als validiert, wenn eine Folgekerze impulsiv unter die Sweep-Origin-Range schließt (MSS-Bestätigung)."
+      }
+    },
     {
       "timestamp": "2026-11-11T10:01:21.630549+00:00",
       "trade_id": "cross_rule_1794391281",
