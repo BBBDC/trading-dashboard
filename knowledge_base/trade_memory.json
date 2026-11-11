@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-11T16:04:25.478070+00:00",
+  "updated_at": "2026-11-11T16:29:51.568336+00:00",
   "total_experience_records": 63,
   "learnings": [
+    {
+      "timestamp": "2026-11-11T16:29:47.594397+00:00",
+      "trade_id": "cross_rule_1794414587",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Striktes Qualitätsgating für Orderblöcke: Zonen mit Qualitätsstufe [B] erfordern zwingend eine Volumenbestätigung (VSA Absorption) und einen dynamischen Strukturbruch mit FVG-Schlusskurs, andernfalls greift ein automatischer Trade-Filter.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sekundäre Zonen und isolierte Indikatorsignale ('Good Buy') ohne strukturelle VSA-Validierung besitzen einen statistisch negativen Erwartungswert und führen zu vermeidbaren 1.0R Verlusten.",
+        "actionable_rule": "Striktes Qualitätsgating für Orderblöcke: Zonen mit Qualitätsstufe [B] erfordern zwingend eine Volumenbestätigung (VSA Absorption) und einen dynamischen Strukturbruch mit FVG-Schlusskurs, andernfalls greift ein automatischer Trade-Filter."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T16:29:47.594363+00:00",
+      "trade_id": "cross_rule_1794414587",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Liquiditäts-Priorität: Micro-Setups (5m/15m) sind systemisch nur freigegeben, wenn sie unmittelbar auf einen bestätigten Liquiditäts-Sweep (Grade A) in Richtung des übergeordneten 4h/1D Orderflows aufsetzen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Isolierte Micro-Orderblöcke und B-Level-Zonen halten institutionellem Verkaufsdruck nicht stand und fungieren primär als Liquiditätsmagneten für übergeordnete Marktteilnehmer.",
+        "actionable_rule": "Fraktale Liquiditäts-Priorität: Micro-Setups (5m/15m) sind systemisch nur freigegeben, wenn sie unmittelbar auf einen bestätigten Liquiditäts-Sweep (Grade A) in Richtung des übergeordneten 4h/1D Orderflows aufsetzen."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T16:29:47.594299+00:00",
+      "trade_id": "inc_AMZ.F_5m_1794411865",
+      "symbol": "AMZ.F",
+      "name": "Amazon",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.84,
+      "pnl_raw": -0.42,
+      "text": "Auf 5m/15m Micro-Timeframes sind Long-Einstiege an [B]-Grade Orderblöcken verboten; Retests erfordern zwingend einen vorangegangenen Grade-[A]-Liquidity-Sweep und eine volumenbestätigte FVG-Rückeroberung.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AMZ.F_5m_1794411865",
+        "verdict": "LOSS",
+        "driver": "Long-Einstieg an einem zweitklassigen [B]-Orderblock ohne vorherigen signifikanten Liquidity-Sweep unter das relevante Tief führte zum direkten Durchrutschen in Sell-Side Liquidity.",
+        "technical_warning": "Fehlendes VSA-Kaufvolumen beim Retest, mangelnde Orderblock-Qualität ([B] statt [A]) sowie fehlender Market Structure Shift (MSS) vor der Signalgenerierung des Indikators.",
+        "actionable_rule": "Auf 5m/15m Micro-Timeframes sind Long-Einstiege an [B]-Grade Orderblöcken verboten; Retests erfordern zwingend einen vorangegangenen Grade-[A]-Liquidity-Sweep und eine volumenbestätigte FVG-Rückeroberung."
+      }
+    },
     {
       "timestamp": "2026-11-11T15:44:10.974140+00:00",
       "trade_id": "trade_BINANCE_ETHFIUSDT_20261111_1531",
