@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-11T00:05:23.062449+00:00",
-  "total_experience_records": 63,
+  "updated_at": "2026-11-11T00:31:18.903983+00:00",
+  "total_experience_records": 66,
   "learnings": [
+    {
+      "timestamp": "2026-11-11T00:31:14.938275+00:00",
+      "trade_id": "cross_rule_1794357074",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine Micro-Timeframe-Confluences gegen das übergeordnete Orderflow-Momentum.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Niedrige Zeitebenen (5m) erzeugen kontinuierlich scheinbare Confluences (OB + Indikatorsignale); ohne Bindeglied zum HTF-Dominanztrend besitzen diese Zonen statistisch eine signifikant negative Trefferquote.",
+        "actionable_rule": "Keine Micro-Timeframe-Confluences gegen das übergeordnete Orderflow-Momentum."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T00:31:14.938251+00:00",
+      "trade_id": "cross_rule_1794357074",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Ein Liquidity Sweep rechtfertigt keinen Trade ohne sofortiges strukturelles Displacement in Gegenrichtung.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Was auf 5m als gescheiterter Stop-Hunt direkt ausgestoppt wird, verhält sich auf 4h/1D exakt gleich: Ein Sweep ohne dynamische Ablehnungskerne ist kein Reversal, sondern ein Trendfortsetzungs-Breakdown in tiefere Liquiditätspools.",
+        "actionable_rule": "Ein Liquidity Sweep rechtfertigt keinen Trade ohne sofortiges strukturelles Displacement in Gegenrichtung."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T00:31:14.938198+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1794355519",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.56,
+      "pnl_raw": -0.28,
+      "text": "Kein direkter Limit-Einstieg in einen Orderblock nach einem Sweep ohne vorherige Bestätigung durch eine impulsive Displacement-Kerze (mit FVG) auf dem Ausführungs-Timeframe.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1794355519",
+        "verdict": "LOSS",
+        "driver": "Der Long-Entry am Orderblock [B] scheiterte an fehlender aggressiver Käuferabsorption nach dem Stop-Hunt, sodass der Support ohne nennenswerte Gegenwehr nach unten gebrochen wurde.",
+        "technical_warning": "Mangelndes bullisches Delta/Volumen-Climax beim Sweep [A] gepaart mit dem Fehlen eines validen Market Structure Shift (MSS) vor dem Retest.",
+        "actionable_rule": "Kein direkter Limit-Einstieg in einen Orderblock nach einem Sweep ohne vorherige Bestätigung durch eine impulsive Displacement-Kerze (mit FVG) auf dem Ausführungs-Timeframe."
+      }
+    },
     {
       "timestamp": "2026-11-10T20:06:55.670212+00:00",
       "trade_id": "cross_rule_1794341215",
