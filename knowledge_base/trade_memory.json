@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-11T14:31:49.138225+00:00",
-  "total_experience_records": 90,
+  "updated_at": "2026-11-11T15:13:14.022851+00:00",
+  "total_experience_records": 93,
   "learnings": [
+    {
+      "timestamp": "2026-11-11T15:13:10.146552+00:00",
+      "trade_id": "cross_rule_1794409990",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "HTF-Standort übersteuert LTF-Signalqualität: Keine Long-Sweeps in Premium-Erschöpfungszonen",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "In extremen HTF-Resist-Bereichen (wie dem BTC-Bereich um 73.8k) dienen mikrostrukturelle 5m-Sweeps überwiegend institutioneller Distribution. Ein LTF-Setup darf nur autorisiert werden, wenn das übergeordnete 4h-Framework die Expansionsrichtung aktiv stützt.",
+        "actionable_rule": "HTF-Standort übersteuert LTF-Signalqualität: Keine Long-Sweeps in Premium-Erschöpfungszonen"
+      }
+    },
+    {
+      "timestamp": "2026-11-11T15:13:10.146508+00:00",
+      "trade_id": "cross_rule_1794409990",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Ein Orderblock ist erst nach nachgewiesener Absorption und strukturellem Bruch (MSS) liquide",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf der 5m- als auch auf der 4h/1D-Zeitskala fungieren Orderblocks ohne Bestätigung durch aggressive Marktaufträge (Delta-Absorption) lediglich als Zielmarken für tiefere Liquiditätsabgriffe; das blinde Kaufen von Retests erzeugt systematisch -1R Breaker-Verluste.",
+        "actionable_rule": "Ein Orderblock ist erst nach nachgewiesener Absorption und strukturellem Bruch (MSS) liquide"
+      }
+    },
+    {
+      "timestamp": "2026-11-11T15:13:10.146415+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1794391258",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.02,
+      "pnl_raw": -0.51,
+      "text": "Kein direkter Limit- oder Market-Entry bei einem 5m OB-Retest ohne vorherigen internen Market Structure Shift (MSS) und Schlusskurs über der lokalen Reaktions-FVA/FVG.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1794391258",
+        "verdict": "LOSS",
+        "driver": "Aggressiver Frontrun-Einstieg am 5m Orderblock nach unzureichend verifiziertem Sweep, bei dem institutioneller Verkaufsdruck die lokale Demand-Zone ohne Gegenwehr überrollte.",
+        "technical_warning": "Ausbleiben eines VSA-Climax-Volumens beim Sweep sowie negatives kumulatives Delta während der Testkerze, was frühzeitig auf einen Breaker-Durchstich statt einer Absorption hindeutete.",
+        "actionable_rule": "Kein direkter Limit- oder Market-Entry bei einem 5m OB-Retest ohne vorherigen internen Market Structure Shift (MSS) und Schlusskurs über der lokalen Reaktions-FVA/FVG."
+      }
+    },
     {
       "timestamp": "2026-11-11T10:55:46.790174+00:00",
       "trade_id": "cross_rule_1794394546",
