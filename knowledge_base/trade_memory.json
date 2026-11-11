@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-11T16:31:34.121594+00:00",
-  "total_experience_records": 63,
+  "updated_at": "2026-11-11T17:10:24.076675+00:00",
+  "total_experience_records": 66,
   "learnings": [
+    {
+      "timestamp": "2026-11-11T17:10:20.146219+00:00",
+      "trade_id": "cross_rule_1794417020",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volatilitäts- und Spread-basierter Mindest-Stop (keine synthetischen Sub-0.5%-Stops auf XETRA/Frankfurt US-Crosses).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein Stop-Loss von 0,27% auf ABEA.F ignoriert den Spread und das Beta des US-Basiswerts; Trades auf europäischen Zweitnotierungen benötigen mindestens einen 1.5x bis 2.0x ATR-Puffer über dem Sweep-Hoch, um nicht durch Rauschen liquidiert zu werden.",
+        "actionable_rule": "Volatilitäts- und Spread-basierter Mindest-Stop (keine synthetischen Sub-0.5%-Stops auf XETRA/Frankfurt US-Crosses)."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T17:10:20.146194+00:00",
+      "trade_id": "cross_rule_1794417020",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Trend-Hierarchie: Counter-Trend-Setups auf 5m/15m sind verboten, wenn der 4h/1D-Trend aufwärts gerichtet ist und kein HTF-Liquiditätspool geräumt wurde.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Micro-Überdehnungen (Chaos Band > RFE) und scheinbare Sweeps auf 5m sind in starken HTF-Aufwärtstrends lediglich Treibstoff für Trendfortsetzungen; Oszillatoren und Band-Extrema verbrennen Kapital, wenn sie gegen die übergeordnete Liquidität gerichtet sind.",
+        "actionable_rule": "Fraktale Trend-Hierarchie: Counter-Trend-Setups auf 5m/15m sind verboten, wenn der 4h/1D-Trend aufwärts gerichtet ist und kein HTF-Liquiditätspool geräumt wurde."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T17:10:20.146142+00:00",
+      "trade_id": "inc_ABEA.F_5m_1794414547",
+      "symbol": "ABEA.F",
+      "name": "Alphabet (Google)",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.54,
+      "pnl_raw": -0.27,
+      "text": "Kein Einstieg an Bearish Orderblocks allein durch Marker/Chaos-Bänder – zwingende Voraussetzung ist ein vorangegangener Bruch des letzten 5m-Zwischentiefs (Market Structure Shift) mit Fair Value Gap (FVG).",
+      "ai_post_mortem": {
+        "trade_id": "inc_ABEA.F_5m_1794414547",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Short-Einstieg in den Retest eines bärischen Orderblocks ohne abgewarteten 5m-Marktstrukturbruch (MSS/BOS) gegen das übergeordnete Momentum.",
+        "technical_warning": "Fehlendes VSA-Verkaufsvolumen und Ausbleiben einer impulsiven Abweisungskerze (Displacement) nach dem Sweep [A], wodurch das Hoch als Liquiditätsmagnet statt als Wendepunkt diente.",
+        "actionable_rule": "Kein Einstieg an Bearish Orderblocks allein durch Marker/Chaos-Bänder – zwingende Voraussetzung ist ein vorangegangener Bruch des letzten 5m-Zwischentiefs (Market Structure Shift) mit Fair Value Gap (FVG)."
+      }
+    },
     {
       "timestamp": "2026-11-11T16:29:47.594397+00:00",
       "trade_id": "cross_rule_1794414587",
