@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-11T05:30:54.188515+00:00",
-  "total_experience_records": 72,
+  "updated_at": "2026-11-11T06:10:45.103226+00:00",
+  "total_experience_records": 75,
   "learnings": [
+    {
+      "timestamp": "2026-11-11T06:10:41.282229+00:00",
+      "trade_id": "cross_rule_1794377441",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Hierarchie: Indikator-Trigger (z.B. Sell-Marker) sind ohne strukturelle HTF-Eindeckung wertlos und dürfen keinen Einstieg erzwingen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein lokales Verkaufssignal auf 5m verbrennt verlässlich Kapital, wenn der 15m/1h-Orderflow gegen die Position drückt und interne Liquidität aufsaugt.",
+        "actionable_rule": "Fraktale Hierarchie: Indikator-Trigger (z.B. Sell-Marker) sind ohne strukturelle HTF-Eindeckung wertlos und dürfen keinen Einstieg erzwingen."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T06:10:41.282203+00:00",
+      "trade_id": "cross_rule_1794377441",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Trade an sekundären Reversal-Zonen ohne vorherige Liquiditäts-Akquise (Sweep [A]) der Gegenseite.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf der 5m-Mikroebene als auch im 4h/1D-Makrokontext fungieren nicht-gesweepte B-Level Order Blocks primär als Magnete für Stop-Runs und nicht als verlässliche Wendepunkte.",
+        "actionable_rule": "Kein Trade an sekundären Reversal-Zonen ohne vorherige Liquiditäts-Akquise (Sweep [A]) der Gegenseite."
+      }
+    },
+    {
+      "timestamp": "2026-11-11T06:10:41.282149+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1794369921",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -1.52,
+      "pnl_raw": -0.76,
+      "text": "Short-Exekutionen an B-Grade Order Blocks sind strikt verboten, solange kein Sweep des vorherigen Hochs (Grade [A]) mit dynamischer Reject-Kerze und Volumeneinbruch vorliegt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1794369921",
+        "verdict": "LOSS",
+        "driver": "Der Einstieg erfolgte an einem minderwertigen B-Grade Order Block ohne vorangegangenen Liquiditäts-Sweep (Liquidity Grab [A]), wodurch der Stop direkt als Exit-Liquidität für den lokalen Aufwärtsimpuls diente.",
+        "technical_warning": "Das Ausbleiben einer VSA-Volumendivergenz (fehlende 'No Demand'-Signatur beim Retest) und das Fehlen eines Docht-Sweeps über das lokale Hoch kündigten den Durchbruch vorab an.",
+        "actionable_rule": "Short-Exekutionen an B-Grade Order Blocks sind strikt verboten, solange kein Sweep des vorherigen Hochs (Grade [A]) mit dynamischer Reject-Kerze und Volumeneinbruch vorliegt."
+      }
+    },
     {
       "timestamp": "2026-11-11T04:31:14.670823+00:00",
       "trade_id": "cross_rule_1794371474",
