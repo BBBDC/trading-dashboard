@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-11T08:07:33.810015+00:00",
-  "total_experience_records": 78,
+  "updated_at": "2026-11-11T08:31:42.248494+00:00",
+  "total_experience_records": 81,
   "learnings": [
+    {
+      "timestamp": "2026-11-11T08:31:37.842265+00:00",
+      "trade_id": "cross_rule_1794385897",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Displacement-Pflicht: Liquiditätsabfuhr zwingend von Breakout-Absorption unterscheiden",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Fraktal über alle Zeitebenen gilt: Erst ein impulsiver Impuls in Gegenrichtung mit FVG-Generierung beweist, dass Großmarkt-Teilnehmer Liquidität gesweept und nicht etwa prozyklisch akkumuliert haben.",
+        "actionable_rule": "Displacement-Pflicht: Liquiditätsabfuhr zwingend von Breakout-Absorption unterscheiden"
+      }
+    },
+    {
+      "timestamp": "2026-11-11T08:31:37.842210+00:00",
+      "trade_id": "cross_rule_1794385897",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "HTF-Momentum bricht LTF-Struktur: Keine Counter-Trend-Trades ohne übergeordnete Erschöpfung",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein 5m-Liquidity-Sweep ist im 4h/1D-Kontext meist nur eine gesunde Fortsetzungsflagge; Micro-Reversals sind nur dann zulässig, wenn der übergeordnete 4h-Trend an signifikanten HTF-Widerständen oder Extremwerten der Chaos-Bänder ansteht.",
+        "actionable_rule": "HTF-Momentum bricht LTF-Struktur: Keine Counter-Trend-Trades ohne übergeordnete Erschöpfung"
+      }
+    },
+    {
+      "timestamp": "2026-11-11T08:31:37.842114+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1794380239",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -2.52,
+      "pnl_raw": -1.26,
+      "text": "Kein Short-Einstieg an Bearish Order Blocks allein durch Berührung: Zwingende Voraussetzung ist ein bestätigter 5m-Strukturbruch (Displacement mit Fair Value Gap) sowie nachlassendes Volumen beim Retest.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1794380239",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Einstieg bei einem vermeintlichen Liquidity Sweep, der sich mangels bärischem Market Structure Shift (MSS) als reine Trendfortsetzung und Liquiditätsaufnahme erwies.",
+        "technical_warning": "Fehlendes bärisches Displacement (kein 5m-Kerzenschluss unter dem Sweep-Pivot) kombiniert mit anhaltend hohem VSA-Kaufvolumen im Bearish Order Block anstelle von No-Demand-Erschöpfung.",
+        "actionable_rule": "Kein Short-Einstieg an Bearish Order Blocks allein durch Berührung: Zwingende Voraussetzung ist ein bestätigter 5m-Strukturbruch (Displacement mit Fair Value Gap) sowie nachlassendes Volumen beim Retest."
+      }
+    },
     {
       "timestamp": "2026-11-11T06:57:51.353038+00:00",
       "trade_id": "cross_rule_1794380271",
