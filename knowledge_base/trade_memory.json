@@ -1,7 +1,45 @@
 {
-  "updated_at": "2026-11-12T08:31:06.112950+00:00",
-  "total_experience_records": 99,
+  "updated_at": "2026-11-12T09:21:15.606913+00:00",
+  "total_experience_records": 101,
   "learnings": [
+    {
+      "timestamp": "2026-11-12T09:21:11.612408+00:00",
+      "trade_id": "cross_rule_1794475271",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
+        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T09:21:11.612315+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1794439852",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -3.9,
+      "pnl_raw": -1.95,
+      "text": "Bei RENDERUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1794439852",
+        "verdict": "LOSS",
+        "driver": "Trade RENDERUSDT schloss mit CLOSED_SL (-1.0R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei RENDERUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
     {
       "timestamp": "2026-11-12T08:21:21.844222+00:00",
       "trade_id": "cross_rule_1794471681",
