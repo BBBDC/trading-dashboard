@@ -1,7 +1,45 @@
 {
-  "updated_at": "2026-11-12T07:02:02.319464+00:00",
-  "total_experience_records": 95,
+  "updated_at": "2026-11-12T07:46:26.005133+00:00",
+  "total_experience_records": 97,
   "learnings": [
+    {
+      "timestamp": "2026-11-12T07:46:22.094362+00:00",
+      "trade_id": "cross_rule_1794469582",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
+        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T07:46:22.094319+00:00",
+      "trade_id": "inc_NVD.F_5m_1794439854",
+      "symbol": "NVD.F",
+      "name": "Nvidia",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.32,
+      "pnl_raw": -0.16,
+      "text": "Bei NVD.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NVD.F_5m_1794439854",
+        "verdict": "LOSS",
+        "driver": "Trade NVD.F schloss mit CLOSED_SL (-1.0R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei NVD.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
     {
       "timestamp": "2026-11-12T07:01:58.650471+00:00",
       "trade_id": "cross_rule_1794466918",
