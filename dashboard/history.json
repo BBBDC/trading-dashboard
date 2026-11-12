@@ -1,5 +1,72 @@
 [
   {
+    "id": "evt_20261112_000645",
+    "timestamp": "2026-11-12T00:06:45.561594+00:00",
+    "timestamp_display": "12.11.2026 00:06 UTC",
+    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 2,
+    "changes": [
+      {
+        "symbol": "TVC:NDX",
+        "name": "NDX",
+        "category": "Indizes / Devisen",
+        "change_type": "SETUP_UPDATE",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 95,
+        "new_score": 95,
+        "price": 28374.2524,
+        "setup_name": "Hypothese 1: SMC Order Block [R2] Exhaustion",
+        "entry_range": [
+          28317.5,
+          28601.24
+        ],
+        "stop_loss": 29367.35,
+        "take_profit_2": 25196.33,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "degencoder: 1D Institutional BUY Pocket (Lower Chaos Band unter RFE 233)",
+          "degencoder: 1h Potential Buy Signal (Blaues Dreieck)",
+          "degencoder: 4h Potential Buy Signal (Blaues Dreieck)"
+        ],
+        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R2] Exhaustion' (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "TVC:PALLADIUM",
+        "name": "Palladium (Spot)",
+        "category": "Edelmetalle",
+        "change_type": "SCORE_JUMP",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 95,
+        "new_score": 85,
+        "price": 1027.884,
+        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
+        "entry_range": [
+          1025.63,
+          1035.91
+        ],
+        "stop_loss": 1063.66,
+        "take_profit_2": 912.59,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 1h Potential Buy Signal (Blaues Dreieck)",
+          "degencoder: 4h Potential Buy Signal (Blaues Dreieck)"
+        ],
+        "change_reason": "Konfluenz-Veränderung: Score springt von 95% auf 85% (1D Trend unter EMA 233 bärisch).",
+        "note": "Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
+        "evaluated_by": "quantitative_engine"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n🔴 NDX (NDX):\n   Score-Sprung: 95% ➔ 95% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R2] Exhaustion' (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R2] Exhaustion\n   Entry: 28,317.50 | SL: 29,367.35 | TP2: 25,196.33\n\n🔴 Palladium (Spot) (PALLADIUM):\n   Score-Sprung: 95% ➔ 85% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 85% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 1,025.63 | SL: 1,063.66 | TP2: 912.59\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261111_224946",
     "timestamp": "2026-11-11T22:49:46.933797+00:00",
     "timestamp_display": "11.11.2026 22:49 UTC",
@@ -19693,72 +19760,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 5 Einstufungen haben sich geändert:\n\n🟢 BTC Dominanz (BTC.D):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 60.09 | SL: 58.45 | TP2: 67.35\n\n🟢 ether.fi (ETHFIUSDT):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 91%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (91%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 0.66 | SL: 0.64 | TP2: 0.77\n\n🟢 Total Crypto Market Cap (TOTAL):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 87%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (87%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Golden Confluence Reversal\n   Entry: 2,681,100,081,996.19 | SL: 2,608,126,591,861.21 | TP2: 3,005,426,704,818.33\n\n🟢 Apple (AAPL):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 85%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (85%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 344.32 | SL: 334.95 | TP2: 385.98\n\n🔴 Aave (AAVEUSD):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 75%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 135.57 | SL: 142.63 | TP2: 114.11\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261028_080910",
-    "timestamp": "2026-10-28T08:09:10.164002+00:00",
-    "timestamp_display": "28.10.2026 08:09 UTC",
-    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 2,
-    "changes": [
-      {
-        "symbol": "XETR:ADS",
-        "name": "Adidas",
-        "category": "Consumer / DAX",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 48,
-        "new_score": 77,
-        "price": 157.45,
-        "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
-        "entry_range": [
-          156.19,
-          157.76
-        ],
-        "stop_loss": 151.94,
-        "take_profit_2": 175.08,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "Kurs im 1D Golden Pocket (156.61 - 157.56)",
-          "Aktiv: Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: Versteckte Bullische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (77%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachlassenden Verkaufsdruck bei intakter Struktur.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "XETR:BAYN",
-        "name": "Bayer",
-        "category": "Pharma / DAX",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 90,
-        "new_score": 43,
-        "price": 46.15,
-        "setup_name": "Beobachten / Warten auf HTF-Trigger",
-        "entry_range": [
-          46.15,
-          46.15
-        ],
-        "stop_loss": 44.77,
-        "take_profit_2": 48.92,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "Aktiv: Versteckte Bärische Divergenz (Trendfolge)",
-          "Aktiv: Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: Reguläre Bärische Divergenz (Reversal)"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend über EMA 233 bullisch).",
-        "note": "Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risikomanagement wird Kapital geschont und auf einen echten Ausbruch oder Re-Test der Key-Levels gewartet.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n🟢 Adidas (ADS):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 77%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (77%): Multi-Timeframe Support verifiziert (1D Trend über EMA 233 bullisch). VSA/RSI bestätigen nachla...\n   Setup: Hypothese 1: SMC Golden Confluence Reversal\n   Entry: 156.19 | SL: 151.94 | TP2: 175.08\n\n⚪ Bayer (BAYN):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 43%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Konsolidierungsphase / Kein klares Setup: Der Markt zeigt keine eindeutige Multi-Timeframe-Konfluenz. Gemäß institutionellem Risik...\n   Setup: Beobachten / Warten auf HTF-Trigger\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
