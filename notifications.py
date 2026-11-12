@@ -247,6 +247,9 @@ def detect_signal_changes(current_assets):
             "entry_range": a.get("entry_range", [curr_price, curr_price]),
             "stop_loss": a.get("stop_loss", 0.0),
             "take_profit_2": a.get("take_profit_2", 0.0),
+            "primary_timeframe": a.get("primary_timeframe", "4h"),
+            "timeframe_label": a.get("timeframe_label", "4h Core Swing"),
+            "holding_period": a.get("holding_period", "2–5 Tage"),
             "updated_at": datetime.now(timezone.utc).isoformat()
         }
 
@@ -271,6 +274,9 @@ def detect_signal_changes(current_assets):
                     "stop_loss": a.get("stop_loss", 0),
                     "take_profit_2": a.get("take_profit_2", 0),
                     "reasons": a.get("reasons", []),
+                    "primary_timeframe": a.get("primary_timeframe", "4h"),
+                    "timeframe_label": a.get("timeframe_label", "4h Core Swing"),
+                    "holding_period": a.get("holding_period", "2–5 Tage"),
                     "change_reason": f"Neues aktives Setup ({curr_sig}) mit {curr_score}% Konfluenz.",
                     "note": a.get("analyst_note", ""),
                     "evaluated_by": a.get("evaluated_by", "Confluence")
@@ -320,6 +326,9 @@ def detect_signal_changes(current_assets):
                 "stop_loss": a.get("stop_loss", 0),
                 "take_profit_2": a.get("take_profit_2", 0),
                 "reasons": reasons,
+                "primary_timeframe": a.get("primary_timeframe", "4h"),
+                "timeframe_label": a.get("timeframe_label", "4h Core Swing"),
+                "holding_period": a.get("holding_period", "2–5 Tage"),
                 "change_reason": change_reason,
                 "note": a.get("analyst_note", ""),
                 "evaluated_by": a.get("evaluated_by", "Confluence")
@@ -356,23 +365,20 @@ def format_telegram_change_notification(changes, click_url):
         score = c.get("new_score", 0)
         curr = "€" if "TRADEGATE" in sym or "XETR" in sym else "$"
 
-        # Zeithorizont ermitteln
+        # Zeithorizont & Handlungs-Timeframe ermitteln
         setup = c.get("setup_name", "Konfluenz-Setup")
-        reasons_text = " ".join(c.get("reasons", [])).lower()
-        if any(k in setup.lower() or k in reasons_text for k in ["weekly", "1w", "3d", "makro", "macro"]):
-            horizon_tag = "🏛️ 3D/1W Makro-Trend"
-        elif any(k in setup.lower() or k in reasons_text for k in ["1h", "micro", "sweep", "scalp", "intraday"]):
-            horizon_tag = "⚡ 1h/4h Fast Swing"
-        else:
-            horizon_tag = "🎯 4h/1D Core Swing"
+        p_tf = c.get("primary_timeframe") or ("1D" if "1d" in str(c.get("reasons", "")).lower() else "4h")
+        tf_lbl = c.get("timeframe_label") or ("1D Position" if p_tf == "1D" else "4h Core Swing")
+        holding = c.get("holding_period") or ("1–3 Wochen" if p_tf == "1D" else "2–5 Tage")
 
         if sig in ("LONG", "SHORT"):
             icon = "🟢" if sig == "LONG" else "🔴"
             score_badge = "🔥 Exzellent" if score >= 92 else "✨ Stark"
             lines.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-            lines.append(f"{icon} <b>NEUES SIGNAL: {sig} · {horizon_tag}</b>")
+            lines.append(f"{icon} <b>NEUES SIGNAL: {sig} · {p_tf} Chart ({holding})</b>")
             lines.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
             lines.append(f"📈 <b>{name}</b> (<code>{ticker}</code>) · <i>{c.get('category', 'Asset')}</i>")
+            lines.append(f"⏱️ <b>Handlungs-Chart:</b> <b><code>{p_tf} Chart</code></b> · <i>{tf_lbl} ({holding})</i>")
             
             ev_badge = c.get("evaluator_badge")
             if not ev_badge:
@@ -695,6 +701,10 @@ def format_change_notification(changes, click_url):
             lines.append(f"   📝 KI-Rationale: {c['note'][:130]}...")
 
         lines.append(f"   Setup: {c['setup_name']}")
+        p_tf = c.get("primary_timeframe", "4h")
+        tf_lbl = c.get("timeframe_label", "4h Core Swing")
+        holding = c.get("holding_period", "2–5 Tage")
+        lines.append(f"   ⏱️ Handlungs-Chart: {p_tf} Chart · {tf_lbl} ({holding})")
         if sig != "NEUTRAL" and c["entry_range"]:
             lines.append(f"   Entry: {c['entry_range'][0]:,.2f} | SL: {c['stop_loss']:,.2f} | TP2: {c['take_profit_2']:,.2f}")
         lines.append("")

@@ -555,6 +555,17 @@ def evaluate_quantitative_confluence(timeframes, asset_info, prev_asset=None):
         tp1, tp2 = round(p * 1.03, 2), round(p * 1.06, 2)
         crv = 2.0
 
+    # Primären Handlungs-Timeframe & Zeithorizont ableiten
+    res_asset_probe = {
+        "signal": signal,
+        "score": score,
+        "setup_name": setup_name,
+        "reasons": reasons[:4],
+        "analyst_note": analyst_note,
+        "timeframes": timeframes if isinstance(timeframes, dict) else {}
+    }
+    primary_tf, tf_label, holding_period = derive_asset_timeframe_context(res_asset_probe)
+
     return {
         "signal": signal,
         "score": score,
@@ -566,8 +577,78 @@ def evaluate_quantitative_confluence(timeframes, asset_info, prev_asset=None):
         "take_profit_2": tp2,
         "reasons": reasons[:4],
         "analyst_note": analyst_note,
-        "evaluated_by": "quantitative_engine"
+        "evaluated_by": "quantitative_engine",
+        "primary_timeframe": primary_tf,
+        "timeframe_label": tf_label,
+        "holding_period": holding_period
     }
+
+
+def derive_asset_timeframe_context(asset):
+    """
+    Ermittelt den primären Handlungs-Timeframe (1h, 4h, 1D, 3D, 1W),
+    das Timeframe-Label (z. B. '4h Core Swing') sowie die erwartete Haltedauer (z. B. '2–5 Tage').
+    Basiert auf den konkreten Trigger-Kerzen, Order-Blocks und Zeithorizonten.
+    """
+    sig = asset.get("signal", "NEUTRAL")
+    setup = asset.get("setup_name", "")
+    reasons = asset.get("reasons", [])
+    reasons_text = " ".join(reasons).lower()
+    tfs = asset.get("timeframes", {})
+    d1 = tfs.get("1D") if isinstance(tfs, dict) else None
+    d4 = tfs.get("4h") if isinstance(tfs, dict) else None
+    d1h = tfs.get("1h") if isinstance(tfs, dict) else None
+    d1w = tfs.get("1W") if isinstance(tfs, dict) else None
+
+    if sig in ("LONG", "SHORT"):
+        # 1. 1h Fast Swing Trigger
+        if any(k in reasons_text for k in ["1h good buy", "1h good sell", "1h buy area", "1h sell area", "1h rsi", "1h divergence"]):
+            return "1h", "1h Fast Swing", "6–24 Std."
+
+        # 2. 4h Core Swing Trigger / Zone Retest
+        if any(k in reasons_text for k in [
+            "4h good buy", "4h good sell", "4h buy area", "4h sell area", "4h rsi",
+            "4h bullish order block", "4h bearish order block", "4h institutional",
+            "4h golden pocket", "4h imbalance"
+        ]):
+            return "4h", "4h Core Swing", "2–5 Tage"
+
+        # 3. 1D Position Trigger / Zone Retest
+        if any(k in reasons_text for k in [
+            "1d good buy", "1d good sell", "1d buy area", "1d sell area", "1d rsi",
+            "1d bullish order block", "1d bearish order block", "1d institutional",
+            "1d golden pocket", "1d imbalance"
+        ]):
+            return "1D", "1D Position", "1–3 Wochen"
+
+        # 4. 3D / 1W Makro Trend
+        if any(k in setup.lower() or k in reasons_text for k in ["weekly", "1w", "3d", "makro", "macro"]):
+            return "1W", "3D/1W Makro", "Mehrere Wochen"
+
+        # 5. Rückgriff auf Timeframe-Indikatordaten
+        if d4 and (d4.get("active_order_block") or d4.get("in_buy_pocket") or d4.get("in_sell_pocket") or d4.get("active_signals")):
+            return "4h", "4h Core Swing", "2–5 Tage"
+        if d1 and (d1.get("active_order_block") or d1.get("in_buy_pocket") or d1.get("in_sell_pocket") or d1.get("active_signals")):
+            return "1D", "1D Position", "1–3 Wochen"
+        if d1h and d1h.get("active_signals"):
+            return "1h", "1h Fast Swing", "6–24 Std."
+
+        # Standard-Fallback für institutionelle Swings
+        return "4h", "4h Core Swing", "2–5 Tage"
+
+    else:
+        # Neutral / Watchlist
+        if d4 and (d4.get("active_order_block") or d4.get("in_buy_pocket") or d4.get("in_sell_pocket") or d4.get("in_golden_pocket")):
+            return "4h", "4h Lauerstellung", "Warten auf Trigger"
+        if d1 and (d1.get("active_order_block") or d1.get("in_buy_pocket") or d1.get("in_sell_pocket") or d1.get("in_golden_pocket")):
+            return "1D", "1D Lauerstellung", "Warten auf Trigger"
+        if "unterstützungszone" in asset.get("analyst_note", "").lower() or "support" in setup.lower():
+            return "4h", "4h Lauerstellung", "Warten auf Trigger"
+        if "widerstandszone" in asset.get("analyst_note", "").lower() or "widerstand" in setup.lower():
+            return "4h", "4h Lauerstellung", "Warten auf Trigger"
+        if d1 and d1.get("trend") in ("BULLISH", "BEARISH"):
+            return "4h", "4h Beobachtung", "Konsolidierung"
+        return "1D", "1D Neutral", "Kein Setup"
 
 
 def assign_macro_headwind_and_evaluator_labels(analyzed_assets):
@@ -629,6 +710,12 @@ def assign_macro_headwind_and_evaluator_labels(analyzed_assets):
         else:
             eval_badge = "📐 Algorithmus"
         a["evaluator_badge"] = eval_badge
+
+        # Handlungs-Timeframe & Haltedauer sicherstellen
+        tf, tf_lbl, hp = derive_asset_timeframe_context(a)
+        a["primary_timeframe"] = tf
+        a["timeframe_label"] = tf_lbl
+        a["holding_period"] = hp
 
 
 def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):

@@ -429,13 +429,19 @@ def render_top_picks_html(candidates, sig_type="LONG"):
         sl = f"{c.get('stop_loss', '-'):,.2f} {curr_sym}" if isinstance(c.get('stop_loss'), (int, float)) else str(c.get('stop_loss', '-'))
         tp2 = f"{c.get('take_profit_2', '-'):,.2f} {curr_sym}" if isinstance(c.get('take_profit_2'), (int, float)) else str(c.get('take_profit_2', '-'))
         crv = c.get("crv", "-")
+        p_tf = c.get("primary_timeframe", "4h")
+        tf_lbl = c.get("timeframe_label", "4h Core Swing")
+        hp = c.get("holding_period", "2–5 Tage")
 
         out += f"""
         <div class="p-3.5 rounded-xl bg-slate-950/70 border {badge_border} hover:border-slate-600 transition flex flex-col gap-2">
           <div class="flex items-center justify-between">
             <div class="min-w-0">
               <span class="font-bold text-white text-xs sm:text-sm truncate block">{name}</span>
-              <span class="font-mono text-[10px] text-slate-400">{sym}</span>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                <span class="font-mono text-[10px] text-slate-400">{sym}</span>
+                <span class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/40" title="Handlungs-Chart: {tf_lbl} ({hp})">⏱️ {p_tf} ({hp})</span>
+              </div>
             </div>
             <div class="text-right shrink-0">
               <span class="font-mono font-bold text-xs {score_color}">{score}% Score</span>
@@ -589,6 +595,10 @@ def render_hero_cards_html(raw_assets):
         tp_detail_link_color = "text-emerald-400 hover:text-emerald-300" if is_long else "text-rose-400 hover:text-rose-300"
         tp_ev_badge = top_pick.get("evaluator_badge", "🤖 Gemini Pro")
         tp_hw_badge = f'<span class="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold">{top_pick.get("headwind_label")}</span>' if top_pick.get("macro_headwind") else ''
+        tp_tf = top_pick.get("primary_timeframe", "4h")
+        tp_tf_lbl = top_pick.get("timeframe_label", "4h Core Swing")
+        tp_holding = top_pick.get("holding_period", "2–5 Tage")
+        tp_tf_badge = f'<span class="px-2 py-0.5 rounded text-[10px] font-mono bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-semibold" title="Handlungs-Chart: {tp_tf_lbl} ({tp_holding})">⏱️ {tp_tf} Chart ({tp_holding})</span>'
 
         top_pick_html = f"""
         <!-- Top Pick Aktien/Traditionell: {tp_name} ({tp_sym}) -->
@@ -600,6 +610,7 @@ def render_hero_cards_html(raw_assets):
                 Top Opportunity · Aktien
               </span>
               <span class="text-xs font-mono {tp_score_color} font-semibold">{tp_sub_badge}</span>
+              {tp_tf_badge}
               <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-500/15 text-purple-300 border border-purple-500/30">{tp_ev_badge}</span>
               {tp_hw_badge}
             </div>
@@ -686,6 +697,10 @@ def render_hero_cards_html(raw_assets):
         c_trend_badge = f"{c_trend} (1D)"
         c_ev_badge = crypto_pick.get("evaluator_badge", "🤖 Gemini Pro")
         c_hw_badge = f'<span class="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold">{crypto_pick.get("headwind_label")}</span>' if crypto_pick.get("macro_headwind") else ''
+        c_tf = crypto_pick.get("primary_timeframe", "4h")
+        c_tf_lbl = crypto_pick.get("timeframe_label", "4h Core Swing")
+        c_holding = crypto_pick.get("holding_period", "2–5 Tage")
+        c_tf_badge = f'<span class="px-2 py-0.5 rounded text-[10px] font-mono bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-semibold" title="Handlungs-Chart: {c_tf_lbl} ({c_holding})">⏱️ {c_tf} Chart ({c_holding})</span>'
 
         crypto_card_html = f"""
         <!-- Top Crypto Opportunity: {c_name} ({c_sym}) -->
@@ -697,6 +712,7 @@ def render_hero_cards_html(raw_assets):
                 Top Opportunity · Krypto
               </span>
               <span class="text-xs font-mono {c_score_color} font-semibold">{c_sub_badge}</span>
+              {c_tf_badge}
               <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-500/15 text-purple-300 border border-purple-500/30">{c_ev_badge}</span>
               {c_hw_badge}
             </div>
@@ -1853,6 +1869,7 @@ html_content = f"""<!DOCTYPE html>
               <th class="p-3">Asset</th>
               <th class="p-3">Signal</th>
               <th class="p-3">Score</th>
+              <th class="p-3">Chart-TF</th>
               <th class="p-3">Kurs</th>
               <th class="p-3">1D Trend</th>
               <th class="p-3">4h RSI</th>
@@ -2575,6 +2592,7 @@ html_content = f"""<!DOCTYPE html>
           </div>
           <div class="flex items-center gap-2 mt-1 flex-wrap">
             <p id="modal-setup-title" class="text-xs text-indigo-400 font-semibold"></p>
+            <span id="modal-timeframe-badge" class="inline-flex items-center"></span>
             <span id="modal-evaluator-badge" class="inline-flex items-center"></span>
             <span id="modal-headwind-badge" class="inline-flex items-center"></span>
             <button onclick="openHypothesesModal(document.getElementById('modal-setup-title').innerText)" class="px-2 py-0.5 rounded bg-indigo-500/10 hover:bg-indigo-500/25 text-indigo-300 hover:text-white border border-indigo-500/30 text-[10px] font-semibold transition cursor-pointer flex items-center gap-1" title="Erklärung zu dieser Setup-Hypothese anzeigen">
@@ -2830,13 +2848,19 @@ html_content = f"""<!DOCTYPE html>
       const sl = (c.stop_loss !== null && c.stop_loss !== undefined) ? `${{formatNumber(c.stop_loss)}} ${{currSym}}` : '-';
       const tp2 = (c.take_profit_2 !== null && c.take_profit_2 !== undefined) ? `${{formatNumber(c.take_profit_2)}} ${{currSym}}` : '-';
       const crv = c.crv || '-';
+      const pTf = c.primary_timeframe || '4h';
+      const tfLbl = c.timeframe_label || (pTf === '1D' ? '1D Position' : '4h Core Swing');
+      const hp = c.holding_period || (pTf === '1D' ? '1–3 Wochen' : '2–5 Tage');
 
       return `
         <div class="p-3.5 rounded-xl bg-slate-950/70 border ${{badgeBorder}} hover:border-slate-600 transition flex flex-col gap-2">
           <div class="flex items-center justify-between">
             <div class="min-w-0">
               <span class="font-bold text-white text-xs sm:text-sm truncate block">${{name}}</span>
-              <span class="font-mono text-[10px] text-slate-400">${{sym}}</span>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                <span class="font-mono text-[10px] text-slate-400">${{sym}}</span>
+                <span class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/40" title="Handlungs-Chart: ${{tfLbl}} (${{hp}})">⏱️ ${{pTf}} (${{hp}})</span>
+              </div>
             </div>
             <div class="text-right shrink-0">
               <span class="font-mono font-bold text-xs ${{scoreColor}}">${{score}}% Score</span>
@@ -3075,6 +3099,11 @@ html_content = f"""<!DOCTYPE html>
           ? `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono bg-amber-500/15 text-amber-300 border border-amber-500/30" title="${{a.headwind_label || 'Makro-Gegenwind am Leitmarkt'}}">${{a.headwind_label || '⚠️ Gegenwind'}}</span>`
           : '';
 
+        const primaryTf = a.primary_timeframe || '4h';
+        const tfLabel = a.timeframe_label || (primaryTf === '1D' ? '1D Position' : '4h Core Swing');
+        const holding = a.holding_period || (primaryTf === '1D' ? '1–3 Wochen' : '2–5 Tage');
+        const tfBadgeHtml = `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/40" title="Handlungs-Chart: ${{tfLabel}} (${{holding}})">⏱️ ${{primaryTf}} <span class="text-indigo-400 font-normal">(${{holding}})</span></span>`;
+
         // Grid Card
         const card = document.createElement('div');
         card.className = `p-4 rounded-xl bg-slate-900/90 border border-slate-800/90 transition shadow-sm hover:shadow-lg ${{cardBorder}} flex flex-col justify-between space-y-4`;
@@ -3089,6 +3118,7 @@ html_content = f"""<!DOCTYPE html>
                 </div>
                 <div class="flex items-center gap-1.5 mt-1 flex-wrap">
                   <span class="text-[11px] text-slate-400">${{a.category}}</span>
+                  ${{tfBadgeHtml}}
                   ${{marketBadgeHtml}}
                   <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono border ${{evColor}}" title="Prüfung durch: ${{a.evaluated_by || 'Quantitative Engine'}}">${{evBadge}}</span>
                   ${{headwindHtml}}
@@ -3181,6 +3211,10 @@ html_content = f"""<!DOCTYPE html>
             <span class="px-2 py-0.5 rounded text-[11px] font-bold border ${{badgeColor}}">${{a.signal}}</span>
           </td>
           <td class="p-3 font-semibold text-slate-200">${{a.score}}%</td>
+          <td class="p-3">
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">${{primaryTf}}</span>
+            <div class="text-[9px] text-slate-400 font-normal mt-0.5">${{holding}}</div>
+          </td>
           <td class="p-3">
             <div class="text-white font-bold">${{formatNumber(a.price)}} ${{currSym}}</div>
             <div class="text-[9px] text-slate-400 font-mono mt-0.5">⏱️ ${{formatUpdateTime(a.last_price_update, a.last_price_update_str)}}</div>
@@ -3319,7 +3353,8 @@ html_content = f"""<!DOCTYPE html>
         }}
       }}
       switchModalView('vector');
-      selectModalTimeframe('4h');
+      const defaultTf = (a.primary_timeframe && a.timeframes && a.timeframes[a.primary_timeframe]) ? a.primary_timeframe : '4h';
+      selectModalTimeframe(defaultTf);
 
       document.getElementById('modal-asset-name').innerText = a.name;
       document.getElementById('modal-asset-ticker').innerText = a.symbol;
@@ -3369,6 +3404,18 @@ html_content = f"""<!DOCTYPE html>
         }} else {{
           mHwElem.classList.add('hidden');
         }}
+      }}
+
+      // Handlungs-Timeframe Badge im Modal Header
+      const mTfElem = document.getElementById('modal-timeframe-badge');
+      if (mTfElem) {{
+        const pTf = a.primary_timeframe || '4h';
+        const tfLabel = a.timeframe_label || (pTf === '1D' ? '1D Position' : '4h Core Swing');
+        const holding = a.holding_period || (pTf === '1D' ? '1–3 Wochen' : '2–5 Tage');
+        mTfElem.className = 'px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 flex items-center gap-1';
+        mTfElem.innerHTML = `⏱️ <b>${{pTf}} Chart</b> · ${{tfLabel}} (${{holding}})`;
+        mTfElem.title = `Handlungsempfehlung basiert auf dem ${{pTf}}-Chart (${{tfLabel}}, Erwartete Haltedauer: ${{holding}})`;
+        mTfElem.classList.remove('hidden');
       }}
 
       const modalCurrSym = getAssetCurrencySymbol(a);

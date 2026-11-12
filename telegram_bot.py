@@ -868,23 +868,20 @@ def get_top_setups_text_and_markup():
             score = a.get("score", 0)
             curr = "€" if "TRADEGATE" in sym or "XETR" in sym else "$"
 
-            # Zeithorizont ermitteln
+            # Zeithorizont & Handlungs-Timeframe ermitteln
+            p_tf = a.get("primary_timeframe") or ("1D" if "1d" in str(a.get("reasons", "")).lower() else "4h")
+            tf_lbl = a.get("timeframe_label") or ("1D Position" if p_tf == "1D" else "4h Core Swing")
+            holding = a.get("holding_period") or ("1–3 Wochen" if p_tf == "1D" else "2–5 Tage")
             setup = a.get("setup_name", "Konfluenz-Setup")
             reasons = a.get("reasons", [])
-            reasons_text = " ".join(reasons).lower()
-            if any(k in setup.lower() or k in reasons_text for k in ["weekly", "1w", "3d", "makro"]):
-                horizon = "🏛️ 3D/1W Makro-Trend"
-            elif any(k in setup.lower() or k in reasons_text for k in ["1h", "micro", "sweep", "scalp"]):
-                horizon = "⚡ 1h/4h Fast Swing"
-            else:
-                horizon = "🎯 4h/1D Core Swing"
 
             score_badge = "🔥 Exzellent" if score >= 92 else "✨ Stark"
 
             lines.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-            lines.append(f"{icon} <b>{sig} · {horizon}</b>")
+            lines.append(f"{icon} <b>{sig} · {p_tf} Chart ({holding})</b>")
             lines.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
             lines.append(f"📈 <b>{name}</b> (<code>{ticker}</code>) · <i>{a.get('category', 'Asset')}</i>")
+            lines.append(f"⏱️ <b>Handlungs-Chart:</b> <b><code>{p_tf} Chart</code></b> · <i>{tf_lbl} ({holding})</i>")
             lines.append(f"🏆 <b>KI-Score:</b> <b>{score}%</b> ({score_badge})\n")
 
             curr_p = float(a.get("price", 0.0))
