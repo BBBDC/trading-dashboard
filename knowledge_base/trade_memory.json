@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-12T06:50:33.460640+00:00",
-  "total_experience_records": 92,
+  "updated_at": "2026-11-12T07:02:02.319464+00:00",
+  "total_experience_records": 95,
   "learnings": [
+    {
+      "timestamp": "2026-11-12T07:01:58.650471+00:00",
+      "trade_id": "cross_rule_1794466918",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Stopp-Platzierung nach Liquiditäts-Cluster statt optischer Mikro-Levels.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein enger Stop-Loss direkt unter einem offensichtlichen Support-Level (hier 0.35%) ist Rauschen und wird von Market Makern gezielt geräumt; Stops müssen außerhalb der aktuellen Liquiditätspools platziert werden, um echte System-Invalidierung zu messen.",
+        "actionable_rule": "Stopp-Platzierung nach Liquiditäts-Cluster statt optischer Mikro-Levels."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T07:01:58.650433+00:00",
+      "trade_id": "cross_rule_1794466918",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Primat: Marktstruktur und Liquiditätsabgriff überstimmen stets statische Indikator-Extrema.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m wie auf 4h/1D markiert eine Überdehnung (z.B. Chaos Band < RFE) oft nur die Beschleunigungsphase eines Trends; wer ohne strukturelle Bestätigung (Market Structure Shift) kauft, fungiert lediglich als Exit-Liquidität für Trendfolger.",
+        "actionable_rule": "Fraktales Primat: Marktstruktur und Liquiditätsabgriff überstimmen stets statische Indikator-Extrema."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T07:01:58.650362+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1794461452",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.7,
+      "pnl_raw": -0.35,
+      "text": "Kein Entry bei 'Buy Pocket / Blaues Dreieck', solange kein 5m-Schlusskurs oberhalb eines bestätigten Sweeps mit nachweisbarem Rückgang des Sell-Volumens vorliegt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1794461452",
+        "verdict": "LOSS",
+        "driver": "Der Trade versuchte eine antizyklische Trendwende an einem lokalen Support allein durch Indikatoren-Überdehnung (Chaos Band < RFE) zu erzwingen, ohne dass vorherige Verkaufsliquidität absorbiert wurde.",
+        "technical_warning": "Fehlendes VSA-Climax-Volumen mit nachfolgender Umkehrkerze sowie das Ausbleiben eines echten Liquidity-Sweeps (Klasse A) unter die vorherige Range warnten vor einem ungebremsten Durchrutschen durch das Support-Niveau.",
+        "actionable_rule": "Kein Entry bei 'Buy Pocket / Blaues Dreieck', solange kein 5m-Schlusskurs oberhalb eines bestätigten Sweeps mit nachweisbarem Rückgang des Sell-Volumens vorliegt."
+      }
+    },
     {
       "timestamp": "2026-11-12T05:32:47.287782+00:00",
       "trade_id": "cross_rule_1794461567",
