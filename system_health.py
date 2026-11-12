@@ -536,33 +536,38 @@ def generate_health_html_card(health: Dict[str, Any]) -> str:
     return f"""
       <!-- Card: 24/7 System-Gesundheits- & Funktions-Monitor -->
       <section class="admin-group-system rounded-2xl bg-gradient-to-br from-slate-900/95 via-teal-950/20 to-slate-900 border border-teal-500/40 p-5 shadow-xl space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800">
+        <div onclick="toggleAccordion('admin-acc-health')" class="cursor-pointer flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800 select-none group">
           <div class="flex items-center gap-2.5">
             <span class="text-2xl">🏥</span>
             <div>
-              <div class="flex items-center gap-2">
-                <h3 class="font-bold text-white text-base">System-Gesundheits- & Infrastruktur-Monitor</h3>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="font-bold text-white text-base group-hover:text-teal-300 transition">System-Gesundheits- & Infrastruktur-Monitor</h3>
                 {status_badge}
               </div>
               <p class="text-xs text-slate-400">Automatische Überwachung aller 6 Kernfunktionen: Pipeline, Kurse, Inkubator, Portfolio/SL/TP, Bot & GitHub-Sync</p>
             </div>
           </div>
-          <div class="flex items-center gap-2 self-start sm:self-auto">
-            <span class="w-2 h-2 rounded-full {dot_cls}"></span>
-            <span class="text-[10px] font-mono text-slate-400">Geprüft: {chk_time}</span>
+          <div class="flex items-center gap-3 self-start sm:self-auto">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full {dot_cls}"></span>
+              <span class="text-[10px] font-mono text-slate-400">Geprüft: {chk_time}</span>
+            </div>
+            <span id="admin-acc-health-arrow" class="text-xs font-mono text-slate-400 group-hover:text-white transition">▼</span>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {grid_cards}
-        </div>
+        <div id="admin-acc-health-body" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {grid_cards}
+          </div>
 
-        <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs text-slate-300 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 font-mono">
-          <span class="flex items-center gap-2">
-            <span>🛡️</span>
-            <span><b>Automatisches Failover & Selbstheilung aktiv:</b> Alle Subsysteme isoliert fehlerresistent</span>
-          </span>
-          <span class="text-[10px] text-teal-400 font-bold">24/7 Raspberry Pi Daemon</span>
+          <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs text-slate-300 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 font-mono">
+            <span class="flex items-center gap-2">
+              <span>🛡️</span>
+              <span><b>Automatisches Failover & Selbstheilung aktiv:</b> Alle Subsysteme isoliert fehlerresistent</span>
+            </span>
+            <span class="text-[10px] text-teal-400 font-bold">24/7 Raspberry Pi Daemon</span>
+          </div>
         </div>
       </section>
     """

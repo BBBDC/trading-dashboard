@@ -260,46 +260,51 @@ health_dot = "bg-emerald-400 animate-pulse" if health_is_ok else "bg-amber-400 a
 routing_health_card_html = f"""
       <!-- Card Health & Routing: Übersicht Kaskade & Vorab-Check -->
       <section class="admin-group-quota rounded-2xl bg-gradient-to-br from-slate-900/95 via-sky-950/20 to-slate-900 border border-sky-500/40 p-5 shadow-xl space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800">
+        <div onclick="toggleAccordion('admin-acc-routing')" class="cursor-pointer flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800 select-none group">
           <div class="flex items-center gap-2.5">
             <span class="text-2xl">🛡️</span>
             <div>
-              <div class="flex items-center gap-2">
-                <h3 class="font-bold text-white text-base">KI-Routing & Kaskaden-Status</h3>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="font-bold text-white text-base group-hover:text-sky-300 transition">KI-Routing & Kaskaden-Status</h3>
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono {health_badge_class}">{health_badge_text}</span>
               </div>
               <p class="text-xs text-slate-400">Automatische 4-Stufen Kaskade: 1. pokeulm (Pro 3.8 High) &bull; 2. Key-Pool (3.8 Flash High) &bull; 3. Key-Pool Fallback (3.5) &bull; 4. SMC Math-Core</p>
             </div>
           </div>
-          <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30 self-start sm:self-auto">
-            Aktive Engine: {health_active_tier}
-          </span>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
-          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">1. Primär (Stufe 1)</span>
-            <span class="font-bold text-base text-emerald-400">Google Pro (pokeulm)</span>
-            <span class="block text-[10px] text-slate-400 mt-0.5">gemini-3.8-flash-high &bull; Unbegrenzt</span>
-          </div>
-          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">2. Failover (Stufe 2)</span>
-            <span class="font-bold text-base text-indigo-300">Free Multi-Key Pool</span>
-            <span class="block text-[10px] text-slate-400 mt-0.5">4x Keys &bull; gemini-3.8-flash High (80 Req/Tag)</span>
-          </div>
-          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">3. & 4. Fallback (Stufe 3/4)</span>
-            <span class="font-bold text-base text-sky-300">Gemini 3.5 & Math-Core</span>
-            <span class="block text-[10px] text-slate-400 mt-0.5">3.5 Flash Fallback &bull; SMC/Wyckoff Core</span>
+          <div class="flex items-center gap-3 self-start sm:self-auto">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30">
+              Aktive Engine: {health_active_tier}
+            </span>
+            <span id="admin-acc-routing-arrow" class="text-xs font-mono text-slate-400 group-hover:text-white transition">▼</span>
           </div>
         </div>
 
-        <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs text-slate-300 flex items-center justify-between">
-          <span class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full {health_dot}"></span>
-            <span><b>Health-Check Status:</b> {health_msg}</span>
-          </span>
-          <span class="text-[10px] text-slate-500 font-mono">Dynamischer Schutz</span>
+        <div id="admin-acc-routing-body" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-[10px] text-slate-400 block uppercase">1. Primär (Stufe 1)</span>
+              <span class="font-bold text-base text-emerald-400">Google Pro (pokeulm)</span>
+              <span class="block text-[10px] text-slate-400 mt-0.5">gemini-3.8-flash-high &bull; Unbegrenzt</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-[10px] text-slate-400 block uppercase">2. Failover (Stufe 2)</span>
+              <span class="font-bold text-base text-indigo-300">Free Multi-Key Pool</span>
+              <span class="block text-[10px] text-slate-400 mt-0.5">4x Keys &bull; gemini-3.8-flash High (80 Req/Tag)</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-[10px] text-slate-400 block uppercase">3. & 4. Fallback (Stufe 3/4)</span>
+              <span class="font-bold text-base text-sky-300">Gemini 3.5 & Math-Core</span>
+              <span class="block text-[10px] text-slate-400 mt-0.5">3.5 Flash Fallback &bull; SMC/Wyckoff Core</span>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs text-slate-300 flex items-center justify-between">
+            <span class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full {health_dot}"></span>
+              <span><b>Health-Check Status:</b> {health_msg}</span>
+            </span>
+            <span class="text-[10px] text-slate-500 font-mono">Dynamischer Schutz</span>
+          </div>
         </div>
       </section>
 """
@@ -324,61 +329,66 @@ pro_badge = "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
 pro_card_html = f"""
       <!-- Card Pro-Abo: Google Pro Subscription Status (Stufe 1 Primär: pokeulm@gmail.com) -->
       <section class="admin-group-quota rounded-2xl bg-gradient-to-br from-slate-900/95 via-indigo-950/30 to-slate-900 border border-indigo-500/40 p-5 shadow-xl space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800">
+        <div onclick="toggleAccordion('admin-acc-pro')" class="cursor-pointer flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800 select-none group">
           <div class="flex items-center gap-2.5">
             <span class="text-2xl">⚡</span>
             <div>
-              <div class="flex items-center gap-2">
-                <h3 class="font-bold text-white text-base">Google Pro-Abo (Account 2: {acc_email})</h3>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="font-bold text-white text-base group-hover:text-indigo-300 transition">Google Pro-Abo (Account 2: {acc_email})</h3>
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">STUFE 1: PRIMÄR-ROUTING (100% TRADING)</span>
               </div>
               <p class="text-xs text-slate-400">Dediziertes Trading-Konto &bull; Unbegrenztes Monitoring (50er-Limit aufgehoben) &bull; Native Google 5h/Wochen-Limits</p>
             </div>
           </div>
-          <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 self-start sm:self-auto">
-            {pro_model}
-          </span>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs font-mono">
-          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">5h Rolling Limit (Google)</span>
-            <span class="font-bold text-base {pro_num_class}">{five_h_rem_pct}% frei</span>
-            <span class="block text-[10px] text-slate-500 mt-0.5">{five_h_used_pct}% verbraucht</span>
-          </div>
-          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">5h Reset-Zeitfenster</span>
-            <span class="font-bold text-base text-indigo-300">{five_h_countdown}</span>
-            <span class="block text-[10px] text-slate-500 mt-0.5">Google Cloud Original-Zyklus</span>
-          </div>
-          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">Anfragen Heute</span>
-            <span class="font-bold text-base text-emerald-400">{pro_req_today} Requests</span>
-            <span class="block text-[10px] text-slate-500 mt-0.5">Keine 50er Drosselung aktiv</span>
-          </div>
-          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">Anfragen Woche (7 Tage)</span>
-            <span class="font-bold text-base text-slate-200">{pro_req_week} Requests</span>
-            <span class="block text-[10px] text-slate-500 mt-0.5">Rolling 7-Tage Monitoring</span>
+          <div class="flex items-center gap-3 self-start sm:self-auto">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+              {pro_model}
+            </span>
+            <span id="admin-acc-pro-arrow" class="text-xs font-mono text-slate-400 group-hover:text-white transition">▼</span>
           </div>
         </div>
 
-        <div class="space-y-1.5">
-          <div class="flex items-center justify-between text-[11px] font-mono">
-            <span class="text-slate-400">Verfügbares 5h-Restvolumen (Google CodeAssist):</span>
-            <span class="font-bold {pro_num_class}">{five_h_rem_pct}% frei</span>
+        <div id="admin-acc-pro-body" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs font-mono">
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-[10px] text-slate-400 block uppercase">5h Rolling Limit (Google)</span>
+              <span class="font-bold text-base {pro_num_class}">{five_h_rem_pct}% frei</span>
+              <span class="block text-[10px] text-slate-500 mt-0.5">{five_h_used_pct}% verbraucht</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-[10px] text-slate-400 block uppercase">5h Reset-Zeitfenster</span>
+              <span class="font-bold text-base text-indigo-300">{five_h_countdown}</span>
+              <span class="block text-[10px] text-slate-500 mt-0.5">Google Cloud Original-Zyklus</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-[10px] text-slate-400 block uppercase">Anfragen Heute</span>
+              <span class="font-bold text-base text-emerald-400">{pro_req_today} Requests</span>
+              <span class="block text-[10px] text-slate-500 mt-0.5">Keine 50er Drosselung aktiv</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-[10px] text-slate-400 block uppercase">Anfragen Woche (7 Tage)</span>
+              <span class="font-bold text-base text-slate-200">{pro_req_week} Requests</span>
+              <span class="block text-[10px] text-slate-500 mt-0.5">Rolling 7-Tage Monitoring</span>
+            </div>
           </div>
-          <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
-            <div class="h-2 rounded-full {pro_bar_color}" style="width: {min(100.0, five_h_rem_pct)}%"></div>
-          </div>
-        </div>
 
-        <div class="p-3 rounded-xl bg-indigo-950/30 border border-indigo-500/20 text-xs text-slate-300 flex items-start gap-2.5">
-          <span class="text-sm">🛡️</span>
-          <div class="leading-relaxed text-[11px]">
-            <strong class="text-indigo-300">Dauerhaft als Primärstufe verankert:</strong>
-            Alle Marktanalysen, Chartbewertungen und Trade-Learnings laufen prioritär über das dedizierte Google-Konto <code>pokeulm@gmail.com</code> mit dem High-Reasoning-Modell <code>gemini-3.8-flash-high</code>.
-            Erst bei Erschöpfung des Google 5h-Limits oder Verbindungsstörungen übernimmt automatisch Stufe 2 (Multi-Key Pool mit <code>gemini-3.8-flash High</code>).
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between text-[11px] font-mono">
+              <span class="text-slate-400">Verfügbares 5h-Restvolumen (Google CodeAssist):</span>
+              <span class="font-bold {pro_num_class}">{five_h_rem_pct}% frei</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+              <div class="h-2 rounded-full {pro_bar_color}" style="width: {min(100.0, five_h_rem_pct)}%"></div>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-indigo-950/30 border border-indigo-500/20 text-xs text-slate-300 flex items-start gap-2.5">
+            <span class="text-sm">🛡️</span>
+            <div class="leading-relaxed text-[11px]">
+              <strong class="text-indigo-300">Dauerhaft als Primärstufe verankert:</strong>
+              Alle Marktanalysen, Chartbewertungen und Trade-Learnings laufen prioritär über das dedizierte Google-Konto <code>pokeulm@gmail.com</code> mit dem High-Reasoning-Modell <code>gemini-3.8-flash-high</code>.
+              Erst bei Erschöpfung des Google 5h-Limits oder Verbindungsstörungen übernimmt automatisch Stufe 2 (Multi-Key Pool mit <code>gemini-3.8-flash High</code>).
+            </div>
           </div>
         </div>
       </section>
@@ -799,6 +809,13 @@ html_content = f"""<!DOCTYPE html>
     }}
     .font-mono {{
       font-family: 'JetBrains Mono', monospace;
+    }}
+
+    /* Mobile Filter Drawer Animation & Responsive Display */
+    @media (max-width: 639px) {{
+      .mobile-filters-collapsed {{
+        display: none !important;
+      }}
     }}
 
     /* =========================================================================
@@ -1689,27 +1706,43 @@ html_content = f"""<!DOCTYPE html>
         </div>
       </div>
 
-      <!-- Hypothesen Quick Guide Banner -->
-      <div class="p-4 rounded-xl bg-slate-900/80 border border-indigo-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-lg">
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-lg bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-sm shrink-0">
-            💡
-          </div>
-          <div class="space-y-0.5">
-            <div class="font-bold text-white flex items-center gap-2">
-              <span>Setup-Logik & Hypothesen</span>
-              <span class="text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-mono">3 Strategien</span>
+      <!-- Hypothesen Quick Guide Banner (Accordion) -->
+      <div class="rounded-xl bg-slate-900/80 border border-indigo-500/30 overflow-hidden shadow-lg">
+        <div onclick="toggleTopSetupsGuide()" class="cursor-pointer p-3.5 sm:p-4 hover:bg-slate-900 flex items-center justify-between gap-3 text-xs select-none transition group">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-sm shrink-0">
+              💡
             </div>
-            <p class="text-slate-400 text-[11px] leading-relaxed">
-              <strong class="text-emerald-400">Hypothese 1:</strong> Reversal am Wende-Extremum (Max CRV) &bull; 
-              <strong class="text-indigo-400">Hypothese 2:</strong> Trendfolge im Pullback (Hohe Winrate) &bull; 
-              <strong class="text-amber-400">Hypothese 3:</strong> Liquidity Hunt / Range Fakeout
-            </p>
+            <div>
+              <div class="font-bold text-white flex items-center gap-2 flex-wrap">
+                <span class="group-hover:text-indigo-300 transition">Setup-Logik & Hypothesen Quick-Guide</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-mono">3 Strategien</span>
+              </div>
+              <p class="text-slate-400 text-[11px] leading-relaxed hidden sm:block">
+                Regelwerk für Reversal am Wende-Extremum, Trendfolge im Pullback und Liquidity Hunts
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2.5 shrink-0">
+            <button onclick="event.stopPropagation(); openHypothesesModal()" class="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-[11px] transition shadow-sm cursor-pointer hidden md:inline-flex items-center gap-1">
+              <span>Ausführlicher Guide</span> <span>→</span>
+            </button>
+            <span id="topsetups-guide-arrow" class="text-xs font-mono text-slate-400 group-hover:text-white transition">▼</span>
           </div>
         </div>
-        <button onclick="openHypothesesModal()" class="self-start sm:self-auto px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition flex items-center gap-1.5 shadow-sm shrink-0 cursor-pointer">
-          Guide & Regeln anzeigen →
-        </button>
+
+        <div id="topsetups-guide-body" class="p-4 pt-3 border-t border-slate-800/80 bg-slate-950/60 space-y-3 text-xs">
+          <p class="text-slate-300 text-[11px] leading-relaxed">
+            <strong class="text-emerald-400">Hypothese 1 (Reversal am Wende-Extremum):</strong> Kauf in antizyklischen Extremlagen (degencoder Good Buy, SMC Demand Sweep, RSI &lt; 35). Bietet maximales CRV (3:1 bis 8:1) bei moderater Trefferquote (~52%).<br>
+            <strong class="text-indigo-400">Hypothese 2 (Trendfolge im Pullback):</strong> Einstieg in dynamische Retests gesunder Trends über dem 233-EMA mit Pocket-Bestätigung. Hohe empirische Winrate (58–63%) und solide Asymmetrie.<br>
+            <strong class="text-amber-400">Hypothese 3 (Liquidity Hunt / Range Fakeout):</strong> Ausnutzen von Stop-Runs oberhalb/unterhalb etablierter Trading-Ranges mit sofortigem Re-Entry in die Range.
+          </p>
+          <div class="flex justify-end pt-1">
+            <button onclick="openHypothesesModal()" class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition flex items-center gap-1.5 shadow-sm cursor-pointer">
+              <span>Komplettes Regelwerk & Checkliste öffnen</span> <span>→</span>
+            </button>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -1747,45 +1780,58 @@ html_content = f"""<!DOCTYPE html>
 
         </div>
 
-        <!-- TradingView Watchlists Filter Row -->
-        <div class="flex flex-wrap items-center gap-1.5 text-xs pt-3 border-t border-slate-800/80">
-          <span class="text-slate-400 mr-1 text-[11px] uppercase tracking-wider font-semibold">TV Liste:</span>
-          {scanner_watchlist_pills_html}
-        </div>
+        <!-- Mobile Collapsible Filter Toggle (nur auf Handys sichtbar) -->
+        <button onclick="toggleScannerFilters()" id="scanner-filters-toggle-btn" class="w-full sm:hidden flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-slate-950/90 border border-slate-800 hover:border-slate-700 text-xs text-slate-300 hover:text-white transition cursor-pointer select-none">
+          <div class="flex items-center gap-2">
+            <span>⚙️</span>
+            <span class="font-bold">Filter, TV-Listen & Optionen</span>
+            <span id="scanner-active-filter-badge" class="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-400">Alle Optionen</span>
+          </div>
+          <span id="scanner-filters-arrow" class="text-xs font-mono text-slate-400">▼</span>
+        </button>
 
-        <!-- Secondary Filter Row: Asset Class, Sorting, View Toggle -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-3 border-t border-slate-800/80">
-          
-          <!-- Category Buttons -->
-          <div class="flex flex-wrap items-center gap-1.5 text-xs">
-            <span class="text-slate-400 mr-1 text-[11px] uppercase tracking-wider font-semibold">Klasse:</span>
-            <button onclick="setCategoryFilter('ALL')" id="filter-cat-ALL" class="filter-cat-btn px-2.5 py-1 rounded-md transition bg-slate-700 text-white font-medium cursor-pointer">Alle</button>
-            <button onclick="setCategoryFilter('Crypto')" id="filter-cat-Crypto" class="filter-cat-btn px-2.5 py-1 rounded-md transition text-slate-400 hover:text-white hover:bg-slate-800 font-medium cursor-pointer">Crypto</button>
-            <button onclick="setCategoryFilter('Stock')" id="filter-cat-Stock" class="filter-cat-btn px-2.5 py-1 rounded-md transition text-slate-400 hover:text-white hover:bg-slate-800 font-medium cursor-pointer">Aktien</button>
-            <button onclick="setCategoryFilter('Commodity')" id="filter-cat-Commodity" class="filter-cat-btn px-2.5 py-1 rounded-md transition text-slate-400 hover:text-white hover:bg-slate-800 font-medium cursor-pointer">Rohstoffe</button>
-            <button onclick="setCategoryFilter('Macro')" id="filter-cat-Macro" class="filter-cat-btn px-2.5 py-1 rounded-md transition text-slate-400 hover:text-white hover:bg-slate-800 font-medium cursor-pointer">Makro/Indizes</button>
+        <!-- Collapsible Body Container (auf Desktop immer sichtbar, auf Mobile einklappbar) -->
+        <div id="scanner-filters-body" class="mobile-filters-collapsed space-y-4">
+          <!-- TradingView Watchlists Filter Row -->
+          <div class="flex flex-wrap items-center gap-1.5 text-xs pt-3 border-t border-slate-800/80">
+            <span class="text-slate-400 mr-1 text-[11px] uppercase tracking-wider font-semibold">TV Liste:</span>
+            {scanner_watchlist_pills_html}
           </div>
 
-          <!-- Sort & View Controls -->
-          <div class="flex items-center gap-3">
-            <div class="flex items-center gap-2">
-              <span class="text-xs text-slate-400">Sortierung:</span>
-              <select id="sort-select" onchange="applyFilters()" class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700/80 text-xs text-white focus:outline-none focus:border-indigo-500">
-                <option value="score_desc">Höchster Score</option>
-                <option value="crv_desc">Höchstes CRV</option>
-                <option value="rsi_asc">RSI Überverkauft (Low)</option>
-                <option value="rsi_desc">RSI Überkauft (High)</option>
-                <option value="name_asc">Name (A-Z)</option>
-              </select>
+          <!-- Secondary Filter Row: Asset Class, Sorting, View Toggle -->
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-3 border-t border-slate-800/80">
+            
+            <!-- Category Buttons -->
+            <div class="flex flex-wrap items-center gap-1.5 text-xs">
+              <span class="text-slate-400 mr-1 text-[11px] uppercase tracking-wider font-semibold">Klasse:</span>
+              <button onclick="setCategoryFilter('ALL')" id="filter-cat-ALL" class="filter-cat-btn px-2.5 py-1 rounded-md transition bg-slate-700 text-white font-medium cursor-pointer">Alle</button>
+              <button onclick="setCategoryFilter('Crypto')" id="filter-cat-Crypto" class="filter-cat-btn px-2.5 py-1 rounded-md transition text-slate-400 hover:text-white hover:bg-slate-800 font-medium cursor-pointer">Crypto</button>
+              <button onclick="setCategoryFilter('Stock')" id="filter-cat-Stock" class="filter-cat-btn px-2.5 py-1 rounded-md transition text-slate-400 hover:text-white hover:bg-slate-800 font-medium cursor-pointer">Aktien</button>
+              <button onclick="setCategoryFilter('Commodity')" id="filter-cat-Commodity" class="filter-cat-btn px-2.5 py-1 rounded-md transition text-slate-400 hover:text-white hover:bg-slate-800 font-medium cursor-pointer">Rohstoffe</button>
+              <button onclick="setCategoryFilter('Macro')" id="filter-cat-Macro" class="filter-cat-btn px-2.5 py-1 rounded-md transition text-slate-400 hover:text-white hover:bg-slate-800 font-medium cursor-pointer">Makro/Indizes</button>
             </div>
 
-            <!-- View Toggle (Grid vs Table) -->
-            <div class="flex items-center bg-slate-950 p-1 rounded-lg border border-slate-800">
-              <button onclick="setViewMode('grid')" id="view-grid-btn" class="px-2 py-1 rounded text-xs font-semibold bg-indigo-600 text-white cursor-pointer">Cards</button>
-              <button onclick="setViewMode('table')" id="view-table-btn" class="px-2 py-1 rounded text-xs font-semibold text-slate-400 hover:text-white cursor-pointer">Tabelle</button>
+            <!-- Sort & View Controls -->
+            <div class="flex items-center gap-3">
+              <div class="flex items-center gap-2">
+                <span class="text-xs text-slate-400">Sortierung:</span>
+                <select id="sort-select" onchange="applyFilters()" class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700/80 text-xs text-white focus:outline-none focus:border-indigo-500">
+                  <option value="score_desc">Höchster Score</option>
+                  <option value="crv_desc">Höchstes CRV</option>
+                  <option value="rsi_asc">RSI Überverkauft (Low)</option>
+                  <option value="rsi_desc">RSI Überkauft (High)</option>
+                  <option value="name_asc">Name (A-Z)</option>
+                </select>
+              </div>
+
+              <!-- View Toggle (Grid vs Table) -->
+              <div class="flex items-center bg-slate-950 p-1 rounded-lg border border-slate-800">
+                <button onclick="setViewMode('grid')" id="view-grid-btn" class="px-2 py-1 rounded text-xs font-semibold bg-indigo-600 text-white cursor-pointer">Cards</button>
+                <button onclick="setViewMode('table')" id="view-table-btn" class="px-2 py-1 rounded text-xs font-semibold text-slate-400 hover:text-white cursor-pointer">Tabelle</button>
+              </div>
             </div>
+
           </div>
-
         </div>
       </div>
 
@@ -1850,24 +1896,31 @@ html_content = f"""<!DOCTYPE html>
       </div>
 
       <!-- Admin Sub-Category Navigation Bar -->
-      <div class="p-1.5 sm:p-2 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-lg flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-        <button id="admin-cat-btn-all" onclick="switchAdminCategory('all')" class="admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 cursor-pointer">
-          <span>📋</span> <span>Alle Bereiche</span>
-        </button>
-        <button id="admin-cat-btn-system" onclick="switchAdminCategory('system')" class="admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer">
-          <span>🏥</span> <span>System & Diagnose</span>
-          <span class="ml-1 px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">OK</span>
-        </button>
-        <button id="admin-cat-btn-quota" onclick="switchAdminCategory('quota')" class="admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer">
-          <span>🔑</span> <span>KI-Routing & Quotas</span>
-          <span class="ml-1 px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30">Pro & 4 Keys</span>
-        </button>
-        <button id="admin-cat-btn-trading" onclick="switchAdminCategory('trading')" class="admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer">
-          <span>🧪</span> <span>KI-Labs & Portfolio</span>
-          <span class="ml-1 px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">3 Labs & Deep-Dive</span>
-        </button>
-        <button id="admin-cat-btn-users" onclick="switchAdminCategory('users')" class="admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer">
-          <span>👥</span> <span>Benutzerverwaltung</span>
+      <div class="p-1.5 sm:p-2 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-lg flex items-center justify-between gap-2 overflow-x-auto no-scrollbar">
+        <div class="flex items-center gap-1.5 shrink-0">
+          <button id="admin-cat-btn-all" onclick="switchAdminCategory('all')" class="admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 cursor-pointer">
+            <span>📋</span> <span>Alle Bereiche</span>
+          </button>
+          <button id="admin-cat-btn-system" onclick="switchAdminCategory('system')" class="admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer">
+            <span>🏥</span> <span>System & Diagnose</span>
+            <span class="ml-1 px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">OK</span>
+          </button>
+          <button id="admin-cat-btn-quota" onclick="switchAdminCategory('quota')" class="admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer">
+            <span>🔑</span> <span>KI-Routing & Quotas</span>
+            <span class="ml-1 px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30">Pro & 4 Keys</span>
+          </button>
+          <button id="admin-cat-btn-trading" onclick="switchAdminCategory('trading')" class="admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer">
+            <span>🧪</span> <span>KI-Labs & Portfolio</span>
+            <span class="ml-1 px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">3 Labs</span>
+          </button>
+          <button id="admin-cat-btn-users" onclick="switchAdminCategory('users')" class="admin-cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 border border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer">
+            <span>👥</span> <span>Benutzer</span>
+          </button>
+        </div>
+
+        <!-- Global Expand/Collapse Button -->
+        <button onclick="toggleAllAdminAccordions()" id="admin-toggle-all-btn" class="px-3 py-1.5 rounded-xl border border-slate-700/80 bg-slate-950/80 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-mono font-semibold transition shrink-0 flex items-center gap-1.5 cursor-pointer ml-auto" title="Alle Module der Admin-Zentrale auf- oder zuklappen">
+          <span id="admin-toggle-all-icon">⤢</span> <span id="admin-toggle-all-text">Alle zuklappen</span>
         </button>
       </div>
 
@@ -1882,99 +1935,113 @@ html_content = f"""<!DOCTYPE html>
 
       <!-- Card 2: Google Gemini API-Key Pool (Stufe 2 Failover-Reserve) -->
       <section class="admin-group-quota rounded-2xl bg-gradient-to-br from-slate-900/95 via-[#0d1322] to-slate-900 border border-indigo-500/30 p-5 shadow-xl space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800">
+        <div onclick="toggleAccordion('admin-acc-quota')" class="cursor-pointer flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800 select-none group">
           <div class="flex items-center gap-2.5">
             <span class="text-xl">🔑</span>
             <div>
-              <div class="flex items-center gap-2">
-                <h3 class="font-bold text-white text-base">Google Gemini API-Key Quota Pool</h3>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="font-bold text-white text-base group-hover:text-indigo-300 transition">Google Gemini API-Key Quota Pool</h3>
                 <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">STUFE 2: FAILOVER-RESERVE (4x KEYS)</span>
               </div>
               <p class="text-xs text-slate-400">Automatischer Failover-Pool: 4x Keys à 20 Req = 80 Req/Tag frei (mit 3.5 Not-Fallback)</p>
             </div>
           </div>
-          <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 self-start sm:self-auto">
-            Modell: gemini-3.8-flash High
-          </span>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
-          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">Gesamt-Verbrauch</span>
-            <span class="font-bold text-base {quota_num_class}">{quota_used} / {quota_limit} Requests</span>
-            <span class="block text-[10px] text-slate-500 mt-0.5">{quota_pct}% des Tageslimits</span>
-          </div>
-          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">Verbleibend</span>
-            <span class="font-bold text-base text-emerald-400">{quota_remaining} Requests</span>
-            <span class="block text-[10px] text-slate-500 mt-0.5">{active_keys_count} von {total_keys_count} Keys aktiv</span>
-          </div>
-          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">Tages-Reset</span>
-            <span class="font-bold text-base text-indigo-300">{quota_countdown}</span>
-            <span class="block text-[10px] text-slate-500 mt-0.5">00:00 UTC</span>
+          <div class="flex items-center gap-3 self-start sm:self-auto">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+              Modell: gemini-3.8-flash High
+            </span>
+            <span id="admin-acc-quota-arrow" class="text-xs font-mono text-slate-400 group-hover:text-white transition">▼</span>
           </div>
         </div>
 
-        <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
-          <div class="h-2 rounded-full {quota_bar_color}" style="width: {min(100.0, quota_pct)}%"></div>
-        </div>
+        <div id="admin-acc-quota-body" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-[10px] text-slate-400 block uppercase">Gesamt-Verbrauch</span>
+              <span class="font-bold text-base {quota_num_class}">{quota_used} / {quota_limit} Requests</span>
+              <span class="block text-[10px] text-slate-500 mt-0.5">{quota_pct}% des Tageslimits</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-[10px] text-slate-400 block uppercase">Verbleibend</span>
+              <span class="font-bold text-base text-emerald-400">{quota_remaining} Requests</span>
+              <span class="block text-[10px] text-slate-500 mt-0.5">{active_keys_count} von {total_keys_count} Keys aktiv</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-[10px] text-slate-400 block uppercase">Tages-Reset</span>
+              <span class="font-bold text-base text-indigo-300">{quota_countdown}</span>
+              <span class="block text-[10px] text-slate-500 mt-0.5">00:00 UTC</span>
+            </div>
+          </div>
 
-        <!-- Einzel-Keys Breakdown Grid -->
-        <div class="space-y-2 pt-2">
-          <span class="text-xs font-bold text-slate-300 uppercase tracking-wider block">Einzel-Key Status & Kontingente:</span>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {keys_cards_html}
+          <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+            <div class="h-2 rounded-full {quota_bar_color}" style="width: {min(100.0, quota_pct)}%"></div>
+          </div>
+
+          <!-- Einzel-Keys Breakdown Grid -->
+          <div class="space-y-2 pt-2">
+            <span class="text-xs font-bold text-slate-300 uppercase tracking-wider block">Einzel-Key Status & Kontingente:</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {keys_cards_html}
+            </div>
           </div>
         </div>
       </section>
 
       <!-- Card B: Autonomes KI High-Conviction Modell-Portfolio & Gedächtnis -->
-      <section id="portfolio-section" class="admin-group-trading rounded-2xl bg-gradient-to-br from-slate-900/95 via-emerald-950/20 to-slate-900 border border-emerald-500/30 p-5 shadow-xl space-y-5">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3.5">
+      <section id="portfolio-section" class="admin-group-trading rounded-2xl bg-gradient-to-br from-slate-900/95 via-emerald-950/20 to-slate-900 border border-emerald-500/30 p-5 shadow-xl space-y-4">
+        <div onclick="toggleAccordion('admin-acc-portfolio')" class="cursor-pointer flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3.5 select-none group">
           <div>
-            <div class="flex items-center gap-2">
-              <h2 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+            <div class="flex items-center gap-2 flex-wrap">
+              <h2 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2 group-hover:text-emerald-300 transition">
                 <span>🏛️ KI High-Conviction Modell-Portfolio</span>
               </h2>
               <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                 Autonom & Lernend
               </span>
+              <span id="port-header-summary" class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-slate-800 text-slate-300 border border-slate-700/60"></span>
             </div>
             <p class="text-xs text-slate-400 mt-0.5">Nur sicherste Setups (Score ≥ 88%) &bull; Identischer Einheitsbetrag (1.000 €) für relative Performance &bull; Hebel (max 10x) durch KI &bull; Permanenter Erfahrungsspeicher</p>
           </div>
 
-          <!-- Portfolio Performance KPIs mit gleitenden Zeitfenstern -->
-          <div class="flex flex-col sm:items-end gap-1.5">
-            <!-- Rolling Window Filter Pills -->
-            <div class="flex items-center gap-1 bg-slate-950/80 p-1 rounded-xl border border-slate-800 text-[10px] font-mono">
-              <span class="text-slate-500 px-1.5 hidden md:inline">Fenster:</span>
-              <button onclick="setPortfolioWindow('all')" id="port-win-btn-all" class="px-2 py-0.5 rounded-lg bg-emerald-600 text-white font-bold transition">All-Time</button>
-              <button onclick="setPortfolioWindow(20)" id="port-win-btn-20" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L20</button>
-              <button onclick="setPortfolioWindow(10)" id="port-win-btn-10" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L10</button>
-              <button onclick="setPortfolioWindow(5)" id="port-win-btn-5" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L5</button>
-            </div>
+          <div class="flex items-center gap-3 self-start sm:self-auto">
+            <span id="admin-acc-portfolio-arrow" class="text-xs font-mono text-slate-400 group-hover:text-white transition">▼</span>
+          </div>
+        </div>
 
-            <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
-              <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
-                <div class="flex items-center justify-between gap-1.5">
-                  <span class="text-[10px] text-slate-400 block uppercase" id="port-metric-winrate-label">Win-Rate</span>
-                  <span id="port-metric-trend" class="text-[9px] px-1 py-0.2 rounded font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hidden">▲ +0%</span>
+        <div id="admin-acc-portfolio-body" class="space-y-5">
+          <!-- Portfolio Performance KPIs mit gleitenden Zeitfenstern -->
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-slate-950/50 p-3.5 rounded-xl border border-slate-800/80">
+            <span class="text-xs font-bold text-slate-300">Portfolio Performance:</span>
+            <div class="flex flex-col sm:items-end gap-1.5">
+              <!-- Rolling Window Filter Pills -->
+              <div class="flex items-center gap-1 bg-slate-950/80 p-1 rounded-xl border border-slate-800 text-[10px] font-mono">
+                <span class="text-slate-500 px-1.5 hidden md:inline">Fenster:</span>
+                <button onclick="setPortfolioWindow('all')" id="port-win-btn-all" class="px-2 py-0.5 rounded-lg bg-emerald-600 text-white font-bold transition">All-Time</button>
+                <button onclick="setPortfolioWindow(20)" id="port-win-btn-20" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L20</button>
+                <button onclick="setPortfolioWindow(10)" id="port-win-btn-10" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L10</button>
+                <button onclick="setPortfolioWindow(5)" id="port-win-btn-5" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L5</button>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
+                  <div class="flex items-center justify-between gap-1.5">
+                    <span class="text-[10px] text-slate-400 block uppercase" id="port-metric-winrate-label">Win-Rate</span>
+                    <span id="port-metric-trend" class="text-[9px] px-1 py-0.2 rounded font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hidden">▲ +0%</span>
+                  </div>
+                  <span class="font-bold text-sm text-indigo-300" id="port-metric-winrate">0.0%</span>
                 </div>
-                <span class="font-bold text-sm text-indigo-300" id="port-metric-winrate">0.0%</span>
-              </div>
-              <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
-                <span class="text-[10px] text-slate-400 block uppercase">Gehebelt</span>
-                <span class="font-bold text-sm text-emerald-400" id="port-metric-lev-pnl">+0.0%</span>
-              </div>
-              <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
-                <span class="text-[10px] text-slate-400 block uppercase">Basis (1x)</span>
-                <span class="font-bold text-sm text-white" id="port-metric-raw-pnl">+0.0%</span>
+                <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
+                  <span class="text-[10px] text-slate-400 block uppercase">Gehebelt</span>
+                  <span class="font-bold text-sm text-emerald-400" id="port-metric-lev-pnl">+0.0%</span>
+                </div>
+                <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
+                  <span class="text-[10px] text-slate-400 block uppercase">Basis (1x)</span>
+                  <span class="font-bold text-sm text-white" id="port-metric-raw-pnl">+0.0%</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
         <!-- Aktive Trades des KI-Portfolios -->
         <div>
@@ -2091,55 +2158,65 @@ html_content = f"""<!DOCTYPE html>
             </div>
           </div>
         </div>
+      </div>
       </section>
 
       <!-- Card Incubator: AI Paper-Trading Incubator & Rapid Post-Mortem Lab (5m / 15m / 30m Micro-Trading) -->
-      <section id="incubator-section" class="admin-group-trading rounded-2xl bg-gradient-to-br from-slate-900/95 via-purple-950/20 to-slate-900 border border-purple-500/30 p-5 shadow-xl space-y-5">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3.5">
+      <section id="incubator-section" class="admin-group-trading rounded-2xl bg-gradient-to-br from-slate-900/95 via-purple-950/20 to-slate-900 border border-purple-500/30 p-5 shadow-xl space-y-4">
+        <div onclick="toggleAccordion('admin-acc-incubator')" class="cursor-pointer flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3.5 select-none group">
           <div>
-            <div class="flex items-center gap-2">
-              <h2 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+            <div class="flex items-center gap-2 flex-wrap">
+              <h2 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2 group-hover:text-purple-300 transition">
                 <span>🧪 AI Paper-Trading Incubator & Post-Mortem Lab</span>
               </h2>
               <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center gap-1">
                 <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
                 16-Asset Matrix (5m / 15m)
               </span>
+              <span id="inc-header-summary" class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-slate-800 text-slate-300 border border-slate-700/60"></span>
             </div>
-            <p class="text-xs text-slate-400 mt-0.5">Schnelle KI-Lernschleife auf 5m & 15m &bull; 24/7 Krypto (Binance REST) + Deutsche Börsen 08:00–22:00 MEZ (Börse Frankfurt & XETRA) &bull; 0 € API-Kosten &bull; Transferiert Lehren auf 4h/1D Setups</p>
+            <p class="text-xs text-slate-400 mt-0.5">Schnelle KI-Lernschleife auf 5m & 15m &bull; 24/7 Krypto (Binance REST) + Deutsche Börsen 08:00–22:00 MEZ &bull; 0 € API-Kosten &bull; Transferiert Lehren auf 4h/1D Setups</p>
           </div>
 
-          <!-- Incubator Performance KPIs mit gleitenden Zeitfenstern -->
-          <div class="flex flex-col sm:items-end gap-1.5">
-            <!-- Rolling Window Filter Pills -->
-            <div class="flex items-center gap-1 bg-slate-950/80 p-1 rounded-xl border border-slate-800 text-[10px] font-mono">
-              <span class="text-slate-500 px-1.5 hidden md:inline">Fenster:</span>
-              <button onclick="setIncubatorWindow('all')" id="inc-win-btn-all" class="px-2 py-0.5 rounded-lg bg-purple-600 text-white font-bold transition">All-Time</button>
-              <button onclick="setIncubatorWindow(50)" id="inc-win-btn-50" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L50</button>
-              <button onclick="setIncubatorWindow(20)" id="inc-win-btn-20" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L20</button>
-              <button onclick="setIncubatorWindow(10)" id="inc-win-btn-10" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L10</button>
-              <button onclick="setIncubatorWindow(5)" id="inc-win-btn-5" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L5</button>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
-              <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
-                <div class="flex items-center justify-between gap-1.5">
-                  <span class="text-[10px] text-slate-400 block uppercase" id="inc-metric-winrate-label">Win-Rate</span>
-                  <span id="inc-metric-trend" class="text-[9px] px-1 py-0.2 rounded font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hidden">▲ +0%</span>
-                </div>
-                <span class="font-bold text-sm text-purple-300" id="inc-metric-winrate">0.0%</span>
-              </div>
-              <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
-                <span class="text-[10px] text-slate-400 block uppercase">Total R-Profit</span>
-                <span class="font-bold text-sm text-white" id="inc-metric-total-r">+0.0R</span>
-              </div>
-              <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
-                <span class="text-[10px] text-slate-400 block uppercase">Trades Basis</span>
-                <span class="font-bold text-sm text-indigo-300" id="inc-metric-total-count">0</span>
-              </div>
-            </div>
+          <div class="flex items-center gap-3 self-start sm:self-auto">
+            <span id="admin-acc-incubator-arrow" class="text-xs font-mono text-slate-400 group-hover:text-white transition">▼</span>
           </div>
         </div>
+
+        <div id="admin-acc-incubator-body" class="space-y-5">
+          <!-- Incubator Performance KPIs mit gleitenden Zeitfenstern -->
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-slate-950/50 p-3.5 rounded-xl border border-slate-800/80">
+            <span class="text-xs font-bold text-slate-300">Incubator Performance:</span>
+            <div class="flex flex-col sm:items-end gap-1.5">
+              <!-- Rolling Window Filter Pills -->
+              <div class="flex items-center gap-1 bg-slate-950/80 p-1 rounded-xl border border-slate-800 text-[10px] font-mono">
+                <span class="text-slate-500 px-1.5 hidden md:inline">Fenster:</span>
+                <button onclick="setIncubatorWindow('all')" id="inc-win-btn-all" class="px-2 py-0.5 rounded-lg bg-purple-600 text-white font-bold transition">All-Time</button>
+                <button onclick="setIncubatorWindow(50)" id="inc-win-btn-50" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L50</button>
+                <button onclick="setIncubatorWindow(20)" id="inc-win-btn-20" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L20</button>
+                <button onclick="setIncubatorWindow(10)" id="inc-win-btn-10" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L10</button>
+                <button onclick="setIncubatorWindow(5)" id="inc-win-btn-5" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">L5</button>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
+                  <div class="flex items-center justify-between gap-1.5">
+                    <span class="text-[10px] text-slate-400 block uppercase" id="inc-metric-winrate-label">Win-Rate</span>
+                    <span id="inc-metric-trend" class="text-[9px] px-1 py-0.2 rounded font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hidden">▲ +0%</span>
+                  </div>
+                  <span class="font-bold text-sm text-purple-300" id="inc-metric-winrate">0.0%</span>
+                </div>
+                <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
+                  <span class="text-[10px] text-slate-400 block uppercase">Total R-Profit</span>
+                  <span class="font-bold text-sm text-white" id="inc-metric-total-r">+0.0R</span>
+                </div>
+                <div class="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800">
+                  <span class="text-[10px] text-slate-400 block uppercase">Trades Basis</span>
+                  <span class="font-bold text-sm text-indigo-300" id="inc-metric-total-count">0</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
         <!-- Heutige Fokus-Assets & Börsen-Status Banner -->
         <div class="p-3.5 rounded-xl bg-purple-950/30 border border-purple-500/20 space-y-2 text-xs font-mono">
@@ -2272,17 +2349,18 @@ html_content = f"""<!DOCTYPE html>
             </div>
           </div>
         </div>
+      </div>
       </section>
 
       <!-- Card: Indikator Predictive Power Labor (Historischer Deep-Dive) -->
-      <section id="indicator-deepdive-section" class="admin-group-trading rounded-2xl bg-gradient-to-br from-slate-900/95 via-indigo-950/20 to-slate-900 border border-indigo-500/30 p-5 shadow-xl space-y-5">
+      <section id="indicator-deepdive-section" class="admin-group-trading rounded-2xl bg-gradient-to-br from-slate-900/95 via-indigo-950/20 to-slate-900 border border-indigo-500/30 p-5 shadow-xl space-y-4">
         
         <!-- Header -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3.5">
+        <div onclick="toggleAccordion('admin-acc-deepdive')" class="cursor-pointer flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3.5 select-none group">
           <div>
-            <div class="flex items-center gap-2">
-              <h2 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
-                <span>🔬</span> Indikator Predictive Power Labor
+            <div class="flex items-center gap-2 flex-wrap">
+              <h2 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2 group-hover:text-indigo-300 transition">
+                <span>🔬 Indikator Predictive Power Labor</span>
               </h2>
               <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
                 <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse inline-block mr-1"></span>
@@ -2292,12 +2370,15 @@ html_content = f"""<!DOCTYPE html>
             <p class="text-xs text-slate-400 mt-0.5">Empirische Vorhersagekraft aller degencoder-, SMC-, VSA- & Konfluenz-Indikatoren auf Basis von 80.150 Signal-Events (61.595 Kerzen, 1h / 4h / 1D)</p>
           </div>
 
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-3 self-start sm:self-auto">
             <span class="px-2.5 py-1 rounded-full text-[10px] font-mono bg-slate-800 text-slate-300 border border-slate-700/60" id="deepdive-metadata-badge">
               Stand: 80.150 Signale kalibriert &bull; 100% Point-in-Time
             </span>
+            <span id="admin-acc-deepdive-arrow" class="text-xs font-mono text-slate-400 group-hover:text-white transition">▼</span>
           </div>
         </div>
+
+        <div id="admin-acc-deepdive-body" class="space-y-5">
 
         <!-- 4 KPI High-Impact Tiles -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs font-mono">
@@ -2397,64 +2478,80 @@ html_content = f"""<!DOCTYPE html>
         <div id="indicator-deepdive-container" class="space-y-3">
           <!-- Dynamisch via JS gerendert -->
         </div>
+      </div>
 
       </section>
 
       <!-- Card C: Autorisierte Benutzer & Rollenverwaltung -->
       <section class="admin-group-users rounded-2xl bg-gradient-to-br from-slate-900/95 via-[#0d1322] to-slate-900 border border-slate-800 p-5 shadow-xl space-y-4">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div onclick="toggleAccordion('admin-acc-users')" class="cursor-pointer flex items-center justify-between pb-3 border-b border-slate-800 select-none group">
           <div class="flex items-center gap-2.5">
             <span class="text-xl">👥</span>
             <div>
-              <h3 class="font-bold text-white text-base">Autorisierte Benutzer & Rollen</h3>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="font-bold text-white text-base group-hover:text-slate-200 transition">Autorisierte Benutzer & Rollen</h3>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-800 text-slate-300 border border-slate-700/60" id="admin-users-count-badge">4 Benutzer</span>
+              </div>
               <p class="text-xs text-slate-400">Verwaltet über Telegram-Bot (@aitradeanalystbot) und telegram_config.json</p>
             </div>
           </div>
-          <span class="px-2.5 py-1 rounded-full text-[10px] font-mono bg-slate-800 text-slate-300">
-            Gesichert durch Pi
-          </span>
+          <div class="flex items-center gap-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono bg-slate-800 text-slate-300 hidden sm:inline">
+              Gesichert durch Pi
+            </span>
+            <span id="admin-acc-users-arrow" class="text-xs font-mono text-slate-400 group-hover:text-white transition">▼</span>
+          </div>
         </div>
 
-        <div id="admin-users-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <!-- Dynamisch via JS gefüllt -->
+        <div id="admin-acc-users-body" class="space-y-4">
+          <div id="admin-users-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <!-- Dynamisch via JS gefüllt -->
+          </div>
         </div>
       </section>
 
       <!-- Card D: Raspberry Pi 24/7 Engine Status -->
       <section class="admin-group-system rounded-2xl bg-gradient-to-br from-slate-900/95 via-[#0d1322] to-slate-900 border border-slate-800 p-5 shadow-xl space-y-4">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div onclick="toggleAccordion('admin-acc-pi')" class="cursor-pointer flex items-center justify-between pb-3 border-b border-slate-800 select-none group">
           <div class="flex items-center gap-2.5">
             <span class="text-xl">🍓</span>
             <div>
-              <h3 class="font-bold text-white text-base">Raspberry Pi 24/7 Engine Status</h3>
-              <p class="text-xs text-slate-400">Autonomer Scan- und Überwachungs-Daemon</p>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="font-bold text-white text-base group-hover:text-slate-200 transition">Raspberry Pi 24/7 Engine Status</h3>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  ● 24/7 System Online
+                </span>
+              </div>
+              <p class="text-xs text-slate-400">Autonomer Scan- und Überwachungs-Daemon &bull; Cron-Jobs & Live-Monitoring</p>
             </div>
           </div>
-          <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-            ● 24/7 System Online
-          </span>
+          <div class="flex items-center gap-3">
+            <span id="admin-acc-pi-arrow" class="text-xs font-mono text-slate-400 group-hover:text-white transition">▼</span>
+          </div>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
-          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">Scan-Intervall</span>
-            <span class="font-bold text-white block mt-0.5">Dynamisch / Stündlich</span>
-            <span class="text-[10px] text-indigo-300">Market Gatekeeper</span>
-          </div>
-          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">TradingView MCP</span>
-            <span class="font-bold text-white block mt-0.5">Bridge Aktiv</span>
-            <span class="text-[10px] text-emerald-400">Live Kerzen 4h/8h/1D</span>
-          </div>
-          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">Telegram Bot</span>
-            <span class="font-bold text-white block mt-0.5">Service Active</span>
-            <span class="text-[10px] text-emerald-400">Systemd Daemon</span>
-          </div>
-          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block uppercase">Auto-Deploy</span>
-            <span class="font-bold text-white block mt-0.5">GitHub Pages</span>
-            <span class="text-[10px] text-cyan-400">bbbdc.github.io</span>
+        <div id="admin-acc-pi-body" class="space-y-4">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-[10px] text-slate-400 block uppercase">Scan-Intervall</span>
+              <span class="font-bold text-white block mt-0.5">Dynamisch / Stündlich</span>
+              <span class="text-[10px] text-indigo-300">Market Gatekeeper</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-[10px] text-slate-400 block uppercase">TradingView MCP</span>
+              <span class="font-bold text-white block mt-0.5">Bridge Aktiv</span>
+              <span class="text-[10px] text-emerald-400">Live Kerzen 4h/8h/1D</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-[10px] text-slate-400 block uppercase">Telegram Bot</span>
+              <span class="font-bold text-white block mt-0.5">Service Active</span>
+              <span class="text-[10px] text-emerald-400">Systemd Daemon</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-[10px] text-slate-400 block uppercase">Auto-Deploy</span>
+              <span class="font-bold text-white block mt-0.5">GitHub Pages</span>
+              <span class="text-[10px] text-cyan-400">bbbdc.github.io</span>
+            </div>
           </div>
         </div>
       </section>
@@ -2866,6 +2963,7 @@ html_content = f"""<!DOCTYPE html>
         countEl.innerText = `Zeige ${{filteredAssets.length}} von ${{currentData.assets.length}} Setups`;
       }}
       renderAssets();
+      updateScannerMobileFilterBadge();
     }}
 
     function formatNumber(num) {{
@@ -4166,6 +4264,8 @@ html_content = f"""<!DOCTYPE html>
 
       const cntElem = document.getElementById('port-active-count');
       if (cntElem) cntElem.textContent = activeTrades.length;
+      const portHeadSum = document.getElementById('port-header-summary');
+      if (portHeadSum) portHeadSum.textContent = `${{activeTrades.length}} aktiv · ${{closedTrades.length}} abgeschlossen`;
 
       // Active Trades Cards
       const activeContainer = document.getElementById('portfolio-active-trades');
@@ -4523,6 +4623,8 @@ html_content = f"""<!DOCTYPE html>
 
       const actCnt = document.getElementById('inc-active-count');
       if (actCnt) actCnt.textContent = activeTrades.length;
+      const incHeadSum = document.getElementById('inc-header-summary');
+      if (incHeadSum) incHeadSum.textContent = `${{activeTrades.length}} aktiv · ${{closedTrades.length}} abgeschlossen`;
 
       const focList = document.getElementById('inc-focus-assets-list');
       if (focList) {{
@@ -5101,6 +5203,180 @@ html_content = f"""<!DOCTYPE html>
       }} catch (e) {{}}
     }}
 
+    // ==========================================
+    // 📂 Modulares Accordion-System (Admin & Scanner)
+    // ==========================================
+    const ALL_ADMIN_ACCORDIONS = [
+      'admin-acc-health',
+      'admin-acc-routing',
+      'admin-acc-pro',
+      'admin-acc-quota',
+      'admin-acc-portfolio',
+      'admin-acc-incubator',
+      'admin-acc-deepdive',
+      'admin-acc-users',
+      'admin-acc-pi'
+    ];
+
+    function toggleAccordion(id) {{
+      const body = document.getElementById(id + '-body');
+      const arrow = document.getElementById(id + '-arrow');
+      if (!body) return;
+      const isNowHidden = !body.classList.contains('hidden');
+      if (isNowHidden) {{
+        body.classList.add('hidden');
+        if (arrow) arrow.textContent = '▶';
+      }} else {{
+        body.classList.remove('hidden');
+        if (arrow) arrow.textContent = '▼';
+      }}
+      try {{
+        sessionStorage.setItem('accordion_' + id, isNowHidden ? 'closed' : 'open');
+      }} catch(e) {{}}
+      updateToggleAllBtn();
+    }}
+
+    function toggleAllAdminAccordions() {{
+      const anyOpen = ALL_ADMIN_ACCORDIONS.some(id => {{
+        const b = document.getElementById(id + '-body');
+        return b && !b.classList.contains('hidden');
+      }});
+      const targetState = anyOpen ? 'closed' : 'open';
+      ALL_ADMIN_ACCORDIONS.forEach(id => {{
+        const b = document.getElementById(id + '-body');
+        const a = document.getElementById(id + '-arrow');
+        if (!b) return;
+        if (targetState === 'closed') {{
+          b.classList.add('hidden');
+          if (a) a.textContent = '▶';
+        }} else {{
+          b.classList.remove('hidden');
+          if (a) a.textContent = '▼';
+        }}
+        try {{
+          sessionStorage.setItem('accordion_' + id, targetState);
+        }} catch(e) {{}}
+      }});
+      updateToggleAllBtn();
+    }}
+
+    function updateToggleAllBtn() {{
+      const btnText = document.getElementById('admin-toggle-all-text');
+      const btnIcon = document.getElementById('admin-toggle-all-icon');
+      if (!btnText) return;
+      const anyOpen = ALL_ADMIN_ACCORDIONS.some(id => {{
+        const b = document.getElementById(id + '-body');
+        return b && !b.classList.contains('hidden');
+      }});
+      btnText.textContent = anyOpen ? 'Alle zuklappen' : 'Alle aufklappen';
+      if (btnIcon) btnIcon.textContent = anyOpen ? '⤡' : '⤢';
+    }}
+
+    function initAccordionsFromStorage() {{
+      ALL_ADMIN_ACCORDIONS.forEach(id => {{
+        try {{
+          const state = sessionStorage.getItem('accordion_' + id);
+          const b = document.getElementById(id + '-body');
+          const a = document.getElementById(id + '-arrow');
+          if (state === 'closed' && b) {{
+            b.classList.add('hidden');
+            if (a) a.textContent = '▶';
+          }} else if (state === 'open' && b) {{
+            b.classList.remove('hidden');
+            if (a) a.textContent = '▼';
+          }}
+        }} catch(e) {{}}
+      }});
+      updateToggleAllBtn();
+
+      // Top-Setups guide state
+      try {{
+        const guideState = sessionStorage.getItem('accordion_topsetups-guide');
+        const gb = document.getElementById('topsetups-guide-body');
+        const ga = document.getElementById('topsetups-guide-arrow');
+        if (guideState === 'closed' && gb) {{
+          gb.classList.add('hidden');
+          if (ga) ga.textContent = '▶';
+        }} else if (guideState === 'open' && gb) {{
+          gb.classList.remove('hidden');
+          if (ga) ga.textContent = '▼';
+        }}
+      }} catch(e) {{}}
+    }}
+
+    function toggleTopSetupsGuide() {{
+      const body = document.getElementById('topsetups-guide-body');
+      const arrow = document.getElementById('topsetups-guide-arrow');
+      if (!body) return;
+      const isNowHidden = !body.classList.contains('hidden');
+      if (isNowHidden) {{
+        body.classList.add('hidden');
+        if (arrow) arrow.textContent = '▶';
+      }} else {{
+        body.classList.remove('hidden');
+        if (arrow) arrow.textContent = '▼';
+      }}
+      try {{
+        sessionStorage.setItem('accordion_topsetups-guide', isNowHidden ? 'closed' : 'open');
+      }} catch(e) {{}}
+    }}
+
+    function toggleScannerFilters() {{
+      const body = document.getElementById('scanner-filters-body');
+      const arrow = document.getElementById('scanner-filters-arrow');
+      if (!body) return;
+      const isCollapsed = body.classList.contains('mobile-filters-collapsed');
+      if (isCollapsed) {{
+        body.classList.remove('mobile-filters-collapsed');
+        if (arrow) arrow.textContent = '▲';
+      }} else {{
+        body.classList.add('mobile-filters-collapsed');
+        if (arrow) arrow.textContent = '▼';
+      }}
+      try {{
+        sessionStorage.setItem('scanner_filters_mobile', isCollapsed ? 'open' : 'closed');
+      }} catch(e) {{}}
+    }}
+
+    function initScannerMobileFilters() {{
+      try {{
+        const sfMobile = sessionStorage.getItem('scanner_filters_mobile');
+        const body = document.getElementById('scanner-filters-body');
+        const arrow = document.getElementById('scanner-filters-arrow');
+        if (sfMobile === 'open' && body) {{
+          body.classList.remove('mobile-filters-collapsed');
+          if (arrow) arrow.textContent = '▲';
+        }} else if (sfMobile === 'closed' && body) {{
+          body.classList.add('mobile-filters-collapsed');
+          if (arrow) arrow.textContent = '▼';
+        }}
+      }} catch(e) {{}}
+      updateScannerMobileFilterBadge();
+    }}
+
+    function updateScannerMobileFilterBadge() {{
+      const badge = document.getElementById('scanner-active-filter-badge');
+      if (!badge) return;
+      const parts = [];
+      if (typeof activeCategory !== 'undefined' && activeCategory && activeCategory !== 'ALL') {{
+        parts.push(activeCategory);
+      }}
+      if (typeof activeWatchlist !== 'undefined' && activeWatchlist && activeWatchlist !== 'ALL') {{
+        parts.push('TV: ' + (activeWatchlist.length > 12 ? activeWatchlist.substring(0, 10) + '..' : activeWatchlist));
+      }}
+      const sortEl = document.getElementById('sort-select');
+      if (sortEl && sortEl.value && sortEl.value !== 'score_desc') {{
+        parts.push('Sortiert');
+      }}
+      if (parts.length > 0) {{
+        badge.textContent = parts.join(' · ');
+        badge.className = 'px-2 py-0.5 rounded text-[10px] font-mono bg-indigo-500/30 text-indigo-200 border border-indigo-500/40 font-bold';
+      }} else {{
+        badge.textContent = 'Alle Optionen';
+        badge.className = 'px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-400';
+      }}
+    }}
+
     function triggerSmartRefresh() {{
       const user = getAuthenticatedUser();
       const isAdmin = user && (user.role === 'admin' || checkUserRole(user) === 'admin');
@@ -5129,6 +5405,11 @@ html_content = f"""<!DOCTYPE html>
       const cfg = currentData.auth_config;
       const users = cfg.authorized_users || {{}};
       const admins = cfg.admin_usernames || ['Bdc_Gumb_Drop'];
+      const countBadge = document.getElementById('admin-users-count-badge');
+      if (countBadge) {{
+        const total = admins.length + Object.keys(users).length;
+        countBadge.textContent = `${{total}} Benutzer`;
+      }}
       let html = '';
 
       admins.forEach(adm => {{
@@ -6649,6 +6930,8 @@ html_content = f"""<!DOCTYPE html>
     renderIncubatorSection();
     renderIndicatorDeepdiveSection();
     renderUserPositions();
+    initAccordionsFromStorage();
+    initScannerMobileFilters();
     applyTheme(getThemeMode(), false);
 
     // Deep-Link aus Historie (?asset=SYMBOL oder ?symbol=SYMBOL)
