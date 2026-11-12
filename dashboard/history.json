@@ -1,5 +1,252 @@
 [
   {
+    "id": "evt_20261112_142919",
+    "timestamp": "2026-11-12T14:29:19.878304+00:00",
+    "timestamp_display": "12.11.2026 14:29 UTC",
+    "title": "🔔 TV-Signaländerung: 9 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 9,
+    "changes": [
+      {
+        "symbol": "AMEX:SPY",
+        "name": "SPY",
+        "category": "Aktien",
+        "change_type": "SCORE_JUMP",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 95,
+        "new_score": 88,
+        "price": 759.81,
+        "setup_name": "Hypothese 1: SMC Order Block Confluence",
+        "entry_range": [
+          759.0,
+          762.0
+        ],
+        "stop_loss": 769.5,
+        "take_profit_2": 725.0,
+        "reasons": [
+          "Übergeordneter 1D- und 4h-Trend sind klar bärisch unter der 233 EMA Struktur mit aktiver versteckter bärischer Divergenz auf 1D/4h.",
+          "1h 'Good Sell Signal' am bearischen Order Block (Midline 755.46 bereits mehrfach retestet, mitigated), RSI auf 1h mit 62.15 im erschöpften Bereich.",
+          "Attraktives CRV von >2.8:1 mit strukturellem Stop über dem OB-Top (768.68) und Ziel an der untersten Liquiditätszone."
+        ],
+        "change_reason": "Konfluenz-Veränderung: Score springt von 95% auf 88% (Übergeordneter 1D- und 4h-Trend sind klar bärisch unter der 233 EMA Struktur mit aktiver versteckter bärischer Divergenz auf 1D/4h.).",
+        "note": "SPY zeigt eine klassische Trendfortsetzung im bärischen Makro-Regime (1D/4h BEARISH). Trotz Gegenbewegungen auf 1h sticht die versteckte bärische Divergenz hervor. Der Einstieg erfolgt nahe der aktuellen Range bei Erschöpfung gegen den bearischen Order-Block.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...j2vQ]"
+      },
+      {
+        "symbol": "NASDAQ:GOOG",
+        "name": "Alphabet (Google)",
+        "category": "Big Tech",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 52,
+        "price": 290.63,
+        "setup_name": "Beobachten / Lauerstellung am Support",
+        "entry_range": [
+          284.63,
+          289.66
+        ],
+        "stop_loss": 280.0,
+        "take_profit_2": 305.0,
+        "reasons": [
+          "Asset befindet sich zwar in der 1D Buy Pocket, allerdings ist der 1D/1W Makro-Trend stark bärisch.",
+          "1h zeigt bereits wieder ein 'Sell Area' Signal bei gleichzeitig sehr geringem Handelsvolumen (Very Low Volume).",
+          "Sektor 'Big Tech' ist underperforming und erfordert einen Mindest-Score von 92% für eine Signalvergabe."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Asset befindet sich zwar in der 1D Buy Pocket, allerdings ist der 1D/1W Makro-Trend stark bärisch.).",
+        "note": "Alphabet befindet sich in einer 1D Buy Pocket, jedoch ist die Gesamtausrichtung auf 1W und 1D bärisch. Zudem fehlt eine Volumen-Absorptionsbestätigung bei sehr geringem Handelsvolumen. Aufgrund der Sektor-Leitregeln für Big Tech (Unterperformance im Portfolio) bleibt die Haltung strikt NEUTRAL, bis eine valide Bodenbildung mit Strukturwechsel erfolgt.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "NASDAQ:AVGO",
+        "name": "Broadcom",
+        "category": "Halbleiter",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 52,
+        "price": 345.22,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          0.0,
+          0.0
+        ],
+        "stop_loss": 0.0,
+        "take_profit_2": 0.0,
+        "reasons": [
+          "Widersprüchliche Signal-Lage auf 4h (Potential Buy Signal vs. Good Sell Signal), was auf starkes Marktrauschen hindeutet.",
+          "Der Sektor 'Halbleiter' unterliegt aktuell strikten Performance-Dämpfern (0% Win-Rate, Mindest-Score 88% gefordert).",
+          "1h zeigt ein 63.32 RSI mit regulärer bärischer Divergenz gegen den 1D-Bärenmarkt, aber die Konfluenz ist unvollständig."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Widersprüchliche Signal-Lage auf 4h (Potential Buy Signal vs. Good Sell Signal), was auf starkes Marktrauschen hindeutet.).",
+        "note": "Aufgrund historischer Underperformance im Halbleiter-Sektor und widersprüchlicher Indikatoren auf dem 4h-Chart greift hier das oberste Prinzip des Kapitalerhalts. Kein klares asymmetrisches Edge vorhanden. Wir bleiben an der Seitenlinie.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...j2vQ]"
+      },
+      {
+        "symbol": "NASDAQ:INTC",
+        "name": "Intel",
+        "category": "Halbleiter",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 92,
+        "new_score": 52,
+        "price": 62.5,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          0.0,
+          0.0
+        ],
+        "stop_loss": 0.0,
+        "take_profit_2": 0.0,
+        "reasons": [
+          "Makro-Struktur auf 1W (RSI 29.35) und 1D vollumfänglich bärisch.",
+          "Setup-Leitlinie 'SMC Order Block Confluence' performte historisch schwach und erfordert ein Mindest-Score von 88% sowie makellose 1D-Konfluenz.",
+          "1h Good Sell Signal kollidiert mit überproportional schwachem Volumen (Very Low Volume) ohne bestätigte Liquiditäts-Absorption."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Struktur auf 1W (RSI 29.35) und 1D vollumfänglich bärisch.).",
+        "note": "Der Sektor Halbleiter weist eine historische Win-Rate von 0% auf. Der aktiven Bearish OB (Grade B, R2) fehlt die strukturelle Sweep-Bestätigung. Gemäß den strengen Risiko-Filterregeln wird der vorherige SHORT-Call eingestellt und das Asset auf NEUTRAL gesetzt, bis eine klare Wyckoff-Absorption an einer relevanten Widerstandszone erfolgt.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...j2vQ]"
+      },
+      {
+        "symbol": "NYSE:ORCL",
+        "name": "Oracle",
+        "category": "Enterprise Software",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 50,
+        "price": 128.38,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          128.38,
+          129.85
+        ],
+        "stop_loss": 131.5,
+        "take_profit_2": 116.0,
+        "reasons": [
+          "1D Makro-Trend ist bärisch; 1h RSI ist mit 67.04 nahe Überkauft-Zustand bei sehr schwachem Volumen.",
+          "Sektor 'Enterprise Software' unterliegt strengem Hebel-Cap und erfordert Score >= 88%.",
+          "Widersprüchliche Signale zwischen 4h (Potential Buy) und 1h (Good Sell Signal) verlangen Zurückhaltung."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Makro-Trend ist bärisch; 1h RSI ist mit 67.04 nahe Überkauft-Zustand bei sehr schwachem Volumen.).",
+        "note": "Oracle läuft auf 1h in einen überkauften Bereich (RSI > 67) bei sehr geringem Volumen direkt an einem 1D bärischen Widerstandsumfeld. Die uneinheitliche Signal-Lage zwischen den untergeordneten Timeframes und die strikten Vorgaben für den Enterprise Software Sektor erfordern konsequenten Kapitalerhalt. Einstufung verbleibt neutral.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "NASDAQ:PANW",
+        "name": "Palo Alto Networks",
+        "category": "Cybersecurity",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 92,
+        "new_score": 50,
+        "price": 334.47,
+        "setup_name": "Beobachten / Lauerstellung am Support",
+        "entry_range": [
+          0.0,
+          0.0
+        ],
+        "stop_loss": 0.0,
+        "take_profit_2": 0.0,
+        "reasons": [
+          "Übergeordneter Bärenmarkt auf 1W/1D verbietet ungeklärte Rebound-Longs.",
+          "Cybersecurity-Sektor unterliegt striktem Caution-Status (Hebel-Cap 3x, Mindest-Score 90%).",
+          "Es liegt kein aktiver Order Block oder FVG auf 4h/1D vor, was die nötige Asymmetrie (CRV >= 2.5:1) unmöglich macht."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Übergeordneter Bärenmarkt auf 1W/1D verbietet ungeklärte Rebound-Longs.).",
+        "note": "Palo Alto Networks bietet aktuell keine institutionalisierte Konfluenz. Die vorliegende bullische Divergenz auf 4h steht im direkten Konflikt mit der versteckten bärischen Trendfolge-Divergenz auf 1D. Das Dogma des Kapitalerhalts erfordert das Verbleiben an der Seitenlinie.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...j2vQ]"
+      },
+      {
+        "symbol": "TRADEGATE:CSA",
+        "name": "Cisco Systems (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 96,
+        "new_score": 48,
+        "price": 227.5,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          224.2,
+          225.6
+        ],
+        "stop_loss": 222.8,
+        "take_profit_2": 233.0,
+        "reasons": [
+          "HTF-Struktur: 1W- und 1D-Trend sind formal bullisch, jedoch mahnen ein 1W RSI von 75.01 und das aktive 1D Sell-Pocket vor massiver Überdehnung.",
+          "SMC-Schwäche: Der aktive bullische Order Block (224.20 - 227.00 EUR) besitzt lediglich Grad C und ist nach 7 Retests (R7) mitigiert und strukturell erschöpft.",
+          "Timing & VSA: 1h-Trend ist mit versteckter bärischer Divergenz bärisch gekippt; bei 'Very Low Volume' bieten unbestätigte Potential-Buy-Signale im EU-Sektor kein tragfähiges Edge."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Struktur: 1W- und 1D-Trend sind formal bullisch, jedoch mahnen ein 1W RSI von 75.01 und das aktive 1D Sell-Pocket vor massiver Überdehnung.).",
+        "note": "Cisco konsolidiert auf Tradegate nach Erreichen des übergeordneten 1D Sell-Pockets, während das Momentum auf 1h bereits bärisch gedreht hat. Der bullische Order Block ist mit Grad C und 7 Retests stark geschwächt, wodurch akute Durchbruchsgefahr zur Unterseite besteht. Kapitalerhalt hat Vorrang: Ein Einstieg wird erst nach einem bestätigten Liquiditäts-Sweep unter 224.20 EUR und nachweislicher Absorption auf Stundenschlusskursbasis geprüft.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      },
+      {
+        "symbol": "TRADEGATE:45C",
+        "name": "Broadcom (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 96,
+        "new_score": 48,
+        "price": 202.35,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          204.55,
+          208.5
+        ],
+        "stop_loss": 211.0,
+        "take_profit_2": 190.0,
+        "reasons": [
+          "1D Makro-Trend ist bärisch mit aktiver versteckter und regulärer bärischer Divergenz.",
+          "Vorheriges Long-Signal invalide, da 1D Structure Bearish ist und der Order Block Grad C bereits 4 Retests (mitigated) aufweist.",
+          "Strict Rule: Kein Chasing / Keine Spekulation auf 4h Buy Signals gegen den übergeordneten 1D Trend."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Makro-Trend ist bärisch mit aktiver versteckter und regulärer bärischer Divergenz.).",
+        "note": "Broadcom zeigt auf dem Tages-Chart eine bärische Struktur mit bärischen Divergenzen. Obwohl das 4h-Timeframe ein potenzielles Kaufsignal andeutet, verbieten die strikten Risikoregeln Long-Positionen gegen den übergeordneten 1D-Trend. Das Asset wird auf NEUTRAL herabgestuft, bis ein klarer Short-Trigger an einer Widerstandszone vorliegt.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "TRADEGATE:NFC",
+        "name": "Netflix (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 48,
+        "price": 58.24,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          0.0,
+          0.0
+        ],
+        "stop_loss": 0.0,
+        "take_profit_2": 0.0,
+        "reasons": [
+          "Makro-Trend (1W & 1D) ist strikt bärisch; 1h Bullish-Trend ist lediglich untergeordnetes Rauschen.",
+          "Der aktive Bearish Order Block (Grade C, R16) ist bereits tief mitigated und besitzt verminderte Qualitaet.",
+          "4h zeigt reguläre bärische Divergenzen bei schwachem Volumen (Low Volume)."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W & 1D) ist strikt bärisch; 1h Bullish-Trend ist lediglich untergeordnetes Rauschen.).",
+        "note": "Obwohl der Kurs in der 1D Buy Pocket notiert, verhindert das Underperforming-Sektor-Rating für Tradegate/EU (Historie: -57.0% PnL, Win-Rate 20%) ungeplante Long-Einstiege. Ein prozyklischer Short erfordert zwingend eine sauberere Struktur mit besserer Re-Test-Qualität als einem 16-fach getesteten Grade-C OB. Das Kapital bleibt geschützt (KAPITALERHALT).",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...j2vQ]"
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 9 Einstufungen haben sich geändert:\n\n🔴 SPY (SPY):\n   Score-Sprung: 95% ➔ 88% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 88% (Übergeordneter 1D- und 4h-Trend sind klar bärisch unter der 233 EMA Struktur mit aktiver versteckter bärischer Divergenz auf 1D/4h.).\n   📝 KI-Rationale: SPY zeigt eine klassische Trendfortsetzung im bärischen Makro-Regime (1D/4h BEARISH). Trotz Gegenbewegungen auf 1h sticht die vers...\n   Setup: Hypothese 1: SMC Order Block Confluence\n   Entry: 759.00 | SL: 769.50 | TP2: 725.00\n\n⚪ Alphabet (Google) (GOOG):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Asset befindet sich zwar in der 1D Buy Pocket, allerdings ist der 1D/1W Makro-Trend stark bärisch.).\n   📝 KI-Rationale: Alphabet befindet sich in einer 1D Buy Pocket, jedoch ist die Gesamtausrichtung auf 1W und 1D bärisch. Zudem fehlt eine Volumen-Ab...\n   Setup: Beobachten / Lauerstellung am Support\n\n⚪ Broadcom (AVGO):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Widersprüchliche Signal-Lage auf 4h (Potential Buy Signal vs. Good Sell Signal), was auf starkes Marktrauschen hindeutet.).\n   📝 KI-Rationale: Aufgrund historischer Underperformance im Halbleiter-Sektor und widersprüchlicher Indikatoren auf dem 4h-Chart greift hier das obe...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ Intel (INTC):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Struktur auf 1W (RSI 29.35) und 1D vollumfänglich bärisch.).\n   📝 KI-Rationale: Der Sektor Halbleiter weist eine historische Win-Rate von 0% auf. Der aktiven Bearish OB (Grade B, R2) fehlt die strukturelle Swee...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ Oracle (ORCL):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 50%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Makro-Trend ist bärisch; 1h RSI ist mit 67.04 nahe Überkauft-Zustand bei sehr schwachem Volumen.).\n   📝 KI-Rationale: Oracle läuft auf 1h in einen überkauften Bereich (RSI > 67) bei sehr geringem Volumen direkt an einem 1D bärischen Widerstandsumfe...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ Palo Alto Networks (PANW):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 50%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Übergeordneter Bärenmarkt auf 1W/1D verbietet ungeklärte Rebound-Longs.).\n   📝 KI-Rationale: Palo Alto Networks bietet aktuell keine institutionalisierte Konfluenz. Die vorliegende bullische Divergenz auf 4h steht im direkt...\n   Setup: Beobachten / Lauerstellung am Support\n\n... und 3 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261112_124736",
     "timestamp": "2026-11-12T12:47:36.871497+00:00",
     "timestamp_display": "12.11.2026 12:47 UTC",
@@ -18381,45 +18628,5 @@
     "notification_sent": false,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n⚪ Bitcoin (BTCUSD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Bullenmarkt (1W, 3D, 1D, 4h) intakt, jedoch 1D mit aktiver regulärer bärischer Divergenz belastet).\n   📝 KI-Rationale: Der Makrotrend von Bitcoin ist unbestritten bullisch, allerdings verbietet das Risikomanagement ein Nachkaufen nach der jüngsten 1...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261028_212550",
-    "timestamp": "2026-10-28T21:25:50.244786+00:00",
-    "timestamp_display": "28.10.2026 21:25 UTC",
-    "title": "🔔 TV-Signaländerung: 1 Asset aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 1,
-    "changes": [
-      {
-        "symbol": "COINBASE:BTCUSD",
-        "name": "Bitcoin",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 54,
-        "new_score": 81,
-        "price": 81616.16,
-        "setup_name": "Hypothese 1: SMC Support Reversal",
-        "entry_range": [
-          80963.23,
-          81779.39
-        ],
-        "stop_loss": 77535.35,
-        "take_profit_2": 94674.75,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "1W Makro-Trend bullisch bestätigt",
-          "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (81%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": false,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n🟢 Bitcoin (BTCUSD):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 81%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (81%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 80,963.23 | SL: 77,535.35 | TP2: 94,674.75\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
