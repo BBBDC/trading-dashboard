@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-12T09:21:15.606913+00:00",
-  "total_experience_records": 101,
+  "updated_at": "2026-11-12T09:31:36.002083+00:00",
+  "total_experience_records": 104,
   "learnings": [
+    {
+      "timestamp": "2026-11-12T09:31:32.122441+00:00",
+      "trade_id": "cross_rule_1794475892",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "HTF-Trendfilter für Micro-Reversals",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Antizyklische Reversals auf Mikro-Zeitskalen (5m/15m) mit engem Risikoband (<0,5% SL) dürfen nur ausgeführt werden, wenn die übergeordnete 4h-Marktstruktur eine Erschöpfung oder einen signifikanten HTF-Widerstand bestätigt, um ein Zerreiben im Rauschen zu verhindern.",
+        "actionable_rule": "HTF-Trendfilter für Micro-Reversals"
+      }
+    },
+    {
+      "timestamp": "2026-11-12T09:31:32.122417+00:00",
+      "trade_id": "cross_rule_1794475892",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Displacement-Primat vor Sweep-Ausführung",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Fraktal gültig von 5m bis 1D: Ein Liquiditätsübergriff (Sweep) ist erst dann eine Umkehrgelegenheit, wenn die Folgekerze eine impulsive Gegenreaktion (Displacement mit Imbalance/FVG) druckt; ohne diesen Nachweis handelt es sich um einen simplen Breakout.",
+        "actionable_rule": "Displacement-Primat vor Sweep-Ausführung"
+      }
+    },
+    {
+      "timestamp": "2026-11-12T09:31:32.122363+00:00",
+      "trade_id": "inc_SUIUSDT_5m_1794475094",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.6,
+      "pnl_raw": -0.3,
+      "text": "Kein Entry an 5m Order Blocks nach einem Sweep ohne validierten Market Structure Shift (MSS) und Schlusskurs unterhalb des Sweep-Referenzpunktes.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_5m_1794475094",
+        "verdict": "LOSS",
+        "driver": "Der Short wurde ohne bestätigtes bärisches Displacement in eine intakte Aufwärtsbewegung platziert, sodass der Order Block als Liquiditätspolster für die Trendfortsetzung überrannt wurde.",
+        "technical_warning": "Ausbleiben eines aggressiven Rejection-Wicks mit sofortigem Kerzenschluss unter dem Sweep-Hoch sowie fehlende bärische Volumen-/Delta-Divergenz am 0.812-Level; ein SL-Abstand von nur 0,30% bot keinerlei Puffer gegen normales Intraday-Rauschen.",
+        "actionable_rule": "Kein Entry an 5m Order Blocks nach einem Sweep ohne validierten Market Structure Shift (MSS) und Schlusskurs unterhalb des Sweep-Referenzpunktes."
+      }
+    },
     {
       "timestamp": "2026-11-12T09:21:11.612408+00:00",
       "trade_id": "cross_rule_1794475271",

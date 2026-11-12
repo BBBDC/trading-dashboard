@@ -1,5 +1,96 @@
 [
   {
+    "id": "evt_20261112_092123",
+    "timestamp": "2026-11-12T09:21:23.556800+00:00",
+    "timestamp_display": "12.11.2026 09:21 UTC",
+    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 3,
+    "changes": [
+      {
+        "symbol": "TRADEGATE:MSF",
+        "name": "Microsoft (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 96,
+        "new_score": 58,
+        "price": 470.65,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          465.0,
+          470.15
+        ],
+        "stop_loss": 462.0,
+        "take_profit_2": 495.0,
+        "reasons": [
+          "1D Makro-Trend ist bullisch, befindet sich aber in der 1D Sell Pocket bei gemischten Divergenz-Signalen.",
+          "Obwohl ein 4h 'Good Buy Signal' vorliegt, zeigt der 1h-Trend bärische Dynamik und der Kurs reagiert an einem Bearish OB (Grade C).",
+          "Strikter Sektor-Filter für Tradegate/EU erfordert mindestens 92% Score für aktive Long-Gewerbe."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Makro-Trend ist bullisch, befindet sich aber in der 1D Sell Pocket bei gemischten Divergenz-Signalen.).",
+        "note": "Microsoft weist auf dem 4h-Chart zwar ein 'Good Buy Signal' auf, konsolidiert jedoch in der 1D Sell-Pocket unter schwindendem Volumen. Der 1h-Trend ist kurzfristig bärisch ausgerichtet. Um das Risiko eines erneuten Fehleinstiegs im EU-Sektor zu minimieren, bleiben wir diszipliniert an der Seitenlinie und warten eine Bodenbildung am 4h-Support oder im Golden Pocket ab.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...oFUw]"
+      },
+      {
+        "symbol": "TRADEGATE:CSA",
+        "name": "Cisco Systems (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 96,
+        "new_score": 52,
+        "price": 228.8,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          226.7,
+          228.8
+        ],
+        "stop_loss": 224.5,
+        "take_profit_2": 242.0,
+        "reasons": [
+          "Makro-Trend (1D/1W) ist intakt bullisch, befindet sich jedoch in der 1D Sell-Pocket mit regulärer bärischer Divergenz.",
+          "Der aktive Bearish Order Block Grade C (Retest R9) ist stark mitigated und bietet keine sichere Basis für Neupositionierungen.",
+          "Sektor 'Tradegate / EU' erfordert aufgrund historischer Underperformance strikte Filter (Score >= 92% für Signale)."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1D/1W) ist intakt bullisch, befindet sich jedoch in der 1D Sell-Pocket mit regulärer bärischer Divergenz.).",
+        "note": "Cisco befindet sich auf Tagesbasis im bullischen Trend, stösst jedoch in der Sell-Pocket auf Widerstand und konsolidiert auf 1h/4h mit sehr geringem Volumen (Very Low Volume). Da kein makelloses Signal mit mindestens 92% Score vorliegt und der OB Grade C mit 9 Retests erschöpft ist, gilt aus Gründen des Kapitalerhalts eine strikte NEUTRAL-Einstufung. Einstiege werden erst nach Erreichen der Support-Zonen oder einem sauberen Trigger gesucht.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...oFUw]"
+      },
+      {
+        "symbol": "TRADEGATE:45C",
+        "name": "Broadcom (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 96,
+        "new_score": 50,
+        "price": 204.55,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          196.0,
+          202.25
+        ],
+        "stop_loss": 193.5,
+        "take_profit_2": 215.0,
+        "reasons": [
+          "Übergeordneter 1D-Trend ist bullisch, aber 4h und 1h befinden sich in einer bärischen Konsolidierungsphase.",
+          "Der getestete Bullish OB (Grade C, R3) ist bereits mitigated und zeigt kein ausreichendes institutionelles Kaufvolumen (Very Low Volume).",
+          "Auf 4h/1h liegen nur 'Potential Buy Signals' vor; die historischen Filter für SMC OB Setups verbieten einen verfrühten Einstieg."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Übergeordneter 1D-Trend ist bullisch, aber 4h und 1h befinden sich in einer bärischen Konsolidierungsphase.).",
+        "note": "Broadcom verteidigt zwar die Zone um den Bullish OB (R3), zeigt aber weder ein volatiles Reversal-Muster noch ausreichendes Handelsvolumen. Da sowohl der 4h- als auch der 1h-Trend untergeordnet bärisch sind, riskieren wir kein Chasing. Wir belassen das Asset auf NEUTRAL und warten ab, ob der Markt die Midline des OBs bei ~202.25 nachhaltig als Boden bestätigt.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...oFUw]"
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n⚪ Microsoft (Tradegate) (MSF):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 58%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Makro-Trend ist bullisch, befindet sich aber in der 1D Sell Pocket bei gemischten Divergenz-Signalen.).\n   📝 KI-Rationale: Microsoft weist auf dem 4h-Chart zwar ein 'Good Buy Signal' auf, konsolidiert jedoch in der 1D Sell-Pocket unter schwindendem Volu...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n⚪ Cisco Systems (Tradegate) (CSA):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1D/1W) ist intakt bullisch, befindet sich jedoch in der 1D Sell-Pocket mit regulärer bärischer Divergenz.).\n   📝 KI-Rationale: Cisco befindet sich auf Tagesbasis im bullischen Trend, stösst jedoch in der Sell-Pocket auf Widerstand und konsolidiert auf 1h/4h...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n⚪ Broadcom (Tradegate) (45C):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 50%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Übergeordneter 1D-Trend ist bullisch, aber 4h und 1h befinden sich in einer bärischen Konsolidierungsphase.).\n   📝 KI-Rationale: Broadcom verteidigt zwar die Zone um den Bullish OB (R3), zeigt aber weder ein volatiles Reversal-Muster noch ausreichendes Handel...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261112_082134",
     "timestamp": "2026-11-12T08:21:34.792287+00:00",
     "timestamp_display": "12.11.2026 08:21 UTC",
@@ -18567,45 +18658,5 @@
     "notification_sent": false,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 4 Einstufungen haben sich geändert:\n\n⚪ Oracle (ORCL):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 56%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-S...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ Coinbase (Tradegate) (34Q0):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 56%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-S...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ SAP SE (SAP):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 54%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1W und 1D makro-bullisch, jedoch 1D-RSI mit 70.69 heißgelaufen und 1h im Abverkauf (RSI 34.97).).\n   📝 KI-Rationale: SAP befindet sich im intakten Makro-Aufwärtstrend, setzt jedoch auf 1h/4h zurück. Gemäß unseren strikten Risikofiltern wird das bi...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n⚪ Microsoft (MSFT):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Makrotrend intakt bullisch, Kurs befindet sich jedoch mittig im Kanal ohne Test des 1D Golden Pockets (in_gp: false).).\n   📝 KI-Rationale: Obwohl der übergeordnete Trend bei Microsoft klar aufwärts gerichtet ist, fehlt aktuell die erforderliche HTF-Konfluenz an einer D...\n   Setup: Beobachten / Warten auf Pullback in Demand-Zone\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261028_162547",
-    "timestamp": "2026-10-28T16:25:47.685497+00:00",
-    "timestamp_display": "28.10.2026 16:25 UTC",
-    "title": "🔔 TV-Signaländerung: 1 Asset aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 1,
-    "changes": [
-      {
-        "symbol": "XETR:DAX",
-        "name": "DAX 40",
-        "category": "Indizes",
-        "change_type": "SCORE_JUMP",
-        "old_signal": "LONG",
-        "new_signal": "LONG",
-        "old_score": 82,
-        "new_score": 75,
-        "price": 25590.14,
-        "setup_name": "Hypothese 1: SMC Support Reversal",
-        "entry_range": [
-          25385.42,
-          25641.32
-        ],
-        "stop_loss": 24694.49,
-        "take_profit_2": 28456.22,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "1W Makro-Trend bullisch bestätigt",
-          "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Konfluenz-Veränderung: Score springt von 82% auf 75% (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (75%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": false,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n🟢 DAX 40 (DAX):\n   Score-Sprung: 82% ➔ 75% (LONG)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 82% auf 75% (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (75%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 25,385.42 | SL: 24,694.49 | TP2: 28,456.22\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
