@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-12T13:33:41.841947+00:00",
-  "total_experience_records": 144,
+  "updated_at": "2026-11-12T14:29:10.940847+00:00",
+  "total_experience_records": 148,
   "learnings": [
+    {
+      "timestamp": "2026-11-12T14:29:06.625677+00:00",
+      "trade_id": "cross_rule_1794493746",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volatilitätsbasierter Mindest-Invalidierungsabstand (Noise Floor Invalidation): Der SL darf niemals enger gesetzt werden als das fraktale Rauschen (ATR/Spread) des gehandelten Instruments.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "APC.F demonstriert, dass ein Stop-Loss von 0,10% bei Frankfurt-Notierungen (Zweitnotierung mit breiterem Spread) selbst bei korrekter makroökonomischer Richtung reines Geldverbrennen durch statistische Arbitrageure darstellt.",
+        "actionable_rule": "Volatilitätsbasierter Mindest-Invalidierungsabstand (Noise Floor Invalidation): Der SL darf niemals enger gesetzt werden als das fraktale Rauschen (ATR/Spread) des gehandelten Instruments."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T14:29:06.625579+00:00",
+      "trade_id": "cross_rule_1794493746",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Trend- und HTF-Liquiditäts-Priorität: Keine Mikro-Reversals (5m/15m) gegen die expansive 4h/1D-Trendrichtung ohne vorherigen Sweep der HTF-Liquidität.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "NVD.F belegt, dass selbst Konfluenz-Cluster auf 5m pulverisiert werden, wenn der 4h-Orderflow short gerichtet ist; Mikro-Sweeps agieren dann lediglich als Liquiditätsaufbau für institutionelle Trendbeschleunigung.",
+        "actionable_rule": "Fraktale Trend- und HTF-Liquiditäts-Priorität: Keine Mikro-Reversals (5m/15m) gegen die expansive 4h/1D-Trendrichtung ohne vorherigen Sweep der HTF-Liquidität."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T14:29:06.625539+00:00",
+      "trade_id": "inc_APC.F_5m_1794490339",
+      "symbol": "APC.F",
+      "name": "Apple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.2,
+      "pnl_raw": -0.1,
+      "text": "Setups mit Order-Block-Rating unterhalb von Grade [B] sind strikt vom Orderrouting ausgeschlossen; der Stop-Loss muss zwingend ein Minimum von 1.5x ATR(5m) Puffer über das strukturelle Hoch aufweisen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_APC.F_5m_1794490339",
+        "verdict": "LOSS",
+        "driver": "Mangelnde Setup-Qualität (Junk-OB Grade [D]) kombiniert mit einem toxisch engen Stop-Loss (0,10%), der mathematisch unausweichlich vom XETRA-Spread und Intraday-Noise liquidiert wurde.",
+        "technical_warning": "Extrem schwache Klassifizierung des Order Blocks (Grade D signalisiert fehlendes institutionelles Order-Interesse) und SL-Distanz signifikant unterhalb des 1.0x ATR(5m)-Rauschens.",
+        "actionable_rule": "Setups mit Order-Block-Rating unterhalb von Grade [B] sind strikt vom Orderrouting ausgeschlossen; der Stop-Loss muss zwingend ein Minimum von 1.5x ATR(5m) Puffer über das strukturelle Hoch aufweisen."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T14:29:06.625441+00:00",
+      "trade_id": "inc_NVD.F_5m_1794487592",
+      "symbol": "NVD.F",
+      "name": "Nvidia",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -2.24,
+      "pnl_raw": -1.12,
+      "text": "Ein Liquidity Sweep [A] darf erst getriggert werden, wenn eine nachfolgende 5m-Bestätigungskerze mit signifikantem Delta/Volumen ÜBER dem Sweep-Origin schließt (Market Structure Shift Confirmation).",
+      "ai_post_mortem": {
+        "trade_id": "inc_NVD.F_5m_1794487592",
+        "verdict": "LOSS",
+        "driver": "Klassisches 'Messerfangen' gegen übergeordneten Verkaufsdruck: Der vermeintliche Liquidity Sweep war in Wahrheit ein echter struktureller Breakdown ohne VSA-Absorptionsvolumen.",
+        "technical_warning": "Fehlendes V-förmiges Displacement zurück über den Sweep-Pivot sowie expansionierende bärische Kerzenkörper, die das Chaos-Band nach unten aufrissen statt abzuprallen.",
+        "actionable_rule": "Ein Liquidity Sweep [A] darf erst getriggert werden, wenn eine nachfolgende 5m-Bestätigungskerze mit signifikantem Delta/Volumen ÜBER dem Sweep-Origin schließt (Market Structure Shift Confirmation)."
+      }
+    },
     {
       "timestamp": "2026-11-12T13:33:37.702492+00:00",
       "trade_id": "cross_rule_1794490417",
