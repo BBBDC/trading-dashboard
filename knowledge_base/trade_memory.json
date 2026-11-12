@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-12T12:47:17.894738+00:00",
-  "total_experience_records": 131,
+  "updated_at": "2026-11-12T13:01:48.547580+00:00",
+  "total_experience_records": 134,
   "learnings": [
+    {
+      "timestamp": "2026-11-12T13:01:44.568982+00:00",
+      "trade_id": "cross_rule_1794488504",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Indikator-Confluence (Chaos Band / Sell Pocket) ist sekundär; primäre Eintrittsbedingung ist die VSA-Volumenerschöpfung an übergeordneten Key-Levels.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein rechnerisches 'Sell Pocket' ohne nachweislichen Mangel an Käufer-Nachfrage (No Demand) oder institutionelle Absorption führt auf allen Zeitebenen zu Fehlausbrüchen in den Trend hinein.",
+        "actionable_rule": "Indikator-Confluence (Chaos Band / Sell Pocket) ist sekundär; primäre Eintrittsbedingung ist die VSA-Volumenerschöpfung an übergeordneten Key-Levels."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T13:01:44.568958+00:00",
+      "trade_id": "cross_rule_1794488504",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Stop-Placement jenseits von Manipulationszonen: Stops gehören niemals bündig auf Widerstände, sondern zwingend hinter den verifizierten Liquidity-Sweep.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Was auf 5m als Spread-Kill bei 0,02% Abstand endet, ist auf 4h/1D der klassische Sweep von Stop-Clusters an offensichtlichen Hochs vor der eigentlichen Bewegung.",
+        "actionable_rule": "Fraktales Stop-Placement jenseits von Manipulationszonen: Stops gehören niemals bündig auf Widerstände, sondern zwingend hinter den verifizierten Liquidity-Sweep."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T13:01:44.568904+00:00",
+      "trade_id": "inc_APC.F_5m_1794487593",
+      "symbol": "APC.F",
+      "name": "Apple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.04,
+      "pnl_raw": -0.02,
+      "text": "Handelsverbot für US-Werte auf europäischen Regionalbörsen (APC.F) auf Sub-15m-Skalen ohne Spread-Filter (< 10% des Stop-Abstands) und zwingenden Mindest-SL-Puffer von 1,5x ATR(5m) oberhalb des Sweep-Hochs.",
+      "ai_post_mortem": {
+        "trade_id": "inc_APC.F_5m_1794487593",
+        "verdict": "LOSS",
+        "driver": "Der Stop-Loss lag mit 0,024% Distanz innerhalb des typischen Frankfurt-Bid-Ask-Spreads und ignorierte die elementare Marktmechanik von Sekundärlistings ohne US-Kassavolumen.",
+        "technical_warning": "Kein vorheriger Liquidity-Sweep über das lokale Hoch und fehlende VSA-Absorptionsbestätigung (Climax/No-Demand-Bar) vor dem Einstieg bei gleichzeitig absurder Unterschreitung der 5m-ATR-Volatilitätsgrenze.",
+        "actionable_rule": "Handelsverbot für US-Werte auf europäischen Regionalbörsen (APC.F) auf Sub-15m-Skalen ohne Spread-Filter (< 10% des Stop-Abstands) und zwingenden Mindest-SL-Puffer von 1,5x ATR(5m) oberhalb des Sweep-Hochs."
+      }
+    },
     {
       "timestamp": "2026-11-12T12:47:13.946235+00:00",
       "trade_id": "cross_rule_1794487633",
