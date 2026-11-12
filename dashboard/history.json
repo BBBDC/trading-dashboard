@@ -1,5 +1,70 @@
 [
   {
+    "id": "evt_20261112_025622",
+    "timestamp": "2026-11-12T02:56:22.113797+00:00",
+    "timestamp_display": "12.11.2026 02:56 UTC",
+    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 2,
+    "changes": [
+      {
+        "symbol": "KRAKEN:MOVRUSD",
+        "name": "MOVRUSD",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 50,
+        "price": 1.0251,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          1.03,
+          1.05
+        ],
+        "stop_loss": 1.08,
+        "take_profit_2": 0.92,
+        "reasons": [
+          "HTF-Struktur (1W, 3D, 1D) ist strikt bärisch ausgerichtet.",
+          "Untergeordnete Zeiteinheiten (1h Trend bullisch, 4h Potential Buy Signal) zeigen eine Bärenmarktrallye / Pullback gegen den Makro-Trend.",
+          "Strikte Regelanwendung: Erholungen im Bärenmarkt sind NIEMALS ein Long-Signal; für ein Short-Signal fehlt bisher die Top-Erschöpfung an einem Premium-Widerstand."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Struktur (1W, 3D, 1D) ist strikt bärisch ausgerichtet.).",
+        "note": "MOVR befindet sich übergeordnet in einem intakten Abwärtstrend. Die aktuelle Erholung auf 1h/4h stellt eine klassische Bärenmarktrallye dar. Gemäß unseren strikten Regeln schließen wir Longs aus und warten geduldig auf das Ausbilden einer bärischen Marktstruktur / Erschöpfung an der nächsten Liquiditätszone weiter oben, um ein hochwahrscheinliches Short-Setup mit RRR >= 2.5 zu evaluieren.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "BINANCE:GLMRUSDT",
+        "name": "GLMRUSDT",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 48,
+        "price": 0.006756,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          0.006772,
+          0.0071
+        ],
+        "stop_loss": 0.0074,
+        "take_profit_2": 0.0055,
+        "reasons": [
+          "HTF-Trend ist auf 1W, 3D und 1D vollumfänglich bärisch strukturiert.",
+          "4h und 1h zeigen zwar untergeordnete Kaufsignale, doch ein Long gegen den 1D-Bärenmarkt widerspricht den Risikoregeln.",
+          "Vorheriges Signal war SHORT; da kein klarer Bruch der 1D-Marktstruktur vorliegt, bleibt die Hysterese konservativ auf NEUTRAL eingestellt."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Trend ist auf 1W, 3D und 1D vollumfänglich bärisch strukturiert.).",
+        "note": "GLMR befindet sich in einem intakten übergeordneten Abwärtstrend. Die auftretenden bullischen Divergenzen und Kaufsignale auf den niederen Zeitebenen (1h/4h) deuten lediglich auf eine potentielle technische Erholung (Bärenmarktrallye) hin. Gemäß institutionellen Filterregeln wird kein Long-Positioning gegen den übergeordneten Trend eröffnet.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...pOzg]"
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n⚪ MOVRUSD (MOVRUSD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 50%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Struktur (1W, 3D, 1D) ist strikt bärisch ausgerichtet.).\n   📝 KI-Rationale: MOVR befindet sich übergeordnet in einem intakten Abwärtstrend. Die aktuelle Erholung auf 1h/4h stellt eine klassische Bärenmarktr...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ GLMRUSDT (GLMRUSDT):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Trend ist auf 1W, 3D und 1D vollumfänglich bärisch strukturiert.).\n   📝 KI-Rationale: GLMR befindet sich in einem intakten übergeordneten Abwärtstrend. Die auftretenden bullischen Divergenzen und Kaufsignale auf den ...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261112_000645",
     "timestamp": "2026-11-12T00:06:45.561594+00:00",
     "timestamp_display": "12.11.2026 00:06 UTC",
@@ -19612,153 +19677,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 11 Einstufungen haben sich geändert:\n\n🟢 Nvidia (Tradegate) (NVD):\n   Signalwechsel: NEU ➔ LONG (Score: 91%)\n   💡 Grund: Neues aktives Setup (LONG) mit 91% Konfluenz.\n   📝 KI-Rationale: Strikte bullische Konfluenz (91%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 196.06 | SL: 190.72 | TP2: 219.78\n\n🟢 Palantir (Tradegate) (PTX):\n   Signalwechsel: NEU ➔ LONG (Score: 88%)\n   💡 Grund: Neues aktives Setup (LONG) mit 88% Konfluenz.\n   📝 KI-Rationale: Palantir liefert eine Lehrbuch-Struktur für eine Trendfortsetzung. Sämtliche Zeiteinheiten zeigen eine geordnete bullische Abfolge...\n   Setup: Hypothese 2: Trend Continuation\n   Entry: 176.50 | SL: 171.00 | TP2: 205.00\n\n🔴 Intel (Tradegate) (INL):\n   Signalwechsel: NEU ➔ SHORT (Score: 82%)\n   💡 Grund: Neues aktives Setup (SHORT) mit 82% Konfluenz.\n   📝 KI-Rationale: Strikte bärische Erschöpfung (82%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 85.95 | SL: 89.13 | TP2: 76.49\n\n🟢 SAP SE (SAP):\n   Signalwechsel: NEU ➔ LONG (Score: 81%)\n   💡 Grund: Neues aktives Setup (LONG) mit 81% Konfluenz.\n   📝 KI-Rationale: Strikte bullische Konfluenz (81%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 208.27 | SL: 202.60 | TP2: 233.47\n\n🟢 IBM (Tradegate) (IBM):\n   Signalwechsel: NEU ➔ LONG (Score: 81%)\n   💡 Grund: Neues aktives Setup (LONG) mit 81% Konfluenz.\n   📝 KI-Rationale: Strikte bullische Konfluenz (81%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 221.71 | SL: 215.68 | TP2: 248.52\n\n🟢 S&P 500 (Tradegate) (SPX):\n   Signalwechsel: NEU ➔ LONG (Score: 81%)\n   💡 Grund: Neues aktives Setup (LONG) mit 81% Konfluenz.\n   📝 KI-Rationale: Strikte bullische Konfluenz (81%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 133.54 | SL: 129.91 | TP2: 149.69\n\n... und 5 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261028_100845",
-    "timestamp": "2026-10-28T10:08:45.239971+00:00",
-    "timestamp_display": "28.10.2026 10:08 UTC",
-    "title": "🔔 TV-Signaländerung: 5 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 5,
-    "changes": [
-      {
-        "symbol": "CRYPTOCAP:BTC.D",
-        "name": "BTC Dominanz",
-        "category": "Krypto-Makro",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 50,
-        "new_score": 96,
-        "price": 60.57,
-        "setup_name": "Hypothese 1: SMC Support Reversal",
-        "entry_range": [
-          60.09,
-          60.69
-        ],
-        "stop_loss": 58.45,
-        "take_profit_2": 67.35,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "1W Makro-Trend bullisch bestätigt",
-          "Kurs im 4h Golden Pocket (60.74 - 60.76)",
-          "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "BINANCE:ETHFIUSDT",
-        "name": "ether.fi",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 49,
-        "new_score": 91,
-        "price": 0.6698,
-        "setup_name": "Hypothese 1: SMC Support Reversal",
-        "entry_range": [
-          0.66,
-          0.67
-        ],
-        "stop_loss": 0.64,
-        "take_profit_2": 0.77,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "1W Makro-Trend bullisch bestätigt",
-          "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (91%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "CRYPTOCAP:TOTAL",
-        "name": "Total Crypto Market Cap",
-        "category": "Krypto-Makro",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 46,
-        "new_score": 87,
-        "price": 2702721856851,
-        "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
-        "entry_range": [
-          2681100081996.19,
-          2708127300564.7
-        ],
-        "stop_loss": 2608126591861.21,
-        "take_profit_2": 3005426704818.33,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "1W Makro-Trend bullisch bestätigt",
-          "Kurs im 1D Golden Pocket (2676871820787.65 - 2690327359999.14)",
-          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (87%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NASDAQ:AAPL",
-        "name": "Apple",
-        "category": "Big Tech",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 56,
-        "new_score": 85,
-        "price": 347.1,
-        "setup_name": "Hypothese 1: SMC Support Reversal",
-        "entry_range": [
-          344.32,
-          347.79
-        ],
-        "stop_loss": 334.95,
-        "take_profit_2": 385.98,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "1W Makro-Trend bullisch bestätigt",
-          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (85%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "COINBASE:AAVEUSD",
-        "name": "Aave",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 41,
-        "new_score": 75,
-        "price": 135.84,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          135.57,
-          136.93
-        ],
-        "stop_loss": 142.63,
-        "take_profit_2": 114.11,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 5 Einstufungen haben sich geändert:\n\n🟢 BTC Dominanz (BTC.D):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 60.09 | SL: 58.45 | TP2: 67.35\n\n🟢 ether.fi (ETHFIUSDT):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 91%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (91%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 0.66 | SL: 0.64 | TP2: 0.77\n\n🟢 Total Crypto Market Cap (TOTAL):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 87%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (87%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Golden Confluence Reversal\n   Entry: 2,681,100,081,996.19 | SL: 2,608,126,591,861.21 | TP2: 3,005,426,704,818.33\n\n🟢 Apple (AAPL):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 85%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (85%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 344.32 | SL: 334.95 | TP2: 385.98\n\n🔴 Aave (AAVEUSD):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 75%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 135.57 | SL: 142.63 | TP2: 114.11\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
