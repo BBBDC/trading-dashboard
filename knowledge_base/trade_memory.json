@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-12T15:06:42.226976+00:00",
-  "total_experience_records": 148,
+  "updated_at": "2026-11-12T15:14:41.757721+00:00",
+  "total_experience_records": 152,
   "learnings": [
+    {
+      "timestamp": "2026-11-12T15:14:19.338727+00:00",
+      "trade_id": "cross_rule_1794496459",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Asymmetrische Qualitätsgewichtung schlägt Indikator-Signale.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein 'Good Sell Signal' und Chaos-Band-Überdehnung sind wertlos, wenn die Marktstruktur (Grade-B-OB vs. Grade-A-Sweep) keinen statistischen Edge liefert; Setup-Güte dominiert Indikatoren.",
+        "actionable_rule": "Asymmetrische Qualitätsgewichtung schlägt Indikator-Signale."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T15:14:19.338686+00:00",
+      "trade_id": "cross_rule_1794496459",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Sweep-First-Doktrin: Ohne Liquiditätsräumung existiert kein valider struktureller Widerstand.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf der 5m-Mikroebene als auch im 4h/1D-Makrobild dreht institutionelles Kapital Märkte fast nie an 'nackten' Zonen, sondern nutzt ungeputzte Order Blocks bevorzugt als Durchbruchsbeschleuniger.",
+        "actionable_rule": "Sweep-First-Doktrin: Ohne Liquiditätsräumung existiert kein valider struktureller Widerstand."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T15:14:19.338651+00:00",
+      "trade_id": "inc_AMZ.F_5m_1794494007",
+      "symbol": "AMZ.F",
+      "name": "Amazon",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.54,
+      "pnl_raw": -0.27,
+      "text": "Strikter Trade-Filter: Bei B-Grade Order Blocks ohne Liquiditäts-Sweep ist jede Order-Platzierung softwareseitig hart zu blockieren.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AMZ.F_5m_1794494007",
+        "verdict": "LOSS",
+        "driver": "Minderwertige Setup-Qualität (Order Block nur Grade [B]) ohne vorangegangenen Liquidity Sweep ließ den Short als billige Exit-Liquidität für institutionelle Trendkäufer enden.",
+        "technical_warning": "Das Ausbleiben eines Stop-Hunts und fehlende VSA-Absorptionskerzen (keine Abweisungswicks oberhalb der Range) signalisierten anhaltenden Aufwärtsdruck.",
+        "actionable_rule": "Strikter Trade-Filter: Bei B-Grade Order Blocks ohne Liquiditäts-Sweep ist jede Order-Platzierung softwareseitig hart zu blockieren."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T15:14:19.338564+00:00",
+      "trade_id": "inc_APC.F_5m_1794493713",
+      "symbol": "APC.F",
+      "name": "Apple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 0.16,
+      "pnl_raw": 0.08,
+      "text": "Short-Setups an Micro-Widerständen sind erst freigegeben, wenn Buy-Side-Liquidität (BSL) über lokalen Hochs vor dem OB-Retest aktiv abgefischt wurde.",
+      "ai_post_mortem": {
+        "trade_id": "inc_APC.F_5m_1794493713",
+        "verdict": "WIN",
+        "driver": "Perfekte Konfluenz aus Stop-Hunt-Liquiditätsabfischung (Sweep [A]), Grade-A Order Block und extremer Chaos-Band-Erschöpfung ermöglichte einen asymmetrischen +2.2R Reversal-Run.",
+        "technical_warning": "Keine primäre Entry-Warnung; vor Erreichen von TP2 hätte ein nachlassendes VSA-Abwärtsvolumen (Delta-Absorption am RFE-Band) auf vorzeitiges Profit-Taking hingewiesen.",
+        "actionable_rule": "Short-Setups an Micro-Widerständen sind erst freigegeben, wenn Buy-Side-Liquidität (BSL) über lokalen Hochs vor dem OB-Retest aktiv abgefischt wurde."
+      }
+    },
     {
       "timestamp": "2026-11-12T14:29:06.625677+00:00",
       "trade_id": "cross_rule_1794493746",
