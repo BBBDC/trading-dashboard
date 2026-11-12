@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-12T03:00:55.681059+00:00",
-  "total_experience_records": 87,
+  "updated_at": "2026-11-12T03:31:38.590383+00:00",
+  "total_experience_records": 90,
   "learnings": [
+    {
+      "timestamp": "2026-11-12T03:31:34.642827+00:00",
+      "trade_id": "cross_rule_1794454294",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Hierarchischer Trend-Filter: Mikro-Gegenbewegungen (5m/15m) dürfen nur in Richtung des übergeordneten 4h-Trendbias gehandelt werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Micro-Confluence-Signale auf Sub-15m-Ebene bieten im Gegenwind übergeordneter Liquiditätskaskaden keinen statistischen Edge; enge Stops (-1.0R) werden systemisch durch Marktrauschen geholt, solange der 4h-Trend nicht mitspielt.",
+        "actionable_rule": "Hierarchischer Trend-Filter: Mikro-Gegenbewegungen (5m/15m) dürfen nur in Richtung des übergeordneten 4h-Trendbias gehandelt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T03:31:34.642778+00:00",
+      "trade_id": "cross_rule_1794454294",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Liquiditäts-Validierung: Kein Reversal-Entry ohne VSA-Volumenabnormalität am Wendepunkt.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Vom 5m- bis zum 1D-Chart gilt: Ein Sweep ohne signifikante Volumenspitze und aggressives Docht-Rejection-Muster ist kein Fakeout/Stop-Hunt institutioneller Akteure, sondern eine trendbestätigende Fortsetzungsbewegung, die Retests strukturell durchbricht.",
+        "actionable_rule": "Fraktale Liquiditäts-Validierung: Kein Reversal-Entry ohne VSA-Volumenabnormalität am Wendepunkt."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T03:31:34.642693+00:00",
+      "trade_id": "inc_BNBUSDT_5m_1794452451",
+      "symbol": "BNBUSDT",
+      "name": "BNB",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.42,
+      "pnl_raw": -0.21,
+      "text": "Nach einem Liquidity Sweep [A] ist kein Blind-Limit-Entry am OB [C] gestattet; die Orderausführung erfordert zwingend einen Kerzenschluss oberhalb des letzten 5m-Interim-Hochs (MSS) mit Stop-Loss-Platzierung mindestens 0.5 ATR unter dem tiefsten Punkt der Sweep-Wick.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BNBUSDT_5m_1794452451",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Einstieg in den Orderblock-Retest unmittelbar nach dem Sweep, ohne dass vorangehende Verkaufsabsorption oder ein lokaler Strukturwechsel (MSS) den Abwärtsdruck neutralisiert hatten.",
+        "technical_warning": "Ausbleiben einer bullischen VSA-Rejection (hohes Volumen bei minimalem Down-Spread) am Sweep-Tief sowie ein zu enger Stop-Loss innerhalb des normalen 5m-Noise-Bands ohne ATR-Puffer unter dem Sweep-Docht.",
+        "actionable_rule": "Nach einem Liquidity Sweep [A] ist kein Blind-Limit-Entry am OB [C] gestattet; die Orderausführung erfordert zwingend einen Kerzenschluss oberhalb des letzten 5m-Interim-Hochs (MSS) mit Stop-Loss-Platzierung mindestens 0.5 ATR unter dem tiefsten Punkt der Sweep-Wick."
+      }
+    },
     {
       "timestamp": "2026-11-12T01:31:52.677380+00:00",
       "trade_id": "cross_rule_1794447112",
