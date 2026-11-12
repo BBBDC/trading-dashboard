@@ -1,7 +1,103 @@
 {
-  "updated_at": "2026-11-12T12:09:57.476280+00:00",
-  "total_experience_records": 126,
+  "updated_at": "2026-11-12T12:47:17.894738+00:00",
+  "total_experience_records": 131,
   "learnings": [
+    {
+      "timestamp": "2026-11-12T12:47:13.946235+00:00",
+      "trade_id": "cross_rule_1794487633",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volatilitäts- und spread-konsistente Stop-Architektur: Kein Trade darf eröffnet werden, dessen Stop-Loss-Distanz unter dem statistischen Rauschband (Mindestabstand >= 1.5x ATR des Setups) liegt.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die Trades in NVD.F und APC.F scheiterten nicht zwingend an der Richtungsidee, sondern an mechanischer Selbstzerstörung durch Sub-0.3%-Stops auf XETRA/Frankfurt-Cross-Listings, wo Spread-Widening und Micro-Noise jeden Trade vor dem eigentlichen Move abräumen.",
+        "actionable_rule": "Volatilitäts- und spread-konsistente Stop-Architektur: Kein Trade darf eröffnet werden, dessen Stop-Loss-Distanz unter dem statistischen Rauschband (Mindestabstand >= 1.5x ATR des Setups) liegt."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T12:47:13.946213+00:00",
+      "trade_id": "cross_rule_1794487633",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Struktur bricht Indikator-Extrema: Zonenüberdehnungen (Chaos Band vs. RFE) definieren lediglich das Spielfeld, der Auslöser ist ausnahmslos ein struktureller Trendbruch (CHoCH / mBOS) mit Displacement.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf 5m als auch auf 4h/1D überrollt ein intakter institutioneller Trend jede statische Band-Überdehnung; wer ohne Bestätigung durch Marktstruktur-Bruch gegen die Dynamik einsteigt, fungiert als reine Exit-Liquidität für Trendfolger.",
+        "actionable_rule": "Struktur bricht Indikator-Extrema: Zonenüberdehnungen (Chaos Band vs. RFE) definieren lediglich das Spielfeld, der Auslöser ist ausnahmslos ein struktureller Trendbruch (CHoCH / mBOS) mit Displacement."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T12:47:13.946199+00:00",
+      "trade_id": "inc_APC.F_15m_1794485271",
+      "symbol": "APC.F",
+      "name": "Apple",
+      "category": "Micro-Incubator (15m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Micro-Confluence Short",
+      "pnl_leveraged": -0.2,
+      "pnl_raw": -0.1,
+      "text": "Kein Trendfading nur wegen 'Sell Pocket': Shorts erfordern zwingend das Scheitern an einem übergeordneten Key-Level, einen bärischen Change of Character (CHoCH) und einen Stop-Abstand von mindestens 3x Spread bzw. 1.5x ATR.",
+      "ai_post_mortem": {
+        "trade_id": "inc_APC.F_15m_1794485271",
+        "verdict": "LOSS",
+        "driver": "Suizidaler Short-Versuch gegen das Momentum: Ein Stop-Loss von 0.10% auf einer europäischen Apple-Tranche (.F) liegt innerhalb des normalen XETRA/Frankfurt Bid-Ask-Spreads und ignoriert jede Marktrealität.",
+        "technical_warning": "Keine bärische Divergenz im RFE, kein Sweep der Buy-Side Liquidity (BSL) und eine Stop-Distanz weit unterhalb des instrumentenspezifischen Rauschens (15m-ATR).",
+        "actionable_rule": "Kein Trendfading nur wegen 'Sell Pocket': Shorts erfordern zwingend das Scheitern an einem übergeordneten Key-Level, einen bärischen Change of Character (CHoCH) und einen Stop-Abstand von mindestens 3x Spread bzw. 1.5x ATR."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T12:47:13.946181+00:00",
+      "trade_id": "inc_NVD.F_5m_1794485270",
+      "symbol": "NVD.F",
+      "name": "Nvidia",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.62,
+      "pnl_raw": -0.31,
+      "text": "Nach einem Liquidity Sweep [A] darf der Einstieg erst nach einer dynamischen Displacement-Kerze erfolgen; der Stop-Loss gehört zwingend unter das Sweep-Extremum plus Mindestabstand von 1.5x 5m-ATR.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NVD.F_5m_1794485270",
+        "verdict": "LOSS",
+        "driver": "Gutes Setup-Framework (Sweep [A] + OB [D]), das jedoch durch fehlendes Displacement nach dem Sweep und einen mit 0.31% unhaltbar engen Stop im Frankfurter Nebenhandels-Spread erstickt wurde.",
+        "technical_warning": "Ausbleiben einer impulsiven Reaktionskerze (Fair Value Gap Entstehung) unmittelbar nach dem Sweep, begleitet von abnehmendem Delta im Orderbuch.",
+        "actionable_rule": "Nach einem Liquidity Sweep [A] darf der Einstieg erst nach einer dynamischen Displacement-Kerze erfolgen; der Stop-Loss gehört zwingend unter das Sweep-Extremum plus Mindestabstand von 1.5x 5m-ATR."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T12:47:13.946123+00:00",
+      "trade_id": "inc_BNBUSDT_5m_1794485270",
+      "symbol": "BNBUSDT",
+      "name": "BNB",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.78,
+      "pnl_raw": -0.39,
+      "text": "Kein Long-Entry in ein 'Buy Pocket' ohne nachgewiesenen SSL-Sweep und anschließenden 5m-Bruch der Marktstruktur (mBOS) mit bullischer Expansion.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BNBUSDT_5m_1794485270",
+        "verdict": "LOSS",
+        "driver": "Messerfangen im freien Fall: Long-Einstieg allein auf Basis von Indikator-Überverkaufung (Chaos Band < RFE), ohne dass zuvor Liquidität gesweept oder eine Trendumkehr bewiesen wurde.",
+        "technical_warning": "Fehlendes VSA-Absorptionsvolumen (kein Stopping Volume / Climax Wick) und das Fehlen eines validen Liquidity Sweeps der Sell-Side Liquidity (SSL).",
+        "actionable_rule": "Kein Long-Entry in ein 'Buy Pocket' ohne nachgewiesenen SSL-Sweep und anschließenden 5m-Bruch der Marktstruktur (mBOS) mit bullischer Expansion."
+      }
+    },
     {
       "timestamp": "2026-11-12T12:09:53.638642+00:00",
       "trade_id": "cross_rule_1794485393",
