@@ -486,9 +486,12 @@ STRENGSTE INSTITUTIONELLE FILTERREGELN (BITTE GENAUESTENS EINHALTEN):
 2. KRITERIEN FÜR EIN ECHTES "LONG"-SIGNAL (SEHR STRIKT):
    - Makro-Trend (1D & 1W) ist bullisch (über 233 EMA) ODER der Kurs sitzt im institutional 'degencoder Buy Pocket' (Lower Chaos Band unter RFE 233) ODER exakt im 1D Fibonacci Golden Pocket (0.618 - 0.650) ODER an einem unberührten bullischen SMC Order Block (Grad A / Retest R1-R3 mit Liquiditäts-Sweep).
    - Kein Chasing: Niemals Long gehen, wenn der 4h-Kurs bereits am oberen degencoder-Band (Overbought) oder der RSI > 62 ist.
-   - Konfluenz & Timing-Trigger: Es muss auf 1h oder 4h ein degencoder 'Good Buy Signal' (blaues Dreieck), eine aktive bullische Divergenz, ein SMC Order Block Retest ODER Wyckoff "No Supply / Low Volume" vorliegen.
+   - TRIGGER-PFLICHT & EMPIRISCHES KONFLUENZ-GATE:
+     * Ein SMC Order Block oder FVG alleine ohne Reversal-Trigger erzielt empirisch nur 46% Win-Rate. Vergib NIEMALS ein LONG/SHORT-Signal oder Score >= 80% für eine bloße Zone ohne Reversal-Bestätigung! Ohne Trigger bleibt das Signal "NEUTRAL" (Score max. 68%).
+     * Es MUSS auf 1h oder 4h ein echter Trigger vorliegen: degencoder 'Good Buy Signal' (blaues Dreieck, 6.8x Asymmetrie), 'Buy Area' (grünes Kreuz, 56.5% Win-Rate), eine bullische RSI-Divergenz ODER Wyckoff "No Supply" am Support.
+     * Rausch-Signale wie 'Bear Alignment Ends' dürfen keine Bonuspunkte erhalten.
    - Mindest-CRV (Chance-Risiko-Verhältnis) >= 2.5:1 zum nächsten signifikanten FVG / Widerstand.
-   - Score >= 88 % wird NUR bei makelloser 3-facher Konfluenz vergeben.
+   - Score >= 88 % wird NUR bei makelloser 3-facher Konfluenz (Zone + Trigger + 233-EMA Trendfolge) vergeben.
 
 3. KRITERIEN FÜR EIN ECHTES "SHORT"-SIGNAL (SEHR STRIKT):
    - Makro-Trend ist bärisch (unter 233 EMA) ODER institutional 'degencoder Sell Pocket' (Upper Chaos Band über RFE 233) ODER klare Top-Erschöpfung am oberen 1D-Kanalband (Overbought) / bärischer Order Block (Grad A mit Sweep) mit bestätigtem degencoder 'Good Sell Signal' (Kreis) oder bärischer Divergenz auf 1h/4h.

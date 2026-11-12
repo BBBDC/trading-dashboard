@@ -142,9 +142,9 @@ def calculate_degencoder_bands(
     curr_rfe_low = rfe_low[-1]
 
     # Institutional Pockets gemäß Original-Doku:
-    # "When the lower chaos band dips beneath the RFE lower boundary..."
-    in_buy_pocket = bool(curr_lower < curr_rfe_low or last_p < curr_lower)
-    in_sell_pocket = bool(curr_upper > curr_rfe_up or last_p > curr_upper)
+    # "When the lower chaos band dips beneath the RFE lower boundary and price enters the zone"
+    in_buy_pocket = bool((curr_lower < curr_rfe_low or last_p < curr_lower) and last_p <= max(curr_lower, curr_rfe_low))
+    in_sell_pocket = bool((curr_upper > curr_rfe_up or last_p > curr_upper) and last_p >= min(curr_upper, curr_rfe_up))
 
     if last_p > curr_upper:
         channel_pos = "Overbought Band (Überdehnt Oben)"
