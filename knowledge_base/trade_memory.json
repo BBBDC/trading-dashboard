@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-12T15:22:32.757204+00:00",
-  "total_experience_records": 152,
+  "updated_at": "2026-11-12T16:02:19.339642+00:00",
+  "total_experience_records": 156,
   "learnings": [
+    {
+      "timestamp": "2026-11-12T16:02:15.274528+00:00",
+      "trade_id": "cross_rule_1794499335",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Strikter Mindestgüte-Filter für Strukturzonen (OB-Grade >= B)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Zonen mit Rating [D] besitzen historisch unzureichendes Ungleichgewicht im Orderbuch; das blindes Antizipieren von Abprallern an solchen Micro-Levels führt im Mehrfach-Backtest über alle Zeitebenen zu systematischem Kapitalverlust.",
+        "actionable_rule": "Strikter Mindestgüte-Filter für Strukturzonen (OB-Grade >= B)"
+      }
+    },
+    {
+      "timestamp": "2026-11-12T16:02:15.274493+00:00",
+      "trade_id": "cross_rule_1794499335",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Counter-Trend/Mean-Reversion ohne statistische Erschöpfung (Chaos Band > RFE)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Fraktal auf 5m wie auf 4h/1D gilt: Ein isolierter Order-Block-Retest ist lediglich Rauschen. Erst wenn der Preis das Chaos-Band über die RFE-Grenze dehnt, versiegt die Aggressor-Liquidität verlässlich und ermöglicht institutionelle Reversals.",
+        "actionable_rule": "Kein Counter-Trend/Mean-Reversion ohne statistische Erschöpfung (Chaos Band > RFE)"
+      }
+    },
+    {
+      "timestamp": "2026-11-12T16:02:15.274465+00:00",
+      "trade_id": "inc_AMZ.F_5m_1794496426",
+      "symbol": "AMZ.F",
+      "name": "Amazon",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 2.14,
+      "pnl_raw": 1.07,
+      "text": "Volle Positionsgröße und erweiterte Gewinnziele (TP2/Runner) dürfen ausschließlich freigegeben werden, wenn mindestens OB-Qualität [B] mit einem verifizierten Institutional Pocket koinzidiert.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AMZ.F_5m_1794496426",
+        "verdict": "WIN",
+        "driver": "Lehrbuchmäßige Konfluenz aus strukturellem Widerstand (OB [B]) und messbarer institutioneller Überdehnung (Institutional Sell Pocket) für einen friktionslosen Mean-Reversion-Abverkauf.",
+        "technical_warning": "Keine negativen Warnsignale; das Zusammentreffen von OB [B] mit extremer Chaos-Band-Expansion signalisierte ein ideales asymmetrisches Chance-Risiko-Verhältnis.",
+        "actionable_rule": "Volle Positionsgröße und erweiterte Gewinnziele (TP2/Runner) dürfen ausschließlich freigegeben werden, wenn mindestens OB-Qualität [B] mit einem verifizierten Institutional Pocket koinzidiert."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T16:02:15.274386+00:00",
+      "trade_id": "inc_TL0.F_5m_1794490339",
+      "symbol": "TL0.F",
+      "name": "Tesla",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.78,
+      "pnl_raw": -0.39,
+      "text": "Short-Setups an Order Blocks mit Qualitätsbewertung unterhalb von [C] sind strikt verboten, sofern keine gleichzeitige Chaos-Band-Überdehnung (Chaos Band > RFE) vorliegt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_TL0.F_5m_1794490339",
+        "verdict": "LOSS",
+        "driver": "Mangelnde institutionelle Schirmherrschaft durch Einstieg an einem schwach validierten Order Block der Qualitätsstufe [D] ohne Bestätigung einer Erschöpfung der Käuferseite.",
+        "technical_warning": "Das Fehlen des 'Institutional Sell Pocket' (Chaos Band verharrte unter RFE) und das unzureichende OB-Rating [D] warnten vor unvollständiger Liquiditätsabsorption und hohem Durchbruchsrisiko.",
+        "actionable_rule": "Short-Setups an Order Blocks mit Qualitätsbewertung unterhalb von [C] sind strikt verboten, sofern keine gleichzeitige Chaos-Band-Überdehnung (Chaos Band > RFE) vorliegt."
+      }
+    },
     {
       "timestamp": "2026-11-12T15:14:19.338727+00:00",
       "trade_id": "cross_rule_1794496459",
