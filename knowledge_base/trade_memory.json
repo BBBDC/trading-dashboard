@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-12T10:03:27.937285+00:00",
-  "total_experience_records": 106,
+  "updated_at": "2026-11-12T11:08:58.723241+00:00",
+  "total_experience_records": 109,
   "learnings": [
+    {
+      "timestamp": "2026-11-12T11:08:54.914200+00:00",
+      "trade_id": "cross_rule_1794481734",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Sekundäre Order Blocks ([B] oder Rang R3/R4) erfordern zwingend eine Bestätigung auf der übergeordneten Zeitebene (MTF/HTF Alignment).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Micro-Setups auf 5m besitzen isoliert betrachtet ein zu geringes Signal-Rausch-Verhältnis; ein [B]-OB hält Verkaufsflushes nur stand, wenn er sich mit einer 1h/4h-Supportstruktur deckt.",
+        "actionable_rule": "Sekundäre Order Blocks ([B] oder Rang R3/R4) erfordern zwingend eine Bestätigung auf der übergeordneten Zeitebene (MTF/HTF Alignment)."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T11:08:54.914175+00:00",
+      "trade_id": "cross_rule_1794481734",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Überdehnungs-Pockets (Bänder/RFE-Extrema) sind primär Momentum-Bestätigungen und erst sekundär Reversal-Zonen – niemals blind limit-kaufen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Fraktal auf 5m wie auf 4h/1D gilt: Wenn institutioneller Verkaufsdruck Volatilitätsbänder bricht, führt das Auffangen ohne signifikantes VSA-Stopping-Volume ('Absorption Volume') mit mathematischer Gewissheit zum Ausstoppen.",
+        "actionable_rule": "Überdehnungs-Pockets (Bänder/RFE-Extrema) sind primär Momentum-Bestätigungen und erst sekundär Reversal-Zonen – niemals blind limit-kaufen."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T11:08:54.914122+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1794477658",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.66,
+      "pnl_raw": -0.33,
+      "text": "Long-Einstiege bei 'Chaos Band < RFE' sind strikt verboten, solange der Order Block keinen Tier-A-Status aufweist und die Trigger-Kerze nicht vollständig über dem lokalen Break-of-Structure mit bullischem Delta-Cluster schließt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1794477658",
+        "verdict": "LOSS",
+        "driver": "Der Long-Einstieg erfolgte verfrüht in ein fallendes Messer an einem schwachen Tier-B Order Block, ohne dass ein vorheriger struktureller Reclaim (MSS) oder VSA-Absorptionsnachweis vorlag.",
+        "technical_warning": "Das Durchbrechen des Chaos-Bands unter das RFE-Level signalisierte akutes Momentum der Verkäuferseite; ein Tier-B-OB ([B] R4) bot ohne vorangehenden Tier-A-Liquidity-Sweep keine ausreichende institutionelle Liquiditätsbarriere für einen hauchdünnen 0.33%-Stop.",
+        "actionable_rule": "Long-Einstiege bei 'Chaos Band < RFE' sind strikt verboten, solange der Order Block keinen Tier-A-Status aufweist und die Trigger-Kerze nicht vollständig über dem lokalen Break-of-Structure mit bullischem Delta-Cluster schließt."
+      }
+    },
     {
       "timestamp": "2026-11-12T10:03:23.871404+00:00",
       "trade_id": "cross_rule_1794477803",
