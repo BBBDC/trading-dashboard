@@ -1,7 +1,85 @@
 {
-  "updated_at": "2026-11-12T11:08:58.723241+00:00",
-  "total_experience_records": 109,
+  "updated_at": "2026-11-12T11:32:33.132330+00:00",
+  "total_experience_records": 113,
   "learnings": [
+    {
+      "timestamp": "2026-11-12T11:32:29.277506+00:00",
+      "trade_id": "cross_rule_1794483149",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
+        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T11:32:29.277475+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1794481692",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.04,
+      "pnl_raw": -0.52,
+      "text": "Bei RENDERUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1794481692",
+        "verdict": "LOSS",
+        "driver": "Trade RENDERUSDT schloss mit CLOSED_SL (-1.0R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei RENDERUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T11:32:29.277434+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1794477658",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.38,
+      "pnl_raw": -0.19,
+      "text": "Bei BTCUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1794477658",
+        "verdict": "LOSS",
+        "driver": "Trade BTCUSDT schloss mit CLOSED_SL (-1.0R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei BTCUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T11:32:29.277349+00:00",
+      "trade_id": "inc_SUIUSDT_5m_1794475857",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.54,
+      "pnl_raw": -0.77,
+      "text": "Bei SUIUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_5m_1794475857",
+        "verdict": "LOSS",
+        "driver": "Trade SUIUSDT schloss mit CLOSED_SL (-1.0R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei SUIUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
     {
       "timestamp": "2026-11-12T11:08:54.914200+00:00",
       "trade_id": "cross_rule_1794481734",
