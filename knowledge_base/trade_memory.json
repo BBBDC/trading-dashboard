@@ -1,7 +1,45 @@
 {
-  "updated_at": "2026-11-12T16:02:19.339642+00:00",
-  "total_experience_records": 156,
+  "updated_at": "2026-11-12T16:11:42.206756+00:00",
+  "total_experience_records": 158,
   "learnings": [
+    {
+      "timestamp": "2026-11-12T16:11:38.136231+00:00",
+      "trade_id": "cross_rule_1794499898",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
+        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
+      }
+    },
+    {
+      "timestamp": "2026-11-12T16:11:38.136189+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1794499270",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -1.92,
+      "pnl_raw": -0.96,
+      "text": "Bei NEARUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1794499270",
+        "verdict": "LOSS",
+        "driver": "Trade NEARUSDT schloss mit CLOSED_SL (-1.0R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei NEARUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
     {
       "timestamp": "2026-11-12T16:02:15.274528+00:00",
       "trade_id": "cross_rule_1794499335",

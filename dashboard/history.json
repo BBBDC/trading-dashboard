@@ -1,5 +1,151 @@
 [
   {
+    "id": "evt_20261112_160229",
+    "timestamp": "2026-11-12T16:02:29.647172+00:00",
+    "timestamp_display": "12.11.2026 16:02 UTC",
+    "title": "🔔 TV-Signaländerung: 5 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 5,
+    "changes": [
+      {
+        "symbol": "NASDAQ:AMZN",
+        "name": "Amazon",
+        "category": "Big Tech",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "LONG",
+        "old_score": 42,
+        "new_score": 98,
+        "price": 268.68,
+        "setup_name": "🌟 A+ Konfluenz: degencoder Pocket/Trigger & Trendfolge",
+        "entry_range": [
+          267.22,
+          269.91
+        ],
+        "stop_loss": 251.01,
+        "take_profit_2": 333.63,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "1W Makro-Trend bullisch bestätigt",
+          "degencoder: 1D Institutional SELL Pocket (Upper Chaos > RFE 233)",
+          "SMC OB: 4h Bearish Order Block [R1] Retest"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
+        "note": "3-Säulen-Konfluenz (98%): Makro-Trend intakt, Zone bestätigt, Reversal-Trigger aktiv (1D Trend über EMA 233 bullisch).",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NASDAQ:PLTR",
+        "name": "Palantir",
+        "category": "Software / AI",
+        "change_type": "SETUP_UPDATE",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 90,
+        "new_score": 95,
+        "price": 169.7199,
+        "setup_name": "Hypothese 1: SMC Order Block [R2] Confirmed Exhaustion",
+        "entry_range": [
+          169.33,
+          171.03
+        ],
+        "stop_loss": 178.32,
+        "take_profit_2": 139.39,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "SMC OB: 4h Bearish Order Block [R6] Retest",
+          "SMC OB: 1D Bearish Order Block [R2] Retest"
+        ],
+        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R2] Confirmed Exhaustion' (1D Trend unter EMA 233 bärisch).",
+        "note": "3-Säulen-Erschöpfung (95%): Makro-Bärenmarkt aktiv, Widerstandszone bestätigt, Sell-Trigger aktiv.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NASDAQ:GOOG",
+        "name": "Alphabet (Google)",
+        "category": "Big Tech",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 52,
+        "new_score": 95,
+        "price": 292.476,
+        "setup_name": "Hypothese 1: SMC Order Block [R2] Confirmed Exhaustion",
+        "entry_range": [
+          291.67,
+          294.59
+        ],
+        "stop_loss": 295.87,
+        "take_profit_2": 279.58,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "SMC OB: 4h Bearish Order Block [R1] Retest",
+          "SMC OB: 1D Bearish Order Block [R2] Retest"
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
+        "note": "3-Säulen-Erschöpfung (95%): Makro-Bärenmarkt aktiv, Widerstandszone bestätigt, Sell-Trigger aktiv.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NYSE:ORCL",
+        "name": "Oracle",
+        "category": "Enterprise Software",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 50,
+        "new_score": 90,
+        "price": 126.32,
+        "setup_name": "Hypothese 1: SMC Order Block Confluence",
+        "entry_range": [
+          125.36,
+          126.5
+        ],
+        "stop_loss": 130.2,
+        "take_profit_2": 115.5,
+        "reasons": [
+          "Makro-Trend (1W & 1D) ist bärisch mit regulärer und versteckter bärischer Divergenz auf Tagesbasis.",
+          "Exzellenter Bearish Order Block Grade A mit bestätigtem Liquiditäts-Sweep (is_sweep = true) und 1h 'Good Sell Signal'.",
+          "Erfüllung der Sektor-Erfordernis für Enterprise Software (Mindest-Score 88% erreicht, strikte Confluence vorliegend)."
+        ],
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (Makro-Trend (1W & 1D) ist bärisch mit regulärer und versteckter bärischer Divergenz auf Tagesbasis.).",
+        "note": "ORCL bietet ein hochgradig asymmetrisches Short-Setup. Die Kombination aus bärischer 1D-Struktur, einem Grade-A Order Block mit erfolgtem Liquiditäts-Sweep und dem klaren 1h-Verkaufssignal liefert die nötige institutionelle Konfluenz. Risikomanagement erfolgt mit engem Stop knapp über dem OB-Top bei 130.20.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...j2vQ]"
+      },
+      {
+        "symbol": "AMEX:SPY",
+        "name": "SPY",
+        "category": "Aktien",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 88,
+        "new_score": 52,
+        "price": 758.66,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          0,
+          0
+        ],
+        "stop_loss": 0,
+        "take_profit_2": 0,
+        "reasons": [
+          "Makro-Trend (1W & 1D) ist Bärisch unter anhaltendem Druck.",
+          "Vorhandener Bearish OB ist Grade B, 5-fach retested und bereits mitigated ohne frischen Liquiditäts-Sweep.",
+          "Strikter Filter: Kein valider Short-Einstieg ohne Sweep-First-Doktrin und klares VSA-Bestätigungsvolumen (aktuell Low Volume)."
+        ],
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W & 1D) ist Bärisch unter anhaltendem Druck.).",
+        "note": "SPY befindet sich in einem intakten bärischen Makro-Regime. Das bisherige SHORT-Signal wird aufgrund der fortgeschrittenen Mitigation des B-Grade Order Blocks und fehlendem Sweep auf NEUTRAL herabgestuft, um Whipsaws zu vermeiden. Wir warten ab, bis ein frischer Sweep der Liquidität oberhalb von 768.82 stattfindet.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...j2vQ]"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 5 Einstufungen haben sich geändert:\n\n🟢 Amazon (AMZN):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 98%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: 3-Säulen-Konfluenz (98%): Makro-Trend intakt, Zone bestätigt, Reversal-Trigger aktiv (1D Trend über EMA 233 bullisch)....\n   Setup: 🌟 A+ Konfluenz: degencoder Pocket/Trigger & Trendfolge\n   Entry: 267.22 | SL: 251.01 | TP2: 333.63\n\n🔴 Palantir (PLTR):\n   Score-Sprung: 90% ➔ 95% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R2] Confirmed Exhaustion' (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: 3-Säulen-Erschöpfung (95%): Makro-Bärenmarkt aktiv, Widerstandszone bestätigt, Sell-Trigger aktiv....\n   Setup: Hypothese 1: SMC Order Block [R2] Confirmed Exhaustion\n   Entry: 169.33 | SL: 178.32 | TP2: 139.39\n\n🔴 Alphabet (Google) (GOOG):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: 3-Säulen-Erschöpfung (95%): Makro-Bärenmarkt aktiv, Widerstandszone bestätigt, Sell-Trigger aktiv....\n   Setup: Hypothese 1: SMC Order Block [R2] Confirmed Exhaustion\n   Entry: 291.67 | SL: 295.87 | TP2: 279.58\n\n🔴 Oracle (ORCL):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 90%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (Makro-Trend (1W & 1D) ist bärisch mit regulärer und versteckter bärischer Divergenz auf Tagesbasis.).\n   📝 KI-Rationale: ORCL bietet ein hochgradig asymmetrisches Short-Setup. Die Kombination aus bärischer 1D-Struktur, einem Grade-A Order Block mit er...\n   Setup: Hypothese 1: SMC Order Block Confluence\n   Entry: 125.36 | SL: 130.20 | TP2: 115.50\n\n⚪ SPY (SPY):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W & 1D) ist Bärisch unter anhaltendem Druck.).\n   📝 KI-Rationale: SPY befindet sich in einem intakten bärischen Makro-Regime. Das bisherige SHORT-Signal wird aufgrund der fortgeschrittenen Mitigat...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261112_142919",
     "timestamp": "2026-11-12T14:29:19.878304+00:00",
     "timestamp_display": "12.11.2026 14:29 UTC",
@@ -18589,44 +18735,5 @@
     "notification_sent": false,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 11 Einstufungen haben sich geändert:\n\n🔴 Palladium (Spot) (PALLADIUM):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 75%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 1,019.94 | SL: 1,057.75 | TP2: 907.52\n\n⚪ GLMRUSDT (GLMRUSDT):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 58%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-S...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ MOVRUSD (MOVRUSD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 56%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-S...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ Platin (Spot) (PLATINUM):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 56%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-S...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ BTCUSD (BTCUSD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 54%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Übergeordnetes Makro-Regime (1W, 3D, 1D) eindeutig bullisch; 1D-Trend ist vollkommen intakt.).\n   📝 KI-Rationale: Bitcoin konsolidiert oberhalb wichtiger Makro-Strukturen, doch die 4h-Korrektur ist noch nicht abgeschlossen. Gemäß Regel 1 werten...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n⚪ BTCUSD (BTCUSD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W, 3D, 1D) ist vollkommen intakt bullisch über dem 233 EMA.).\n   📝 KI-Rationale: Obwohl das übergeordnete Trend-Regime unmissverständlich bullisch ist, verbietet unser Risikomanagement ein Chasing bei 81.248 USD...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n... und 5 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261028_221820",
-    "timestamp": "2026-10-28T22:18:20.654776+00:00",
-    "timestamp_display": "28.10.2026 22:18 UTC",
-    "title": "🔔 TV-Signaländerung: 1 Asset aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 1,
-    "changes": [
-      {
-        "symbol": "COINBASE:BTCUSD",
-        "name": "Bitcoin",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 81,
-        "new_score": 52,
-        "price": 81616.16,
-        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
-        "entry_range": [
-          78500.0,
-          79800.0
-        ],
-        "stop_loss": 76800.0,
-        "take_profit_2": 89000.0,
-        "reasons": [
-          "Makro-Bullenmarkt (1W, 3D, 1D, 4h) intakt, jedoch 1D mit aktiver regulärer bärischer Divergenz belastet",
-          "1h RSI mit 65.26 bereits überkauft (> 62 Filterregel) bei extrem niedrigem VSA ('Ultra-Low / No Demand')",
-          "Strikte Anti-Chasing-Regel: Kein Long am aktuellen Hoch, sondern Warten auf Pullback ins FVG/Golden Pocket"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Bullenmarkt (1W, 3D, 1D, 4h) intakt, jedoch 1D mit aktiver regulärer bärischer Divergenz belastet).",
-        "note": "Der Makrotrend von Bitcoin ist unbestritten bullisch, allerdings verbietet das Risikomanagement ein Nachkaufen nach der jüngsten 1h-Rallye (RSI > 65 bei fehlendem institutionellem Folgevolumen). Die 1D bärische Divergenz mahnt zur Vorsicht vor einem Sweep der Tiefs. Erst ein gesunder Rücksetzer in die 78.5k–79.8k Support-Zone bietet wieder ein institutionelles Setup mit CRV > 2.5.",
-        "evaluated_by": "gemini-3.8-flash-low [Pro Abo]"
-      }
-    ],
-    "notification_sent": false,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n⚪ Bitcoin (BTCUSD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Bullenmarkt (1W, 3D, 1D, 4h) intakt, jedoch 1D mit aktiver regulärer bärischer Divergenz belastet).\n   📝 KI-Rationale: Der Makrotrend von Bitcoin ist unbestritten bullisch, allerdings verbietet das Risikomanagement ein Nachkaufen nach der jüngsten 1...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
