@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-13T10:01:01.390568+00:00",
-  "total_experience_records": 114,
+  "updated_at": "2026-11-13T10:35:37.054411+00:00",
+  "total_experience_records": 117,
   "learnings": [
+    {
+      "timestamp": "2026-11-13T10:35:33.106252+00:00",
+      "trade_id": "cross_rule_1794566133",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Chaos-Band-Extrema definieren Überdehnungen, keine garantierten Wendepunkte: Der Trigger erfordert das Re-Entering der Bandbreite.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "In starken Impulswellen auf 5m wie auf 4h 'reitet' der Preis die äußeren Bänder. Ein Setup ist erst dann valide, wenn der Kurs nach Verlassen des Chaos-Bandes wieder nachweislich in die Value-Zone zurückbricht.",
+        "actionable_rule": "Chaos-Band-Extrema definieren Überdehnungen, keine garantierten Wendepunkte: Der Trigger erfordert das Re-Entering der Bandbreite."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T10:35:33.106230+00:00",
+      "trade_id": "cross_rule_1794566133",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volumen-Surges (>2.0x) sind Richtungs-Katalysatoren: Fading ist strikt verboten, solange keine klare Preisablehnung (Sweep + Close zurück in die Range) vorliegt.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ob 5m oder 1D: Ein Volumenanstieg an Widerstandsniveaus ohne sofortige Gegenreaktion repräsentiert institutionelle Absorption. Wer hier blind shortet, stellt die Exit-Liquidität für den Breakout bereit.",
+        "actionable_rule": "Volumen-Surges (>2.0x) sind Richtungs-Katalysatoren: Fading ist strikt verboten, solange keine klare Preisablehnung (Sweep + Close zurück in die Range) vorliegt."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T10:35:33.106179+00:00",
+      "trade_id": "inc_TL0.F_5m_1794531652",
+      "symbol": "TL0.F",
+      "name": "Tesla",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -1.42,
+      "pnl_raw": -0.71,
+      "text": "Bei VSA-Volumen >= 2.0x darf kein Blind-Limit-Entry in eine Sell-Pocket erfolgen; zwingende Voraussetzung ist ein bestätigter Candle-Close unter dem Tief der Impulskerze (5m-CHoCH/MSS).",
+      "ai_post_mortem": {
+        "trade_id": "inc_TL0.F_5m_1794531652",
+        "verdict": "LOSS",
+        "driver": "Der Short wurde direkt in einen bullischen VSA-Volumenschub (2.0x) platziert, wodurch aggressive Käufer die Sell-Pocket absorbiert und den Widerstand per Breakout überrannt haben.",
+        "technical_warning": "Divergenz von Effort vs. Result im VSA: Sehr hohes Volumen ohne signifikante Dochtbildung (Rejection-Wick) an der Chaos-Band-Grenze signalisierte Absorption und Akkumulation statt einer Trendwende.",
+        "actionable_rule": "Bei VSA-Volumen >= 2.0x darf kein Blind-Limit-Entry in eine Sell-Pocket erfolgen; zwingende Voraussetzung ist ein bestätigter Candle-Close unter dem Tief der Impulskerze (5m-CHoCH/MSS)."
+      }
+    },
     {
       "timestamp": "2026-11-13T09:34:10.768335+00:00",
       "trade_id": "cross_rule_1794562450",
