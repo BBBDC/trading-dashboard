@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-13T18:01:29.534978+00:00",
-  "total_experience_records": 157,
+  "updated_at": "2026-11-13T18:32:57.996481+00:00",
+  "total_experience_records": 160,
   "learnings": [
+    {
+      "timestamp": "2026-11-13T18:32:53.998220+00:00",
+      "trade_id": "cross_rule_1794594773",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Proxy- und Primärmarkt-Disziplin: Sekundärnotierungen von US-Mega-Caps (z.B. Frankfurt/XETRA) dürfen niemals isoliert nach lokalen Orderflow-Mustern gehandelt werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Europäische Orderbücher für US-Werte wie FB2A.F besitzen keine eigenständige Preisfindung; lokale Widerstände werden bei US-Pre-Market-Kaufdruck widerstandslos überrannt.",
+        "actionable_rule": "Proxy- und Primärmarkt-Disziplin: Sekundärnotierungen von US-Mega-Caps (z.B. Frankfurt/XETRA) dürfen niemals isoliert nach lokalen Orderflow-Mustern gehandelt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T18:32:53.998196+00:00",
+      "trade_id": "cross_rule_1794594773",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "HTF-Struktur bricht Mikro-Oszillation: 5m/15m Counter-Trend-Signale sind strikt verboten, solange der 4h/1D-Trend aufwärts gerichtet ist und kein übergeordnetes HTF-Liquiditätslevel abgearbeitet wurde.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Band-Überdehnungen (Chaos Bänder / RFE) stellen in starken Trends Fortsetzungsmuster dar und wirken nur an verifizierten HTF-Widerständen als Reversal-Katalysator.",
+        "actionable_rule": "HTF-Struktur bricht Mikro-Oszillation: 5m/15m Counter-Trend-Signale sind strikt verboten, solange der 4h/1D-Trend aufwärts gerichtet ist und kein übergeordnetes HTF-Liquiditätslevel abgearbeitet wurde."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T18:32:53.998144+00:00",
+      "trade_id": "inc_FB2A.F_5m_1794589287",
+      "symbol": "FB2A.F",
+      "name": "Meta Platforms",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.48,
+      "pnl_raw": -0.24,
+      "text": "Kein Short-Einstieg in 'Institutional Sell Pockets' ohne vorherigen Stop-Run über das letzte Liquiditätshoch plus Bestätigung durch eine bärische Verdrängungskerze (Displacement) mit Volumen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_FB2A.F_5m_1794589287",
+        "verdict": "LOSS",
+        "driver": "Verfrühte Short-Positionierung in ein intaktes Momentum basierend auf reiner Band-Überdehnung ohne vorgelagerten Marktstruktur-Bruch (MSS) oder Bestätigung durch institutionelle Verkaufsabsorption.",
+        "technical_warning": "Fehlender Liquidity-Sweep des letzten lokalen Swing-Highs (kein Upthrust nach Wyckoff) und Ausbleiben einer bärischen VSA-Volumendivergenz bei Anlauf des Widerstandslevels.",
+        "actionable_rule": "Kein Short-Einstieg in 'Institutional Sell Pockets' ohne vorherigen Stop-Run über das letzte Liquiditätshoch plus Bestätigung durch eine bärische Verdrängungskerze (Displacement) mit Volumen."
+      }
+    },
     {
       "timestamp": "2026-11-13T18:00:41.318166+00:00",
       "trade_id": "cross_rule_1794592841",
