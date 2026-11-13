@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-13T21:32:30.932336+00:00",
-  "total_experience_records": 67,
+  "updated_at": "2026-11-13T22:01:48.337245+00:00",
+  "total_experience_records": 70,
   "learnings": [
+    {
+      "timestamp": "2026-11-13T22:01:44.354381+00:00",
+      "trade_id": "cross_rule_1794607304",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Ein valider Liquidity-Sweep erfordert sofortiges Displacement innerhalb von maximal zwei Folgekerzen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Verweilt der Preis nach einem Sweep im Support-Bereich oder konsolidiert am Tief, handelt es sich nicht um eine Liquiditätsfalle (Stop-Hunt), sondern um echte Trendfortsetzung und Schwäche der Käuferseite.",
+        "actionable_rule": "Ein valider Liquidity-Sweep erfordert sofortiges Displacement innerhalb von maximal zwei Folgekerzen."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T22:01:44.354356+00:00",
+      "trade_id": "cross_rule_1794607304",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Antizipieren von Umkehrmustern auf Sub-Stunden-Ebene ohne strikte Übereinstimmung mit dem 4h-Trendregime.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m/15m generierte Signale (wie 'Good Buy' oder lokale OB-Retests) weisen eine hohe Ausfallquote auf, wenn sie als isolierte Counter-Trend-Trades gegen die übergeordnete 4h/1D-Marktstruktur gehandelt werden.",
+        "actionable_rule": "Kein Antizipieren von Umkehrmustern auf Sub-Stunden-Ebene ohne strikte Übereinstimmung mit dem 4h-Trendregime."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T22:01:44.354302+00:00",
+      "trade_id": "inc_SOLUSDT_15m_1794605456",
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "category": "Micro-Incubator (15m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Micro-Confluence Long",
+      "pnl_leveraged": -1.3,
+      "pnl_raw": -0.65,
+      "text": "Keine blinden Retest-Entries in 15m-Order-Blocks nach einem Sweep ohne vorherigen Market Structure Shift (MSS) und Kerzenschluss zurück über das Sweep-Level.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SOLUSDT_15m_1794605456",
+        "verdict": "LOSS",
+        "driver": "Kauf in eine ungebremste Abwärtsbewegung, da der Order-Block-Retest (R3) keine sofortige bullische Expansion zeigte und der Support liquidiert wurde.",
+        "technical_warning": "Mangelnde volumetrische Abweisung (kein VSA-Buying-Climax/Absorption-Delta) sowie das Ausbleiben eines impulsiven Reclaims nach dem Sweep signalisierten echten Verkaufsdruck statt eines Fehlausbruchs.",
+        "actionable_rule": "Keine blinden Retest-Entries in 15m-Order-Blocks nach einem Sweep ohne vorherigen Market Structure Shift (MSS) und Kerzenschluss zurück über das Sweep-Level."
+      }
+    },
     {
       "timestamp": "2026-11-13T21:32:27.222484+00:00",
       "trade_id": "cross_rule_1794605547",
