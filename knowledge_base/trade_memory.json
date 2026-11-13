@@ -1,7 +1,159 @@
 {
-  "updated_at": "2026-11-13T15:58:25.924212+00:00",
-  "total_experience_records": 143,
+  "updated_at": "2026-11-13T16:32:34.397499+00:00",
+  "total_experience_records": 151,
   "learnings": [
+    {
+      "timestamp": "2026-11-13T16:32:30.629093+00:00",
+      "trade_id": "cross_rule_1794587550",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Heimatmarkt- und Trend-Synchronisation für Sekundärnotierungen (Cross-Exchange Rule).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Europäische Notierungen von US-Basiswerten (wie ABEA.F) weisen außerhalb der US-Hauptsession geringe Markttiefe und arbiträre Spreads auf; Setups sind nur valide, wenn der 4h/1D-Trend des US-Primärwerts (GOOGL/NASDAQ) die Richtung aktiv stützt.",
+        "actionable_rule": "Heimatmarkt- und Trend-Synchronisation für Sekundärnotierungen (Cross-Exchange Rule)."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T16:32:30.629072+00:00",
+      "trade_id": "cross_rule_1794587550",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales Liquiditäts-Diktat: Keine Trade-Initiierung an einfachen Re-Tests ohne vorherigen externen Liquidity Sweep.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Was auf 5m zum Stop-Out führt, wiederholt sich identisch auf 4h und 1D: Reine strukturelle Orderblöcke ohne Sweeps dienen Smart Money lediglich als Durchgangsstation zur Generierung von Exit-Liquidität, bevor der eigentliche Trend etabliert wird.",
+        "actionable_rule": "Fraktales Liquiditäts-Diktat: Keine Trade-Initiierung an einfachen Re-Tests ohne vorherigen externen Liquidity Sweep."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T16:32:30.629019+00:00",
+      "trade_id": "inc_ABEA.F_5m_1794584014",
+      "symbol": "ABEA.F",
+      "name": "Alphabet (Google)",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.46,
+      "pnl_raw": -0.23,
+      "text": "Long-Einstiege an [B]-Grade Orderblöcken auf 5m/15m sind strikt verboten, es sei denn, ein valider Liquidity Sweep unter das vorherige Swing-Tief wurde durch signifikantes Delta-/VSA-Volumen bestätigt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ABEA.F_5m_1794584014",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Einstieg an einem sekundären [B]-Orderblock ohne signifikante Sell-Side-Liquiditätsbereinigung in einem spread-sensitiven europäischen Handelssegment.",
+        "technical_warning": "Die Herabstufung des Orderblocks auf Güteklasse [B] (kein A-Grade Liquidity Sweep) sowie das Fehlen einer volumenstarken VSA-Absorptionskerze beim Retest signalisierten mangelnden institutionellen Kaufdruck.",
+        "actionable_rule": "Long-Einstiege an [B]-Grade Orderblöcken auf 5m/15m sind strikt verboten, es sei denn, ein valider Liquidity Sweep unter das vorherige Swing-Tief wurde durch signifikantes Delta-/VSA-Volumen bestätigt."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T16:31:18.782440+00:00",
+      "trade_id": "cross_rule_1794587478",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Asymmetrieprinzip über Volatilitätsüberdehnung: Entries an statistischen Extrembändern schlagen statische Re-Tests in Sharpe-Ratio und R-Multiple um ein Vielfaches.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der 5m Meta-Trade holte mit nur 0.10% Preisbewegung volle +2.2R durch extreme Schärfe am Chaos-Band, während flache 15m-Retests ohne Volatilitätsdehnung direkt vom Trend überrollt wurden.",
+        "actionable_rule": "Asymmetrieprinzip über Volatilitätsüberdehnung: Entries an statistischen Extrembändern schlagen statische Re-Tests in Sharpe-Ratio und R-Multiple um ein Vielfaches."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T16:31:18.782419+00:00",
+      "trade_id": "cross_rule_1794587478",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Orderblock-Degradationsgesetz: Institutionelle Liquidität in statischen Zonen verbraucht sich fraktal; Mehrfachtests (> R2) fungieren auf 15m wie auf 4h/1D als Durchbruchsbeschleuniger, nicht als Support.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der 4. Retest bei AMZ.F führte zum Totalversagen; Marktteilnehmer platzieren bei Mehrfachtests ihre Stops direkt unter die Zone, was sie zum idealen Ziel für Breakout-Liquidität macht.",
+        "actionable_rule": "Orderblock-Degradationsgesetz: Institutionelle Liquidität in statischen Zonen verbraucht sich fraktal; Mehrfachtests (> R2) fungieren auf 15m wie auf 4h/1D als Durchbruchsbeschleuniger, nicht als Support."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T16:31:18.782406+00:00",
+      "trade_id": "inc_FB2A.F_5m_1794583284",
+      "symbol": "FB2A.F",
+      "name": "Meta Platforms",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 0.2,
+      "pnl_raw": 0.1,
+      "text": "Gegen den lokalen Impuls darf nur agiert werden, wenn der Preis die äußere Chaos-Band-Schwelle (> RFE) statistisch signifikant penetriert hat und ein Mindest-R:R von 2.0R zum Mean (Equilibrium) gegeben ist.",
+      "ai_post_mortem": {
+        "trade_id": "inc_FB2A.F_5m_1794583284",
+        "verdict": "WIN",
+        "driver": "Lehrbuchmäßige statistische Mean-Reversion an einer überdehnten Volatilitätsgrenze (Chaos Band > RFE), die ein exzellentes asymmetrisches Risiko-Rendite-Profil (+2.2R bei minimalem Drawdown) generierte.",
+        "technical_warning": "Keine Warnung – saubere Konfluenz aus mathematischer Preisexhaustion und institutionellem Sell-Signal.",
+        "actionable_rule": "Gegen den lokalen Impuls darf nur agiert werden, wenn der Preis die äußere Chaos-Band-Schwelle (> RFE) statistisch signifikant penetriert hat und ein Mindest-R:R von 2.0R zum Mean (Equilibrium) gegeben ist."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T16:31:18.782388+00:00",
+      "trade_id": "inc_BNBUSDT_15m_1794583283",
+      "symbol": "BNBUSDT",
+      "name": "BNB",
+      "category": "Micro-Incubator (15m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Micro-Confluence Long",
+      "pnl_leveraged": -1.4,
+      "pnl_raw": -0.7,
+      "text": "B-Grade-Orderblöcke sind per se unzulässig, es sei denn, sie werden durch einen verifizierten Liquidity-Sweep [A] und eine Divergenz im übergeordneten Trendfenster aufgewertet.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BNBUSDT_15m_1794583283",
+        "verdict": "LOSS",
+        "driver": "Kombination aus unzureichender Zonenqualität (OB-Rating [B]) und blindem Vertrauen in einen nachlaufenden Indikatortrigger ohne echten Stop-Hunt/Liquidity-Sweep.",
+        "technical_warning": "Fehlende Delta-Divergenz im Footprint/Orderflow sowie das Ausbleiben einer vorherigen Liquiditätsabfischung unter lokalen Swings.",
+        "actionable_rule": "B-Grade-Orderblöcke sind per se unzulässig, es sei denn, sie werden durch einen verifizierten Liquidity-Sweep [A] und eine Divergenz im übergeordneten Trendfenster aufgewertet."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T16:31:18.782331+00:00",
+      "trade_id": "inc_AMZ.F_15m_1794582029",
+      "symbol": "AMZ.F",
+      "name": "Amazon",
+      "category": "Micro-Incubator (15m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Micro-Confluence Long",
+      "pnl_leveraged": -0.6,
+      "pnl_raw": -0.3,
+      "text": "Orderblöcke dürfen maximal bis zum zweiten Retest (R2) für Neueinstiege genutzt werden; ab R3 gilt striktes Ordereinstellungsverbot wegen Liquiditätserschöpfung.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AMZ.F_15m_1794582029",
+        "verdict": "LOSS",
+        "driver": "Ein Orderblock verliert mit jedem Touch sein institutionelles Limit-Order-Polster; der 4. Retest (R4) bot keinerlei Gegenwehr mehr und kollabierte trotz vermeintlichem Sweep.",
+        "technical_warning": "Fehlendes VSA-Reaktionsvolumen nach dem Sweep und Kerzenschlüsse direkt auf/unter dem Support-Niveau statt einer aggressiven Rejection-Wick.",
+        "actionable_rule": "Orderblöcke dürfen maximal bis zum zweiten Retest (R2) für Neueinstiege genutzt werden; ab R3 gilt striktes Ordereinstellungsverbot wegen Liquiditätserschöpfung."
+      }
+    },
     {
       "timestamp": "2026-11-13T15:35:06.011066+00:00",
       "trade_id": "cross_rule_1794584106",
