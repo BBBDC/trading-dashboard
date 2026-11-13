@@ -1,7 +1,85 @@
 {
-  "updated_at": "2026-11-13T15:24:31.861061+00:00",
-  "total_experience_records": 139,
+  "updated_at": "2026-11-13T15:35:09.842285+00:00",
+  "total_experience_records": 143,
   "learnings": [
+    {
+      "timestamp": "2026-11-13T15:35:06.011066+00:00",
+      "trade_id": "cross_rule_1794584106",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
+        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T15:35:06.011053+00:00",
+      "trade_id": "inc_ABEA.F_5m_1794583285",
+      "symbol": "ABEA.F",
+      "name": "Alphabet (Google)",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.68,
+      "pnl_raw": -0.34,
+      "text": "Bei ABEA.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ABEA.F_5m_1794583285",
+        "verdict": "LOSS",
+        "driver": "Trade ABEA.F schloss mit CLOSED_SL (-1.0R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei ABEA.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T15:35:06.011036+00:00",
+      "trade_id": "inc_MSF.F_5m_1794583284",
+      "symbol": "MSF.F",
+      "name": "Microsoft",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": 0.76,
+      "pnl_raw": 0.38,
+      "text": "Bei MSF.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_MSF.F_5m_1794583284",
+        "verdict": "WIN",
+        "driver": "Trade MSF.F schloss mit CLOSED_TP2 (+2.2R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei MSF.F Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T15:35:06.010990+00:00",
+      "trade_id": "inc_AVAXUSDT_15m_1794583284",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (15m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Micro-Confluence Long",
+      "pnl_leveraged": -2.02,
+      "pnl_raw": -1.01,
+      "text": "Bei AVAXUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_15m_1794583284",
+        "verdict": "LOSS",
+        "driver": "Trade AVAXUSDT schloss mit CLOSED_SL (-1.0R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei AVAXUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
     {
       "timestamp": "2026-11-13T15:24:28.078186+00:00",
       "trade_id": "cross_rule_1794583468",
