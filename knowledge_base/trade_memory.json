@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-13T13:03:18.061152+00:00",
-  "total_experience_records": 123,
+  "updated_at": "2026-11-13T13:32:13.843607+00:00",
+  "total_experience_records": 126,
   "learnings": [
+    {
+      "timestamp": "2026-11-13T13:32:09.747820+00:00",
+      "trade_id": "cross_rule_1794576729",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volatilitätsbasierte Validierung: Der mathematische Stop-Loss darf niemals enger liegen als das 1.5-fache der lokalen ATR (Average True Range).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein 0.28%-Stop bei SOLUSDT ignoriert das normale Liquiditätsrauschen an Widerständen völlig und führt systematisch zu Execution-Defiziten, selbst wenn die Richtungsantizipation übergeordnet korrekt gewesen wäre.",
+        "actionable_rule": "Volatilitätsbasierte Validierung: Der mathematische Stop-Loss darf niemals enger liegen als das 1.5-fache der lokalen ATR (Average True Range)."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T13:32:09.747789+00:00",
+      "trade_id": "cross_rule_1794576729",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Trade gegen das lokale Momentum ohne VSA-Absorptionsbeweis und strukturellen Bruch (Market Structure Shift).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ob im 5m-Rauschen oder auf dem 4h/1D-Chart: Ein Test eines Orderblocks nach einem Hoch ist erst dann eine Trendwende, wenn institutionelles Überangebot die Nachfrage bricht. Ohne Volumendivergenz ist jeder 'Sweep' statistisch wahrscheinlicher ein Fortsetzungsmuster.",
+        "actionable_rule": "Kein Trade gegen das lokale Momentum ohne VSA-Absorptionsbeweis und strukturellen Bruch (Market Structure Shift)."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T13:32:09.747724+00:00",
+      "trade_id": "inc_SOLUSDT_5m_1794571479",
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -0.56,
+      "pnl_raw": -0.28,
+      "text": "Kein Short-Entry an einem Bearish OB allein durch Marker-Trigger; ein Limit/Market-Einstieg erfordert zwingend einen geschlossenen 5m-Kerzenkörper unterhalb des Sweep-Levels mit bestätigter FVG-Bildung (Displacement).",
+      "ai_post_mortem": {
+        "trade_id": "inc_SOLUSDT_5m_1794571479",
+        "verdict": "LOSS",
+        "driver": "Der antizipierte Liquidity Sweep entwickelte sich mangels Verkaufsdruck zur echten Breakout-Expansion, wodurch der 5m Bearish Order Block ohne nennenswerte Gegenwehr überrannt wurde.",
+        "technical_warning": "Fehlendes VSA-Climax-Volumen am Hoch, ausbleibende bärische Displacement-Kerze zur Bestätigung und fehlendes negatives Delta nach dem Test des R4-Levels.",
+        "actionable_rule": "Kein Short-Entry an einem Bearish OB allein durch Marker-Trigger; ein Limit/Market-Einstieg erfordert zwingend einen geschlossenen 5m-Kerzenkörper unterhalb des Sweep-Levels mit bestätigter FVG-Bildung (Displacement)."
+      }
+    },
     {
       "timestamp": "2026-11-13T12:06:11.554559+00:00",
       "trade_id": "cross_rule_1794571571",
