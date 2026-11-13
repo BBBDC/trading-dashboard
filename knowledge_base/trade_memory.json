@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-12T23:30:54.178803+00:00",
-  "total_experience_records": 64,
+  "updated_at": "2026-11-13T00:08:46.870019+00:00",
+  "total_experience_records": 67,
   "learnings": [
+    {
+      "timestamp": "2026-11-13T00:08:43.229516+00:00",
+      "trade_id": "cross_rule_1794528523",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Orderflow-Hierarchie: Mikro-Reversal-Setups dürfen niemals konträr zur Expansionsphase der übergeordneten 4h/1D-Trendstruktur gehandelt werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Gegen das HTF-Momentum besitzen M5/M15-Widerstandslevel und Bearish OBs statistisch eine minimale Resilienz und werden vorrangig als Liquiditätspools für den übergeordneten Trendlauf konsumiert.",
+        "actionable_rule": "Fraktale Orderflow-Hierarchie: Mikro-Reversal-Setups dürfen niemals konträr zur Expansionsphase der übergeordneten 4h/1D-Trendstruktur gehandelt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T00:08:43.229472+00:00",
+      "trade_id": "cross_rule_1794528523",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Ein Liquidity Sweep ist erst dann ein valides Signal, wenn eine impulsive Displacement-Kerze mit FVG-Bildung die institutionelle Ablehnung belegt.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Fraktal über alle Zeitebenen (von 5m bis 1D) führt das bloße Überhandeln eines Highs ohne sofortige, volumenstarke Gegenbewegung fast immer zur Trendfortsetzung, da die dort liegende Kauf-Liquidität vom Markt absorbiert wird.",
+        "actionable_rule": "Ein Liquidity Sweep ist erst dann ein valides Signal, wenn eine impulsive Displacement-Kerze mit FVG-Bildung die institutionelle Ablehnung belegt."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T00:08:43.229393+00:00",
+      "trade_id": "inc_SUIUSDT_5m_1794522651",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -1.42,
+      "pnl_raw": -0.71,
+      "text": "Short-Entries an M5-Orderblocks sind strikt untersagt, solange kein validierter Market Structure Shift (MSS) mit volumengestütztem Kerzenschluss unter dem letzten lokalen Swing-Low erfolgt ist.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_5m_1794522651",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Short-Einstieg in einen unbestätigten Fake-Sweep, bei dem mangels aggressiver Verkäufer-Absorption der Bearish OB unmittelbar überrannt und zum Breaker wurde.",
+        "technical_warning": "Fehlende VSA-Verkaufsabsorption (kein Buying Climax mit expansiver Docht-Ablehnung) sowie das Ausbleiben eines impulsiven 5m-Displacements mit bärischem Fair Value Gap (FVG) unter das Sweep-Level.",
+        "actionable_rule": "Short-Entries an M5-Orderblocks sind strikt untersagt, solange kein validierter Market Structure Shift (MSS) mit volumengestütztem Kerzenschluss unter dem letzten lokalen Swing-Low erfolgt ist."
+      }
+    },
     {
       "timestamp": "2026-11-12T19:00:47.375021+00:00",
       "trade_id": "cross_rule_1794510047",
