@@ -216,6 +216,13 @@ def generate_history_html():
       color: var(--text-main);
     }}
 
+    /* Transparent Wrapper for Floating Island */
+    header {{
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }}
+
     /* Floating Island (Navigation, Header) */
     .liquid-floating-island {{
       position: relative;

@@ -1047,6 +1047,13 @@ html_content = f"""<!DOCTYPE html>
       background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.03) 32%, transparent 62%);
     }}
 
+    /* Transparent Wrapper for Floating Island */
+    header {{
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }}
+
     /* Floating Island (Navigation, Header, Bottom Nav - GPU Layer Promoted) */
     .liquid-floating-island {{
       position: relative;
@@ -1165,11 +1172,6 @@ html_content = f"""<!DOCTYPE html>
     html.light body {{
       background-color: #f8fafc !important;
       color: #0f172a !important;
-    }}
-    html.light header {{
-      background-color: rgba(255, 255, 255, 0.95) !important;
-      border-color: #e2e8f0 !important;
-      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
     }}
     html.light [class*="bg-[#0b0f19]"] {{
       background-color: #f8fafc !important;
