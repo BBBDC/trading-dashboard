@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-13T17:03:03.385262+00:00",
-  "total_experience_records": 154,
+  "updated_at": "2026-11-13T18:00:45.203335+00:00",
+  "total_experience_records": 157,
   "learnings": [
+    {
+      "timestamp": "2026-11-13T18:00:41.318166+00:00",
+      "trade_id": "cross_rule_1794592841",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Zeit-Raum-Validierung nach Liquidity Sweeps: Keine Reversion ohne sofortige Rejektion.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein Sweep [A] ist nur dann legitim, wenn die Liquiditätszone binnen 1 bis maximal 2 Kerzen impulsiv zurückerobert wird; konsolidiert der Kurs am Sweep-Tief, mutiert der angebliche Stop-Hunt zum echten Trend-Breakout.",
+        "actionable_rule": "Zeit-Raum-Validierung nach Liquidity Sweeps: Keine Reversion ohne sofortige Rejektion."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T18:00:41.318143+00:00",
+      "trade_id": "cross_rule_1794592841",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Liquiditäts-Priorität: Order Blocks unterhalb von Tier-B sind Liquiditätsmagnete, keine Wendepunkte.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl im 5m-Rauschen als auch auf 4h/1D-Charts halten schwache Zonen dem Verkaufsdruck nicht stand; sie dienen institutionellen Akteuren primär als Exit-Liquidität für Trendfortsetzungen.",
+        "actionable_rule": "Fraktale Liquiditäts-Priorität: Order Blocks unterhalb von Tier-B sind Liquiditätsmagnete, keine Wendepunkte."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T18:00:41.318089+00:00",
+      "trade_id": "inc_DOGEUSDT_5m_1794587486",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.98,
+      "pnl_raw": -0.49,
+      "text": "Verbot von Blind-Limit- oder Direkt-Einstiegen an Order Blocks unter Qualitätsstufe [B]; C-Level Zonen dürfen nur gehandelt werden, wenn auf dem 5m-Chart ein valider Market Structure Shift (MSS) mit signifikantem Buy-Delta vorausgeht.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_5m_1794587486",
+        "verdict": "LOSS",
+        "driver": "Fehlgeschlagene Verteidigung eines schwachen C-Tier Order Blocks, da das Setup auf ein nachlaufendes Indikator-Signal vertraute, statt echte institutionelle Delta-Absorption am Support abzuwarten.",
+        "technical_warning": "Ausbleibende VSA-Volumenspitze (keine Rejection Wick) beim Test des Levels sowie Kerzenkörper-Schlusskurse unterhalb des Sweep-Niveaus statt eines impulsiven V-Shape-Reversals.",
+        "actionable_rule": "Verbot von Blind-Limit- oder Direkt-Einstiegen an Order Blocks unter Qualitätsstufe [B]; C-Level Zonen dürfen nur gehandelt werden, wenn auf dem 5m-Chart ein valider Market Structure Shift (MSS) mit signifikantem Buy-Delta vorausgeht."
+      }
+    },
     {
       "timestamp": "2026-11-13T17:02:59.630479+00:00",
       "trade_id": "cross_rule_1794589379",
