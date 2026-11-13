@@ -796,7 +796,7 @@ html_content = f"""<!DOCTYPE html>
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="manifest" href="manifest.json">
 
-  <!-- Immediate Theme Application to prevent FOUC / flickering -->
+  <!-- Immediate Theme & Liquid Glass Preload (Prevents FOUC) -->
   <script>
     (function() {{
       const saved = localStorage.getItem('tv_theme_mode') || 'auto';
@@ -812,6 +812,19 @@ html_content = f"""<!DOCTYPE html>
         document.documentElement.classList.remove('light');
         document.documentElement.classList.add('dark');
       }}
+
+      // Preload user glass settings
+      try {{
+        const savedGlass = localStorage.getItem('tv_glass_settings');
+        if (savedGlass) {{
+          const g = JSON.parse(savedGlass);
+          if (g && g.opacity !== undefined) {{
+            document.documentElement.style.setProperty('--user-glass-opacity', g.opacity / 100);
+            document.documentElement.style.setProperty('--user-glass-blur', (g.blur || 28) + 'px');
+            document.documentElement.style.setProperty('--user-bg-vibrancy', (g.bgGlow || 75) / 100);
+          }}
+        }}
+      }} catch(e) {{}}
     }})();
   </script>
 
@@ -835,18 +848,317 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     /* =========================================================================
-       THEME SYSTEM: LIGHT & DARK MODE SUPPORT
+       APPLE "LIQUID GLASS" DESIGN SYSTEM (iOS 26 / macOS 26) - TRADING
        ========================================================================= */
     :root {{
-      --theme-name: dark;
-    }}
-    html.light {{
       --theme-name: light;
+      --liquid-font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+      --spring-bounce: cubic-bezier(0.22, 1.2, 0.36, 1);
+      --spring-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+
+      /* User Controllable Glass & Wallpaper Parameters */
+      --user-glass-opacity: 0.60;
+      --user-glass-blur: 28px;
+      --user-bg-vibrancy: 0.75;
+      --user-sheen-opacity: 0.35;
+
+      /* Apple Liquid Glass - Light Mode */
+      --glass-surface-bg: rgba(255, 255, 255, var(--user-glass-opacity, 0.60));
+      --glass-surface-bg-hover: rgba(255, 255, 255, min(0.98, calc(var(--user-glass-opacity, 0.60) + 0.08)));
+      --glass-surface-blur: blur(var(--user-glass-blur, 28px)) saturate(200%) brightness(1.06);
+      --glass-surface-border: 1px solid rgba(255, 255, 255, 0.65);
+      --glass-surface-border-specular: 1.5px solid rgba(255, 255, 255, 0.85);
+      --glass-surface-shadow: 
+        inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95),
+        inset 0 -1px 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 0 24px 0 rgba(255, 255, 255, 0.08),
+        0 20px 45px -10px rgba(15, 23, 42, 0.12),
+        0 4px 14px -2px rgba(15, 23, 42, 0.05);
+
+      /* Floating Navigation & Pills */
+      --glass-floating-bg: rgba(255, 255, 255, min(0.98, calc(var(--user-glass-opacity, 0.60) + 0.10)));
+      --glass-floating-blur: blur(calc(var(--user-glass-blur, 28px) + 6px)) saturate(215%) brightness(1.08);
+      --glass-floating-shadow: 
+        inset 0 2px 1.5px 0 rgba(255, 255, 255, 0.98),
+        inset 0 -1px 1px 0 rgba(255, 255, 255, 0.3),
+        0 24px 56px -10px rgba(15, 23, 42, 0.16),
+        0 6px 18px -2px rgba(15, 23, 42, 0.07);
+
+      /* Nested Tiles & Inputs (Glass on Glass) */
+      --glass-nested-bg: rgba(255, 255, 255, min(0.95, calc(var(--user-glass-opacity, 0.60) + 0.06)));
+      --glass-nested-border: 1px solid rgba(255, 255, 255, 0.6);
+      --glass-nested-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.8),
+        0 4px 12px -2px rgba(15, 23, 42, 0.03);
+
+      /* Spotlight Glow */
+      --glass-spotlight: rgba(255, 255, 255, 0.4);
+
+      /* Wallpapers / Base Canvas */
+      --bg-canvas: #eaf0fb;
+      --text-main: #0f172a;
+      --text-sub: #334155;
+      --text-muted: #64748b;
+
       color-scheme: light;
     }}
+
     html.dark {{
       --theme-name: dark;
+
+      /* Apple Liquid Glass - Dark Mode */
+      --glass-surface-bg: rgba(18, 24, 38, min(0.96, calc(var(--user-glass-opacity, 0.60) * 1.15)));
+      --glass-surface-bg-hover: rgba(24, 32, 50, min(0.98, calc(var(--user-glass-opacity, 0.60) * 1.25)));
+      --glass-surface-blur: blur(var(--user-glass-blur, 28px)) saturate(200%) brightness(1.03);
+      --glass-surface-border: 1px solid rgba(255, 255, 255, 0.14);
+      --glass-surface-border-specular: 1.5px solid rgba(255, 255, 255, 0.28);
+      --glass-surface-shadow: 
+        inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.28),
+        inset 0 -1px 1px 0 rgba(0, 0, 0, 0.6),
+        inset 0 0 24px 0 rgba(255, 255, 255, 0.03),
+        0 24px 52px -10px rgba(0, 0, 0, 0.7),
+        0 6px 18px -2px rgba(0, 0, 0, 0.45);
+
+      /* Floating Navigation & Pills */
+      --glass-floating-bg: rgba(14, 18, 30, min(0.98, calc(var(--user-glass-opacity, 0.60) * 1.25)));
+      --glass-floating-blur: blur(calc(var(--user-glass-blur, 28px) + 6px)) saturate(215%) brightness(1.05);
+      --glass-floating-shadow: 
+        inset 0 2px 1.5px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -1px 1px 0 rgba(0, 0, 0, 0.7),
+        0 28px 64px -12px rgba(0, 0, 0, 0.8),
+        0 8px 24px -3px rgba(0, 0, 0, 0.55);
+
+      /* Nested Tiles & Inputs */
+      --glass-nested-bg: rgba(255, 255, 255, 0.06);
+      --glass-nested-border: 1px solid rgba(255, 255, 255, 0.1);
+      --glass-nested-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.12),
+        0 4px 12px -2px rgba(0, 0, 0, 0.3);
+
+      /* Spotlight Glow */
+      --glass-spotlight: rgba(255, 255, 255, 0.18);
+
+      --bg-canvas: #070912;
+      --text-main: #f8fafc;
+      --text-sub: #cbd5e1;
+      --text-muted: #94a3b8;
+
       color-scheme: dark;
+    }}
+
+    /* Living Wallpaper Mesh Stage (Hardware-Accelerated & Static for 0% Idle GPU) */
+    #living-mesh-stage {{
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -10;
+      contain: strict;
+      transform: translateZ(0);
+      background-image: 
+        radial-gradient(circle at 10% 12%, rgba(99, 102, 241, 0.70) 0%, transparent 48%),
+        radial-gradient(circle at 90% 16%, rgba(16, 185, 129, 0.65) 0%, transparent 46%),
+        radial-gradient(circle at 25% 70%, rgba(6, 182, 212, 0.65) 0%, transparent 52%),
+        radial-gradient(circle at 85% 82%, rgba(245, 158, 11, 0.60) 0%, transparent 50%),
+        radial-gradient(circle at 50% 40%, rgba(244, 63, 94, 0.40) 0%, transparent 45%);
+      background-attachment: fixed;
+      background-size: cover;
+      transition: opacity 0.3s ease;
+    }}
+    html.dark #living-mesh-stage {{
+      background-image: 
+        radial-gradient(circle at 10% 12%, rgba(99, 102, 241, 0.55) 0%, transparent 48%),
+        radial-gradient(circle at 90% 16%, rgba(16, 185, 129, 0.48) 0%, transparent 46%),
+        radial-gradient(circle at 25% 70%, rgba(6, 182, 212, 0.52) 0%, transparent 52%),
+        radial-gradient(circle at 85% 82%, rgba(245, 158, 11, 0.48) 0%, transparent 50%),
+        radial-gradient(circle at 50% 40%, rgba(244, 63, 94, 0.32) 0%, transparent 45%);
+    }}
+
+    body {{
+      background-color: var(--bg-canvas);
+      min-height: 100vh;
+      color: var(--text-main);
+    }}
+
+    /* =========================================================================
+       LIQUID GLASS SURFACES WITH SPECULAR SHEEN
+       ========================================================================= */
+    .card-clean, .liquid-card,
+    [class*="admin-group-quota"],
+    #positions-view > section,
+    #topsetups-view > section,
+    #scanner-view > section,
+    #admin-view > section {{
+      position: relative;
+      background: var(--glass-surface-bg) !important;
+      backdrop-filter: var(--glass-surface-blur);
+      -webkit-backdrop-filter: var(--glass-surface-blur);
+      border: var(--glass-surface-border) !important;
+      box-shadow: var(--glass-surface-shadow) !important;
+      border-radius: 28px !important;
+      transition: transform 0.35s var(--spring-bounce), box-shadow 0.35s var(--spring-smooth), background-color 0.25s ease;
+      overflow: hidden;
+      contain: layout paint;
+      transform: translateZ(0);
+    }}
+    .card-clean:hover, .liquid-card:hover,
+    #positions-view > section:hover,
+    #topsetups-view > section:hover,
+    #scanner-view > section:hover,
+    #admin-view > section:hover {{
+      transform: translateY(-2px) scale(1.004);
+      background: var(--glass-surface-bg-hover) !important;
+      box-shadow: 
+        inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.98),
+        inset 0 -1px 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 0 28px 0 rgba(255, 255, 255, 0.12),
+        0 24px 50px -8px rgba(15, 23, 42, 0.15),
+        0 6px 18px -2px rgba(15, 23, 42, 0.06) !important;
+    }}
+    html.dark .card-clean:hover, html.dark .liquid-card:hover,
+    html.dark #positions-view > section:hover,
+    html.dark #topsetups-view > section:hover,
+    html.dark #scanner-view > section:hover,
+    html.dark #admin-view > section:hover {{
+      box-shadow: 
+        inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -1px 1px 0 rgba(0, 0, 0, 0.6),
+        inset 0 0 28px 0 rgba(255, 255, 255, 0.05),
+        0 26px 56px -8px rgba(0, 0, 0, 0.75),
+        0 8px 20px -2px rgba(0, 0, 0, 0.5) !important;
+    }}
+
+    /* Specular Diagonal Sheen (Curved Glass Reflection) */
+    .card-clean::after, .liquid-card::after, .liquid-floating-island::after,
+    #positions-view > section::after, #topsetups-view > section::after,
+    #scanner-view > section::after, #admin-view > section::after {{
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.1) 32%, transparent 62%);
+      pointer-events: none;
+      z-index: 1;
+      opacity: calc(var(--user-sheen-opacity, 0.35) / 0.35);
+      transition: opacity 0.25s ease;
+    }}
+    html.dark .card-clean::after, html.dark .liquid-card::after, html.dark .liquid-floating-island::after,
+    html.dark #positions-view > section::after, html.dark #topsetups-view > section::after,
+    html.dark #scanner-view > section::after, html.dark #admin-view > section::after {{
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.03) 32%, transparent 62%);
+    }}
+
+    /* Floating Island (Navigation, Header, Bottom Nav - GPU Layer Promoted) */
+    .liquid-floating-island {{
+      position: relative;
+      background: var(--glass-floating-bg) !important;
+      backdrop-filter: var(--glass-floating-blur);
+      -webkit-backdrop-filter: var(--glass-floating-blur);
+      border: var(--glass-surface-border-specular) !important;
+      box-shadow: var(--glass-floating-shadow) !important;
+      transition: transform 0.35s var(--spring-bounce), box-shadow 0.35s var(--spring-smooth);
+      overflow: visible !important;
+      contain: layout;
+      transform: translateZ(0);
+      will-change: transform;
+    }}
+
+    /* Nested Tiles inside Glass Cards (Concentric R_innen = 16px - High Perf, Inherits Parent Blur) */
+    .liquid-nested-tile,
+    .card-clean .bg-slate-900,
+    .card-clean .bg-slate-950,
+    .card-clean .bg-[#0d1322],
+    section .bg-slate-900,
+    section .bg-slate-950,
+    section .bg-[#0d1322],
+    section .bg-[#070a13] {{
+      background-color: var(--glass-nested-bg) !important;
+      border: var(--glass-nested-border) !important;
+      box-shadow: var(--glass-nested-shadow) !important;
+      border-radius: 16px;
+    }}
+
+    /* Ambient Specular Highlight (Pure GPU CSS, Zero Reflows) */
+    .liquid-spotlight {{
+      position: relative;
+    }}
+    .liquid-spotlight::before {{
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(420px circle at 50% 0%, var(--glass-spotlight), transparent 70%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 2;
+    }}
+    .liquid-spotlight:hover::before {{
+      opacity: 1;
+    }}
+
+    /* Spring Button Physics */
+    .liquid-btn {{
+      transition: transform 0.25s var(--spring-bounce), background-color 0.2s ease, box-shadow 0.25s ease, color 0.2s ease;
+    }}
+    .liquid-btn:hover {{
+      transform: scale(1.03);
+    }}
+    .liquid-btn:active {{
+      transform: scale(0.97);
+    }}
+
+    .liquid-nav-pill {{
+      transition: transform 0.25s var(--spring-bounce), background 0.2s ease, box-shadow 0.25s ease, color 0.2s ease;
+    }}
+    .liquid-nav-pill:hover {{
+      transform: scale(1.02);
+    }}
+    .liquid-nav-pill:active {{
+      transform: scale(0.98);
+    }}
+
+    /* Frosted Glass Tables (High Perf, Inherits Card Blur) */
+    table thead tr {{
+      background-color: rgba(255, 255, 255, 0.45) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    }}
+    html.dark table thead tr {{
+      background-color: rgba(15, 20, 32, 0.65) !important;
+      color: #94a3b8 !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }}
+    table tbody tr {{
+      background-color: transparent !important;
+      transition: background-color 0.2s ease;
+    }}
+    table tbody tr:hover {{
+      background-color: rgba(255, 255, 255, 0.35) !important;
+    }}
+    html.dark table tbody tr:hover {{
+      background-color: rgba(255, 255, 255, 0.08) !important;
+    }}
+
+    /* Modal Frosted Glass */
+    .liquid-modal-glass,
+    #quota-modal > div,
+    #positions-modal > div,
+    #alerts-modal > div,
+    #hypotheses-modal > div,
+    #detail-modal > div,
+    #telegram-auth-gate > div {{
+      background: var(--glass-floating-bg) !important;
+      backdrop-filter: blur(36px) saturate(210%) brightness(1.05);
+      -webkit-backdrop-filter: blur(36px) saturate(210%) brightness(1.05);
+      border: var(--glass-surface-border-specular) !important;
+      box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.75) !important;
+      border-radius: 28px !important;
+      transform: translateZ(0);
+    }}
+
+    @supports (padding: max(0px)) {{
+      .safe-bottom-space {{
+        padding-bottom: max(env(safe-area-inset-bottom, 0px), 12px);
+      }}
     }}
 
     /* Light Theme Palette & Overrides */
@@ -1337,7 +1649,10 @@ html_content = f"""<!DOCTYPE html>
     }})();
   </script>
 </head>
-<body class="bg-[#0b0f19] text-slate-100 min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
+<body class="text-slate-800 dark:text-slate-100 min-h-screen antialiased selection:bg-indigo-500 selection:text-white pb-28 md:pb-16 relative overflow-x-hidden">
+
+  <!-- LIVING MESH GRADIENT STAGE (High-Chroma Apple Wallpaper - Static GPU-Optimized) -->
+  <div id="living-mesh-stage" class="fixed inset-0 pointer-events-none -z-10 transition-opacity duration-300" aria-hidden="true" style="opacity: var(--user-bg-vibrancy, 0.75);"></div>
 
   <!-- Telegram Authentication Gate Overlay -->
   <div id="telegram-auth-gate" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#070a13]/95 backdrop-blur-xl p-4 transition-all duration-300">
@@ -1413,9 +1728,9 @@ html_content = f"""<!DOCTYPE html>
     </div>
   </div>
 
-  <!-- Top Navigation Header -->
-  <header class="border-b border-slate-800/80 bg-[#0d1322]/90 backdrop-blur sticky top-0 z-40 px-3 sm:px-6 py-2.5 sm:py-3.5">
-    <div class="max-w-7xl mx-auto flex flex-col gap-3">
+  <!-- Top Navigation Header (Apple Liquid Floating Island) -->
+  <header class="sticky top-2 sm:top-4 z-40 px-3 sm:px-6 max-w-7xl mx-auto w-full transition-all duration-300">
+    <div class="liquid-floating-island rounded-2xl sm:rounded-3xl p-3 sm:p-4 flex flex-col gap-3 relative">
       
       <!-- Top Row: Brand & Theme Mode Switcher -->
       <div class="flex items-center justify-between gap-3">
@@ -1452,7 +1767,7 @@ html_content = f"""<!DOCTYPE html>
           </div>
         </div>
 
-        <!-- Right Side: Telegram User Profile & Theme Control -->
+        <!-- Right Side: Telegram User Profile & Theme Control & Liquid Glass Controller -->
         <div class="flex items-center gap-2 shrink-0">
 
           <!-- User Profile Pill (Visible when authenticated) -->
@@ -1479,31 +1794,98 @@ html_content = f"""<!DOCTYPE html>
               <span>🌙</span><span class="ml-1 hidden xs:inline sm:inline">Dunkel</span>
             </button>
           </div>
+
+          <!-- Liquid Glass Control Center Button -->
+          <button id="glass-settings-btn" type="button" onclick="toggleGlassSettingsPopover()" class="liquid-btn p-1.5 sm:p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-slate-300 hover:text-white transition active:scale-95 shadow-sm cursor-pointer flex items-center justify-center shrink-0" title="Liquid Glass Optik anpassen">
+            <span class="text-sm">🎛️</span>
+          </button>
         </div>
 
+      </div>
+
+      <!-- Apple Control Center: Liquid Glass Feineinstellung Popover -->
+      <div id="glass-settings-popover" class="hidden absolute top-16 right-3 sm:right-6 w-80 sm:w-88 p-4 rounded-3xl liquid-modal-glass shadow-2xl z-50 space-y-3.5 border border-white/40 dark:border-white/10 text-slate-800 dark:text-slate-100">
+        <div class="flex items-center justify-between pb-2 border-b border-slate-200/40 dark:border-white/10">
+          <div class="flex items-center gap-2">
+            <div class="w-6 h-6 rounded-lg bg-gradient-to-br from-indigo-400 to-indigo-600 text-white flex items-center justify-center text-xs shadow-sm shadow-indigo-500/40">
+              <span>✨</span>
+            </div>
+            <div>
+              <span class="font-bold text-sm text-slate-900 dark:text-white block leading-tight">Liquid Glass Optik</span>
+              <span class="text-[10px] text-slate-500 dark:text-slate-400">Echtzeit-Anpassung der Glasphysik</span>
+            </div>
+          </div>
+          <button type="button" onclick="toggleGlassSettingsPopover()" class="liquid-btn p-1.5 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-white/20 transition cursor-pointer">
+            ✕
+          </button>
+        </div>
+
+        <!-- Slider 1: Glas-Deckkraft (Karten) -->
+        <div class="space-y-1.5">
+          <div class="flex justify-between items-center text-xs">
+            <span class="font-semibold text-slate-700 dark:text-slate-300">Glas-Deckkraft (Karten)</span>
+            <span class="font-bold text-slate-900 dark:text-white font-mono bg-white/60 dark:bg-white/10 px-2 py-0.5 rounded-md border border-white/50 dark:border-white/10" id="val-glass-opacity">60%</span>
+          </div>
+          <input type="range" id="slider-glass-opacity" min="10" max="95" value="60" step="1" oninput="onGlassOpacityChange(this.value)" class="w-full accent-indigo-500 cursor-pointer">
+          <div class="flex justify-between text-[10px] text-slate-400 font-medium">
+            <span>Kristall (10%)</span>
+            <span>Mittel (50%)</span>
+            <span>Opak (95%)</span>
+          </div>
+        </div>
+
+        <!-- Slider 2: Hintergrund-Leuchtkraft (Wallpaper Glow) -->
+        <div class="space-y-1.5">
+          <div class="flex justify-between items-center text-xs">
+            <span class="font-semibold text-slate-700 dark:text-slate-300">Hintergrund-Transparenz / Glow</span>
+            <span class="font-bold text-slate-900 dark:text-white font-mono bg-white/60 dark:bg-white/10 px-2 py-0.5 rounded-md border border-white/50 dark:border-white/10" id="val-bg-glow">75%</span>
+          </div>
+          <input type="range" id="slider-bg-glow" min="10" max="95" value="75" step="1" oninput="onBgGlowChange(this.value)" class="w-full accent-emerald-500 cursor-pointer">
+          <div class="flex justify-between text-[10px] text-slate-400 font-medium">
+            <span>Subtil (10%)</span>
+            <span>Mittel (50%)</span>
+            <span>Vibrant (95%)</span>
+          </div>
+        </div>
+
+        <!-- Schnellwahl Presets -->
+        <div class="pt-2 border-t border-slate-200/40 dark:border-white/10 space-y-2">
+          <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Schnellwahl-Profile:</span>
+          <div class="grid grid-cols-3 gap-1.5 text-xs">
+            <button type="button" onclick="applyGlassPreset('silky')" class="liquid-btn p-2 rounded-xl liquid-nested-tile text-[11px] font-semibold text-center hover:scale-[1.02] transition active:scale-95 cursor-pointer">
+              🍏 Seidig (60/75)
+            </button>
+            <button type="button" onclick="applyGlassPreset('maximum')" class="liquid-btn p-2 rounded-xl liquid-nested-tile text-[11px] font-bold text-center hover:scale-[1.02] transition active:scale-95 cursor-pointer">
+              🔥 Max (95/95)
+            </button>
+            <button type="button" onclick="applyGlassPreset('crystal')" class="liquid-btn p-2 rounded-xl liquid-nested-tile text-[11px] font-semibold text-center hover:scale-[1.02] transition active:scale-95 cursor-pointer">
+              💎 Kristall (20/80)
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- Action & Navigation Bar: Desktop Tabs & Quick Actions -->
       <div class="flex items-center justify-between gap-2 pt-1 border-t border-slate-800/60 overflow-hidden">
         
         <!-- Desktop Segment Navigation Bar -->
-        <div id="desktop-tab-navigation" class="hidden md:flex items-center gap-1 p-1 rounded-xl bg-slate-900/90 border border-slate-800 shrink-0">
-          <button id="nav-tab-positions" onclick="switchDashboardTab('positions')" class="dashboard-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-indigo-600 text-white shadow-md shadow-indigo-600/30 cursor-pointer">
-            <span>👤</span>
+        <div id="desktop-tab-navigation" class="hidden md:flex items-center gap-1.5 p-1 rounded-2xl liquid-nested-tile shrink-0">
+          <button id="nav-tab-positions" onclick="switchDashboardTab('positions')" class="dashboard-nav-btn liquid-nav-pill active flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all bg-white/80 dark:bg-white/20 text-slate-900 dark:text-white shadow-md shadow-slate-900/10 scale-[1.02] cursor-pointer ring-1 ring-white/60 dark:ring-white/20">
+            <span class="w-6 h-6 rounded-lg bg-gradient-to-br from-indigo-400 to-indigo-600 text-white flex items-center justify-center text-xs shadow-sm shadow-indigo-500/35 ring-1 ring-white/50 shrink-0">👤</span>
             <span>Positionen</span>
             <span id="nav-badge-positions" class="hidden ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-white/20 text-white font-mono">0</span>
           </button>
-          <button id="nav-tab-topsetups" onclick="switchDashboardTab('topsetups')" class="dashboard-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer">
-            <span>🎯</span>
+          <button id="nav-tab-topsetups" onclick="switchDashboardTab('topsetups')" class="dashboard-nav-btn liquid-nav-pill flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/10 cursor-pointer">
+            <span class="w-6 h-6 rounded-lg bg-gradient-to-br from-rose-400 to-emerald-500 text-white flex items-center justify-center text-xs shadow-sm ring-1 ring-white/30 shrink-0">🎯</span>
             <span>Top-Setups</span>
           </button>
-          <button id="nav-tab-scanner" onclick="switchDashboardTab('scanner')" class="dashboard-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer">
-            <span>🚀</span>
+          <button id="nav-tab-scanner" onclick="switchDashboardTab('scanner')" class="dashboard-nav-btn liquid-nav-pill flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/10 cursor-pointer">
+            <span class="w-6 h-6 rounded-lg bg-gradient-to-br from-cyan-400 to-sky-600 text-white flex items-center justify-center text-xs shadow-sm ring-1 ring-white/30 shrink-0">🚀</span>
             <span>Markt-Scanner</span>
-            <span class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-slate-800 text-slate-300 font-mono">55</span>
+            <span class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-slate-800/80 text-slate-300 font-mono">55</span>
           </button>
-          <button id="nav-tab-admin" onclick="switchDashboardTab('admin')" class="dashboard-nav-btn hidden flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition border border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 cursor-pointer">
-            <span>⚙️</span>
+          <button id="nav-tab-admin" onclick="switchDashboardTab('admin')" class="dashboard-nav-btn liquid-nav-pill hidden flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all border border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 cursor-pointer">
+            <span class="w-6 h-6 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 text-white flex items-center justify-center text-xs shadow-sm ring-1 ring-white/30 shrink-0">⚙️</span>
             <span>Admin-Zentrale</span>
           </button>
         </div>
@@ -5167,15 +5549,15 @@ html_content = f"""<!DOCTYPE html>
         if (deskBtn) {{
           if (t === tabId) {{
             if (t === 'admin') {{
-              deskBtn.className = 'dashboard-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 cursor-pointer';
+              deskBtn.className = 'dashboard-nav-btn liquid-nav-pill active flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all bg-amber-500 text-slate-950 shadow-md shadow-amber-500/30 scale-[1.02] cursor-pointer ring-1 ring-white/50';
             }} else {{
-              deskBtn.className = 'dashboard-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-indigo-600 text-white shadow-md shadow-indigo-600/30 cursor-pointer';
+              deskBtn.className = 'dashboard-nav-btn liquid-nav-pill active flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all bg-white/80 dark:bg-white/20 text-slate-900 dark:text-white shadow-md shadow-slate-900/10 scale-[1.02] cursor-pointer ring-1 ring-white/60 dark:ring-white/20';
             }}
           }} else {{
             if (t === 'admin') {{
-              deskBtn.className = 'dashboard-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition border border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 cursor-pointer';
+              deskBtn.className = 'dashboard-nav-btn liquid-nav-pill flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all border border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 cursor-pointer';
             }} else {{
-              deskBtn.className = 'dashboard-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white hover:bg-slate-800/60 cursor-pointer';
+              deskBtn.className = 'dashboard-nav-btn liquid-nav-pill flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/10 cursor-pointer';
             }}
           }}
         }}
@@ -5185,12 +5567,12 @@ html_content = f"""<!DOCTYPE html>
         if (mobBtn) {{
           if (t === tabId) {{
             mobBtn.className = t === 'admin'
-              ? 'mob-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition text-amber-400 font-bold active:scale-95 bg-amber-500/10 cursor-pointer'
-              : 'mob-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition text-indigo-400 font-bold active:scale-95 bg-indigo-500/10 cursor-pointer';
+              ? 'mob-nav-btn liquid-nav-pill flex flex-col items-center justify-center py-1.5 px-3 rounded-full transition text-amber-400 font-bold active:scale-95 bg-amber-500/15 shadow-sm cursor-pointer'
+              : 'mob-nav-btn liquid-nav-pill flex flex-col items-center justify-center py-1.5 px-3 rounded-full transition text-indigo-400 font-bold active:scale-95 bg-white/15 dark:bg-white/15 shadow-sm cursor-pointer';
           }} else {{
             mobBtn.className = t === 'admin'
-              ? 'mob-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition text-amber-300/60 active:scale-95 cursor-pointer'
-              : 'mob-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition text-slate-400 active:scale-95 cursor-pointer';
+              ? 'mob-nav-btn liquid-nav-pill flex flex-col items-center justify-center py-1.5 px-3 rounded-full transition text-amber-300/60 active:scale-95 cursor-pointer'
+              : 'mob-nav-btn liquid-nav-pill flex flex-col items-center justify-center py-1.5 px-3 rounded-full transition text-slate-400 active:scale-95 cursor-pointer';
           }}
         }}
       }});
@@ -6969,8 +7351,102 @@ html_content = f"""<!DOCTYPE html>
       }}
     }});
 
+    // ==========================================
+    // LIQUID GLASS CONTROLLER (Settings & Sliders)
+    // ==========================================
+    let glassSettings = {{
+      opacity: 60,  // % (10 to 95)
+      bgGlow: 75,   // % (10 to 95)
+      blur: 28,     // px (18 to 36)
+      sheen: 35     // %
+    }};
+
+    function initGlassSettings() {{
+      try {{
+        const saved = localStorage.getItem('tv_glass_settings');
+        if (saved) {{
+          const parsed = JSON.parse(saved);
+          if (parsed) glassSettings = {{ ...glassSettings, ...parsed }};
+        }}
+      }} catch(e) {{}}
+      applyGlassDOM();
+    }}
+
+    function applyGlassDOM() {{
+      const root = document.documentElement;
+      const op = Math.min(0.95, Math.max(0.10, glassSettings.opacity / 100));
+      const glow = Math.min(0.95, Math.max(0.10, glassSettings.bgGlow / 100));
+      const blur = glassSettings.blur || 28;
+
+      root.style.setProperty('--user-glass-opacity', op);
+      root.style.setProperty('--user-glass-blur', `${{blur}}px`);
+      root.style.setProperty('--user-bg-vibrancy', glow);
+
+      const stage = document.getElementById('living-mesh-stage');
+      if (stage) stage.style.opacity = glow;
+
+      const sliderOp = document.getElementById('slider-glass-opacity');
+      const valOp = document.getElementById('val-glass-opacity');
+      if (sliderOp) sliderOp.value = glassSettings.opacity;
+      if (valOp) valOp.textContent = `${{glassSettings.opacity}}%`;
+
+      const sliderGlow = document.getElementById('slider-bg-glow');
+      const valGlow = document.getElementById('val-bg-glow');
+      if (sliderGlow) sliderGlow.value = glassSettings.bgGlow;
+      if (valGlow) valGlow.textContent = `${{glassSettings.bgGlow}}%`;
+    }}
+
+    function onGlassOpacityChange(val) {{
+      glassSettings.opacity = Math.min(95, Math.max(10, parseInt(val, 10) || 60));
+      glassSettings.blur = Math.round(18 + (glassSettings.opacity / 95) * 18);
+      saveGlassSettings();
+      applyGlassDOM();
+    }}
+
+    function onBgGlowChange(val) {{
+      glassSettings.bgGlow = Math.min(95, Math.max(10, parseInt(val, 10) || 75));
+      saveGlassSettings();
+      applyGlassDOM();
+    }}
+
+    function applyGlassPreset(type) {{
+      if (type === 'silky') {{
+        glassSettings = {{ opacity: 60, bgGlow: 75, blur: 28, sheen: 35 }};
+      }} else if (type === 'maximum' || type === 'balance') {{
+        glassSettings = {{ opacity: 95, bgGlow: 95, blur: 36, sheen: 40 }};
+      }} else if (type === 'crystal') {{
+        glassSettings = {{ opacity: 20, bgGlow: 80, blur: 24, sheen: 45 }};
+      }}
+      saveGlassSettings();
+      applyGlassDOM();
+    }}
+
+    function saveGlassSettings() {{
+      try {{
+        localStorage.setItem('tv_glass_settings', JSON.stringify(glassSettings));
+      }} catch(e) {{}}
+    }}
+
+    function toggleGlassSettingsPopover() {{
+      const pop = document.getElementById('glass-settings-popover');
+      if (!pop) return;
+      pop.classList.toggle('hidden');
+    }}
+
+    // Close popover when clicking outside
+    document.addEventListener('click', (e) => {{
+      const pop = document.getElementById('glass-settings-popover');
+      const btn = document.getElementById('glass-settings-btn');
+      if (pop && !pop.classList.contains('hidden')) {{
+        if (!pop.contains(e.target) && !btn?.contains(e.target)) {{
+          pop.classList.add('hidden');
+        }}
+      }}
+    }});
+
     // Initial render
     initAuthOnLoad();
+    initGlassSettings();
     updateStats();
     applyFilters();
     renderPortfolioSection();
@@ -7605,23 +8081,23 @@ html_content = f"""<!DOCTYPE html>
     </div>
   </div>
 
-  <!-- Mobile Sticky Bottom Navigation Bar -->
-  <nav id="mobile-bottom-nav" class="fixed bottom-0 left-0 right-0 z-40 bg-[#0d1322]/95 backdrop-blur-lg border-t border-slate-800/80 px-3 py-2 flex items-center justify-around md:hidden shadow-2xl safe-area-pb">
-    <button id="mob-tab-positions" onclick="switchDashboardTab('positions')" class="mob-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition text-indigo-400 font-bold active:scale-95 bg-indigo-500/10 cursor-pointer">
-      <span class="text-xl">👤</span>
-      <span class="text-[10px] tracking-tight mt-0.5">Positionen</span>
+  <!-- Mobile Floating Bottom Pill Navigation Bar -->
+  <nav id="mobile-bottom-nav" class="fixed bottom-3 inset-x-3 sm:inset-x-6 z-40 md:hidden liquid-floating-island rounded-full p-1.5 flex items-center justify-around shadow-2xl safe-bottom-space">
+    <button id="mob-tab-positions" onclick="switchDashboardTab('positions')" class="mob-nav-btn liquid-nav-pill flex flex-col items-center justify-center py-1.5 px-3 rounded-full transition text-indigo-400 font-bold active:scale-95 bg-white/10 cursor-pointer">
+      <span class="text-lg">👤</span>
+      <span class="text-[9px] font-bold tracking-tight mt-0.5">Positionen</span>
     </button>
-    <button id="mob-tab-topsetups" onclick="switchDashboardTab('topsetups')" class="mob-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition text-slate-400 active:scale-95 cursor-pointer">
-      <span class="text-xl">🎯</span>
-      <span class="text-[10px] tracking-tight mt-0.5">Top-Setups</span>
+    <button id="mob-tab-topsetups" onclick="switchDashboardTab('topsetups')" class="mob-nav-btn liquid-nav-pill flex flex-col items-center justify-center py-1.5 px-3 rounded-full transition text-slate-400 active:scale-95 cursor-pointer">
+      <span class="text-lg">🎯</span>
+      <span class="text-[9px] font-bold tracking-tight mt-0.5">Setups</span>
     </button>
-    <button id="mob-tab-scanner" onclick="switchDashboardTab('scanner')" class="mob-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition text-slate-400 active:scale-95 cursor-pointer">
-      <span class="text-xl">🚀</span>
-      <span class="text-[10px] tracking-tight mt-0.5">Scanner</span>
+    <button id="mob-tab-scanner" onclick="switchDashboardTab('scanner')" class="mob-nav-btn liquid-nav-pill flex flex-col items-center justify-center py-1.5 px-3 rounded-full transition text-slate-400 active:scale-95 cursor-pointer">
+      <span class="text-lg">🚀</span>
+      <span class="text-[9px] font-bold tracking-tight mt-0.5">Scanner</span>
     </button>
-    <button id="mob-tab-admin" onclick="switchDashboardTab('admin')" class="mob-nav-btn hidden flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition text-amber-400 active:scale-95 cursor-pointer">
-      <span class="text-xl">⚙️</span>
-      <span class="text-[10px] tracking-tight mt-0.5">Admin</span>
+    <button id="mob-tab-admin" onclick="switchDashboardTab('admin')" class="mob-nav-btn liquid-nav-pill hidden flex flex-col items-center justify-center py-1.5 px-3 rounded-full transition text-amber-400 active:scale-95 cursor-pointer">
+      <span class="text-lg">⚙️</span>
+      <span class="text-[9px] font-bold tracking-tight mt-0.5">Admin</span>
     </button>
   </nav>
 </body>

@@ -40,7 +40,7 @@ def generate_history_html():
   <meta name="apple-mobile-web-app-title" content="TV Historie">
   <meta name="theme-color" content="#0b0f19">
 
-  <!-- Immediate Theme Application to prevent FOUC / flickering -->
+  <!-- Immediate Theme & Liquid Glass Preload (Prevents FOUC) -->
   <script>
     (function() {{
       const saved = localStorage.getItem('tv_theme_mode') || 'auto';
@@ -56,10 +56,23 @@ def generate_history_html():
         document.documentElement.classList.remove('light');
         document.documentElement.classList.add('dark');
       }}
+
+      // Preload user glass settings
+      try {{
+        const savedGlass = localStorage.getItem('tv_glass_settings');
+        if (savedGlass) {{
+          const g = JSON.parse(savedGlass);
+          if (g && g.opacity !== undefined) {{
+            document.documentElement.style.setProperty('--user-glass-opacity', g.opacity / 100);
+            document.documentElement.style.setProperty('--user-glass-blur', (g.blur || 28) + 'px');
+            document.documentElement.style.setProperty('--user-bg-vibrancy', (g.bgGlow || 75) / 100);
+          }}
+        }}
+      }} catch(e) {{}}
     }})();
   </script>
 
-  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -72,29 +85,230 @@ def generate_history_html():
     }}
 
     /* =========================================================================
-       THEME SYSTEM: LIGHT & DARK MODE SUPPORT
+       APPLE "LIQUID GLASS" DESIGN SYSTEM (iOS 26 / macOS 26) - TRADING
        ========================================================================= */
     :root {{
-      --theme-name: dark;
-    }}
-    html.light {{
       --theme-name: light;
+      --liquid-font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+      --spring-bounce: cubic-bezier(0.22, 1.2, 0.36, 1);
+      --spring-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+
+      /* User Controllable Glass & Wallpaper Parameters */
+      --user-glass-opacity: 0.60;
+      --user-glass-blur: 28px;
+      --user-bg-vibrancy: 0.75;
+      --user-sheen-opacity: 0.35;
+
+      /* Apple Liquid Glass - Light Mode */
+      --glass-surface-bg: rgba(255, 255, 255, var(--user-glass-opacity, 0.60));
+      --glass-surface-bg-hover: rgba(255, 255, 255, min(0.98, calc(var(--user-glass-opacity, 0.60) + 0.08)));
+      --glass-surface-blur: blur(var(--user-glass-blur, 28px)) saturate(200%) brightness(1.06);
+      --glass-surface-border: 1px solid rgba(255, 255, 255, 0.65);
+      --glass-surface-border-specular: 1.5px solid rgba(255, 255, 255, 0.85);
+      --glass-surface-shadow: 
+        inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95),
+        inset 0 -1px 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 0 24px 0 rgba(255, 255, 255, 0.08),
+        0 20px 45px -10px rgba(15, 23, 42, 0.12),
+        0 4px 14px -2px rgba(15, 23, 42, 0.05);
+
+      /* Floating Navigation & Pills */
+      --glass-floating-bg: rgba(255, 255, 255, min(0.98, calc(var(--user-glass-opacity, 0.60) + 0.10)));
+      --glass-floating-blur: blur(calc(var(--user-glass-blur, 28px) + 6px)) saturate(215%) brightness(1.08);
+      --glass-floating-shadow: 
+        inset 0 2px 1.5px 0 rgba(255, 255, 255, 0.98),
+        inset 0 -1px 1px 0 rgba(255, 255, 255, 0.3),
+        0 24px 56px -10px rgba(15, 23, 42, 0.16),
+        0 6px 18px -2px rgba(15, 23, 42, 0.07);
+
+      /* Nested Tiles & Inputs (Glass on Glass) */
+      --glass-nested-bg: rgba(255, 255, 255, min(0.95, calc(var(--user-glass-opacity, 0.60) + 0.06)));
+      --glass-nested-border: 1px solid rgba(255, 255, 255, 0.6);
+      --glass-nested-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.8),
+        0 4px 12px -2px rgba(15, 23, 42, 0.03);
+
+      /* Spotlight Glow */
+      --glass-spotlight: rgba(255, 255, 255, 0.4);
+
+      /* Canvas & Typography */
+      --bg-canvas: #eaf0fb;
+      --text-main: #0f172a;
+      --text-sub: #334155;
+      --text-muted: #64748b;
+
       color-scheme: light;
     }}
+
     html.dark {{
       --theme-name: dark;
+
+      /* Apple Liquid Glass - Dark Mode */
+      --glass-surface-bg: rgba(18, 24, 38, min(0.96, calc(var(--user-glass-opacity, 0.60) * 1.15)));
+      --glass-surface-bg-hover: rgba(24, 32, 50, min(0.98, calc(var(--user-glass-opacity, 0.60) * 1.25)));
+      --glass-surface-blur: blur(var(--user-glass-blur, 28px)) saturate(200%) brightness(1.03);
+      --glass-surface-border: 1px solid rgba(255, 255, 255, 0.14);
+      --glass-surface-border-specular: 1.5px solid rgba(255, 255, 255, 0.28);
+      --glass-surface-shadow: 
+        inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.28),
+        inset 0 -1px 1px 0 rgba(0, 0, 0, 0.6),
+        inset 0 0 24px 0 rgba(255, 255, 255, 0.03),
+        0 24px 52px -10px rgba(0, 0, 0, 0.7),
+        0 6px 18px -2px rgba(0, 0, 0, 0.45);
+
+      /* Floating Navigation & Pills */
+      --glass-floating-bg: rgba(14, 18, 30, min(0.98, calc(var(--user-glass-opacity, 0.60) * 1.25)));
+      --glass-floating-blur: blur(calc(var(--user-glass-blur, 28px) + 6px)) saturate(215%) brightness(1.05);
+      --glass-floating-shadow: 
+        inset 0 2px 1.5px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -1px 1px 0 rgba(0, 0, 0, 0.7),
+        0 28px 64px -12px rgba(0, 0, 0, 0.8),
+        0 8px 24px -3px rgba(0, 0, 0, 0.55);
+
+      /* Nested Tiles & Inputs */
+      --glass-nested-bg: rgba(255, 255, 255, 0.06);
+      --glass-nested-border: 1px solid rgba(255, 255, 255, 0.1);
+      --glass-nested-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.12),
+        0 4px 12px -2px rgba(0, 0, 0, 0.3);
+
+      /* Spotlight Glow */
+      --glass-spotlight: rgba(255, 255, 255, 0.18);
+
+      --bg-canvas: #070912;
+      --text-main: #f8fafc;
+      --text-sub: #cbd5e1;
+      --text-muted: #94a3b8;
+
       color-scheme: dark;
+    }}
+
+    /* Living Wallpaper Mesh Stage (Hardware-Accelerated & Static for 0% Idle GPU) */
+    #living-mesh-stage {{
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -10;
+      contain: strict;
+      transform: translateZ(0);
+      background-image: 
+        radial-gradient(circle at 10% 12%, rgba(99, 102, 241, 0.70) 0%, transparent 48%),
+        radial-gradient(circle at 90% 16%, rgba(16, 185, 129, 0.65) 0%, transparent 46%),
+        radial-gradient(circle at 25% 70%, rgba(6, 182, 212, 0.65) 0%, transparent 52%),
+        radial-gradient(circle at 85% 82%, rgba(245, 158, 11, 0.60) 0%, transparent 50%),
+        radial-gradient(circle at 50% 40%, rgba(244, 63, 94, 0.40) 0%, transparent 45%);
+      background-attachment: fixed;
+      background-size: cover;
+      transition: opacity 0.3s ease;
+    }}
+    html.dark #living-mesh-stage {{
+      background-image: 
+        radial-gradient(circle at 10% 12%, rgba(99, 102, 241, 0.55) 0%, transparent 48%),
+        radial-gradient(circle at 90% 16%, rgba(16, 185, 129, 0.48) 0%, transparent 46%),
+        radial-gradient(circle at 25% 70%, rgba(6, 182, 212, 0.52) 0%, transparent 52%),
+        radial-gradient(circle at 85% 82%, rgba(245, 158, 11, 0.48) 0%, transparent 50%),
+        radial-gradient(circle at 50% 40%, rgba(244, 63, 94, 0.32) 0%, transparent 45%);
+    }}
+
+    body {{
+      background-color: var(--bg-canvas);
+      min-height: 100vh;
+      color: var(--text-main);
+    }}
+
+    /* Floating Island (Navigation, Header) */
+    .liquid-floating-island {{
+      position: relative;
+      background: var(--glass-floating-bg) !important;
+      backdrop-filter: var(--glass-floating-blur);
+      -webkit-backdrop-filter: var(--glass-floating-blur);
+      border: var(--glass-surface-border-specular) !important;
+      box-shadow: var(--glass-floating-shadow) !important;
+      transition: transform 0.35s var(--spring-bounce), box-shadow 0.35s var(--spring-smooth);
+      overflow: visible !important;
+      contain: layout;
+      transform: translateZ(0);
+      will-change: transform;
+    }}
+
+    /* Specular Reflection Sheen (Pure GPU, Zero Reflows) */
+    .liquid-floating-island::after,
+    #timeline-container > div::after,
+    .liquid-card::after,
+    .liquid-kpi-card::after {{
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.10) 32%, transparent 62%);
+      pointer-events: none;
+      z-index: 1;
+      opacity: calc(var(--user-sheen-opacity, 0.35) / 0.35);
+      transition: opacity 0.25s ease;
+    }}
+    html.dark .liquid-floating-island::after,
+    html.dark #timeline-container > div::after,
+    html.dark .liquid-card::after,
+    html.dark .liquid-kpi-card::after {{
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.03) 32%, transparent 62%);
+    }}
+
+    /* History Cards & KPI Cards */
+    #timeline-container > div,
+    .liquid-card,
+    .liquid-kpi-card {{
+      position: relative;
+      background: var(--glass-surface-bg) !important;
+      backdrop-filter: var(--glass-surface-blur);
+      -webkit-backdrop-filter: var(--glass-surface-blur);
+      border: var(--glass-surface-border) !important;
+      box-shadow: var(--glass-surface-shadow) !important;
+      border-radius: 20px !important;
+      contain: layout paint;
+      transform: translateZ(0);
+      transition: transform 0.25s var(--spring-bounce), box-shadow 0.25s ease, background-color 0.25s ease;
+    }}
+    #timeline-container > div:hover,
+    .liquid-card:hover,
+    .liquid-kpi-card:hover {{
+      transform: translateY(-2px) scale(1.004);
+      background: var(--glass-surface-bg-hover) !important;
+    }}
+
+    /* Nested Tiles & Inputs (Glass on Glass) */
+    .liquid-nested-tile {{
+      background-color: var(--glass-nested-bg) !important;
+      border: var(--glass-nested-border) !important;
+      box-shadow: var(--glass-nested-shadow) !important;
+      border-radius: 14px;
+    }}
+
+    /* Apple Modal & Popover Glass */
+    .liquid-modal-glass {{
+      background: var(--glass-floating-bg) !important;
+      backdrop-filter: blur(36px) saturate(210%) brightness(1.05);
+      -webkit-backdrop-filter: blur(36px) saturate(210%) brightness(1.05);
+      border: var(--glass-surface-border-specular) !important;
+      box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.75) !important;
+      border-radius: 28px !important;
+      transform: translateZ(0);
+    }}
+
+    /* Spring Button Physics */
+    .liquid-btn {{
+      transition: transform 0.25s var(--spring-bounce), background-color 0.2s ease, box-shadow 0.25s ease, color 0.2s ease;
+    }}
+    .liquid-btn:hover {{
+      transform: scale(1.03);
+    }}
+    .liquid-btn:active {{
+      transform: scale(0.97);
     }}
 
     /* Light Theme Palette & Overrides */
     html.light body {{
       background-color: #f8fafc !important;
       color: #0f172a !important;
-    }}
-    html.light header {{
-      background-color: rgba(255, 255, 255, 0.95) !important;
-      border-color: #e2e8f0 !important;
-      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
     }}
     html.light [class*="bg-[#0b0f19]"] {{
       background-color: #f8fafc !important;
@@ -232,69 +446,143 @@ def generate_history_html():
     }}
   </style>
 </head>
-<body class="bg-[#0b0f19] text-slate-100 min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen antialiased selection:bg-indigo-500 selection:text-white pb-12">
 
-  <!-- Top Navigation Header -->
-  <header class="border-b border-slate-800/80 bg-[#0d1322]/90 backdrop-blur sticky top-0 z-40 px-3 sm:px-6 py-2.5 sm:py-3.5">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-      
-      <!-- Brand & Back Button -->
-      <div class="flex items-center justify-between sm:justify-start gap-3 w-full sm:w-auto">
-        <a href="index.html" class="px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm" title="Zurück zur Marktübersicht">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
-          <span>Dashboard</span>
-        </a>
+  <!-- Living Wallpaper Mesh Stage (Static Hardware Accelerated Gradients for 0% CPU) -->
+  <div id="living-mesh-stage"></div>
 
-        <div class="h-6 w-px bg-slate-800 hidden sm:block"></div>
+  <!-- Top Navigation Header (Apple Liquid Floating Island) -->
+  <header class="sticky top-2 sm:top-4 z-40 px-3 sm:px-6 max-w-7xl mx-auto w-full transition-all duration-300">
+    <div class="liquid-floating-island rounded-2xl sm:rounded-3xl p-3 sm:p-4 flex flex-col gap-3 relative">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        
+        <!-- Brand & Back Button -->
+        <div class="flex items-center justify-between sm:justify-start gap-3 w-full sm:w-auto">
+          <a href="index.html" class="liquid-btn px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer" title="Zurück zur Marktübersicht">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span>Dashboard</span>
+          </a>
 
-        <div>
-          <div class="flex items-center gap-2">
-            <h1 class="font-bold text-sm sm:text-lg tracking-tight text-white flex items-center gap-1.5">
-              <span>📜 Signal-Historie</span>
-            </h1>
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Live-Log</span>
+          <div class="h-6 w-px bg-slate-800 hidden sm:block"></div>
+
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="font-bold text-sm sm:text-lg tracking-tight text-white flex items-center gap-1.5">
+                <span>📜 Signal-Historie</span>
+              </h1>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Live-Log</span>
+            </div>
+            <p class="hidden sm:block text-xs text-slate-400">Chronologisches Protokoll aller Push-Alerts & KI-Signalwechsel</p>
           </div>
-          <p class="hidden sm:block text-xs text-slate-400">Chronologisches Protokoll aller Push-Alerts & KI-Signalwechsel</p>
+
+          <!-- Mobile Theme & Glass Control -->
+          <div class="sm:hidden flex items-center gap-1.5">
+            <div class="inline-flex p-0.5 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs font-semibold shrink-0" role="group">
+              <button type="button" onclick="setThemeMode('auto')" id="theme-btn-auto-m" class="px-2 py-1 rounded-lg text-[10px] font-bold">⏰</button>
+              <button type="button" onclick="setThemeMode('light')" id="theme-btn-light-m" class="px-2 py-1 rounded-lg text-[10px] font-bold">☀️</button>
+              <button type="button" onclick="setThemeMode('dark')" id="theme-btn-dark-m" class="px-2 py-1 rounded-lg text-[10px] font-bold">🌙</button>
+            </div>
+            <button id="glass-settings-btn-m" type="button" onclick="toggleGlassSettingsPopover()" class="liquid-btn p-1.5 rounded-xl bg-slate-800/80 border border-slate-700/60 text-slate-300 text-xs" title="Liquid Glass">🎛️</button>
+          </div>
         </div>
 
-        <!-- Mobile Theme Control -->
-        <div class="sm:hidden flex items-center">
-          <div class="inline-flex p-0.5 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs font-semibold shrink-0" role="group">
-            <button type="button" onclick="setThemeMode('auto')" id="theme-btn-auto-m" class="px-2 py-1 rounded-lg text-[10px] font-bold">⏰</button>
-            <button type="button" onclick="setThemeMode('light')" id="theme-btn-light-m" class="px-2 py-1 rounded-lg text-[10px] font-bold">☀️</button>
-            <button type="button" onclick="setThemeMode('dark')" id="theme-btn-dark-m" class="px-2 py-1 rounded-lg text-[10px] font-bold">🌙</button>
+        <!-- Controls & Desktop Theme Switcher & Liquid Glass Controller -->
+        <div class="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto">
+          <!-- Desktop Theme Switcher -->
+          <div class="hidden sm:inline-flex p-0.5 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs font-semibold shrink-0 shadow-sm" role="group">
+            <button type="button" onclick="setThemeMode('auto')" id="theme-btn-auto" class="px-2.5 py-1.5 rounded-lg transition active:scale-95 cursor-pointer text-[11px] font-bold" title="Automatisch nach Tageszeit">
+              <span>⏰</span><span class="ml-1">Auto</span>
+            </button>
+            <button type="button" onclick="setThemeMode('light')" id="theme-btn-light" class="px-2.5 py-1.5 rounded-lg transition active:scale-95 cursor-pointer text-[11px] font-bold" title="Heller Modus">
+              <span>☀️</span><span class="ml-1">Hell</span>
+            </button>
+            <button type="button" onclick="setThemeMode('dark')" id="theme-btn-dark" class="px-2.5 py-1.5 rounded-lg transition active:scale-95 cursor-pointer text-[11px] font-bold" title="Dunkler Modus">
+              <span>🌙</span><span class="ml-1">Dunkel</span>
+            </button>
           </div>
+
+          <!-- Liquid Glass Control Center Button -->
+          <button id="glass-settings-btn" type="button" onclick="toggleGlassSettingsPopover()" class="liquid-btn p-1.5 sm:p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-slate-300 hover:text-white transition active:scale-95 shadow-sm cursor-pointer flex items-center justify-center shrink-0" title="Liquid Glass Optik anpassen">
+            <span class="text-sm">🎛️</span>
+          </button>
+
+          <button onclick="refreshHistory()" class="liquid-btn px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer">
+            <svg id="refresh-icon" class="w-3.5 h-3.5 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            <span>Aktualisieren</span>
+          </button>
+
+          <a href="https://ntfy.sh/bbbdc-trading-alerts" target="_blank" rel="noopener" class="liquid-btn px-3 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm">
+            <span>🔔</span>
+            <span class="hidden sm:inline">ntfy Feed</span>
+          </a>
         </div>
+
       </div>
 
-      <!-- Controls & Desktop Theme Switcher -->
-      <div class="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto">
-        <!-- Desktop Theme Switcher -->
-        <div class="hidden sm:inline-flex p-0.5 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs font-semibold shrink-0 shadow-sm" role="group">
-          <button type="button" onclick="setThemeMode('auto')" id="theme-btn-auto" class="px-2.5 py-1.5 rounded-lg transition active:scale-95 cursor-pointer text-[11px] font-bold" title="Automatisch nach Tageszeit">
-            <span>⏰</span><span class="ml-1">Auto</span>
-          </button>
-          <button type="button" onclick="setThemeMode('light')" id="theme-btn-light" class="px-2.5 py-1.5 rounded-lg transition active:scale-95 cursor-pointer text-[11px] font-bold" title="Heller Modus">
-            <span>☀️</span><span class="ml-1">Hell</span>
-          </button>
-          <button type="button" onclick="setThemeMode('dark')" id="theme-btn-dark" class="px-2.5 py-1.5 rounded-lg transition active:scale-95 cursor-pointer text-[11px] font-bold" title="Dunkler Modus">
-            <span>🌙</span><span class="ml-1">Dunkel</span>
+      <!-- Apple Control Center: Liquid Glass Feineinstellung Popover -->
+      <div id="glass-settings-popover" class="hidden absolute top-16 right-3 sm:right-6 w-80 sm:w-88 p-4 rounded-3xl liquid-modal-glass shadow-2xl z-50 space-y-3.5 border border-white/40 dark:border-white/10 text-slate-800 dark:text-slate-100">
+        <div class="flex items-center justify-between pb-2 border-b border-slate-200/40 dark:border-white/10">
+          <div class="flex items-center gap-2">
+            <div class="w-6 h-6 rounded-lg bg-gradient-to-br from-indigo-400 to-indigo-600 text-white flex items-center justify-center text-xs shadow-sm shadow-indigo-500/40">
+              <span>✨</span>
+            </div>
+            <div>
+              <span class="font-bold text-sm text-slate-900 dark:text-white block leading-tight">Liquid Glass Optik</span>
+              <span class="text-[10px] text-slate-500 dark:text-slate-400">Echtzeit-Anpassung der Glasphysik</span>
+            </div>
+          </div>
+          <button type="button" onclick="toggleGlassSettingsPopover()" class="liquid-btn p-1.5 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-white/20 transition cursor-pointer">
+            ✕
           </button>
         </div>
 
-        <button onclick="refreshHistory()" class="px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer">
-          <svg id="refresh-icon" class="w-3.5 h-3.5 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-          </svg>
-          <span>Aktualisieren</span>
-        </button>
+        <!-- Slider 1: Glas-Deckkraft (Karten) -->
+        <div class="space-y-1.5">
+          <div class="flex justify-between items-center text-xs">
+            <span class="font-semibold text-slate-700 dark:text-slate-300">Glas-Deckkraft (Karten)</span>
+            <span class="font-bold text-slate-900 dark:text-white font-mono bg-white/60 dark:bg-white/10 px-2 py-0.5 rounded-md border border-white/50 dark:border-white/10" id="val-glass-opacity">60%</span>
+          </div>
+          <input type="range" id="slider-glass-opacity" min="10" max="95" value="60" step="1" oninput="onGlassOpacityChange(this.value)" class="w-full accent-indigo-500 cursor-pointer">
+          <div class="flex justify-between text-[10px] text-slate-400 font-medium">
+            <span>Kristall (10%)</span>
+            <span>Mittel (50%)</span>
+            <span>Opak (95%)</span>
+          </div>
+        </div>
 
-        <a href="https://ntfy.sh/bbbdc-trading-alerts" target="_blank" rel="noopener" class="px-3 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-sm">
-          <span>🔔</span>
-          <span class="hidden sm:inline">ntfy Feed</span>
-        </a>
+        <!-- Slider 2: Hintergrund-Leuchtkraft (Wallpaper Glow) -->
+        <div class="space-y-1.5">
+          <div class="flex justify-between items-center text-xs">
+            <span class="font-semibold text-slate-700 dark:text-slate-300">Hintergrund-Transparenz / Glow</span>
+            <span class="font-bold text-slate-900 dark:text-white font-mono bg-white/60 dark:bg-white/10 px-2 py-0.5 rounded-md border border-white/50 dark:border-white/10" id="val-bg-glow">75%</span>
+          </div>
+          <input type="range" id="slider-bg-glow" min="10" max="95" value="75" step="1" oninput="onBgGlowChange(this.value)" class="w-full accent-emerald-500 cursor-pointer">
+          <div class="flex justify-between text-[10px] text-slate-400 font-medium">
+            <span>Subtil (10%)</span>
+            <span>Mittel (50%)</span>
+            <span>Vibrant (95%)</span>
+          </div>
+        </div>
+
+        <!-- Schnellwahl Presets -->
+        <div class="pt-2 border-t border-slate-200/40 dark:border-white/10 space-y-2">
+          <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Schnellwahl-Profile:</span>
+          <div class="grid grid-cols-3 gap-1.5 text-xs">
+            <button type="button" onclick="applyGlassPreset('silky')" class="liquid-btn p-2 rounded-xl liquid-nested-tile text-[11px] font-semibold text-center hover:scale-[1.02] transition active:scale-95 cursor-pointer">
+              🍏 Seidig (60/75)
+            </button>
+            <button type="button" onclick="applyGlassPreset('maximum')" class="liquid-btn p-2 rounded-xl liquid-nested-tile text-[11px] font-bold text-center hover:scale-[1.02] transition active:scale-95 cursor-pointer">
+              🔥 Max (95/95)
+            </button>
+            <button type="button" onclick="applyGlassPreset('crystal')" class="liquid-btn p-2 rounded-xl liquid-nested-tile text-[11px] font-semibold text-center hover:scale-[1.02] transition active:scale-95 cursor-pointer">
+              💎 Kristall (20/80)
+            </button>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -306,7 +594,7 @@ def generate_history_html():
     <!-- KPI Overview Cards -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
       
-      <div class="rounded-xl bg-[#0d1322]/80 border border-slate-800/80 p-4">
+      <div class="liquid-kpi-card p-4">
         <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Archivierte Alerts</div>
         <div class="mt-1 flex items-baseline gap-2">
           <span class="text-2xl font-bold font-mono text-white" id="stat-total-events">-</span>
@@ -314,7 +602,7 @@ def generate_history_html():
         </div>
       </div>
 
-      <div class="rounded-xl bg-[#0d1322]/80 border border-slate-800/80 p-4">
+      <div class="liquid-kpi-card p-4">
         <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Benachrichtigungs-Modus</div>
         <div class="mt-1 flex items-baseline gap-2">
           <span class="text-sm font-bold text-emerald-400 flex items-center gap-1.5">
@@ -325,7 +613,7 @@ def generate_history_html():
         <div class="text-[10px] text-slate-500 mt-0.5">Kein Spam bei unveränderten Kursen</div>
       </div>
 
-      <div class="rounded-xl bg-[#0d1322]/80 border border-slate-800/80 p-4">
+      <div class="liquid-kpi-card p-4">
         <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Überwachte Märkte</div>
         <div class="mt-1 flex items-baseline gap-2">
           <span class="text-2xl font-bold font-mono text-white">58</span>
@@ -333,7 +621,7 @@ def generate_history_html():
         </div>
       </div>
 
-      <div class="rounded-xl bg-[#0d1322]/80 border border-slate-800/80 p-4">
+      <div class="liquid-kpi-card p-4">
         <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Scan-Intervall</div>
         <div class="mt-1 flex items-baseline gap-2">
           <span class="text-lg font-bold font-mono text-indigo-300">Alle 4 Stunden</span>
@@ -344,20 +632,20 @@ def generate_history_html():
     </div>
 
     <!-- Filter Bar -->
-    <div class="flex flex-wrap items-center justify-between gap-3 p-2 rounded-xl bg-[#0d1322]/60 border border-slate-800/80">
+    <div class="liquid-card flex flex-wrap items-center justify-between gap-3 p-3">
       <div class="flex flex-wrap items-center gap-1.5">
-        <button onclick="setFilter('ALL')" id="filter-btn-all" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white transition cursor-pointer">
+        <button onclick="setFilter('ALL')" id="filter-btn-all" class="liquid-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white transition cursor-pointer">
           Alle Ereignisse
         </button>
-        <button onclick="setFilter('LONG')" id="filter-btn-long" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800/60 hover:bg-slate-700/60 text-slate-300 transition cursor-pointer flex items-center gap-1.5">
+        <button onclick="setFilter('LONG')" id="filter-btn-long" class="liquid-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800/60 hover:bg-slate-700/60 text-slate-300 transition cursor-pointer flex items-center gap-1.5">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
           Nur Long
         </button>
-        <button onclick="setFilter('SHORT')" id="filter-btn-short" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800/60 hover:bg-slate-700/60 text-slate-300 transition cursor-pointer flex items-center gap-1.5">
+        <button onclick="setFilter('SHORT')" id="filter-btn-short" class="liquid-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800/60 hover:bg-slate-700/60 text-slate-300 transition cursor-pointer flex items-center gap-1.5">
           <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
           Nur Short
         </button>
-        <button onclick="setFilter('REVERSAL')" id="filter-btn-reversal" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800/60 hover:bg-slate-700/60 text-slate-300 transition cursor-pointer flex items-center gap-1.5">
+        <button onclick="setFilter('REVERSAL')" id="filter-btn-reversal" class="liquid-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800/60 hover:bg-slate-700/60 text-slate-300 transition cursor-pointer flex items-center gap-1.5">
           <span>🔄</span>
           Nur Signalwechsel
         </button>
@@ -687,7 +975,105 @@ def generate_history_html():
       }}
     }}, 60000);
 
+    // Liquid Glass Runtime Controller
+    let glassSettings = {{
+      opacity: 60,
+      bgGlow: 75,
+      blur: 28,
+      sheen: 35
+    }};
+
+    function initGlassSettings() {{
+      try {{
+        const saved = localStorage.getItem('tv_glass_settings');
+        if (saved) {{
+          const parsed = JSON.parse(saved);
+          if (parsed && typeof parsed.opacity === 'number') {{
+            glassSettings.opacity = parsed.opacity;
+            glassSettings.bgGlow = parsed.bgGlow ?? 75;
+            glassSettings.blur = parsed.blur ?? 28;
+            glassSettings.sheen = parsed.sheen ?? 35;
+          }}
+        }}
+      }} catch(e) {{}}
+      applyGlassDOM();
+    }}
+
+    function applyGlassDOM() {{
+      const root = document.documentElement;
+      const op = Math.min(0.95, Math.max(0.10, glassSettings.opacity / 100));
+      const glow = Math.min(0.95, Math.max(0.10, glassSettings.bgGlow / 100));
+      const blur = glassSettings.blur || 28;
+
+      root.style.setProperty('--user-glass-opacity', op);
+      root.style.setProperty('--user-glass-blur', `${{blur}}px`);
+      root.style.setProperty('--user-bg-vibrancy', glow);
+
+      const stage = document.getElementById('living-mesh-stage');
+      if (stage) stage.style.opacity = glow;
+
+      const sliderOp = document.getElementById('slider-glass-opacity');
+      const valOp = document.getElementById('val-glass-opacity');
+      if (sliderOp) sliderOp.value = glassSettings.opacity;
+      if (valOp) valOp.textContent = `${{glassSettings.opacity}}%`;
+
+      const sliderGlow = document.getElementById('slider-bg-glow');
+      const valGlow = document.getElementById('val-bg-glow');
+      if (sliderGlow) sliderGlow.value = glassSettings.bgGlow;
+      if (valGlow) valGlow.textContent = `${{glassSettings.bgGlow}}%`;
+    }}
+
+    function onGlassOpacityChange(val) {{
+      glassSettings.opacity = Math.min(95, Math.max(10, parseInt(val, 10) || 60));
+      glassSettings.blur = Math.round(18 + (glassSettings.opacity / 95) * 18);
+      saveGlassSettings();
+      applyGlassDOM();
+    }}
+
+    function onBgGlowChange(val) {{
+      glassSettings.bgGlow = Math.min(95, Math.max(10, parseInt(val, 10) || 75));
+      saveGlassSettings();
+      applyGlassDOM();
+    }}
+
+    function applyGlassPreset(type) {{
+      if (type === 'silky') {{
+        glassSettings = {{ opacity: 60, bgGlow: 75, blur: 28, sheen: 35 }};
+      }} else if (type === 'maximum' || type === 'balance') {{
+        glassSettings = {{ opacity: 95, bgGlow: 95, blur: 36, sheen: 40 }};
+      }} else if (type === 'crystal') {{
+        glassSettings = {{ opacity: 20, bgGlow: 80, blur: 24, sheen: 45 }};
+      }}
+      saveGlassSettings();
+      applyGlassDOM();
+    }}
+
+    function saveGlassSettings() {{
+      try {{
+        localStorage.setItem('tv_glass_settings', JSON.stringify(glassSettings));
+      }} catch(e) {{}}
+    }}
+
+    function toggleGlassSettingsPopover() {{
+      const pop = document.getElementById('glass-settings-popover');
+      if (!pop) return;
+      pop.classList.toggle('hidden');
+    }}
+
+    // Close popover when clicking outside
+    document.addEventListener('click', (e) => {{
+      const pop = document.getElementById('glass-settings-popover');
+      const btn = document.getElementById('glass-settings-btn');
+      const btnM = document.getElementById('glass-settings-btn-m');
+      if (pop && !pop.classList.contains('hidden')) {{
+        if (!pop.contains(e.target) && !btn?.contains(e.target) && !btnM?.contains(e.target)) {{
+          pop.classList.add('hidden');
+        }}
+      }}
+    }});
+
     // Initial render
+    initGlassSettings();
     applyTheme(getThemeMode(), false);
     renderEvents(initialEvents);
   </script>
