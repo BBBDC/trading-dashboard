@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-13T22:31:35.049817+00:00",
-  "total_experience_records": 75,
+  "updated_at": "2026-11-13T23:31:14.121923+00:00",
+  "total_experience_records": 79,
   "learnings": [
+    {
+      "timestamp": "2026-11-13T23:31:10.168013+00:00",
+      "trade_id": "cross_rule_1794612670",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Ein Liquidity Sweep generiert nur an verifizierten Key-Levels (A-Grade) Reversalkraft; an C-Zonen dient er lediglich der Liquiditätsbeschaffung für Trendfortsetzungen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Bei SOL reichte ein formaler Sweep [A] an einem C-Level OB nicht aus, um Verkaufsdruck aufzufangen, was fraktal identisch auch auf Tagesebene zu Bullenfallen führt.",
+        "actionable_rule": "Ein Liquidity Sweep generiert nur an verifizierten Key-Levels (A-Grade) Reversalkraft; an C-Zonen dient er lediglich der Liquiditätsbeschaffung für Trendfortsetzungen."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T23:31:10.167984+00:00",
+      "trade_id": "cross_rule_1794612670",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Reversal-Handel in Volatilitätsbändern ohne bestätigten Market Structure Break (BOS) im übergeordneten Zeitfenster.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die 5m-Verluste demonstrieren, dass Indikator-Extrema (Chaos-Bänder < RFE) in starken Trendphasen auf 4h/1D keine Böden markieren, sondern bloße Volatilitätsexpansionen nach unten darstellen.",
+        "actionable_rule": "Kein Reversal-Handel in Volatilitätsbändern ohne bestätigten Market Structure Break (BOS) im übergeordneten Zeitfenster."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T23:31:10.167958+00:00",
+      "trade_id": "inc_SOLUSDT_5m_1794609052",
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.98,
+      "pnl_raw": -0.99,
+      "text": "Zeigt der Ziel-Orderblock lediglich C-Qualität, darf ein Institutional Pocket Signal (< RFE) erst nach validiertem 5m-Market-Structure-Break (MSB/BOS) auf Schlusskursbasis exekutiert werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SOLUSDT_5m_1794609052",
+        "verdict": "LOSS",
+        "driver": "Fehlinterpretation einer Chaos-Band-Überdehnung als Trendwende an einem strukturell fragilen [C]-Orderblock, wodurch der Trade direkt in eine intakte Liquidationskaskade lief.",
+        "technical_warning": "Die OB-Klassifizierung [C] signalisierte unzureichende institutionelle Präsenz, während das anhaltend hohe Verkaufs-Klimaxvolumen eine Trendfortsetzung statt Reversion ankündigte.",
+        "actionable_rule": "Zeigt der Ziel-Orderblock lediglich C-Qualität, darf ein Institutional Pocket Signal (< RFE) erst nach validiertem 5m-Market-Structure-Break (MSB/BOS) auf Schlusskursbasis exekutiert werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T23:31:10.167887+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1794587487",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -2.34,
+      "pnl_raw": -1.17,
+      "text": "Kein Long-Einstieg an Orderblocks der Güteklasse B oder schlechter ohne zwingenden Liquidity Sweep [A] und klar erkennbaren VSA-Absorptions-Candle-Close.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1794587487",
+        "verdict": "LOSS",
+        "driver": "Versuch, ein minderwertiges B-Grade Orderblock-Level (R5) ohne vorherigen Liquiditätsabgriff oder volumenseitige Erschöpfung gegen dynamisches Abwärtsmomentum zu front-runnen.",
+        "technical_warning": "Fehlen eines Liquidity-Sweeps unter die lokalen Swing-Lows sowie ausbleibende Delta-Absorption bei Annäherung an das R5-Supportlevel.",
+        "actionable_rule": "Kein Long-Einstieg an Orderblocks der Güteklasse B oder schlechter ohne zwingenden Liquidity Sweep [A] und klar erkennbaren VSA-Absorptions-Candle-Close."
+      }
+    },
     {
       "timestamp": "2026-11-13T22:31:31.198393+00:00",
       "trade_id": "cross_rule_1794609091",
