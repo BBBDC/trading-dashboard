@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-13T04:07:38.973015+00:00",
-  "total_experience_records": 98,
+  "updated_at": "2026-11-13T04:31:29.255740+00:00",
+  "total_experience_records": 102,
   "learnings": [
+    {
+      "timestamp": "2026-11-13T04:31:25.370281+00:00",
+      "trade_id": "cross_rule_1794544285",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine Absorption, kein Trade: Ein Liquidity Sweep [A] ist erst dann valide, wenn aggressives Sell-Volumen vollständig absorbiert wird und der Preis die Schlüsselmarke umgehend zurückerobert.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl bei LINK als auch bei ADA führte das blinde Kaufen der 'billigen' Zone unterhalb des Chaos-Bandes ohne strukturelle Bestätigung direkt in die Anschlussliquidierung der Stops.",
+        "actionable_rule": "Keine Absorption, kein Trade: Ein Liquidity Sweep [A] ist erst dann valide, wenn aggressives Sell-Volumen vollständig absorbiert wird und der Preis die Schlüsselmarke umgehend zurückerobert."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T04:31:25.370259+00:00",
+      "trade_id": "cross_rule_1794544285",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales HTF-Regime-Alignment: Micro-Reversals (5m/15m) sind strikt verboten, wenn die übergeordnete 4h/1D-Marktstruktur im impulsiven Abwärtstrend verharrt.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf Mikroebene wirken Orderblocks und 'Institutional Buy Pockets' bei übergeordnetem Abwärtsdruck lediglich als Liquiditätspool für HTF-Verkäufer; Edge existiert nur in Trendrichtung des Makro-Orderflows.",
+        "actionable_rule": "Fraktales HTF-Regime-Alignment: Micro-Reversals (5m/15m) sind strikt verboten, wenn die übergeordnete 4h/1D-Marktstruktur im impulsiven Abwärtstrend verharrt."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T04:31:25.370243+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1794542794",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.06,
+      "pnl_raw": -0.53,
+      "text": "Harte Sperre für parallele Altcoin-Longs bei identischem Timestamp (Cluster-Risk-Filter), solange der übergeordnete BTC/ETH-Leitmarkt kein klares Reversal signalisiert.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1794542794",
+        "verdict": "LOSS",
+        "driver": "Opfer unkontrollierter Beta-Korrelation: ADA wurde im Gleichschritt mit dem Gesamtmarkt durchgereicht, wodurch rein lokale Support-Zonen statistisch wertlos wurden.",
+        "technical_warning": "Anhaltend negatives Cumulative Volume Delta (CVD) und expansionierende Abwärts-Volatilität an den Chaos-Bändern statt kontraktiver Erschöpfung.",
+        "actionable_rule": "Harte Sperre für parallele Altcoin-Longs bei identischem Timestamp (Cluster-Risk-Filter), solange der übergeordnete BTC/ETH-Leitmarkt kein klares Reversal signalisiert."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T04:31:25.370185+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1794542793",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.5,
+      "pnl_raw": -0.75,
+      "text": "Kein Long-Entry an einem Micro-OB ohne bestätigten Reclaim des Sweep-Levels per 5m-Kerzenschluss und bullischem Delta-Shift.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1794542793",
+        "verdict": "LOSS",
+        "driver": "Der angebliche Liquidity-Sweep war in Wahrheit ein dynamischer Trendbruch mit aggressivem institutionellem Abgabedruck, der den Bullish Orderblock ohne jede Gegenwehr pulverisierte.",
+        "technical_warning": "Fehlendes VSA-Absorptionsvolumen (keine Ultra-High-Volume-Dochtbildung / Buying Climax) sowie das Ausbleiben einer bullischen Momentum-Divergenz beim Unterschreiten der Chaos-Bänder.",
+        "actionable_rule": "Kein Long-Entry an einem Micro-OB ohne bestätigten Reclaim des Sweep-Levels per 5m-Kerzenschluss und bullischem Delta-Shift."
+      }
+    },
     {
       "timestamp": "2026-11-13T04:07:35.330225+00:00",
       "trade_id": "cross_rule_1794542855",
