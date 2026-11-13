@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-13T00:30:55.000209+00:00",
-  "total_experience_records": 67,
+  "updated_at": "2026-11-13T01:01:42.287192+00:00",
+  "total_experience_records": 71,
   "learnings": [
+    {
+      "timestamp": "2026-11-13T01:01:38.378280+00:00",
+      "trade_id": "cross_rule_1794531698",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Degenerationsgesetz multipler Zonentests: Jeder wiederholte Retest schwächt die Barriere.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Am Beispiel RENDER (R2 auf Tier-C) zeigt sich: Limit-Orders werden bei Mehrfachtests sukzessive aufgezehrt, sodass Zonentests ab R2 auf allen Zeitebenen (5m bis 1D) statistisch zu Durchbrüchen statt Abprallern neigen.",
+        "actionable_rule": "Degenerationsgesetz multipler Zonentests: Jeder wiederholte Retest schwächt die Barriere."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T01:01:38.378260+00:00",
+      "trade_id": "cross_rule_1794531698",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Liquiditäts-Primat vor Signal-Generierung: Kein Reversal-Trade ohne vorherigen Sweep externer Liquidität.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Wie bei BTC auf 5m führt das bloße Reagieren auf Oszillatoren oder Trendkerzen ohne vorherige Marktbereinigung direkt in den Durchrutsch; fraktal gilt dies auf 4h/1D für signifikante Swing-Pivots gleichermaßen.",
+        "actionable_rule": "Liquiditäts-Primat vor Signal-Generierung: Kein Reversal-Trade ohne vorherigen Sweep externer Liquidität."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T01:01:38.378243+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1794528453",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.04,
+      "pnl_raw": -0.52,
+      "text": "Micro-Confluence-Reversals erfordern zwingend eine verifizierte Liquiditätsbereinigung (Sweep [A]); bloße Indikator-Kaufsignale an ungetesteten B-Blöcken lösen kein Trade-Ticket aus.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1794528453",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Einstieg ohne vorherigen Liquidity Sweep, verleitet durch ein nachlaufendes Indikatorsignal ('Blaues Dreieck') direkt in fallende Marktstruktur hinein.",
+        "technical_warning": "Vollständiges Ausbleiben eines Stop-Hunts unter lokale Key-Lows (fehlender Sweep [A]) bei gleichzeitigem Mangel an bullischer Deltadivergenz.",
+        "actionable_rule": "Micro-Confluence-Reversals erfordern zwingend eine verifizierte Liquiditätsbereinigung (Sweep [A]); bloße Indikator-Kaufsignale an ungetesteten B-Blöcken lösen kein Trade-Ticket aus."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T01:01:38.378185+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1794522652",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.2,
+      "pnl_raw": -0.6,
+      "text": "Keine Long-Exekution an Tier-C-Orderblocks nach bereits erfolgtem Erstkontakt (R2+) – Re-Entries verlangen zwingend frische Tier-A-Zonen mit starker Displacement-Bestätigung.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1794522652",
+        "verdict": "LOSS",
+        "driver": "Einstieg in einen qualitativ minderwertigen Tier-C-Orderblock im Zweittests (R2), dessen Kaufliquidität bereits erschöpft war, wodurch der vermeintliche Sweep zur Trendfortsetzung nach unten wurde.",
+        "technical_warning": "Fehlendes VSA-Absorptionsvolumen beim Sweep sowie mangelnde Impuls-Reaktion (fehlende FVG-Expansion) an einer bereits geschwächten R2-Zone.",
+        "actionable_rule": "Keine Long-Exekution an Tier-C-Orderblocks nach bereits erfolgtem Erstkontakt (R2+) – Re-Entries verlangen zwingend frische Tier-A-Zonen mit starker Displacement-Bestätigung."
+      }
+    },
     {
       "timestamp": "2026-11-13T00:08:43.229516+00:00",
       "trade_id": "cross_rule_1794528523",
