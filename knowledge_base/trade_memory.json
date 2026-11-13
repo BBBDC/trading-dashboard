@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-13T04:31:29.255740+00:00",
-  "total_experience_records": 102,
+  "updated_at": "2026-11-13T05:01:36.418745+00:00",
+  "total_experience_records": 105,
   "learnings": [
+    {
+      "timestamp": "2026-11-13T05:01:32.350687+00:00",
+      "trade_id": "cross_rule_1794546092",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Orderflow-Absorption schlägt Indikator-Trigger (Sweep vor Entry)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein isoliertes Kaufsignal ('Blaues Dreieck'/Oversold-Trigger) ist wertlos, solange aggressives Marktvolumen passives Limit-Gebot absorbiert; erst das Scheitern neuer Tiefs mit abnehmendem Verkaufs-Delta validiert die Bodenbildung fraktal auf allen Zeitebenen.",
+        "actionable_rule": "Orderflow-Absorption schlägt Indikator-Trigger (Sweep vor Entry)"
+      }
+    },
+    {
+      "timestamp": "2026-11-13T05:01:32.350643+00:00",
+      "trade_id": "cross_rule_1794546092",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Reversal-Trade ohne HTF-Regime-Filter (4h/1D Alignment)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Micro-Timeframe-Signale (5m/15m) besitzen bei stark gerichtetem HTF-Impuls keine eigenständige statistische Edge; eine Buy Pocket generiert erst dann verlässliche Asymmetrie, wenn sie mit einem übergeordneten 4h-Key-Level oder 1D-Discount-Bereich kollidiert.",
+        "actionable_rule": "Kein Reversal-Trade ohne HTF-Regime-Filter (4h/1D Alignment)"
+      }
+    },
+    {
+      "timestamp": "2026-11-13T05:01:32.350566+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1794542794",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -4.32,
+      "pnl_raw": -2.16,
+      "text": "Kein Long-Entry in überdehnte Chaos-Bänder ohne vorgelagerten Liquidity-Sweep mit direktem V-Shape-Reclaim und bestätigtem 5m-Strukturbruch (Market Structure Shift) über das vorherige Mikro-Hoch.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1794542794",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Einstieg in fallendes Messer (Falling Knife) basierend auf rein statischen Indikator-Triggern, während der Verkaufsdruck noch mit voller Dynamik durch den lokalen Support drückte.",
+        "technical_warning": "Fehlende Volumen-Absorption (kein Stopping Volume / Climax) sowie die fortgesetzte Bänder-Expansion nach unten hätten vor dem Eintritt in eine Volatilitäts-Kaskade gewarnt.",
+        "actionable_rule": "Kein Long-Entry in überdehnte Chaos-Bänder ohne vorgelagerten Liquidity-Sweep mit direktem V-Shape-Reclaim und bestätigtem 5m-Strukturbruch (Market Structure Shift) über das vorherige Mikro-Hoch."
+      }
+    },
     {
       "timestamp": "2026-11-13T04:31:25.370281+00:00",
       "trade_id": "cross_rule_1794544285",
