@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-13T07:46:32.782237+00:00",
-  "total_experience_records": 109,
+  "updated_at": "2026-11-13T08:24:36.519324+00:00",
+  "total_experience_records": 112,
   "learnings": [
+    {
+      "timestamp": "2026-11-13T08:24:32.686644+00:00",
+      "trade_id": "cross_rule_1794558272",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volumen-Validierung vor Struktureinstieg: Ein Indikator-Kaufsignal (z.B. Blaues Dreieck) ist ohne VSA-Konfluenz (Abnahme des Abgabedrucks oder Buying Climax) null und nichtig.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Rein geometrische oder indikatorbasierte Kaufsignale im Mikro-Bereich laufen regelmäßig in trendfortsetzende Abverkäufe, wenn das übergeordnete 4h-Momentum nicht synchronisiert ist.",
+        "actionable_rule": "Volumen-Validierung vor Struktureinstieg: Ein Indikator-Kaufsignal (z.B. Blaues Dreieck) ist ohne VSA-Konfluenz (Abnahme des Abgabedrucks oder Buying Climax) null und nichtig."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T08:24:32.686596+00:00",
+      "trade_id": "cross_rule_1794558272",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale No-Sweep, No-Entry-Direktive: Jedes Retest-Setup (von 5m bis 1D) erfordert vor dem Order-Trigger zwingend die Liquidation der lokalen Gegenseiten-Liquidität (Sweep [A]).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ohne vorherigen Sweep fehlt dem Markt der nötige Kraftstoff für eine Richtungsumkehr; Zonen minderer Qualität (B-Tier) fungieren auf allen Zeitebenen lediglich als Durchgangsstationen für institutionelle Fills.",
+        "actionable_rule": "Fraktale No-Sweep, No-Entry-Direktive: Jedes Retest-Setup (von 5m bis 1D) erfordert vor dem Order-Trigger zwingend die Liquidation der lokalen Gegenseiten-Liquidität (Sweep [A])."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T08:24:32.686512+00:00",
+      "trade_id": "inc_RHM.DE_5m_1794555897",
+      "symbol": "RHM.DE",
+      "name": "Rheinmetall",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.8,
+      "pnl_raw": -0.4,
+      "text": "B-Tier Orderblocks auf 5m/15m sind strikt vom First-Retest-Handel ausgeschlossen; Entries erfordern zwingend einen vorgelagerten A-Tier Sell-Side-Liquidity Sweep und eine bullische VSA-Reaktion.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RHM.DE_5m_1794555897",
+        "verdict": "LOSS",
+        "driver": "Einstieg an einer schwachen B-Tier Support-Zone (OB [B]) ohne institutionelle Nachfragebestätigung führte zum mühelosen Durchschlagen des Stop-Loss.",
+        "technical_warning": "Das Ausbleiben eines volumenstarken VSA-Absorptionsmusters am Retest sowie die B-Klassifizierung des Orderblocks hätten vor fehlendem Buy-Side-Interesse warnen müssen.",
+        "actionable_rule": "B-Tier Orderblocks auf 5m/15m sind strikt vom First-Retest-Handel ausgeschlossen; Entries erfordern zwingend einen vorgelagerten A-Tier Sell-Side-Liquidity Sweep und eine bullische VSA-Reaktion."
+      }
+    },
     {
       "timestamp": "2026-11-13T07:46:28.900380+00:00",
       "trade_id": "cross_rule_1794555988",
