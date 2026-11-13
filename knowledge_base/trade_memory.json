@@ -1,7 +1,45 @@
 {
-  "updated_at": "2026-11-13T07:25:06.472205+00:00",
-  "total_experience_records": 107,
+  "updated_at": "2026-11-13T07:46:32.782237+00:00",
+  "total_experience_records": 109,
   "learnings": [
+    {
+      "timestamp": "2026-11-13T07:46:28.900380+00:00",
+      "trade_id": "cross_rule_1794555988",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
+        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T07:46:28.900335+00:00",
+      "trade_id": "inc_XRPUSDT_15m_1794551455",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (15m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Micro-Confluence Short",
+      "pnl_leveraged": -1.88,
+      "pnl_raw": -0.94,
+      "text": "Bei XRPUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_15m_1794551455",
+        "verdict": "LOSS",
+        "driver": "Trade XRPUSDT schloss mit CLOSED_SL (-1.0R).",
+        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
+        "actionable_rule": "Bei XRPUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
+      }
+    },
     {
       "timestamp": "2026-11-13T07:25:02.793211+00:00",
       "trade_id": "cross_rule_1794554702",
