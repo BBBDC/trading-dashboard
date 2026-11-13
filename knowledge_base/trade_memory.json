@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-13T11:32:40.886889+00:00",
-  "total_experience_records": 117,
+  "updated_at": "2026-11-13T11:41:28.912781+00:00",
+  "total_experience_records": 120,
   "learnings": [
+    {
+      "timestamp": "2026-11-13T11:41:25.133582+00:00",
+      "trade_id": "cross_rule_1794570085",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Indikator-Trigger ('Good Buy') besitzen null Signalwert ohne strukturelle Orderflow-Bestätigung.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Fraktal über alle Zeitebenen hinweg gilt: Ein Retest hält nicht wegen eines Kaufsignals, sondern weil aggressives Sell-Side-Volumen durch passive Limit-Orders absorbiert wurde; fehlt diese VSA-Bestätigung, dient der Support-Level lediglich als Exit-Liquidität für Smart Money.",
+        "actionable_rule": "Indikator-Trigger ('Good Buy') besitzen null Signalwert ohne strukturelle Orderflow-Bestätigung."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T11:41:25.133540+00:00",
+      "trade_id": "cross_rule_1794570085",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Trade an sekundären Zonen (B-Grade) ohne HTF-Konfluenz (4h/1D) und vorherige Liquiditätsbereinigung (Sweep [A]).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf Mikro-Zeitskalen stellen B-Grade-Supports meist lediglich interne Range-Liquidität dar, die von institutionellen Algorithmen gezielt durchstoßen wird, um übergeordnete 4h/1D-Discounts oder signifikante FVG-Pools anzulaufen.",
+        "actionable_rule": "Kein Trade an sekundären Zonen (B-Grade) ohne HTF-Konfluenz (4h/1D) und vorherige Liquiditätsbereinigung (Sweep [A])."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T11:41:25.133463+00:00",
+      "trade_id": "inc_XRPUSDT_5m_1794555896",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.46,
+      "pnl_raw": -0.73,
+      "text": "Auf Mikro-Timeframes (5m/15m) sind Orderblock-Retests nur dann handelbar, wenn sie A-Grade-Status besitzen (vorheriger Sweep externer Liquidität) oder durch VSA-Ultra-High-Volume-Divergenzen untermauert sind.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_5m_1794555896",
+        "verdict": "LOSS",
+        "driver": "Long-Einstieg an einer unzureichend verankerten B-Qualitäts-Zone, deren unterliegende Sell-Side Liquidity vom Markt als primäres Anziehungsziel abgeräumt wurde.",
+        "technical_warning": "Die B-Grade-Klassifizierung des OBs (fehlender tiefer Sweep der Vorperiode) sowie das Ausbleiben institutioneller VSA-Absorptionsvolumina beim Retest des Support-Levels.",
+        "actionable_rule": "Auf Mikro-Timeframes (5m/15m) sind Orderblock-Retests nur dann handelbar, wenn sie A-Grade-Status besitzen (vorheriger Sweep externer Liquidität) oder durch VSA-Ultra-High-Volume-Divergenzen untermauert sind."
+      }
+    },
     {
       "timestamp": "2026-11-13T10:35:33.106252+00:00",
       "trade_id": "cross_rule_1794566133",
