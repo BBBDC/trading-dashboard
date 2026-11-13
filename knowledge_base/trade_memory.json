@@ -1,7 +1,103 @@
 {
-  "updated_at": "2026-11-13T22:01:48.337245+00:00",
-  "total_experience_records": 70,
+  "updated_at": "2026-11-13T22:31:35.049817+00:00",
+  "total_experience_records": 75,
   "learnings": [
+    {
+      "timestamp": "2026-11-13T22:31:31.198393+00:00",
+      "trade_id": "cross_rule_1794609091",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volatilitätsband-Ausbruch ist Trendstärke, keine Mean-Reversion",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Das Unterschreiten extremer Volatilitätsbänder markiert fraktal institutionelle Trendbeschleunigung; ein antizyklischer Trade ist erst nach bestätigter Preisablehnung (Kerzenschluss im Band) mit strikter Risikodeckelung statthaft.",
+        "actionable_rule": "Volatilitätsband-Ausbruch ist Trendstärke, keine Mean-Reversion"
+      }
+    },
+    {
+      "timestamp": "2026-11-13T22:31:31.198372+00:00",
+      "trade_id": "cross_rule_1794609091",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Erschöpfung von Liquiditätszonen (Max-2-Touch-Direktive)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf 5m als auch auf 4h/1D absorbiert jeder Kontakt mit einem Order Block die dort liegenden passiven Limit-Orders; ab dem dritten Test (R3) wird das Niveau von einer Stütze zu einem Liquiditätsziel für Breakouts.",
+        "actionable_rule": "Fraktale Erschöpfung von Liquiditätszonen (Max-2-Touch-Direktive)"
+      }
+    },
+    {
+      "timestamp": "2026-11-13T22:31:31.198359+00:00",
+      "trade_id": "inc_SOLUSDT_5m_1794607250",
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.1,
+      "pnl_raw": -0.55,
+      "text": "Positionen gegen die Trendrichtung bei Band-Extremwerten erfordern zwingend einen Kerzenschluss zurück innerhalb des Bandes sowie eine dokumentierte bullische Divergenz.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SOLUSDT_5m_1794607250",
+        "verdict": "LOSS",
+        "driver": "Klassisches Kaufen eines fallenden Messers: Statistische Band-Überdehnung (Chaos Band < RFE) wurde fälschlicherweise als Reversal-Zone statt als starker Volatilitätsausbruch nach unten gehandelt.",
+        "technical_warning": "Die dynamische Band-Expansion nach unten signalisierte Momentum-Beschleunigung statt Mean-Reversion; es lag weder eine bullische CVD/RSI-Divergenz noch ein Re-Entry-Kerzenschluss vor.",
+        "actionable_rule": "Positionen gegen die Trendrichtung bei Band-Extremwerten erfordern zwingend einen Kerzenschluss zurück innerhalb des Bandes sowie eine dokumentierte bullische Divergenz."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T22:31:31.198342+00:00",
+      "trade_id": "inc_RENDERUSDT_5m_1794607249",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.18,
+      "pnl_raw": -0.59,
+      "text": "C-Grade Order Blocks werden aus dem Trading-Universum gestrichen; ein Liquidity Sweep erfordert zwingend einen Market Structure Shift (MSS) mit impulsivem Displacement innerhalb von 2 Folgekerzen vor dem Fill.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_5m_1794607249",
+        "verdict": "LOSS",
+        "driver": "Ausführung in einem minderwertigen C-Grade Order Block, bei dem der Sweep nicht absorbiert wurde, sondern in eine Trendfortsetzungskaskade überging.",
+        "technical_warning": "Ausbleiben eines sofortigen bullischen Displacements (kein V-Shape Bounce) nach dem Sweep [A] sowie die schwache Einstufung [C] des Order Blocks zeigten anhaltenden institutionellen Verkaufsdruck an.",
+        "actionable_rule": "C-Grade Order Blocks werden aus dem Trading-Universum gestrichen; ein Liquidity Sweep erfordert zwingend einen Market Structure Shift (MSS) mit impulsivem Displacement innerhalb von 2 Folgekerzen vor dem Fill."
+      }
+    },
+    {
+      "timestamp": "2026-11-13T22:31:31.198285+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1794587486",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -4.42,
+      "pnl_raw": -2.21,
+      "text": "Order Blocks dürfen maximal bis zum zweiten Retest (R2) gehandelt werden; ab R3 gilt die Zone als erschöpft und Long-Einstiege sind strikt untersagt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1794587486",
+        "verdict": "LOSS",
+        "driver": "Fehlgeschlagener Einstieg an einer durch vorherige Tests vollständig absorbierten und liquidierten Support-Zone (Retest R3).",
+        "technical_warning": "Die R3-Klassifikation signalisierte Liquiditätserschöpfung; das Fehlen einer bullischen VSA-Absorption und das Ausbleiben eines aggressiven Rejection-Wicks kündigten den Durchbruch an.",
+        "actionable_rule": "Order Blocks dürfen maximal bis zum zweiten Retest (R2) gehandelt werden; ab R3 gilt die Zone als erschöpft und Long-Einstiege sind strikt untersagt."
+      }
+    },
     {
       "timestamp": "2026-11-13T22:01:44.354381+00:00",
       "trade_id": "cross_rule_1794607304",
