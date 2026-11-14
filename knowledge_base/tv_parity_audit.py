@@ -29,6 +29,7 @@ def audit_dataset():
     total_ob_matches = 0
     total_tv_obs = 0
     all_ok = True
+    results = []
 
     for fp in files:
         fname = os.path.basename(fp)
@@ -82,6 +83,16 @@ def audit_dataset():
         if not ok:
             all_ok = False
         status = "100% OK" if ok else "CHECK"
+        results.append({
+            "file": fname,
+            "bars": n,
+            "rfe_max_delta": round(rfe_max, 6),
+            "band_max_delta_pct": round(band_max_pct, 4),
+            "ob_matches": matches,
+            "ob_total": len(tv_obs),
+            "ob_match_pct": round(ob_pct, 1),
+            "status": status
+        })
 
         print(f"{fname:<26} | {n:>4} | {rfe_max:>8.5f} | {band_max_pct:>8.3f}% | {matches:>3}/{len(tv_obs):<3} ({ob_pct:>4.1f}%) | {status:>8}")
 
@@ -91,6 +102,24 @@ def audit_dataset():
     print(f"- Order Block Übereinstimmung   : {total_ob_matches} / {total_tv_obs} ({total_ob_matches / max(1, total_tv_obs) * 100:.1f}%)")
     print(f"- Paritäts-Status                : {'PERFEKT (100% ABGEGLICHEN)' if all_ok else 'WARNUNG'}")
     print("=" * 80)
+
+    # Persistiere als JSON für das Web-Dashboard
+    import json
+    from datetime import datetime, timezone
+    payload = {
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+        "status": "PERFEKT (100% ABGEGLICHEN)" if all_ok else "WARNUNG",
+        "total_bars": total_bars,
+        "total_datasets": len(files),
+        "total_ob_matches": total_ob_matches,
+        "total_tv_obs": total_tv_obs,
+        "ob_match_pct": round(total_ob_matches / max(1, total_tv_obs) * 100, 1),
+        "datasets": results
+    }
+    out_json = "/home/admin/trading/knowledge_base/tv_parity_audit.json"
+    with open(out_json, "w", encoding="utf-8") as fp:
+        json.dump(payload, fp, indent=2)
+    print(f"✅ Audit-Ergebnis gespeichert in {out_json}")
 
 if __name__ == "__main__":
     audit_dataset()

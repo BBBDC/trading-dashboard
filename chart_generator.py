@@ -139,6 +139,8 @@ def generate_svg_chart(bars, analysis_data, timeframe="4h", width=920, height=54
     lower_chaos_disp = lower_chaos_all[offset:] if len(lower_chaos_all) >= total_bars else [b["c"] * 0.98 for b in display_bars]
     ema_13_disp = ema_13_all[offset:] if len(ema_13_all) >= total_bars else [b["c"] for b in display_bars]
     rfe_basis_disp = rfe_basis_all[offset:] if (rfe_basis_all and len(rfe_basis_all) >= total_bars) else ema_13_disp
+    rfe_lower_disp = rfe_lower_all[offset:] if (rfe_lower_all and len(rfe_lower_all) >= total_bars) else [None] * n_display
+    rfe_upper_disp = rfe_upper_all[offset:] if (rfe_upper_all and len(rfe_upper_all) >= total_bars) else [None] * n_display
 
     # Order Blocks & FVGs
     order_blocks = detect_degencoder_order_blocks(bars, displacement_bars=5, detect_liquidity_sweep=True)
@@ -178,7 +180,8 @@ def generate_svg_chart(bars, analysis_data, timeframe="4h", width=920, height=54
 
     # Relevante FVGs einbeziehen
     for fvg in fvgs:
-        if abs(fvg["ce_50"] - curr_c) / curr_c < 0.25:
+        mid = fvg.get("midline", fvg.get("ce_50", (fvg["top"] + fvg["bottom"]) / 2.0))
+        if abs(mid - curr_c) / curr_c < 0.25:
             all_highs.append(fvg["top"])
             all_lows.append(fvg["bottom"])
 
@@ -221,6 +224,7 @@ def generate_svg_chart(bars, analysis_data, timeframe="4h", width=920, height=54
     svg.append(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" style="background:#070a13; font-family:\'JetBrains Mono\', monospace;">')
     svg.append('<defs>')
     svg.append('<linearGradient id="cloud-grad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#38bdf8" stop-opacity="0.14"/><stop offset="100%" stop-color="#38bdf8" stop-opacity="0.02"/></linearGradient>')
+    svg.append('<linearGradient id="rfe-cloud" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#818cf8" stop-opacity="0.09"/><stop offset="100%" stop-color="#818cf8" stop-opacity="0.02"/></linearGradient>')
     svg.append('<linearGradient id="rsi-overbought" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#f43f5e" stop-opacity="0.25"/><stop offset="100%" stop-color="#f43f5e" stop-opacity="0.0"/></linearGradient>')
     svg.append('<linearGradient id="rsi-oversold" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#10b981" stop-opacity="0.0"/><stop offset="100%" stop-color="#10b981" stop-opacity="0.25"/></linearGradient>')
     svg.append('</defs>')
@@ -269,7 +273,8 @@ def generate_svg_chart(bars, analysis_data, timeframe="4h", width=920, height=54
             w_fvg = margin_left + chart_width - x_st
 
             svg.append(f'<rect x="{x_st:.1f}" y="{min(y_t, y_b):.1f}" width="{w_fvg:.1f}" height="{max(2.5, fvg_h):.1f}" fill="{f_bg}" stroke="{f_col}" stroke-width="1" rx="2"/>')
-            svg.append(f'<line x1="{x_st:.1f}" y1="{y_price(fvg["ce_50"]):.1f}" x2="{margin_left + chart_width}" y2="{y_price(fvg["ce_50"]):.1f}" stroke="{f_col}" stroke-dasharray="3,3" stroke-width="1"/>')
+            ce_val = fvg.get("midline", fvg.get("ce_50", (fvg["top"] + fvg["bottom"]) / 2.0))
+            svg.append(f'<line x1="{x_st:.1f}" y1="{y_price(ce_val):.1f}" x2="{margin_left + chart_width}" y2="{y_price(ce_val):.1f}" stroke="{f_col}" stroke-dasharray="3,3" stroke-width="1"/>')
             svg.append(f'<text x="{x_st + 6:.1f}" y="{min(y_t, y_b) + 11:.1f}" fill="{f_col}" font-size="8" font-weight="bold">FVG ({f_bot:,.2f}-{f_top:,.2f})</text>')
 
     # 4. degencoder's OB (Retro) Order Blocks mit Badges (A, B, C, D, R1, R2, R3)
@@ -300,7 +305,26 @@ def generate_svg_chart(bars, analysis_data, timeframe="4h", width=920, height=54
             svg.append(f'<rect x="{x_st + 4:.1f}" y="{badge_y:.1f}" width="{b_w}" height="13" fill="{ob_color}" rx="3"/>')
             svg.append(f'<text x="{x_st + 4 + b_w/2:.1f}" y="{badge_y + 10:.1f}" fill="#070a13" font-size="8" font-weight="bold" text-anchor="middle">{badge_txt}</text>')
 
-    # 5. Dynamische degencoder Bänder (Quantum Chaos Cloud & RFE 233)
+    # 5a. RFE Golden Ratio Channel (WMA 233 ± 1.618 * StDev 233)
+    pts_rfe_up = []
+    pts_rfe_low = []
+    has_rfe_cloud = False
+    for i in range(n_display):
+        xc = x_bar(i)
+        ru_val = rfe_upper_disp[i] if (rfe_upper_disp and i < len(rfe_upper_disp)) else None
+        rl_val = rfe_lower_disp[i] if (rfe_lower_disp and i < len(rfe_lower_disp)) else None
+        if ru_val is not None and rl_val is not None:
+            has_rfe_cloud = True
+            pts_rfe_up.append(f"{xc:.1f},{y_price(ru_val):.1f}")
+            pts_rfe_low.append(f"{xc:.1f},{y_price(rl_val):.1f}")
+
+    if has_rfe_cloud and len(pts_rfe_up) >= 2:
+        rfe_cloud_pts = " ".join(pts_rfe_up + list(reversed(pts_rfe_low)))
+        svg.append(f'<polygon points="{rfe_cloud_pts}" fill="url(#rfe-cloud)"/>')
+        svg.append(f'<polyline points="{" ".join(pts_rfe_up)}" fill="none" stroke="#818cf8" stroke-width="1.1" stroke-opacity="0.45" stroke-dasharray="3,3"/>')
+        svg.append(f'<polyline points="{" ".join(pts_rfe_low)}" fill="none" stroke="#818cf8" stroke-width="1.1" stroke-opacity="0.45" stroke-dasharray="3,3"/>')
+
+    # 5b. Dynamische Quantum Chaos Bänder (Donchian 5 + 1.8 ATR 14)
     pts_upper = []
     pts_lower = []
     pts_center = []
@@ -313,7 +337,7 @@ def generate_svg_chart(bars, analysis_data, timeframe="4h", width=920, height=54
         pts_lower.append(f"{xc:.1f},{y_price(l_val):.1f}")
         pts_center.append(f"{xc:.1f},{y_price(c_val):.1f}")
 
-    # Cloud Polygon
+    # Chaos Cloud Polygon
     rev_lower = list(reversed(pts_lower))
     cloud_points = " ".join(pts_upper + rev_lower)
     svg.append(f'<polygon points="{cloud_points}" fill="url(#cloud-grad)"/>')
@@ -323,7 +347,7 @@ def generate_svg_chart(bars, analysis_data, timeframe="4h", width=920, height=54
     svg.append(f'<polyline points="{" ".join(pts_lower)}" fill="none" stroke="#38bdf8" stroke-width="1.3" stroke-dasharray="4,3"/>')
     svg.append(f'<polyline points="{" ".join(pts_center)}" fill="none" stroke="#0284c7" stroke-width="1.0" stroke-opacity="0.6"/>')
 
-    # RFE 233 Trend-Kurve
+    # RFE 233 Trend-Kurve (WMA 233 Basis)
     pts_rfe = []
     for i in range(n_display):
         xc = x_bar(i)
@@ -331,7 +355,7 @@ def generate_svg_chart(bars, analysis_data, timeframe="4h", width=920, height=54
         pts_rfe.append(f"{xc:.1f},{y_price(rf_val):.1f}")
     svg.append(f'<polyline points="{" ".join(pts_rfe)}" fill="none" stroke="#818cf8" stroke-width="2.2" stroke-linecap="round"/>')
 
-    # 6. Kerzen & degencoder Signale
+    # 6. Kerzen & 100% TradingView-kalibrierte degencoder Signale
     for i, b in enumerate(display_bars):
         xc = x_bar(i)
         yo = y_price(b["o"])
@@ -349,37 +373,48 @@ def generate_svg_chart(bars, analysis_data, timeframe="4h", width=920, height=54
         svg.append(f'<rect x="{xc - candle_body_width / 2.0:.1f}" y="{body_top:.1f}" width="{candle_body_width:.1f}" height="{body_h:.1f}" fill="{col}" rx="1"/>')
 
         # -------------------------------------------------------------
-        # degencoder Indikator-Marker auf Kerze (exakt gemäß Screenshots)
+        # 100% kalibrierte Signale & Zonen (TradingView Pine Script Parität)
         # -------------------------------------------------------------
         global_idx = offset + i
         l_band = lower_chaos_all[global_idx] if global_idx < len(lower_chaos_all) else b["c"] * 0.98
         u_band = upper_chaos_all[global_idx] if global_idx < len(upper_chaos_all) else b["c"] * 1.02
-        rf_l = rfe_lower_all[global_idx] if (rfe_lower_all and global_idx < len(rfe_lower_all) and rfe_lower_all[global_idx]) else l_band
+        rf_b = rfe_basis_all[global_idx] if (rfe_basis_all and global_idx < len(rfe_basis_all) and rfe_basis_all[global_idx] is not None) else None
+        rf_l = rfe_lower_all[global_idx] if (rfe_lower_all and global_idx < len(rfe_lower_all) and rfe_lower_all[global_idx] is not None) else l_band
+        rf_u = rfe_upper_all[global_idx] if (rfe_upper_all and global_idx < len(rfe_upper_all) and rfe_upper_all[global_idx] is not None) else u_band
 
-        # A. Institutional BUY Pocket: Lower Chaos Band unter RFE Lower
-        is_buy_pocket = bool(l_band < rf_l or b["l"] < rf_l)
-        if is_buy_pocket:
+        prev_bar = display_bars[i - 1] if i > 0 else (bars[offset - 1] if offset > 0 else b)
+        prev_h = prev_bar["h"]
+        prev_l = prev_bar["l"]
+        has_rfe = (rf_b is not None)
+
+        is_buy_area = bool(has_rfe and b["l"] < rf_l and prev_h > rf_l)
+        is_sell_area = bool(has_rfe and b["h"] > rf_u and prev_l < rf_u)
+        is_no_trade_zone = bool(has_rfe and ((b["l"] < rf_b and prev_h > rf_b) or (b["h"] > rf_b and prev_l < rf_b)))
+
+        # A. Buy Area (Grünes Kreuz) & Institutional Pocket Badge
+        if is_buy_area:
+            svg.append(f'<text x="{xc:.1f}" y="{yl + 12:.1f}" fill="#10b981" font-size="11" font-weight="bold" text-anchor="middle">✕</text>')
             # Grünes abgerundetes [BUY] Badge unter der Kerze
             y_badge = yl + 16
-            svg.append(f'<rect x="{xc - 12:.1f}" y="{y_badge:.1f}" width="24" height="11" fill="#10b981" rx="3" opacity="0.9"/>')
+            svg.append(f'<rect x="{xc - 11:.1f}" y="{y_badge:.1f}" width="22" height="11" fill="#10b981" rx="3" opacity="0.9"/>')
             svg.append(f'<text x="{xc:.1f}" y="{y_badge + 8:.1f}" fill="#070a13" font-size="7" font-weight="bold" text-anchor="middle">BUY</text>')
 
-        # B. Buy Area (Grünes Kreuz) & Good Buy Signal (Blaues Dreieck)
-        if b["l"] <= l_band or b["c"] <= l_band:
-            # Grünes Kreuz unter Kerze
-            svg.append(f'<text x="{xc:.1f}" y="{yl + 10:.1f}" fill="#10b981" font-size="10" font-weight="bold" text-anchor="middle">✕</text>')
-            # Prüfe ob Reversal -> Good Buy Signal
-            if is_green and (i > 0 and display_bars[i-1]["c"] < display_bars[i-1]["o"]):
-                # Blaues Dreieck unter der Kerze
-                svg.append(f'<polygon points="{xc:.1f},{yl + 26:.1f} {xc - 4:.1f},{yl + 33:.1f} {xc + 4:.1f},{yl + 33:.1f}" fill="#38bdf8"/>')
+        # B. Good Buy Signal (Blaues Dreieck): Sweep in Discount mit bullischer Reversal-Kerze
+        swept_low = (b["l"] < prev_l or (has_rfe and b["l"] < rf_l))
+        if swept_low and is_green and (not has_rfe or b["c"] < rf_b) and (b["l"] <= l_band or is_buy_area):
+            svg.append(f'<polygon points="{xc:.1f},{yl + 28:.1f} {xc - 4.5:.1f},{yl + 35:.1f} {xc + 4.5:.1f},{yl + 35:.1f}" fill="#38bdf8"/>')
 
-        # C. Sell Area (Rotes Kreuz) & Good Sell Signal (Kreis / Dreieck oben)
-        if b["h"] >= u_band or b["c"] >= u_band:
-            # Rotes Kreuz über Kerze
-            svg.append(f'<text x="{xc:.1f}" y="{yh - 4:.1f}" fill="#f43f5e" font-size="10" font-weight="bold" text-anchor="middle">✕</text>')
-            if not is_green and (i > 0 and display_bars[i-1]["c"] > display_bars[i-1]["o"]):
-                # Magenta Dreieck nach unten
-                svg.append(f'<polygon points="{xc:.1f},{yh - 16:.1f} {xc - 4:.1f},{yh - 23:.1f} {xc + 4:.1f},{yh - 23:.1f}" fill="#ec4899"/>')
+        # C. Sell Area (Rotes Kreuz) & Good Sell Signal (Magenta Kreis)
+        if is_sell_area:
+            svg.append(f'<text x="{xc:.1f}" y="{yh - 4:.1f}" fill="#f43f5e" font-size="11" font-weight="bold" text-anchor="middle">✕</text>')
+
+        swept_high = (b["h"] > prev_h or (has_rfe and b["h"] > rf_u))
+        if swept_high and not is_green and (not has_rfe or b["c"] > rf_b) and (b["h"] >= u_band or is_sell_area):
+            svg.append(f'<circle cx="{xc:.1f}" cy="{yh - 12:.1f}" r="3.5" fill="#ec4899"/>')
+
+        # D. No Trade Zone: Gelber Orientierungs-Punkt auf Kerze
+        if is_no_trade_zone:
+            svg.append(f'<circle cx="{xc:.1f}" cy="{min(yo, yc) - 4:.1f}" r="1.5" fill="#fbbf24" opacity="0.7"/>')
 
     # Aktueller Kurs Badge am rechten Rand
     last_c = display_bars[-1]["c"]
