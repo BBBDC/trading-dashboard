@@ -512,6 +512,8 @@ def partial_close_position(symbol_or_id, portion_pct=50.0, exit_price=None, exit
         print(f"✅ Position '{symbol_or_id}' durch finalen Teilverkauf vollständig geschlossen.")
     else:
         found_pos["remaining_size_pct"] = new_remaining_pct
+        if exit_reason == "TP1_TRIGGERED":
+            found_pos["tp1_hit"] = True
         closes = found_pos.get("partial_closes", [])
         closes.append({
             "timestamp": now_iso,

@@ -2861,6 +2861,100 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
             api.edit_message_text(chat_id, message_id, f"❌ Fehler beim Schließen: {e}", reply_markup=get_main_menu_keyboard(role))
         return
 
+    # 8b. Teilgewinn Menü öffnen
+    if data.startswith("pos_partial_menu_"):
+        USER_SESSIONS.pop(chat_id, None)
+        pos_id = data[len("pos_partial_menu_"):]
+        text, kb = get_partial_close_text_and_markup(pos_id, user_id)
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
+
+    # 8c. Teilgewinn ausführen (25%, 33%, 50%, 75%)
+    if data.startswith("pos_partial_exec_"):
+        parts = data[len("pos_partial_exec_"):].rsplit("_", 1)
+        if len(parts) == 2:
+            pos_id, pct_str = parts
+            try:
+                pct = float(pct_str)
+                api.edit_message_text(chat_id, message_id, f"⏳ Buche <b>{pct:g}%</b> Teilgewinn für Position <b>{pos_id}</b>...")
+                from manage_positions import partial_close_position
+                closed_rec, active_pos, is_full = partial_close_position(
+                    symbol_or_id=pos_id,
+                    portion_pct=pct,
+                    user_id=str(user_id),
+                    exit_reason=f"PARTIAL_MANUAL_{int(pct)}PCT",
+                    sync_db=True,
+                    git_push=True,
+                    notify=False
+                )
+                if closed_rec:
+                    sym = closed_rec.get("symbol", pos_id)
+                    lev_pnl = closed_rec.get("realized_pnl_leveraged_pct", 0.0)
+                    pnl_s = "+" if lev_pnl >= 0 else ""
+                    rem = active_pos.get("remaining_size_pct", 0.0) if active_pos else 0.0
+                    entry_p = active_pos.get("entry_price") if active_pos else closed_rec.get("entry_price")
+                    entry_fmt = f"{float(entry_p):,.2f} $" if entry_p is not None else ""
+
+                    kb_buttons = []
+                    if active_pos and not is_full and entry_p:
+                        kb_buttons.append([{"text": f"🛡️ Stop-Loss auf Break-Even ({entry_fmt}) setzen", "callback_data": f"pos_sl_be_{pos_id}"}])
+                    kb_buttons.append([
+                        {"text": "📊 Zu meinen Trades", "callback_data": "menu_my_trades"},
+                        {"text": "📜 Trade-Historie", "callback_data": "menu_my_history"}
+                    ])
+                    kb_buttons.append([{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}])
+
+                    if is_full:
+                        success_txt = (
+                            f"🎉 <b>Position {sym} durch Teilverkauf vollständig geschlossen!</b>\n\n"
+                            f"• 💰 <b>Letzte Tranche:</b> <b>{pct:g}%</b>\n"
+                            f"• 📈 <b>Realisierter PnL:</b> <b>{pnl_s}{lev_pnl:.2f}%</b>\n"
+                            f"• 📜 Der Trade wurde in deiner <b>Trade-Historie</b> archiviert und das Dashboard aktualisiert."
+                        )
+                    else:
+                        success_txt = (
+                            f"🎉 <b>Teilgewinn erfolgreich verbucht!</b>\n\n"
+                            f"• <b>Symbol:</b> {sym}\n"
+                            f"• 💰 <b>Realisierte Tranche:</b> <b>{pct:g}%</b>\n"
+                            f"• 📈 <b>Realisierter PnL:</b> <b>{pnl_s}{lev_pnl:.2f}%</b>\n"
+                            f"• 📊 <b>Aktive Restposition:</b> <b>{rem:g}%</b>\n\n"
+                            f"💡 <i>Tipp: Sichere deinen Restgewinn ab, indem du den Stop-Loss jetzt auf den Einstiegskurs (Break-Even) nachziehst!</i>"
+                        )
+                    api.edit_message_text(chat_id, message_id, success_txt, reply_markup={"inline_keyboard": kb_buttons})
+                else:
+                    api.edit_message_text(chat_id, message_id, "⚠️ Position nicht gefunden oder konnte nicht teilgeschlossen werden.", reply_markup=get_main_menu_keyboard(role))
+            except Exception as e:
+                logger.error(f"Error executing partial close: {e}", exc_info=True)
+                api.edit_message_text(chat_id, message_id, f"❌ Fehler beim Verbuchen des Teilgewinns: {e}", reply_markup=get_main_menu_keyboard(role))
+        return
+
+    # 8d. Stop-Loss auf Break-Even setzen
+    if data.startswith("pos_sl_be_"):
+        pos_id = data[len("pos_sl_be_"):]
+        from manage_positions import load_positions, update_position
+        positions = load_positions()
+        pos = next((p for p in positions if p.get("id") == pos_id or p.get("symbol") == pos_id), None)
+        if not pos:
+            api.send_message(chat_id, "⚠️ Position nicht gefunden.")
+            return
+        entry_p = float(pos.get("entry_price", 0.0))
+        sym = pos.get("symbol", pos_id)
+        if entry_p > 0:
+            api.edit_message_text(chat_id, message_id, f"⏳ Ziehe Stop-Loss für <b>{sym}</b> auf Break-Even (<code>{fmt_price(entry_p)} $</code>)...")
+            try:
+                update_position(symbol_or_id=pos_id, user_id=str(user_id), stop_loss=entry_p, sync_db=True, git_push=True)
+                text_resp, kb = get_manage_position_text_and_markup(pos_id, user_id)
+                success_msg = (
+                    f"🛡️ <b>Stop-Loss erfolgreich auf Break-Even gesetzt!</b>\n\n"
+                    f"• <b>Symbol:</b> {sym}\n"
+                    f"• 🛑 <b>Neuer Stop-Loss:</b> {fmt_price(entry_p)} $ (Einstieg)\n"
+                    f"• 🎯 Deine Restposition läuft ab jetzt völlig <b>risikofrei</b>!\n\n" + text_resp
+                )
+                api.edit_message_text(chat_id, message_id, success_msg, reply_markup=kb)
+            except Exception as e:
+                api.edit_message_text(chat_id, message_id, f"❌ Fehler beim Setzen des Break-Even SL: {e}", reply_markup=get_main_menu_keyboard(role))
+        return
+
     # 9. Admin: Benutzer freischalten
     if data.startswith("approve_user_") and role == "admin":
         parts = data.split("_", 3)
@@ -3118,26 +3212,32 @@ def process_wizard_text_input(api, chat_id, user_id, username, session, text):
         api.send_message(
             chat_id,
             f"Stop-Loss: <b>{fmt_price(sl_val)} $</b>\n\nSchritt 6: 🎯 <b>Take-Profit (TP) festlegen</b>\n\n"
-            f"Gib dein Kursziel als Zahl in den Chat ein, wähle einen Schnell-Vorschlag oder überspringe diesen Schritt:",
+            f"Gib dein Kursziel als Zahl in den Chat ein (z. B. <code>65000</code> oder für gestaffelte TPs: <code>65200 / 64000</code>), wähle einen Schnell-Vorschlag oder überspringe diesen Schritt:",
             reply_markup=get_take_profit_keyboard(direction, entry_p)
         )
         return
 
     if step == "WAITING_TP":
-        cleaned = text.replace("$", "").replace("€", "").replace(",", ".").strip()
-        try:
-            tp_val = float(cleaned)
-            if tp_val <= 0:
-                raise ValueError()
-        except ValueError:
-            api.send_message(chat_id, "⚠️ Ungültiger Take-Profit Kurs. Bitte gib eine positive Zahl ein (z. B. 92000 oder 310.00):")
+        direction = session["data"].get("direction", "LONG")
+        entry_p = float(session["data"].get("entry_price", 0.0))
+        tp_val, tp1_val, tp2_val = parse_take_profit_input(text, direction, entry_p)
+        if tp_val is None:
+            api.send_message(chat_id, "⚠️ Ungültiges Kursziel. Bitte gib eine positive Zahl ein (z. B. <code>65000</code> oder für gestaffelte TPs: <code>65200 / 64000</code>):")
             return
 
         session["data"]["take_profit"] = tp_val
+        session["data"]["take_profit_1"] = tp1_val
+        session["data"]["take_profit_2"] = tp2_val
         session["step"] = "WAITING_NOTE"
+
+        if tp1_val is not None and tp2_val is not None:
+            tp_info = f"Gestaffelter Take-Profit:\n🎯 <b>TP1 (50%):</b> {fmt_price(tp1_val)} $\n🎯 <b>TP2 (Runner):</b> {fmt_price(tp2_val)} $"
+        else:
+            tp_info = f"Take-Profit: <b>{fmt_price(tp_val)} $</b>"
+
         api.send_message(
             chat_id,
-            f"Take-Profit: <b>{fmt_price(tp_val)} $</b>\n\nSchritt 7: Optionale Notiz hinterlegen?\n"
+            f"{tp_info}\n\nSchritt 7: Optionale Notiz hinterlegen?\n"
             "<i>(Einfach als Nachricht antworten oder Button unten nutzen)</i>",
             reply_markup=get_note_keyboard()
         )
@@ -3167,22 +3267,22 @@ def process_wizard_text_input(api, chat_id, user_id, username, session, text):
             chat_id,
             f"Neuer Stop-Loss: <b>{fmt_price(sl_val)} $</b>\n\n"
             f"<b>Schritt 2 von 2: Neuer Take-Profit (TP)</b>\n"
-            f"Tippe das neue Kursziel in den Chat oder wähle eine Option:",
+            f"Tippe das neue Kursziel in den Chat (z. B. <code>65000</code> oder für gestaffelte TPs: <code>65200 / 64000</code>) oder wähle eine Option:",
             reply_markup=get_edit_tp_keyboard(direction, entry_p, current_tp)
         )
         return
 
     if step == "WAITING_EDIT_TP":
-        cleaned = text.replace("$", "").replace("€", "").replace(",", ".").strip()
-        try:
-            tp_val = float(cleaned)
-            if tp_val <= 0:
-                raise ValueError()
-        except ValueError:
-            api.send_message(chat_id, "⚠️ Ungültiger Take-Profit Kurs. Bitte gib eine positive Zahl ein:")
+        entry_p = float(session.get("entry_price", 0.0))
+        direction = session.get("direction", "LONG")
+        tp_val, tp1_val, tp2_val = parse_take_profit_input(text, direction, entry_p)
+        if tp_val is None:
+            api.send_message(chat_id, "⚠️ Ungültiges Kursziel. Bitte gib eine positive Zahl ein (z. B. <code>65000</code> oder für gestaffelte TPs: <code>65200 / 64000</code>):")
             return
 
         session["data"]["take_profit"] = tp_val
+        session["data"]["take_profit_1"] = tp1_val
+        session["data"]["take_profit_2"] = tp2_val
         render_edit_sltp_confirm(api, chat_id, None, session)
         return
 
@@ -3243,18 +3343,33 @@ def render_trade_summary_and_confirm(api, chat_id, message_id, data):
     lev = data.get("leverage", 1.0)
     sl = data.get("stop_loss")
     tp = data.get("take_profit")
+    tp1 = data.get("take_profit_1")
+    tp2 = data.get("take_profit_2") or tp
     note = data.get("note", "")
 
     sig_icon = "🟢" if sig == "LONG" else "🔴"
     sl_str = f"{fmt_price(sl)} $" if sl is not None else "<i>Nicht gesetzt</i>"
-    tp_str = f"{fmt_price(tp)} $" if tp is not None else "<i>Nicht gesetzt</i>"
 
-    crv_line = ""
-    if sl is not None and tp is not None and entry > 0:
-        risk = abs(entry - float(sl))
-        reward = abs(float(tp) - entry)
-        if risk > 0:
-            crv_line = f"\n• ⚖️ <b>CRV:</b> 1 : {reward / risk:.2f}"
+    if tp1 is not None and tp2 is not None:
+        tp_str = f"\n  • 🎯 <b>TP1 (50%):</b> {fmt_price(tp1)} $\n  • 🎯 <b>TP2 (Runner):</b> {fmt_price(tp2)} $"
+        crv_line = ""
+        if sl is not None and entry > 0:
+            risk = abs(entry - float(sl))
+            if risk > 0:
+                reward1 = abs(float(tp1) - entry)
+                reward2 = abs(float(tp2) - entry)
+                crv_line = f"\n• ⚖️ <b>CRV:</b> 1 : {reward1 / risk:.2f} (TP1) | 1 : {reward2 / risk:.2f} (TP2)"
+    elif tp is not None:
+        tp_str = f"{fmt_price(tp)} $"
+        crv_line = ""
+        if sl is not None and entry > 0:
+            risk = abs(entry - float(sl))
+            if risk > 0:
+                reward = abs(float(tp) - entry)
+                crv_line = f"\n• ⚖️ <b>CRV:</b> 1 : {reward / risk:.2f}"
+    else:
+        tp_str = "<i>Nicht gesetzt</i>"
+        crv_line = ""
 
     summary_text = (
         f"📋 <b>Trade-Zusammenfassung</b>\n\n"
@@ -3282,16 +3397,31 @@ def render_edit_sltp_confirm(api, chat_id, message_id, session):
     entry = float(session.get("entry_price", 0.0))
     sl = session["data"].get("stop_loss")
     tp = session["data"].get("take_profit")
+    tp1 = session["data"].get("take_profit_1")
+    tp2 = session["data"].get("take_profit_2") or tp
 
     sl_str = f"{fmt_price(sl)} $" if sl is not None else "<i>Kein Stop-Loss</i>"
-    tp_str = f"{fmt_price(tp)} $" if tp is not None else "<i>Kein Take-Profit</i>"
 
-    crv_line = ""
-    if sl is not None and tp is not None and entry > 0:
-        risk = abs(entry - float(sl))
-        reward = abs(float(tp) - entry)
-        if risk > 0:
-            crv_line = f"\n• ⚖️ <b>Neues CRV:</b> 1 : {reward / risk:.2f}"
+    if tp1 is not None and tp2 is not None:
+        tp_str = f"\n  • 🎯 <b>TP1 (50%):</b> {fmt_price(tp1)} $\n  • 🎯 <b>TP2 (Runner):</b> {fmt_price(tp2)} $"
+        crv_line = ""
+        if sl is not None and entry > 0:
+            risk = abs(entry - float(sl))
+            if risk > 0:
+                reward1 = abs(float(tp1) - entry)
+                reward2 = abs(float(tp2) - entry)
+                crv_line = f"\n• ⚖️ <b>Neues CRV:</b> 1 : {reward1 / risk:.2f} (TP1) | 1 : {reward2 / risk:.2f} (TP2)"
+    elif tp is not None:
+        tp_str = f"{fmt_price(tp)} $"
+        crv_line = ""
+        if sl is not None and entry > 0:
+            risk = abs(entry - float(sl))
+            if risk > 0:
+                reward = abs(float(tp) - entry)
+                crv_line = f"\n• ⚖️ <b>Neues CRV:</b> 1 : {reward / risk:.2f}"
+    else:
+        tp_str = "<i>Kein Take-Profit</i>"
+        crv_line = ""
 
     text = (
         f"🎯 <b>Neue Parameter für {sym} ({sig})</b>\n\n"
