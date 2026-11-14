@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-14T13:00:53.362268+00:00",
-  "total_experience_records": 101,
+  "updated_at": "2026-11-14T13:31:29.605156+00:00",
+  "total_experience_records": 104,
   "learnings": [
+    {
+      "timestamp": "2026-11-14T13:31:25.885267+00:00",
+      "trade_id": "cross_rule_1794663085",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine Trade-Exekution an Retests ohne nachweisbare VSA-Absorption im Mikro-/Makro-Gedächtnis",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein bloßes Berühren eines Support-Levels ohne Volumen-Divergenz oder Liquiditätsabsaugung unter dem Tief ist auf allen Zeitebenen eine Falle, da der Markt das darunterliegende Stopp-Cluster als Exit-Liquidität nutzt.",
+        "actionable_rule": "Keine Trade-Exekution an Retests ohne nachweisbare VSA-Absorption im Mikro-/Makro-Gedächtnis"
+      }
+    },
+    {
+      "timestamp": "2026-11-14T13:31:25.885241+00:00",
+      "trade_id": "cross_rule_1794663085",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Strikte Hierarchie: Strukturqualität schlägt Indikatoren-Trigger (A-Grade-Filter)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Lagging-Signale wie 'Good Buy'-Dreiecke führen in Konsolidierungen oder B-Strukturen zu teuren Fehlausbrüchen; sowohl auf 5m als auch auf 4h/1D darf Kapital nur an verifizierten A-Grade-Sweeps mit signifikanter FVG-Expansion allokiert werden.",
+        "actionable_rule": "Strikte Hierarchie: Strukturqualität schlägt Indikatoren-Trigger (A-Grade-Filter)"
+      }
+    },
+    {
+      "timestamp": "2026-11-14T13:31:25.885185+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1794643249",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -2.08,
+      "pnl_raw": -1.04,
+      "text": "Auf 5m/15m dürfen B-Grade-OB-Retests nur dann gehandelt werden, wenn eine eindeutige VSA-Volumenabsorption an der Support-Grenze nachgewiesen ist und der übergeordnete 4h-Trend zwingend bullisch ausgerichtet ist.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1794643249",
+        "verdict": "LOSS",
+        "driver": "Ausführung an einer schwachen B-Grade-Orderblock-Zone (R4) ohne VSA-Absorptionsvolumen, wodurch der Trade direkt als Liquidität für übergeordneten Verkaufsdruck diente.",
+        "technical_warning": "B-Klassifizierung des Orderblocks in Kombination mit fehlender VSA-Volumenbestätigung (Climax/Absorption) und einem reinen Momentum-Lagging-Signal (blaues Dreieck) ohne vorherigen Sweep.",
+        "actionable_rule": "Auf 5m/15m dürfen B-Grade-OB-Retests nur dann gehandelt werden, wenn eine eindeutige VSA-Volumenabsorption an der Support-Grenze nachgewiesen ist und der übergeordnete 4h-Trend zwingend bullisch ausgerichtet ist."
+      }
+    },
     {
       "timestamp": "2026-11-14T08:01:19.050242+00:00",
       "trade_id": "cross_rule_1794643279",
