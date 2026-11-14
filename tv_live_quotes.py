@@ -290,8 +290,10 @@ def sync_all_live_prices():
     except Exception as pe:
         print(f"Warnung bei Portfolio-Update: {pe}", file=sys.stderr)
 
-    with open(DB_FILE, "w", encoding="utf-8") as f:
+    tmp_file = DB_FILE.with_suffix(".tmp")
+    with open(tmp_file, "w", encoding="utf-8") as f:
         json.dump(db, f, indent=2, ensure_ascii=False)
+    tmp_file.replace(DB_FILE)
 
     return True, len(quotes_map), f"{len(quotes_map)} Live-Kurse aktualisiert ({cache_updates} Cache-Dateien synchronisiert)"
 

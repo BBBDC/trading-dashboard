@@ -460,10 +460,14 @@ USER_POS_ALERT_STATE = BASE_DIR / "knowledge_base" / "user_pos_alert_state.json"
 def check_and_notify_user_positions(evaluated_positions):
     """
     Prüft alle Nutzerpositionen und sendet eine gezielte Push-Warnung, wenn:
-    - SL-Gefahr / Liquidationsrisiko besteht (CRITICAL)
+    - SL-Gefahr / Liquidationsrisiko besteht (CRITICAL -> sofort)
     - Take-Profit erreicht ist / Teilgewinne anstehen (TAKE_PROFIT)
     - Reversal-Divergenzen gegen die Position vorliegen (WARNING)
-    Benachrichtigt nur einmal pro Statuswechsel (kein Spam).
+    
+    Mit Anti-Flapping / Cooldown-Schutz:
+    - Verhindert Oszillieren/Spammen zwischen TAKE_PROFIT und WARNING im 5-Minuten-Takt.
+    - Nicht-kritische Empfehlungen werden pro Position maximal alle 45 Minuten wiederholt.
+    - CRITICAL (Stop-Loss / Liquidationsgefahr) bricht den Cooldown IMMER und warnt sofort.
     """
     if not evaluated_positions:
         return
@@ -477,23 +481,81 @@ def check_and_notify_user_positions(evaluated_positions):
             pass
 
     new_state = dict(prev_state)
+    now_utc = datetime.now(timezone.utc)
+    now_iso = now_utc.isoformat()
+
+    COOLDOWN_NON_CRITICAL_SEC = 2700  # 45 Minuten Cooldown für TAKE_PROFIT / WARNING Oszillationen
+    COOLDOWN_CRITICAL_REPEAT_SEC = 1800  # 30 Minuten Wiederholungssperre bei dauerhaftem CRITICAL
 
     for pos in evaluated_positions:
         pos_id = pos.get("id") or pos.get("symbol")
         rec = pos.get("recommendation", {})
         status = rec.get("status", "NEUTRAL")
+        action = rec.get("action", "")
         sym = pos.get("symbol")
         user_id = pos.get("user_id")
 
+        prev_entry = prev_state.get(pos_id)
+        if isinstance(prev_entry, dict):
+            last_status = prev_entry.get("status")
+            last_alert_time_str = prev_entry.get("last_alert_time")
+            last_action = prev_entry.get("last_action", "")
+        else:
+            last_status = prev_entry
+            last_alert_time_str = None
+            last_action = ""
+
+        # Zeit seit der letzten Benachrichtigung berechnen
+        elapsed_sec = None
+        if last_alert_time_str:
+            try:
+                dt = datetime.fromisoformat(last_alert_time_str.replace("Z", "+00:00"))
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=timezone.utc)
+                elapsed_sec = (now_utc - dt).total_seconds()
+            except Exception:
+                elapsed_sec = None
+
+        # 1. Unkritischer Normalzustand (HEALTHY / NEUTRAL)
         if status not in ("CRITICAL", "TAKE_PROFIT", "WARNING"):
-            new_state[pos_id] = status
+            new_state[pos_id] = {
+                "status": status,
+                "action": action,
+                "last_alert_time": last_alert_time_str
+            }
             continue
 
-        last_status = prev_state.get(pos_id)
+        # 2. Gleicher Status wie zuvor -> Kein doppelter Alarm
         if last_status == status:
-            continue
+            if status == "CRITICAL" and elapsed_sec is not None and elapsed_sec >= COOLDOWN_CRITICAL_REPEAT_SEC:
+                pass  # Erneute Erinnerung bei andauerndem Notfall nach 30 Min
+            else:
+                new_state[pos_id] = {
+                    "status": status,
+                    "action": action,
+                    "last_alert_time": last_alert_time_str or now_iso
+                }
+                continue
 
-        new_state[pos_id] = status
+        # 3. Status hat sich geändert:
+        if status == "CRITICAL":
+            pass  # Akute Notfälle (SL-Gefahr) haben immer sofort Vorrang vor Cooldowns
+        else:
+            # Anti-Flapping: Oszillationen zwischen TAKE_PROFIT und WARNING innerhalb von 45 Min unterdrücken
+            if elapsed_sec is not None and elapsed_sec < COOLDOWN_NON_CRITICAL_SEC:
+                new_state[pos_id] = {
+                    "status": status,
+                    "action": action,
+                    "last_alert_time": last_alert_time_str
+                }
+                continue
+
+        # Wenn wir hier ankommen: Benachrichtigung tatsächlich absenden!
+        new_state[pos_id] = {
+            "status": status,
+            "action": action,
+            "last_alert_time": now_iso
+        }
 
         sig = pos.get("direction", "LONG")
         sig_icon = "🟢" if sig == "LONG" else "🔴"
@@ -540,8 +602,10 @@ def check_and_notify_user_positions(evaluated_positions):
             send_telegram_alert(admin_msg, parse_mode="HTML", target_chat_ids=admin_targets)
 
     USER_POS_ALERT_STATE.parent.mkdir(parents=True, exist_ok=True)
-    with open(USER_POS_ALERT_STATE, "w", encoding="utf-8") as f:
+    tmp_file = USER_POS_ALERT_STATE.with_suffix(".tmp")
+    with open(tmp_file, "w", encoding="utf-8") as f:
         json.dump(new_state, f, indent=2, ensure_ascii=False)
+    tmp_file.replace(USER_POS_ALERT_STATE)
 
 
 def send_user_position_closed_notification(closed_pos):

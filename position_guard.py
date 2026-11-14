@@ -48,14 +48,16 @@ def save_user_positions(positions: List[Dict[str, Any]]) -> None:
             "updated_at": datetime.now(timezone.utc).isoformat(),
             "positions": positions
         }
-        with open(POSITIONS_FILE, "w", encoding="utf-8") as f:
+        tmp_file = POSITIONS_FILE.with_suffix(".tmp")
+        with open(tmp_file, "w", encoding="utf-8") as f:
             json.dump(payload, f, indent=2, ensure_ascii=False)
+        tmp_file.replace(POSITIONS_FILE)
     except Exception as e:
         logger.error(f"Fehler beim Speichern von user_positions.json: {e}")
 
 
 def update_db_user_positions(positions: List[Dict[str, Any]]) -> None:
-    """Synchronisiert die bewerteten Nutzer-Positionen in market_analysis_db.json."""
+    """Synchronisiert die bewerteten Nutzer-Positionen atomar in market_analysis_db.json."""
     if not DB_FILE.exists():
         return
     try:
@@ -63,8 +65,10 @@ def update_db_user_positions(positions: List[Dict[str, Any]]) -> None:
             db = json.load(f)
         db["user_positions"] = positions
         db["last_user_positions_guard_time"] = datetime.now(timezone.utc).isoformat()
-        with open(DB_FILE, "w", encoding="utf-8") as f:
+        tmp_file = DB_FILE.with_suffix(".tmp")
+        with open(tmp_file, "w", encoding="utf-8") as f:
             json.dump(db, f, indent=2, ensure_ascii=False)
+        tmp_file.replace(DB_FILE)
     except Exception as e:
         logger.warning(f"Konnte market_analysis_db.json nicht synchronisieren: {e}")
 
