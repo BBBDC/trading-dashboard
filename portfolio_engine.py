@@ -22,6 +22,13 @@ import math
 from pathlib import Path
 from datetime import datetime, timezone
 from risk_engine import calculate_position_size
+from circuit_breaker import (
+    check_drawdown_circuit_breaker,
+    check_cluster_heat_limit,
+    check_cost_gate,
+    classify_asset_cluster,
+    CircuitBreakerConfig,
+)
 
 BASE_DIR = Path(__file__).resolve().parent
 DB_FILE = BASE_DIR / "dashboard" / "market_analysis_db.json"
@@ -683,11 +690,29 @@ def update_autonomous_portfolio(db_assets):
                 final_lev_pnl = final_raw_pnl * lev
             is_win = final_raw_pnl > 0
 
+            # Exakte 1.0R Risikoberechnung für Circuit-Breaker & Gedächtnis
+            init_sl = t.get("initial_stop_loss", sl)
+            init_risk_dist = abs(entry_price - init_sl) if (init_sl and init_sl > 0) else 0.0
+            if init_risk_dist > 1e-6:
+                if t.get("tp1_partial_closed") and tp1 > 0:
+                    part_pnl = (tp1 - entry_price) if direction == "LONG" else (entry_price - tp1)
+                    rem_pnl = (exit_price - entry_price) if direction == "LONG" else (entry_price - exit_price)
+                    realized_r = round(((part_pnl * 0.5) + (rem_pnl * 0.5)) / init_risk_dist, 2)
+                else:
+                    pnl_dist = (exit_price - entry_price) if direction == "LONG" else (entry_price - exit_price)
+                    realized_r = round(pnl_dist / init_risk_dist, 2)
+            else:
+                realized_r = round(final_raw_pnl / 2.0, 2)
+
+            risk_cash = t.get("risk_cash", 50.0)
+            realized_pnl_cash = round(realized_r * risk_cash, 2)
+
             closed_entry = {
                 "trade_id": t["trade_id"],
                 "symbol": t["symbol"],
                 "name": t["name"],
                 "category": t.get("category", ""),
+                "cluster": classify_asset_cluster(t["symbol"], t.get("category")),
                 "direction": direction,
                 "score": t["score"],
                 "setup_name": t["setup_name"],
@@ -695,6 +720,10 @@ def update_autonomous_portfolio(db_assets):
                 "entry_price": entry_price,
                 "exit_time": now_iso,
                 "exit_price": exit_price,
+                "stop_loss": sl,
+                "initial_stop_loss": init_sl,
+                "take_profit_1": tp1,
+                "take_profit_2": tp2,
                 "highest_price": t.get("highest_price", entry_price),
                 "lowest_price": t.get("lowest_price", entry_price),
                 "leverage": lev,
@@ -703,6 +732,10 @@ def update_autonomous_portfolio(db_assets):
                 "exit_reason": exit_reason,
                 "realized_pnl_pct": round(final_raw_pnl, 2),
                 "realized_pnl_leveraged_pct": round(final_lev_pnl, 2),
+                "realized_r": realized_r,
+                "risk_cash": risk_cash,
+                "realized_pnl_cash": realized_pnl_cash,
+                "regime": "PROTECTIVE",
                 "result": "WIN" if is_win else ("LOSS" if final_raw_pnl < 0 else "BREAKEVEN"),
             }
 
@@ -731,6 +764,23 @@ def update_autonomous_portfolio(db_assets):
     # 2. In-Flight Überwachung aller verbleibenden aktiven Trades
     monitor_in_flight_trades(remaining_active, db_map)
 
+    # 2b. Drawdown Circuit-Breaker Prüfung vor neuen Einstiegen
+    # Evaluieren wir alle Trades unter dem Schutz-Regime sowie heutige Trades
+    today_str = now_dt.strftime("%Y-%m-%d")
+    protective_closed = [
+        t for t in closed_trades 
+        if t.get("regime") == "PROTECTIVE" or t.get("exit_time", "").startswith(today_str)
+    ]
+    cb_res = check_drawdown_circuit_breaker(protective_closed)
+    is_halted = cb_res.get("is_halted", False)
+    sizing_mult = cb_res.get("sizing_multiplier", 1.0)
+    effective_risk_pct = 0.5 * sizing_mult
+
+    if is_halted:
+        print(f"   🛑 [Portfolio Circuit Breaker Aktiv] Neue Einstiege gesperrt: {cb_res.get('reason')}")
+    elif sizing_mult < 1.0:
+        print(f"   ⚠️ [Circuit Breaker Warnung] Drawdown-Reduktion aktiv: Sizing auf {effective_risk_pct}% halbiert ({cb_res.get('reason')})")
+
     # 3. Neue High-Conviction Setups aufnehmen (Score >= 88%, Signal != NEUTRAL)
     # Multi-Zeithorizont Matrix: Bis zu 9 aktive Positionen (3 Fast Swing, 4 Core Swing, 2 Makro)
     max_active_positions = 9
@@ -745,7 +795,7 @@ def update_autonomous_portfolio(db_assets):
         "MACRO_TREND": sum(1 for t in remaining_active if t.get("horizon") == "MACRO_TREND")
     }
 
-    if len(remaining_active) < max_active_positions:
+    if not is_halted and len(remaining_active) < max_active_positions:
         candidates = [
             a for a in db_assets 
             if a.get("signal") in ("LONG", "SHORT") 
@@ -790,6 +840,23 @@ def update_autonomous_portfolio(db_assets):
             tp1 = c.get("take_profit_1", curr_p * 1.05)
             tp2 = c.get("take_profit_2", curr_p * 1.10)
 
+            # 4. KOSTEN-GATE: Reibungskosten (Gebühren + Spread + Slippage) <= 10% des Stop-Abstands
+            cost_check = check_cost_gate(entry_price=curr_p, stop_loss=sl)
+            if not cost_check["is_allowed"]:
+                print(f"   🛡️ [Cost Gate Guard] {sym} abgewiesen: {cost_check['rejection_reason']}")
+                continue
+
+            # 5. CLUSTER HEAT-LIMIT: Max 1.5R im selben Cluster, max 3.0R Gesamt-Heat
+            heat_check = check_cluster_heat_limit(
+                remaining_active,
+                candidate_symbol=sym,
+                candidate_category=cat,
+                candidate_risk_r=1.0
+            )
+            if not heat_check["is_allowed"]:
+                print(f"   🛡️ [Cluster Heat Guard] {sym} ({cat}) übersprungen: {heat_check['rejection_reason']}")
+                continue
+
             # Automatische Hebel-Ermittlung mit Scorecard-Feedback & Makro-Schutz (Makro maximal 2x)
             macro_hw = c.get("macro_headwind", False)
             lev = calculate_optimal_leverage(asset_type, cat, curr_p, sl, score, setup_name=setup_name, memory=memory, macro_headwind=macro_hw)
@@ -803,7 +870,7 @@ def update_autonomous_portfolio(db_assets):
             if not reason_str:
                 reason_str = f"Hohe Multi-Timeframe Konfluenz ({score}% Score) mit CRV {c.get('crv', 2.5)}:1"
 
-            # Dynamisches Fractional-Kelly Risk Sizing (1.0R Normalisierung via risk_engine)
+            # Flaches Sizing (0.5% Standard, 0.25% bei Drawdown-Warnung via risk_engine)
             is_crypto = (cat == "CRYPTO" or "USDT" in sym)
             lot_step = 0.0001 if is_crypto else 1.0
             min_lot = 0.0001 if is_crypto else 1.0
@@ -813,14 +880,14 @@ def update_autonomous_portfolio(db_assets):
                 entry_price=curr_p,
                 stop_loss=sl,
                 equity=port_equity,
-                risk_pct=1.0,
+                risk_pct=effective_risk_pct,
                 score=score,
                 lot_step=lot_step,
                 min_lot=min_lot
             )
 
             allocated_cap = pos_size["notional_capital"] if pos_size["is_executable"] else 1000.0
-            risk_cash = pos_size["risk_cash"] if pos_size["is_executable"] else round(port_equity * 0.01, 2)
+            risk_cash = pos_size["risk_cash"] if pos_size["is_executable"] else round(port_equity * (effective_risk_pct / 100.0), 2)
             qty = pos_size["qty"] if pos_size["is_executable"] else round(allocated_cap / curr_p, 4)
 
             new_trade = {
@@ -828,6 +895,7 @@ def update_autonomous_portfolio(db_assets):
                 "symbol": sym,
                 "name": c["name"],
                 "category": cat,
+                "cluster": heat_check.get("cluster", classify_asset_cluster(sym, cat)),
                 "asset_type": asset_type,
                 "direction": c["signal"],
                 "horizon": horizon,
@@ -845,14 +913,17 @@ def update_autonomous_portfolio(db_assets):
                 "lowest_price": curr_p,
                 "leverage": lev,
                 "stop_loss": sl,
+                "initial_stop_loss": sl,
                 "take_profit_1": tp1,
                 "take_profit_2": tp2,
                 "crv": c.get("crv", 2.5),
                 "allocated_capital": round(allocated_cap, 2),
                 "position_qty": qty,
                 "risk_cash": risk_cash,
+                "risk_pct": effective_risk_pct,
                 "kelly_multiplier": pos_size.get("kelly_multiplier", 1.0),
                 "volatility_regime": pos_size.get("regime", "NORMAL"),
+                "regime": "PROTECTIVE",
                 "entry_reason": reason_str,
                 "analyst_note": note,
                 "unrealized_pnl_pct": 0.0,
@@ -908,8 +979,25 @@ def update_autonomous_portfolio(db_assets):
                 "total_leveraged_pnl_pct": sub_lev
             }
 
+    # Offene Heat-Verteilung ermitteln
+    heat_summary = check_cluster_heat_limit(remaining_active, "__DIAGNOSTIC__", candidate_risk_r=0.0)
+
     portfolio["active_trades"] = remaining_active
     portfolio["closed_trades"] = closed_trades[:100]  # Letzte 100 im Speicher
+    portfolio["circuit_breaker"] = {
+        "status": cb_res.get("action", "ALLOW"),
+        "is_halted": is_halted,
+        "action": cb_res.get("action", "ALLOW"),
+        "sizing_multiplier": sizing_mult,
+        "effective_risk_pct": effective_risk_pct,
+        "daily_pnl_r": cb_res.get("daily_pnl_r", 0.0),
+        "drawdown_r": cb_res.get("drawdown_r", 0.0),
+        "reason": cb_res.get("reason", ""),
+        "total_heat_r": heat_summary.get("total_heat_r", 0.0),
+        "max_total_heat_r": 3.0,
+        "max_cluster_heat_r": 1.5,
+        "heat_by_cluster": heat_summary.get("heat_by_cluster", {})
+    }
     portfolio["metrics"] = {
         "total_trades": total_closed,
         "active_trades_count": len(remaining_active),
@@ -918,6 +1006,7 @@ def update_autonomous_portfolio(db_assets):
         "win_rate_pct": win_rate,
         "total_pnl_pct": round(sum_raw_pnl, 2),
         "total_leveraged_pnl_pct": round(sum_lev_pnl, 2),
+        "total_r_profit": round(sum(t.get("realized_r", 0.0) for t in all_closed), 2),
         "profit_factor": profit_factor,
         "rolling": rolling
     }

@@ -39,6 +39,12 @@ from degencoder_engine import (
     analyze_degencoder_full
 )
 from risk_engine import calculate_position_size, atr_and_baseline
+from circuit_breaker import (
+    check_drawdown_circuit_breaker,
+    check_cluster_heat_limit,
+    check_cost_gate,
+    classify_asset_cluster
+)
 
 BASE_DIR = Path(__file__).resolve().parent
 KB_DIR = BASE_DIR / "knowledge_base"
@@ -436,6 +442,11 @@ def scan_for_micro_setup(
         sl = round(ref_low - buffer_atr * atr_approx, 4)
         risk = curr_p - sl
         if risk > 0 and (risk / curr_p) <= 0.05:
+            # Kosten-Gate prüfen (maximal 10% des Stop-Abstands darf an Reibung verloren gehen)
+            cost_check = check_cost_gate(entry_price=curr_p, stop_loss=sl)
+            if not cost_check["is_allowed"]:
+                return None
+
             # Dynamisches Take-Profit nach TradingView RFE- & Quantum-Bändern
             tp1_target = rfe_basis if (rfe_basis and rfe_basis > curr_p) else (curr_p + 1.5 * risk)
             tp1 = round(max(curr_p + 1.2 * risk, min(curr_p + 2.2 * risk, tp1_target)), 4)
@@ -445,7 +456,7 @@ def scan_for_micro_setup(
             setup_grade = "A+" if score_long >= 80 else "A"
             setup_name = f"🌟 degencoder {timeframe} A+ Confluence Long" if setup_grade == "A+" else f"degencoder {timeframe} Confluence Long"
 
-            # Berechne Volatilität & Fractional-Kelly Positionsgröße via risk_engine
+            # Berechne Volatilität & konservatives Basis-Sizing (0.5% Flat Sizing via risk_engine)
             h_all = [float(b["h"]) for b in bars]
             l_all = [float(b["l"]) for b in bars]
             c_all = [float(b["c"]) for b in bars]
@@ -459,7 +470,7 @@ def scan_for_micro_setup(
                 entry_price=curr_p,
                 stop_loss=sl,
                 equity=10000.0,
-                risk_pct=1.0,
+                risk_pct=0.5,
                 score=score_long,
                 grade=setup_grade,
                 atr_current=atr_c,
@@ -510,6 +521,11 @@ def scan_for_micro_setup(
         sl = round(ref_high + buffer_atr * atr_approx, 4)
         risk = sl - curr_p
         if risk > 0 and (risk / curr_p) <= 0.05:
+            # Kosten-Gate prüfen (maximal 10% des Stop-Abstands darf an Reibung verloren gehen)
+            cost_check = check_cost_gate(entry_price=curr_p, stop_loss=sl)
+            if not cost_check["is_allowed"]:
+                return None
+
             tp1_target = rfe_basis if (rfe_basis and rfe_basis < curr_p) else (curr_p - 1.5 * risk)
             tp1 = round(min(curr_p - 1.2 * risk, max(curr_p - 2.2 * risk, tp1_target)), 4)
             tp2_target = lower_band if (lower_band and lower_band < curr_p) else (curr_p - 3.0 * risk)
@@ -518,7 +534,7 @@ def scan_for_micro_setup(
             setup_grade = "A+" if score_short >= 80 else "A"
             setup_name = f"🌟 degencoder {timeframe} A+ Confluence Short" if setup_grade == "A+" else f"degencoder {timeframe} Confluence Short"
 
-            # Berechne Volatilität & Fractional-Kelly Positionsgröße via risk_engine
+            # Berechne Volatilität & konservatives Basis-Sizing (0.5% Flat Sizing via risk_engine)
             h_all = [float(b["h"]) for b in bars]
             l_all = [float(b["l"]) for b in bars]
             c_all = [float(b["c"]) for b in bars]
@@ -532,7 +548,7 @@ def scan_for_micro_setup(
                 entry_price=curr_p,
                 stop_loss=sl,
                 equity=10000.0,
-                risk_pct=1.0,
+                risk_pct=0.5,
                 score=score_short,
                 grade=setup_grade,
                 atr_current=atr_c,
@@ -1094,13 +1110,29 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
         if not any(ca["symbol"] == a["symbol"] for ca in candidate_assets):
             candidate_assets.append(a)
 
-    if len(active_trades) < max_active:
+    # 2. Drawdown Circuit-Breaker vor neuen Einstiegen prüfen (auf kalibrierten Trades)
+    calibrated_history = [t for t in closed_trades if t.get("setup_score") is not None]
+    if not calibrated_history:
+        calibrated_history = closed_trades[-30:]
+    cb_res = check_drawdown_circuit_breaker(calibrated_history)
+    can_enter_new = not cb_res["is_halted"]
+    if not can_enter_new:
+        print(f"  🛑 [Circuit Breaker Aktiv] Neue Einstiege gesperrt: {cb_res['reason']}")
+
+    # 3. Neue Micro-Setups nur suchen, wenn Circuit Breaker nicht blockiert
+    if can_enter_new and len(active_trades) < max_active:
         for asset in candidate_assets:
             # Maximal 1 aktive Position pro Symbol
             if any(t["symbol"] == asset["symbol"] for t in active_trades):
                 continue
             if len(active_trades) >= max_active:
                 break
+
+            # Cluster Heat-Limit vorab prüfen
+            heat_check = check_cluster_heat_limit(active_trades, candidate_symbol=asset["symbol"], candidate_category=asset.get("category"))
+            if not heat_check["is_allowed"]:
+                print(f"  🛡️ [Cluster Heat Limit] {asset['name']} ({asset['symbol']}) übersprungen: {heat_check['rejection_reason']}")
+                continue
 
             # Fable 5.2 Gate: HTF-Trend (1h) mit RFE Basis (WMA 233) zur Trendfolge-Governance ermitteln
             bars_1h = fetch_incubator_bars(asset, interval="1h")

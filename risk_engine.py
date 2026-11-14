@@ -90,7 +90,7 @@ GRADE_PROFILES: Dict[str, GradeProfile] = {
 class RiskConfig:
     """Globale Risiko-Parameter. Alle Werte sind konservative Defaults."""
 
-    risk_pct: float = 1.0             # 1.0R in % der Equity
+    risk_pct: float = 0.5             # Konservatives Basis-Risiko: 0.5% der Equity pro Trade (Flat Sizing)
     kelly_fraction: float = 0.25      # Quarter-Kelly
     max_leverage: float = 3.0         # max. Gesamt-Notional / Equity
     atr_period: int = 14              # ATR-Periode
@@ -532,8 +532,8 @@ if __name__ == "__main__":
     )
     show("BTC 90k | 5% Stop | Grade A | Normal-Vol", btc)
     check("ausführbar", btc["is_executable"])
-    check("Risiko ~1.0R (<= 1000, Abrundung < 1 Lot)", 995.0 <= btc["risk_cash"] <= 1000.0)
-    check("Notional ~20k (statt fixer Allokation)", 19_900 <= btc["notional_capital"] <= 20_000)
+    check("Risiko ~1.0R (<= 500, Abrundung < 1 Lot)", 495.0 <= btc["risk_cash"] <= 500.0)
+    check("Notional ~10k (statt fixer Allokation)", 9_900 <= btc["notional_capital"] <= 10_000)
 
     # 2) SAP 220 EUR, 1% Stop, gleicher Grade -> gleiches Risiko, 5x Notional
     sap = calculate_position_size(
@@ -542,11 +542,11 @@ if __name__ == "__main__":
     )
     show("SAP 220 | 1% Stop | Grade A | Normal-Vol", sap)
     check("ausführbar", sap["is_executable"])
-    check("Risiko ~1.0R", 995.0 <= sap["risk_cash"] <= 1000.0)
+    check("Risiko ~1.0R", 495.0 <= sap["risk_cash"] <= 500.0)
     check("ganze Aktien", sap["qty"] == int(sap["qty"]))
     check(
         "Risiko-Parität BTC vs. SAP (< 0.5% Abweichung)",
-        abs(btc["risk_cash"] - sap["risk_cash"]) / 1000.0 < 0.005,
+        abs(btc["risk_cash"] - sap["risk_cash"]) / 500.0 < 0.005,
     )
 
     # 3) BTC Flash-Crash: ATR = 2.5x Baseline -> Faktor 0.4
@@ -558,7 +558,7 @@ if __name__ == "__main__":
     show("BTC 90k | 5% Stop | Grade A | FLASH-CRASH (ATR 2.5x)", crash)
     check("Regime HIGH_VOLATILITY", crash["regime"] == REGIME_HIGH)
     check("Vol-Faktor 0.4", abs(crash["volatility_factor"] - 0.4) < 1e-9)
-    check("Risiko ~0.4R", 395.0 <= crash["risk_cash"] <= 400.0)
+    check("Risiko ~0.4R", 195.0 <= crash["risk_cash"] <= 200.0)
 
     # 4) Extreme Vol-Explosion: Faktor wird bei vol_floor geklemmt
     extreme = calculate_position_size(
@@ -589,8 +589,8 @@ if __name__ == "__main__":
     check("A+ Score 80  -> 1.25x", a_plus_lo["kelly_multiplier"] == 1.25)
     check("A  Score 60  -> 0.85x", a_lo["kelly_multiplier"] == 0.85)
     check("B  Score 50  -> 0.50x", b["kelly_multiplier"] == 0.5)
-    check("Risiko A+ ~1.5R", 1490.0 <= a_plus["risk_cash"] <= 1500.0)
-    check("Risiko B  ~0.5R", 495.0 <= b["risk_cash"] <= 500.0)
+    check("Risiko A+ ~1.5R", 745.0 <= a_plus["risk_cash"] <= 750.0)
+    check("Risiko B  ~0.5R", 245.0 <= b["risk_cash"] <= 250.0)
 
     # 7) VETO / NTZ
     veto = calculate_position_size(EQUITY, 220.0, 217.80, score=95, veto=True)

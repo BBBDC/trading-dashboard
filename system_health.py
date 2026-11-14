@@ -254,11 +254,18 @@ def check_portfolio_and_user_trades() -> Dict[str, Any]:
     user_active = 0
     user_hist = 0
 
+    cb_status = "ALLOW"
+    cb_heat = 0.0
+    cb_risk = 0.5
     if PORTFOLIO_FILE.exists():
         try:
             with open(PORTFOLIO_FILE, "r", encoding="utf-8") as f:
                 pdata = json.load(f)
             ai_active = len(pdata.get("active_trades", []))
+            cb_info = pdata.get("circuit_breaker", {})
+            cb_status = cb_info.get("status", "ALLOW")
+            cb_heat = cb_info.get("total_heat_r", 0.0)
+            cb_risk = cb_info.get("effective_risk_pct", 0.5)
         except Exception:
             pass
 
@@ -284,13 +291,15 @@ def check_portfolio_and_user_trades() -> Dict[str, Any]:
         except Exception:
             pass
 
-    msg = f"{ai_active} KI-Portfolio Trades · {user_active} User-Trades (SL/TP Auto-Close aktiv, {user_hist} in Historie)"
+    msg = f"{ai_active} KI-Trades (CB: {cb_status}, Heat: {cb_heat:.1f}R/3.0R, Risk: {cb_risk}%) · {user_active} User-Trades (SL/TP aktiv, {user_hist} Historie)"
     return {
         "status": "OK",
         "score": 100,
         "label": "Portfolio & User-Trades",
         "message": msg,
         "ai_active": ai_active,
+        "circuit_breaker": cb_status,
+        "total_heat_r": cb_heat,
         "user_active": user_active,
         "user_history": user_hist
     }
