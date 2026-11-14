@@ -1,5 +1,5 @@
 {
-  "executed_at": "2026-11-14T21:12:02.190743+00:00",
+  "executed_at": "2026-11-14T21:35:35.839942+00:00",
   "architecture": {
     "sizing_model": "Flat Risk Parity (0.50% Equity / 1.0R)",
     "cluster_limit_r": 1.5,
@@ -16,46 +16,118 @@
         "sample_statistics": {
           "total_r": -64.54,
           "mean_r_per_trade": -0.8274,
-          "std_r": 2.3455,
+          "std_r": 2.3606,
           "downside_std_r": 2.1925,
-          "sharpe_ratio_r": -0.353,
+          "sharpe_ratio_r": -0.351,
           "sortino_ratio_r": -0.377,
           "win_count": 13,
           "loss_count": 63,
-          "win_rate_pct": 16.7
+          "win_rate_pct": 16.7,
+          "breakeven_win_rate_pct": 45.0,
+          "avg_win_r": 1.671,
+          "avg_loss_r": -1.369,
+          "profit_factor": 0.252,
+          "std_error_mean_r": 0.2673,
+          "t_statistic": -3.1,
+          "mean_r_ci95": [
+            -1.3513,
+            -0.3035
+          ],
+          "p_value_true_edge_positive": 0.99902,
+          "edge_significance": "SIGNIFIKANT_NEGATIV",
+          "worst_trade_r": -15.89,
+          "mean_r_ex_worst_trade": -0.6318,
+          "losses_worse_than_1_5r": 19,
+          "lag1_autocorrelation": -0.026,
+          "historical_max_drawdown_r": 66.85
         },
         "permutation_test": {
           "description": "Zufällige Permutation der Trade-Reihenfolge (Original-Sample)",
+          "note": "Das Endergebnis ist auf jedem Permutationspfad identisch; der Max-DD hat daher die harte Untergrenze max(0, -Summe R) = 64.54R. Bei negativer Summe misst dieser Test nur Reihenfolge-Streuung oberhalb des Gesamtverlusts, kein Überlebensrisiko.",
+          "max_dd_lower_bound_r": 64.54,
           "prob_dd_ge_10r_pct": 100.0,
           "prob_dd_ge_15r_pct": 100.0,
           "percentiles_max_dd_r": {
             "P10": 64.54,
             "P25": 64.54,
-            "P50_median": 65.38,
-            "P75": 68.98,
-            "P90": 72.52,
-            "P95": 73.88,
-            "P99": 76.56
+            "P50_median": 65.19,
+            "P75": 68.39,
+            "P90": 72.25,
+            "P95": 73.79,
+            "P99": 77.17
           }
         },
         "bootstrap_test": {
-          "description": "Resampling mit Zurücklegen (Synthetische Marktpfade)",
+          "description": "Resampling mit Zurücklegen (Synthetische Marktpfade, i.i.d.)",
           "prob_dd_ge_10r_pct": 100.0,
           "prob_dd_ge_15r_pct": 100.0,
-          "prob_profitable_path_pct": 0.1,
+          "prob_profitable_path_pct": 0.0,
           "percentiles_max_dd_r": {
-            "P10": 43.94,
-            "P25": 53.2,
-            "P50_median": 66.87,
-            "P75": 79.97,
-            "P90": 93.08,
-            "P95": 100.43,
-            "P99": 118.14
+            "P10": 43.61,
+            "P25": 54.53,
+            "P50_median": 66.69,
+            "P75": 80.63,
+            "P90": 92.14,
+            "P95": 98.77,
+            "P99": 119.97
           },
           "percentiles_final_pnl_r": {
-            "P05": -99.02,
-            "P50_median": -64.3,
-            "P95": -31.72
+            "P01": -119.56,
+            "P05": -97.5,
+            "P25": -78.72,
+            "P50_median": -64.72,
+            "P75": -51.51,
+            "P95": -32.42,
+            "P99": -21.84
+          }
+        },
+        "block_bootstrap_test": {
+          "description": "Zirkulärer Block-Bootstrap (erhält serielle Abhängigkeit / Verlust-Cluster)",
+          "block_length": 4,
+          "prob_dd_ge_10r_pct": 100.0,
+          "prob_dd_ge_15r_pct": 100.0,
+          "prob_profitable_path_pct": 0.0,
+          "percentiles_max_dd_r": {
+            "P10": 42.16,
+            "P25": 54.72,
+            "P50_median": 67.94,
+            "P75": 81.65,
+            "P90": 96.96,
+            "P95": 105.25,
+            "P99": 118.6
+          },
+          "percentiles_final_pnl_r": {
+            "P01": -118.13,
+            "P05": -103.66,
+            "P25": -79.96,
+            "P50_median": -65.53,
+            "P75": -51.55,
+            "P95": -30.07,
+            "P99": -20.35
+          }
+        },
+        "governed_bootstrap_test": {
+          "description": "i.i.d.-Bootstrap mit aktivem Circuit-Breaker (ab -10R halbes Sizing, ab -15R Vollstopp). Zeigt Verlustbegrenzung, nicht Profitabilität.",
+          "prob_full_halt_pct": 100.0,
+          "median_trades_until_halt": 23,
+          "prob_profitable_path_pct": 0.2,
+          "percentiles_max_dd_r": {
+            "P10": 15.11,
+            "P25": 15.26,
+            "P50_median": 15.67,
+            "P75": 18.51,
+            "P90": 21.82,
+            "P95": 22.9,
+            "P99": 25.07
+          },
+          "percentiles_final_pnl_r": {
+            "P01": -25.02,
+            "P05": -22.66,
+            "P25": -17.25,
+            "P50_median": -15.44,
+            "P75": -15.01,
+            "P95": -8.32,
+            "P99": -5.16
           }
         }
       },
@@ -68,32 +140,164 @@
           "COMMODITIES": 2,
           "US_EQUITIES": 1
         },
+        "equity": {
+          "initial_capital_eur": 10000.0,
+          "realized_pnl_eur": -3227.0,
+          "current_equity_eur": 6773.0,
+          "realized_drawdown_pct_of_initial": 32.27,
+          "gross_declared_notional_eur": 53000.0,
+          "gross_leverage_on_current_equity": 7.83
+        },
+        "open_risk": {
+          "total_heat_r": 5.0,
+          "max_total_heat_r": 3.0,
+          "total_heat_breached": true,
+          "heat_by_cluster_r": {
+            "FOREX": 1.0,
+            "CRYPTO": 0.0,
+            "EU_EQUITIES": 3.0,
+            "COMMODITIES": 0.0,
+            "US_EQUITIES": 1.0
+          },
+          "max_cluster_heat_r": 1.5,
+          "cluster_breaches": {
+            "EU_EQUITIES": 3.0
+          }
+        },
         "scenarios": {
           "CRYPTO_FLASH_CRASH": {
-            "description": "Sofortiger Krypto-Abverkauf mit 25% Gap & Slippage (1.25R Verlust pro Trade)",
-            "affected_positions": 1,
-            "portfolio_loss_r": 1.25,
-            "portfolio_loss_eur": 62.5,
-            "loss_pct_of_equity": 0.62,
+            "description": "Krypto gappt -25%; Verlust je Long = Gap / Stop-Abstand (Shorts ohne Gutschrift)",
+            "affected_positions": 0,
+            "shorts_without_credit": 1,
+            "portfolio_loss_r": 0.0,
+            "portfolio_loss_eur": 0.0,
+            "portfolio_loss_eur_declared_notional": null,
+            "loss_pct_of_equity": 0.0,
+            "naive_flat_slippage_loss_r": 0.0,
             "cluster_cap_protected": true,
-            "evaluation": "Sicher abgefangen durch Cluster-Limit (1.5R Budget)"
+            "evaluation": "Kein Long-Krypto-Exposure betroffen",
+            "positions": []
           },
           "EQUITY_FLASH_CRASH": {
-            "description": "7% Gap-Down auf US- und EU-Aktien mit erhöhter Slippage (1.30R Verlust pro Trade)",
-            "affected_positions": 4,
-            "portfolio_loss_r": 5.2,
-            "portfolio_loss_eur": 260.0,
-            "loss_pct_of_equity": 2.6,
-            "cluster_cap_protected": false
+            "description": "US-/EU-Aktien gappen -7%; Verlust je Long = Gap / Stop-Abstand (Shorts ohne Gutschrift)",
+            "affected_positions": 2,
+            "shorts_without_credit": 2,
+            "portfolio_loss_r": 4.32,
+            "portfolio_loss_eur": 215.83,
+            "portfolio_loss_eur_declared_notional": 840.0,
+            "loss_pct_of_equity": 3.19,
+            "naive_flat_slippage_loss_r": 2.6,
+            "cluster_cap_protected": false,
+            "positions": [
+              {
+                "symbol": "TVC:UKX",
+                "cluster": "EU_EQUITIES",
+                "direction": "LONG",
+                "gap_pct": 7.0,
+                "stop_distance_pct": 3.5,
+                "loss_r": 2.02
+              },
+              {
+                "symbol": "XETR:ADS",
+                "cluster": "EU_EQUITIES",
+                "direction": "LONG",
+                "gap_pct": 7.0,
+                "stop_distance_pct": 3.05,
+                "loss_r": 2.29
+              }
+            ]
           },
           "SYSTEMIC_BLACK_SWAN": {
-            "description": "Globaler Schock: Alle aktiven Positionen stoppen mit maximaler 1.50R Slippage aus",
+            "description": "Globaler Schock: adverser Gap gegen JEDE Position (Krypto 25%, Aktien 7%, Rohstoffe 5%, FX 2%); Stops werden übersprungen",
             "affected_positions": 8,
-            "total_loss_r": 12.0,
-            "total_loss_eur": 600.0,
-            "total_account_drawdown_pct": 6.0,
-            "insolvency_risk": "ZERO",
-            "protective_verdict": "Exzellent: Maximaler Gesamtkonto-Schaden beträgt lediglich 6.0% dank flachem 0.5% Sizing."
+            "total_loss_r": 45.54,
+            "total_loss_eur": 2276.81,
+            "total_loss_eur_declared_notional": 4920.0,
+            "total_account_drawdown_pct": 72.64,
+            "drawdown_pct_r_accounting": 33.62,
+            "drawdown_pct_declared_notional": 72.64,
+            "naive_flat_slippage_loss_r": 12.0,
+            "exceeds_halt_limit_in_one_event": true,
+            "insolvency_risk": "SEVERE",
+            "protective_verdict": "Schock-Verlust 45.5R = 72.64% des aktuellen Eigenkapitals (ungünstigere der beiden EUR-Lesarten). Die frühere Annahme 'max. 1.5R je Position' ergäbe nur 12.0R und ist bei Gaps nicht haltbar.",
+            "positions": [
+              {
+                "symbol": "TVC:DXY",
+                "cluster": "FOREX",
+                "direction": "LONG",
+                "gap_pct": 2.0,
+                "stop_distance_pct": 3.5,
+                "loss_r": 0.58
+              },
+              {
+                "symbol": "COINBASE:ETHBTC",
+                "cluster": "CRYPTO",
+                "direction": "SHORT",
+                "gap_pct": 25.0,
+                "stop_distance_pct": 4.04,
+                "loss_r": 5.74
+              },
+              {
+                "symbol": "TVC:UKX",
+                "cluster": "EU_EQUITIES",
+                "direction": "LONG",
+                "gap_pct": 7.0,
+                "stop_distance_pct": 3.5,
+                "loss_r": 2.02
+              },
+              {
+                "symbol": "AMEX:GLD",
+                "cluster": "COMMODITIES",
+                "direction": "SHORT",
+                "gap_pct": 5.0,
+                "stop_distance_pct": 0.5,
+                "loss_r": 9.54
+              },
+              {
+                "symbol": "TVC:GOLD",
+                "cluster": "COMMODITIES",
+                "direction": "SHORT",
+                "gap_pct": 5.0,
+                "stop_distance_pct": 0.5,
+                "loss_r": 9.42
+              },
+              {
+                "symbol": "TVC:NDX",
+                "cluster": "US_EQUITIES",
+                "direction": "SHORT",
+                "gap_pct": 7.0,
+                "stop_distance_pct": 0.45,
+                "loss_r": 15.42
+              },
+              {
+                "symbol": "TRADEGATE:9MW",
+                "cluster": "EU_EQUITIES",
+                "direction": "SHORT",
+                "gap_pct": 7.0,
+                "stop_distance_pct": 13.49,
+                "loss_r": 0.52
+              },
+              {
+                "symbol": "XETR:ADS",
+                "cluster": "EU_EQUITIES",
+                "direction": "LONG",
+                "gap_pct": 7.0,
+                "stop_distance_pct": 3.05,
+                "loss_r": 2.29
+              }
+            ]
+          },
+          "EMPIRICAL_TAIL": {
+            "available": true,
+            "description": "Alle aktiven Positionen realisieren gleichzeitig den historisch beobachteten Verlust-Tail",
+            "historical_loss_p50_r": 0.93,
+            "historical_loss_p95_r": 2.82,
+            "historical_worst_loss_r": 15.89,
+            "share_losses_beyond_1_5r_pct": 30.2,
+            "all_positions_at_p95_loss_r": 22.56,
+            "all_positions_at_p95_loss_pct_of_equity": 16.65,
+            "all_positions_at_worst_loss_r": 127.12,
+            "all_positions_at_worst_loss_pct_of_equity": 93.84
           }
         }
       },
@@ -101,6 +305,7 @@
         "trades_evaluated": 78,
         "baseline_mean_r": -0.8274,
         "break_even_friction_point_r": 0.0,
+        "required_edge_improvement_r_per_trade": 0.8274,
         "robustness_score": 0.0,
         "robustness_grade": "OVERFITTED_OR_NEGATIVE",
         "verdict": "Kein Puffer gegen Marktreibung. Strategie benötigt strukturelle Kausalitäts-Filter.",
@@ -157,16 +362,35 @@
         "sample_statistics": {
           "total_r": -60.75,
           "mean_r_per_trade": -0.3038,
-          "std_r": 0.9886,
+          "std_r": 0.9911,
           "downside_std_r": 0.8031,
-          "sharpe_ratio_r": -0.307,
+          "sharpe_ratio_r": -0.306,
           "sortino_ratio_r": -0.378,
           "win_count": 71,
           "loss_count": 129,
-          "win_rate_pct": 35.5
+          "win_rate_pct": 35.5,
+          "breakeven_win_rate_pct": 51.0,
+          "avg_win_r": 0.961,
+          "avg_loss_r": -1.0,
+          "profit_factor": 0.529,
+          "std_error_mean_r": 0.0701,
+          "t_statistic": -4.33,
+          "mean_r_ci95": [
+            -0.4411,
+            -0.1664
+          ],
+          "p_value_true_edge_positive": 0.99999,
+          "edge_significance": "SIGNIFIKANT_NEGATIV",
+          "worst_trade_r": -1.0,
+          "mean_r_ex_worst_trade": -0.3003,
+          "losses_worse_than_1_5r": 0,
+          "lag1_autocorrelation": 0.155,
+          "historical_max_drawdown_r": 66.75
         },
         "permutation_test": {
           "description": "Zufällige Permutation der Trade-Reihenfolge (Original-Sample)",
+          "note": "Das Endergebnis ist auf jedem Permutationspfad identisch; der Max-DD hat daher die harte Untergrenze max(0, -Summe R) = 60.75R. Bei negativer Summe misst dieser Test nur Reihenfolge-Streuung oberhalb des Gesamtverlusts, kein Überlebensrisiko.",
+          "max_dd_lower_bound_r": 60.75,
           "prob_dd_ge_10r_pct": 100.0,
           "prob_dd_ge_15r_pct": 100.0,
           "percentiles_max_dd_r": {
@@ -174,29 +398,82 @@
             "P25": 61.5,
             "P50_median": 62.75,
             "P75": 64.25,
-            "P90": 66.5,
-            "P95": 67.25,
-            "P99": 69.25
+            "P90": 66.25,
+            "P95": 67.5,
+            "P99": 70.0
           }
         },
         "bootstrap_test": {
-          "description": "Resampling mit Zurücklegen (Synthetische Marktpfade)",
+          "description": "Resampling mit Zurücklegen (Synthetische Marktpfade, i.i.d.)",
           "prob_dd_ge_10r_pct": 100.0,
           "prob_dd_ge_15r_pct": 100.0,
           "prob_profitable_path_pct": 0.0,
           "percentiles_max_dd_r": {
-            "P10": 46.5,
-            "P25": 54.75,
-            "P50_median": 63.0,
-            "P75": 71.0,
-            "P90": 79.5,
-            "P95": 85.25,
-            "P99": 96.5
+            "P10": 46.75,
+            "P25": 53.75,
+            "P50_median": 63.38,
+            "P75": 72.0,
+            "P90": 78.5,
+            "P95": 83.0,
+            "P99": 90.76
           },
           "percentiles_final_pnl_r": {
-            "P05": -83.0,
-            "P50_median": -60.25,
-            "P95": -38.25
+            "P01": -90.0,
+            "P05": -81.0,
+            "P25": -69.75,
+            "P50_median": -60.75,
+            "P75": -51.19,
+            "P95": -37.75,
+            "P99": -29.5
+          }
+        },
+        "block_bootstrap_test": {
+          "description": "Zirkulärer Block-Bootstrap (erhält serielle Abhängigkeit / Verlust-Cluster)",
+          "block_length": 6,
+          "prob_dd_ge_10r_pct": 100.0,
+          "prob_dd_ge_15r_pct": 99.9,
+          "prob_profitable_path_pct": 0.0,
+          "percentiles_max_dd_r": {
+            "P10": 44.25,
+            "P25": 52.75,
+            "P50_median": 63.25,
+            "P75": 75.25,
+            "P90": 85.25,
+            "P95": 92.01,
+            "P99": 102.5
+          },
+          "percentiles_final_pnl_r": {
+            "P01": -100.5,
+            "P05": -89.76,
+            "P25": -72.5,
+            "P50_median": -60.12,
+            "P75": -48.75,
+            "P95": -32.75,
+            "P99": -19.75
+          }
+        },
+        "governed_bootstrap_test": {
+          "description": "i.i.d.-Bootstrap mit aktivem Circuit-Breaker (ab -10R halbes Sizing, ab -15R Vollstopp). Zeigt Verlustbegrenzung, nicht Profitabilität.",
+          "prob_full_halt_pct": 100.0,
+          "median_trades_until_halt": 56,
+          "prob_profitable_path_pct": 0.0,
+          "percentiles_max_dd_r": {
+            "P10": 15.0,
+            "P25": 15.0,
+            "P50_median": 15.12,
+            "P75": 15.25,
+            "P90": 15.38,
+            "P95": 15.38,
+            "P99": 15.38
+          },
+          "percentiles_final_pnl_r": {
+            "P01": -15.38,
+            "P05": -15.38,
+            "P25": -15.12,
+            "P50_median": -14.38,
+            "P75": -13.0,
+            "P95": -10.0,
+            "P99": -7.88
           }
         }
       },
@@ -204,6 +481,7 @@
         "trades_evaluated": 200,
         "baseline_mean_r": -0.3038,
         "break_even_friction_point_r": 0.0,
+        "required_edge_improvement_r_per_trade": 0.3038,
         "robustness_score": 0.0,
         "robustness_grade": "OVERFITTED_OR_NEGATIVE",
         "verdict": "Kein Puffer gegen Marktreibung. Strategie benötigt strukturelle Kausalitäts-Filter.",
@@ -225,7 +503,7 @@
           {
             "additional_friction_r": 0.1,
             "total_pnl_r": -80.75,
-            "mean_r_per_trade": -0.4037,
+            "mean_r_per_trade": -0.4038,
             "win_rate_pct": 35.5,
             "is_profitable": false
           },
@@ -253,5 +531,21 @@
         ]
       }
     }
+  },
+  "live_readiness": {
+    "decision": "NO_GO",
+    "blockers": [
+      "portfolio: Erwartungswert signifikant negativ (E(R) = -0.827R, 95%-KI [-1.351, -0.303], t = -3.10, n = 78).",
+      "incubator: Erwartungswert signifikant negativ (E(R) = -0.304R, 95%-KI [-0.441, -0.166], t = -4.33, n = 200).",
+      "Offenes Gesamtrisiko 5.0R verletzt das Limit von 3.0R.",
+      "Cluster EU_EQUITIES: 3.0R offen, Limit 1.5R.",
+      "Black-Swan-Verlust 72.64% des aktuellen Eigenkapitals (Einstufung SEVERE).",
+      "Realisierter Drawdown 66.85R liegt über dem Vollstopp-Limit 15.0R - nach eigenem Regelwerk ist ein Strategy-Review fällig."
+    ],
+    "warnings": [
+      "portfolio: Trefferquote 16.7% liegt unter der Break-Even-Quote 45.0%.",
+      "portfolio: 19 Verluste schlechter als -1.5R (schlechtester -15.89R) - Stops begrenzen den Verlust nicht zuverlässig auf 1R.",
+      "incubator: Trefferquote 35.5% liegt unter der Break-Even-Quote 51.0%."
+    ]
   }
 }
