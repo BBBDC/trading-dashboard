@@ -267,14 +267,14 @@ def evaluate_quantitative_confluence(timeframes, asset_info, prev_asset=None):
             if "Bullish" in aob.get("type", ""):
                 active_bull_ob = aob
                 badge = aob.get("badge", "A")
-                is_sweep = aob.get("is_sweep", False) or badge in ("A", "R1", "R2", "R3")
+                is_sweep = aob.get("is_sweep", False)
                 pts = 20 if is_sweep else 12
                 z_bull += pts
                 reasons.append(f"SMC OB: {tf_key} Bullish Order Block [{badge}] Retest")
             elif "Bearish" in aob.get("type", ""):
                 active_bear_ob = aob
                 badge = aob.get("badge", "A")
-                is_sweep = aob.get("is_sweep", False) or badge in ("A", "R1", "R2", "R3")
+                is_sweep = aob.get("is_sweep", False)
                 pts = 20 if is_sweep else 12
                 z_bear += pts
                 reasons.append(f"SMC OB: {tf_key} Bearish Order Block [{badge}] Retest")
@@ -370,13 +370,14 @@ def evaluate_quantitative_confluence(timeframes, asset_info, prev_asset=None):
     curr_vsa_1h = d_1h.get("vsa_class", "") if d_1h else ""
     curr_vsa_4h = d_4h.get("vsa_class", "") if d_4h else ""
     if "Low" in curr_vsa_1h or "Low" in curr_vsa_4h or "Very Low" in curr_vsa_1h:
-        if z_bull > 0:
+        if z_bull > 0 and macro_bullish:
             t_bull += 20
             has_buy_trigger = True
             reasons.append("VSA Wyckoff: Verkaufsdruck versiegt ('No Supply' am Support)")
-        elif z_bear > 0:
+        elif z_bear > 0 and macro_bearish:
             t_bear += 15
-            reasons.append("VSA Wyckoff: Geringes Kaufvolumen am Widerstand")
+            has_sell_trigger = True
+            reasons.append("VSA Wyckoff: Geringes Kaufvolumen am Widerstand ('No Demand')")
 
     # RSI Extremwerte
     curr_rsi_1h = d_1h["rsi"] if d_1h else 50

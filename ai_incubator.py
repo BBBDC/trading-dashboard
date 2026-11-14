@@ -34,6 +34,7 @@ from degencoder_engine import (
     detect_degencoder_fvgs,
     detect_degencoder_signals,
     calculate_vsa_wyckoff,
+    calculate_ema,
     analyze_degencoder_full
 )
 
@@ -208,6 +209,11 @@ def scan_for_micro_setup(
     - 15m: Erfordert FVG-Mitigation oder Retest [R1/R2] + Buy/Sell Pocket
     - HTF-Filter: Verhindert Trades gegen den übergeordneten Trend
     """
+    tf_sec = 300 if timeframe == "5m" else 900
+    # Regel 0 (Fable 5.2): Nur vollständig geschlossene Kerzen auswerten (Verhindert Intrabar Repainting)
+    if bars and (bars[-1]["t"] + tf_sec > time.time()):
+        bars = bars[:-1]
+
     if len(bars) < 30:
         return None
 
@@ -232,70 +238,106 @@ def scan_for_micro_setup(
     for s in recent_sigs[-6:]:
         recent_sig_names.extend(s.get("signals", []))
 
-    # Prüfe Long-Setup
+    # Krypto-Nachtfilter (22:00 bis 03:00 UTC)
+    entry_dt = datetime.fromtimestamp(curr_t, timezone.utc)
+    hour_utc = entry_dt.hour
+    is_crypto_night = (asset.get("source") == "binance") and (hour_utc >= 22 or hour_utc < 3)
+
+    # 1. Prüfe Long-Setup (Strikte Struktur & Entflechtung nach Fable 5.2)
     long_triggers = []
     active_bull_ob = None
     for ob in obs:
         if ob["type"] == "Bullish OB":
-            # Qualitäts-Filter aus Post-Mortem Lab: C-Grade OBs ohne Sweep erzeugen gehäuft Fehlsignale
-            if ob.get("grade") == "C" and not ob.get("is_sweep"):
+            badge = ob.get("badge", "A")
+            grade = ob.get("grade", "C")
+            is_sweep = ob.get("is_sweep", False)
+            # Fable 5.2 Gate: R2/R3 und C-Grade ohne Sweep strikt sperren
+            if badge in ("R2", "R3") and not is_sweep:
+                continue
+            if grade in ("C", "D") and not is_sweep:
                 continue
             if ob["bottom"] * 0.998 <= curr_p <= ob["top"] * 1.004:
                 active_bull_ob = ob
-                long_triggers.append(f"Bullish OB [{ob['grade']}] Retest ({ob['badge']})")
-                if ob.get("is_sweep"):
+                long_triggers.append(f"Bullish OB [{grade}] Retest ({badge})")
+                if is_sweep:
                     long_triggers.append("Liquidity Sweep Stop-Hunt [A]")
                 break
 
-    if in_buy_pocket:
+    # Fable 5.2: Bänder-Familie als maximal 1 Trigger werten (Doppelzählungsverbot)
+    has_buy_sig = any("Buy" in s for s in signals) or any("Buy" in s for s in recent_sig_names)
+    if in_buy_pocket and has_buy_sig:
+        long_triggers.append("degencoder Confluent Buy (Pocket + Trigger)")
+    elif has_buy_sig:
+        long_triggers.append("Good Buy Signal (Blaues Dreieck)")
+    elif in_buy_pocket:
         long_triggers.append("Institutional Buy Pocket (Chaos Band < RFE)")
 
-    if any("Buy" in s for s in signals) or any("Buy" in s for s in recent_sig_names):
-        long_triggers.append("Good Buy Signal (Blaues Dreieck)")
+    # Fable 5.2: VSA-Volumen mit Kerzenschluss-Position (Absorption vs. Selling Pressure)
+    min_vsa = 1.3 if timeframe == "5m" else 1.2
+    c_range = last_bar["h"] - last_bar["l"]
+    close_pos = ((curr_p - last_bar["l"]) / c_range) if c_range > 0 else 0.5
 
-    # Auf 5m ist hohes VSA-Volumen zur Reversal-Bestätigung Pflicht (gemäß Post-Mortem Erkenntnissen >= 1.5x)
-    min_vsa = 1.5 if timeframe == "5m" else 1.2
-    if vsa_ratio >= min_vsa:
-        long_triggers.append(f"VSA High Volume Surge ({vsa_class} {vsa_ratio:.1f}x)")
+    if vsa_ratio >= min_vsa and close_pos >= 0.45:
+        long_triggers.append(f"VSA High Volume Surge (Absorption {vsa_ratio:.1f}x)")
 
-    # Prüfe Short-Setup
+    # 2. Prüfe Short-Setup
     short_triggers = []
     active_bear_ob = None
     for ob in obs:
         if ob["type"] == "Bearish OB":
-            # Qualitäts-Filter aus Post-Mortem Lab: C-Grade OBs ohne Sweep filtern
-            if ob.get("grade") == "C" and not ob.get("is_sweep"):
+            badge = ob.get("badge", "A")
+            grade = ob.get("grade", "C")
+            is_sweep = ob.get("is_sweep", False)
+            if badge in ("R2", "R3") and not is_sweep:
+                continue
+            if grade in ("C", "D") and not is_sweep:
                 continue
             if ob["bottom"] * 0.996 <= curr_p <= ob["top"] * 1.002:
                 active_bear_ob = ob
-                short_triggers.append(f"Bearish OB [{ob['grade']}] Retest ({ob['badge']})")
-                if ob.get("is_sweep"):
+                short_triggers.append(f"Bearish OB [{grade}] Retest ({badge})")
+                if is_sweep:
                     short_triggers.append("Liquidity Sweep Stop-Hunt High [A]")
                 break
 
-    if in_sell_pocket:
+    # Fable 5.2: Bänder-Familie für Short als maximal 1 Trigger werten
+    has_sell_sig = any("Sell" in s for s in signals) or any("Sell" in s for s in recent_sig_names)
+    if in_sell_pocket and has_sell_sig:
+        short_triggers.append("degencoder Confluent Sell (Pocket + Trigger)")
+    elif has_sell_sig:
+        short_triggers.append("Good Sell Signal (Kreis/Marker)")
+    elif in_sell_pocket:
         short_triggers.append("Institutional Sell Pocket (Chaos Band > RFE)")
 
-    if any("Sell" in s for s in signals) or any("Sell" in s for s in recent_sig_names):
-        short_triggers.append("Good Sell Signal (Kreis/Marker)")
-
-    if vsa_ratio >= min_vsa:
-        short_triggers.append(f"VSA High Volume Surge ({vsa_class} {vsa_ratio:.1f}x)")
+    if vsa_ratio >= min_vsa and close_pos <= 0.55:
+        short_triggers.append(f"VSA High Volume Surge (Selling Pressure {vsa_ratio:.1f}x)")
 
     # ATR für SL/TP-Berechnung
     highs = [b["h"] for b in bars[-14:]]
     lows = [b["l"] for b in bars[-14:]]
     atr_approx = sum(h - l for h, l in zip(highs, lows)) / 14.0
 
-    # HTF-Governance: Wenn htf_bias bekannt ist, filtern
-    if htf_bias == "BEARISH" and len(long_triggers) < 3:
-        # Long gegen Bären-Trend nur bei makelloser 3-fach Konfluenz
-        long_triggers = []
-    elif htf_bias == "BULLISH" and len(short_triggers) < 3:
-        short_triggers = []
+    # Strikte Konfluenz-Bedingung: Mindestens 1 Struktur-Trigger (OB/Sweep) ODER 1 VSA-Volumen-Trigger MUSS vorliegen!
+    has_struct_or_vsa_long = (active_bull_ob is not None) or any("VSA" in t for t in long_triggers) or any("Sweep" in t for t in long_triggers)
+    has_struct_or_vsa_short = (active_bear_ob is not None) or any("VSA" in t for t in short_triggers) or any("Sweep" in t for t in short_triggers)
 
-    # Entscheidung (Mindestens 2 harte Trigger)
-    if len(long_triggers) >= 2:
+    # Krypto-Nachtfilter: Zwischen 22:00 und 03:00 UTC keine Longs auf Krypto (historisch -34R Verlustfenster)
+    if is_crypto_night:
+        long_triggers = []
+
+    # HTF-Governance: Wenn htf_bias bärisch ist, Longs nur bei makellosem Grade-A Sweep + VSA Absorption
+    if htf_bias == "BEARISH":
+        is_sweep_a = active_bull_ob and active_bull_ob.get("is_sweep") and active_bull_ob.get("grade") == "A"
+        has_vsa_abs = any("Absorption" in t for t in long_triggers)
+        if not (is_sweep_a and has_vsa_abs and len(long_triggers) >= 3):
+            long_triggers = []
+    elif htf_bias == "BULLISH":
+        is_sweep_bear = active_bear_ob and active_bear_ob.get("is_sweep") and active_bear_ob.get("grade") == "A"
+        has_vsa_pres = any("Selling Pressure" in t for t in short_triggers)
+        if not (is_sweep_bear and has_vsa_pres and len(short_triggers) >= 3):
+            short_triggers = []
+
+    # Entscheidung (Mindestens 2 harte Trigger + Struktur-/Volumen-Pflicht)
+    if len(long_triggers) >= 2 and has_struct_or_vsa_long:
         ref_low = active_bull_ob["bottom"] if active_bull_ob else min(lows[-5:])
         # Puffer auf 1.0x ATR (5m) bzw. 1.2x ATR (15m) erweitert, um vorzeitige Spread-/Noise-Stopouts zu verhindern
         buffer_atr = 1.0 if timeframe == "5m" else 1.2
@@ -385,6 +427,7 @@ def update_open_trade_with_bars(trade: Dict[str, Any], future_bars: List[Dict[st
                 trade["tp1_reached"] = True
                 trade["tp1_price"] = tp1
                 trade["tp1_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
+                trade["tp1_bar_ts"] = t  # Fable 5.2: Kerzen-Timestamp merken
                 sl = entry_p  # Stop-Loss sofort auf Breakeven nachziehen
                 trade["sl"] = entry_p
 
@@ -403,15 +446,17 @@ def update_open_trade_with_bars(trade: Dict[str, Any], future_bars: List[Dict[st
             # 3. Stop-Loss berührt
             elif l <= sl:
                 if trade.get("tp1_reached"):
-                    # TP1 wurde bereits erreicht! 50% Teilgewinn gesichert, Rest bei BE ausgestoppt
-                    trade["status"] = "CLOSED_BE"
-                    trade["exit_price"] = sl  # entry_p
-                    trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
-                    trade["exit_timestamp"] = t
-                    trade["realized_r"] = +0.75  # 50% Tranche TP1 (+1.5R) + 50% Tranche BE (0.0R) = +0.75R Netto-Gewinn
-                    trade["realized_pnl_pct"] = round(((tp1 - entry_p) / entry_p) * 50.0, 2)
-                    trade["exit_reason"] = "Teilgewinn TP1 (+1.5R) realisiert; Restposition bei Break-Even risikofrei ausgestoppt"
-                    break
+                    # Fable 5.2 Fix: Break-Even Stop greift erst AB DER FOLGEKERZE nach TP1-Touch!
+                    # Verhindert, dass Intrabar-Dips vor dem TP1-Touch den Trade sofort fälschlich abwürgen.
+                    if t > trade.get("tp1_bar_ts", 0):
+                        trade["status"] = "CLOSED_BE"
+                        trade["exit_price"] = sl  # entry_p
+                        trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
+                        trade["exit_timestamp"] = t
+                        trade["realized_r"] = +0.75  # 50% Tranche TP1 (+1.5R) + 50% Tranche BE (0.0R) = +0.75R Netto-Gewinn
+                        trade["realized_pnl_pct"] = round(((tp1 - entry_p) / entry_p) * 50.0, 2)
+                        trade["exit_reason"] = "Teilgewinn TP1 (+1.5R) realisiert; Restposition bei Break-Even risikofrei ausgestoppt"
+                        break
                 else:
                     trade["status"] = "CLOSED_SL"
                     trade["exit_price"] = sl
@@ -428,6 +473,7 @@ def update_open_trade_with_bars(trade: Dict[str, Any], future_bars: List[Dict[st
                 trade["tp1_reached"] = True
                 trade["tp1_price"] = tp1
                 trade["tp1_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
+                trade["tp1_bar_ts"] = t  # Fable 5.2: Kerzen-Timestamp merken
                 sl = entry_p  # Stop-Loss sofort auf Breakeven nachziehen
                 trade["sl"] = entry_p
 
@@ -445,14 +491,16 @@ def update_open_trade_with_bars(trade: Dict[str, Any], future_bars: List[Dict[st
             # 3. Stop-Loss berührt
             elif h >= sl:
                 if trade.get("tp1_reached"):
-                    trade["status"] = "CLOSED_BE"
-                    trade["exit_price"] = sl  # entry_p
-                    trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
-                    trade["exit_timestamp"] = t
-                    trade["realized_r"] = +0.75
-                    trade["realized_pnl_pct"] = round(((entry_p - tp1) / entry_p) * 50.0, 2)
-                    trade["exit_reason"] = "Teilgewinn TP1 (+1.5R) realisiert; Restposition bei Break-Even risikofrei ausgestoppt"
-                    break
+                    # Fable 5.2 Fix: Break-Even Stop greift erst AB DER FOLGEKERZE nach TP1-Touch!
+                    if t > trade.get("tp1_bar_ts", 0):
+                        trade["status"] = "CLOSED_BE"
+                        trade["exit_price"] = sl  # entry_p
+                        trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
+                        trade["exit_timestamp"] = t
+                        trade["realized_r"] = +0.75
+                        trade["realized_pnl_pct"] = round(((entry_p - tp1) / entry_p) * 50.0, 2)
+                        trade["exit_reason"] = "Teilgewinn TP1 (+1.5R) realisiert; Restposition bei Break-Even risikofrei ausgestoppt"
+                        break
                 else:
                     trade["status"] = "CLOSED_SL"
                     trade["exit_price"] = sl
@@ -822,7 +870,7 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
             continue
 
         entry_ts = trade.get("entry_timestamp", 0)
-        future_bars = [b for b in bars if b["t"] >= entry_ts]
+        future_bars = [b for b in bars if b["t"] > entry_ts]
         updated = update_open_trade_with_bars(trade, future_bars)
 
         if updated.get("status") in ["CLOSED_SL", "CLOSED_BE", "CLOSED_TP1", "CLOSED_TP2"]:
@@ -868,13 +916,22 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
             if len(active_trades) >= max_active:
                 break
 
+            # Fable 5.2 Gate: HTF-Trend (1h) zur Trendfolge-Governance ermitteln
+            bars_1h = fetch_incubator_bars(asset, interval="1h")
+            htf_bias = "NEUTRAL"
+            if bars_1h and len(bars_1h) >= 20:
+                closes_1h = [b["c"] for b in bars_1h]
+                ema_233 = calculate_ema(closes_1h, min(len(closes_1h), 233))
+                if ema_233 and ema_233[-1] is not None:
+                    htf_bias = "BULLISH" if closes_1h[-1] >= ema_233[-1] else "BEARISH"
+
             # Prüfe 5m (Micro-Sweep) und 15m (Zonen-Struktur)
             for tf in ["5m", "15m"]:
                 bars = fetch_incubator_bars(asset, interval=tf)
                 if not bars:
                     continue
 
-                setup = scan_for_micro_setup(asset, bars, timeframe=tf)
+                setup = scan_for_micro_setup(asset, bars, timeframe=tf, htf_bias=htf_bias)
                 if setup:
                     setup["trade_id"] = f"inc_{asset['symbol']}_{tf}_{int(time.time())}"
                     active_trades.append(setup)
