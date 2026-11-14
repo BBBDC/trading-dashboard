@@ -35,6 +35,7 @@ from degencoder_engine import (
     detect_degencoder_signals,
     calculate_vsa_wyckoff,
     calculate_ema,
+    calculate_wma,
     analyze_degencoder_full
 )
 
@@ -201,13 +202,20 @@ def scan_for_micro_setup(
     asset: Dict[str, Any],
     bars: List[Dict[str, Any]],
     timeframe: str = "5m",
-    htf_bias: Optional[str] = None
+    htf_bias: Optional[str] = None,
+    htf_rfe_basis: Optional[float] = None
 ) -> Optional[Dict[str, Any]]:
     """
-    Analysiert Bars mit der degencoder-Engine und sucht nach High-Probability Micro-Setups:
-    - 5m: Erfordert präzisen Liquidity Sweep [A] an Chaos-Band oder OB-Zone + VSA Volume Surge
-    - 15m: Erfordert FVG-Mitigation oder Retest [R1/R2] + Buy/Sell Pocket
-    - HTF-Filter: Verhindert Trades gegen den übergeordneten Trend
+    Analysiert Bars mit der degencoder-Engine und sucht nach Fable 5.2 A+ Micro-Setups:
+    - Harter Veto-Filter: Sofortiger Ausschluss bei 'No Trade Zone' (Chop auf der RFE Basis).
+    - 3-Säulen A+ Scoring (0 - 100 Punkte):
+      1. Zone & Value (35 Pkt): Buy/Sell Area, Chaos-Bänder, Discount/Premium.
+      2. Trigger & Reversal (40 Pkt): Good Buy/Sell Signale, 20-Bar Liquidity Sweeps.
+      3. Struktur & Volumen (25 Pkt): Order Block Retest, VSA High Volume Absorption/Pressure.
+    - HTF-Governance: Striktes Verbot von Trades gegen den 1h/4h RFE-Trend (233 WMA),
+      außer bei makellosem Grade-A Liquidity Sweep + VSA Absorption + Score >= 80.
+    - Mindestschwelle: Score >= 70 für Entry; Einstufung in Grade A (70-84) und Grade A+ (>= 85).
+    - Dynamisches TP/SL: TP1 an RFE Basis (min 1.2R), TP2 am gegenüberliegenden Chaos-Band.
     """
     tf_sec = 300 if timeframe == "5m" else 900
     # Regel 0 (Fable 5.2): Nur vollständig geschlossene Kerzen auswerten (Verhindert Intrabar Repainting)
@@ -222,7 +230,7 @@ def scan_for_micro_setup(
         return None
 
     last_bar = bars[-1]
-    curr_p = last_bar["c"]
+    curr_p = float(last_bar["c"])
     curr_t = last_bar["t"]
     obs = full_analysis.get("order_blocks", [])
     signals = full_analysis.get("active_signals", [])
@@ -233,25 +241,52 @@ def scan_for_micro_setup(
     vsa_ratio = vsa.get("ratio", 1.0)
     vsa_class = vsa.get("class", "Normal Volume")
 
+    rfe_basis = full_analysis.get("rfe_basis")
+    rfe_upper = full_analysis.get("rfe_upper")
+    rfe_lower = full_analysis.get("rfe_lower")
+    upper_band = full_analysis.get("upper_band")
+    lower_band = full_analysis.get("lower_band")
+
     # Flache Liste aller Signale der letzten 6 Kerzen
     recent_sig_names = []
     for s in recent_sigs[-6:]:
         recent_sig_names.extend(s.get("signals", []))
+
+    # =========================================================================
+    # HARTER FILTER 1: NO TRADE ZONE (VETO GATE)
+    # =========================================================================
+    # Mathematisch bewiesen: Trades in der No Trade Zone performen negativ (-0.21% Return, 0.93x Asymmetrie).
+    if any("No Trade Zone" in s for s in signals):
+        return None
 
     # Krypto-Nachtfilter (22:00 bis 03:00 UTC)
     entry_dt = datetime.fromtimestamp(curr_t, timezone.utc)
     hour_utc = entry_dt.hour
     is_crypto_night = (asset.get("source") == "binance") and (hour_utc >= 22 or hour_utc < 3)
 
-    # 1. Prüfe Long-Setup (Strikte Struktur & Entflechtung nach Fable 5.2)
+    # VSA Kennzahlen
+    min_vsa = 1.3 if timeframe == "5m" else 1.2
+    c_range = float(last_bar["h"]) - float(last_bar["l"])
+    close_pos = ((curr_p - float(last_bar["l"])) / c_range) if c_range > 0 else 0.5
+
+    # ATR für SL/TP-Berechnung
+    highs = [float(b["h"]) for b in bars[-14:]]
+    lows = [float(b["l"]) for b in bars[-14:]]
+    atr_approx = sum(h - l for h, l in zip(highs, lows)) / 14.0
+
+    # =========================================================================
+    # 1. LONG-SETUP EVALUIERUNG & FABLE 5.2 SCORING
+    # =========================================================================
+    score_long = 0
     long_triggers = []
     active_bull_ob = None
+
+    # A. Bullish Order Block & Sweep Identifikation
     for ob in obs:
         if ob["type"] == "Bullish OB":
             badge = ob.get("badge", "A")
             grade = ob.get("grade", "C")
             is_sweep = ob.get("is_sweep", False)
-            # Fable 5.2 Gate: R2/R3 und C-Grade ohne Sweep strikt sperren
             if badge in ("R2", "R3") and not is_sweep:
                 continue
             if grade in ("C", "D") and not is_sweep:
@@ -263,26 +298,68 @@ def scan_for_micro_setup(
                     long_triggers.append("Liquidity Sweep Stop-Hunt [A]")
                 break
 
-    # Fable 5.2: Bänder-Familie als maximal 1 Trigger werten (Doppelzählungsverbot)
-    has_buy_sig = any("Buy" in s for s in signals) or any("Buy" in s for s in recent_sig_names)
-    if in_buy_pocket and has_buy_sig:
-        long_triggers.append("degencoder Confluent Buy (Pocket + Trigger)")
-    elif has_buy_sig:
+    # Säule 1: Zone & Value (Max 35 Pkt)
+    in_buy_area = any("Buy Area" in s for s in signals) or any("Buy Area" in s for s in recent_sig_names[-3:]) or in_buy_pocket or (rfe_lower and curr_p <= rfe_lower * 1.002)
+    in_lower_chaos = lower_band and (curr_p <= lower_band)
+
+    if in_buy_area:
+        score_long += 25
+        long_triggers.append("Buy Area (Grünes Kreuz / RFE Lower)")
+    if in_lower_chaos:
+        score_long += 10
+        long_triggers.append("Extreme Lower Chaos Band")
+    if rfe_basis and curr_p >= rfe_basis:
+        score_long -= 25  # Abzug: Long über der RFE Basis ist kein Discount-Setup
+
+    # Säule 2: Trigger & Reversal (Max 40 Pkt)
+    has_good_buy = any("Good Buy" in s for s in signals) or any("Good Buy" in s for s in recent_sig_names[-3:])
+    has_pot_buy = any("Potential Buy" in s for s in signals)
+    has_bull_sweep = (active_bull_ob and active_bull_ob.get("is_sweep")) or any("Sweep" in t for t in long_triggers)
+
+    if has_good_buy:
+        score_long += 25
         long_triggers.append("Good Buy Signal (Blaues Dreieck)")
-    elif in_buy_pocket:
-        long_triggers.append("Institutional Buy Pocket (Chaos Band < RFE)")
+    elif has_pot_buy:
+        score_long += 15
+        long_triggers.append("Potential Buy Signal")
 
-    # Fable 5.2: VSA-Volumen mit Kerzenschluss-Position (Absorption vs. Selling Pressure)
-    min_vsa = 1.3 if timeframe == "5m" else 1.2
-    c_range = last_bar["h"] - last_bar["l"]
-    close_pos = ((curr_p - last_bar["l"]) / c_range) if c_range > 0 else 0.5
+    if has_bull_sweep:
+        score_long += 15
+        if "Liquidity Sweep Stop-Hunt [A]" not in long_triggers:
+            long_triggers.append("20-Bar Liquidity Sweep Low")
 
-    if vsa_ratio >= min_vsa and close_pos >= 0.45:
+    # Säule 3: Struktur & Volumen (Max 25 Pkt)
+    if active_bull_ob:
+        ob_grade = active_bull_ob.get("grade", "C")
+        if ob_grade == "A":
+            score_long += 15
+        elif ob_grade == "B":
+            score_long += 10
+        else:
+            score_long += 5
+
+    has_vsa_abs = (vsa_ratio >= min_vsa and close_pos >= 0.45)
+    if has_vsa_abs:
+        score_long += 10
         long_triggers.append(f"VSA High Volume Surge (Absorption {vsa_ratio:.1f}x)")
 
-    # 2. Prüfe Short-Setup
+    # HTF-Governance & Filter für Long
+    if is_crypto_night:
+        score_long = 0
+    elif htf_bias == "BEARISH":
+        # Strenger Schutz gegen fallende Messer: Im Makro-Abwärtstrend nur bei absolutem A+ Sweep
+        if not (has_bull_sweep and has_vsa_abs and score_long >= 80):
+            score_long = 0
+        else:
+            long_triggers.append("🛡️ Makro-Abwärtstrend überstimmt (Grade A Sweep + VSA Absorption)")
+
+    # =========================================================================
+    # 2. SHORT-SETUP EVALUIERUNG & FABLE 5.2 SCORING
+    # =========================================================================
+    score_short = 0
     short_triggers = []
     active_bear_ob = None
+
     for ob in obs:
         if ob["type"] == "Bearish OB":
             badge = ob.get("badge", "A")
@@ -299,53 +376,74 @@ def scan_for_micro_setup(
                     short_triggers.append("Liquidity Sweep Stop-Hunt High [A]")
                 break
 
-    # Fable 5.2: Bänder-Familie für Short als maximal 1 Trigger werten
-    has_sell_sig = any("Sell" in s for s in signals) or any("Sell" in s for s in recent_sig_names)
-    if in_sell_pocket and has_sell_sig:
-        short_triggers.append("degencoder Confluent Sell (Pocket + Trigger)")
-    elif has_sell_sig:
-        short_triggers.append("Good Sell Signal (Kreis/Marker)")
-    elif in_sell_pocket:
-        short_triggers.append("Institutional Sell Pocket (Chaos Band > RFE)")
+    # Säule 1: Zone & Value (Max 35 Pkt)
+    in_sell_area = any("Sell Area" in s for s in signals) or any("Sell Area" in s for s in recent_sig_names[-3:]) or in_sell_pocket or (rfe_upper and curr_p >= rfe_upper * 0.998)
+    in_upper_chaos = upper_band and (curr_p >= upper_band)
 
-    if vsa_ratio >= min_vsa and close_pos <= 0.55:
+    if in_sell_area:
+        score_short += 25
+        short_triggers.append("Sell Area (Rotes Kreuz / RFE Upper)")
+    if in_upper_chaos:
+        score_short += 10
+        short_triggers.append("Extreme Upper Chaos Band")
+    if rfe_basis and curr_p <= rfe_basis:
+        score_short -= 25  # Abzug: Short unter RFE Basis ist kein Premium-Setup
+
+    # Säule 2: Trigger & Reversal (Max 40 Pkt)
+    has_good_sell = any("Good Sell" in s for s in signals) or any("Good Sell" in s for s in recent_sig_names[-3:])
+    has_bear_sweep = (active_bear_ob and active_bear_ob.get("is_sweep")) or any("Sweep" in t for t in short_triggers)
+
+    if has_good_sell:
+        score_short += 25
+        short_triggers.append("Good Sell Signal (Kreis Top-Erschöpfung)")
+
+    if has_bear_sweep:
+        score_short += 15
+        if "Liquidity Sweep Stop-Hunt High [A]" not in short_triggers:
+            short_triggers.append("20-Bar Liquidity Sweep High")
+
+    # Säule 3: Struktur & Volumen (Max 25 Pkt)
+    if active_bear_ob:
+        ob_grade = active_bear_ob.get("grade", "C")
+        if ob_grade == "A":
+            score_short += 15
+        elif ob_grade == "B":
+            score_short += 10
+        else:
+            score_short += 5
+
+    has_vsa_pres = (vsa_ratio >= min_vsa and close_pos <= 0.55)
+    if has_vsa_pres:
+        score_short += 10
         short_triggers.append(f"VSA High Volume Surge (Selling Pressure {vsa_ratio:.1f}x)")
 
-    # ATR für SL/TP-Berechnung
-    highs = [b["h"] for b in bars[-14:]]
-    lows = [b["l"] for b in bars[-14:]]
-    atr_approx = sum(h - l for h, l in zip(highs, lows)) / 14.0
+    # HTF-Governance & Filter für Short
+    if htf_bias == "BULLISH":
+        if not (has_bear_sweep and has_vsa_pres and score_short >= 80):
+            score_short = 0
+        else:
+            short_triggers.append("🛡️ Makro-Aufwärtstrend überstimmt (Grade A Sweep High + VSA Pressure)")
 
-    # Strikte Konfluenz-Bedingung: Mindestens 1 Struktur-Trigger (OB/Sweep) ODER 1 VSA-Volumen-Trigger MUSS vorliegen!
-    has_struct_or_vsa_long = (active_bull_ob is not None) or any("VSA" in t for t in long_triggers) or any("Sweep" in t for t in long_triggers)
-    has_struct_or_vsa_short = (active_bear_ob is not None) or any("VSA" in t for t in short_triggers) or any("Sweep" in t for t in short_triggers)
+    # =========================================================================
+    # 3. ENTSCHEIDUNG NACH A+ MINDESTSCHWELLE (SCORE >= 60 FÜR GRADE A, >= 80 FÜR A+)
+    # =========================================================================
+    buffer_atr = 1.0 if timeframe == "5m" else 1.2
 
-    # Krypto-Nachtfilter: Zwischen 22:00 und 03:00 UTC keine Longs auf Krypto (historisch -34R Verlustfenster)
-    if is_crypto_night:
-        long_triggers = []
-
-    # HTF-Governance: Wenn htf_bias bärisch ist, Longs nur bei makellosem Grade-A Sweep + VSA Absorption
-    if htf_bias == "BEARISH":
-        is_sweep_a = active_bull_ob and active_bull_ob.get("is_sweep") and active_bull_ob.get("grade") == "A"
-        has_vsa_abs = any("Absorption" in t for t in long_triggers)
-        if not (is_sweep_a and has_vsa_abs and len(long_triggers) >= 3):
-            long_triggers = []
-    elif htf_bias == "BULLISH":
-        is_sweep_bear = active_bear_ob and active_bear_ob.get("is_sweep") and active_bear_ob.get("grade") == "A"
-        has_vsa_pres = any("Selling Pressure" in t for t in short_triggers)
-        if not (is_sweep_bear and has_vsa_pres and len(short_triggers) >= 3):
-            short_triggers = []
-
-    # Entscheidung (Mindestens 2 harte Trigger + Struktur-/Volumen-Pflicht)
-    if len(long_triggers) >= 2 and has_struct_or_vsa_long:
+    # LONG AUSFÜHRUNG
+    if score_long >= 60 and score_long > score_short:
         ref_low = active_bull_ob["bottom"] if active_bull_ob else min(lows[-5:])
-        # Puffer auf 1.0x ATR (5m) bzw. 1.2x ATR (15m) erweitert, um vorzeitige Spread-/Noise-Stopouts zu verhindern
-        buffer_atr = 1.0 if timeframe == "5m" else 1.2
         sl = round(ref_low - buffer_atr * atr_approx, 4)
         risk = curr_p - sl
-        if risk > 0 and (risk / curr_p) <= 0.05:  # Bis max 5% Risiko pro Micro-Trade
-            tp1 = round(curr_p + 1.5 * risk, 4)
-            tp2 = round(curr_p + 3.0 * risk, 4)
+        if risk > 0 and (risk / curr_p) <= 0.05:
+            # Dynamisches Take-Profit nach TradingView RFE- & Quantum-Bändern
+            tp1_target = rfe_basis if (rfe_basis and rfe_basis > curr_p) else (curr_p + 1.5 * risk)
+            tp1 = round(max(curr_p + 1.2 * risk, min(curr_p + 2.2 * risk, tp1_target)), 4)
+            tp2_target = upper_band if (upper_band and upper_band > curr_p) else (curr_p + 3.0 * risk)
+            tp2 = round(max(curr_p + 2.5 * risk, min(curr_p + 4.5 * risk, tp2_target)), 4)
+
+            setup_grade = "A+" if score_long >= 80 else "A"
+            setup_name = f"🌟 degencoder {timeframe} A+ Confluence Long" if setup_grade == "A+" else f"degencoder {timeframe} Confluence Long"
+
             return {
                 "symbol": asset["symbol"],
                 "name": asset["name"],
@@ -360,7 +458,9 @@ def scan_for_micro_setup(
                 "tp1": tp1,
                 "tp2": tp2,
                 "risk_amount": round(risk, 4),
-                "setup_name": f"degencoder {timeframe} Micro-Confluence Long",
+                "setup_name": setup_name,
+                "setup_score": score_long,
+                "setup_grade": setup_grade,
                 "setup_tags": long_triggers,
                 "vsa_class": vsa_class,
                 "status": "OPEN",
@@ -368,15 +468,20 @@ def scan_for_micro_setup(
                 "lowest_price": curr_p
             }
 
-    elif len(short_triggers) >= 2:
+    # SHORT AUSFÜHRUNG
+    elif score_short >= 60 and score_short > score_long:
         ref_high = active_bear_ob["top"] if active_bear_ob else max(highs[-5:])
-        # Puffer auf 1.0x ATR (5m) bzw. 1.2x ATR (15m) erweitert
-        buffer_atr = 1.0 if timeframe == "5m" else 1.2
         sl = round(ref_high + buffer_atr * atr_approx, 4)
         risk = sl - curr_p
         if risk > 0 and (risk / curr_p) <= 0.05:
-            tp1 = round(curr_p - 1.5 * risk, 4)
-            tp2 = round(curr_p - 3.0 * risk, 4)
+            tp1_target = rfe_basis if (rfe_basis and rfe_basis < curr_p) else (curr_p - 1.5 * risk)
+            tp1 = round(min(curr_p - 1.2 * risk, max(curr_p - 2.2 * risk, tp1_target)), 4)
+            tp2_target = lower_band if (lower_band and lower_band < curr_p) else (curr_p - 3.0 * risk)
+            tp2 = round(min(curr_p - 2.5 * risk, max(curr_p - 4.5 * risk, tp2_target)), 4)
+
+            setup_grade = "A+" if score_short >= 80 else "A"
+            setup_name = f"🌟 degencoder {timeframe} A+ Confluence Short" if setup_grade == "A+" else f"degencoder {timeframe} Confluence Short"
+
             return {
                 "symbol": asset["symbol"],
                 "name": asset["name"],
@@ -391,7 +496,9 @@ def scan_for_micro_setup(
                 "tp1": tp1,
                 "tp2": tp2,
                 "risk_amount": round(risk, 4),
-                "setup_name": f"degencoder {timeframe} Micro-Confluence Short",
+                "setup_name": setup_name,
+                "setup_score": score_short,
+                "setup_grade": setup_grade,
                 "setup_tags": short_triggers,
                 "vsa_class": vsa_class,
                 "status": "OPEN",
@@ -652,7 +759,11 @@ def run_historical_replay_training(days: int = 30, max_replay_trades: int = 25) 
             step = 35 if tf == "5m" else 25
             for start_idx in range(40, len(bars) - 25, step):
                 window = bars[:start_idx]
-                setup = scan_for_micro_setup(asset, window, timeframe=tf)
+                win_closes = [float(b["c"]) for b in window]
+                win_wma = calculate_wma(win_closes, min(len(win_closes), 50))
+                win_bias = "BULLISH" if (win_wma and win_closes[-1] >= win_wma[-1]) else "BEARISH"
+                win_rfe = win_wma[-1] if win_wma else None
+                setup = scan_for_micro_setup(asset, window, timeframe=tf, htf_bias=win_bias, htf_rfe_basis=win_rfe)
                 if setup:
                     setup["trade_id"] = f"rep_{asset['symbol']}_{tf}_{window[-1]['t']}"
                     # Walk-forward mit den nachfolgenden Kerzen
@@ -916,14 +1027,16 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
             if len(active_trades) >= max_active:
                 break
 
-            # Fable 5.2 Gate: HTF-Trend (1h) zur Trendfolge-Governance ermitteln
+            # Fable 5.2 Gate: HTF-Trend (1h) mit RFE Basis (WMA 233) zur Trendfolge-Governance ermitteln
             bars_1h = fetch_incubator_bars(asset, interval="1h")
             htf_bias = "NEUTRAL"
+            htf_rfe_basis = None
             if bars_1h and len(bars_1h) >= 20:
-                closes_1h = [b["c"] for b in bars_1h]
-                ema_233 = calculate_ema(closes_1h, min(len(closes_1h), 233))
-                if ema_233 and ema_233[-1] is not None:
-                    htf_bias = "BULLISH" if closes_1h[-1] >= ema_233[-1] else "BEARISH"
+                closes_1h = [float(b["c"]) for b in bars_1h]
+                wma_233 = calculate_wma(closes_1h, min(len(closes_1h), 233))
+                if wma_233 and wma_233[-1] is not None:
+                    htf_rfe_basis = wma_233[-1]
+                    htf_bias = "BULLISH" if closes_1h[-1] >= htf_rfe_basis else "BEARISH"
 
             # Prüfe 5m (Micro-Sweep) und 15m (Zonen-Struktur)
             for tf in ["5m", "15m"]:
@@ -931,11 +1044,12 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
                 if not bars:
                     continue
 
-                setup = scan_for_micro_setup(asset, bars, timeframe=tf, htf_bias=htf_bias)
+                setup = scan_for_micro_setup(asset, bars, timeframe=tf, htf_bias=htf_bias, htf_rfe_basis=htf_rfe_basis)
                 if setup:
                     setup["trade_id"] = f"inc_{asset['symbol']}_{tf}_{int(time.time())}"
                     active_trades.append(setup)
-                    print(f"  🎯 NEUER SIMULIERTER {tf}-TRADE: {asset['name']} ({asset['symbol']}) {setup['direction']} @ {setup['entry_price']} (SL: {setup['sl']}, TP1: {setup['tp1']})")
+                    grade_str = f"[{setup.get('setup_grade', 'A')}|{setup.get('setup_score', 0)}P]"
+                    print(f"  🎯 NEUER SIMULIERTER {tf}-TRADE {grade_str}: {asset['name']} ({asset['symbol']}) {setup['direction']} @ {setup['entry_price']} (SL: {setup['sl']}, TP1: {setup['tp1']})")
                     break  # Ein Setup pro Asset genügt
 
     # 3. Falls noch wenige Trades vorliegen: Einmaliges Mini-Replay ausführen

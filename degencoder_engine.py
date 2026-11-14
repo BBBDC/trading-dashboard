@@ -232,37 +232,39 @@ def detect_degencoder_signals(bars: List[Dict[str, Any]], bands_data: Dict[str, 
         prev_h = float(b_prev["h"])
         prev_l = float(b_prev["l"])
 
-        u_b = upper_band[i] if i < len(upper_band) else c * 1.02
-        l_b = lower_band[i] if i < len(lower_band) else c * 0.98
-        rf_l = rfe_lower[i] if (rfe_lower and i < len(rfe_lower) and rfe_lower[i]) else l_b
-        rf_u = rfe_upper[i] if (rfe_upper and i < len(rfe_upper) and rfe_upper[i]) else u_b
-        rf_b = rfe_basis[i] if (rfe_basis and i < len(rfe_basis) and rfe_basis[i]) else c
+        u_b = upper_band[i] if (upper_band and i < len(upper_band) and upper_band[i] is not None) else c * 1.02
+        l_b = lower_band[i] if (lower_band and i < len(lower_band) and lower_band[i] is not None) else c * 0.98
+
+        has_rfe = bool(rfe_basis and i < len(rfe_basis) and rfe_basis[i] is not None)
+        rf_b = rfe_basis[i] if has_rfe else None
+        rf_l = rfe_lower[i] if (has_rfe and rfe_lower and i < len(rfe_lower) and rfe_lower[i] is not None) else l_b
+        rf_u = rfe_upper[i] if (has_rfe and rfe_upper and i < len(rfe_upper) and rfe_upper[i] is not None) else u_b
 
         # 1. Buy Area (Grünes Kreuz): Kerzen-Tief taucht unter RFE Lower, Vorbar-Hoch lag darüber
-        is_buy_area = bool(l < rf_l and prev_h > rf_l)
+        is_buy_area = bool(has_rfe and l < rf_l and prev_h > rf_l)
 
         # 2. Sell Area (Rotes Kreuz): Kerzen-Hoch übersteigt RFE Upper, Vorbar-Tief lag darunter
-        is_sell_area = bool(h > rf_u and prev_l < rf_u)
+        is_sell_area = bool(has_rfe and h > rf_u and prev_l < rf_u)
 
-        # 3. No Trade Zone: Kerze schneidet oder pendelt direkt auf der RFE Basislinie
-        is_no_trade_zone = bool((l < rf_b and prev_h > rf_b) or (h > rf_b and prev_l < rf_b))
+        # 3. No Trade Zone: Kerze schneidet oder pendelt direkt auf der RFE Basislinie (nur bei gültiger RFE Basis)
+        is_no_trade_zone = bool(has_rfe and ((l < rf_b and prev_h > rf_b) or (h > rf_b and prev_l < rf_b)))
 
         # 4. Good Buy Signal (Blaues Dreieck): Bullische Reversal-Kerze nach Sweep in der Discount-Zone
         is_bull_candle = (c > o) and (c > prev_c)
-        swept_low = (l < prev_l or l < rf_l)
-        good_buy_signal = bool(swept_low and is_bull_candle and (c < rf_b))
+        swept_low = (l < prev_l or (has_rfe and l < rf_l))
+        good_buy_signal = bool(swept_low and is_bull_candle and (not has_rfe or c < rf_b))
 
         # 5. Potential Buy Signal: Kerze berührt oder penetriert Buy Area ohne vollen Reversal-Schlusskurs
         potential_buy_signal = bool(is_buy_area and not good_buy_signal)
 
         # 6. Good Sell Signal (Kreis oben): Bärische Reversal-Kerze in der Premium-Zone
         is_bear_candle = (c < o) and (c < prev_c)
-        swept_high = (h > prev_h or h > rf_u)
-        good_sell_signal = bool(swept_high and is_bear_candle and (c > rf_b))
+        swept_high = (h > prev_h or (has_rfe and h > rf_u))
+        good_sell_signal = bool(swept_high and is_bear_candle and (not has_rfe or c > rf_b))
 
         # 7. Alignment Ends: Kreuzung durch die RFE Basis
-        bull_align_ends = bool(prev_c > rf_b and c < rf_b)
-        bear_align_ends = bool(prev_c < rf_b and c > rf_b)
+        bull_align_ends = bool(has_rfe and prev_c > rf_b and c < rf_b)
+        bear_align_ends = bool(has_rfe and prev_c < rf_b and c > rf_b)
 
         sigs = []
         if good_buy_signal:
