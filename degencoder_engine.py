@@ -194,7 +194,7 @@ def calculate_degencoder_bands(
 # 2. DEGENCODER INDICATOR: SIGNALE (PFEILE, KREUZE, MARKER)
 # ==============================================================================
 
-def detect_degencoder_signals(bars: List[Dict[str, Any]], bands_data: Dict[str, Any]) -> Dict[str, Any]:
+def detect_degencoder_signals(bars: List[Dict[str, Any]], bands_data: Dict[str, Any], full_history: bool = False) -> Dict[str, Any]:
     """
     Erkennt die diskreten degencoder Signalzustände mit 100% kalibrierten Schwellenwerten:
     1. Good Buy Signal (blaues Dreieck unter Kerze)
@@ -219,7 +219,7 @@ def detect_degencoder_signals(bars: List[Dict[str, Any]], bands_data: Dict[str, 
 
     signals_history = []
     n = len(bars)
-    lookback_start = max(1, n - 150)
+    lookback_start = 1 if full_history else max(1, n - 150)
 
     for i in range(lookback_start, n):
         b = bars[i]
@@ -297,7 +297,7 @@ def detect_degencoder_signals(bars: List[Dict[str, Any]], bands_data: Dict[str, 
         "active_signals": current_sigs,
         "current_active_signals": current_sigs,
         "last_signal": last_sig,
-        "signals_history": signals_history[-15:]
+        "signals_history": signals_history if full_history else signals_history[-15:]
     }
 
 
