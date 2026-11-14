@@ -38,6 +38,7 @@ from degencoder_engine import (
     calculate_wma,
     analyze_degencoder_full
 )
+from risk_engine import calculate_position_size, atr_and_baseline
 
 BASE_DIR = Path(__file__).resolve().parent
 KB_DIR = BASE_DIR / "knowledge_base"
@@ -444,6 +445,32 @@ def scan_for_micro_setup(
             setup_grade = "A+" if score_long >= 80 else "A"
             setup_name = f"🌟 degencoder {timeframe} A+ Confluence Long" if setup_grade == "A+" else f"degencoder {timeframe} Confluence Long"
 
+            # Berechne Volatilität & Fractional-Kelly Positionsgröße via risk_engine
+            h_all = [float(b["h"]) for b in bars]
+            l_all = [float(b["l"]) for b in bars]
+            c_all = [float(b["c"]) for b in bars]
+            atr_c, atr_b = atr_and_baseline(h_all, l_all, c_all)
+
+            is_crypto = (asset.get("source") == "binance" or "USDT" in asset.get("symbol", ""))
+            lot_step = 0.0001 if is_crypto else 1.0
+            min_lot = 0.0001 if is_crypto else 1.0
+
+            pos_size = calculate_position_size(
+                entry_price=curr_p,
+                stop_loss=sl,
+                equity=10000.0,
+                risk_pct=1.0,
+                score=score_long,
+                grade=setup_grade,
+                atr_current=atr_c,
+                atr_baseline=atr_b,
+                lot_step=lot_step,
+                min_lot=min_lot
+            )
+
+            if not pos_size["is_executable"]:
+                return None
+
             return {
                 "symbol": asset["symbol"],
                 "name": asset["name"],
@@ -458,6 +485,15 @@ def scan_for_micro_setup(
                 "tp1": tp1,
                 "tp2": tp2,
                 "risk_amount": round(risk, 4),
+                "qty": pos_size["qty"],
+                "notional_capital": pos_size["notional_capital"],
+                "risk_cash": pos_size["risk_cash"],
+                "target_risk_cash": pos_size["target_risk_cash"],
+                "effective_risk_pct": pos_size["effective_risk_pct"],
+                "kelly_multiplier": pos_size["kelly_multiplier"],
+                "volatility_factor": pos_size["volatility_factor"],
+                "volatility_regime": pos_size["regime"],
+                "limited_by": pos_size["limited_by"],
                 "setup_name": setup_name,
                 "setup_score": score_long,
                 "setup_grade": setup_grade,
@@ -482,6 +518,32 @@ def scan_for_micro_setup(
             setup_grade = "A+" if score_short >= 80 else "A"
             setup_name = f"🌟 degencoder {timeframe} A+ Confluence Short" if setup_grade == "A+" else f"degencoder {timeframe} Confluence Short"
 
+            # Berechne Volatilität & Fractional-Kelly Positionsgröße via risk_engine
+            h_all = [float(b["h"]) for b in bars]
+            l_all = [float(b["l"]) for b in bars]
+            c_all = [float(b["c"]) for b in bars]
+            atr_c, atr_b = atr_and_baseline(h_all, l_all, c_all)
+
+            is_crypto = (asset.get("source") == "binance" or "USDT" in asset.get("symbol", ""))
+            lot_step = 0.0001 if is_crypto else 1.0
+            min_lot = 0.0001 if is_crypto else 1.0
+
+            pos_size = calculate_position_size(
+                entry_price=curr_p,
+                stop_loss=sl,
+                equity=10000.0,
+                risk_pct=1.0,
+                score=score_short,
+                grade=setup_grade,
+                atr_current=atr_c,
+                atr_baseline=atr_b,
+                lot_step=lot_step,
+                min_lot=min_lot
+            )
+
+            if not pos_size["is_executable"]:
+                return None
+
             return {
                 "symbol": asset["symbol"],
                 "name": asset["name"],
@@ -496,6 +558,15 @@ def scan_for_micro_setup(
                 "tp1": tp1,
                 "tp2": tp2,
                 "risk_amount": round(risk, 4),
+                "qty": pos_size["qty"],
+                "notional_capital": pos_size["notional_capital"],
+                "risk_cash": pos_size["risk_cash"],
+                "target_risk_cash": pos_size["target_risk_cash"],
+                "effective_risk_pct": pos_size["effective_risk_pct"],
+                "kelly_multiplier": pos_size["kelly_multiplier"],
+                "volatility_factor": pos_size["volatility_factor"],
+                "volatility_regime": pos_size["regime"],
+                "limited_by": pos_size["limited_by"],
                 "setup_name": setup_name,
                 "setup_score": score_short,
                 "setup_grade": setup_grade,
@@ -617,6 +688,10 @@ def update_open_trade_with_bars(trade: Dict[str, Any], future_bars: List[Dict[st
                     trade["realized_pnl_pct"] = round(((entry_p - sl) / entry_p) * 100.0, 2)
                     trade["exit_reason"] = "Stop-Loss über Widerstands-Level getroffen"
                     break
+
+    if trade.get("status") in ("CLOSED_TP2", "CLOSED_BE", "CLOSED_SL"):
+        risk_cash = trade.get("risk_cash", 100.0)
+        trade["realized_pnl_cash"] = round(trade.get("realized_r", 0.0) * risk_cash, 2)
 
     return trade
 

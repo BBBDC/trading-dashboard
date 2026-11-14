@@ -21,6 +21,7 @@ import json
 import math
 from pathlib import Path
 from datetime import datetime, timezone
+from risk_engine import calculate_position_size
 
 BASE_DIR = Path(__file__).resolve().parent
 DB_FILE = BASE_DIR / "dashboard" / "market_analysis_db.json"
@@ -802,6 +803,26 @@ def update_autonomous_portfolio(db_assets):
             if not reason_str:
                 reason_str = f"Hohe Multi-Timeframe Konfluenz ({score}% Score) mit CRV {c.get('crv', 2.5)}:1"
 
+            # Dynamisches Fractional-Kelly Risk Sizing (1.0R Normalisierung via risk_engine)
+            is_crypto = (cat == "CRYPTO" or "USDT" in sym)
+            lot_step = 0.0001 if is_crypto else 1.0
+            min_lot = 0.0001 if is_crypto else 1.0
+            port_equity = portfolio.get("total_capital", 10000.0)
+
+            pos_size = calculate_position_size(
+                entry_price=curr_p,
+                stop_loss=sl,
+                equity=port_equity,
+                risk_pct=1.0,
+                score=score,
+                lot_step=lot_step,
+                min_lot=min_lot
+            )
+
+            allocated_cap = pos_size["notional_capital"] if pos_size["is_executable"] else 1000.0
+            risk_cash = pos_size["risk_cash"] if pos_size["is_executable"] else round(port_equity * 0.01, 2)
+            qty = pos_size["qty"] if pos_size["is_executable"] else round(allocated_cap / curr_p, 4)
+
             new_trade = {
                 "trade_id": f"trade_{sym.replace(':', '_')}_{now_dt.strftime('%Y%m%d_%H%M')}",
                 "symbol": sym,
@@ -827,7 +848,11 @@ def update_autonomous_portfolio(db_assets):
                 "take_profit_1": tp1,
                 "take_profit_2": tp2,
                 "crv": c.get("crv", 2.5),
-                "allocated_capital": 1000.0,
+                "allocated_capital": round(allocated_cap, 2),
+                "position_qty": qty,
+                "risk_cash": risk_cash,
+                "kelly_multiplier": pos_size.get("kelly_multiplier", 1.0),
+                "volatility_regime": pos_size.get("regime", "NORMAL"),
                 "entry_reason": reason_str,
                 "analyst_note": note,
                 "unrealized_pnl_pct": 0.0,
