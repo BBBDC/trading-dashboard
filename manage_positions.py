@@ -65,8 +65,10 @@ def save_history(closed_positions):
         "updated_at": datetime.now(timezone.utc).isoformat(),
         "closed_positions": closed_positions
     }
-    with open(USER_HISTORY_FILE, "w", encoding="utf-8") as f:
+    tmp_file = USER_HISTORY_FILE.with_suffix(".tmp")
+    with open(tmp_file, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False)
+    tmp_file.replace(USER_HISTORY_FILE)
 
 
 def format_duration(start_iso, end_iso=None):
@@ -118,11 +120,13 @@ def save_positions(positions):
         "updated_at": datetime.now(timezone.utc).isoformat(),
         "positions": positions
     }
-    with open(POSITIONS_FILE, "w", encoding="utf-8") as f:
+    tmp_file = POSITIONS_FILE.with_suffix(".tmp")
+    with open(tmp_file, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False)
+    tmp_file.replace(POSITIONS_FILE)
 
 
-def add_position(symbol, direction, entry_price, leverage=1.0, note="", user_id="", user_name="", stop_loss=None, take_profit=None, sync_db=True, git_push=True):
+def add_position(symbol, direction, entry_price, leverage=1.0, note="", user_id="", user_name="", stop_loss=None, take_profit=None, take_profit_1=None, take_profit_2=None, sync_db=True, git_push=True):
     positions = load_positions()
     direction = direction.upper()
     if direction not in ("LONG", "SHORT"):
@@ -143,6 +147,26 @@ def add_position(symbol, direction, entry_price, leverage=1.0, note="", user_id=
         except (ValueError, TypeError):
             tp_val = None
 
+    tp1_val = None
+    if take_profit_1 is not None and str(take_profit_1).strip() != "":
+        try:
+            tp1_val = float(take_profit_1)
+        except (ValueError, TypeError):
+            tp1_val = None
+
+    tp2_val = None
+    if take_profit_2 is not None and str(take_profit_2).strip() != "":
+        try:
+            tp2_val = float(take_profit_2)
+        except (ValueError, TypeError):
+            tp2_val = None
+
+    # Falls TP2 gesetzt ist, aber kein Haupt-TP, wird TP2 als Haupt-TP verwendet
+    if tp_val is None and tp2_val is not None:
+        tp_val = tp2_val
+    elif tp_val is None and tp1_val is not None:
+        tp_val = tp1_val
+
     pos_id = f"pos_{symbol.replace(':', '_')}_{int(datetime.now(timezone.utc).timestamp())}"
     new_pos = {
         "id": pos_id,
@@ -152,6 +176,11 @@ def add_position(symbol, direction, entry_price, leverage=1.0, note="", user_id=
         "leverage": float(leverage),
         "stop_loss": sl_val,
         "take_profit": tp_val,
+        "take_profit_1": tp1_val,
+        "take_profit_2": tp2_val,
+        "remaining_size_pct": 100.0,
+        "partial_closes": [],
+        "tp1_hit": False,
         "note": note,
         "user_id": str(user_id) if user_id else "",
         "user_name": str(user_name) if user_name else "",
@@ -163,9 +192,12 @@ def add_position(symbol, direction, entry_price, leverage=1.0, note="", user_id=
     for i, p in enumerate(positions):
         same_user = (p.get("user_id") == str(user_id)) if user_id else True
         if p.get("symbol") == symbol and same_user:
-            # Bestehende ID und Erstellzeit beibehalten wenn möglich
+            # Bestehende ID, Erstellzeit und Teilgewinne beibehalten wenn möglich
             new_pos["id"] = p.get("id", pos_id)
             new_pos["created_at"] = p.get("created_at", new_pos["created_at"])
+            new_pos["remaining_size_pct"] = p.get("remaining_size_pct", 100.0)
+            new_pos["partial_closes"] = p.get("partial_closes", [])
+            new_pos["tp1_hit"] = p.get("tp1_hit", False)
             positions[i] = new_pos
             updated = True
             break
@@ -176,7 +208,9 @@ def add_position(symbol, direction, entry_price, leverage=1.0, note="", user_id=
     print(f"✅ Position erfolgreich {'aktualisiert' if updated else 'hinzugefügt'}:")
     sl_txt = f"{sl_val:,.2f}" if sl_val is not None else "Kein SL"
     tp_txt = f"{tp_val:,.2f}" if tp_val is not None else "Kein TP"
-    print(f"   {symbol} | {direction} | Entry: {entry_price:,.2f} | Hebel: {leverage}x | SL: {sl_txt} | TP: {tp_txt} | User: {user_name or 'Default'}")
+    tp1_txt = f" | TP1: {tp1_val:,.2f}" if tp1_val is not None else ""
+    tp2_txt = f" | TP2: {tp2_val:,.2f}" if tp2_val is not None else ""
+    print(f"   {symbol} | {direction} | Entry: {entry_price:,.2f} | Hebel: {leverage}x | SL: {sl_txt} | TP: {tp_txt}{tp1_txt}{tp2_txt} | User: {user_name or 'Default'}")
 
     # Ad-hoc Einzel-Scan & Chart-Generierung für dieses Asset sofort ausführen
     try:
@@ -191,8 +225,8 @@ def add_position(symbol, direction, entry_price, leverage=1.0, note="", user_id=
     return new_pos
 
 
-def update_position(symbol_or_id, user_id=None, stop_loss=None, take_profit=None, entry_price=None, leverage=None, direction=None, note=None, clear_sl=False, clear_tp=False, sync_db=True, git_push=True):
-    """Aktualisiert Stop-Loss, Take-Profit, Einstieg, Hebel, Richtung oder Notiz einer bestehenden Position."""
+def update_position(symbol_or_id, user_id=None, stop_loss=None, take_profit=None, take_profit_1=None, take_profit_2=None, entry_price=None, leverage=None, direction=None, note=None, clear_sl=False, clear_tp=False, clear_tp1=False, clear_tp2=False, remaining_size_pct=None, tp1_hit=None, sync_db=True, git_push=True):
+    """Aktualisiert Stop-Loss, Take-Profit (TP1/TP2), Einstieg, Hebel, Richtung oder Notiz einer bestehenden Position."""
     positions = load_positions()
     found = False
     updated_pos = None
@@ -215,6 +249,22 @@ def update_position(symbol_or_id, user_id=None, stop_loss=None, take_profit=None
                 p["take_profit"] = None
             elif take_profit is not None and str(take_profit).strip() != "":
                 p["take_profit"] = float(take_profit)
+
+            if clear_tp1:
+                p["take_profit_1"] = None
+            elif take_profit_1 is not None and str(take_profit_1).strip() != "":
+                p["take_profit_1"] = float(take_profit_1)
+
+            if clear_tp2:
+                p["take_profit_2"] = None
+            elif take_profit_2 is not None and str(take_profit_2).strip() != "":
+                p["take_profit_2"] = float(take_profit_2)
+
+            if remaining_size_pct is not None:
+                p["remaining_size_pct"] = float(remaining_size_pct)
+
+            if tp1_hit is not None:
+                p["tp1_hit"] = bool(tp1_hit)
 
             if entry_price is not None and str(entry_price).strip() != "":
                 p["entry_price"] = float(entry_price)
@@ -363,6 +413,129 @@ def close_position(symbol_or_id, exit_price=None, exit_reason="MANUAL_CLOSE", ex
         sync_dashboard_state(git_push=git_push)
         
     return closed_rec
+
+
+def partial_close_position(symbol_or_id, portion_pct=50.0, exit_price=None, exit_reason="MANUAL_PARTIAL_CLOSE", exit_reason_display=None, user_id=None, sync_db=True, git_push=True, notify=True):
+    """
+    Führt einen Teilverkauf (z.B. 50%, 25%, 33%, 75%) für eine aktive Position durch.
+    1. Bucht die geschlossene Tranche mit realisiertem PnL in user_positions_history.json ein.
+    2. Reduziert remaining_size_pct der Position in user_positions.json.
+    3. Falls remaining_size_pct <= 1%, wird die Position komplett geschlossen.
+    Gibt (partial_rec, active_pos, is_full_close) zurück.
+    """
+    positions = load_positions()
+    found_pos = None
+    remaining_positions = []
+
+    for p in positions:
+        match_id = (p.get("id") == symbol_or_id or p.get("symbol") == symbol_or_id)
+        match_user = (str(p.get("user_id")) == str(user_id)) if (user_id and p.get("user_id")) else True
+        if match_id and match_user and not found_pos:
+            found_pos = p
+        else:
+            remaining_positions.append(p)
+
+    if not found_pos:
+        print(f"⚠️ Keine Position mit Symbol oder ID '{symbol_or_id}' gefunden.")
+        return None, None, False
+
+    now_dt = datetime.now(timezone.utc)
+    now_iso = now_dt.isoformat()
+
+    direction = str(found_pos.get("direction", "LONG")).upper()
+    entry_p = float(found_pos.get("entry_price", 0.0))
+    lev = float(found_pos.get("leverage", 1.0))
+    sym = found_pos.get("symbol", "")
+
+    if exit_price is not None:
+        try:
+            exit_p = float(exit_price)
+        except (ValueError, TypeError):
+            exit_p = float(found_pos.get("current_price", entry_p))
+    else:
+        exit_p = float(found_pos.get("current_price", entry_p))
+
+    if entry_p > 0:
+        if direction == "LONG":
+            raw_pnl = ((exit_p - entry_p) / entry_p) * 100.0
+        else:
+            raw_pnl = ((entry_p - exit_p) / entry_p) * 100.0
+    else:
+        raw_pnl = 0.0
+    lev_pnl = raw_pnl * lev
+
+    prev_remaining = float(found_pos.get("remaining_size_pct", 100.0))
+    portion_num = float(portion_pct)
+    portion_closed_pct = round(prev_remaining * (portion_num / 100.0), 1)
+    new_remaining_pct = round(max(0.0, prev_remaining - portion_closed_pct), 1)
+
+    is_full_close = (new_remaining_pct <= 1.0)
+
+    if not exit_reason_display:
+        if exit_reason == "TP1_TRIGGERED":
+            exit_reason_display = f"🎯 TP1 erreicht ({portion_num:g}% Teilgewinn)"
+        else:
+            exit_reason_display = f"💰 Teilgewinn ({portion_num:g}%) realisiert"
+
+    # Teil-Archivierungs-Datensatz für Historie erstellen
+    history = load_history()
+    sub_id = f"partial_{found_pos.get('id', sym)}_{int(now_dt.timestamp())}"
+    partial_rec = {
+        "id": sub_id,
+        "parent_id": found_pos.get("id"),
+        "symbol": sym,
+        "name": found_pos.get("name") or sym,
+        "direction": direction,
+        "entry_price": round(entry_p, 4 if entry_p < 10 else 2),
+        "exit_price": round(exit_p, 4 if exit_p < 10 else 2),
+        "leverage": round(lev, 1),
+        "portion_pct": portion_num,
+        "portion_closed_pct": portion_closed_pct,
+        "remaining_size_pct": new_remaining_pct,
+        "realized_pnl_pct": round(raw_pnl, 2),
+        "realized_pnl_leveraged_pct": round(lev_pnl, 2),
+        "result": "WIN" if raw_pnl > 0 else ("LOSS" if raw_pnl < 0 else "BREAKEVEN"),
+        "exit_reason": exit_reason,
+        "exit_reason_display": exit_reason_display,
+        "created_at": found_pos.get("created_at", now_iso),
+        "closed_at": now_iso,
+        "holding_duration_str": format_duration(found_pos.get("created_at"), now_iso),
+        "user_id": str(found_pos.get("user_id", "")),
+        "user_name": str(found_pos.get("user_name", "")),
+        "is_partial": True
+    }
+    history.insert(0, partial_rec)
+    save_history(history)
+
+    if is_full_close:
+        save_positions(remaining_positions)
+        print(f"✅ Position '{symbol_or_id}' durch finalen Teilverkauf vollständig geschlossen.")
+    else:
+        found_pos["remaining_size_pct"] = new_remaining_pct
+        closes = found_pos.get("partial_closes", [])
+        closes.append({
+            "timestamp": now_iso,
+            "portion_pct": portion_num,
+            "exit_price": exit_p,
+            "realized_pnl_leveraged_pct": round(lev_pnl, 2)
+        })
+        found_pos["partial_closes"] = closes
+        found_pos["updated_at"] = now_iso
+        remaining_positions.append(found_pos)
+        save_positions(remaining_positions)
+        print(f"✅ Teilgewinn ({portion_num:g}%) für '{symbol_or_id}' erfolgreich verbucht (Rest: {new_remaining_pct:g}%).")
+
+    if notify:
+        try:
+            from notifications import send_user_partial_close_notification
+            send_user_partial_close_notification(partial_rec, found_pos, is_full_close)
+        except Exception as ne:
+            print(f"Hinweis: Push für Teilverkauf fehlgeschlagen ({ne})")
+
+    if sync_db:
+        sync_dashboard_state(git_push=git_push)
+
+    return partial_rec, found_pos, is_full_close
 
 
 def remove_position(symbol_or_id, user_id=None, sync_db=True, git_push=True, archive=True):

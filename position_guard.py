@@ -87,6 +87,19 @@ def evaluate_position_with_gemini_ai(pos: Dict[str, Any], tech_5m: Dict[str, Any
     lev_pnl = float(pos.get("pnl_leveraged_pct", 0.0))
     sl = pos.get("stop_loss")
     tp = pos.get("take_profit")
+    tp1 = pos.get("take_profit_1")
+    tp2 = pos.get("take_profit_2") or tp
+    rem_pct = float(pos.get("remaining_size_pct", 100.0))
+    tp1_hit = pos.get("tp1_hit", False)
+
+    if tp1 and tp2:
+        tp_str = f"TP1: {tp1:,.2f} $ (50%), TP2: {tp2:,.2f} $"
+    elif tp:
+        tp_str = f"{tp:,.2f} $"
+    else:
+        tp_str = "Keiner gesetzt"
+    if tp1_hit:
+        tp_str += " [TP1 bereits erfolgreich realisiert!]"
 
     rsi_5m = tech_5m.get("rsi", 50.0) if tech_5m else 50.0
     rsi_15m = tech_15m.get("rsi", 50.0) if tech_15m else 50.0
@@ -100,8 +113,9 @@ def evaluate_position_with_gemini_ai(pos: Dict[str, Any], tech_5m: Dict[str, Any
 Symbol: {sym}
 Richtung: {direction}
 Einstieg: {entry:,.2f} $ | Aktuell: {curr:,.2f} $ | Hebel: {lev:g}x
+Restposition: {rem_pct:g}%
 Aktueller PnL: {lev_pnl:+.2f}% (Basis: {raw_pnl:+.2f}%)
-Stop-Loss: {sl if sl else 'Keiner gesetzt'} | Take-Profit: {tp if tp else 'Keiner gesetzt'}
+Stop-Loss: {sl if sl else 'Keiner gesetzt'} | Take-Profit: {tp_str}
 
 Technische Daten:
 - 5m-Chart: Trend {trend_5m}, RSI {rsi_5m:.1f}, Divergenzen: {', '.join(divs_5m) if divs_5m else 'Keine'}
@@ -175,6 +189,9 @@ def run_position_guard_cycle() -> int:
         lev = float(pos.get("leverage", 1.0))
         sl_val = pos.get("stop_loss")
         tp_val = pos.get("take_profit")
+        tp1_val = pos.get("take_profit_1")
+        tp2_val = pos.get("take_profit_2") or tp_val
+        tp1_hit = pos.get("tp1_hit", False)
 
         try:
             sl_val = float(sl_val) if sl_val is not None and str(sl_val).strip() != "" else None
@@ -185,6 +202,16 @@ def run_position_guard_cycle() -> int:
             tp_val = float(tp_val) if tp_val is not None and str(tp_val).strip() != "" else None
         except (ValueError, TypeError):
             tp_val = None
+
+        try:
+            tp1_val = float(tp1_val) if tp1_val is not None and str(tp1_val).strip() != "" else None
+        except (ValueError, TypeError):
+            tp1_val = None
+
+        try:
+            tp2_val = float(tp2_val) if tp2_val is not None and str(tp2_val).strip() != "" else None
+        except (ValueError, TypeError):
+            tp2_val = None
 
         # 1. Frische 5m- und 15m-Kerzen laden
         bars_5m = fetch_bars_direct(sym, interval="5m", count=80)
@@ -206,9 +233,9 @@ def run_position_guard_cycle() -> int:
 
         lev_pnl = raw_pnl * lev
 
-        # 3. Auto-Close Prüfung (Hard Stop-Loss oder Take-Profit)
+        # 3. Auto-Trigger Prüfung: Stop-Loss oder TP1 (Teilgewinn) oder TP2/TP (Vollabschluss)
         is_sl_triggered = False
-        is_tp_triggered = False
+        is_tp2_triggered = False
 
         if sl_val is not None and curr_p > 0:
             if direction == "LONG" and curr_p <= sl_val:
@@ -216,13 +243,42 @@ def run_position_guard_cycle() -> int:
             elif direction == "SHORT" and curr_p >= sl_val:
                 is_sl_triggered = True
 
-        if tp_val is not None and curr_p > 0:
-            if direction == "LONG" and curr_p >= tp_val:
-                is_tp_triggered = True
-            elif direction == "SHORT" and curr_p <= tp_val:
-                is_tp_triggered = True
+        # TP1 (50% Teilgewinn) automatisch buchen
+        if not is_sl_triggered and tp1_val is not None and not tp1_hit and curr_p > 0:
+            is_tp1_triggered = (curr_p >= tp1_val) if direction == "LONG" else (curr_p <= tp1_val)
+            if is_tp1_triggered:
+                try:
+                    from manage_positions import partial_close_position
+                    cmp_sym = ">=" if direction == "LONG" else "<="
+                    reason_disp = f"🎯 TP1 erreicht ({curr_p:,.2f} {cmp_sym} {tp1_val:,.2f} $)"
+                    logger.info(f"⚡ [AUTO-TP1] {sym} ({direction}): {reason_disp} – buche 50% Teilgewinn...")
+                    partial_rec, updated_p, is_full = partial_close_position(
+                        pos.get("id") or sym,
+                        portion_pct=50.0,
+                        exit_price=curr_p,
+                        exit_reason="TP1_TRIGGERED",
+                        exit_reason_display=reason_disp,
+                        user_id=pos.get("user_id"),
+                        sync_db=False,
+                        git_push=False,
+                        notify=True
+                    )
+                    if updated_p:
+                        updated_p["tp1_hit"] = True
+                        pos = updated_p
+                        tp1_hit = True
+                except Exception as tp1_err:
+                    logger.error(f"Fehler bei Auto-TP1 für {sym}: {tp1_err}")
 
-        if is_sl_triggered or is_tp_triggered:
+        # TP2 oder vollständiger Take-Profit
+        check_tp_final = tp2_val or tp_val
+        if check_tp_final is not None and curr_p > 0:
+            if direction == "LONG" and curr_p >= check_tp_final:
+                is_tp2_triggered = True
+            elif direction == "SHORT" and curr_p <= check_tp_final:
+                is_tp2_triggered = True
+
+        if is_sl_triggered or is_tp2_triggered:
             exit_reason = "STOP_LOSS_TRIGGERED" if is_sl_triggered else "TAKE_PROFIT_TRIGGERED"
             exit_p = curr_p
             if is_sl_triggered:
@@ -230,7 +286,7 @@ def run_position_guard_cycle() -> int:
                 reason_disp = f"🛑 Stop-Loss ausgelöst ({curr_p:,.2f} {cmp_sym} {sl_val:,.2f} $)"
             else:
                 cmp_sym = ">=" if direction == "LONG" else "<="
-                reason_disp = f"🎯 Take-Profit erreicht ({curr_p:,.2f} {cmp_sym} {tp_val:,.2f} $)"
+                reason_disp = f"🎯 Take-Profit erreicht ({curr_p:,.2f} {cmp_sym} {check_tp_final:,.2f} $)"
 
             try:
                 from manage_positions import archive_closed_position
@@ -263,16 +319,16 @@ def run_position_guard_cycle() -> int:
                 sl_dist_pct = round(((sl_val - curr_p) / curr_p) * 100.0, 2)
 
         tp_dist_pct = None
-        if tp_val is not None and curr_p > 0:
+        if check_tp_final is not None and curr_p > 0:
             if direction == "LONG":
-                tp_dist_pct = round(((tp_val - curr_p) / curr_p) * 100.0, 2)
+                tp_dist_pct = round(((check_tp_final - curr_p) / curr_p) * 100.0, 2)
             else:
-                tp_dist_pct = round(((curr_p - tp_val) / curr_p) * 100.0, 2)
+                tp_dist_pct = round(((curr_p - check_tp_final) / curr_p) * 100.0, 2)
 
         crv = None
-        if sl_val is not None and tp_val is not None:
+        if sl_val is not None and check_tp_final is not None:
             risk = abs(entry_p - sl_val)
-            reward = abs(tp_val - entry_p)
+            reward = abs(check_tp_final - entry_p)
             if risk > 0:
                 crv = round(reward / risk, 2)
 
@@ -281,7 +337,11 @@ def run_position_guard_cycle() -> int:
         pos_eval["pnl_pct"] = round(raw_pnl, 2)
         pos_eval["pnl_leveraged_pct"] = round(lev_pnl, 2)
         pos_eval["stop_loss"] = sl_val
-        pos_eval["take_profit"] = tp_val
+        pos_eval["take_profit"] = check_tp_final
+        pos_eval["take_profit_1"] = tp1_val
+        pos_eval["take_profit_2"] = tp2_val
+        pos_eval["remaining_size_pct"] = pos.get("remaining_size_pct", 100.0)
+        pos_eval["tp1_hit"] = tp1_hit
         pos_eval["sl_distance_pct"] = sl_dist_pct
         pos_eval["tp_distance_pct"] = tp_dist_pct
         pos_eval["crv"] = crv

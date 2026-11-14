@@ -727,6 +727,82 @@ def send_user_position_closed_notification(closed_pos):
     return True
 
 
+def send_user_partial_close_notification(partial_rec, active_pos=None, is_full_close=False):
+    """
+    Sendet eine Push-Benachrichtigung an den Nutzer (und Admin),
+    wenn ein Teilgewinn für eine eigene Position realisiert wurde.
+    """
+    if not partial_rec:
+        return False
+
+    sym = partial_rec.get("symbol", "")
+    name = partial_rec.get("name", sym)
+    direction = partial_rec.get("direction", "LONG")
+    sig_icon = "🟢" if direction == "LONG" else "🔴"
+    lev = float(partial_rec.get("leverage", 1.0))
+    entry_p = float(partial_rec.get("entry_price", 0.0))
+    exit_p = float(partial_rec.get("exit_price", entry_p))
+    raw_pnl = float(partial_rec.get("realized_pnl_pct", 0.0))
+    lev_pnl = float(partial_rec.get("realized_pnl_leveraged_pct", 0.0))
+    pnl_sign = "+" if lev_pnl >= 0 else ""
+    pnl_icon = "📈" if lev_pnl >= 0 else "📉"
+    portion = float(partial_rec.get("portion_pct", 50.0))
+    rem = float(partial_rec.get("remaining_size_pct", 50.0))
+
+    exit_reason_disp = partial_rec.get("exit_reason_display") or f"Teilgewinn ({portion:g}%) realisiert"
+    user_id = partial_rec.get("user_id")
+    uname = partial_rec.get("user_name") or f"User_{user_id}"
+
+    entry_fmt = f"{entry_p:,.2f} $".replace(",", "X").replace(".", ",").replace("X", ".")
+    exit_fmt = f"{exit_p:,.2f} $".replace(",", "X").replace(".", ",").replace("X", ".")
+
+    if is_full_close:
+        header = f"🎯 <b>Position {sym} durch finalen Teilverkauf vollständig geschlossen!</b>"
+        sub_info = f"• <b>Status:</b> 100% der Position im Gewinn gesichert ({exit_fmt})"
+    else:
+        header = f"💰 <b>Teilgewinn verbucht: {name}</b> (<code>{sym}</code>)"
+        sub_info = (
+            f"• 💰 <b>Realisierte Tranche:</b> <b>{portion:g}%</b> bei <b>{exit_fmt}</b>\n"
+            f"• 📊 <b>Verbleibende Restposition:</b> <b>{rem:g}%</b>"
+        )
+
+    lines = [
+        header,
+        "",
+        f"• <b>Trade:</b> {sig_icon} <b>{sym}</b> ({direction} | {lev:g}x Hebel)",
+        f"• <b>Einstieg:</b> {entry_fmt}",
+        f"• {pnl_icon} <b>Realisierter PnL:</b> <b>{pnl_sign}{lev_pnl:.2f}%</b> (Basis: {pnl_sign}{raw_pnl:.2f}%)",
+        sub_info,
+        f"• ℹ️ <b>Aktion:</b> {exit_reason_disp}"
+    ]
+
+    if not is_full_close and entry_p > 0:
+        lines.extend([
+            "",
+            f"🛡️ <i>Tipp: Ziehe deinen Stop-Loss im Bot oder Dashboard auf Break-Even ({entry_fmt}) nach, um die Restposition völlig risikofrei laufen zu lassen!</i>"
+        ])
+
+    tg_msg = "\n".join(lines)
+
+    if user_id:
+        send_telegram_alert(tg_msg, parse_mode="HTML", target_chat_ids=[str(user_id)])
+
+    admin_cids = []
+    if TELEGRAM_CONFIG_FILE.exists():
+        try:
+            with open(TELEGRAM_CONFIG_FILE, "r", encoding="utf-8") as f:
+                admin_cids = json.load(f).get("admin_chat_ids", [])
+        except Exception:
+            pass
+
+    admin_targets = [str(acid) for acid in admin_cids if str(acid) != str(user_id)]
+    if admin_targets:
+        admin_msg = f"👤 <b>Nutzer-Teilverkauf (@{uname}):</b>\n\n{tg_msg}"
+        send_telegram_alert(admin_msg, parse_mode="HTML", target_chat_ids=admin_targets)
+
+    return True
+
+
 def format_change_notification(changes, click_url):
     """
     Formatiert eine kristallklare Benachrichtigung, die AUSSCHLIESSLICH die geänderten Assets

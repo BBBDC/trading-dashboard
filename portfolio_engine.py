@@ -1322,6 +1322,11 @@ def evaluate_user_positions(db_assets):
         pos_copy["pnl_leveraged_pct"] = round(lev_pnl, 2)
         pos_copy["stop_loss"] = sl_val
         pos_copy["take_profit"] = tp_val
+        pos_copy["take_profit_1"] = pos.get("take_profit_1")
+        pos_copy["take_profit_2"] = pos.get("take_profit_2") or tp_val
+        pos_copy["remaining_size_pct"] = pos.get("remaining_size_pct", 100.0)
+        pos_copy["partial_closes"] = pos.get("partial_closes", [])
+        pos_copy["tp1_hit"] = pos.get("tp1_hit", False)
         pos_copy["sl_distance_pct"] = sl_dist_pct
         pos_copy["tp_distance_pct"] = tp_dist_pct
         pos_copy["crv"] = crv
@@ -1402,6 +1407,52 @@ def generate_actionable_recommendation(pos, asset_data, curr_p, raw_pnl, lev_pnl
                         "title": f"⚠️ Stop-Loss in Reichweite (noch {dist:.1f}%)",
                         "message": f"Der Kurs ({curr_p:,.2f} $) ist nur noch {dist:.1f}% von deinem Stop-Loss ({sl_num:,.2f} $) entfernt. Risikomanagement prüfen!"
                     }
+        except (ValueError, TypeError):
+            pass
+
+    tp1 = pos.get("take_profit_1")
+    tp2 = pos.get("take_profit_2") or tp
+    tp1_hit = pos.get("tp1_hit", False)
+    entry_num = float(pos.get("entry_price", 0.0))
+
+    # 1.5 TP1 BEREITS ERREICHT -> STOP AUF BREAK-EVEN EMPFEHLEN
+    if tp1_hit and entry_num > 0:
+        is_be = False
+        if sl is not None:
+            try:
+                sl_f = float(sl)
+                is_be = (sl_f >= entry_num) if direction == "LONG" else (sl_f <= entry_num)
+            except Exception:
+                is_be = False
+        if not is_be:
+            return {
+                "status": "TAKE_PROFIT",
+                "badge_color": "emerald",
+                "action": "STOP AUF BREAK-EVEN",
+                "title": "🎯 TP1 gesichert – SL auf Break-Even!",
+                "message": f"TP1 wurde bereits realisiert. Ziehe deinen Stop-Loss jetzt auf Break-Even ({entry_num:,.2f} $), um die Restposition risikofrei zu TP2 ({float(tp2):,.2f} $ falls gesetzt) laufen zu lassen."
+            }
+
+    # 1.6 TP1 IN REICHWEITE
+    if tp1 is not None and not tp1_hit:
+        try:
+            tp1_num = float(tp1)
+            is_near_tp1 = False
+            if direction == "LONG" and curr_p >= tp1_num * 0.985:
+                dist = ((tp1_num - curr_p) / curr_p) * 100.0
+                is_near_tp1 = True
+            elif direction == "SHORT" and curr_p <= tp1_num * 1.015:
+                dist = ((curr_p - tp1_num) / curr_p) * 100.0
+                is_near_tp1 = True
+
+            if is_near_tp1:
+                return {
+                    "status": "TAKE_PROFIT",
+                    "badge_color": "emerald",
+                    "action": "TP1 IN REICHWEITE",
+                    "title": f"🎯 TP1 in Reichweite (noch {dist:.1f}%)",
+                    "message": f"Der Kurs ({curr_p:,.2f} $) nähert sich deinem ersten Teilziel TP1 ({tp1_num:,.2f} $). 50% Teilgewinnmitnahme steht kurz bevor!"
+                }
         except (ValueError, TypeError):
             pass
 
