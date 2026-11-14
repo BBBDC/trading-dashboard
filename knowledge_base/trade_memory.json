@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-14T04:01:25.590580+00:00",
-  "total_experience_records": 92,
+  "updated_at": "2026-11-14T04:31:17.682857+00:00",
+  "total_experience_records": 95,
   "learnings": [
+    {
+      "timestamp": "2026-11-14T04:31:13.846271+00:00",
+      "trade_id": "cross_rule_1794630673",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Rejection vor Execution: Ein Liquiditäts-Sweep erfordert den sofortigen aggressiven Reclaim der Preiszone, andernfalls handelt es sich um eine Trendfortsetzung.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Verweilt die Kurskerze nach dem Durchbrechen des Support-Levels darunter (Acceptance statt Rejection), zeigt dies echten Verkaufsüberhang und entkräftet die These einer reinen institutionellen Liquiditätsabfischung.",
+        "actionable_rule": "Rejection vor Execution: Ein Liquiditäts-Sweep erfordert den sofortigen aggressiven Reclaim der Preiszone, andernfalls handelt es sich um eine Trendfortsetzung."
+      }
+    },
+    {
+      "timestamp": "2026-11-14T04:31:13.846248+00:00",
+      "trade_id": "cross_rule_1794630673",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Extremwerte an Volatilitäts- und Chaos-Bändern sind in Trendphasen Momentum-Beschleuniger und keine automatischen Umkehrpunkte.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m wie auf 4h/1D führt das bloße Berühren oder Unterschreiten unterer Bänder ohne übergeordnete Trendausrichtung regelmäßig zum Stop-Out, da starke Trendimpulse Volatilitätsbänder dynamisch aufweiten statt abzuprallen.",
+        "actionable_rule": "Extremwerte an Volatilitäts- und Chaos-Bändern sind in Trendphasen Momentum-Beschleuniger und keine automatischen Umkehrpunkte."
+      }
+    },
+    {
+      "timestamp": "2026-11-14T04:31:13.846194+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1794623448",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -2.94,
+      "pnl_raw": -1.47,
+      "text": "Kein Long-Einstieg in 'Institutional Buy Pockets' ohne bestätigten 5m-Kerzenschluss (Reclaim) zurück über das Support-/Band-Niveau sowie nachweislich versiegendes Abrufvolumen der Verkäufer.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1794623448",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Einstieg als aggressives Messerfangen in expandierendem Abwärtsmomentum, ausgelöst durch statische Indikator-Trigger statt echter institutioneller Absorption.",
+        "technical_warning": "Fehlendes VSA-Stopping-Volume sowie das Ausbleiben einer schnellen bullischen Rejection-Lunte beim Durchstoßen des RFE-Bandes nach unten.",
+        "actionable_rule": "Kein Long-Einstieg in 'Institutional Buy Pockets' ohne bestätigten 5m-Kerzenschluss (Reclaim) zurück über das Support-/Band-Niveau sowie nachweislich versiegendes Abrufvolumen der Verkäufer."
+      }
+    },
     {
       "timestamp": "2026-11-14T04:01:21.710763+00:00",
       "trade_id": "cross_rule_1794628881",
