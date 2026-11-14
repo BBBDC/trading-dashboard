@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-14T07:30:51.996322+00:00",
-  "total_experience_records": 98,
+  "updated_at": "2026-11-14T08:01:23.254339+00:00",
+  "total_experience_records": 101,
   "learnings": [
+    {
+      "timestamp": "2026-11-14T08:01:19.050242+00:00",
+      "trade_id": "cross_rule_1794643279",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "VSA-Volumen-Asymmetrie: Hohes Volumen an Supports bestätigt erst dann eine Akkumulation, wenn der Folgetest mit signifikant austrocknendem Volumen (No Supply) erfolgt.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein 1.6x VSA Surge in Trendrichtung des Abverkaufs ist Aggressor-Selling; ohne anschließenden 'Dry-up-Test' (Volumen < 0.8x SMA) darf keine Reversal-Position eröffnet werden.",
+        "actionable_rule": "VSA-Volumen-Asymmetrie: Hohes Volumen an Supports bestätigt erst dann eine Akkumulation, wenn der Folgetest mit signifikant austrocknendem Volumen (No Supply) erfolgt."
+      }
+    },
+    {
+      "timestamp": "2026-11-14T08:01:19.050219+00:00",
+      "trade_id": "cross_rule_1794643279",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Erschöpfungs-Axiom: Orderblöcke verlieren mit jedem Touch exponentiell an Schutzfunktion (R1 = Ausführung, R2+ = Liquiditätsziel für Stop-Hunts).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Gültig von 5m bis 1D: Nach dem Erstkontakt (R1) sind institutionelle Resting Limit Orders absorbiert; Folge-Retests ziehen Liquiditätssuchende an und werden von Smart Money primär für Breakout-Slippage oder Distribution genutzt.",
+        "actionable_rule": "Erschöpfungs-Axiom: Orderblöcke verlieren mit jedem Touch exponentiell an Schutzfunktion (R1 = Ausführung, R2+ = Liquiditätsziel für Stop-Hunts)."
+      }
+    },
+    {
+      "timestamp": "2026-11-14T08:01:19.050166+00:00",
+      "trade_id": "inc_NEARUSDT_15m_1794641124",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (15m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Micro-Confluence Long",
+      "pnl_leveraged": -2.16,
+      "pnl_raw": -1.08,
+      "text": "R2-Retests von Orderblocks sind per Default gesperrt; Eintritte an überdehnten Chaos-Bändern erfordern zwingend einen bestätigten Market Structure Shift (MSS) auf Kerzenschlussbasis vor Limit-Platzierung.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_15m_1794641124",
+        "verdict": "LOSS",
+        "driver": "Kauf in einen durch Ersttest (R1) bereits entleerten Orderblock (R2), wobei der 1.6x VSA-Volumenschub Verkaufsüberhang (Supply Expansion) statt institutioneller Absorption darstellte.",
+        "technical_warning": "Der R2-Status des Orderblocks warnte vor mangelnder Restliquidität; zudem fehlte dem 1.6x VSA-Surge eine unmittelbare Rejection-Lunte im oberen Drittel der Kerze.",
+        "actionable_rule": "R2-Retests von Orderblocks sind per Default gesperrt; Eintritte an überdehnten Chaos-Bändern erfordern zwingend einen bestätigten Market Structure Shift (MSS) auf Kerzenschlussbasis vor Limit-Platzierung."
+      }
+    },
     {
       "timestamp": "2026-11-14T07:25:49.882625+00:00",
       "trade_id": "cross_rule_1794641149",
