@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-14T03:30:50.665306+00:00",
-  "total_experience_records": 88,
+  "updated_at": "2026-11-14T04:01:25.590580+00:00",
+  "total_experience_records": 92,
   "learnings": [
+    {
+      "timestamp": "2026-11-14T04:01:21.710763+00:00",
+      "trade_id": "cross_rule_1794628881",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine Trade-Exekution an lokalen Micro-Zonen ohne übergeordnete HTF-Konfluenz (HTF-Trendrichtung, HTF-Discount-Pricing oder HTF-Key-Level-Sweep).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl BNB als auch DOGE scheiterten an 5m-Support-Zonen, weil Micro-Strukturen bei fehlendem HTF-Rückenwind von übergeordneten Sell-Programmen mühelos absorbiert und ausgestoppt werden.",
+        "actionable_rule": "Keine Trade-Exekution an lokalen Micro-Zonen ohne übergeordnete HTF-Konfluenz (HTF-Trendrichtung, HTF-Discount-Pricing oder HTF-Key-Level-Sweep)."
+      }
+    },
+    {
+      "timestamp": "2026-11-14T04:01:21.710725+00:00",
+      "trade_id": "cross_rule_1794628881",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volatilitäts- und Indikator-Überdehnungen (Chaos Band < RFE / Extrem-Oversold) definieren primär Trendstärke und dürfen niemals isoliert als Countertrend-Einstieg dienen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Fraktal gilt auf 5m wie auf 4h/1D: Starke Trendschübe dehnen Bänder über längere Perioden massiv aus. Wer ohne strukturellen Bruch (MSS/Choch) gegen das Band kauft, dient institutionellen Trendfolgern als Exit-Liquidität.",
+        "actionable_rule": "Volatilitäts- und Indikator-Überdehnungen (Chaos Band < RFE / Extrem-Oversold) definieren primär Trendstärke und dürfen niemals isoliert als Countertrend-Einstieg dienen."
+      }
+    },
+    {
+      "timestamp": "2026-11-14T04:01:21.710695+00:00",
+      "trade_id": "inc_DOGEUSDT_5m_1794626429",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -1.68,
+      "pnl_raw": -0.84,
+      "text": "Retests von B-Level Order Blocks sind erst nach Ausbildung einer klaren Rejection-Wick und darauffolgender M5-Schlusskursbestätigung oberhalb des OB-Levels handelbar.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_5m_1794626429",
+        "verdict": "LOSS",
+        "driver": "Der B-Qualität Order Block bot keinerlei institutionelle Kaufbereitschaft und fungierte lediglich als temporäre Durchgangs-Liquidität im Abverkauf.",
+        "technical_warning": "Fehlende Volumen-Austrocknung (VSA No-Supply) vor dem OB-Retest und ausbleibende Docht-Rejection auf M5 kündigten das sofortige Scheitern der Zone an.",
+        "actionable_rule": "Retests von B-Level Order Blocks sind erst nach Ausbildung einer klaren Rejection-Wick und darauffolgender M5-Schlusskursbestätigung oberhalb des OB-Levels handelbar."
+      }
+    },
+    {
+      "timestamp": "2026-11-14T04:01:21.710614+00:00",
+      "trade_id": "inc_BNBUSDT_5m_1794623447",
+      "symbol": "BNBUSDT",
+      "name": "BNB",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -2.02,
+      "pnl_raw": -1.01,
+      "text": "Kein Long-Einstieg bei 'Chaos Band < RFE' ohne vorherigen lokalen Sell-Side-Liquidity-Sweep und sofortigen bullischen Reclaim der Trigger-Kerze.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BNBUSDT_5m_1794623447",
+        "verdict": "LOSS",
+        "driver": "Reiner Mean-Reversion-Versuch in ein dynamisches Abwärtsmomentum ohne strukturellen Sweep der Sell-Side-Liquidität oder bullischen Market Structure Shift.",
+        "technical_warning": "Divergenzlose Expansion des Chaos-Bandes unter das RFE bei anhaltendem Verkaufsdruck signalisierte Trendbeschleunigung statt einer tragfähigen Bodenbildung.",
+        "actionable_rule": "Kein Long-Einstieg bei 'Chaos Band < RFE' ohne vorherigen lokalen Sell-Side-Liquidity-Sweep und sofortigen bullischen Reclaim der Trigger-Kerze."
+      }
+    },
     {
       "timestamp": "2026-11-14T02:32:08.174220+00:00",
       "trade_id": "cross_rule_1794623528",
