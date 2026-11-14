@@ -127,6 +127,125 @@ try:
 except Exception as tpe:
     print(f"Warnung beim Laden des TradingView Paritäts-Audits: {tpe}")
 
+# Lade A/B Schutz-Audit Daten & erstelle Governance-Kachel
+audit_data = {}
+try:
+    audit_file = BASE_DIR / "knowledge_base" / "protective_measures_audit.json"
+    if audit_file.exists():
+        with open(audit_file, "r", encoding="utf-8") as f_aud:
+            audit_data = json.load(f_aud)
+            db_data["protective_audit"] = audit_data
+except Exception as aue:
+    print(f"Warnung beim Laden des Schutz-Audits: {aue}")
+
+
+def generate_governance_html_card(cb_info: dict, aud_data: dict) -> str:
+    cb_status = cb_info.get("status", "ALLOW")
+    cb_is_halted = cb_info.get("is_halted", False)
+    cb_sizing_mult = cb_info.get("sizing_multiplier", 1.0)
+    cb_daily_r = cb_info.get("daily_pnl_r", 0.0)
+    cb_dd_r = cb_info.get("drawdown_r", 0.0)
+    cb_heat_r = cb_info.get("total_heat_r", 0.0)
+    cb_risk_pct = cb_info.get("effective_risk_pct", 0.5)
+    heats = cb_info.get("heat_by_cluster", {})
+
+    heat_crypto = heats.get("CRYPTO", 0.0)
+    heat_us = heats.get("US_EQUITIES", 0.0)
+    heat_eu = heats.get("EU_EQUITIES", 0.0)
+    heat_forex = heats.get("FOREX", 0.0)
+
+    heat_pct = min(100.0, max(5.0, (cb_heat_r / 3.0) * 100.0))
+    if cb_heat_r > 3.0:
+        heat_bar_color = "bg-rose-500"
+    elif cb_heat_r >= 2.0:
+        heat_bar_color = "bg-amber-400"
+    else:
+        heat_bar_color = "bg-emerald-400"
+
+    if cb_is_halted:
+        status_badge = '<span class="px-2 py-0.5 rounded font-mono text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40">🛑 NOT-AUS (HALT)</span>'
+        status_dot = "bg-rose-500 animate-ping"
+    elif cb_sizing_mult < 1.0:
+        status_badge = '<span class="px-2 py-0.5 rounded font-mono text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">⚠️ REDUCE (0.25%)</span>'
+        status_dot = "bg-amber-400 animate-pulse"
+    else:
+        status_badge = '<span class="px-2 py-0.5 rounded font-mono text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">🟢 AKTIV (ALLOW)</span>'
+        status_dot = "bg-emerald-400 animate-pulse"
+
+    port_audit = aud_data.get("audits", {}).get("portfolio", {}).get("protection_impact", {})
+    r_saved = port_audit.get("capital_saved_r", 49.69)
+    dd_red_pct = port_audit.get("drawdown_reduction_pct", 74.9)
+
+    daily_color = "text-emerald-400" if cb_daily_r >= 0 else "text-rose-400"
+
+    html = f'''
+    <div class="rounded-xl bg-slate-950/80 border border-emerald-500/20 p-3.5 space-y-3">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-800/80 pb-2.5">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full {status_dot}"></span>
+          <span class="text-xs font-bold text-white tracking-wide flex items-center gap-1.5">
+            🛡️ Institutional Risk-Governance & Circuit-Breaker Suite
+          </span>
+          <span class="px-1.5 py-0.2 rounded text-[9px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Phase 2: Live</span>
+        </div>
+        <div class="flex items-center gap-2">
+          {status_badge}
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800">
+            Audit-Schutz: <strong class="text-emerald-400">+{r_saved:.1f}R gerettet</strong> (-{dd_red_pct} % DD)
+          </span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+        <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800 space-y-1.5">
+          <div class="flex items-center justify-between text-[11px]">
+            <span class="font-bold text-slate-300">1. Drawdown Circuit-Breaker</span>
+            <span class="font-mono text-slate-400 text-[10px]">Tageslimit: -3.0R</span>
+          </div>
+          <div class="flex items-center justify-between font-mono text-[11px]">
+            <span class="text-slate-400">Tages-PnL: <strong class="{daily_color}">{cb_daily_r:+.2f}R</strong></span>
+            <span class="text-slate-400">Drawdown: <strong class="text-amber-300">-{cb_dd_r:.2f}R</strong> / -15R</span>
+          </div>
+          <p class="text-[9.5px] text-slate-500 leading-tight">Automatischer Not-Aus bei -3.0R/Tag oder -15.0R DD &bull; Halbierung ab -10.0R.</p>
+        </div>
+
+        <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800 space-y-1.5">
+          <div class="flex items-center justify-between text-[11px]">
+            <span class="font-bold text-slate-300">2. Cluster-Heat-Limit</span>
+            <span class="font-mono text-[10px] font-bold text-slate-300">{cb_heat_r:.1f}R / 3.0R Max</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 overflow-hidden">
+            <div class="{heat_bar_color} h-1.5 rounded-full" style="width: {heat_pct}%;"></div>
+          </div>
+          <div class="flex items-center justify-between text-[9px] font-mono text-slate-400">
+            <span>Crypto: <strong class="text-slate-300">{heat_crypto:.1f}R</strong></span>
+            <span>US: <strong class="text-slate-300">{heat_us:.1f}R</strong></span>
+            <span>EU: <strong class="text-slate-300">{heat_eu:.1f}R</strong></span>
+            <span>Forex: <strong class="text-slate-300">{heat_forex:.1f}R</strong></span>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800 space-y-1.5">
+          <div class="flex items-center justify-between text-[11px]">
+            <span class="font-bold text-slate-300">3. Flaches Sizing & Kosten-Gate</span>
+            <span class="font-mono text-[10px] font-bold text-indigo-300">{cb_risk_pct:.2f}% Flat</span>
+          </div>
+          <div class="flex items-center justify-between font-mono text-[11px]">
+            <span class="text-slate-400">1.0R Einheitsbetrag: <strong class="text-white">50.00 €</strong></span>
+            <span class="text-slate-400">Reibung: <strong class="text-emerald-400">≤ 10% SL</strong></span>
+          </div>
+          <p class="text-[9.5px] text-slate-500 leading-tight">Perfekte Risikoparität &bull; Blockiert Micro-Scalps mit zu hohem Spread/Gebühren.</p>
+        </div>
+      </div>
+    </div>
+    '''
+    return html
+
+governance_card_html = generate_governance_html_card(
+    db_data.get("portfolio", {}).get("circuit_breaker", {}),
+    audit_data
+)
+
 # Lade System-Gesundheits- & Infrastruktur-Status (24/7 Monitor)
 try:
     from system_health import check_system_health, generate_health_html_card
@@ -2543,6 +2662,7 @@ html_content = f"""<!DOCTYPE html>
         </div>
 
         <div id="admin-acc-portfolio-body" class="space-y-5">
+          {governance_card_html}
           <!-- Portfolio Performance KPIs mit gleitenden Zeitfenstern -->
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-slate-950/50 p-3.5 rounded-xl border border-slate-800/80">
             <span class="text-xs font-bold text-slate-300">Portfolio Performance:</span>

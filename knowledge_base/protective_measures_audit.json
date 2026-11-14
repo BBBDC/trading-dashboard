@@ -1,0 +1,78 @@
+{
+  "generated_at": "2026-11-14T21:07:57.590790+00:00",
+  "config": {
+    "flat_risk_pct": 0.5,
+    "daily_loss_limit_r": 3.0,
+    "drawdown_reduce_r": 10.0,
+    "drawdown_halt_r": 15.0,
+    "max_total_heat_r": 3.0,
+    "max_cluster_heat_r": 1.5,
+    "max_cost_r_ratio": 0.1
+  },
+  "audits": {
+    "portfolio": {
+      "dataset_name": "Modell-Portfolio (High-Conviction)",
+      "total_historical_trades": 78,
+      "baseline": {
+        "trades_taken": 78,
+        "wins": 13,
+        "losses": 63,
+        "win_rate_pct": 16.7,
+        "total_pnl_r": -64.54,
+        "max_drawdown_r": 66.85,
+        "capital_pnl_est_eur": -6454.0
+      },
+      "managed": {
+        "trades_taken": 21,
+        "wins": 4,
+        "losses": 16,
+        "win_rate_pct": 19.0,
+        "total_pnl_r": -14.85,
+        "max_drawdown_r": 16.77,
+        "capital_pnl_est_eur": -742.5
+      },
+      "protection_impact": {
+        "cost_gate_filtered": 0,
+        "cluster_heat_filtered": 18,
+        "daily_loss_halt_filtered": 3,
+        "drawdown_halt_filtered": 36,
+        "total_filtered_trades": 57,
+        "capital_saved_r": 49.69,
+        "drawdown_reduction_r": 50.08,
+        "drawdown_reduction_pct": 74.9
+      }
+    },
+    "incubator": {
+      "dataset_name": "AI Incubator & Rapid Post-Mortem Lab",
+      "total_historical_trades": 200,
+      "baseline": {
+        "trades_taken": 200,
+        "wins": 71,
+        "losses": 129,
+        "win_rate_pct": 35.5,
+        "total_pnl_r": -60.75,
+        "max_drawdown_r": 66.75,
+        "capital_pnl_est_eur": -6075.0
+      },
+      "managed": {
+        "trades_taken": 7,
+        "wins": 0,
+        "losses": 7,
+        "win_rate_pct": 0.0,
+        "total_pnl_r": -7.0,
+        "max_drawdown_r": 7.0,
+        "capital_pnl_est_eur": -350.0
+      },
+      "protection_impact": {
+        "cost_gate_filtered": 191,
+        "cluster_heat_filtered": 2,
+        "daily_loss_halt_filtered": 0,
+        "drawdown_halt_filtered": 0,
+        "total_filtered_trades": 193,
+        "capital_saved_r": 53.75,
+        "drawdown_reduction_r": 59.75,
+        "drawdown_reduction_pct": 89.5
+      }
+    }
+  }
+}

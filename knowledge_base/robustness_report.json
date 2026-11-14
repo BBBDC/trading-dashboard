@@ -1,0 +1,257 @@
+{
+  "executed_at": "2026-11-14T21:12:02.190743+00:00",
+  "architecture": {
+    "sizing_model": "Flat Risk Parity (0.50% Equity / 1.0R)",
+    "cluster_limit_r": 1.5,
+    "max_portfolio_heat_r": 3.0,
+    "drawdown_reduce_limit_r": 10.0,
+    "drawdown_halt_limit_r": 15.0,
+    "max_cost_r_ratio": 0.1
+  },
+  "audits": {
+    "portfolio": {
+      "monte_carlo": {
+        "trades_evaluated": 78,
+        "simulations_count": 1000,
+        "sample_statistics": {
+          "total_r": -64.54,
+          "mean_r_per_trade": -0.8274,
+          "std_r": 2.3455,
+          "downside_std_r": 2.1925,
+          "sharpe_ratio_r": -0.353,
+          "sortino_ratio_r": -0.377,
+          "win_count": 13,
+          "loss_count": 63,
+          "win_rate_pct": 16.7
+        },
+        "permutation_test": {
+          "description": "Zufällige Permutation der Trade-Reihenfolge (Original-Sample)",
+          "prob_dd_ge_10r_pct": 100.0,
+          "prob_dd_ge_15r_pct": 100.0,
+          "percentiles_max_dd_r": {
+            "P10": 64.54,
+            "P25": 64.54,
+            "P50_median": 65.38,
+            "P75": 68.98,
+            "P90": 72.52,
+            "P95": 73.88,
+            "P99": 76.56
+          }
+        },
+        "bootstrap_test": {
+          "description": "Resampling mit Zurücklegen (Synthetische Marktpfade)",
+          "prob_dd_ge_10r_pct": 100.0,
+          "prob_dd_ge_15r_pct": 100.0,
+          "prob_profitable_path_pct": 0.1,
+          "percentiles_max_dd_r": {
+            "P10": 43.94,
+            "P25": 53.2,
+            "P50_median": 66.87,
+            "P75": 79.97,
+            "P90": 93.08,
+            "P95": 100.43,
+            "P99": 118.14
+          },
+          "percentiles_final_pnl_r": {
+            "P05": -99.02,
+            "P50_median": -64.3,
+            "P95": -31.72
+          }
+        }
+      },
+      "cluster_stress": {
+        "active_positions_count": 8,
+        "clusters_detected": {
+          "FOREX": 1,
+          "CRYPTO": 1,
+          "EU_EQUITIES": 3,
+          "COMMODITIES": 2,
+          "US_EQUITIES": 1
+        },
+        "scenarios": {
+          "CRYPTO_FLASH_CRASH": {
+            "description": "Sofortiger Krypto-Abverkauf mit 25% Gap & Slippage (1.25R Verlust pro Trade)",
+            "affected_positions": 1,
+            "portfolio_loss_r": 1.25,
+            "portfolio_loss_eur": 62.5,
+            "loss_pct_of_equity": 0.62,
+            "cluster_cap_protected": true,
+            "evaluation": "Sicher abgefangen durch Cluster-Limit (1.5R Budget)"
+          },
+          "EQUITY_FLASH_CRASH": {
+            "description": "7% Gap-Down auf US- und EU-Aktien mit erhöhter Slippage (1.30R Verlust pro Trade)",
+            "affected_positions": 4,
+            "portfolio_loss_r": 5.2,
+            "portfolio_loss_eur": 260.0,
+            "loss_pct_of_equity": 2.6,
+            "cluster_cap_protected": false
+          },
+          "SYSTEMIC_BLACK_SWAN": {
+            "description": "Globaler Schock: Alle aktiven Positionen stoppen mit maximaler 1.50R Slippage aus",
+            "affected_positions": 8,
+            "total_loss_r": 12.0,
+            "total_loss_eur": 600.0,
+            "total_account_drawdown_pct": 6.0,
+            "insolvency_risk": "ZERO",
+            "protective_verdict": "Exzellent: Maximaler Gesamtkonto-Schaden beträgt lediglich 6.0% dank flachem 0.5% Sizing."
+          }
+        }
+      },
+      "sensitivity": {
+        "trades_evaluated": 78,
+        "baseline_mean_r": -0.8274,
+        "break_even_friction_point_r": 0.0,
+        "robustness_score": 0.0,
+        "robustness_grade": "OVERFITTED_OR_NEGATIVE",
+        "verdict": "Kein Puffer gegen Marktreibung. Strategie benötigt strukturelle Kausalitäts-Filter.",
+        "degradation_steps": [
+          {
+            "additional_friction_r": 0.0,
+            "total_pnl_r": -64.54,
+            "mean_r_per_trade": -0.8274,
+            "win_rate_pct": 16.7,
+            "is_profitable": false
+          },
+          {
+            "additional_friction_r": 0.05,
+            "total_pnl_r": -68.44,
+            "mean_r_per_trade": -0.8774,
+            "win_rate_pct": 16.7,
+            "is_profitable": false
+          },
+          {
+            "additional_friction_r": 0.1,
+            "total_pnl_r": -72.34,
+            "mean_r_per_trade": -0.9274,
+            "win_rate_pct": 15.4,
+            "is_profitable": false
+          },
+          {
+            "additional_friction_r": 0.15,
+            "total_pnl_r": -76.24,
+            "mean_r_per_trade": -0.9774,
+            "win_rate_pct": 15.4,
+            "is_profitable": false
+          },
+          {
+            "additional_friction_r": 0.2,
+            "total_pnl_r": -80.14,
+            "mean_r_per_trade": -1.0274,
+            "win_rate_pct": 15.4,
+            "is_profitable": false
+          },
+          {
+            "additional_friction_r": 0.25,
+            "total_pnl_r": -84.04,
+            "mean_r_per_trade": -1.0774,
+            "win_rate_pct": 15.4,
+            "is_profitable": false
+          }
+        ]
+      }
+    },
+    "incubator": {
+      "monte_carlo": {
+        "trades_evaluated": 200,
+        "simulations_count": 1000,
+        "sample_statistics": {
+          "total_r": -60.75,
+          "mean_r_per_trade": -0.3038,
+          "std_r": 0.9886,
+          "downside_std_r": 0.8031,
+          "sharpe_ratio_r": -0.307,
+          "sortino_ratio_r": -0.378,
+          "win_count": 71,
+          "loss_count": 129,
+          "win_rate_pct": 35.5
+        },
+        "permutation_test": {
+          "description": "Zufällige Permutation der Trade-Reihenfolge (Original-Sample)",
+          "prob_dd_ge_10r_pct": 100.0,
+          "prob_dd_ge_15r_pct": 100.0,
+          "percentiles_max_dd_r": {
+            "P10": 60.75,
+            "P25": 61.5,
+            "P50_median": 62.75,
+            "P75": 64.25,
+            "P90": 66.5,
+            "P95": 67.25,
+            "P99": 69.25
+          }
+        },
+        "bootstrap_test": {
+          "description": "Resampling mit Zurücklegen (Synthetische Marktpfade)",
+          "prob_dd_ge_10r_pct": 100.0,
+          "prob_dd_ge_15r_pct": 100.0,
+          "prob_profitable_path_pct": 0.0,
+          "percentiles_max_dd_r": {
+            "P10": 46.5,
+            "P25": 54.75,
+            "P50_median": 63.0,
+            "P75": 71.0,
+            "P90": 79.5,
+            "P95": 85.25,
+            "P99": 96.5
+          },
+          "percentiles_final_pnl_r": {
+            "P05": -83.0,
+            "P50_median": -60.25,
+            "P95": -38.25
+          }
+        }
+      },
+      "sensitivity": {
+        "trades_evaluated": 200,
+        "baseline_mean_r": -0.3038,
+        "break_even_friction_point_r": 0.0,
+        "robustness_score": 0.0,
+        "robustness_grade": "OVERFITTED_OR_NEGATIVE",
+        "verdict": "Kein Puffer gegen Marktreibung. Strategie benötigt strukturelle Kausalitäts-Filter.",
+        "degradation_steps": [
+          {
+            "additional_friction_r": 0.0,
+            "total_pnl_r": -60.75,
+            "mean_r_per_trade": -0.3038,
+            "win_rate_pct": 35.5,
+            "is_profitable": false
+          },
+          {
+            "additional_friction_r": 0.05,
+            "total_pnl_r": -70.75,
+            "mean_r_per_trade": -0.3538,
+            "win_rate_pct": 35.5,
+            "is_profitable": false
+          },
+          {
+            "additional_friction_r": 0.1,
+            "total_pnl_r": -80.75,
+            "mean_r_per_trade": -0.4037,
+            "win_rate_pct": 35.5,
+            "is_profitable": false
+          },
+          {
+            "additional_friction_r": 0.15,
+            "total_pnl_r": -90.75,
+            "mean_r_per_trade": -0.4537,
+            "win_rate_pct": 35.5,
+            "is_profitable": false
+          },
+          {
+            "additional_friction_r": 0.2,
+            "total_pnl_r": -100.75,
+            "mean_r_per_trade": -0.5038,
+            "win_rate_pct": 35.5,
+            "is_profitable": false
+          },
+          {
+            "additional_friction_r": 0.25,
+            "total_pnl_r": -110.75,
+            "mean_r_per_trade": -0.5537,
+            "win_rate_pct": 35.5,
+            "is_profitable": false
+          }
+        ]
+      }
+    }
+  }
+}

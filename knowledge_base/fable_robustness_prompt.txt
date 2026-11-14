@@ -1,0 +1,39 @@
+Du bist Claude Fable 5.2, das führende quantitative Modell für Finanzmathematik, Monte-Carlo-Simulation und institutionelles Risikomanagement.
+
+Kontext:
+Wir haben auf unserem 24/7 Raspberry Pi Trading-System bereits drei Sofort-Schutz-Maßnahmen verankert:
+1. Flaches Sizing: 0.5% der Equity pro Trade (1.0R = 0.5% Kontowert, vollkommene Risikoparität).
+2. Cluster-Heat-Limit: Max 1.5R im selben Asset-Cluster (CRYPTO, US_EQUITIES, EU_EQUITIES, FOREX, COMMODITIES) und max 3.0R Gesamtportfolio-Heat.
+3. Drawdown Circuit-Breaker: -3.0R Tagesverlust-Grenze (HALT_DAY), -10.0R Halbierung der Positionsgröße (REDUCE_SIZE auf 0.25%), -15.0R Vollstopp (HALT_FULL).
+4. Kosten-Gate: Reibungskosten (Fee + Spread + Slippage) dürfen maximal 10% des Stop-Abstands betragen (max_cost_r_ratio = 0.10).
+
+Aufgabe (Hebel 4):
+Erstelle die vollständige, institutionelle und absolut fehlerfreie Python-Datei:
+`/home/admin/trading/robustness_engine.py`
+
+Anforderungen an `/home/admin/trading/robustness_engine.py`:
+1. Standalone & modular (nur Python-Standardbibliothek: math, random, json, datetime, pathlib, typing, statistics).
+2. Drei Kern-Module:
+   a) `run_monte_carlo_permutation(trades, n_simulations=1000, seed=42)`:
+      - Führt 1.000 zufällige Permutationen (ohne Zurücklegen) und 1.000 Bootstrap-Ziehungen (mit Zurücklegen) der Trade-R-Reihenfolge durch.
+      - Berechnet für jeden Pfad die kumulierte R-Kurve, den Max Drawdown in R, und prüft, ob die Schwellen -10R und -15R berührt werden.
+      - Ermittelt:
+        * P10, P25, P50 (Median), P75, P90, P95, P99 des maximalen Drawdowns.
+        * Ruin-Wahrscheinlichkeit P(DD >= 15.0R).
+        * Wahrscheinlichkeit der Größen-Halbierung P(DD >= 10.0R).
+        * Erwartungswert E(R), Standardabweichung, Sharpe/Sortino-Äquivalent in R.
+   b) `run_cluster_stress_test(active_trades, scenario="CRYPTO_FLASH_CRASH")`:
+      - Simuliert Extremschocks auf offene Positionen:
+        * 'CRYPTO_CRASH': Alle Krypto-Trades erleiden sofortigen Stop-Out mit 2x Slippage (1.2R Verlust pro Trade).
+        * 'SYSTEMIC_SHOCK': Alle offenen Positionen über alle Cluster werden mit 1.5R Slippage ausgestoppt.
+      - Prüft mathematisch, ob das Portfolio dank 1.5R Cluster-Deckel und 3.0R Gesamt-Heat überlebt oder ob das Verlustlimit überschritten wird.
+   c) `run_parameter_sensitivity_test(trades, slippage_steps=[0.0, 0.05, 0.10, 0.20])`:
+      - Testet systematische Reibungserhöhung (+0.05R bis +0.20R pro Trade) auf die Edge.
+      - Berechnet den "Robustness Score" (0.0 bis 1.0) und ermittelt den "Break-Even Friction Point" (ab wie viel zusätzlicher Reibung die Edge auf 0 fällt).
+3. CLI & Execution:
+   - Eine `def run_full_robustness_suite()` Funktion, die automatisch:
+     * `knowledge_base/autonomous_portfolio.json` und `knowledge_base/incubator_trades.json` einliest.
+     * Den vollen Stresstest über beide Datensätze laufen lässt.
+     * Die Ergebnisse sauber formatiert in `knowledge_base/robustness_report.json` speichert.
+     * Eine übersichtliche, institutionelle ASCII-Zusammenfassung auf stdout ausgibt.
+4. Schreibe die Datei `/home/admin/trading/robustness_engine.py` direkt auf die Festplatte und gib am Ende eine prägnante Zusammenfassung deiner mathematischen Ergebnisse aus.
