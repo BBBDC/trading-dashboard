@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-14T06:30:53.451486+00:00",
-  "total_experience_records": 95,
+  "updated_at": "2026-11-14T07:25:53.727527+00:00",
+  "total_experience_records": 98,
   "learnings": [
+    {
+      "timestamp": "2026-11-14T07:25:49.882625+00:00",
+      "trade_id": "cross_rule_1794641149",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volumen-Spread-Validierung (Wyckoff/VSA): Überdurchschnittliches Volumen (>2.0x) erfordert zwingend eine korrespondierende Range-Expansion in Signalrichtung; bleibt diese aus, ist das Setup wegen institutioneller Absorption sofort zu sperren.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Fraktal über alle Zeitebenen (5m bis Daily) markiert hohes Volumen mit kleinem Spread oder langen Dochten das Erreichen von Exit-Liquidität großer Marktteilnehmer und kündigt unmittelbare Reversals an.",
+        "actionable_rule": "Volumen-Spread-Validierung (Wyckoff/VSA): Überdurchschnittliches Volumen (>2.0x) erfordert zwingend eine korrespondierende Range-Expansion in Signalrichtung; bleibt diese aus, ist das Setup wegen institutioneller Absorption sofort zu sperren."
+      }
+    },
+    {
+      "timestamp": "2026-11-14T07:25:49.882574+00:00",
+      "trade_id": "cross_rule_1794641149",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktales HTF-Trend- und Zonen-Veto: Mikro-Setups (5m/15m) dürfen nur in Richtung der 4h-Marktstruktur und ausschließlich aus HTF-Discount-Zonen heraus gehandelt werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m isoliert wirkende Kaufsignale stellen im 4h/1D-Kontext meist lediglich Pullbacks in bestehende Bärenstrukturen oder Abgaben in Verkaufsblöcke (Premium) dar.",
+        "actionable_rule": "Fraktales HTF-Trend- und Zonen-Veto: Mikro-Setups (5m/15m) dürfen nur in Richtung der 4h-Marktstruktur und ausschließlich aus HTF-Discount-Zonen heraus gehandelt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-14T07:25:49.882489+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1794636050",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -3.78,
+      "pnl_raw": -1.89,
+      "text": "Kein Long-Einstieg direkt in Volumenspitzen (>2x Average) ohne vorherigen Sweep auf HTF-Support; vor Ordererteilung muss zwingend ein erfolgreicher Retest der Ausbruchsbasis abgewartet werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1794636050",
+        "verdict": "LOSS",
+        "driver": "Prozyklischer Long-Einstieg direkt in eine VSA-Buying-Climax ohne vorherigen HTF-Liquiditätsabgriff führte zur sofortigen Absorption durch Verkäufer und schnellem SL-Hit.",
+        "technical_warning": "Extremes Volumen (2.1x) ohne proportionale Ausdehnung der Kerzenspanne (Effort vs. Result / Churning) sowie das Fehlen eines vorangegangenen Liquidity Sweeps tieferer Swing-Lows.",
+        "actionable_rule": "Kein Long-Einstieg direkt in Volumenspitzen (>2x Average) ohne vorherigen Sweep auf HTF-Support; vor Ordererteilung muss zwingend ein erfolgreicher Retest der Ausbruchsbasis abgewartet werden."
+      }
+    },
     {
       "timestamp": "2026-11-14T04:31:13.846271+00:00",
       "trade_id": "cross_rule_1794630673",
