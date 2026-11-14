@@ -1,0 +1,491 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © degencoder
+//
+// degencoder Master Suite
+// Quantum Chaos Baender | RFE Golden Ratio Channel | Retro Order Blocks | Fair Value Gaps
+// 1h HTF Trend-Governance | 3-Saeulen A+ Scoring | Dynamisches TP/SL | HUD | Webhook Alerts
+
+//@version=5
+indicator("degencoder Master Suite", shorttitle="DGC Master Suite", overlay=true, max_boxes_count=500, max_labels_count=500)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Farbpalette
+// ─────────────────────────────────────────────────────────────────────────────
+color C_INDIGO  = #6366F1
+color C_CYAN    = #22D3EE
+color C_EMERALD = #10B981
+color C_ROSE    = #F43F5E
+color C_GOLD    = #FBBF24
+color C_MAGENTA = #E879F9
+color C_SLATE   = #94A3B8
+color C_PANEL   = #0B1020
+color C_PANEL2  = #111833
+color C_GRID    = #1E293B
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Inputs
+// ─────────────────────────────────────────────────────────────────────────────
+string GRP_CHAOS = "Quantum Chaos Bänder"
+int   chaosLen  = input.int(5, "Donchian Länge", minval=1, group=GRP_CHAOS)
+int   atrLen    = input.int(14, "ATR Länge (RMA)", minval=1, group=GRP_CHAOS)
+float chaosMult = input.float(1.8, "ATR Multiplikator", minval=0.0, step=0.1, group=GRP_CHAOS)
+bool  showChaos = input.bool(true, "Chaos Bänder anzeigen", group=GRP_CHAOS)
+
+string GRP_RFE = "RFE Golden Ratio Channel"
+int   rfeLen  = input.int(233, "WMA / StDev Länge", minval=2, group=GRP_RFE)
+float rfeMult = input.float(1.618, "StDev Multiplikator (Phi)", minval=0.0, step=0.001, group=GRP_RFE)
+bool  showRfe = input.bool(true, "RFE Channel anzeigen", group=GRP_RFE)
+
+string GRP_SIG = "Signale & Marker"
+bool showMarkers = input.bool(true, "Diskrete Marker anzeigen (Buy/Sell Area, NTZ, Good Buy/Sell)", group=GRP_SIG)
+bool showSetups  = input.bool(true, "Setup-Labels anzeigen (LONG / SHORT)", group=GRP_SIG)
+bool showLevels  = input.bool(true, "TP/SL Linien des aktiven Setups anzeigen", group=GRP_SIG)
+
+string GRP_OB = "Retro Order Blocks"
+bool showOB       = input.bool(true, "Order Blocks zeichnen", group=GRP_OB)
+int  obLen        = input.int(5, "Aufeinanderfolgende Schlusskurse", minval=1, maxval=50, group=GRP_OB)
+int  sweepLen     = input.int(20, "Liquidity Sweep Lookback", minval=2, group=GRP_OB)
+int  maxOB        = input.int(20, "Max. aktive OBs je Richtung", minval=1, maxval=100, group=GRP_OB)
+bool obKeepMitig  = input.bool(false, "Mitigierte OBs ausgegraut behalten", group=GRP_OB)
+
+string GRP_FVG = "Fair Value Gaps"
+bool showFVG      = input.bool(true, "FVGs zeichnen", group=GRP_FVG)
+int  maxFVG       = input.int(20, "Max. aktive FVGs je Richtung", minval=1, maxval=100, group=GRP_FVG)
+bool fvgKeepFill  = input.bool(false, "Gefüllte FVGs ausgegraut behalten", group=GRP_FVG)
+
+string GRP_HTF = "HTF Trend-Governance"
+bool   useHtf    = input.bool(true, "HTF Governance aktiv", group=GRP_HTF)
+string htfTf     = input.timeframe("60", "HTF Timeframe", group=GRP_HTF)
+int    htfLen    = input.int(233, "HTF WMA Länge", minval=2, group=GRP_HTF)
+bool   htfMirror = input.bool(true, "Governance für Shorts spiegeln", group=GRP_HTF)
+bool   showHtf   = input.bool(true, "HTF WMA anzeigen", group=GRP_HTF)
+
+string GRP_SCORE = "A+ Setup-Scoring"
+int   minScore       = input.int(60, "Mindest-Score für Setup", minval=40, maxval=100, group=GRP_SCORE)
+bool  requireTrigger = input.bool(false, "Good Buy/Sell als Trigger erzwingen", group=GRP_SCORE)
+int   vsaLen         = input.int(20, "VSA Volumen SMA Länge", minval=1, group=GRP_SCORE)
+float vsaMult        = input.float(1.3, "VSA Volumen Multiplikator", minval=1.0, step=0.1, group=GRP_SCORE)
+bool  confirmOnClose = input.bool(true, "Setups nur bei Kerzenschluss (kein Repaint)", group=GRP_SCORE)
+bool  oneSetup       = input.bool(true, "Kein neues Setup in gleicher Richtung, solange eines aktiv ist", group=GRP_SCORE)
+
+string GRP_RISK = "Dynamisches TP/SL"
+int   swingLen  = input.int(10, "Swing Lookback", minval=2, group=GRP_RISK)
+float slAtrMult = input.float(0.5, "SL ATR Puffer", minval=0.0, step=0.1, group=GRP_RISK)
+float tp1MinR   = input.float(1.2, "TP (RFE Basis) Mindest-R", minval=0.1, step=0.1, group=GRP_RISK)
+float tp2MinR   = input.float(2.0, "TP (Chaos Band) Mindest-R", minval=0.1, step=0.1, group=GRP_RISK)
+
+string GRP_HUD = "HUD"
+bool   showHud  = input.bool(true, "HUD anzeigen", group=GRP_HUD)
+string hudPosIn = input.string("Oben rechts", "Position", options=["Oben rechts", "Oben links", "Unten rechts", "Unten links"], group=GRP_HUD)
+string hudSzIn  = input.string("Klein", "Textgröße", options=["Winzig", "Klein", "Normal"], group=GRP_HUD)
+
+string GRP_ALERT = "Webhook Alerts"
+bool   useAlertFn = input.bool(true, "Dynamische alert() JSON-Payloads senden", group=GRP_ALERT)
+string passphrase = input.string("", "Webhook Passphrase (nur in alert() Payload)", group=GRP_ALERT)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 1. Quantum Chaos Bänder (Donchian-ATR Channel)
+// ─────────────────────────────────────────────────────────────────────────────
+float atr14      = ta.rma(ta.tr(true), atrLen)
+float chaosHigh  = ta.highest(high, chaosLen)
+float chaosLow   = ta.lowest(low, chaosLen)
+float upperChaos = chaosHigh + chaosMult * atr14
+float lowerChaos = chaosLow - chaosMult * atr14
+float midChaos   = (chaosHigh + chaosLow) / 2.0
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 2. RFE Golden Ratio Channel
+// ─────────────────────────────────────────────────────────────────────────────
+float rfeBasis = ta.wma(close, rfeLen)
+float rfeStdev = ta.stdev(close, rfeLen)
+float rfeUpper = rfeBasis + rfeMult * rfeStdev
+float rfeLower = rfeBasis - rfeMult * rfeStdev
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 3. Diskrete Signale
+// ─────────────────────────────────────────────────────────────────────────────
+bool buyArea  = low < rfeLower and high[1] > rfeLower
+bool sellArea = high > rfeUpper and low[1] < rfeUpper
+bool ntz      = (low < rfeBasis and high[1] > rfeBasis) or (high > rfeBasis and low[1] < rfeBasis)
+bool goodBuy  = (low < low[1] or (not na(rfeLower) and low < rfeLower)) and (close > open) and (close < rfeBasis) and (low <= lowerChaos or buyArea)
+bool goodSell = (high > high[1] or (not na(rfeUpper) and high > rfeUpper)) and (close < open) and (close > rfeBasis) and (high >= upperChaos or sellArea)
+
+// Liquidity Sweeps
+float sweepLow  = ta.lowest(low, sweepLen)
+float sweepHigh = ta.highest(high, sweepLen)
+bool  sweepBull = low == sweepLow
+bool  sweepBear = high == sweepHigh
+
+// VSA Volumen-Spitze
+float volSma   = ta.sma(volume, vsaLen)
+bool  vsaSpike = not na(volume) and not na(volSma) and volume > vsaMult * volSma
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 4./5. Zonen-Engine (Order Blocks & Fair Value Gaps)
+// ─────────────────────────────────────────────────────────────────────────────
+type Zone
+    box   bx
+    label lb
+    float top
+    float bottom
+    int   touches
+    bool  sweep
+    bool  wasIn
+
+f_badge(bool sweep, int touches) =>
+    touches <= 1 ? (sweep ? "[A/SWEEP]" : "[A/R1]") : (touches == 2 ? "[B]" : "[C]")
+
+f_dropZone(Zone z) =>
+    box.delete(z.bx)
+    label.delete(z.lb)
+
+// Zone stilllegen: entweder ausgrauen (keep) oder vollständig entfernen.
+f_retire(Zone z, bool keep) =>
+    if keep
+        box.set_right(z.bx, bar_index)
+        box.set_bgcolor(z.bx, color.new(C_SLATE, 93))
+        box.set_border_color(z.bx, color.new(C_SLATE, 75))
+        box.set_text(z.bx, "")
+        label.delete(z.lb)
+    if not keep
+        f_dropZone(z)
+
+f_newOB(array<Zone> zones, bool isBull, int leftBar, float top, float bottom, bool sweep) =>
+    color c = isBull ? C_EMERALD : C_ROSE
+    box   b = showOB ? box.new(leftBar, top, bar_index, bottom, border_color=color.new(c, 35), border_width=1, bgcolor=color.new(c, 86)) : na
+    label l = showOB ? label.new(bar_index, (top + bottom) / 2.0, f_badge(sweep, 0), color=color.new(c, 100), style=label.style_label_left, textcolor=c, size=size.small) : na
+    array.push(zones, Zone.new(b, l, top, bottom, 0, sweep, false))
+    if array.size(zones) > maxOB
+        f_dropZone(array.shift(zones))
+    true
+
+// Verwaltet aktive OBs: Mitigation bei Schlusskurs durch die Zone, Retest-Zählung, Badge-Update.
+// Rückgabe: [Retest auf dieser Kerze, äußere Zonenkante des Retests (für SL)]
+f_processOB(array<Zone> zones, bool isBull) =>
+    bool  retest = false
+    float edge   = na
+    int   n      = array.size(zones)
+    if n > 0
+        for i = n - 1 to 0
+            Zone z = array.get(zones, i)
+            bool mitigated = isBull ? close < z.bottom : close > z.top
+            if mitigated
+                f_retire(z, obKeepMitig)
+                array.remove(zones, i)
+            if not mitigated
+                bool inZone = isBull ? low <= z.top : high >= z.bottom
+                if inZone and not z.wasIn
+                    z.touches := z.touches + 1
+                    label.set_text(z.lb, f_badge(z.sweep, z.touches))
+                if inZone
+                    retest := true
+                    float e = isBull ? z.bottom : z.top
+                    edge := na(edge) ? e : (isBull ? math.min(edge, e) : math.max(edge, e))
+                z.wasIn := inZone
+                box.set_right(z.bx, bar_index)
+                label.set_x(z.lb, bar_index)
+    [retest, edge]
+
+f_newFVG(array<Zone> zones, bool isBull, float top, float bottom) =>
+    color c = isBull ? C_CYAN : C_MAGENTA
+    box b = showFVG ? box.new(bar_index - 2, top, bar_index, bottom, border_color=color.new(c, 70), border_width=1, border_style=line.style_dotted, bgcolor=color.new(c, 88), text="FVG", text_size=size.tiny, text_color=color.new(c, 30), text_halign=text.align_right) : na
+    array.push(zones, Zone.new(b, label(na), top, bottom, 0, false, false))
+    if array.size(zones) > maxFVG
+        f_dropZone(array.shift(zones))
+    true
+
+// 1-Tick Wick Mitigation: Zone gilt als gefüllt, sobald ein Docht sie berührt.
+f_processFVG(array<Zone> zones, bool isBull) =>
+    int n = array.size(zones)
+    if n > 0
+        for i = n - 1 to 0
+            Zone z = array.get(zones, i)
+            bool filled = isBull ? low <= z.top : high >= z.bottom
+            if filled
+                f_retire(z, fvgKeepFill)
+                array.remove(zones, i)
+            if not filled
+                box.set_right(z.bx, bar_index)
+    true
+
+var array<Zone> bullOBs  = array.new<Zone>()
+var array<Zone> bearOBs  = array.new<Zone>()
+var array<Zone> bullFVGs = array.new<Zone>()
+var array<Zone> bearFVGs = array.new<Zone>()
+
+// Bestehende Zonen zuerst verwalten, danach neue Zonen der aktuellen Kerze anlegen.
+[bullRetest, bullEdge] = f_processOB(bullOBs, true)
+[bearRetest, bearEdge] = f_processOB(bearOBs, false)
+f_processFVG(bullFVGs, true)
+f_processFVG(bearFVGs, false)
+
+// Order Block Erkennung
+var int upRun = 0
+var int dnRun = 0
+upRun := close > close[1] ? upRun + 1 : 0
+dnRun := close < close[1] ? dnRun + 1 : 0
+
+bool newBullOB = upRun >= obLen and close[obLen] < open[obLen]
+bool newBearOB = dnRun >= obLen and close[obLen] > open[obLen]
+
+if newBullOB
+    f_newOB(bullOBs, true, bar_index - obLen, high[obLen], low[obLen], sweepBull[obLen])
+if newBearOB
+    f_newOB(bearOBs, false, bar_index - obLen, high[obLen], low[obLen], sweepBear[obLen])
+
+// Fair Value Gap Erkennung
+bool newBullFVG = low > high[2]
+bool newBearFVG = high < low[2]
+
+if newBullFVG
+    f_newFVG(bullFVGs, true, low, high[2])
+if newBearFVG
+    f_newFVG(bearFVGs, false, low[2], high)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 6. HTF Trend-Governance
+// ─────────────────────────────────────────────────────────────────────────────
+float htfWma = request.security(syminfo.tickerid, htfTf, ta.wma(close, htfLen), gaps=barmerge.gaps_off, lookahead=barmerge.lookahead_off)
+bool  htfBull = not na(htfWma) and close > htfWma
+bool  htfBear = not na(htfWma) and close < htfWma
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 7. 3-Säulen A+ Setup-Scoring
+// ─────────────────────────────────────────────────────────────────────────────
+f_score(bool veto, bool area, bool inBand, bool trigger, bool sweep, bool obRetest, bool vsa) =>
+    int p1 = (area ? 25 : 0) + (inBand ? 10 : 0)
+    int p2 = (trigger ? 25 : 0) + (sweep ? 15 : 0)
+    int p3 = (obRetest ? 15 : 0) + (vsa ? 10 : 0)
+    veto ? 0 : p1 + p2 + p3
+
+f_grade(int score, bool veto) =>
+    (veto or score < 40) ? "VETO" : (score >= 80 ? "A+" : (score >= 60 ? "A" : "B"))
+
+bool inBandLong  = close < midChaos
+bool inBandShort = close > midChaos
+
+int longScore  = f_score(ntz, buyArea, inBandLong, goodBuy, sweepBull, bullRetest, vsaSpike)
+int shortScore = f_score(ntz, sellArea, inBandShort, goodSell, sweepBear, bearRetest, vsaSpike)
+
+string longGrade  = f_grade(longScore, ntz)
+string shortGrade = f_grade(shortScore, ntz)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 8. Dynamisches TP/SL
+// ─────────────────────────────────────────────────────────────────────────────
+float swingLow  = ta.lowest(low, swingLen)
+float swingHigh = ta.highest(high, swingLen)
+float slBuffer  = slAtrMult * atr14
+
+float longSlBase = (bullRetest and not na(bullEdge)) ? math.min(bullEdge, low) : swingLow
+float longSL     = longSlBase - slBuffer
+float longRisk   = close - longSL
+float longTgtA   = math.max(rfeBasis, close + tp1MinR * longRisk)
+float longTgtB   = math.max(upperChaos, close + tp2MinR * longRisk)
+float longTP1    = math.min(longTgtA, longTgtB)
+float longTP2    = math.max(longTgtA, longTgtB)
+
+float shortSlBase = (bearRetest and not na(bearEdge)) ? math.max(bearEdge, high) : swingHigh
+float shortSL     = shortSlBase + slBuffer
+float shortRisk   = shortSL - close
+float shortTgtA   = math.min(rfeBasis, close - tp1MinR * shortRisk)
+float shortTgtB   = math.min(lowerChaos, close - tp2MinR * shortRisk)
+float shortTP1    = math.max(shortTgtA, shortTgtB)
+float shortTP2    = math.min(shortTgtA, shortTgtB)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Setup-Logik & Zustandsmaschine
+// ─────────────────────────────────────────────────────────────────────────────
+bool ready     = not na(rfeBasis) and not na(rfeStdev) and not na(atr14)
+bool confirmed = not confirmOnClose or barstate.isconfirmed
+
+bool longGovOk  = not useHtf or not htfBear or (longScore >= 80 and sweepBull)
+bool shortGovOk = not useHtf or not htfMirror or not htfBull or (shortScore >= 80 and sweepBear)
+
+bool longRaw  = ready and confirmed and longScore >= minScore and longGovOk and (not requireTrigger or goodBuy) and longRisk > 0
+bool shortRaw = ready and confirmed and shortScore >= minScore and shortGovOk and (not requireTrigger or goodSell) and shortRisk > 0 and not longRaw
+
+var int   tDir     = 0
+var float tEntry   = na
+var float tSL      = na
+var float tTP1     = na
+var float tTP2     = na
+var int   tScore   = 0
+var bool  tTp1Done = false
+
+int  prevDir     = tDir[1]
+bool longSignal  = longRaw and not (oneSetup and prevDir == 1)
+bool shortSignal = shortRaw and not (oneSetup and prevDir == -1)
+
+bool evTp1 = false
+bool evTp2 = false
+bool evSl  = false
+
+if longSignal
+    tDir     := 1
+    tEntry   := close
+    tSL      := longSL
+    tTP1     := longTP1
+    tTP2     := longTP2
+    tScore   := longScore
+    tTp1Done := false
+else if shortSignal
+    tDir     := -1
+    tEntry   := close
+    tSL      := shortSL
+    tTP1     := shortTP1
+    tTP2     := shortTP2
+    tScore   := shortScore
+    tTp1Done := false
+else if tDir == 1
+    if low <= tSL
+        tDir := 0
+        evSl := true
+    else if high >= tTP2
+        tDir := 0
+        evTp2 := true
+    else if not tTp1Done and high >= tTP1
+        tTp1Done := true
+        evTp1 := true
+else if tDir == -1
+    if high >= tSL
+        tDir := 0
+        evSl := true
+    else if low <= tTP2
+        tDir := 0
+        evTp2 := true
+    else if not tTp1Done and low <= tTP1
+        tTp1Done := true
+        evTp1 := true
+
+bool wasLong  = prevDir == 1
+bool wasShort = prevDir == -1
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 9. Visualisierung
+// ─────────────────────────────────────────────────────────────────────────────
+pChaosUp  = plot(showChaos ? upperChaos : na, "Chaos Upper", color=color.new(C_CYAN, 25), linewidth=1)
+pChaosLo  = plot(showChaos ? lowerChaos : na, "Chaos Lower", color=color.new(C_CYAN, 25), linewidth=1)
+plot(showChaos ? midChaos : na, "Chaos Midline", color=color.new(C_CYAN, 60), linewidth=1)
+fill(pChaosUp, pChaosLo, color=color.new(C_CYAN, 93), title="Chaos Füllung")
+
+pRfeUp = plot(showRfe ? rfeUpper : na, "RFE Upper", color=color.new(C_INDIGO, 10), linewidth=1)
+pRfeLo = plot(showRfe ? rfeLower : na, "RFE Lower", color=color.new(C_INDIGO, 10), linewidth=1)
+plot(showRfe ? rfeBasis : na, "RFE Basis", color=color.new(C_GOLD, 20), linewidth=2)
+fill(pRfeUp, pRfeLo, color=color.new(C_INDIGO, 92), title="RFE Füllung")
+
+plot(showHtf and useHtf ? htfWma : na, "HTF WMA", color=color.new(C_SLATE, 30), linewidth=1, style=plot.style_stepline)
+
+plotshape(showMarkers and buyArea, title="Buy Area", style=shape.cross, location=location.belowbar, color=C_EMERALD, size=size.tiny)
+plotshape(showMarkers and sellArea, title="Sell Area", style=shape.cross, location=location.abovebar, color=C_ROSE, size=size.tiny)
+plotshape(showMarkers and ntz ? hl2 : na, title="No Trade Zone", style=shape.circle, location=location.absolute, color=C_GOLD, size=size.tiny)
+plotshape(showMarkers and goodBuy, title="Good Buy", style=shape.triangleup, location=location.belowbar, color=C_CYAN, size=size.small)
+plotshape(showMarkers and goodSell, title="Good Sell", style=shape.triangledown, location=location.abovebar, color=C_MAGENTA, size=size.small)
+
+plotshape(showSetups and longSignal and longScore >= 80, title="Long A+", style=shape.labelup, location=location.belowbar, color=C_GOLD, text="A+ LONG", textcolor=color.black, size=size.small)
+plotshape(showSetups and longSignal and longScore < 80, title="Long", style=shape.labelup, location=location.belowbar, color=C_EMERALD, text="LONG", textcolor=color.white, size=size.small)
+plotshape(showSetups and shortSignal and shortScore >= 80, title="Short A+", style=shape.labeldown, location=location.abovebar, color=C_GOLD, text="A+ SHORT", textcolor=color.black, size=size.small)
+plotshape(showSetups and shortSignal and shortScore < 80, title="Short", style=shape.labeldown, location=location.abovebar, color=C_ROSE, text="SHORT", textcolor=color.white, size=size.small)
+
+bool lvlOn = tDir != 0
+plot(lvlOn ? tSL : na, "SL", color=showLevels ? C_ROSE : na, linewidth=1, style=plot.style_linebr)
+plot(lvlOn ? tTP1 : na, "TP1", color=showLevels ? C_EMERALD : na, linewidth=1, style=plot.style_linebr)
+plot(lvlOn ? tTP2 : na, "TP2", color=showLevels ? C_GOLD : na, linewidth=1, style=plot.style_linebr)
+
+// Unsichtbare Datenreihen für Alert-Platzhalter {{plot("...")}}
+plot(longScore, "Long Score", display=display.none)
+plot(shortScore, "Short Score", display=display.none)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// HUD Table
+// ─────────────────────────────────────────────────────────────────────────────
+string hudPos = switch hudPosIn
+    "Oben links"   => position.top_left
+    "Unten rechts" => position.bottom_right
+    "Unten links"  => position.bottom_left
+    => position.top_right
+
+string hudSz = switch hudSzIn
+    "Winzig" => size.tiny
+    "Normal" => size.normal
+    => size.small
+
+f_fmt(float x) =>
+    na(x) ? "—" : str.tostring(x, format.mintick)
+
+f_row(table t, int r, string k, string v, color vc) =>
+    table.cell(t, 0, r, k, text_color=C_SLATE, text_halign=text.align_left, text_size=hudSz, bgcolor=C_PANEL)
+    table.cell(t, 1, r, v, text_color=vc, text_halign=text.align_right, text_size=hudSz, bgcolor=C_PANEL)
+
+var table hud = table.new(hudPos, 2, 11, bgcolor=C_PANEL, frame_color=color.new(C_INDIGO, 20), frame_width=1, border_color=C_GRID, border_width=1)
+
+if showHud and barstate.islast
+    bool   domLong   = longScore >= shortScore
+    int    liveScore = math.max(longScore, shortScore)
+    string liveGrade = f_grade(liveScore, ntz)
+    color  gradeCol  = liveGrade == "A+" ? C_GOLD : (liveGrade == "A" ? C_EMERALD : (liveGrade == "B" ? C_CYAN : C_ROSE))
+    string biasTxt   = na(htfWma) ? "—" : (htfBull ? "BULLISH ▲" : (htfBear ? "BEARISH ▼" : "NEUTRAL"))
+    color  biasCol   = htfBull ? C_EMERALD : (htfBear ? C_ROSE : C_SLATE)
+    string setupTxt  = tDir == 1 ? "LONG (" + str.tostring(tScore) + ")" : (tDir == -1 ? "SHORT (" + str.tostring(tScore) + ")" : "—")
+    color  setupCol  = tDir == 1 ? C_EMERALD : (tDir == -1 ? C_ROSE : C_SLATE)
+    float  tRisk     = math.abs(tEntry - tSL)
+    string rrTxt     = (tDir != 0 and tRisk > 0) ? "1 : " + str.tostring(math.abs(tTP1 - tEntry) / tRisk, "#.##") + " / 1 : " + str.tostring(math.abs(tTP2 - tEntry) / tRisk, "#.##") : "—"
+
+    table.cell(hud, 0, 0, "DEGENCODER MASTER SUITE", text_color=C_INDIGO, text_halign=text.align_center, text_size=hudSz, bgcolor=C_PANEL2)
+    table.merge_cells(hud, 0, 0, 1, 0)
+    f_row(hud, 1, "Symbol", syminfo.ticker + " · " + timeframe.period, color.white)
+    f_row(hud, 2, "HTF Bias (" + htfTf + ")", biasTxt, biasCol)
+    f_row(hud, 3, "Score L / S", str.tostring(longScore) + " / " + str.tostring(shortScore), domLong ? C_EMERALD : C_ROSE)
+    f_row(hud, 4, "Grade", liveGrade, gradeCol)
+    f_row(hud, 5, "NTZ Status", ntz ? "AKTIV · VETO" : "FREI", ntz ? C_GOLD : C_EMERALD)
+    f_row(hud, 6, "Aktives Setup", setupTxt, setupCol)
+    f_row(hud, 7, "TP1", tDir != 0 ? f_fmt(tTP1) : "—", C_EMERALD)
+    f_row(hud, 8, "TP2", tDir != 0 ? f_fmt(tTP2) : "—", C_GOLD)
+    f_row(hud, 9, "SL", tDir != 0 ? f_fmt(tSL) : "—", C_ROSE)
+    f_row(hud, 10, "R:R (TP1 / TP2)", rrTxt, C_CYAN)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 10. Webhook Alerts
+// ─────────────────────────────────────────────────────────────────────────────
+f_num(float x) =>
+    na(x) ? "null" : str.tostring(x, format.mintick)
+
+f_json(string action, string side, string grade, int score, float price, float sl, float tp1, float tp2) =>
+    string s = '{"bot":"degencoder"'
+    s := s + ',"passphrase":"' + passphrase + '"'
+    s := s + ',"action":"' + action + '"'
+    s := s + ',"side":"' + side + '"'
+    s := s + ',"symbol":"' + syminfo.ticker + '"'
+    s := s + ',"exchange":"' + syminfo.prefix + '"'
+    s := s + ',"interval":"' + timeframe.period + '"'
+    s := s + ',"grade":"' + grade + '"'
+    s := s + ',"score":' + str.tostring(score)
+    s := s + ',"price":' + f_num(price)
+    s := s + ',"sl":' + f_num(sl)
+    s := s + ',"tp1":' + f_num(tp1)
+    s := s + ',"tp2":' + f_num(tp2)
+    s := s + ',"htf_bias":"' + (htfBull ? "bull" : (htfBear ? "bear" : "neutral")) + '"'
+    s := s + ',"time":' + str.tostring(time)
+    s + '}'
+
+if useAlertFn
+    if longSignal
+        alert(f_json("buy", "long", longGrade, longScore, close, tSL, tTP1, tTP2), alert.freq_once_per_bar_close)
+    if shortSignal
+        alert(f_json("sell", "short", shortGrade, shortScore, close, tSL, tTP1, tTP2), alert.freq_once_per_bar_close)
+    if evTp1
+        alert(f_json("tp1", wasLong ? "long" : "short", "", tScore, tTP1, tSL, tTP1, tTP2), alert.freq_once_per_bar_close)
+    if evTp2
+        alert(f_json("tp2", wasLong ? "long" : "short", "", tScore, tTP2, tSL, tTP1, tTP2), alert.freq_once_per_bar_close)
+    if evSl
+        alert(f_json("sl", wasLong ? "long" : "short", "", tScore, tSL, tSL, tTP1, tTP2), alert.freq_once_per_bar_close)
+
+alertcondition(longSignal, title="DGC Long Entry", message='{"bot":"degencoder","action":"buy","side":"long","symbol":"{{ticker}}","exchange":"{{exchange}}","interval":"{{interval}}","price":{{close}},"score":{{plot("Long Score")}},"sl":{{plot("SL")}},"tp1":{{plot("TP1")}},"tp2":{{plot("TP2")}},"time":"{{timenow}}"}')
+alertcondition(shortSignal, title="DGC Short Entry", message='{"bot":"degencoder","action":"sell","side":"short","symbol":"{{ticker}}","exchange":"{{exchange}}","interval":"{{interval}}","price":{{close}},"score":{{plot("Short Score")}},"sl":{{plot("SL")}},"tp1":{{plot("TP1")}},"tp2":{{plot("TP2")}},"time":"{{timenow}}"}')
+alertcondition(evTp1 and wasLong, title="DGC Long TP1", message='{"bot":"degencoder","action":"tp1","side":"long","symbol":"{{ticker}}","exchange":"{{exchange}}","interval":"{{interval}}","price":{{close}},"time":"{{timenow}}"}')
+alertcondition(evTp2 and wasLong, title="DGC Long TP2", message='{"bot":"degencoder","action":"tp2","side":"long","symbol":"{{ticker}}","exchange":"{{exchange}}","interval":"{{interval}}","price":{{close}},"time":"{{timenow}}"}')
+alertcondition(evSl and wasLong, title="DGC Long SL", message='{"bot":"degencoder","action":"sl","side":"long","symbol":"{{ticker}}","exchange":"{{exchange}}","interval":"{{interval}}","price":{{close}},"time":"{{timenow}}"}')
+alertcondition(evTp1 and wasShort, title="DGC Short TP1", message='{"bot":"degencoder","action":"tp1","side":"short","symbol":"{{ticker}}","exchange":"{{exchange}}","interval":"{{interval}}","price":{{close}},"time":"{{timenow}}"}')
+alertcondition(evTp2 and wasShort, title="DGC Short TP2", message='{"bot":"degencoder","action":"tp2","side":"short","symbol":"{{ticker}}","exchange":"{{exchange}}","interval":"{{interval}}","price":{{close}},"time":"{{timenow}}"}')
+alertcondition(evSl and wasShort, title="DGC Short SL", message='{"bot":"degencoder","action":"sl","side":"short","symbol":"{{ticker}}","exchange":"{{exchange}}","interval":"{{interval}}","price":{{close}},"time":"{{timenow}}"}')
+alertcondition(ntz, title="DGC No Trade Zone", message='{"bot":"degencoder","action":"veto","reason":"no_trade_zone","symbol":"{{ticker}}","exchange":"{{exchange}}","interval":"{{interval}}","price":{{close}},"time":"{{timenow}}"}')
