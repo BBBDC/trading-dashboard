@@ -43,7 +43,18 @@ from circuit_breaker import (
     check_drawdown_circuit_breaker,
     check_cluster_heat_limit,
     check_cost_gate,
-    classify_asset_cluster
+    classify_asset_cluster,
+    CircuitBreakerConfig
+)
+from causal_filter_engine import (
+    evaluate_setup_causality,
+    check_htf_alignment,
+    check_vsa_volume_expansion,
+    check_atr_noise_floor,
+    classify_htf_regime,
+    wma_last,
+    rsi_wilder_last,
+    atr_wilder_last
 )
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -194,10 +205,16 @@ def fetch_incubator_bars(asset: Dict[str, Any], interval: str = "5m") -> List[Di
     src = asset.get("source", "binance")
     sym = asset["symbol"]
     if src == "binance":
-        return fetch_binance_klines(sym, interval=interval, limit=350)
+        limit = 500 if interval == "1h" else 350
+        return fetch_binance_klines(sym, interval=interval, limit=limit)
     else:
-        # Für 5m range 5d, für 15m range 10d
-        range_s = "5d" if interval == "5m" else "10d"
+        # Für 1h range 60d (ausreichend Historie für WMA233), 15m range 10d, 5m range 5d
+        if interval == "1h":
+            range_s = "60d"
+        elif interval == "15m":
+            range_s = "10d"
+        else:
+            range_s = "5d"
         return fetch_yahoo_chart(sym, interval=interval, range_str=range_s)
 
 
@@ -210,7 +227,8 @@ def scan_for_micro_setup(
     bars: List[Dict[str, Any]],
     timeframe: str = "5m",
     htf_bias: Optional[str] = None,
-    htf_rfe_basis: Optional[float] = None
+    htf_rfe_basis: Optional[float] = None,
+    bars_1h: Optional[List[Dict[str, Any]]] = None
 ) -> Optional[Dict[str, Any]]:
     """
     Analysiert Bars mit der degencoder-Engine und sucht nach Fable 5.2 A+ Micro-Setups:
@@ -482,6 +500,49 @@ def scan_for_micro_setup(
             if not pos_size["is_executable"]:
                 return None
 
+            # Kausalitäts-Filter Guard (Fable 5.2): No-Trade Veto-Filter gegen Trendkonträre Longs & Rauschen
+            prior_bars = bars[-21:-1] if len(bars) >= 22 else bars[:-1]
+            is_breakout = (curr_p > max(float(b["h"]) for b in prior_bars)) if prior_bars else False
+
+            htf_wma_val = None
+            htf_rsi_val = None
+            if bars_1h and len(bars_1h) >= 20:
+                c_1h = [float(b["c"]) for b in bars_1h]
+                wma_len = 233 if len(c_1h) >= 233 else len(c_1h)
+                htf_wma_val = wma_last(c_1h, wma_len)
+                htf_rsi_val = rsi_wilder_last(c_1h, 14)
+            elif htf_rfe_basis is not None:
+                htf_wma_val = float(htf_rfe_basis)
+                htf_rsi_val = 55.0 if htf_bias == "BULLISH" else 45.0
+
+            curr_vol = float(last_bar.get("v", 0.0))
+            hist_vols = [float(b.get("v", 0.0)) for b in prior_bars]
+            avg_vol_20 = sum(hist_vols) / len(hist_vols) if hist_vols else 1.0
+            atr_14_val = atr_wilder_last(bars, 14) or atr_approx
+
+            candidate_payload = {
+                "direction": "LONG",
+                "entry_price": curr_p,
+                "sl": sl,
+                "risk_amount": risk,
+                "is_breakout": is_breakout
+            }
+            market_ctx = {
+                "current_price": curr_p,
+                "htf_wma233": htf_wma_val,
+                "htf_rsi": htf_rsi_val,
+                "current_volume": curr_vol,
+                "avg_volume_20": avg_vol_20,
+                "atr_14": atr_14_val,
+                "is_breakout": is_breakout
+            }
+
+            causal_ok, causal_reasons, causal_score = evaluate_setup_causality(candidate_payload, market_ctx)
+            if not causal_ok:
+                reasons_str = "; ".join(causal_reasons)
+                print(f"  🛡️ [Causal Guard] {asset['name']} ({asset['symbol']} {timeframe} LONG) abgewiesen: {reasons_str}")
+                return None
+
             return {
                 "symbol": asset["symbol"],
                 "name": asset["name"],
@@ -509,6 +570,9 @@ def scan_for_micro_setup(
                 "setup_score": score_long,
                 "setup_grade": setup_grade,
                 "setup_tags": long_triggers,
+                "causality_score": causal_score,
+                "causality_approved": True,
+                "htf_regime": classify_htf_regime(curr_p, htf_wma_val, htf_rsi_val),
                 "vsa_class": vsa_class,
                 "status": "OPEN",
                 "highest_price": curr_p,
@@ -560,6 +624,49 @@ def scan_for_micro_setup(
             if not pos_size["is_executable"]:
                 return None
 
+            # Kausalitäts-Filter Guard (Fable 5.2): No-Trade Veto-Filter gegen Trendkonträre Shorts & Rauschen
+            prior_bars = bars[-21:-1] if len(bars) >= 22 else bars[:-1]
+            is_breakout = (curr_p < min(float(b["l"]) for b in prior_bars)) if prior_bars else False
+
+            htf_wma_val = None
+            htf_rsi_val = None
+            if bars_1h and len(bars_1h) >= 20:
+                c_1h = [float(b["c"]) for b in bars_1h]
+                wma_len = 233 if len(c_1h) >= 233 else len(c_1h)
+                htf_wma_val = wma_last(c_1h, wma_len)
+                htf_rsi_val = rsi_wilder_last(c_1h, 14)
+            elif htf_rfe_basis is not None:
+                htf_wma_val = float(htf_rfe_basis)
+                htf_rsi_val = 55.0 if htf_bias == "BULLISH" else 45.0
+
+            curr_vol = float(last_bar.get("v", 0.0))
+            hist_vols = [float(b.get("v", 0.0)) for b in prior_bars]
+            avg_vol_20 = sum(hist_vols) / len(hist_vols) if hist_vols else 1.0
+            atr_14_val = atr_wilder_last(bars, 14) or atr_approx
+
+            candidate_payload = {
+                "direction": "SHORT",
+                "entry_price": curr_p,
+                "sl": sl,
+                "risk_amount": risk,
+                "is_breakout": is_breakout
+            }
+            market_ctx = {
+                "current_price": curr_p,
+                "htf_wma233": htf_wma_val,
+                "htf_rsi": htf_rsi_val,
+                "current_volume": curr_vol,
+                "avg_volume_20": avg_vol_20,
+                "atr_14": atr_14_val,
+                "is_breakout": is_breakout
+            }
+
+            causal_ok, causal_reasons, causal_score = evaluate_setup_causality(candidate_payload, market_ctx)
+            if not causal_ok:
+                reasons_str = "; ".join(causal_reasons)
+                print(f"  🛡️ [Causal Guard] {asset['name']} ({asset['symbol']} {timeframe} SHORT) abgewiesen: {reasons_str}")
+                return None
+
             return {
                 "symbol": asset["symbol"],
                 "name": asset["name"],
@@ -587,6 +694,9 @@ def scan_for_micro_setup(
                 "setup_score": score_short,
                 "setup_grade": setup_grade,
                 "setup_tags": short_triggers,
+                "causality_score": causal_score,
+                "causality_approved": True,
+                "htf_regime": classify_htf_regime(curr_p, htf_wma_val, htf_rsi_val),
                 "vsa_class": vsa_class,
                 "status": "OPEN",
                 "highest_price": curr_p,
@@ -841,6 +951,7 @@ def run_historical_replay_training(days: int = 30, max_replay_trades: int = 25) 
     ]
 
     for asset in sample_assets:
+        bars_1h = fetch_incubator_bars(asset, interval="1h")
         for tf in ["5m", "15m"]:
             bars = fetch_incubator_bars(asset, interval=tf)
             if len(bars) < 80:
@@ -854,7 +965,8 @@ def run_historical_replay_training(days: int = 30, max_replay_trades: int = 25) 
                 win_wma = calculate_wma(win_closes, min(len(win_closes), 50))
                 win_bias = "BULLISH" if (win_wma and win_closes[-1] >= win_wma[-1]) else "BEARISH"
                 win_rfe = win_wma[-1] if win_wma else None
-                setup = scan_for_micro_setup(asset, window, timeframe=tf, htf_bias=win_bias, htf_rfe_basis=win_rfe)
+                win_1h = [b for b in bars_1h if b["t"] + 3600 <= window[-1]["t"]] if bars_1h else None
+                setup = scan_for_micro_setup(asset, window, timeframe=tf, htf_bias=win_bias, htf_rfe_basis=win_rfe, bars_1h=win_1h)
                 if setup:
                     setup["trade_id"] = f"rep_{asset['symbol']}_{tf}_{window[-1]['t']}"
                     # Walk-forward mit den nachfolgenden Kerzen
@@ -1102,19 +1214,30 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
             lt["total_r_profit"] = round(lt.get("total_r_profit", 0.0) + realized_r, 2)
         closed_trades.extend(just_closed)
 
-    # 2. Suche nach neuen 5m & 15m Setups (bis max 8 aktive Positionen)
-    max_active = 8
+    # 2. Suche nach neuen 5m & 15m Setups (Research-Sandbox: bis zu 16 parallele Positionen für maximale Datenakquise)
+    max_active = 16
     candidate_assets = list(active_assets)
     # Falls Kapazität frei ist: Restliche Matrix-Assets als Backup prüfen
     for a in ALL_INCUBATOR_ASSETS:
         if not any(ca["symbol"] == a["symbol"] for ca in candidate_assets):
             candidate_assets.append(a)
 
+    # Inkubator-Forschungskonfiguration: Entkoppelt vom Haupt-Portfolio, um 100 Out-of-Sample-Trades zu sammeln
+    inc_heat_config = CircuitBreakerConfig(
+        max_total_heat_r=16.0,
+        max_cluster_heat_r=8.0,
+        daily_loss_limit_r=10.0,
+        drawdown_reduce_r=15.0,
+        drawdown_halt_r=25.0,
+        flat_risk_pct=0.5,
+        max_cost_r_ratio=0.10
+    )
+
     # 2. Drawdown Circuit-Breaker vor neuen Einstiegen prüfen (auf kalibrierten Trades)
     calibrated_history = [t for t in closed_trades if t.get("setup_score") is not None]
     if not calibrated_history:
         calibrated_history = closed_trades[-30:]
-    cb_res = check_drawdown_circuit_breaker(calibrated_history)
+    cb_res = check_drawdown_circuit_breaker(calibrated_history, config=inc_heat_config)
     can_enter_new = not cb_res["is_halted"]
     if not can_enter_new:
         print(f"  🛑 [Circuit Breaker Aktiv] Neue Einstiege gesperrt: {cb_res['reason']}")
@@ -1128,8 +1251,8 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
             if len(active_trades) >= max_active:
                 break
 
-            # Cluster Heat-Limit vorab prüfen
-            heat_check = check_cluster_heat_limit(active_trades, candidate_symbol=asset["symbol"], candidate_category=asset.get("category"))
+            # Cluster Heat-Limit vorab prüfen (Labor-Sandbox Budget: bis zu 8.0R je Cluster)
+            heat_check = check_cluster_heat_limit(active_trades, candidate_symbol=asset["symbol"], candidate_category=asset.get("category"), config=inc_heat_config)
             if not heat_check["is_allowed"]:
                 print(f"  🛡️ [Cluster Heat Limit] {asset['name']} ({asset['symbol']}) übersprungen: {heat_check['rejection_reason']}")
                 continue
@@ -1151,12 +1274,12 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
                 if not bars:
                     continue
 
-                setup = scan_for_micro_setup(asset, bars, timeframe=tf, htf_bias=htf_bias, htf_rfe_basis=htf_rfe_basis)
+                setup = scan_for_micro_setup(asset, bars, timeframe=tf, htf_bias=htf_bias, htf_rfe_basis=htf_rfe_basis, bars_1h=bars_1h)
                 if setup:
                     setup["trade_id"] = f"inc_{asset['symbol']}_{tf}_{int(time.time())}"
                     active_trades.append(setup)
-                    grade_str = f"[{setup.get('setup_grade', 'A')}|{setup.get('setup_score', 0)}P]"
-                    print(f"  🎯 NEUER SIMULIERTER {tf}-TRADE {grade_str}: {asset['name']} ({asset['symbol']}) {setup['direction']} @ {setup['entry_price']} (SL: {setup['sl']}, TP1: {setup['tp1']})")
+                    grade_str = f"[{setup.get('setup_grade', 'A')}|{setup.get('setup_score', 0)}P|CS:{setup.get('causality_score', 0)}]"
+                    print(f"  🎯 NEUER SIMULIERTER {tf}-TRADE {grade_str}: {asset['name']} ({asset['symbol']}) {setup['direction']} @ {setup['entry_price']} (SL: {setup['sl']}, TP1: {setup['tp1']}, HTF: {setup.get('htf_regime')})")
                     break  # Ein Setup pro Asset genügt
 
     # 3. Falls noch wenige Trades vorliegen: Einmaliges Mini-Replay ausführen

@@ -422,6 +422,23 @@ def evaluate_candidate_against_post_mortem_rules(candidate, memory):
         if vsa_ratio < 1.15 and score < 92:
             return False, f"Reversal ohne VSA-Volumenspitze ({vsa_ratio:.1f}x < 1.15x)"
 
+    # 3. Kausalitäts-Trend-Governance (Fable 5.2 Kausalitäts-Regel):
+    # Verhindert Trades gegen den übergeordneten Trend (Hauptverlusttreiber: Longs im Bärenregime)
+    tf_1h = candidate.get("timeframes", {}).get("1h", {}) if isinstance(candidate.get("timeframes"), dict) else candidate.get("1h", {})
+    if isinstance(tf_1h, dict) and tf_1h:
+        htf_trend = tf_1h.get("trend")
+        htf_rsi = tf_1h.get("rsi")
+        if direction == "LONG" and htf_trend == "BEARISH":
+            rsi_str = f" (RSI {htf_rsi:.1f})" if isinstance(htf_rsi, (int, float)) else ""
+            return False, f"HTF 1h ist BEARISH{rsi_str} — Kausalitäts-Filter blockiert Long gegen Trend"
+        elif direction == "SHORT" and htf_trend == "BULLISH":
+            rsi_str = f" (RSI {htf_rsi:.1f})" if isinstance(htf_rsi, (int, float)) else ""
+            return False, f"HTF 1h ist BULLISH{rsi_str} — Kausalitäts-Filter blockiert Short gegen Trend"
+
+    # 4. Makro-Gegenwind Schutz: Longs bei aktivem macro_headwind nur bei absolutem Ausnahme-Score (>= 94)
+    if candidate.get("macro_headwind", False) and direction == "LONG" and score < 94:
+        return False, "Makro-Gegenwind aktiv (Kausalitäts-Regel: Long im Abwärtstrend verboten)"
+
     return True, "OK"
 
 

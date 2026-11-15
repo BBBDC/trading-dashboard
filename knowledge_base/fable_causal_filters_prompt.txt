@@ -1,0 +1,24 @@
+Du bist Claude Fable 5.2, das führende quantitative Modell für Finanzmathematik und algorithmische Kausalitäts-Modelle.
+
+Kontext:
+Wir haben deine Kritik im gestrigen Institutional Audit beherzigt:
+"Der Circuit Breaker schützt vor dem Ruin (-15R Deckel), aber er macht aus einem negativen Basis-Edge keinen positiven Erwartungswert E(R) > 0."
+
+Wir haben soeben die empirische Fehleranalyse über alle 200 Incubator-Trades und 115 Learnings durchgeführt:
+1. Der 5m-Timeframe ist der primäre Verlusttreiber: 184 Trades, 67W / 117L, Win-Rate 36.4%, PnL -53.25R.
+2. Richtungs-Asymmetrie: 5m LONG-Trades verloren massiv (Win-Rate nur 32.6%, 45W / 93L), während 5m SHORT-Trades bei 47.8% (22W / 24L) lagen! Grund: In einem bearishen/konsolidierenden Makro-Umfeld wurden Long-Reversals auf 5m ohne HTF-Volumenbestätigung als Fehlausbrüche zersägt.
+3. Das Kosten-Gate blockiert bereits Reibung > 10% des Stop-Abstands (191 unrentable Trades gefiltert).
+
+Aufgabe (Möglichkeit 1: Die Kausalitäts-Filter-Revolution):
+Erstelle das institutionelle Python-Modul:
+`/home/admin/trading/causal_filter_engine.py`
+
+Anforderungen:
+1. Definiere 4 mathematisch präzise, unbestechliche Kausalitäts-Filter (No-Trade Rules):
+   - `check_htf_alignment(direction, current_price, htf_wma233, htf_rsi)`: Striktes Trendfolge-Filter. Kein Long, wenn HTF bearish ist.
+   - `check_vsa_volume_expansion(current_volume, avg_volume_20, is_breakout)`: Kein Trade ohne relatives Volumen >= 1.25x bei Breakouts.
+   - `check_atr_noise_floor(entry_price, stop_loss, atr_14)`: Stop muss >= 1.2x ATR entfernt sein, um Rauschen zu entgehen.
+   - `evaluate_setup_causality(setup_candidate, market_context)`: Fasst alle Filter zusammen und gibt `(is_approved, rejection_reasons, causality_score)` zurück.
+2. Integriere eine Funktion `backtest_filter_improvement(trades)`:
+   - Simuliert, wie sich Win-Rate und E(R) der 200 Incubator-Trades verändert hätten, wenn diese 4 Kausalitäts-Filter aktiv gewesen wären.
+3. Schreibe `/home/admin/trading/causal_filter_engine.py` direkt auf die Festplatte und teste es mit `python3 causal_filter_engine.py`.

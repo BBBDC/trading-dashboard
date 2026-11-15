@@ -1,0 +1,509 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © degencoder
+//
+// degencoder Master Strategy
+// Backtesting-Engine zur degencoder Master Suite: identische Signal-Mathematik,
+// risikobasierte Positionsgröße, Teilgewinn (TP1), Break-Even und ATR-Trailing-Stop.
+
+//@version=5
+strategy("degencoder Master Strategy", shorttitle="DGC Master Strategy", overlay=true, initial_capital=10000, default_qty_type=strategy.percent_of_equity, default_qty_value=10, commission_type=strategy.commission.percent, commission_value=0.055, slippage=2, pyramiding=0, calc_on_every_tick=false, process_orders_on_close=false, margin_long=0, margin_short=0, max_boxes_count=500, max_labels_count=500)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Farbpalette
+// ─────────────────────────────────────────────────────────────────────────────
+color C_INDIGO  = #6366F1
+color C_CYAN    = #22D3EE
+color C_EMERALD = #10B981
+color C_ROSE    = #F43F5E
+color C_GOLD    = #FBBF24
+color C_MAGENTA = #E879F9
+color C_SLATE   = #94A3B8
+color C_PANEL   = #0B1020
+color C_PANEL2  = #111833
+color C_GRID    = #1E293B
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Inputs
+// ─────────────────────────────────────────────────────────────────────────────
+string GRP_CHAOS = "Quantum Chaos Bänder"
+int   chaosLen  = input.int(5, "Donchian Länge", minval=1, group=GRP_CHAOS)
+int   atrLen    = input.int(14, "ATR Länge (RMA)", minval=1, group=GRP_CHAOS)
+float chaosMult = input.float(1.8, "ATR Multiplikator", minval=0.0, step=0.1, group=GRP_CHAOS)
+bool  showChaos = input.bool(true, "Chaos Bänder anzeigen", group=GRP_CHAOS)
+
+string GRP_RFE = "RFE Golden Ratio Channel"
+int   rfeLen  = input.int(233, "WMA / StDev Länge", minval=2, group=GRP_RFE)
+float rfeMult = input.float(1.618, "StDev Multiplikator (Phi)", minval=0.0, step=0.001, group=GRP_RFE)
+bool  showRfe = input.bool(true, "RFE Channel anzeigen", group=GRP_RFE)
+
+string GRP_SIG = "Signale & Marker"
+bool showMarkers = input.bool(true, "Diskrete Marker anzeigen (Buy/Sell Area, NTZ, Good Buy/Sell)", group=GRP_SIG)
+bool showSetups  = input.bool(true, "Setup-Labels anzeigen (LONG / SHORT)", group=GRP_SIG)
+bool showLevels  = input.bool(true, "TP/SL Linien des aktiven Trades anzeigen", group=GRP_SIG)
+
+string GRP_OB = "Retro Order Blocks"
+bool showOB       = input.bool(true, "Order Blocks zeichnen", group=GRP_OB)
+int  obLen        = input.int(5, "Aufeinanderfolgende Schlusskurse", minval=1, maxval=50, group=GRP_OB)
+int  sweepLen     = input.int(20, "Liquidity Sweep Lookback", minval=2, group=GRP_OB)
+int  maxOB        = input.int(20, "Max. aktive OBs je Richtung", minval=1, maxval=100, group=GRP_OB)
+bool obKeepMitig  = input.bool(false, "Mitigierte OBs ausgegraut behalten", group=GRP_OB)
+
+string GRP_FVG = "Fair Value Gaps"
+bool showFVG      = input.bool(true, "FVGs zeichnen", group=GRP_FVG)
+int  maxFVG       = input.int(20, "Max. aktive FVGs je Richtung", minval=1, maxval=100, group=GRP_FVG)
+bool fvgKeepFill  = input.bool(false, "Gefüllte FVGs ausgegraut behalten", group=GRP_FVG)
+
+string GRP_HTF = "HTF Trend-Governance"
+bool   useHtf    = input.bool(true, "HTF Governance aktiv", group=GRP_HTF)
+string htfTf     = input.timeframe("60", "HTF Timeframe", group=GRP_HTF)
+int    htfLen    = input.int(233, "HTF WMA Länge", minval=2, group=GRP_HTF)
+bool   htfMirror = input.bool(true, "Governance für Shorts spiegeln", group=GRP_HTF)
+bool   showHtf   = input.bool(true, "HTF WMA anzeigen", group=GRP_HTF)
+
+string GRP_SCORE = "A+ Setup-Scoring"
+int   minScore       = input.int(60, "Mindest-Score für Setup", minval=40, maxval=100, group=GRP_SCORE)
+bool  requireTrigger = input.bool(false, "Good Buy/Sell als Trigger erzwingen", group=GRP_SCORE)
+int   vsaLen         = input.int(20, "VSA Volumen SMA Länge", minval=1, group=GRP_SCORE)
+float vsaMult        = input.float(1.3, "VSA Volumen Multiplikator", minval=1.0, step=0.1, group=GRP_SCORE)
+
+string GRP_RISK = "Dynamisches TP/SL"
+int   swingLen  = input.int(10, "Swing Lookback", minval=2, group=GRP_RISK)
+float slAtrMult = input.float(0.5, "SL ATR Puffer", minval=0.0, step=0.1, group=GRP_RISK)
+float tp1MinR   = input.float(1.2, "TP (RFE Basis) Mindest-R", minval=0.1, step=0.1, group=GRP_RISK)
+float tp2MinR   = input.float(2.0, "TP (Chaos Band) Mindest-R", minval=0.1, step=0.1, group=GRP_RISK)
+
+string GRP_HUD = "HUD"
+bool   showHud  = input.bool(true, "HUD anzeigen", group=GRP_HUD)
+string hudPosIn = input.string("Oben rechts", "Position", options=["Oben rechts", "Oben links", "Unten rechts", "Unten links"], group=GRP_HUD)
+string hudSzIn  = input.string("Klein", "Textgröße", options=["Winzig", "Klein", "Normal"], group=GRP_HUD)
+
+string GRP_BT = "Backtest & Trade-Management"
+string tradeDirIn = input.string("Long & Short", "Handelsrichtung", options=["Long & Short", "Nur Long", "Nur Short"], group=GRP_BT)
+float  riskPct    = input.float(1.0, "Risiko pro Trade (% Equity)", minval=0.01, maxval=100.0, step=0.1, group=GRP_BT)
+float  maxLev     = input.float(3.0, "Max. Hebel (Positionswert / Equity)", minval=0.1, step=0.5, group=GRP_BT)
+float  tp1Pct     = input.float(50.0, "Teilgewinn an TP1 (% der Position)", minval=1.0, maxval=100.0, step=5.0, group=GRP_BT)
+bool   useBE      = input.bool(true, "Stop nach TP1 auf Break-Even", group=GRP_BT)
+bool   useTrail   = input.bool(true, "ATR Trailing-Stop nach TP1", group=GRP_BT)
+float  trailMult  = input.float(2.0, "Trailing ATR Multiplikator", minval=0.1, step=0.1, group=GRP_BT)
+int    startTime  = input.time(timestamp("01 Jan 2018 00:00 +0000"), "Backtest Start", group=GRP_BT)
+int    endTime    = input.time(timestamp("01 Jan 2100 00:00 +0000"), "Backtest Ende", group=GRP_BT)
+
+string GRP_ALERT = "Webhook Alerts"
+string passphrase = input.string("", "Webhook Passphrase", group=GRP_ALERT)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 1. Quantum Chaos Bänder (Donchian-ATR Channel)
+// ─────────────────────────────────────────────────────────────────────────────
+float atr14      = ta.rma(ta.tr(true), atrLen)
+float chaosHigh  = ta.highest(high, chaosLen)
+float chaosLow   = ta.lowest(low, chaosLen)
+float upperChaos = chaosHigh + chaosMult * atr14
+float lowerChaos = chaosLow - chaosMult * atr14
+float midChaos   = (chaosHigh + chaosLow) / 2.0
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 2. RFE Golden Ratio Channel
+// ─────────────────────────────────────────────────────────────────────────────
+float rfeBasis = ta.wma(close, rfeLen)
+float rfeStdev = ta.stdev(close, rfeLen)
+float rfeUpper = rfeBasis + rfeMult * rfeStdev
+float rfeLower = rfeBasis - rfeMult * rfeStdev
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 3. Diskrete Signale
+// ─────────────────────────────────────────────────────────────────────────────
+bool buyArea  = low < rfeLower and high[1] > rfeLower
+bool sellArea = high > rfeUpper and low[1] < rfeUpper
+bool ntz      = (low < rfeBasis and high[1] > rfeBasis) or (high > rfeBasis and low[1] < rfeBasis)
+bool goodBuy  = (low < low[1] or (not na(rfeLower) and low < rfeLower)) and (close > open) and (close < rfeBasis) and (low <= lowerChaos or buyArea)
+bool goodSell = (high > high[1] or (not na(rfeUpper) and high > rfeUpper)) and (close < open) and (close > rfeBasis) and (high >= upperChaos or sellArea)
+
+// Liquidity Sweeps
+float sweepLow  = ta.lowest(low, sweepLen)
+float sweepHigh = ta.highest(high, sweepLen)
+bool  sweepBull = low == sweepLow
+bool  sweepBear = high == sweepHigh
+
+// VSA Volumen-Spitze
+float volSma   = ta.sma(volume, vsaLen)
+bool  vsaSpike = not na(volume) and not na(volSma) and volume > vsaMult * volSma
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 4./5. Zonen-Engine (Order Blocks & Fair Value Gaps)
+// ─────────────────────────────────────────────────────────────────────────────
+type Zone
+    box   bx
+    label lb
+    float top
+    float bottom
+    int   touches
+    bool  sweep
+    bool  wasIn
+
+f_badge(bool sweep, int touches) =>
+    touches <= 1 ? (sweep ? "[A/SWEEP]" : "[A/R1]") : (touches == 2 ? "[B]" : "[C]")
+
+f_dropZone(Zone z) =>
+    box.delete(z.bx)
+    label.delete(z.lb)
+
+// Zone stilllegen: entweder ausgrauen (keep) oder vollständig entfernen.
+f_retire(Zone z, bool keep) =>
+    if keep
+        box.set_right(z.bx, bar_index)
+        box.set_bgcolor(z.bx, color.new(C_SLATE, 93))
+        box.set_border_color(z.bx, color.new(C_SLATE, 75))
+        box.set_text(z.bx, "")
+        label.delete(z.lb)
+    if not keep
+        f_dropZone(z)
+
+f_newOB(array<Zone> zones, bool isBull, int leftBar, float top, float bottom, bool sweep) =>
+    color c = isBull ? C_EMERALD : C_ROSE
+    box   b = showOB ? box.new(leftBar, top, bar_index, bottom, border_color=color.new(c, 35), border_width=1, bgcolor=color.new(c, 86)) : na
+    label l = showOB ? label.new(bar_index, (top + bottom) / 2.0, f_badge(sweep, 0), color=color.new(c, 100), style=label.style_label_left, textcolor=c, size=size.small) : na
+    array.push(zones, Zone.new(b, l, top, bottom, 0, sweep, false))
+    if array.size(zones) > maxOB
+        f_dropZone(array.shift(zones))
+    true
+
+// Verwaltet aktive OBs: Mitigation bei Schlusskurs durch die Zone, Retest-Zählung, Badge-Update.
+// Rückgabe: [Retest auf dieser Kerze, äußere Zonenkante des Retests (für SL)]
+f_processOB(array<Zone> zones, bool isBull) =>
+    bool  retest = false
+    float edge   = na
+    int   n      = array.size(zones)
+    if n > 0
+        for i = n - 1 to 0
+            Zone z = array.get(zones, i)
+            bool mitigated = isBull ? close < z.bottom : close > z.top
+            if mitigated
+                f_retire(z, obKeepMitig)
+                array.remove(zones, i)
+            if not mitigated
+                bool inZone = isBull ? low <= z.top : high >= z.bottom
+                if inZone and not z.wasIn
+                    z.touches := z.touches + 1
+                    label.set_text(z.lb, f_badge(z.sweep, z.touches))
+                if inZone
+                    retest := true
+                    float e = isBull ? z.bottom : z.top
+                    edge := na(edge) ? e : (isBull ? math.min(edge, e) : math.max(edge, e))
+                z.wasIn := inZone
+                box.set_right(z.bx, bar_index)
+                label.set_x(z.lb, bar_index)
+    [retest, edge]
+
+f_newFVG(array<Zone> zones, bool isBull, float top, float bottom) =>
+    color c = isBull ? C_CYAN : C_MAGENTA
+    box b = showFVG ? box.new(bar_index - 2, top, bar_index, bottom, border_color=color.new(c, 70), border_width=1, border_style=line.style_dotted, bgcolor=color.new(c, 88), text="FVG", text_size=size.tiny, text_color=color.new(c, 30), text_halign=text.align_right) : na
+    array.push(zones, Zone.new(b, label(na), top, bottom, 0, false, false))
+    if array.size(zones) > maxFVG
+        f_dropZone(array.shift(zones))
+    true
+
+// 1-Tick Wick Mitigation: Zone gilt als gefüllt, sobald ein Docht sie berührt.
+f_processFVG(array<Zone> zones, bool isBull) =>
+    int n = array.size(zones)
+    if n > 0
+        for i = n - 1 to 0
+            Zone z = array.get(zones, i)
+            bool filled = isBull ? low <= z.top : high >= z.bottom
+            if filled
+                f_retire(z, fvgKeepFill)
+                array.remove(zones, i)
+            if not filled
+                box.set_right(z.bx, bar_index)
+    true
+
+var array<Zone> bullOBs  = array.new<Zone>()
+var array<Zone> bearOBs  = array.new<Zone>()
+var array<Zone> bullFVGs = array.new<Zone>()
+var array<Zone> bearFVGs = array.new<Zone>()
+
+// Bestehende Zonen zuerst verwalten, danach neue Zonen der aktuellen Kerze anlegen.
+[bullRetest, bullEdge] = f_processOB(bullOBs, true)
+[bearRetest, bearEdge] = f_processOB(bearOBs, false)
+f_processFVG(bullFVGs, true)
+f_processFVG(bearFVGs, false)
+
+// Order Block Erkennung
+var int upRun = 0
+var int dnRun = 0
+upRun := close > close[1] ? upRun + 1 : 0
+dnRun := close < close[1] ? dnRun + 1 : 0
+
+bool newBullOB = upRun >= obLen and close[obLen] < open[obLen]
+bool newBearOB = dnRun >= obLen and close[obLen] > open[obLen]
+
+if newBullOB
+    f_newOB(bullOBs, true, bar_index - obLen, high[obLen], low[obLen], sweepBull[obLen])
+if newBearOB
+    f_newOB(bearOBs, false, bar_index - obLen, high[obLen], low[obLen], sweepBear[obLen])
+
+// Fair Value Gap Erkennung
+bool newBullFVG = low > high[2]
+bool newBearFVG = high < low[2]
+
+if newBullFVG
+    f_newFVG(bullFVGs, true, low, high[2])
+if newBearFVG
+    f_newFVG(bearFVGs, false, low[2], high)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 6. HTF Trend-Governance
+// ─────────────────────────────────────────────────────────────────────────────
+float htfWma = request.security(syminfo.tickerid, htfTf, ta.wma(close, htfLen), gaps=barmerge.gaps_off, lookahead=barmerge.lookahead_off)
+bool  htfBull = not na(htfWma) and close > htfWma
+bool  htfBear = not na(htfWma) and close < htfWma
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 7. 3-Säulen A+ Setup-Scoring
+// ─────────────────────────────────────────────────────────────────────────────
+f_score(bool veto, bool area, bool inBand, bool trigger, bool sweep, bool obRetest, bool vsa) =>
+    int p1 = (area ? 25 : 0) + (inBand ? 10 : 0)
+    int p2 = (trigger ? 25 : 0) + (sweep ? 15 : 0)
+    int p3 = (obRetest ? 15 : 0) + (vsa ? 10 : 0)
+    veto ? 0 : p1 + p2 + p3
+
+f_grade(int score, bool veto) =>
+    (veto or score < 40) ? "VETO" : (score >= 80 ? "A+" : (score >= 60 ? "A" : "B"))
+
+bool inBandLong  = close < midChaos
+bool inBandShort = close > midChaos
+
+int longScore  = f_score(ntz, buyArea, inBandLong, goodBuy, sweepBull, bullRetest, vsaSpike)
+int shortScore = f_score(ntz, sellArea, inBandShort, goodSell, sweepBear, bearRetest, vsaSpike)
+
+string longGrade  = f_grade(longScore, ntz)
+string shortGrade = f_grade(shortScore, ntz)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 8. Dynamisches TP/SL
+// ─────────────────────────────────────────────────────────────────────────────
+float swingLow  = ta.lowest(low, swingLen)
+float swingHigh = ta.highest(high, swingLen)
+float slBuffer  = slAtrMult * atr14
+
+float longSlBase = (bullRetest and not na(bullEdge)) ? math.min(bullEdge, low) : swingLow
+float longSL     = longSlBase - slBuffer
+float longRisk   = close - longSL
+float longTgtA   = math.max(rfeBasis, close + tp1MinR * longRisk)
+float longTgtB   = math.max(upperChaos, close + tp2MinR * longRisk)
+float longTP1    = math.min(longTgtA, longTgtB)
+float longTP2    = math.max(longTgtA, longTgtB)
+
+float shortSlBase = (bearRetest and not na(bearEdge)) ? math.max(bearEdge, high) : swingHigh
+float shortSL     = shortSlBase + slBuffer
+float shortRisk   = shortSL - close
+float shortTgtA   = math.min(rfeBasis, close - tp1MinR * shortRisk)
+float shortTgtB   = math.min(lowerChaos, close - tp2MinR * shortRisk)
+float shortTP1    = math.max(shortTgtA, shortTgtB)
+float shortTP2    = math.min(shortTgtA, shortTgtB)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Setup-Logik
+// ─────────────────────────────────────────────────────────────────────────────
+bool ready    = not na(rfeBasis) and not na(rfeStdev) and not na(atr14)
+bool inWindow = time >= startTime and time <= endTime
+
+bool longGovOk  = not useHtf or not htfBear or (longScore >= 80 and sweepBull)
+bool shortGovOk = not useHtf or not htfMirror or not htfBull or (shortScore >= 80 and sweepBear)
+
+bool longSignal  = ready and longScore >= minScore and longGovOk and (not requireTrigger or goodBuy) and longRisk > 0
+bool shortSignal = ready and shortScore >= minScore and shortGovOk and (not requireTrigger or goodSell) and shortRisk > 0 and not longSignal
+
+// Risikobasierte Positionsgröße, gedeckelt durch den maximalen Hebel
+f_qty(float riskPerUnit) =>
+    float riskCash = strategy.equity * riskPct / 100.0
+    float qRisk    = riskCash / (riskPerUnit * syminfo.pointvalue)
+    float qMax     = strategy.equity * maxLev / (close * syminfo.pointvalue)
+    math.min(qRisk, qMax)
+
+float longQty  = longRisk > 0 ? f_qty(longRisk) : 0.0
+float shortQty = shortRisk > 0 ? f_qty(shortRisk) : 0.0
+
+bool flat    = strategy.position_size == 0
+bool goLong  = longSignal and flat and inWindow and tradeDirIn != "Nur Short" and longQty > 0
+bool goShort = shortSignal and flat and inWindow and tradeDirIn != "Nur Long" and shortQty > 0
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Webhook JSON
+// ─────────────────────────────────────────────────────────────────────────────
+f_num(float x) =>
+    na(x) ? "null" : str.tostring(x, format.mintick)
+
+f_json(string action, string side, string grade, int score, float qty, float price, float sl, float tp1, float tp2) =>
+    string s = '{"bot":"degencoder"'
+    s := s + ',"passphrase":"' + passphrase + '"'
+    s := s + ',"action":"' + action + '"'
+    s := s + ',"side":"' + side + '"'
+    s := s + ',"symbol":"' + syminfo.ticker + '"'
+    s := s + ',"exchange":"' + syminfo.prefix + '"'
+    s := s + ',"interval":"' + timeframe.period + '"'
+    s := s + ',"grade":"' + grade + '"'
+    s := s + ',"score":' + str.tostring(score)
+    s := s + ',"qty":' + (na(qty) ? "null" : str.tostring(qty, "#.########"))
+    s := s + ',"price":' + f_num(price)
+    s := s + ',"sl":' + f_num(sl)
+    s := s + ',"tp1":' + f_num(tp1)
+    s := s + ',"tp2":' + f_num(tp2)
+    s := s + ',"htf_bias":"' + (htfBull ? "bull" : (htfBear ? "bear" : "neutral")) + '"'
+    s := s + ',"time":' + str.tostring(time)
+    s + '}'
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Order-Ausführung & Trade-Management
+// ─────────────────────────────────────────────────────────────────────────────
+var int    tDir     = 0
+var float  tEntry   = na
+var float  tStop    = na
+var float  tRisk0   = na
+var float  tTP1     = na
+var float  tTP2     = na
+var int    tScore   = 0
+var string tGrade   = ""
+var bool   tTp1Done = false
+
+if goLong
+    tDir     := 1
+    tEntry   := close
+    tStop    := longSL
+    tRisk0   := longRisk
+    tTP1     := longTP1
+    tTP2     := longTP2
+    tScore   := longScore
+    tGrade   := longGrade
+    tTp1Done := false
+    strategy.entry("DGC-L", strategy.long, qty=longQty, comment="LONG " + longGrade, alert_message=f_json("buy", "long", longGrade, longScore, longQty, close, longSL, longTP1, longTP2))
+
+if goShort
+    tDir     := -1
+    tEntry   := close
+    tStop    := shortSL
+    tRisk0   := shortRisk
+    tTP1     := shortTP1
+    tTP2     := shortTP2
+    tScore   := shortScore
+    tGrade   := shortGrade
+    tTp1Done := false
+    strategy.entry("DGC-S", strategy.short, qty=shortQty, comment="SHORT " + shortGrade, alert_message=f_json("sell", "short", shortGrade, shortScore, shortQty, close, shortSL, shortTP1, shortTP2))
+
+// Long-Management: TP1 Teilgewinn -> Break-Even -> ATR Trailing bis TP2
+if tDir == 1
+    if strategy.position_size > 0
+        if not tTp1Done and high >= tTP1
+            tTp1Done := true
+        if tTp1Done and useBE
+            tStop := math.max(tStop, strategy.position_avg_price)
+        if tTp1Done and useTrail
+            tStop := math.max(tStop, high - trailMult * atr14)
+    if goLong or strategy.position_size > 0
+        string stopAct = tTp1Done ? "trail_stop" : "sl"
+        if not tTp1Done
+            strategy.exit("DGC-L-TP1", from_entry="DGC-L", qty_percent=tp1Pct, limit=tTP1, stop=tStop, comment_profit="TP1", comment_loss="SL", alert_profit=f_json("tp1", "long", tGrade, tScore, na, tTP1, tStop, tTP1, tTP2), alert_loss=f_json("sl", "long", tGrade, tScore, na, tStop, tStop, tTP1, tTP2))
+        strategy.exit("DGC-L-TP2", from_entry="DGC-L", limit=tTP2, stop=tStop, comment_profit="TP2", comment_loss=tTp1Done ? "TRAIL" : "SL", alert_profit=f_json("tp2", "long", tGrade, tScore, na, tTP2, tStop, tTP1, tTP2), alert_loss=f_json(stopAct, "long", tGrade, tScore, na, tStop, tStop, tTP1, tTP2))
+    if not goLong and strategy.position_size <= 0
+        tDir := 0
+
+// Short-Management (gespiegelt)
+if tDir == -1
+    if strategy.position_size < 0
+        if not tTp1Done and low <= tTP1
+            tTp1Done := true
+        if tTp1Done and useBE
+            tStop := math.min(tStop, strategy.position_avg_price)
+        if tTp1Done and useTrail
+            tStop := math.min(tStop, low + trailMult * atr14)
+    if goShort or strategy.position_size < 0
+        string stopAct = tTp1Done ? "trail_stop" : "sl"
+        if not tTp1Done
+            strategy.exit("DGC-S-TP1", from_entry="DGC-S", qty_percent=tp1Pct, limit=tTP1, stop=tStop, comment_profit="TP1", comment_loss="SL", alert_profit=f_json("tp1", "short", tGrade, tScore, na, tTP1, tStop, tTP1, tTP2), alert_loss=f_json("sl", "short", tGrade, tScore, na, tStop, tStop, tTP1, tTP2))
+        strategy.exit("DGC-S-TP2", from_entry="DGC-S", limit=tTP2, stop=tStop, comment_profit="TP2", comment_loss=tTp1Done ? "TRAIL" : "SL", alert_profit=f_json("tp2", "short", tGrade, tScore, na, tTP2, tStop, tTP1, tTP2), alert_loss=f_json(stopAct, "short", tGrade, tScore, na, tStop, tStop, tTP1, tTP2))
+    if not goShort and strategy.position_size >= 0
+        tDir := 0
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 9. Visualisierung
+// ─────────────────────────────────────────────────────────────────────────────
+pChaosUp  = plot(showChaos ? upperChaos : na, "Chaos Upper", color=color.new(C_CYAN, 25), linewidth=1)
+pChaosLo  = plot(showChaos ? lowerChaos : na, "Chaos Lower", color=color.new(C_CYAN, 25), linewidth=1)
+plot(showChaos ? midChaos : na, "Chaos Midline", color=color.new(C_CYAN, 60), linewidth=1)
+fill(pChaosUp, pChaosLo, color=color.new(C_CYAN, 93), title="Chaos Füllung")
+
+pRfeUp = plot(showRfe ? rfeUpper : na, "RFE Upper", color=color.new(C_INDIGO, 10), linewidth=1)
+pRfeLo = plot(showRfe ? rfeLower : na, "RFE Lower", color=color.new(C_INDIGO, 10), linewidth=1)
+plot(showRfe ? rfeBasis : na, "RFE Basis", color=color.new(C_GOLD, 20), linewidth=2)
+fill(pRfeUp, pRfeLo, color=color.new(C_INDIGO, 92), title="RFE Füllung")
+
+plot(showHtf and useHtf ? htfWma : na, "HTF WMA", color=color.new(C_SLATE, 30), linewidth=1, style=plot.style_stepline)
+
+plotshape(showMarkers and buyArea, title="Buy Area", style=shape.cross, location=location.belowbar, color=C_EMERALD, size=size.tiny)
+plotshape(showMarkers and sellArea, title="Sell Area", style=shape.cross, location=location.abovebar, color=C_ROSE, size=size.tiny)
+plotshape(showMarkers and ntz ? hl2 : na, title="No Trade Zone", style=shape.circle, location=location.absolute, color=C_GOLD, size=size.tiny)
+plotshape(showMarkers and goodBuy, title="Good Buy", style=shape.triangleup, location=location.belowbar, color=C_CYAN, size=size.small)
+plotshape(showMarkers and goodSell, title="Good Sell", style=shape.triangledown, location=location.abovebar, color=C_MAGENTA, size=size.small)
+
+plotshape(showSetups and goLong and longScore >= 80, title="Long A+", style=shape.labelup, location=location.belowbar, color=C_GOLD, text="A+ LONG", textcolor=color.black, size=size.small)
+plotshape(showSetups and goLong and longScore < 80, title="Long", style=shape.labelup, location=location.belowbar, color=C_EMERALD, text="LONG", textcolor=color.white, size=size.small)
+plotshape(showSetups and goShort and shortScore >= 80, title="Short A+", style=shape.labeldown, location=location.abovebar, color=C_GOLD, text="A+ SHORT", textcolor=color.black, size=size.small)
+plotshape(showSetups and goShort and shortScore < 80, title="Short", style=shape.labeldown, location=location.abovebar, color=C_ROSE, text="SHORT", textcolor=color.white, size=size.small)
+
+bool lvlOn = tDir != 0
+plot(lvlOn ? tStop : na, "Stop", color=showLevels ? C_ROSE : na, linewidth=1, style=plot.style_linebr)
+plot(lvlOn ? tTP1 : na, "TP1", color=showLevels ? C_EMERALD : na, linewidth=1, style=plot.style_linebr)
+plot(lvlOn ? tTP2 : na, "TP2", color=showLevels ? C_GOLD : na, linewidth=1, style=plot.style_linebr)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// HUD Table
+// ─────────────────────────────────────────────────────────────────────────────
+string hudPos = switch hudPosIn
+    "Oben links"   => position.top_left
+    "Unten rechts" => position.bottom_right
+    "Unten links"  => position.bottom_left
+    => position.top_right
+
+string hudSz = switch hudSzIn
+    "Winzig" => size.tiny
+    "Normal" => size.normal
+    => size.small
+
+f_fmt(float x) =>
+    na(x) ? "—" : str.tostring(x, format.mintick)
+
+f_row(table t, int r, string k, string v, color vc) =>
+    table.cell(t, 0, r, k, text_color=C_SLATE, text_halign=text.align_left, text_size=hudSz, bgcolor=C_PANEL)
+    table.cell(t, 1, r, v, text_color=vc, text_halign=text.align_right, text_size=hudSz, bgcolor=C_PANEL)
+
+var table hud = table.new(hudPos, 2, 15, bgcolor=C_PANEL, frame_color=color.new(C_INDIGO, 20), frame_width=1, border_color=C_GRID, border_width=1)
+
+if showHud and barstate.islast
+    bool   domLong   = longScore >= shortScore
+    int    liveScore = math.max(longScore, shortScore)
+    string liveGrade = f_grade(liveScore, ntz)
+    color  gradeCol  = liveGrade == "A+" ? C_GOLD : (liveGrade == "A" ? C_EMERALD : (liveGrade == "B" ? C_CYAN : C_ROSE))
+    string biasTxt   = na(htfWma) ? "—" : (htfBull ? "BULLISH ▲" : (htfBear ? "BEARISH ▼" : "NEUTRAL"))
+    color  biasCol   = htfBull ? C_EMERALD : (htfBear ? C_ROSE : C_SLATE)
+    string setupTxt  = tDir == 1 ? "LONG (" + str.tostring(tScore) + ")" : (tDir == -1 ? "SHORT (" + str.tostring(tScore) + ")" : "—")
+    color  setupCol  = tDir == 1 ? C_EMERALD : (tDir == -1 ? C_ROSE : C_SLATE)
+    float  tRisk     = tRisk0
+    float  winRate   = strategy.closedtrades > 0 ? 100.0 * strategy.wintrades / strategy.closedtrades : na
+    float  pf        = strategy.grossloss > 0 ? strategy.grossprofit / strategy.grossloss : na
+    string rrTxt     = (tDir != 0 and tRisk > 0) ? "1 : " + str.tostring(math.abs(tTP1 - tEntry) / tRisk, "#.##") + " / 1 : " + str.tostring(math.abs(tTP2 - tEntry) / tRisk, "#.##") : "—"
+
+    table.cell(hud, 0, 0, "DEGENCODER MASTER STRATEGY", text_color=C_INDIGO, text_halign=text.align_center, text_size=hudSz, bgcolor=C_PANEL2)
+    table.merge_cells(hud, 0, 0, 1, 0)
+    f_row(hud, 1, "Symbol", syminfo.ticker + " · " + timeframe.period, color.white)
+    f_row(hud, 2, "HTF Bias (" + htfTf + ")", biasTxt, biasCol)
+    f_row(hud, 3, "Score L / S", str.tostring(longScore) + " / " + str.tostring(shortScore), domLong ? C_EMERALD : C_ROSE)
+    f_row(hud, 4, "Grade", liveGrade, gradeCol)
+    f_row(hud, 5, "NTZ Status", ntz ? "AKTIV · VETO" : "FREI", ntz ? C_GOLD : C_EMERALD)
+    f_row(hud, 6, "Aktiver Trade", setupTxt, setupCol)
+    f_row(hud, 7, "TP1", tDir != 0 ? f_fmt(tTP1) : "—", C_EMERALD)
+    f_row(hud, 8, "TP2", tDir != 0 ? f_fmt(tTP2) : "—", C_GOLD)
+    f_row(hud, 9, "SL / Trail", tDir != 0 ? f_fmt(tStop) : "—", C_ROSE)
+    f_row(hud, 10, "R:R (TP1 / TP2)", rrTxt, C_CYAN)
+    f_row(hud, 11, "Net Profit", str.tostring(strategy.netprofit, "#.##") + " " + syminfo.currency, strategy.netprofit >= 0 ? C_EMERALD : C_ROSE)
+    f_row(hud, 12, "Trades / Win %", str.tostring(strategy.closedtrades) + " / " + (na(winRate) ? "—" : str.tostring(winRate, "#.#")), color.white)
+    f_row(hud, 13, "Profit Factor", na(pf) ? "—" : str.tostring(pf, "#.##"), C_CYAN)
+    f_row(hud, 14, "Max Drawdown", str.tostring(strategy.max_drawdown, "#.##") + " " + syminfo.currency, C_ROSE)
