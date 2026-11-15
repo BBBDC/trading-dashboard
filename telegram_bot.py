@@ -554,6 +554,17 @@ def get_stop_loss_keyboard(direction="LONG", entry_price=0.0):
     return {"inline_keyboard": buttons}
 
 
+def clean_numeric_input(val_str):
+    """Säubert Zahlen-Eingaben für Komma, Punkt, Währungs- und Prozentzeichen."""
+    s = str(val_str).replace("$", "").replace("€", "").replace("%", "").strip()
+    if "." in s and "," in s:
+        # Tausendertrennzeichen vs Dezimalkomma: 64.850,50 -> 64850.50
+        s = s.replace(".", "").replace(",", ".")
+    else:
+        s = s.replace(",", ".")
+    return s
+
+
 def parse_take_profit_input(text, direction="LONG", entry_price=0.0):
     """
     Parst Nutzereingaben für Take-Profit.
@@ -1502,7 +1513,7 @@ def get_manage_position_text_and_markup(pos_id, user_id=None):
 
 
 def get_partial_close_text_and_markup(pos_id, user_id=None):
-    """Generiert Text & Keyboard zur Auswahl der Teilverkauf-Tranche (25%, 33%, 50%, 75%)."""
+    """Generiert Text & Keyboard zur Auswahl der Teilverkauf-Tranche (25%, 33%, 50%, 75% oder eigene %-Zahl)."""
     from manage_positions import load_positions
     positions = load_positions()
     pos = next((p for p in positions if p.get("id") == pos_id or p.get("symbol") == pos_id), None)
@@ -1514,6 +1525,8 @@ def get_partial_close_text_and_markup(pos_id, user_id=None):
     sig = pos.get("direction", "LONG").upper()
     entry = float(pos.get("entry_price", 0.0))
     curr = float(pos.get("current_price", entry))
+    if curr <= 0:
+        curr = find_asset_price(sym) or entry
     lev = float(pos.get("leverage", 1.0))
     rem = float(pos.get("remaining_size_pct", 100.0))
 
@@ -1531,17 +1544,20 @@ def get_partial_close_text_and_markup(pos_id, user_id=None):
         f"• <b>Einstieg:</b> <code>{entry_fmt} $</code> (Live: <code>{curr_fmt} $</code>)\n"
         f"• {pnl_icon} <b>Aktueller PnL:</b> <b>{pnl_sign}{lev_pnl:.2f}%</b> ({pnl_sign}{raw_pnl:.2f}% Basis)\n"
         f"• 📊 <b>Aktive Restmenge:</b> <b>{rem:g}%</b>\n\n"
-        f"<i>Wie viel Prozent der Position möchtest du jetzt als Gewinn verbuchen?</i>"
+        f"<i>Wähle eine Tranche oder tippe deine Wunsch-Prozentzahl (z. B. <code>40%</code>) direkt in den Chat:</i>"
     )
 
     btn_rows = [
         [
-            {"text": "💰 25% verbuchen", "callback_data": f"pos_partial_exec_{pos_id}_25"},
-            {"text": "💰 33% (1/3) verbuchen", "callback_data": f"pos_partial_exec_{pos_id}_33"}
+            {"text": "💰 25% verbuchen", "callback_data": f"pos_partial_choose_{pos_id}_25"},
+            {"text": "💰 33% (1/3) verbuchen", "callback_data": f"pos_partial_choose_{pos_id}_33"}
         ],
         [
-            {"text": "💰 50% (Hälfte) verbuchen", "callback_data": f"pos_partial_exec_{pos_id}_50"},
-            {"text": "💰 75% verbuchen", "callback_data": f"pos_partial_exec_{pos_id}_75"}
+            {"text": "💰 50% (Hälfte) verbuchen", "callback_data": f"pos_partial_choose_{pos_id}_50"},
+            {"text": "💰 75% verbuchen", "callback_data": f"pos_partial_choose_{pos_id}_75"}
+        ],
+        [
+            {"text": "✏️ Eigene %-Zahl eingeben", "callback_data": f"pos_partial_custom_{pos_id}"}
         ]
     ]
     if rem < 100.0:
@@ -1552,6 +1568,174 @@ def get_partial_close_text_and_markup(pos_id, user_id=None):
 
     kb = {"inline_keyboard": btn_rows}
     return text, kb
+
+
+def get_partial_price_query_text_and_markup(pos_id, portion_pct, user_id=None):
+    """Generiert Text & Keyboard zur Abfrage des Ausführungskurses beim Teilgewinn."""
+    from manage_positions import load_positions
+    positions = load_positions()
+    pos = next((p for p in positions if p.get("id") == pos_id or p.get("symbol") == pos_id), None)
+    if not pos:
+        return "⚠️ Position nicht gefunden oder bereits geschlossen.", {"inline_keyboard": [[{"text": "🔙 Meine Trades", "callback_data": "menu_my_trades"}]]}, 0.0
+
+    sym = pos.get("symbol", "Unbekannt")
+    short_sym = sym.split(":")[-1]
+    sig = pos.get("direction", "LONG").upper()
+    entry = float(pos.get("entry_price", 0.0))
+    curr = float(pos.get("current_price", entry))
+    if curr <= 0:
+        curr = find_asset_price(sym) or entry
+    lev = float(pos.get("leverage", 1.0))
+    rem = float(pos.get("remaining_size_pct", 100.0))
+    portion = float(portion_pct)
+
+    raw_pnl = ((curr - entry) / entry * 100) if sig == "LONG" else ((entry - curr) / entry * 100) if entry > 0 else 0.0
+    lev_pnl = raw_pnl * lev
+    pnl_sign = "+" if lev_pnl >= 0 else ""
+    pnl_icon = "📈" if lev_pnl >= 0 else "📉"
+
+    entry_fmt = f"{entry:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    curr_fmt = f"{curr:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
+    portion_closed_pct = round(rem * (portion / 100.0), 1)
+    new_rem = round(max(0.0, rem - portion_closed_pct), 1)
+
+    text = (
+        f"💰 <b>Teilgewinn: {portion:g}% für {pos.get('name', short_sym)}</b> (<code>{sym}</code>)\n\n"
+        f"• <b>Richtung:</b> <b>{sig}</b> ({lev:g}x Hebel)\n"
+        f"• <b>Einstieg:</b> <code>{entry_fmt} $</code> (Live: <code>{curr_fmt} $</code>)\n"
+        f"• {pnl_icon} <b>Aktueller PnL:</b> <b>{pnl_sign}{lev_pnl:.2f}%</b> ({pnl_sign}{raw_pnl:.2f}% Basis)\n"
+        f"• 📊 <b>Aktive Restmenge:</b> <b>{rem:g}%</b> ➔ nach Teilverkauf: <b>{new_rem:g}%</b>\n\n"
+        f"👉 <b>Zu welchem Kurs hast du den Teilgewinn genommen?</b>\n\n"
+        f"Tippe deinen Ausführungskurs als Zahl in den Chat (z. B. <code>{curr:g}</code>) "
+        f"oder übernimm den aktuellen Live-Kurs mit 1 Klick:"
+    )
+
+    kb = {
+        "inline_keyboard": [
+            [{"text": f"⚡ Live-Kurs ({curr_fmt} $) übernehmen", "callback_data": f"pos_partial_exec_live_{pos_id}_{portion:g}"}],
+            [{"text": "🔙 Abbrechen", "callback_data": f"pos_partial_menu_{pos_id}"}]
+        ]
+    }
+    return text, kb, curr
+
+
+def get_close_price_query_text_and_markup(pos_id, user_id=None):
+    """Generiert Text & Keyboard zur Abfrage des Ausführungskurses beim vollständigen Schließen."""
+    from manage_positions import load_positions
+    positions = load_positions()
+    pos = next((p for p in positions if p.get("id") == pos_id or p.get("symbol") == pos_id), None)
+    if not pos:
+        return "⚠️ Position nicht gefunden oder bereits geschlossen.", {"inline_keyboard": [[{"text": "🔙 Meine Trades", "callback_data": "menu_my_trades"}]]}, 0.0
+
+    sym = pos.get("symbol", "Unbekannt")
+    short_sym = sym.split(":")[-1]
+    sig = pos.get("direction", "LONG").upper()
+    entry = float(pos.get("entry_price", 0.0))
+    curr = float(pos.get("current_price", entry))
+    if curr <= 0:
+        curr = find_asset_price(sym) or entry
+    lev = float(pos.get("leverage", 1.0))
+    rem = float(pos.get("remaining_size_pct", 100.0))
+
+    raw_pnl = ((curr - entry) / entry * 100) if sig == "LONG" else ((entry - curr) / entry * 100) if entry > 0 else 0.0
+    lev_pnl = raw_pnl * lev
+    pnl_sign = "+" if lev_pnl >= 0 else ""
+    pnl_icon = "📈" if lev_pnl >= 0 else "📉"
+
+    entry_fmt = f"{entry:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    curr_fmt = f"{curr:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
+    rem_str = f" ({rem:g}% Restmenge)" if rem < 100.0 else ""
+    text = (
+        f"🛑 <b>Position schließen: {pos.get('name', short_sym)}</b> (<code>{sym}</code>){rem_str}\n\n"
+        f"• <b>Richtung:</b> <b>{sig}</b> ({lev:g}x Hebel)\n"
+        f"• <b>Einstieg:</b> <code>{entry_fmt} $</code> (Live: <code>{curr_fmt} $</code>)\n"
+        f"• {pnl_icon} <b>Aktueller PnL:</b> <b>{pnl_sign}{lev_pnl:.2f}%</b> ({pnl_sign}{raw_pnl:.2f}% Basis)\n\n"
+        f"👉 <b>Zu welchem Kurs hast du die Position geschlossen?</b>\n\n"
+        f"Tippe deinen Ausführungskurs als Zahl in den Chat (z. B. <code>{curr:g}</code>) "
+        f"oder übernimm den aktuellen Live-Kurs mit 1 Klick:"
+    )
+
+    kb = {
+        "inline_keyboard": [
+            [{"text": f"⚡ Live-Kurs ({curr_fmt} $) übernehmen", "callback_data": f"close_exec_live_{pos_id}"}],
+            [{"text": "🔙 Abbrechen / Position behalten", "callback_data": f"pos_manage_open_{pos_id}"}]
+        ]
+    }
+    return text, kb, curr
+
+
+def format_partial_close_success(closed_rec, active_pos, is_full, pos_id):
+    """Generiert formatierte Bestätigungsnachricht für Teilgewinn-Verbuchung."""
+    sym = closed_rec.get("symbol", pos_id)
+    pct = closed_rec.get("portion_pct", 50.0)
+    lev_pnl = closed_rec.get("realized_pnl_leveraged_pct", 0.0)
+    raw_pnl = closed_rec.get("realized_pnl_pct", 0.0)
+    pnl_s = "+" if lev_pnl >= 0 else ""
+    pnl_icon = "📈" if lev_pnl >= 0 else "📉"
+    rem = active_pos.get("remaining_size_pct", 0.0) if active_pos else 0.0
+    entry_p = active_pos.get("entry_price") if active_pos else closed_rec.get("entry_price")
+    exit_p = closed_rec.get("exit_price")
+    entry_fmt = f"{float(entry_p):,.2f} $".replace(",", "X").replace(".", ",").replace("X", ".") if entry_p else ""
+    exit_fmt = f"{float(exit_p):,.2f} $".replace(",", "X").replace(".", ",").replace("X", ".") if exit_p else ""
+
+    kb_buttons = []
+    if active_pos and not is_full and entry_p:
+        kb_buttons.append([{"text": f"🛡️ Stop-Loss auf Break-Even ({entry_fmt}) setzen", "callback_data": f"pos_sl_be_{pos_id}"}])
+    kb_buttons.append([
+        {"text": "📊 Zu meinen Trades", "callback_data": "menu_my_trades"},
+        {"text": "📜 Trade-Historie", "callback_data": "menu_my_history"}
+    ])
+    kb_buttons.append([{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}])
+
+    if is_full:
+        msg = (
+            f"🎉 <b>Position {sym} durch Teilverkauf vollständig geschlossen!</b>\n\n"
+            f"• 💰 <b>Letzte Tranche:</b> <b>{pct:g}%</b>\n"
+            f"• 📍 <b>Ausstiegskurs:</b> <code>{exit_fmt}</code> (Einstieg: <code>{entry_fmt}</code>)\n"
+            f"• {pnl_icon} <b>Realisierter PnL:</b> <b>{pnl_s}{lev_pnl:.2f}%</b> ({pnl_s}{raw_pnl:.2f}% Basis)\n"
+            f"• 📜 Der Trade wurde in deiner <b>Trade-Historie</b> archiviert und das Dashboard aktualisiert."
+        )
+    else:
+        msg = (
+            f"🎉 <b>Teilgewinn erfolgreich verbucht!</b>\n\n"
+            f"• <b>Symbol:</b> {sym}\n"
+            f"• 💰 <b>Realisierte Tranche:</b> <b>{pct:g}%</b>\n"
+            f"• 📍 <b>Ausstiegskurs:</b> <code>{exit_fmt}</code> (Einstieg: <code>{entry_fmt}</code>)\n"
+            f"• {pnl_icon} <b>Realisierter PnL:</b> <b>{pnl_s}{lev_pnl:.2f}%</b> ({pnl_s}{raw_pnl:.2f}% Basis)\n"
+            f"• 📊 <b>Aktive Restposition:</b> <b>{rem:g}%</b>\n\n"
+            f"💡 <i>Tipp: Sichere deinen Restgewinn ab, indem du den Stop-Loss jetzt auf den Einstiegskurs (Break-Even) nachziehst!</i>"
+        )
+    return msg, {"inline_keyboard": kb_buttons}
+
+
+def format_full_close_success(closed_rec, pos_id):
+    """Generiert formatierte Bestätigungsnachricht für vollständiges Schließen."""
+    sym = closed_rec.get("symbol", pos_id)
+    lev_pnl = closed_rec.get("realized_pnl_leveraged_pct", 0.0)
+    raw_pnl = closed_rec.get("realized_pnl_pct", 0.0)
+    pnl_s = "+" if lev_pnl >= 0 else ""
+    pnl_icon = "📈" if lev_pnl >= 0 else "📉"
+    entry_p = closed_rec.get("entry_price")
+    exit_p = closed_rec.get("exit_price")
+    entry_fmt = f"{float(entry_p):,.2f} $".replace(",", "X").replace(".", ",").replace("X", ".") if entry_p else ""
+    exit_fmt = f"{float(exit_p):,.2f} $".replace(",", "X").replace(".", ",").replace("X", ".") if exit_p else ""
+
+    kb = {
+        "inline_keyboard": [
+            [{"text": "📜 Trade-Historie ansehen", "callback_data": "menu_my_history"}],
+            [{"text": "📊 Zu meinen Trades", "callback_data": "menu_my_trades"}],
+            [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
+        ]
+    }
+    msg = (
+        f"✅ <b>Position {sym} erfolgreich geschlossen!</b>\n\n"
+        f"• 📍 <b>Ausstiegskurs:</b> <code>{exit_fmt}</code> (Einstieg: <code>{entry_fmt}</code>)\n"
+        f"• {pnl_icon} <b>Realisierter PnL:</b> <b>{pnl_s}{lev_pnl:.2f}%</b> ({pnl_s}{raw_pnl:.2f}% Basis)\n"
+        f"• Der Trade wurde in deiner <b>Trade-Historie</b> archiviert und das Dashboard aktualisiert."
+    )
+    return msg, kb
 
 
 def get_user_history_text_and_markup(user_id=None, username=None, page=1):
@@ -1962,6 +2146,7 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
         return
 
     if data == "menu_my_trades":
+        USER_SESSIONS.pop(chat_id, None)
         text, kb = get_user_positions_text_and_markup(user_id, username)
         api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
         return
@@ -2808,48 +2993,32 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
             render_edit_sltp_confirm(api, chat_id, message_id, session)
             return
 
-    # 8. Trade schließen – Bestätigung
+    # 8. Trade schließen – Kursabfrage (Live-Kurs oder manuell eintippen)
     if data.startswith("close_confirm_"):
         pos_id = data[14:]
-        kb = {
-            "inline_keyboard": [
-                [{"text": "🛑 Ja, Trade jetzt schließen", "callback_data": f"close_execute_{pos_id}"}],
-                [{"text": "❌ Nein, Trade behalten", "callback_data": "menu_my_trades"}]
-            ]
-        }
-        api.edit_message_text(
-            chat_id,
-            message_id,
-            f"Möchtest du die Position <b>{pos_id}</b> wirklich schließen?",
-            reply_markup=kb
-        )
+        text_resp, kb, live_p = get_close_price_query_text_and_markup(pos_id, user_id)
+        session = USER_SESSIONS.setdefault(chat_id, {"wizard": "close_position", "data": {}})
+        session["step"] = "WAITING_CLOSE_PRICE"
+        session["pos_id"] = pos_id
+        session["live_price"] = live_p
+        api.edit_message_text(chat_id, message_id, text_resp, reply_markup=kb)
         return
 
-    if data.startswith("close_execute_"):
-        pos_id = data[14:]
+    if data.startswith("close_exec_live_") or data.startswith("close_execute_"):
+        if data.startswith("close_exec_live_"):
+            pos_id = data[len("close_exec_live_"):]
+        else:
+            pos_id = data[len("close_execute_"):]
+
+        session = USER_SESSIONS.pop(chat_id, None) or {}
+        live_p = session.get("live_price")
         api.edit_message_text(chat_id, message_id, f"⏳ Schließe Position <b>{pos_id}</b>...")
         try:
             from manage_positions import close_position
-            closed_rec = close_position(pos_id, user_id=str(user_id), exit_reason="MANUAL_CLOSE", sync_db=True, git_push=True, notify=True)
+            closed_rec = close_position(pos_id, exit_price=live_p, user_id=str(user_id), exit_reason="MANUAL_CLOSE", sync_db=True, git_push=True, notify=True)
             if closed_rec:
-                sym = closed_rec.get("symbol", pos_id)
-                lev_pnl = closed_rec.get("realized_pnl_leveraged_pct", 0.0)
-                pnl_s = "+" if lev_pnl >= 0 else ""
-                kb = {
-                    "inline_keyboard": [
-                        [{"text": "📜 Trade-Historie ansehen", "callback_data": "menu_my_history"}],
-                        [{"text": "📊 Zu meinen Trades", "callback_data": "menu_my_trades"}],
-                        [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
-                    ]
-                }
-                api.edit_message_text(
-                    chat_id,
-                    message_id,
-                    f"✅ <b>Position {sym} erfolgreich geschlossen!</b>\n\n"
-                    f"• Realisierter PnL: <b>{pnl_s}{lev_pnl:.2f}%</b>\n"
-                    f"• Der Trade wurde in deiner <b>Trade-Historie</b> archiviert und das Dashboard aktualisiert.",
-                    reply_markup=kb
-                )
+                success_txt, kb = format_full_close_success(closed_rec, pos_id)
+                api.edit_message_text(chat_id, message_id, success_txt, reply_markup=kb)
             else:
                 api.edit_message_text(
                     chat_id,
@@ -2863,17 +3032,55 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
 
     # 8b. Teilgewinn Menü öffnen
     if data.startswith("pos_partial_menu_"):
-        USER_SESSIONS.pop(chat_id, None)
         pos_id = data[len("pos_partial_menu_"):]
         text, kb = get_partial_close_text_and_markup(pos_id, user_id)
+        session = USER_SESSIONS.setdefault(chat_id, {"wizard": "partial_close", "data": {}})
+        session["step"] = "WAITING_PARTIAL_PCT"
+        session["pos_id"] = pos_id
         api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
         return
 
-    # 8c. Teilgewinn ausführen (25%, 33%, 50%, 75%)
-    if data.startswith("pos_partial_exec_"):
-        parts = data[len("pos_partial_exec_"):].rsplit("_", 1)
+    # 8c1. Eigene Prozentzahl für Teilgewinn anfordern
+    if data.startswith("pos_partial_custom_"):
+        pos_id = data[len("pos_partial_custom_"):]
+        session = USER_SESSIONS.setdefault(chat_id, {"wizard": "partial_close", "data": {}})
+        session["step"] = "WAITING_PARTIAL_PCT"
+        session["pos_id"] = pos_id
+        msg = (
+            f"✍️ <b>Eigene Tranche festlegen</b>\n\n"
+            f"Wie viel Prozent der Position möchtest du schließen? "
+            f"Tippe deine Zahl in den Chat (z. B. <code>40</code> oder <code>60%</code>):"
+        )
+        kb = {"inline_keyboard": [[{"text": "🔙 Abbrechen", "callback_data": f"pos_partial_menu_{pos_id}"}]]}
+        api.edit_message_text(chat_id, message_id, msg, reply_markup=kb)
+        return
+
+    # 8c2. Teilgewinn Tranche gewählt (25%, 33%, 50%, 75%) -> Kurs abfragen!
+    if data.startswith("pos_partial_choose_"):
+        parts = data[len("pos_partial_choose_"):].rsplit("_", 1)
         if len(parts) == 2:
             pos_id, pct_str = parts
+            try:
+                pct = float(pct_str)
+                text_resp, kb, live_p = get_partial_price_query_text_and_markup(pos_id, pct, user_id)
+                session = USER_SESSIONS.setdefault(chat_id, {"wizard": "partial_close", "data": {}})
+                session["step"] = "WAITING_PARTIAL_PRICE"
+                session["pos_id"] = pos_id
+                session["portion_pct"] = pct
+                session["live_price"] = live_p
+                api.edit_message_text(chat_id, message_id, text_resp, reply_markup=kb)
+            except Exception as e:
+                logger.error(f"Error preparing partial close query: {e}")
+        return
+
+    # 8c3. Teilgewinn mit Live-Kurs ausführen (1-Klick) oder Altdaten-Fallback
+    if data.startswith("pos_partial_exec_live_") or data.startswith("pos_partial_exec_"):
+        prefix = "pos_partial_exec_live_" if data.startswith("pos_partial_exec_live_") else "pos_partial_exec_"
+        parts = data[len(prefix):].rsplit("_", 1)
+        if len(parts) == 2:
+            pos_id, pct_str = parts
+            session = USER_SESSIONS.pop(chat_id, None) or {}
+            live_p = session.get("live_price")
             try:
                 pct = float(pct_str)
                 api.edit_message_text(chat_id, message_id, f"⏳ Buche <b>{pct:g}%</b> Teilgewinn für Position <b>{pos_id}</b>...")
@@ -2881,6 +3088,7 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
                 closed_rec, active_pos, is_full = partial_close_position(
                     symbol_or_id=pos_id,
                     portion_pct=pct,
+                    exit_price=live_p,
                     user_id=str(user_id),
                     exit_reason=f"PARTIAL_MANUAL_{int(pct)}PCT",
                     sync_db=True,
@@ -2888,39 +3096,8 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
                     notify=False
                 )
                 if closed_rec:
-                    sym = closed_rec.get("symbol", pos_id)
-                    lev_pnl = closed_rec.get("realized_pnl_leveraged_pct", 0.0)
-                    pnl_s = "+" if lev_pnl >= 0 else ""
-                    rem = active_pos.get("remaining_size_pct", 0.0) if active_pos else 0.0
-                    entry_p = active_pos.get("entry_price") if active_pos else closed_rec.get("entry_price")
-                    entry_fmt = f"{float(entry_p):,.2f} $" if entry_p is not None else ""
-
-                    kb_buttons = []
-                    if active_pos and not is_full and entry_p:
-                        kb_buttons.append([{"text": f"🛡️ Stop-Loss auf Break-Even ({entry_fmt}) setzen", "callback_data": f"pos_sl_be_{pos_id}"}])
-                    kb_buttons.append([
-                        {"text": "📊 Zu meinen Trades", "callback_data": "menu_my_trades"},
-                        {"text": "📜 Trade-Historie", "callback_data": "menu_my_history"}
-                    ])
-                    kb_buttons.append([{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}])
-
-                    if is_full:
-                        success_txt = (
-                            f"🎉 <b>Position {sym} durch Teilverkauf vollständig geschlossen!</b>\n\n"
-                            f"• 💰 <b>Letzte Tranche:</b> <b>{pct:g}%</b>\n"
-                            f"• 📈 <b>Realisierter PnL:</b> <b>{pnl_s}{lev_pnl:.2f}%</b>\n"
-                            f"• 📜 Der Trade wurde in deiner <b>Trade-Historie</b> archiviert und das Dashboard aktualisiert."
-                        )
-                    else:
-                        success_txt = (
-                            f"🎉 <b>Teilgewinn erfolgreich verbucht!</b>\n\n"
-                            f"• <b>Symbol:</b> {sym}\n"
-                            f"• 💰 <b>Realisierte Tranche:</b> <b>{pct:g}%</b>\n"
-                            f"• 📈 <b>Realisierter PnL:</b> <b>{pnl_s}{lev_pnl:.2f}%</b>\n"
-                            f"• 📊 <b>Aktive Restposition:</b> <b>{rem:g}%</b>\n\n"
-                            f"💡 <i>Tipp: Sichere deinen Restgewinn ab, indem du den Stop-Loss jetzt auf den Einstiegskurs (Break-Even) nachziehst!</i>"
-                        )
-                    api.edit_message_text(chat_id, message_id, success_txt, reply_markup={"inline_keyboard": kb_buttons})
+                    success_txt, kb = format_partial_close_success(closed_rec, active_pos, is_full, pos_id)
+                    api.edit_message_text(chat_id, message_id, success_txt, reply_markup=kb)
                 else:
                     api.edit_message_text(chat_id, message_id, "⚠️ Position nicht gefunden oder konnte nicht teilgeschlossen werden.", reply_markup=get_main_menu_keyboard(role))
             except Exception as e:
@@ -3333,6 +3510,93 @@ def process_wizard_text_input(api, chat_id, user_id, username, session, text):
             api.send_message(chat_id, f"✅ <b>Hebel für {sym} erfolgreich auf {lev_val:g}x geändert!</b>\n\n" + text_resp, reply_markup=kb)
         except Exception as e:
             api.send_message(chat_id, f"❌ Fehler beim Aktualisieren des Hebels: {e}", reply_markup=get_main_menu_keyboard(role="trader"))
+        return
+
+    if step == "WAITING_CLOSE_PRICE":
+        cleaned = clean_numeric_input(text)
+        try:
+            price_val = float(cleaned)
+            if price_val <= 0:
+                raise ValueError()
+        except ValueError:
+            api.send_message(chat_id, "⚠️ Ungültiger Kurs. Bitte gib eine positive Zahl ein (z. B. <code>64850.50</code>) oder nutze den Button unten:")
+            return
+
+        pos_id = session.get("pos_id")
+        USER_SESSIONS.pop(chat_id, None)
+
+        try:
+            from manage_positions import close_position
+            closed_rec = close_position(
+                pos_id,
+                exit_price=price_val,
+                user_id=str(user_id),
+                exit_reason="MANUAL_CLOSE",
+                sync_db=True,
+                git_push=True,
+                notify=True
+            )
+            if closed_rec:
+                success_txt, kb = format_full_close_success(closed_rec, pos_id)
+                api.send_message(chat_id, success_txt, reply_markup=kb)
+            else:
+                api.send_message(chat_id, "⚠️ Position konnte nicht gefunden werden.", reply_markup=get_main_menu_keyboard(role="trader"))
+        except Exception as e:
+            api.send_message(chat_id, f"❌ Fehler beim Schließen: {e}", reply_markup=get_main_menu_keyboard(role="trader"))
+        return
+
+    if step == "WAITING_PARTIAL_PCT":
+        cleaned = clean_numeric_input(text)
+        try:
+            pct_val = float(cleaned)
+            if pct_val <= 0 or pct_val > 100:
+                raise ValueError()
+        except ValueError:
+            api.send_message(chat_id, "⚠️ Ungültige Prozentzahl. Bitte gib eine Zahl zwischen 1 und 100 ein (z. B. <code>40</code> oder <code>60%</code>):")
+            return
+
+        pos_id = session.get("pos_id")
+        text_resp, kb, live_p = get_partial_price_query_text_and_markup(pos_id, pct_val, user_id)
+        session["step"] = "WAITING_PARTIAL_PRICE"
+        session["portion_pct"] = pct_val
+        session["live_price"] = live_p
+        api.send_message(chat_id, text_resp, reply_markup=kb)
+        return
+
+    if step == "WAITING_PARTIAL_PRICE":
+        cleaned = clean_numeric_input(text)
+        try:
+            price_val = float(cleaned)
+            if price_val <= 0:
+                raise ValueError()
+        except ValueError:
+            api.send_message(chat_id, "⚠️ Ungültiger Kurs. Bitte gib eine positive Zahl ein (z. B. <code>64850.50</code>) oder nutze den Button unten:")
+            return
+
+        pos_id = session.get("pos_id")
+        pct = float(session.get("portion_pct", 50.0))
+        USER_SESSIONS.pop(chat_id, None)
+
+        try:
+            from manage_positions import partial_close_position
+            closed_rec, active_pos, is_full = partial_close_position(
+                symbol_or_id=pos_id,
+                portion_pct=pct,
+                exit_price=price_val,
+                user_id=str(user_id),
+                exit_reason=f"PARTIAL_MANUAL_{int(pct)}PCT",
+                sync_db=True,
+                git_push=True,
+                notify=False
+            )
+            if closed_rec:
+                success_txt, kb = format_partial_close_success(closed_rec, active_pos, is_full, pos_id)
+                api.send_message(chat_id, success_txt, reply_markup=kb)
+            else:
+                api.send_message(chat_id, "⚠️ Position nicht gefunden oder konnte nicht teilgeschlossen werden.", reply_markup=get_main_menu_keyboard(role="trader"))
+        except Exception as e:
+            logger.error(f"Error executing partial close: {e}", exc_info=True)
+            api.send_message(chat_id, f"❌ Fehler beim Verbuchen des Teilgewinns: {e}", reply_markup=get_main_menu_keyboard(role="trader"))
         return
 
 

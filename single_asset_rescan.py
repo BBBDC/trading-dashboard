@@ -120,7 +120,7 @@ def rescan_and_evaluate_asset(symbol, user_pos=None):
 
     # 2. Indikatoren berechnen
     d_1h = analyze_indicators(bars_1h, name) if bars_1h else None
-    d_4h = analyze_indicators(bars_4h, name) if b_4h if (b_4h := bars_4h) else None
+    d_4h = analyze_indicators(bars_4h, name) if bars_4h else None
     d_1d = analyze_indicators(bars_1d, name) if bars_1d else None
     d_1w = analyze_indicators(bars_1w, name) if bars_1w else None
     d_3d = analyze_indicators(bars_3d, name) if bars_3d else None
@@ -166,20 +166,6 @@ def rescan_and_evaluate_asset(symbol, user_pos=None):
     }
 
     quant_res = evaluate_quantitative_confluence(tf_map, asset_entry)
-    if quant_res:
-        asset_entry.update(quant_res)
-        "category": category,
-        "asset_type": "Crypto" if "Krypto" in category else "Stock",
-        "price": current_price,
-        "charts": charts_info,
-        "timeframes": {
-            "1D": d_1d,
-            "8h": d_8h,
-            "4h": d_4h
-        }
-    }
-
-    quant_res = evaluate_quantitative_confluence(d_1d, d_8h, d_4h, asset_entry)
     if quant_res:
         asset_entry.update(quant_res)
 

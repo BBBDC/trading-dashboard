@@ -1,5 +1,35 @@
 [
   {
+    "id": "evt_trade_20261115_071108_BTCUSDT",
+    "timestamp": "2026-11-15T07:11:08.875558+00:00",
+    "timestamp_display": "15.11.2026 07:11 UTC",
+    "title": "✅ Trade BINANCE:BTCUSDT geschlossen (+97.1%)",
+    "type": "USER_TRADE_CLOSED",
+    "change_count": 1,
+    "changes": [
+      {
+        "symbol": "BINANCE:BTCUSDT",
+        "name": "BTCUSD",
+        "category": "UserTrade",
+        "change_type": "MANUAL_CLOSE",
+        "old_signal": "SHORT",
+        "new_signal": "CLOSED",
+        "old_score": 0,
+        "new_score": 0,
+        "price": 64486.77,
+        "reasons": [
+          "Realisierter PnL: +97.08% (Basis: +5.39%)",
+          "Manuell durch Nutzer beendet."
+        ],
+        "change_reason": "Manuell durch Nutzer beendet.",
+        "note": "Einstieg: 68.163,00 $, Ausstieg: 64.486,77 $, Hebel: 18x, Dauer: 15Std. 47Min."
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "BTCUSD (BINANCE:BTCUSDT) geschlossen mit +97.08% (Manuell durch Nutzer beendet.)"
+  },
+  {
     "id": "evt_20261113_233126",
     "timestamp": "2026-11-13T23:31:26.980380+00:00",
     "timestamp_display": "13.11.2026 23:31 UTC",
@@ -24719,45 +24749,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🔴 BYD Company (YDX):\n   Score-Sprung: 82% ➔ 88% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 82% auf 88% (1D, 4h und 1h Marktstruktur sind strikt bärisch konfluent.).\n   📝 KI-Rationale: BYD Company (YDX) zeigt auf Tages- und H4-Basis eine klare bärische Sequenz niedrigerer Hochs und Tiefs. Die Erholungsversuche wer...\n   Setup: Hypothese 2: Bearish Trend Continuation\n   Entry: 136.00 | SL: 142.20 | TP2: 118.00\n\n⚪ LTCUSD (LTCUSD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-S...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ EWTUSD (EWTUSD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D RSI im überverkauften Bereich (30.92) signalisiert Erschöpfung des Impulses).\n   📝 KI-Rationale: Obwohl der übergeordnete Trend stark bärisch bleibt, deutet das sehr hohe Volumen auf 4h/1h zusammen mit dem überverkauften 1D-RSI...\n   Setup: Beobachten / Konsolidierung am Tief\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261030_170615",
-    "timestamp": "2026-10-30T17:06:15.772720+00:00",
-    "timestamp_display": "30.10.2026 17:06 UTC",
-    "title": "🔔 TV-Signaländerung: 1 Asset aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 1,
-    "changes": [
-      {
-        "symbol": "NASDAQ:AVGO",
-        "name": "Broadcom",
-        "category": "Halbleiter",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 43,
-        "new_score": 75,
-        "price": 322.675,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          323.0,
-          326.24
-        ],
-        "stop_loss": 334.98,
-        "take_profit_2": 287.39,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: 4h Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)",
-          "Aktiv: 1D Reguläre Bullische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": false,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n🔴 Broadcom (AVGO):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 75%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 323.00 | SL: 334.98 | TP2: 287.39\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
