@@ -87,7 +87,7 @@ UNIVERSE = [
     {"symbol": "GBPUSD=X", "name": "GBP/USD", "category": "Forex", "source": "yahoo"}
 ]
 
-TIMEFRAMES = ["15m", "1h", "4h", "1d"]
+TIMEFRAMES = ["15m", "30m", "1h", "4h", "8h", "1d", "3d", "1w"]
 MODES = ["Long & Short", "Nur Long", "Nur Short", "Causal Trend-Filter"]
 
 # ==============================================================================
@@ -204,7 +204,12 @@ def run_single_backtest(
     trades: List[Dict[str, Any]] = []
 
     # Timeframe-spezifischer ATR-Puffer
-    sl_mult = 0.6 if timeframe == "15m" else (1.0 if timeframe == "1h" else 1.5)
+    if timeframe in ("15m", "30m"):
+        sl_mult = 0.6
+    elif timeframe in ("1h", "4h", "8h"):
+        sl_mult = 1.0
+    else:  # 1d, 3d, 1w
+        sl_mult = 1.5
 
     start_scan = max(wma_len, 25)
 
@@ -609,7 +614,7 @@ def generate_html_matrix_report(summary: List[Dict[str, Any]], elapsed_s: float)
       <h1 class="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
         <span>📊 Cross-Asset & Multi-Timeframe Matrix-Backtest</span>
       </h1>
-      <p class="text-xs text-slate-400 mt-1">40 Kern-Assets &bull; 4 Timeframes (15m, 1h, 4h, 1D) &bull; 4 strategische Modi &bull; Berechnet in {elapsed_s}s (0 Tokens)</p>
+      <p class="text-xs text-slate-400 mt-1">40 Kern-Assets &bull; 8 Timeframes (15m, 30m, 1h, 4h, 8h, 1D, 3D, 1W) &bull; 4 strategische Modi &bull; Berechnet in {elapsed_s}s (0 Tokens)</p>
     </div>
     <div class="flex items-center gap-3">
       <a href="index.html" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-lg border border-slate-700 transition">

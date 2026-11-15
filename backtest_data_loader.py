@@ -73,7 +73,11 @@ def fetch_binance_history(symbol: str, interval: str = "1h", target_bars: int = 
     bars_dict = {}
     end_ts = int(time.time())
     chunk_size = 1000
-    int_sec = {"15m": 900, "1h": 3600, "4h": 14400, "1d": 86400}.get(interval, 3600)
+    int_sec = {
+        "15m": 900, "30m": 1800, "1h": 3600,
+        "4h": 14400, "8h": 28800, "1d": 86400,
+        "3d": 259200, "1w": 604800
+    }.get(interval.lower(), 3600)
 
     # 1. Chunks rückwärts abrufen
     current_end = end_ts
@@ -100,14 +104,22 @@ def fetch_binance_history(symbol: str, interval: str = "1h", target_bars: int = 
 # ==============================================================================
 def fetch_yahoo_history(ticker: str, interval: str = "1d", range_str: str = "10y") -> List[Dict[str, Any]]:
     """Lädt historische Kerzen über Yahoo Finance REST."""
-    int_map = {"15m": "15m", "1h": "1h", "4h": "1h", "1d": "1d", "1D": "1d"}
+    int_map = {
+        "15m": "15m", "30m": "30m",
+        "1h": "1h", "4h": "1h", "8h": "1h",
+        "1d": "1d", "1D": "1d",
+        "3d": "1d", "3D": "1d",
+        "1w": "1wk", "1W": "1wk"
+    }
     y_int = int_map.get(interval, "1d")
 
-    # Yahoo Limits: 15m max 60d, 1h max 730d (2y), 1d max 20y
-    if interval == "15m" and range_str not in ("1d", "5d", "1mo", "60d"):
+    # Yahoo Limits: 15m/30m max 60d, 1h/4h/8h max 730d (2y), 1d/3d/1w max 20y
+    if interval in ("15m", "30m") and range_str not in ("1d", "5d", "1mo", "60d"):
         range_str = "60d"
-    elif interval in ("1h", "4h") and range_str not in ("1mo", "3mo", "6mo", "1y", "2y", "730d"):
+    elif interval in ("1h", "4h", "8h") and range_str not in ("1mo", "3mo", "6mo", "1y", "2y", "730d"):
         range_str = "730d"
+    elif interval in ("1d", "1D", "3d", "3D", "1w", "1W") and range_str not in ("5y", "10y", "15y", "20y"):
+        range_str = "15y"
 
     url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?interval={y_int}&range={range_str}"
     req = urllib.request.Request(url, headers=HEADERS)
@@ -154,6 +166,38 @@ def fetch_yahoo_history(ticker: str, interval: str = "1d", range_str: str = "10y
                         })
                 return chunked
 
+            # Wenn 8h angefragt wurde, aggregieren wir die 1h-Kerzen zu 8h
+            if interval == "8h" and y_int == "1h" and bars:
+                chunked = []
+                for k in range(0, len(bars), 8):
+                    chk = bars[k : k + 8]
+                    if chk:
+                        chunked.append({
+                            "t": chk[0]["t"],
+                            "o": chk[0]["o"],
+                            "h": max(b["h"] for b in chk),
+                            "l": min(b["l"] for b in chk),
+                            "c": chk[-1]["c"],
+                            "v": sum(b["v"] for b in chk)
+                        })
+                return chunked
+
+            # Wenn 3d angefragt wurde, aggregieren wir die 1d-Kerzen zu 3d
+            if interval in ("3d", "3D") and y_int == "1d" and bars:
+                chunked = []
+                for k in range(0, len(bars), 3):
+                    chk = bars[k : k + 3]
+                    if chk:
+                        chunked.append({
+                            "t": chk[0]["t"],
+                            "o": chk[0]["o"],
+                            "h": max(b["h"] for b in chk),
+                            "l": min(b["l"] for b in chk),
+                            "c": chk[-1]["c"],
+                            "v": sum(b["v"] for b in chk)
+                        })
+                return chunked
+
             return bars
     except Exception as e:
         return []
@@ -187,10 +231,10 @@ def get_cached_bars(asset: Dict[str, Any], interval: str = "1d", force_refresh: 
     # Frisch abrufen
     bars = []
     if src == "binance":
-        target = 3000 if interval in ("15m", "1h") else 1500
+        target = 3000 if interval in ("15m", "30m", "1h") else 1500
         bars = fetch_binance_history(sym, interval=interval, target_bars=target)
     else:
-        range_s = "60d" if interval == "15m" else ("730d" if interval in ("1h", "4h") else "10y")
+        range_s = "60d" if interval in ("15m", "30m") else ("730d" if interval in ("1h", "4h", "8h") else "15y")
         bars = fetch_yahoo_history(sym, interval=interval, range_str=range_s)
 
     if bars and len(bars) >= 30:
