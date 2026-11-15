@@ -26,8 +26,12 @@ from circuit_breaker import (
     check_drawdown_circuit_breaker,
     check_cluster_heat_limit,
     check_cost_gate,
+    check_triad_whitelist,
     classify_asset_cluster,
     CircuitBreakerConfig,
+    DEFAULT_CONFIG,
+    TRIAD_PILOT_CONFIG,
+    TRIAD_WHITELIST,
 )
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -833,6 +837,38 @@ def update_autonomous_portfolio(db_assets):
             asset_type = c.get("asset_type", "Stock")
             setup_name = c.get("setup_name", "High-Conviction Confluence")
 
+            # 0. TRIADE-KONSENS WHITELIST & DIRECTION-LOCK GUARD (Antigravity + Grok 4.7 + Claude Fable 5.2)
+            horizon, horizon_label, horizon_tf = determine_trade_horizon(c)
+            sig_tf = c.get("timeframe", horizon_tf)
+            setup_text = (str(c.get("setup_name", "")) + " " + " ".join(c.get("reasons", []))).lower()
+            if "30m" in setup_text:
+                sig_tf = "30m"
+            elif "4h" in setup_text:
+                sig_tf = "4h"
+            elif "1h" in setup_text:
+                sig_tf = "1h"
+            elif "1d" in setup_text or "daily" in setup_text:
+                sig_tf = "1d"
+
+            wl_check = check_triad_whitelist(
+                symbol=sym,
+                timeframe=sig_tf,
+                direction=c.get("signal", ""),
+                category=cat
+            )
+            if not wl_check["is_approved"]:
+                print(f"   🛡️ [Triad Whitelist Guard] {sym} ({sig_tf} {c.get('signal')}) abgewiesen: {wl_check['rejection_reason']}")
+                continue
+            if wl_check["tier"] != "PILOT_LIVE":
+                print(f"   🛡️ [Triad Tier Guard] {sym} ({sig_tf}) befindet sich auf Stufe '{wl_check['tier']}' (nicht PILOT_LIVE) -> Kein Live-Trade.")
+                continue
+
+            # Max. 1 Position je Basis-Asset (Kein Klumpenrisiko / Double-Dipping auf demselben Ticker)
+            base_ticker = sym.split(":")[-1]
+            if any(t["symbol"] == sym or t["symbol"].endswith(f":{base_ticker}") or t.get("name") == c.get("name") for t in remaining_active):
+                print(f"   🛡️ [Max 1 Position Guard] Bereits eine aktive Position für {c.get('name')} ({sym}) offen.")
+                continue
+
             # 1. Post-Mortem Lab qualitative Regeln prüfen (Gegen-Divergenzen, VSA)
             passes_rules, rule_reason = evaluate_candidate_against_post_mortem_rules(c, memory)
             if not passes_rules:
@@ -849,7 +885,6 @@ def update_autonomous_portfolio(db_assets):
                 continue
 
             # 3. Zeithorizont zuordnen & Kapazität prüfen
-            horizon, horizon_label, horizon_tf = determine_trade_horizon(c)
             if horizon_counts.get(horizon, 0) >= horizon_caps.get(horizon, 3):
                 continue
 
@@ -857,18 +892,19 @@ def update_autonomous_portfolio(db_assets):
             tp1 = c.get("take_profit_1", curr_p * 1.05)
             tp2 = c.get("take_profit_2", curr_p * 1.10)
 
-            # 4. KOSTEN-GATE: Reibungskosten (Gebühren + Spread + Slippage) <= 10% des Stop-Abstands
-            cost_check = check_cost_gate(entry_price=curr_p, stop_loss=sl)
+            # 4. KOSTEN-GATE: Reibungskosten (Gebühren + Spread + Slippage) <= 20% des Stop-Abstands (Fable 5.2 Konsens)
+            cost_check = check_cost_gate(entry_price=curr_p, stop_loss=sl, symbol=sym, cluster=cat, config=TRIAD_PILOT_CONFIG)
             if not cost_check["is_allowed"]:
                 print(f"   🛡️ [Cost Gate Guard] {sym} abgewiesen: {cost_check['rejection_reason']}")
                 continue
 
-            # 5. CLUSTER HEAT-LIMIT: Max 1.5R im selben Cluster, max 3.0R Gesamt-Heat
+            # 5. CLUSTER HEAT-LIMIT: Max 0.30% Cluster-Heat (2.0R @ 0.15%), max 0.60% Gesamt-Heat (4.0R @ 0.15%)
             heat_check = check_cluster_heat_limit(
                 remaining_active,
                 candidate_symbol=sym,
                 candidate_category=cat,
-                candidate_risk_r=1.0
+                candidate_risk_r=1.0,
+                config=TRIAD_PILOT_CONFIG
             )
             if not heat_check["is_allowed"]:
                 print(f"   🛡️ [Cluster Heat Guard] {sym} ({cat}) übersprungen: {heat_check['rejection_reason']}")
@@ -887,24 +923,28 @@ def update_autonomous_portfolio(db_assets):
             if not reason_str:
                 reason_str = f"Hohe Multi-Timeframe Konfluenz ({score}% Score) mit CRV {c.get('crv', 2.5)}:1"
 
-            # Flaches Sizing (0.5% Standard, 0.25% bei Drawdown-Warnung via risk_engine)
+            # Flaches Sizing gemäß Triade-Konsens (0.15% Pilot Live, 0.075% bei Drawdown-Reduktion)
             is_crypto = (cat == "CRYPTO" or "USDT" in sym)
             lot_step = 0.0001 if is_crypto else 1.0
             min_lot = 0.0001 if is_crypto else 1.0
             port_equity = portfolio.get("total_capital", 10000.0)
 
+            pilot_risk_pct = wl_check.get("risk_pct", TRIAD_PILOT_CONFIG.flat_risk_pct)
+            if action == "REDUCE_SIZE":
+                pilot_risk_pct *= 0.5
+
             pos_size = calculate_position_size(
                 entry_price=curr_p,
                 stop_loss=sl,
                 equity=port_equity,
-                risk_pct=effective_risk_pct,
+                risk_pct=pilot_risk_pct,
                 score=score,
                 lot_step=lot_step,
                 min_lot=min_lot
             )
 
             allocated_cap = pos_size["notional_capital"] if pos_size["is_executable"] else 1000.0
-            risk_cash = pos_size["risk_cash"] if pos_size["is_executable"] else round(port_equity * (effective_risk_pct / 100.0), 2)
+            risk_cash = pos_size["risk_cash"] if pos_size["is_executable"] else round(port_equity * (pilot_risk_pct / 100.0), 2)
             qty = pos_size["qty"] if pos_size["is_executable"] else round(allocated_cap / curr_p, 4)
 
             new_trade = {
@@ -913,6 +953,9 @@ def update_autonomous_portfolio(db_assets):
                 "name": c["name"],
                 "category": cat,
                 "cluster": heat_check.get("cluster", classify_asset_cluster(sym, cat)),
+                "whitelist_tier": wl_check["tier"],
+                "whitelist_notes": wl_check.get("notes", ""),
+                "risk_pct": pilot_risk_pct,
                 "asset_type": asset_type,
                 "direction": c["signal"],
                 "horizon": horizon,

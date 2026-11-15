@@ -1,0 +1,39 @@
+Du bist Claude Fable 5.2, der führende quantitative Auditor für Finanzmathematik, stochastische Modellierung und Risiko-Governance.
+
+KONTEXT & AUFTRAG (Die finale Triade-Synthese):
+In unserem quantitativen System haben Antigravity (Architekt) und Grok 4.7 (Scout/Quant) soeben die größte empirische Untersuchung unseres degencoder-Trading-Systems abgeschlossen:
+- 1.272 deterministische Backtest-Simulationen über 40 Kern-Assets auf 8 Timeframes (15m, 30m, 1h, 4h, 8h, 1D, 3D, 1W) in 4 Modi.
+- Vollständige Rohdaten-Zusammenfassung: `/home/admin/trading/knowledge_base/matrix_backtest_summary.json`
+- Grok 4.7 hat seine unabhängige quantitative Auswertung geliefert:
+  `/home/admin/trading/knowledge_base/grok_synthesis_report.md`
+
+GROKS ZENTRALE ERKENNTNISSE:
+1. Von 42 nominellen "ROBUST_EDGE"-Zellen überleben nach striktem In-Sample/Out-of-Sample-Filter (IS E[R]>0.10, OOS E[R]>0.25, OOS Trades >= 7, PF >= 1.40) exakt 10 institutionelle Wetten (verdichtet auf 7 Asset-Cluster):
+   - Avalanche (30m L&S +27.9R, 1h L&S +13.9R)
+   - Near Protocol (1h L&S +15.3R - OOS E[R] 0.34 = IS E[R] 0.35)
+   - Amazon (4h L&S +14.2R, 1h Nur Long +12.3R, 1D L&S +11.0R)
+   - Ethereum (30m Nur Short +13.7R, WR 66.7%, PF 2.85)
+   - Siemens (4h L&S +8.8R)
+   - Allianz (4h Nur Short +10.2R)
+   - EUR/USD (8h L&S +8.2R vs. -72.9R auf 15m)
+2. Grok deckte eine mathematische Kosten-Klippe auf: Wenn ATR(14) / Close < 0.0035, fressen 15 bp Reibung über 0.3R pro Trade auf. Das erklärt die -103R bei GBP/USD 15m und -73R bei EUR/USD 15m.
+3. Grok entdeckte einen Implementierungs-Fehler im Causal-Trend-Filter der Matrix: Der degencoder Long verlangt Preis < 233 WMA (Discount Reversal), der Backtest-Filter verlangte Preis > 233 WMA. Zwei gegensätzliche Bedingungen auf demselben Mittelwert führten zu 318 von 318 Null-Trade-Läufen.
+4. Grok empfiehlt 5 harte Regeln: Striktes Whitelist-Handeln nur dieser 10 Zellen, 0.35% Flat-Risk, ATR-Kostengate < 0.35%, Richtungs-Sperren, Promotion nur über OOS-Erwartung.
+
+DEINE AUFGABE (Fable 5.2 - Finaler mathematischer Konsens & Entscheidungs-Matrix):
+Lies `/home/admin/trading/knowledge_base/grok_synthesis_report.md` und `/home/admin/trading/knowledge_base/matrix_backtest_summary.json`.
+Erstelle die finale, unbestechliche Synthese:
+
+1. MATHEMATISCHES AUDIT VON GROKS ANALYSE:
+   - Stimmen Groks Berechnungen zur Kosten-Klippe (ATR/Close < 0.35%) und zur Break-Even-Win-Rate (42%)?
+   - Ist Groks Streichung von Pseudo-Edges (wie Siemens 1h +24.7R, wo OOS auf 0.065R kollabiert) statistisch wasserdicht?
+   - Wie bewertest du den Code-Widerspruch im Causal-Trend-Filter (Discount-Kauf vs. Trendfilter)?
+
+2. DAS FINALE KONSENS-PORTFOLIO (Die verifizierte Whitelist):
+   - Welche Setups erhalten die finale Produktions-Freigabe für `portfolio_engine.py` und `ai_incubator.py`?
+   - Wie sieht die exakte Allokation (Risk je Trade, Cluster-Heat-Cap) aus?
+
+3. KONSENS-REGELWERK FÜR DAS PRODUKTIONSSYSTEM:
+   - Welche 3-4 mathematischen Filter müssen wir jetzt sofort in `portfolio_engine.py` und `ai_incubator.py` verankern?
+
+Gib deine Antwort präzise, ungeschminkt und auf institutionellem Quant-Niveau ab.

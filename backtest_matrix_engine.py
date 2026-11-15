@@ -234,12 +234,16 @@ def run_single_backtest(
                 trail_stop = curr_h - 2.0 * a
                 sl = max(sl, trail_stop)
 
-            # TP2 Vollziel
-            if curr_h >= tp2:
-                exit_p = tp2 * (1.0 - slippage_pct)
+            # Stop-Loss Touch (Konservativer Schutz vor Optimismus-Bias: Stop-Loss VOR TP2 prüfen!)
+            if curr_l <= sl:
+                actual_exit = min(sl, curr_o)  # Wenn Eröffnungskurs mit Gap unter Stop liegt
+                exit_p = actual_exit * (1.0 - slippage_pct)
                 eff_entry = entry_price * (1.0 + slippage_pct)
-                # PnL: 50% TP1 + 50% TP2 (oder 100% TP2 wenn TP1 im selben Takt)
-                raw_gain = ((tp1 - eff_entry) * 0.5 + (exit_p - eff_entry) * 0.5) if tp1_done else (exit_p - eff_entry)
+                if tp1_done:
+                    # 50% bei TP1 gesichert, Rest bei Breakeven/Trailing ausgestoppt
+                    raw_gain = ((tp1 - eff_entry) * 0.5 + (exit_p - eff_entry) * 0.5)
+                else:
+                    raw_gain = exit_p - eff_entry
                 cost = (eff_entry + exit_p) * fee_pct * pos_size
                 pnl = (raw_gain * pos_size) - cost
                 realized_r = round(pnl / (equity * risk_pct), 2)
@@ -252,15 +256,11 @@ def run_single_backtest(
                 pos_dir = 0
                 pos_size = 0.0
 
-            # Stop-Loss Touch
-            elif curr_l <= sl:
-                exit_p = sl * (1.0 - slippage_pct)
+            # TP2 Vollziel
+            elif curr_h >= tp2:
+                exit_p = tp2 * (1.0 - slippage_pct)
                 eff_entry = entry_price * (1.0 + slippage_pct)
-                if tp1_done:
-                    # 50% bei TP1 gesichert, Rest bei Breakeven/Trailing ausgestoppt
-                    raw_gain = ((tp1 - eff_entry) * 0.5 + (exit_p - eff_entry) * 0.5)
-                else:
-                    raw_gain = exit_p - eff_entry
+                raw_gain = ((tp1 - eff_entry) * 0.5 + (exit_p - eff_entry) * 0.5) if tp1_done else (exit_p - eff_entry)
                 cost = (eff_entry + exit_p) * fee_pct * pos_size
                 pnl = (raw_gain * pos_size) - cost
                 realized_r = round(pnl / (equity * risk_pct), 2)
@@ -283,11 +283,15 @@ def run_single_backtest(
                 trail_stop = curr_l + 2.0 * a
                 sl = min(sl, trail_stop)
 
-            # TP2 Vollziel
-            if curr_l <= tp2:
-                exit_p = tp2 * (1.0 + slippage_pct)
+            # SL Touch (Short: Konservativ vor TP2 prüfen + Gap-Adjust)
+            if curr_h >= sl:
+                actual_exit = max(sl, curr_o)  # Wenn Eröffnungskurs mit Gap über Stop liegt
+                exit_p = actual_exit * (1.0 + slippage_pct)
                 eff_entry = entry_price * (1.0 - slippage_pct)
-                raw_gain = ((eff_entry - tp1) * 0.5 + (eff_entry - exit_p) * 0.5) if tp1_done else (eff_entry - exit_p)
+                if tp1_done:
+                    raw_gain = ((eff_entry - tp1) * 0.5 + (eff_entry - exit_p) * 0.5)
+                else:
+                    raw_gain = eff_entry - exit_p
                 cost = (eff_entry + exit_p) * fee_pct * pos_size
                 pnl = (raw_gain * pos_size) - cost
                 realized_r = round(pnl / (equity * risk_pct), 2)
@@ -300,14 +304,11 @@ def run_single_backtest(
                 pos_dir = 0
                 pos_size = 0.0
 
-            # SL Touch (Short)
-            elif curr_h >= sl:
-                exit_p = sl * (1.0 + slippage_pct)
+            # TP2 Vollziel
+            elif curr_l <= tp2:
+                exit_p = tp2 * (1.0 + slippage_pct)
                 eff_entry = entry_price * (1.0 - slippage_pct)
-                if tp1_done:
-                    raw_gain = ((eff_entry - tp1) * 0.5 + (eff_entry - exit_p) * 0.5)
-                else:
-                    raw_gain = eff_entry - exit_p
+                raw_gain = ((eff_entry - tp1) * 0.5 + (eff_entry - exit_p) * 0.5) if tp1_done else (eff_entry - exit_p)
                 cost = (eff_entry + exit_p) * fee_pct * pos_size
                 pnl = (raw_gain * pos_size) - cost
                 realized_r = round(pnl / (equity * risk_pct), 2)
@@ -359,10 +360,14 @@ def run_single_backtest(
             p3_s = 10 if vsa_spike else 0
             score_s = 0 if ntz else (p1_s + p2_s + p3_s)
 
-            # Causal Trend Filter (Governance: Long nur wenn über WMA233 und RSI > 50, Short nur darunter)
+            # Causal Trend Filter (Governance: Trend-Steigung des WMA233 über 5 Bars + RSI Bias)
+            # Behebt den Code-Bug der Vorversion: Erlaubt Discount-Käufe (curr_p < r_basis), solange der übergeordnete 233-Trend aufwärts zeigt!
+            prev_basis = rfe_wma[i - 5] if (i >= 5 and rfe_wma[i - 5] is not None) else r_basis
+            wma_slope_bull = (r_basis >= prev_basis)
+            wma_slope_bear = (r_basis <= prev_basis)
             curr_rsi = rsi14[i] or 50.0
-            is_causal_long_ok = (curr_p > r_basis) and (curr_rsi > 48.0)
-            is_causal_short_ok = (curr_p < r_basis) and (curr_rsi < 52.0)
+            is_causal_long_ok = wma_slope_bull and (curr_rsi > 45.0)
+            is_causal_short_ok = wma_slope_bear and (curr_rsi < 55.0)
 
             # Modus-Prüfung
             allow_long = mode in ("Long & Short", "Nur Long") or (mode == "Causal Trend-Filter" and is_causal_long_ok)
@@ -504,9 +509,20 @@ def run_full_matrix_suite():
                 # print(f"  [{progress_count}/{total_combos}] ⚠️ {sym} ({tf}): zu wenige Bars ({len(bars)} < 245)")
                 continue
 
-            # 2. Die 4 Modi simulieren
+            # 2. Reibungskosten je Asset-Klasse (gemäß Fable 5.2 Realitäts-Audit)
+            if cat == "Forex":
+                fee_val = 0.00005    # 0.5 bp Gebühr
+                slip_val = 0.0001    # 1.0 bp Slippage (reale FX-Liquidität)
+            elif cat in ("US-Tech", "DAX", "Index", "Commodity"):
+                fee_val = 0.0002     # 2 bp
+                slip_val = 0.0001    # 1 bp
+            else:  # Crypto
+                fee_val = 0.00055    # 5.5 bp
+                slip_val = 0.0002    # 2 bp
+
+            # 3. Die 4 Modi simulieren
             for mode in MODES:
-                res = run_single_backtest(bars, mode=mode, timeframe=tf)
+                res = run_single_backtest(bars, mode=mode, timeframe=tf, fee_pct=fee_val, slippage_pct=slip_val)
                 if res:
                     results[sym]["timeframes"][tf]["modes"][mode] = res
                     summary_list.append({

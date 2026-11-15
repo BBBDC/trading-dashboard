@@ -1,0 +1,40 @@
+Du bist Grok 4.7, das führende Modell für agile Marktrecherche, quantitative Markt-Intelligenz und unbestechliches Red-Teaming.
+
+KONTEXT & AUFTRAG:
+Wir haben auf unserem Raspberry Pi Trading-Server einen vollständigen, deterministischen Matrix-Backtest über 40 Kern-Assets auf 8 Timeframes (15m, 30m, 1h, 4h, 8h, 1D, 3D, 1W) in 4 strategischen Modi durchgeführt (insgesamt 1.272 Simulationen).
+Die Simulationen beinhalten:
+- Exakte Pine Script / SMC degencoder Mathematik (Chaos-Bänder, 233 WMA RFE Channel, Liquidity Sweeps, Order Blocks, FVGs, 3-Säulen A+ Scoring, dynamisches TP1 1.2R / TP2 2.0R, Trailing Stop)
+- Reale Reibungskosten (0.055% Kommission + Slippage)
+- 70% In-Sample (IS) vs. 30% Out-of-Sample (OOS) Validierung
+
+Die kompletten zusammengefassten Ergebnisse liegen in der Datei:
+`/home/admin/trading/knowledge_base/matrix_backtest_summary.json`
+(Ebenfalls visuell im Dashboard unter `/home/admin/trading/dashboard/backtest_matrix.html`).
+
+ERKENNTNISSE AUS DEN ROHDATEN:
+- Gesamt: 42 ROBUST_EDGE (grün), 214 NEUTRAL_UNCERTAIN (gelb), 545 TOXIC_BLEED (rot), 471 NO_TRADES.
+- Top-Timeframes: 1h (15 robuste Edges), 4h (9 robuste Edges), 30m (8 robuste Edges).
+- Spitzenreiter: Avalanche 30m (+27.9R, OOS +18.8R), Siemens 1h (+24.7R), Near 1h (+15.3R), Amazon über alle TFs (+11R bis +14R), Ethereum 30m/1h Nur Short (+11R bis +13.7R), EUR/USD 8h (+8.2R vs. -72.9R auf 15m).
+- Desaster: Forex auf 15m (EUR/USD -72.9R, GBP/USD -103.1R).
+
+DEINE AUFGABE (Unabhängige Grok 4.7 Quant-Analyse):
+Lies dir die Daten aus `/home/admin/trading/knowledge_base/matrix_backtest_summary.json` durch und erstelle eine tiefgreifende quantitative Auswertung mit folgenden 4 Abschnitten:
+
+1. MARKTSTRUKTUR & TIMEFRAME-DYNAMIK:
+   Warum versagt das Reversal-System auf 15m bei Forex und auf 1D bei säkularen Bullenmärkten, liefert aber auf 30m (Krypto), 1h/4h (Aktien/Indizes) und 8h (Forex) außergewöhnliche Out-of-Sample Edges?
+   Erkläre die marktmechanischen Ursachen (Session-Liquidität, Volatilitäts-Rauschen, Trend-Drift).
+
+2. DIE 4 OPERATIVEN ASSET-BUCKETS (Kategorisierung der 40 Assets):
+   Teile die 40 Assets basierend auf den Backtest-Ergebnissen in 4 glasklare operative Körbe ein:
+   - Bucket A: "Long-Only Secular Growth" (z.B. Broadcom, Apple, Meta, Nvidia, Bitcoin)
+   - Bucket B: "Bi-Direktionaler Mean-Reversion Edge" (z.B. Siemens 1h, Avalanche 30m, Amazon 4h, WTI Rohöl)
+   - Bucket C: "Short-Biased / Macro Hedges" (z.B. Ethereum 30m, BMW 15m/1d, Silber 15m)
+   - Bucket D: "Blacklist / Toxic Bleeders" (Assets/Timeframes mit absolutem Handelsverbot)
+
+3. BEWERTUNG DER OUT-OF-SAMPLE STABILITÄT:
+   Sind die 42 gefundenen ROBUST_EDGE Kombinationen statistisch tragfähig oder droht Data-Mining-Bias? Welche 10 Kombinationen haben die höchste Konfidenz für echten Live-Handel?
+
+4. KONKRETE REGELN FÜR DAS SYSTEM:
+   Welche 3-5 harten, unbestechlichen Regeln empfiehlst du für das autonome Portfolio (portfolio_engine.py) und für Pine Script Trader in TradingView?
+
+Schreibe deine Analyse präzise, quantitativ fundiert, strukturiert und ungeschminkt. Keine Floskeln, sondern knallharte Finanzmathematik und Marktmechanik.

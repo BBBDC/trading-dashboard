@@ -299,6 +299,12 @@ def scan_for_micro_setup(
     lows = [float(b["l"]) for b in bars[-14:]]
     atr_approx = sum(h - l for h, l in zip(highs, lows)) / 14.0
 
+    # ATR / Close Gate (Fable 5.2 & Grok 4.7 Konsens): Unter 0.35% (0.0035) frisst Reibung jeden Edge
+    curr_c = float(bars[-1]["c"])
+    atr_frac = (atr_approx / curr_c) if curr_c > 0 else 0.0
+    if atr_frac < 0.0035 and asset.get("category") != "Forex":
+        return None
+
     # =========================================================================
     # 1. LONG-SETUP EVALUIERUNG & FABLE 5.2 SCORING
     # =========================================================================
@@ -460,8 +466,8 @@ def scan_for_micro_setup(
         sl = round(ref_low - buffer_atr * atr_approx, 4)
         risk = curr_p - sl
         if risk > 0 and (risk / curr_p) <= 0.05:
-            # Kosten-Gate prüfen (maximal 10% des Stop-Abstands darf an Reibung verloren gehen)
-            cost_check = check_cost_gate(entry_price=curr_p, stop_loss=sl)
+            # Kosten-Gate prüfen (maximal 20% des Stop-Abstands darf an Reibung verloren gehen)
+            cost_check = check_cost_gate(entry_price=curr_p, stop_loss=sl, symbol=asset.get("symbol"), cluster=asset.get("category"))
             if not cost_check["is_allowed"]:
                 return None
 
@@ -585,8 +591,8 @@ def scan_for_micro_setup(
         sl = round(ref_high + buffer_atr * atr_approx, 4)
         risk = sl - curr_p
         if risk > 0 and (risk / curr_p) <= 0.05:
-            # Kosten-Gate prüfen (maximal 10% des Stop-Abstands darf an Reibung verloren gehen)
-            cost_check = check_cost_gate(entry_price=curr_p, stop_loss=sl)
+            # Kosten-Gate prüfen (maximal 20% des Stop-Abstands darf an Reibung verloren gehen)
+            cost_check = check_cost_gate(entry_price=curr_p, stop_loss=sl, symbol=asset.get("symbol"), cluster=asset.get("category"))
             if not cost_check["is_allowed"]:
                 return None
 
@@ -1222,15 +1228,15 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
         if not any(ca["symbol"] == a["symbol"] for ca in candidate_assets):
             candidate_assets.append(a)
 
-    # Inkubator-Forschungskonfiguration: Entkoppelt vom Haupt-Portfolio, um 100 Out-of-Sample-Trades zu sammeln
+    # Inkubator-Forschungskonfiguration (Fable 5.2 & Grok 4.7 Konsens: Strenges Schattenbuch)
     inc_heat_config = CircuitBreakerConfig(
-        max_total_heat_r=16.0,
-        max_cluster_heat_r=8.0,
-        daily_loss_limit_r=10.0,
-        drawdown_reduce_r=15.0,
-        drawdown_halt_r=25.0,
-        flat_risk_pct=0.5,
-        max_cost_r_ratio=0.10
+        max_total_heat_r=4.0,       # 4.0 * 0.15% = 0.60% Gesamt-Heat
+        max_cluster_heat_r=2.0,     # 2.0 * 0.15% = 0.30% Cluster-Heat
+        daily_loss_limit_r=3.0,
+        drawdown_reduce_r=10.0,
+        drawdown_halt_r=15.0,
+        flat_risk_pct=0.15,
+        max_cost_r_ratio=0.20
     )
 
     # 2. Drawdown Circuit-Breaker vor neuen Einstiegen prüfen (auf kalibrierten Trades)
@@ -1251,13 +1257,13 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
             if len(active_trades) >= max_active:
                 break
 
-            # Cluster Heat-Limit vorab prüfen (Labor-Sandbox Budget: bis zu 8.0R je Cluster)
+            # Cluster Heat-Limit vorab prüfen (Schattenbuch Budget: max 2.0R je Cluster)
             heat_check = check_cluster_heat_limit(active_trades, candidate_symbol=asset["symbol"], candidate_category=asset.get("category"), config=inc_heat_config)
             if not heat_check["is_allowed"]:
                 print(f"  🛡️ [Cluster Heat Limit] {asset['name']} ({asset['symbol']}) übersprungen: {heat_check['rejection_reason']}")
                 continue
 
-            # Fable 5.2 Gate: HTF-Trend (1h) mit RFE Basis (WMA 233) zur Trendfolge-Governance ermitteln
+            # Fable 5.2 Gate: HTF-Trend (1h/4h) mit RFE Basis (WMA 233) zur Trendfolge-Governance ermitteln
             bars_1h = fetch_incubator_bars(asset, interval="1h")
             htf_bias = "NEUTRAL"
             htf_rfe_basis = None
@@ -1268,8 +1274,8 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
                     htf_rfe_basis = wma_233[-1]
                     htf_bias = "BULLISH" if closes_1h[-1] >= htf_rfe_basis else "BEARISH"
 
-            # Prüfe 5m (Micro-Sweep) und 15m (Zonen-Struktur)
-            for tf in ["5m", "15m"]:
+            # Prüfe 30m, 1h und 15m (Priorität auf evidenzbasierten Timeframes gemäß Matrix)
+            for tf in ["30m", "1h", "15m"]:
                 bars = fetch_incubator_bars(asset, interval=tf)
                 if not bars:
                     continue
@@ -1277,9 +1283,12 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
                 setup = scan_for_micro_setup(asset, bars, timeframe=tf, htf_bias=htf_bias, htf_rfe_basis=htf_rfe_basis, bars_1h=bars_1h)
                 if setup:
                     setup["trade_id"] = f"inc_{asset['symbol']}_{tf}_{int(time.time())}"
+                    setup["mode"] = "SHADOW_PAPER"
+                    setup["live_execution"] = False
+                    setup["tier"] = "SHADOW_PAPER"
                     active_trades.append(setup)
                     grade_str = f"[{setup.get('setup_grade', 'A')}|{setup.get('setup_score', 0)}P|CS:{setup.get('causality_score', 0)}]"
-                    print(f"  🎯 NEUER SIMULIERTER {tf}-TRADE {grade_str}: {asset['name']} ({asset['symbol']}) {setup['direction']} @ {setup['entry_price']} (SL: {setup['sl']}, TP1: {setup['tp1']}, HTF: {setup.get('htf_regime')})")
+                    print(f"  🎯 NEUER SIMULIERTER {tf}-TRADE (Schattenbuch) {grade_str}: {asset['name']} ({asset['symbol']}) {setup['direction']} @ {setup['entry_price']} (SL: {setup['sl']}, TP1: {setup['tp1']}, HTF: {setup.get('htf_regime')})")
                     break  # Ein Setup pro Asset genügt
 
     # 3. Falls noch wenige Trades vorliegen: Einmaliges Mini-Replay ausführen

@@ -39,11 +39,15 @@ from typing import Any, Dict, List, Optional, Tuple
 __all__ = [
     "CircuitBreakerConfig",
     "DEFAULT_CONFIG",
+    "TRIAD_PILOT_CONFIG",
+    "ASSET_FRICTION_DEFAULTS",
     "CLUSTERS",
+    "TRIAD_WHITELIST",
     "classify_asset_cluster",
     "check_drawdown_circuit_breaker",
     "check_cluster_heat_limit",
     "check_cost_gate",
+    "check_triad_whitelist",
 ]
 
 # Toleranz für Float-Vergleiche an den Grenzwerten (z.B. 0.75 + 0.75 == 1.5).
@@ -56,20 +60,22 @@ _EPS = 1e-9
 
 @dataclass(frozen=True)
 class CircuitBreakerConfig:
-    """Grenzwerte des Schutzmoduls. Alle R-Limits sind positive Beträge."""
+    """Grenzwerte des Schutzmoduls gemäß institutioneller Risiko-Governance."""
 
     daily_loss_limit_r: float = 3.0    # -3.0R Tagesverlust => Not-Aus für neue Einstiege heute
     drawdown_reduce_r: float = 10.0    # -10.0R Drawdown vom Peak => Risiko halbieren
     drawdown_halt_r: float = 15.0      # -15.0R Drawdown vom Peak => Vollstopp / Strategy-Review
-    max_total_heat_r: float = 3.0      # max. offenes Gesamtrisiko über alle Trades
-    max_cluster_heat_r: float = 1.5    # max. offenes Risiko je Asset-Cluster
-    flat_risk_pct: float = 0.5         # Basis-Risiko in % Equity pro Trade (statt Kelly)
+    max_total_heat_r: float = 3.0      # max. offenes Gesamtrisiko über alle Trades (3.0R)
+    max_cluster_heat_r: float = 1.5    # max. offenes Risiko je Asset-Cluster (1.5R)
+    flat_risk_pct: float = 0.5         # Basis-Risiko in % Equity pro Trade (Standard: 0.5%)
     max_cost_r_ratio: float = 0.10     # Kosten-Gate: max. 10 % des Stop-Abstands als Reibung
+    kill_drawdown_cell_r: float = 6.0  # Abschalt-Gate: -6.0R auf neuen Trades deaktiviert eine Zelle
 
     def __post_init__(self) -> None:
         for name in (
             "daily_loss_limit_r", "drawdown_reduce_r", "drawdown_halt_r",
             "max_total_heat_r", "max_cluster_heat_r", "flat_risk_pct", "max_cost_r_ratio",
+            "kill_drawdown_cell_r",
         ):
             value = getattr(self, name)
             if isinstance(value, bool) or not isinstance(value, (int, float)) \
@@ -80,6 +86,128 @@ class CircuitBreakerConfig:
 
 
 DEFAULT_CONFIG = CircuitBreakerConfig()
+
+# Exakte Allokations-Governance gemäß Triade-Konsens (Antigravity + Grok 4.7 + Claude Fable 5.2):
+# - 0.15% Flat Risk je Trade (Pilot live)
+# - Max 0.30% Cluster-Heat (2.0R @ 0.15%)
+# - Max 0.60% Portfolio-Heat (4.0R @ 0.15%)
+# - Max 0.20R Reibungskosten (max. 20% des Stop-Abstands)
+TRIAD_PILOT_CONFIG = CircuitBreakerConfig(
+    daily_loss_limit_r=3.0,
+    drawdown_reduce_r=10.0,
+    drawdown_halt_r=15.0,
+    max_total_heat_r=4.0,       # 4.0 * 0.15% = 0.60% Gesamtkonto-Heat
+    max_cluster_heat_r=2.0,     # 2.0 * 0.15% = 0.30% Cluster-Heat (Crypto = AVAX, NEAR, ETH gemeinsam)
+    flat_risk_pct=0.15,         # 0.15% Flat Risk je Trade
+    max_cost_r_ratio=0.20,      # Max 20% Stop-Abstand Reibung
+    kill_drawdown_cell_r=6.0    # -6.0R Zell-Abschaltung
+)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 1.1 Triade-Konsens Whitelist & Asset-Friction Tabellen
+# ─────────────────────────────────────────────────────────────────────────────
+
+ASSET_FRICTION_DEFAULTS = {
+    "CRYPTO": {"fee_pct": 0.055, "spread_pct": 0.03, "slippage_pct": 0.02},       # Round-Turn ~0.16%
+    "US_EQUITIES": {"fee_pct": 0.02, "spread_pct": 0.03, "slippage_pct": 0.01},  # Round-Turn ~0.08%
+    "EU_EQUITIES": {"fee_pct": 0.02, "spread_pct": 0.03, "slippage_pct": 0.01},  # Round-Turn ~0.08%
+    "FOREX": {"fee_pct": 0.005, "spread_pct": 0.015, "slippage_pct": 0.005},      # Round-Turn ~0.03%
+    "COMMODITIES": {"fee_pct": 0.02, "spread_pct": 0.03, "slippage_pct": 0.01},  # Round-Turn ~0.08%
+}
+
+TRIAD_WHITELIST = {
+    # ── STUFE 1: PILOT LIVE (Echtgeld-Portfolio, 0.15% Flat Risk, strikte Governance) ──
+    "AVAX_30M": {
+        "symbols": ["BINANCE:AVAXUSDT", "AVAXUSDT", "AVAXUSD", "BINANCE:AVAXUSD"],
+        "timeframe": "30m",
+        "allowed_directions": ["LONG", "SHORT"],
+        "tier": "PILOT_LIVE",
+        "risk_pct": 0.15,
+        "max_risk_cash": 15.0,
+        "cluster": "CRYPTO",
+        "notes": "Avalanche 30m L&S: OOS E[R]=+0.73, p_boot=0.007, t=2.38, PF 2.37"
+    },
+    "ETH_30M_SHORT": {
+        "symbols": ["BINANCE:ETHUSDT", "COINBASE:ETHUSD", "BITSTAMP:ETHUSD", "ETHUSD", "ETHUSDT"],
+        "timeframe": "30m",
+        "allowed_directions": ["SHORT"],  # STRIKT NUR SHORT! Longs verboten.
+        "tier": "PILOT_LIVE",
+        "risk_pct": 0.15,
+        "max_risk_cash": 15.0,
+        "cluster": "CRYPTO",
+        "notes": "Ethereum 30m Nur Short: WR 66.7%, PF 2.85, OOS E[R]=+0.76, p_boot=0.017"
+    },
+    "AMZN_4H": {
+        "symbols": ["NASDAQ:AMZN", "TRADEGATE:AMZ", "AMZN"],
+        "timeframe": "4h",
+        "allowed_directions": ["LONG", "SHORT"],
+        "tier": "PILOT_LIVE",
+        "risk_pct": 0.15,
+        "max_risk_cash": 15.0,
+        "cluster": "US_EQUITIES",
+        "notes": "Amazon 4h L&S: OOS E[R]=+0.79, t=1.65, PF 1.63, 746d IS / 315d OOS"
+    },
+
+    # ── STUFE 2: SHADOW PAPER (Schattenbuch / AI Incubator, 0.00% Live Risk, Evidenzsammlung) ──
+    "NEAR_1H": {
+        "symbols": ["BINANCE:NEARUSDT", "NEARUSDT", "NEARUSD"],
+        "timeframe": "1h",
+        "allowed_directions": ["LONG", "SHORT"],
+        "tier": "SHADOW_PAPER",
+        "risk_pct": 0.0,
+        "cluster": "CRYPTO",
+        "notes": "Near Protocol 1h L&S: IS E[R]=0.35, OOS E[R]=0.34, PF 1.52 (Schattenbuch)"
+    },
+    "AVAX_1H": {
+        "symbols": ["BINANCE:AVAXUSDT", "AVAXUSDT", "AVAXUSD"],
+        "timeframe": "1h",
+        "allowed_directions": ["LONG", "SHORT"],
+        "tier": "SHADOW_PAPER",
+        "risk_pct": 0.0,
+        "cluster": "CRYPTO",
+        "notes": "Avalanche 1h L&S: OOS E[R]=0.32, PF 1.47, n=44 (Schattenbuch)"
+    },
+    "SIEMENS_4H": {
+        "symbols": ["TRADEGATE:SIE", "XETR:SIE", "SIE", "FWB:SIE"],
+        "timeframe": "4h",
+        "allowed_directions": ["LONG", "SHORT"],
+        "tier": "SHADOW_PAPER",
+        "risk_pct": 0.0,
+        "cluster": "EU_EQUITIES",
+        "notes": "Siemens 4h L&S: OOS E[R]=0.35, PF 1.58, 736d IS / 310d OOS (Schattenbuch)"
+    },
+    "SIEMENS_1H": {
+        "symbols": ["TRADEGATE:SIE", "XETR:SIE", "SIE", "FWB:SIE"],
+        "timeframe": "1h",
+        "allowed_directions": ["LONG", "SHORT"],
+        "tier": "SHADOW_PAPER",
+        "risk_pct": 0.0,
+        "cluster": "EU_EQUITIES",
+        "notes": "Siemens 1h L&S: 81 Trades, t=1.54, rehabilitiert durch Fable 5.2 (Schattenbuch)"
+    },
+    "ALLIANZ_4H": {
+        "symbols": ["TRADEGATE:ALV", "XETR:ALV", "ALV", "FWB:ALV"],
+        "timeframe": "4h",
+        "allowed_directions": ["SHORT"],  # STRIKT NUR SHORT!
+        "tier": "SHADOW_PAPER",
+        "risk_pct": 0.0,
+        "cluster": "EU_EQUITIES",
+        "notes": "Allianz 4h Nur Short: PF 1.99, OOS E[R]=0.60, 736d IS / 310d OOS (Schattenbuch)"
+    },
+    "AMZN_1D": {
+        "symbols": ["NASDAQ:AMZN", "TRADEGATE:AMZ", "AMZN"],
+        "timeframe": "1D",
+        "allowed_directions": ["LONG", "SHORT"],
+        "tier": "SHADOW_PAPER",
+        "risk_pct": 0.0,
+        "cluster": "US_EQUITIES",
+        "notes": "Amazon 1D L&S: OOS E[R]=0.39, PF 1.42, 2.552d IS / 1.099d OOS (Schattenbuch)"
+    }
+}
+
+# Megacap-Tech-Aktien mit säkularem Aufwärtstrend: Short auf 1D/3D/1W streng verboten!
+SECULAR_BULL_TICKERS = {"NVDA", "AAPL", "MSFT", "AVGO", "GOOG", "GOOGL", "META"}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -581,29 +709,36 @@ def check_cluster_heat_limit(
 def check_cost_gate(
     entry_price: float,
     stop_loss: float,
-    fee_pct: float = 0.055,
-    spread_pct: float = 0.03,
-    slippage_pct: float = 0.02,
+    fee_pct: Optional[float] = None,
+    spread_pct: Optional[float] = None,
+    slippage_pct: Optional[float] = None,
+    symbol: Optional[str] = None,
+    cluster: Optional[str] = None,
     config: CircuitBreakerConfig = DEFAULT_CONFIG,
 ) -> Dict[str, Any]:
     """
     Prüft, ob die Round-Trip-Reibung im Verhältnis zum Stop-Abstand tragbar ist.
 
-        total_cost_pct = 2 * fee_pct + spread_pct + slippage_pct     (Default 0.16 %)
+        total_cost_pct = 2 * fee_pct + spread_pct + slippage_pct
         stop_pct       = |entry - stop| / entry * 100
         cost_r         = total_cost_pct / stop_pct
 
     Alle Prozentwerte in Prozentpunkten (0.055 = 0.055 %). Abgelehnt wird bei
     cost_r > config.max_cost_r_ratio oder ungültigen Eingaben (dann cost_r = inf).
 
-    Rückgabe: is_allowed, cost_r, rejection_reason (leer bei Freigabe) — plus
-    total_cost_pct, stop_pct, min_stop_pct (kleinster zulässiger Stop-Abstand).
+    Nutzt automatisch anlagenspezifische Reibungswerte (ASSET_FRICTION_DEFAULTS),
+    wenn keine expliziten Werte übergeben wurden.
     """
     entry = _to_float(entry_price)
     stop = _to_float(stop_loss)
-    fee = _to_float(fee_pct)
-    spread = _to_float(spread_pct)
-    slippage = _to_float(slippage_pct)
+
+    # Automatische Ermittlung der Reibungskosten je Asset-Cluster
+    resolved_cluster = cluster or (classify_asset_cluster(symbol) if symbol else "CRYPTO")
+    friction = ASSET_FRICTION_DEFAULTS.get(resolved_cluster, ASSET_FRICTION_DEFAULTS["CRYPTO"])
+
+    fee = _to_float(fee_pct) if fee_pct is not None else friction["fee_pct"]
+    spread = _to_float(spread_pct) if spread_pct is not None else friction["spread_pct"]
+    slippage = _to_float(slippage_pct) if slippage_pct is not None else friction["slippage_pct"]
 
     def _reject(reason: str, total_cost: float = math.nan, stop_dist: float = 0.0) -> Dict[str, Any]:
         return {
@@ -633,7 +768,7 @@ def check_cost_gate(
     is_allowed = cost_r <= config.max_cost_r_ratio + _EPS
     min_stop_pct = total_cost_pct / config.max_cost_r_ratio
     reason = "" if is_allowed else (
-        f"Kosten-Gate: Reibung {total_cost_pct:.3f}% bei Stop-Abstand {stop_pct:.3f}% = "
+        f"Kosten-Gate: Reibung {total_cost_pct:.3f}% ({resolved_cluster}) bei Stop-Abstand {stop_pct:.3f}% = "
         f"{cost_r:.2f}R > {config.max_cost_r_ratio:.2f}R. Mindest-Stop-Abstand: {min_stop_pct:.2f}%.")
 
     return {
@@ -643,6 +778,108 @@ def check_cost_gate(
         "total_cost_pct": round(total_cost_pct, 6),
         "stop_pct": round(stop_pct, 6),
         "min_stop_pct": round(min_stop_pct, 6),
+    }
+
+
+def check_triad_whitelist(
+    symbol: str,
+    timeframe: str,
+    direction: str,
+    category: Optional[str] = None
+) -> Dict[str, Any]:
+    """
+    Prüft ein Setup gegen die unanfechtbare Triade-Konsens-Whitelist (Antigravity + Grok 4.7 + Claude Fable 5.2).
+
+    Rückgabe:
+      - is_approved (bool)
+      - tier ("PILOT_LIVE", "SHADOW_PAPER", "REJECTED")
+      - risk_pct (float: 0.15 bei PILOT_LIVE, 0.0 bei SHADOW_PAPER)
+      - cluster (str)
+      - rejection_reason (str)
+      - notes (str)
+      - whitelist_cell (dict)
+    """
+    sym = str(symbol or "").strip().upper()
+    tf = str(timeframe or "").strip().lower()
+    dir_clean = str(direction or "").strip().upper()
+    cat = str(category or "").strip()
+    ticker = sym.split(":")[-1] if ":" in sym else sym
+    cluster = classify_asset_cluster(sym, cat)
+
+    # 1. Säkulare Bull-Trend-Sperre: Keine Shorts auf Megacap-Tech im Daily/Macro-Trend
+    clean_ticker = re.sub(r"[^A-Z]", "", ticker)
+    if clean_ticker in SECULAR_BULL_TICKERS and dir_clean == "SHORT" and tf in ("1d", "3d", "1w"):
+        return {
+            "is_approved": False,
+            "tier": "REJECTED",
+            "risk_pct": 0.0,
+            "cluster": cluster,
+            "rejection_reason": (
+                f"🛡️ [Drift-Sperre] Short auf {clean_ticker} im Timeframe {tf} verboten: "
+                "Säkularer Megacap-Bullenmarkt erzeugt 87% Verlustquote im Matrix-Backtest."
+            ),
+            "whitelist_cell": None
+        }
+
+    # 2. Whitelist-Matching (Symbol & Timeframe)
+    matched_entry = None
+    matched_key = None
+    for key, cell in TRIAD_WHITELIST.items():
+        cell_tf = cell["timeframe"].lower()
+        if tf != cell_tf:
+            continue
+        # Symbol-Match
+        sym_matched = False
+        for s in cell["symbols"]:
+            s_clean = s.upper()
+            s_tick = s_clean.split(":")[-1]
+            if sym == s_clean or ticker == s_tick or ticker.startswith(s_tick):
+                sym_matched = True
+                break
+        if sym_matched:
+            matched_entry = cell
+            matched_key = key
+            break
+
+    if not matched_entry:
+        return {
+            "is_approved": False,
+            "tier": "REJECTED",
+            "risk_pct": 0.0,
+            "cluster": cluster,
+            "rejection_reason": (
+                f"🛡️ [Whitelist Guard] Setup {sym} ({tf} {dir_clean}) abgewiesen: "
+                "Nicht auf der verifizierten Triade-Konsens-Whitelist (keine statistisch signifikante OOS-Edge)."
+            ),
+            "whitelist_cell": None
+        }
+
+    # 3. Richtungs-Prüfung (Direction Lock)
+    allowed_dirs = [d.upper() for d in matched_entry["allowed_directions"]]
+    if dir_clean not in allowed_dirs:
+        return {
+            "is_approved": False,
+            "tier": "REJECTED",
+            "risk_pct": 0.0,
+            "cluster": cluster,
+            "rejection_reason": (
+                f"🛡️ [Direction Lock] {dir_clean} für {sym} ({tf}) gesperrt: "
+                f"Triade-Konsens erlaubt ausschließlich {', '.join(allowed_dirs)}."
+            ),
+            "whitelist_cell": matched_entry
+        }
+
+    tier = matched_entry["tier"]
+    risk = matched_entry["risk_pct"]
+
+    return {
+        "is_approved": True,
+        "tier": tier,
+        "risk_pct": risk,
+        "cluster": matched_entry.get("cluster", cluster),
+        "rejection_reason": "",
+        "notes": matched_entry.get("notes", ""),
+        "whitelist_cell": matched_entry
     }
 
 
