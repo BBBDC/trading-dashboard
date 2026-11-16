@@ -1,5 +1,543 @@
 [
   {
+    "id": "evt_20261116_143654",
+    "timestamp": "2026-11-16T14:36:54.622053+00:00",
+    "timestamp_display": "16.11.2026 14:36 UTC",
+    "title": "🔔 TV-Signaländerung: 18 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 18,
+    "changes": [
+      {
+        "symbol": "TRADEGATE:ABEA",
+        "name": "Alphabet A (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 65,
+        "new_score": 98,
+        "price": 267.1,
+        "setup_name": "🌟 A+ Konfluenz: degencoder Sell-Pocket & Reversal Trigger",
+        "entry_range": [
+          266.07,
+          268.73
+        ],
+        "stop_loss": 275.93,
+        "take_profit_2": 233.95,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "SMC FVG: 4h Bearish Imbalance (264.0 - 289.85)",
+          "SMC FVG: 1D Bearish Imbalance (264.0 - 281.55)"
+        ],
+        "primary_timeframe": "1W",
+        "timeframe_label": "3D/1W Makro",
+        "holding_period": "Mehrere Wochen",
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
+        "note": "3-Säulen-Erschöpfung (98%): Makro-Bärenmarkt aktiv, Widerstandszone bestätigt, Sell-Trigger aktiv.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "AMEX:DIA",
+        "name": "DIA",
+        "category": "Aktien",
+        "change_type": "SCORE_JUMP",
+        "old_signal": "LONG",
+        "new_signal": "LONG",
+        "old_score": 95,
+        "new_score": 88,
+        "price": 523.15,
+        "setup_name": "Hypothese 1: SMC Support Reversal",
+        "entry_range": [
+          518.96,
+          524.2
+        ],
+        "stop_loss": 504.84,
+        "take_profit_2": 587.24,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "1W Makro-Trend bullisch bestätigt",
+          "SMC: Kurs im 1D Golden Pocket (525.11 - 526.17)",
+          "Aktiv: 1h Versteckte Bärische Divergenz (Trendfolge)"
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Position",
+        "holding_period": "1–3 Wochen",
+        "change_reason": "Konfluenz-Veränderung: Score springt von 95% auf 88% (1D Trend über EMA 233 bullisch).",
+        "note": "3-Säulen-Konfluenz (88%): Makro-Trend intakt, Zone bestätigt, Reversal-Trigger aktiv (1D Trend über EMA 233 bullisch).",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NYSE:ACN",
+        "name": "Accenture",
+        "category": "Consulting",
+        "change_type": "SCORE_JUMP",
+        "old_signal": "LONG",
+        "new_signal": "LONG",
+        "old_score": 95,
+        "new_score": 88,
+        "price": 250.49,
+        "setup_name": "Hypothese 1: SMC Support Reversal",
+        "entry_range": [
+          248.49,
+          250.99
+        ],
+        "stop_loss": 241.72,
+        "take_profit_2": 281.19,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "1W Makro-Trend bullisch bestätigt",
+          "SMC FVG: 1D Bullish Imbalance (246.79 - 250.85)",
+          "Aktiv: 1h Reguläre Bullische Divergenz (Reversal)"
+        ],
+        "primary_timeframe": "1W",
+        "timeframe_label": "3D/1W Makro",
+        "holding_period": "Mehrere Wochen",
+        "change_reason": "Konfluenz-Veränderung: Score springt von 95% auf 88% (1D Trend über EMA 233 bullisch).",
+        "note": "3-Säulen-Konfluenz (88%): Makro-Trend intakt, Zone bestätigt, Reversal-Trigger aktiv (1D Trend über EMA 233 bullisch).",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NASDAQ:TSLA",
+        "name": "Tesla",
+        "category": "EV / Auto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 64,
+        "price": 390.22,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          380.0,
+          385.0
+        ],
+        "stop_loss": 375.5,
+        "take_profit_2": 420.0,
+        "reasons": [
+          "Übergeordnet intakter Bullenmarkt: 1W- und 1D-Trend sind bullisch über dem 233 EMA, wodurch Pro-Trend-Longs die einzig valide strategische Ausrichtung darstellen (kein Countertrend-Short).",
+          "SMC Bullish FVG ohne Trigger: Der Kurs touchiert das obere Band des 4h Bullish FVG [378.38 - 390.65], jedoch fehlt bisher jeglicher degencoder Buy-Trigger ('Good Buy' / 'Buy Area').",
+          "Warnsignal Sell Pocket & Divergenzen: Das 1D degencoder Sell Pocket ist aktiv und wird von regulären bärischen Divergenzen auf 4h und 1h begleitet, was vor Chasing am FVG-Top warnt."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Übergeordnet intakter Bullenmarkt: 1W- und 1D-Trend sind bullisch über dem 233 EMA, wodurch Pro-Trend-Longs die einzig valide strategische Ausrichtung darstellen (kein Countertrend-Short).).",
+        "note": "Trotz übergeordnet bullischer Marktstruktur verbietet das aktive 1D Sell Pocket sowie die 4h/1h bärischen Divergenzen einen unüberlegten Long-Kauf am oberen Rand der Imbalance bei 390.22 USD. Ein Einstieg erfordert geduldiges Warten auf einen tieferen Pullback in die FVG-Midline (380.00-385.00 USD) bei gleichzeitiger Ausbildung eines echten Umkehrtriggers. Der Stop-Loss wird zwingend unter die strukturelle FVG-Basis bei 375.50 USD gelegt, mit Zielzonen bei 405.00 und 420.00 USD.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      },
+      {
+        "symbol": "NASDAQ:PYPL",
+        "name": "PayPal",
+        "category": "Fintech",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 73,
+        "new_score": 64,
+        "price": 59.28,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          55.2,
+          56.5
+        ],
+        "stop_loss": 53.8,
+        "take_profit_2": 65.0,
+        "reasons": [
+          "HTF-Trend auf 1D und 1W intakt bullisch (über 233 EMA), Kurs konsolidiert jedoch direkt in einem aktiven 1D Bearish FVG (54.61 - 61.56).",
+          "Strikte Trigger-Pflicht nicht erfüllt: Weder auf 4h noch auf 1h liegt ein degencoder 'Good Buy'- oder 'Buy Area'-Signal vor, weshalb kein vorzeitiger Long-Einstieg zulässig ist.",
+          "Aufkommende reguläre und versteckte bärische Divergenzen auf 1D, 4h und 1h bei abnehmender Liquidität ('Low Volume') deuten auf einen gesunden Rücksetzer hin, der im Bullenmarkt jedoch keinesfalls geshortet wird."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Trend auf 1D und 1W intakt bullisch (über 233 EMA), Kurs konsolidiert jedoch direkt in einem aktiven 1D Bearish FVG (54.61 - 61.56).).",
+        "note": "PayPal notiert übergeordnet in einem gesunden Bullenmarkt, stößt jedoch im Bereich des Bearish FVG auf spürbaren Widerstand und zeigt bärische Divergenzen auf den untergeordneten Zeiteinheiten. Gemäß institutioneller Disziplin jagen wir keinen Kursen hinterher, sondern warten auf einen sauberen Pullback in die Support-Zone um 55.20 - 56.50 USD. Erst bei Vorliegen eines validierten Reversal-Triggers wird ein Neueinstieg mit asymmetrischem CRV evaluiert.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      },
+      {
+        "symbol": "NASDAQ:AMZN",
+        "name": "Amazon",
+        "category": "Big Tech",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 62,
+        "price": 266.66,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          256.0,
+          260.0
+        ],
+        "stop_loss": 251.5,
+        "take_profit_2": 284.0,
+        "reasons": [
+          "Das Makro-Regime (1W und 1D) ist intakt bullisch über dem 233 EMA, jedoch erfordert die aktuelle Konsolidierung ohne frischen Trigger den Wechsel in die Lauerstellung.",
+          "Der vorherige R2 Order Block ist vollständig abgebaut; aktuell existiert weder eine aktive SMC-Zone noch ein FVG oder Golden-Pocket-Retest auf 4h/1h.",
+          "Reguläre bärische Divergenzen auf 1h und 1D sowie die restriktive Desk-Vorgabe für den Sektor 'Big Tech' (Mindest-Score 92%) verbieten das Hinterherjagen auf aktuellem Niveau."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Das Makro-Regime (1W und 1D) ist intakt bullisch über dem 233 EMA, jedoch erfordert die aktuelle Konsolidierung ohne frischen Trigger den Wechsel in die Lauerstellung.).",
+        "note": "Amazon befindet sich in einem sauberen übergeordneten Bullenmarkt, konsolidiert derzeit jedoch im strukturellen Niemandsland ohne unmittelbare SMC-Konfluenz oder aktiven degencoder-Trigger. Angesichts der schwachen historischen Big-Tech-Performance unseres Desks gilt eine verschärfte Einstiegshürde von 92%, weshalb das vorherige Long-Signal geordnet in ein neutrales Beobachtungs-Setup überführt wird. Ein Neueinstieg wird erst bei einem fundierten Rücksetzer in die Discount-Zone zwischen 256.00 und 260.00 mit Reversal-Bestätigung evaluiert.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      },
+      {
+        "symbol": "NASDAQ:META",
+        "name": "Meta Platforms",
+        "category": "Big Tech",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 58,
+        "price": 641.69,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          643.0,
+          647.5
+        ],
+        "stop_loss": 651.0,
+        "take_profit_2": 615.0,
+        "reasons": [
+          "HTF-Strukturkonflikt: Der 1D-Trend ist bärisch, steht jedoch im Widerspruch zum intakten 1W-Makro-Bullenmarkt (RSI 55.37), während die 1h-Struktur kurzfristig bullisch dreht.",
+          "Erschöpfte SMC-Zone: Der aktive bärische Order Block [638.12 - 648.04] ist mit Grad B und Retest-Zähler R8 bereits stark mitigiert und weist keinen vorherigen Liquiditäts-Sweep auf.",
+          "Fehlende Trigger-Validierung & Sektor-Cap: Weder auf 4h noch auf 1h liegen degencoder-Trigger vor; Big-Tech-Restriktionen (Mindest-Score 92%) verbieten voreilige Short-Exekutionen bei 'Very Low Volume'."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Strukturkonflikt: Der 1D-Trend ist bärisch, steht jedoch im Widerspruch zum intakten 1W-Makro-Bullenmarkt (RSI 55.37), während die 1h-Struktur kurzfristig bullisch dreht.).",
+        "note": "Meta befindet sich in einer Patt-Situation zwischen übergeordnetem 1W-Aufwärtstrend und lokaler 1D-Schwäche. Der vorliegende R8-Order-Block bietet nach acht Retests kein verlässliches institutionelles Edge mehr für einen direkten Short-Einstieg. Erst bei einem klaren bärischen Displacement mit Bestätigungstrigger (degencoder Sell Signal oder MSS) im Bereich 643.00-647.50 USD wird ein Short-Setup mit engem Stop oberhalb von 651.00 USD handelbar.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      },
+      {
+        "symbol": "AMEX:SPY",
+        "name": "SPY",
+        "category": "Aktien",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 58,
+        "price": 754.37,
+        "setup_name": "Beobachten / Lauerstellung am Support",
+        "entry_range": [
+          733.0,
+          740.0
+        ],
+        "stop_loss": 725.0,
+        "take_profit_2": 780.0,
+        "reasons": [
+          "1D Trend ist bärisch unter Strukturdruck, allerdings befindet sich der Kurs im 1D Institutional Buy Pocket.",
+          "1h befindet sich in der 'No Trade Zone', während der 1D Order Block Grad A (R1) bereits 1-mal mitigated wurde.",
+          "Konflikt zwischen 1D Bärentrend und bullischem Buy Pocket erfordert zwingend eine Trigger-Validierung auf 4h/1h vor Exekution."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend ist bärisch unter Strukturdruck, allerdings befindet sich der Kurs im 1D Institutional Buy Pocket.).",
+        "note": "SPY zeigt eine klassische Konfliktsituation: Das 1D-Regime ist bärisch, sitzt jedoch direkt in einer hochkarätigen degencoder 1D Buy Pocket sowie einem Grad A Bullish Order Block. Da der 1h-Chart eine 'No Trade Zone' ausweist und der Order Block bereits angetestet (mitigated) wurde, verbietet das Regelwerk einen vorzeitigen Short- oder Long-Einstieg. Wir bleiben im Modus NEUTRAL und warten auf Displacement und ein echtes Buy-Signal.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...oFUw]"
+      },
+      {
+        "symbol": "NYSE:XYZ",
+        "name": "XYZ",
+        "category": "Aktien",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 98,
+        "new_score": 55,
+        "price": 84.58,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          83.31,
+          84.0
+        ],
+        "stop_loss": 82.5,
+        "take_profit_2": 88.5,
+        "reasons": [
+          "Makro-Trend (1W & 1D) weiterhin bullisch, aber der Kurs konsolidiert aktuell in einer bärischen FVG-Zone (83.31 - 86.25).",
+          "Kein aktiver degencoder Reversal-Trigger (Good Buy Signal / Buy Area) auf 4h oder 1h vorhanden.",
+          "VSA zeigt sehr geringes Volumen (Very Low Volume) auf 1h, was auf fehlendes institutional Buying Interesse beim aktuellen Niveau hinweist."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W & 1D) weiterhin bullisch, aber der Kurs konsolidiert aktuell in einer bärischen FVG-Zone (83.31 - 86.25).).",
+        "note": "Der übergeordnete Trend von XYZ ist intakt bullisch, jedoch befindet sich der Kurs derzeit direkt in einem bärischen FVG auf 4h. Gemäß der strikten Trigger-Pflicht wird der bestehende LONG-Signal-Status auf NEUTRAL herabgestuft, da auf den untergeordneten Timeframes noch kein klarer institutioneller Reversal-Trigger vorliegt. Erst bei einem sauberen Test der Support-Zone um 83.31 USD mit VSA-Bestätigung wird ein Re-Entry gesucht.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...oFUw]"
+      },
+      {
+        "symbol": "NYSE:ORCL",
+        "name": "Oracle",
+        "category": "Enterprise Software",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 55,
+        "price": 125.35,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          127.2,
+          127.79
+        ],
+        "stop_loss": 129.4,
+        "take_profit_2": 119.75,
+        "reasons": [
+          "HTF-Struktur: 1D-Trend ist strukturell bärisch mit aktiver versteckter bärischer Trendfolge-Divergenz; die 1h-Aufwärtsbewegung qualifiziert sich strikt als Bärenmarktrallye und nicht als Long.",
+          "Zonen-Konfluenz: Kurs steht bei 125.35 über der Midline (123.77) eines bullischen FVG; Short-Einstiege besitzen erst an der oberen Begrenzung bei 127.79 ein asymmetrisches CRV.",
+          "Trigger-Vakuum: Völliges Fehlen von degencoder-Verkaufssignalen auf 4h/1h bei extrem geringem Volumen und aktiver 4h-Bull-Divergenz, was verfrühte Trendfolge-Shorts invalidiert."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Struktur: 1D-Trend ist strukturell bärisch mit aktiver versteckter bärischer Trendfolge-Divergenz; die 1h-Aufwärtsbewegung qualifiziert sich strikt als Bärenmarktrallye und nicht als Long.).",
+        "note": "Der kurzfristige 1h-Anstieg ist eine klassische Gegenbewegung im intakten 1D-Abwärtstrend, verbietet aber prozyklische Shorts mitten im FVG-Körper. Der Sektor Enterprise Software verlangt nach historischen Drawdowns höchste Selektivität (Mindest-Score 88%). Wir positionieren uns erst bei einem erfolgreichen Retest der FVG-Obergrenze (127.20–127.79), sofern ein valider degencoder-Trigger die Wiederaufnahme der Abwärtsstruktur bestätigt.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      },
+      {
+        "symbol": "NASDAQ:GOOG",
+        "name": "Alphabet (Google)",
+        "category": "Big Tech",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 84,
+        "new_score": 55,
+        "price": 292.52,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          301.08,
+          319.72
+        ],
+        "stop_loss": 325.5,
+        "take_profit_2": 265.0,
+        "reasons": [
+          "1D-Trend ist bärisch (unter 233 EMA), was jegliche Long-Versuche im Vorfeld ausschließt.",
+          "Preis konsolidiert innerhalb eines aktiven Bearish FVG (319.72 - 282.44), jedoch fehlt auf 4h/1h ein expliziter degencoder Sell-Trigger.",
+          "1h-Trend ist temporär bullisch mit Bärischer Divergenz – Warten auf Bestätigung an der FVG-Midline (301.08)."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Trend ist bärisch (unter 233 EMA), was jegliche Long-Versuche im Vorfeld ausschließt.).",
+        "note": "Obwohl der übergeordnete 1D-Trend bärisch ist und sich der Kurs in einem bärischen FVG befindet, fehlt ein frischer Trigger-Bestätigungskreis auf 4h/1h. Gemäß Disziplinarregeln wird das vorherige SHORT-Signal auf NEUTRAL herabgestuft, um Whipsaws zu vermeiden. Ein erneuter Short-Einstieg wird erst bei Rejection an der FVG-Midline (301.08) mit confirmed Trigger gesucht.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "NASDAQ:CRWD",
+        "name": "CrowdStrike",
+        "category": "Cybersecurity",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 54,
+        "price": 226.61,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          233.5,
+          235.04
+        ],
+        "stop_loss": 239.5,
+        "take_profit_2": 206.85,
+        "reasons": [
+          "HTF-Struktur: 1D-Trend ist intakt bärisch (RSI 42.13 mit Hidden Bearish Divergence), steht jedoch im Konflikt zum bullischen 1W-Makrotrend (Diskrepanz erfordert Hysterese).",
+          "Zonen-Konfluenz: Kurs notiert bei 226.61 inmitten eines bullischen FVG (206.85 - 235.04); Short-Einstiege verbieten sich mitten im FVG und erfordern den Retest der oberen Begrenzung.",
+          "Fehlender Trigger & VSA: Keine aktiven degencoder-Trigger auf 4h/1h und 4h zeigt eine reguläre bullische Divergenz bei extrem niedrigem Volumen – akute Bärenfallen-Gefahr ohne Reversal-Bestätigung."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Struktur: 1D-Trend ist intakt bärisch (RSI 42.13 mit Hidden Bearish Divergence), steht jedoch im Konflikt zum bullischen 1W-Makrotrend (Diskrepanz erfordert Hysterese).).",
+        "note": "Trotz übergeordnetem 1D-Bärentrend verbietet das institutionelle Risikomanagement einen unbestätigten Short direkt im Kern eines bullischen FVGs nahe der Midline (220.95). Auf 4h deutet die bullische Divergenz auf weiteres Erholungspotenzial in Richtung 235.00 hin. Kapitalerhalt hat absolute Priorität: Wir verharren diszipliniert in Lauerstellung und warten auf einen bestätigten bärischen Reversal-Trigger an der oberen FVG-Kante (233.50–235.04).",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      },
+      {
+        "symbol": "NYSE:CAG",
+        "name": "Conagra Brands",
+        "category": "Consumer",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 52,
+        "price": 14.73,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          14.4,
+          14.5
+        ],
+        "stop_loss": 14.24,
+        "take_profit_2": 15.45,
+        "reasons": [
+          "HTF-Struktur: 1W und 1D verharren im Aufwärtstrend mit intakter versteckter bullischer Divergenz auf Tagesbasis, während 1h kurzfristig in eine bärische Konsolidierung übergegangen ist.",
+          "Historische Restriktion: Gemäß Trade-Gedächtnis scheiterte der Kurs exakt am lokalen Widerstand bei 14.77; neue Long-Tranchen sind erst nach signifikantem Kerzenschluss darüber oder an tieferem HTF-Support zulässig.",
+          "Fehlende Konfluenz: Keine aktiven degencoder-Trigger, Order Blocks oder FVGs vorhanden; im Consumer-Sektor (Status Caution) gilt zudem ein unnachgiebiger Mindest-Score von 90% für aktive Einstiege."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Struktur: 1W und 1D verharren im Aufwärtstrend mit intakter versteckter bullischer Divergenz auf Tagesbasis, während 1h kurzfristig in eine bärische Konsolidierung übergegangen ist.).",
+        "note": "Conagra befindet sich im übergeordneten 1D-Bullenmarkt, zeigt jedoch nach dem Abprall an der 14.77-Resistenz klare lokale Erschöpfung. Entsprechend unserer bindenden Lektion aus den vergangenen Fehltrades jagen wir keinen Konsolidierungen im internen Rauschen hinterher. Wir warten geduldig auf einen sauberen Rücksetzer in die HTF-Supportzone (14.40–14.50) mit bestätigtem Reversal-Trigger vor Kapitalallokation.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      },
+      {
+        "symbol": "NASDAQ:PLTR",
+        "name": "Palantir",
+        "category": "Software / AI",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 52,
+        "price": 167.99,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          170.5,
+          174.5
+        ],
+        "stop_loss": 177.5,
+        "take_profit_2": 148.0,
+        "reasons": [
+          "HTF-Divergenz: 1D- und 4h-Trends sind bärisch, kollidieren jedoch mit dem bullischen 1W-Makrotrend (RSI 58.47) bei bereits fortgeschrittenem 1D-Abverkauf (RSI 39.45).",
+          "Minderwertige SMC-Struktur: Der bärische Order Block [166.11 - 175.41] weist lediglich Grad C auf (Score 75, kein Sweep) und erfüllt nicht die geforderte Grad-A-Qualität für valide Setups.",
+          "Gegenläufige Divergenz & Null-Trigger: Auf 4h bildet sich eine reguläre bullische Reversal-Divergenz aus, während degencoder-Verkaufstrigger vollständig fehlen ('Very Low Volume')."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Divergenz: 1D- und 4h-Trends sind bärisch, kollidieren jedoch mit dem bullischen 1W-Makrotrend (RSI 58.47) bei bereits fortgeschrittenem 1D-Abverkauf (RSI 39.45).).",
+        "note": "Palantir notiert im 1D-Bärenregime, prallt jedoch an einem minderwertigen Grad-C Order Block ohne Liquiditäts-Sweep ab, während der 4h-RSI bereits bullisch divergiert. Gemäß unseren strikten Risikoparametern für SMC Order Blocks (Mindest-Score 92% bei nachgewiesener Rejection) ist ein Short auf aktuellem Niveau statistisch im Nachteil. Ein neuer Einstieg wird erst nach einem kontrollierten Retest der OB-Midline bei 170.50-174.50 USD unter Bestätigung eines echten Triggers evaluiert.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      },
+      {
+        "symbol": "NYSE:IBM",
+        "name": "IBM",
+        "category": "Enterprise Tech",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 50,
+        "price": 247.13,
+        "setup_name": "Beobachten / Warten auf Klärung am Widerstand",
+        "entry_range": [
+          235.0,
+          240.0
+        ],
+        "stop_loss": 222.0,
+        "take_profit_2": 289.15,
+        "reasons": [
+          "4h zeigt ein degencoder 'Good Sell Signal (Kreis)' bei abbrechendem Volumen.",
+          "Gegenwind durch bärische Divergenzen auf 1D sowie ein riesiges bärisches FVG oberhalb (bis 289.15).",
+          "Historische Vorbelastung im Sektor Enterprise Tech (0% Win-Rate) erfordert strenge Selektivität und einen Mindest-Score von 88% für Einstiege."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (4h zeigt ein degencoder 'Good Sell Signal (Kreis)' bei abbrechendem Volumen.).",
+        "note": "Obwohl der 1D-Trend bullisch ist, warnt das 4h 'Good Sell Signal' vor einer potenziellen tieferen Korrektur innerhalb des riesigen FVG-Bereichs. Aufgrund des verfehlten Mindest-Scores im Enterprise Tech Sektor und dem Fehlen eines bullischen Triggers wird die Position geschlossen bzw. auf NEUTRAL gedreht. Kapitalerhalt steht an oberster Stelle; ein Einstieg erfolgt erst nach Validierung eines klaren Support-Sweeps.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...oFUw]"
+      },
+      {
+        "symbol": "NASDAQ:NFLX",
+        "name": "Netflix",
+        "category": "Entertainment",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 84,
+        "new_score": 50,
+        "price": 62.15,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          63.2,
+          63.8
+        ],
+        "stop_loss": 64.6,
+        "take_profit_2": 59.2,
+        "reasons": [
+          "Das übergeordnete 1D- und 4h-Regime ist intakt bärisch, allerdings mahnen reguläre bullische Divergenzen auf 1D/4h bei stark überverkauften RSI-Werten (1h RSI 36.51) vor Short-Chasing am Tief.",
+          "Der aktive bullische Order Block ist mit Grad B, Badge R5 (fünfter Retest), fehlendem Sweep und vollständiger Mitigation strukturell entwertet und bietet kein valides Fundament für Longs.",
+          "Es fehlen jegliche degencoder-Trigger (weder Buy- noch Sell-Signale); bei 'Very Low Volume' auf 1h droht hohes Whipsaw-Risiko ohne statistisches Edge."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Das übergeordnete 1D- und 4h-Regime ist intakt bärisch, allerdings mahnen reguläre bullische Divergenzen auf 1D/4h bei stark überverkauften RSI-Werten (1h RSI 36.51) vor Short-Chasing am Tief.).",
+        "note": "Netflix notiert in einem intakten übergeordneten Abwärtstrend, weist jedoch auf 1D- und 4h-Ebene reguläre bullische Divergenzen bei überverkauftem Momentum auf. Der aktive bullische Order Block ist mit fünf Retests (R5) qualitativ unbrauchbar für eine Trendwende, während ein aggressiver Short direkt an der unteren Rangekante das Verlustrisiko unnötig maximiert. Wir bleiben diszipliniert an der Seitenlinie und warten auf eine Erholungsbewegung in Richtung 63.20 - 63.80, um dort nach einem bestätigten lokalen Reversal-Trigger mit asymmetrischem CRV short zu gehen.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      },
+      {
+        "symbol": "NASDAQ:MSFT",
+        "name": "Microsoft",
+        "category": "Big Tech",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 95,
+        "new_score": 48,
+        "price": 523.88,
+        "setup_name": "Beobachten / No Trade Zone (Regime-Konflikt)",
+        "entry_range": [
+          518.0,
+          524.0
+        ],
+        "stop_loss": 508.5,
+        "take_profit_2": 575.0,
+        "reasons": [
+          "Gravierender Regime-Konflikt zwischen dem 1W-Bullenmarkt und einem strukturell bärischen 1D-Trend (Tagesschluss unter 233 EMA).",
+          "Der 4h-Timeframe weist explizit ein 'No Trade Zone'-Signal aus, was nach institutionellen Risikoregeln jegliche Marktaktivität strikt untersagt.",
+          "Obwohl der Kurs im 4h Golden Pocket verweilt und Reversal-Divergenzen zeigt, fehlt bei 'Very Low Volume' jegliche institutionelle Akkumulation (kein Stopping Volume oder VSA-Climax)."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Gravierender Regime-Konflikt zwischen dem 1W-Bullenmarkt und einem strukturell bärischen 1D-Trend (Tagesschluss unter 233 EMA).).",
+        "note": "Microsoft befindet sich in einer unklaren Schaukelphase mit widersprüchlichen Signalen zwischen Makro- und Zwischentrend. Da Big Tech historisch unterperformt hat und ein Mindest-Score von 92% für Einstiege vorgeschrieben ist, verbietet die 4h 'No Trade Zone' jeden Trade. Oberste Priorität hat der Kapitalerhalt, bis sich eine verlässliche Marktstruktur mit echtem Displacement etabliert.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      },
+      {
+        "symbol": "NASDAQ:SPCX",
+        "name": "SPCX",
+        "category": "Aktien",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 85,
+        "new_score": 48,
+        "price": 139.11,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          141.2,
+          142.5
+        ],
+        "stop_loss": 144.2,
+        "take_profit_2": 133.5,
+        "reasons": [
+          "Das übergeordnete 1D-Trendregime ist bärisch unterhalb des 233 EMA, während der 1W-Trend uneinheitlich bullisch tendiert; kurzfristige 1h-Aufwärtsbewegungen gelten als Bärenmarktrallyes und verbieten Long-Positionen.",
+          "Der Kurs notiert bei 139.11 direkt in einer aktiven Bullish FVG (134.38 - 140.57), während auf 1h eine explizite 'No Trade Zone' ohne Reversal-Bestätigung ausgewiesen wird.",
+          "Extrem dünnes Volumen (Very Low Volume auf 4h und 1h) sowie widersprüchliche Divergenzen bieten keinerlei institutionelle Kante für prozyklisches Verkaufen in die FVG."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Das übergeordnete 1D-Trendregime ist bärisch unterhalb des 233 EMA, während der 1W-Trend uneinheitlich bullisch tendiert; kurzfristige 1h-Aufwärtsbewegungen gelten als Bärenmarktrallyes und verbieten Long-Positionen.).",
+        "note": "SPCX konsolidiert innerhalb einer aktiven Bullish FVG bei gleichzeitig ausgewiesener 1h 'No Trade Zone' und austrocknendem Orderflow-Volumen. Ein prozyklischer Short-Verkauf in eine potentielle Reaktionszone verbietet sich aus Risikomanagementsicht ebenso wie ein Long-Einstieg gegen das übergeordnete 1D-Bärenregime. Professioneller Kapitalerhalt erfordert striktes Abwarten auf eine Erholungsrallye in den Widerstandsbereich von 141.20 - 142.50 mit bestätigtem degencoder-Sell-Trigger vor einer Neuallokation.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 18 Einstufungen haben sich geändert:\n\n🔴 Alphabet A (Tradegate) (ABEA):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 98%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: 3-Säulen-Erschöpfung (98%): Makro-Bärenmarkt aktiv, Widerstandszone bestätigt, Sell-Trigger aktiv....\n   Setup: 🌟 A+ Konfluenz: degencoder Sell-Pocket & Reversal Trigger\n   ⏱️ Handlungs-Chart: 1W Chart · 3D/1W Makro (Mehrere Wochen)\n   Entry: 266.07 | SL: 275.93 | TP2: 233.95\n\n🟢 DIA (DIA):\n   Score-Sprung: 95% ➔ 88% (LONG)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 88% (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: 3-Säulen-Konfluenz (88%): Makro-Trend intakt, Zone bestätigt, Reversal-Trigger aktiv (1D Trend über EMA 233 bullisch)....\n   Setup: Hypothese 1: SMC Support Reversal\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Position (1–3 Wochen)\n   Entry: 518.96 | SL: 504.84 | TP2: 587.24\n\n🟢 Accenture (ACN):\n   Score-Sprung: 95% ➔ 88% (LONG)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 88% (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: 3-Säulen-Konfluenz (88%): Makro-Trend intakt, Zone bestätigt, Reversal-Trigger aktiv (1D Trend über EMA 233 bullisch)....\n   Setup: Hypothese 1: SMC Support Reversal\n   ⏱️ Handlungs-Chart: 1W Chart · 3D/1W Makro (Mehrere Wochen)\n   Entry: 248.49 | SL: 241.72 | TP2: 281.19\n\n⚪ Tesla (TSLA):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 64%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Übergeordnet intakter Bullenmarkt: 1W- und 1D-Trend sind bullisch über dem 233 EMA, wodurch Pro-Trend-Longs die einzig valide strategische Ausrichtung darstellen (kein Countertrend-Short).).\n   📝 KI-Rationale: Trotz übergeordnet bullischer Marktstruktur verbietet das aktive 1D Sell Pocket sowie die 4h/1h bärischen Divergenzen einen unüber...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n⚪ PayPal (PYPL):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 64%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Trend auf 1D und 1W intakt bullisch (über 233 EMA), Kurs konsolidiert jedoch direkt in einem aktiven 1D Bearish FVG (54.61 - 61.56).).\n   📝 KI-Rationale: PayPal notiert übergeordnet in einem gesunden Bullenmarkt, stößt jedoch im Bereich des Bearish FVG auf spürbaren Widerstand und ze...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n⚪ Amazon (AMZN):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 62%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Das Makro-Regime (1W und 1D) ist intakt bullisch über dem 233 EMA, jedoch erfordert die aktuelle Konsolidierung ohne frischen Trigger den Wechsel in die Lauerstellung.).\n   📝 KI-Rationale: Amazon befindet sich in einem sauberen übergeordneten Bullenmarkt, konsolidiert derzeit jedoch im strukturellen Niemandsland ohne ...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n... und 12 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261116_081332",
     "timestamp": "2026-11-16T08:13:32.577438+00:00",
     "timestamp_display": "16.11.2026 08:13 UTC",
@@ -24315,44 +24853,5 @@
     "notification_sent": false,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n🔴 BTCUSD (BTCUSD):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 75%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 78,180.78 | SL: 82,254.32 | TP2: 65,803.47\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261101_230817",
-    "timestamp": "2026-11-01T23:08:17.393499+00:00",
-    "timestamp_display": "01.11.2026 23:08 UTC",
-    "title": "🔔 TV-Signaländerung: 1 Asset aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 1,
-    "changes": [
-      {
-        "symbol": "TVC:NDX",
-        "name": "NDX",
-        "category": "Indizes / Devisen",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 88,
-        "new_score": 50,
-        "price": 28384.8452,
-        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
-        "entry_range": [
-          28750.0,
-          29050.0
-        ],
-        "stop_loss": 29450.0,
-        "take_profit_2": 27200.0,
-        "reasons": [
-          "1D-Makrotrend ist zwar bärisch, weist jedoch widersprüchliche Divergenzen auf (versteckt bärisch vs. versteckt bullisch).",
-          "Auf 4h liegt eine aktive reguläre bullische Reversal-Divergenz vor, die ein akutes Squeeze-Risiko für ungeduldige Shorts signalisiert.",
-          "Der Math-Score von 85 verfehlt die vorgeschriebene Mindesthürde von 88 % für Indizes und 92 % für Confluence-Reversals."
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Makrotrend ist zwar bärisch, weist jedoch widersprüchliche Divergenzen auf (versteckt bärisch vs. versteckt bullisch).).",
-        "note": "Trotz übergeordnetem Bärenregime verbietet das Risikomanagement eine aktive Short-Positionierung aufgrund der 4h-Bullen-Divergenz und des unzureichenden Scores. Kapitalerhalt hat oberste Priorität: Wir jagen Kursen nicht hinterher, sondern verharren diszipliniert in Lauerstellung. Erst ein Erholungs-Retest der Widerstandszone bei 28.750–29.050 Punkten mit Bestätigung durch Versiegen des Momentums rechtfertigt einen Short-Trigger.",
-        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
-      }
-    ],
-    "notification_sent": false,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n⚪ NDX (NDX):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 50%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Makrotrend ist zwar bärisch, weist jedoch widersprüchliche Divergenzen auf (versteckt bärisch vs. versteckt bullisch).).\n   📝 KI-Rationale: Trotz übergeordnetem Bärenregime verbietet das Risikomanagement eine aktive Short-Positionierung aufgrund der 4h-Bullen-Divergenz ...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
