@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-16T10:01:46.794326+00:00",
-  "total_experience_records": 118,
+  "updated_at": "2026-11-16T10:54:32.112608+00:00",
+  "total_experience_records": 121,
   "learnings": [
+    {
+      "timestamp": "2026-11-16T10:54:25.530862+00:00",
+      "trade_id": "cross_rule_1794826465",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Micro-Countertrend gegen das übergeordnete Trendregime",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Mikrostrukturen (5m/15m) besitzen bei Large Caps (XETRA) und Krypto keine eigenständige Tragfähigkeit, wenn sie isoliert gegen die übergeordnete 4h-Trenddynamik oder den Leitindex (DAX/BTC) agieren; Confluence-Setups müssen stets prozyklisch zur HTF-Liquiditätsrichtung geschichtet sein.",
+        "actionable_rule": "Kein Micro-Countertrend gegen das übergeordnete Trendregime"
+      }
+    },
+    {
+      "timestamp": "2026-11-16T10:54:25.530821+00:00",
+      "trade_id": "cross_rule_1794826465",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Displacement-Validierung vor Exekution (Rejection vs. Acceptance)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl im 5m- als auch im 4h/1D-Zeitfenster ist ein Liquidity Sweep erst dann handelbar, wenn der Kurs nach dem Unterschreiten des Niveaus mit klarem Displacement zurück in die Spanne expandiert. Ein bloßes Antasten eines Support-Levels ohne aggressive Gegenwehr der Gegenseite signalisiert institutionelle Akzeptanz tieferer Kurse.",
+        "actionable_rule": "Displacement-Validierung vor Exekution (Rejection vs. Acceptance)"
+      }
+    },
+    {
+      "timestamp": "2026-11-16T10:54:25.530736+00:00",
+      "trade_id": "inc_ALV.DE_5m_1794609053",
+      "symbol": "ALV.DE",
+      "name": "Allianz",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Long",
+      "pnl_leveraged": -0.54,
+      "pnl_raw": -0.27,
+      "text": "Kein direkter Einstieg beim Retest eines 5m Order Blocks nach einem Sweep; Voraussetzung ist immer ein bestätigter lokaler Market Structure Shift (MSS) mit geschlossenem Candle-Body oberhalb der Trigger-Range.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ALV.DE_5m_1794609053",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Long-Einstieg in ein fallendes Messer, da der angebliche 5m Liquidity Sweep keine Liquiditätsaufnahme (Absorption), sondern eine reguläre Trendfortsetzung nach unten darstellte.",
+        "technical_warning": "Anhaltender Abgabedruck im Orderflow ohne VSA-Volumendivergenz (kein Stopping Volume / Climax) sowie das Ausbleiben einer impulsiven bullischen Reaktionskerze (Rejection Wick / MSS) vor Limit-Ausführung.",
+        "actionable_rule": "Kein direkter Einstieg beim Retest eines 5m Order Blocks nach einem Sweep; Voraussetzung ist immer ein bestätigter lokaler Market Structure Shift (MSS) mit geschlossenem Candle-Body oberhalb der Trigger-Range."
+      }
+    },
     {
       "timestamp": "2026-11-16T08:31:50.891222+00:00",
       "trade_id": "cross_rule_1794817910",
