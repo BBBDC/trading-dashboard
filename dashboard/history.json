@@ -1,5 +1,195 @@
 [
   {
+    "id": "evt_20261116_163537",
+    "timestamp": "2026-11-16T16:35:37.054250+00:00",
+    "timestamp_display": "16.11.2026 16:35 UTC",
+    "title": "🔔 TV-Signaländerung: 6 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 6,
+    "changes": [
+      {
+        "symbol": "TRADEGATE:TL0",
+        "name": "Tesla (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "LONG",
+        "old_score": 50,
+        "new_score": 88,
+        "price": 346.5,
+        "setup_name": "Hypothese 1: SMC Support Reversal",
+        "entry_range": [
+          342.09,
+          345.54
+        ],
+        "stop_loss": 332.78,
+        "take_profit_2": 387.1,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "1W Makro-Trend bullisch bestätigt",
+          "SMC: Kurs im 4h Golden Pocket (344.1 - 346.35)",
+          "SMC FVG: 4h Bullish Imbalance (340.3 - 346.1)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Core Swing",
+        "holding_period": "2–5 Tage",
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
+        "note": "3-Säulen-Konfluenz (88%): Makro-Trend intakt, Zone bestätigt, Reversal-Trigger aktiv (1D Trend über EMA 233 bullisch).",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NASDAQ:GOOG",
+        "name": "Alphabet (Google)",
+        "category": "Big Tech",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 48,
+        "new_score": 88,
+        "price": 285.255,
+        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
+        "entry_range": [
+          285.34,
+          288.2
+        ],
+        "stop_loss": 295.92,
+        "take_profit_2": 250.88,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "SMC FVG: 4h Bearish Imbalance (282.44 - 319.72)",
+          "SMC FVG: 1D Bearish Imbalance (281.86 - 319.68)",
+          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Core Swing",
+        "holding_period": "2–5 Tage",
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
+        "note": "3-Säulen-Erschöpfung (88%): Makro-Bärenmarkt aktiv, Widerstandszone bestätigt, Sell-Trigger aktiv.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "TRADEGATE:IBM",
+        "name": "IBM (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "LONG",
+        "old_score": 68,
+        "new_score": 88,
+        "price": 223.15,
+        "setup_name": "Hypothese 1: SMC Support Reversal",
+        "entry_range": [
+          220.92,
+          223.15
+        ],
+        "stop_loss": 220.59,
+        "take_profit_2": 230.08,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "1W Makro-Trend bullisch bestätigt",
+          "SMC OB: 4h Bullish Order Block [R2] Retest",
+          "SMC FVG: 4h Bearish Imbalance (222.5 - 225.3)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Core Swing",
+        "holding_period": "2–5 Tage",
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
+        "note": "3-Säulen-Konfluenz (88%): Makro-Trend intakt, Zone bestätigt, Reversal-Trigger aktiv (1D Trend über EMA 233 bullisch).",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NYSE:ACN",
+        "name": "Accenture",
+        "category": "Consulting",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 85,
+        "new_score": 62,
+        "price": 251.15,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          245.0,
+          248.5
+        ],
+        "stop_loss": 239.8,
+        "take_profit_2": 274.0,
+        "reasons": [
+          "Makro-Trend (1W/1D) ist intakt bullisch, jedoch zeigt die 1h-Struktur einen bärischen Trend mit geringem Volumen (Very Low Volume).",
+          "Fehlende degencoder Reversal-Trigger: Weder auf 4h noch auf 1h liegen aktive 'Good Buy' oder 'Buy Area' Signale vor.",
+          "Das Regelwerk verbietet das Vergeben von LONG-Signalen ohne vorliegenden Reversal-Trigger, um Fakes an unbestätigten Zonen zu vermeiden."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W/1D) ist intakt bullisch, jedoch zeigt die 1h-Struktur einen bärischen Trend mit geringem Volumen (Very Low Volume).).",
+        "note": "Accenture bleibt übergeordnet auf 1W/1D klar bullisch ausgerichtet. Der aktuelle Rücksetzer im 1h-Timeframe ist ein gesunder Pullback im Aufwärtstrend. Da jedoch aktuell keine konfluenten Reversal-Trigger (wie ein degencoder Buy Signal oder Wyckoff 'No Supply') vorliegen, wird das vorherige LONG-Signal auf NEUTRAL zurückgestuft. Der Fokus liegt auf der Abwertung des Risikos und dem Warten auf eine saubere Bestätigung in der tiefere Support-Zone.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...j2vQ]"
+      },
+      {
+        "symbol": "AMEX:DIA",
+        "name": "DIA",
+        "category": "Aktien",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 85,
+        "new_score": 58,
+        "price": 520.04,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          512.0,
+          515.5
+        ],
+        "stop_loss": 506.0,
+        "take_profit_2": 535.0,
+        "reasons": [
+          "1D/1W HTF-Aufwärtstrend bleibt unbeschädigt, während der 1h-Trend eine untergeordnete Konsolidierung aufweist.",
+          "Das 4h-Signal 'Bear Alignment Ends' ist ein bloßes Rausch-Signal und darf gemäß Regelwerk keine Bonuspunkte für ein Long-Signal generieren.",
+          "Keine ausrechende Trigger-Konfluenz auf LTF und der Sektor 'Aktien' erfordert nach historischen Lektionen eine erhöhte Selektivität."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D/1W HTF-Aufwärtstrend bleibt unbeschädigt, während der 1h-Trend eine untergeordnete Konsolidierung aufweist.).",
+        "note": "Der Dow Jones ETF (DIA) befindet sich in einem intakten übergeordneten Bullenmarkt, konsolidiert jedoch intraday bei sehr niedrigem Volumen. Da 'Bear Alignment Ends' kein valider Entry-Trigger ist und im 1h-Chart noch kein klares Reversal-Muster vorliegt, ist ein vorschneller Einstieg regelwidrig. Wir belassen das Asset im Modus 'Beobachten' und warten auf eine Liquiditätsreaktion an den tieferen Gleitenden Durchschnitten bzw. Supports.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...j2vQ]"
+      },
+      {
+        "symbol": "TRADEGATE:ABEA",
+        "name": "Alphabet A (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 85,
+        "new_score": 52,
+        "price": 262.05,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          268.0,
+          272.0
+        ],
+        "stop_loss": 277.5,
+        "take_profit_2": 242.0,
+        "reasons": [
+          "Makro-Trend (1W/1D/4h) ist strikt bärisch; untergeordnete 'Good Buy'-Signale stellen lediglich Gegentrend-Erholungsversuche (Bärenmarktrallye) dar.",
+          "Verletzung der Tradegate/EU-Sektorregel: EU-Listing zeigt Climax Volume im 1h-Chart vor/außerhalb US-Hauptbörsenzeiten, was zu erhöhter Spread-Gefahr führt.",
+          "Keine makellose HTF-Bärenmarktsituation für direkten Short, aber Longs gegen den 1D-Trend sind gemäß Regelwerk explizit untersagt."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W/1D/4h) ist strikt bärisch; untergeordnete 'Good Buy'-Signale stellen lediglich Gegentrend-Erholungsversuche (Bärenmarktrallye) dar.).",
+        "note": "Obwohl im 4h/1h-Timeframe ein 'Good Buy Signal' aufleuchtet, befindet sich Alphabet im Tradegate-Listing in einem intakten 1D-Bärenmarkt (RSI 40.05). Gemäß den strikten Multi-Asset-Regeln sind Erholungsbewegungen gegen den Makro-Trend Bärenmarktrallyes und dürfen nicht gelongt werden. Zudem erfordert die Underperformance des Tradegate-Sektors ein vorsichtiges Vorgehen. Wir verbleiben neutral und warten auf eine Korrektur in den Widerstandsbereich für ein sauberes Short-Setup.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...j2vQ]"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 6 Einstufungen haben sich geändert:\n\n🟢 Tesla (Tradegate) (TL0):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 88%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: 3-Säulen-Konfluenz (88%): Makro-Trend intakt, Zone bestätigt, Reversal-Trigger aktiv (1D Trend über EMA 233 bullisch)....\n   Setup: Hypothese 1: SMC Support Reversal\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Core Swing (2–5 Tage)\n   Entry: 342.09 | SL: 332.78 | TP2: 387.10\n\n🔴 Alphabet (Google) (GOOG):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 88%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: 3-Säulen-Erschöpfung (88%): Makro-Bärenmarkt aktiv, Widerstandszone bestätigt, Sell-Trigger aktiv....\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Core Swing (2–5 Tage)\n   Entry: 285.34 | SL: 295.92 | TP2: 250.88\n\n🟢 IBM (Tradegate) (IBM):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 88%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: 3-Säulen-Konfluenz (88%): Makro-Trend intakt, Zone bestätigt, Reversal-Trigger aktiv (1D Trend über EMA 233 bullisch)....\n   Setup: Hypothese 1: SMC Support Reversal\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Core Swing (2–5 Tage)\n   Entry: 220.92 | SL: 220.59 | TP2: 230.08\n\n⚪ Accenture (ACN):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 62%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W/1D) ist intakt bullisch, jedoch zeigt die 1h-Struktur einen bärischen Trend mit geringem Volumen (Very Low Volume).).\n   📝 KI-Rationale: Accenture bleibt übergeordnet auf 1W/1D klar bullisch ausgerichtet. Der aktuelle Rücksetzer im 1h-Timeframe ist ein gesunder Pullb...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n⚪ DIA (DIA):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 58%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D/1W HTF-Aufwärtstrend bleibt unbeschädigt, während der 1h-Trend eine untergeordnete Konsolidierung aufweist.).\n   📝 KI-Rationale: Der Dow Jones ETF (DIA) befindet sich in einem intakten übergeordneten Bullenmarkt, konsolidiert jedoch intraday bei sehr niedrige...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n⚪ Alphabet A (Tradegate) (ABEA):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W/1D/4h) ist strikt bärisch; untergeordnete 'Good Buy'-Signale stellen lediglich Gegentrend-Erholungsversuche (Bärenmarktrallye) dar.).\n   📝 KI-Rationale: Obwohl im 4h/1h-Timeframe ein 'Good Buy Signal' aufleuchtet, befindet sich Alphabet im Tradegate-Listing in einem intakten 1D-Bäre...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261116_161443",
     "timestamp": "2026-11-16T16:14:43.918709+00:00",
     "timestamp_display": "16.11.2026 16:14 UTC",
@@ -24352,504 +24542,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🔴 NI225 (NI225):\n   Score-Sprung: 92% ➔ 85% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 92% auf 85% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 62,955.48 | SL: 65,289.50 | TP2: 56,016.49\n\n🔴 Novartis (NOV):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 85%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 35.56 | SL: 36.88 | TP2: 31.63\n\n🟢 US Dollar Index (DXY):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 82%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (82%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 100.86 | SL: 98.11 | TP2: 113.06\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261102_102232",
-    "timestamp": "2026-11-02T10:22:32.992205+00:00",
-    "timestamp_display": "02.11.2026 10:22 UTC",
-    "title": "🔔 TV-Signaländerung: 18 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 18,
-    "changes": [
-      {
-        "symbol": "CRYPTOCAP:BTC.D",
-        "name": "BTC Dominanz",
-        "category": "Krypto-Makro",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 50,
-        "new_score": 91,
-        "price": 60.4697757733209,
-        "setup_name": "Hypothese 1: SMC Support Reversal",
-        "entry_range": [
-          59.98,
-          60.58
-        ],
-        "stop_loss": 58.34,
-        "take_profit_2": 67.24,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "1W Makro-Trend bullisch bestätigt",
-          "Kurs im 4h Golden Pocket (60.56 - 60.58)",
-          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (91%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "KRAKEN:DAIEUR",
-        "name": "DAIEUR",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 40,
-        "new_score": 91,
-        "price": 0.89062,
-        "setup_name": "Hypothese 1: SMC Support Reversal",
-        "entry_range": [
-          0.88,
-          0.89
-        ],
-        "stop_loss": 0.85,
-        "take_profit_2": 1.02,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "1W Makro-Trend bullisch bestätigt",
-          "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (91%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "TRADEGATE:YDX",
-        "name": "BYD Company",
-        "category": "Tradegate / EU",
-        "change_type": "SETUP_UPDATE",
-        "old_signal": "SHORT",
-        "new_signal": "SHORT",
-        "old_score": 88,
-        "new_score": 85,
-        "price": 141.84,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          141.32,
-          142.73
-        ],
-        "stop_loss": 146.56,
-        "take_profit_2": 125.73,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: 4h Reguläre Bärische Divergenz (Reversal)"
-        ],
-        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 1: Bearish Confluence Reversal' (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "COINBASE:ETHBTC",
-        "name": "ETHBTC",
-        "category": "Crypto",
-        "change_type": "SCORE_JUMP",
-        "old_signal": "SHORT",
-        "new_signal": "SHORT",
-        "old_score": 75,
-        "new_score": 85,
-        "price": 0.029336,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          0.03,
-          0.03
-        ],
-        "stop_loss": 0.03,
-        "take_profit_2": 0.03,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "Aktiv: 1h Versteckte Bärische Divergenz (Trendfolge)",
-          "Aktiv: 4h Reguläre Bärische Divergenz (Reversal)"
-        ],
-        "change_reason": "Konfluenz-Veränderung: Score springt von 75% auf 85% (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "KUCOIN:EWTUSDT",
-        "name": "EWTUSDT",
-        "category": "Crypto",
-        "change_type": "SCORE_JUMP",
-        "old_signal": "SHORT",
-        "new_signal": "SHORT",
-        "old_score": 75,
-        "new_score": 85,
-        "price": 0.28253,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          0.28,
-          0.29
-        ],
-        "stop_loss": 0.3,
-        "take_profit_2": 0.23,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: 1h Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Konfluenz-Veränderung: Score springt von 75% auf 85% (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "KRAKEN:EWTUSD",
-        "name": "EWTUSD",
-        "category": "Crypto",
-        "change_type": "SCORE_JUMP",
-        "old_signal": "SHORT",
-        "new_signal": "SHORT",
-        "old_score": 75,
-        "new_score": 85,
-        "price": 0.282,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          0.28,
-          0.29
-        ],
-        "stop_loss": 0.3,
-        "take_profit_2": 0.23,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: 4h Reguläre Bärische Divergenz (Reversal)"
-        ],
-        "change_reason": "Konfluenz-Veränderung: Score springt von 75% auf 85% (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "BINANCE:ZECUSDT",
-        "name": "Zcash",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 52,
-        "new_score": 85,
-        "price": 1252.62,
-        "setup_name": "Hypothese 1: SMC Support Reversal",
-        "entry_range": [
-          1238.66,
-          1251.15
-        ],
-        "stop_loss": 1186.22,
-        "take_profit_2": 1448.43,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "1W Makro-Trend bullisch bestätigt",
-          "Aktiv: 1h Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: 4h Versteckte Bullische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (85%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "KRAKEN:RPLUSD",
-        "name": "RPLUSD",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 52,
-        "new_score": 85,
-        "price": 1.48,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          1.48,
-          1.49
-        ],
-        "stop_loss": 1.55,
-        "take_profit_2": 1.26,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: 1h Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "BINANCE:DOTUSDT",
-        "name": "Polkadot",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 43,
-        "new_score": 85,
-        "price": 0.955,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          0.95,
-          0.96
-        ],
-        "stop_loss": 1.0,
-        "take_profit_2": 0.81,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "KRAKEN:DOTUSD",
-        "name": "DOTUSD",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 43,
-        "new_score": 85,
-        "price": 0.9529,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          0.95,
-          0.96
-        ],
-        "stop_loss": 1.0,
-        "take_profit_2": 0.8,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)",
-          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "TRADEGATE:2PP",
-        "name": "PayPal (Tradegate)",
-        "category": "Tradegate / EU",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 58,
-        "new_score": 75,
-        "price": 50.83,
-        "setup_name": "Hypothese 1: SMC Support Reversal",
-        "entry_range": [
-          50.48,
-          50.99
-        ],
-        "stop_loss": 49.11,
-        "take_profit_2": 56.59,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "1W Makro-Trend bullisch bestätigt",
-          "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: 4h Reguläre Bärische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (75%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "TRADEGATE:SAP",
-        "name": "SAP SE",
-        "category": "Tradegate / EU",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 52,
-        "new_score": 75,
-        "price": 209.9,
-        "setup_name": "Hypothese 1: SMC Support Reversal",
-        "entry_range": [
-          208.37,
-          210.47
-        ],
-        "stop_loss": 202.7,
-        "take_profit_2": 233.57,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "1W Makro-Trend bullisch bestätigt",
-          "Aktiv: 1h Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: 4h Versteckte Bullische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (75%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "BINANCE:HYPEUSDT.P",
-        "name": "HYPEUSDT.P",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 52,
-        "new_score": 75,
-        "price": 85.84,
-        "setup_name": "Hypothese 1: SMC Support Reversal",
-        "entry_range": [
-          85.2,
-          86.06
-        ],
-        "stop_loss": 81.6,
-        "take_profit_2": 99.62,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "1W Makro-Trend bullisch bestätigt",
-          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: 4h Versteckte Bullische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (75%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "TRADEGATE:AMZ",
-        "name": "Amazon (Tradegate)",
-        "category": "Tradegate / EU",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 52,
-        "new_score": 75,
-        "price": 216.45,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          216.12,
-          218.28
-        ],
-        "stop_loss": 224.13,
-        "take_profit_2": 192.29,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "Aktiv: 1h Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: 1h Versteckte Bärische Divergenz (Trendfolge)",
-          "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "INDEX:BTCUSD",
-        "name": "BTCUSD",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 50,
-        "new_score": 75,
-        "price": 77919.12,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          77734.45,
-          78513.35
-        ],
-        "stop_loss": 81784.74,
-        "take_profit_2": 65427.8,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "TRADEGATE:RHM",
-        "name": "Rheinmetall",
-        "category": "Tradegate / EU",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 48,
-        "new_score": 75,
-        "price": 1038.0,
-        "setup_name": "Hypothese 1: SMC Support Reversal",
-        "entry_range": [
-          1034.85,
-          1045.29
-        ],
-        "stop_loss": 1006.69,
-        "take_profit_2": 1160.03,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "Aktiv: 1h Reguläre Bullische Divergenz (Reversal)",
-          "Aktiv: 1D Reguläre Bullische Divergenz (Reversal)",
-          "VSA: Climax-Volumen Spike auf 1h"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (75%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "TRADEGATE:IFX",
-        "name": "Infineon Technologies",
-        "category": "Tradegate / EU",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 48,
-        "new_score": 75,
-        "price": 51.23,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          51.01,
-          51.52
-        ],
-        "stop_loss": 52.9,
-        "take_profit_2": 45.38,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: 1h Versteckte Bärische Divergenz (Trendfolge)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "COINBASE:ETHUSD",
-        "name": "Ethereum",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 43,
-        "new_score": 75,
-        "price": 2284.46,
-        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
-        "entry_range": [
-          2279.54,
-          2302.38
-        ],
-        "stop_loss": 2398.32,
-        "take_profit_2": 1918.64,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)",
-          "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (75%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 18 Einstufungen haben sich geändert:\n\n🟢 BTC Dominanz (BTC.D):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 91%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (91%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 59.98 | SL: 58.34 | TP2: 67.24\n\n🟢 DAIEUR (DAIEUR):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 91%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (91%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Support Reversal\n   Entry: 0.88 | SL: 0.85 | TP2: 1.02\n\n🔴 BYD Company (YDX):\n   Score-Sprung: 88% ➔ 85% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: Bearish Confluence Reversal' (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 141.32 | SL: 146.56 | TP2: 125.73\n\n🔴 ETHBTC (ETHBTC):\n   Score-Sprung: 75% ➔ 85% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 75% auf 85% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 0.03 | SL: 0.03 | TP2: 0.03\n\n🔴 EWTUSDT (EWTUSDT):\n   Score-Sprung: 75% ➔ 85% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 75% auf 85% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 0.28 | SL: 0.30 | TP2: 0.23\n\n🔴 EWTUSD (EWTUSD):\n   Score-Sprung: 75% ➔ 85% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 75% auf 85% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (85%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 0.28 | SL: 0.30 | TP2: 0.23\n\n... und 12 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
