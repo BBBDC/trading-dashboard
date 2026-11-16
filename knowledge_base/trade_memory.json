@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-16T15:09:46.708837+00:00",
-  "total_experience_records": 122,
+  "updated_at": "2026-11-16T15:28:11.735589+00:00",
+  "total_experience_records": 63,
   "learnings": [
+    {
+      "timestamp": "2026-11-16T15:28:08.214579+00:00",
+      "trade_id": "cross_rule_1794842888",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Primärmarkt- und Trend-Dominanz (HTF Matrix Validation)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Mikro-Setups (5m/15m) auf Sekundär-Listings (wie FB2A.F für META) sind hochgradig rausch- und slippageanfällig; sie dürfen nur ausgeführt werden, wenn der übergeordnete 4h-Trend am Heimatmarkt (NASDAQ: META) intakt ist und der Einstieg in einer 4h-Discount-Zone erfolgt.",
+        "actionable_rule": "Primärmarkt- und Trend-Dominanz (HTF Matrix Validation)"
+      }
+    },
+    {
+      "timestamp": "2026-11-16T15:28:08.214529+00:00",
+      "trade_id": "cross_rule_1794842888",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volumen-Absorption definiert lediglich eine Liquiditätszone, niemals ein blindes Einstiegssignal (Confirmation over Climax)",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl auf 15m als auch auf 4h/1D indiziert extrem hohes Volumen primär institutionelle Aktivität, garantiert aber keine Trendumkehr. Erst wenn Folgebalken die Zone respektieren und ein strukturelles Hoch brechen, ist die Absorption von Angebot tatsächlich vollzogen.",
+        "actionable_rule": "Volumen-Absorption definiert lediglich eine Liquiditätszone, niemals ein blindes Einstiegssignal (Confirmation over Climax)"
+      }
+    },
+    {
+      "timestamp": "2026-11-16T15:28:08.214449+00:00",
+      "trade_id": "inc_FB2A.F_15m_1794663060",
+      "symbol": "FB2A.F",
+      "name": "Meta Platforms",
+      "category": "Micro-Incubator (15m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Micro-Confluence Long",
+      "pnl_leveraged": -3.36,
+      "pnl_raw": -1.68,
+      "text": "Kein Direkteinstieg bei anomalen VSA-Spikes (>3x Baseline): Einstiege erfordern zwingend einen bestätigten 15m-Schlusskurs ÜBER dem Hoch der Volumenspitzen-Kerze; US-Tech-Werte dürfen auf europäischen Nebenbörsen vor 15:30 Uhr MEZ nicht intraday long gehebelt werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_FB2A.F_15m_1794663060",
+        "verdict": "LOSS",
+        "driver": "Fehlinterpretation eines extremen Volumenausschlags (10.4x VSA) als Kauf-Absorption anstelle einer Liquidations- bzw. Verkaufsorgie ohne Bestätigung durch einen lokalen Marktstrukturbruch (CHoCH) oder Folgekäufe.",
+        "technical_warning": "Ausbleiben eines bullischen Follow-Throughs oberhalb der 10.4x Volumenkerze, Unterschreiten des Kerzentiefs (Failed Sweep) sowie die inhärente Spread- und Orderbuch-Fragmentierung des Frankfurter Meta-Listings (FB2A.F) abseits der US-Haupthandelszeiten.",
+        "actionable_rule": "Kein Direkteinstieg bei anomalen VSA-Spikes (>3x Baseline): Einstiege erfordern zwingend einen bestätigten 15m-Schlusskurs ÜBER dem Hoch der Volumenspitzen-Kerze; US-Tech-Werte dürfen auf europäischen Nebenbörsen vor 15:30 Uhr MEZ nicht intraday long gehebelt werden."
+      }
+    },
     {
       "timestamp": "2026-11-16T14:32:45.207171+00:00",
       "trade_id": "trade_COINBASE_ETHBTC_20261105_0705",
