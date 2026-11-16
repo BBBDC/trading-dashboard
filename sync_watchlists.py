@@ -77,12 +77,60 @@ def infer_meta(sym, wl_name="Watchlist"):
         return ticker, "Aktien", "Stock"
 
 
-def load_live_watchlists(refresh_from_mcp=True):
+def is_tv_sync_due(force=False):
+    """
+    Ermittelt, ob ein Live-Sync mit TradingView fällig ist:
+    1. Wenn force=True erzwungen wird.
+    2. 2-mal täglich: Morgens (07:00 - 08:30 CET) vor EU-Markteröffnung.
+    3. 2-mal täglich: Nachmittags (14:00 - 15:30 CET) vor US-Markteröffnung.
+    4. Wenn der bestehende Watchlist-Cache älter als 6 Stunden ist.
+    """
+    if force:
+        return True
+    if not WL_CACHE.exists():
+        return True
+
+    try:
+        with open(WL_CACHE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        up_str = data.get("updated_at")
+        if not up_str:
+            return True
+        up_dt = datetime.fromisoformat(up_str)
+        now_dt = datetime.now(timezone.utc)
+        age_hours = (now_dt - up_dt).total_seconds() / 3600.0
+
+        # Wenn Cache älter als 6 Stunden -> fällig
+        if age_hours >= 6.0:
+            return True
+
+        # CET Zeit berechnen (UTC + 1 / UTC + 2)
+        # Grob: UTC+1
+        cet_hour = (now_dt.hour + 1) % 24
+        cet_minute = now_dt.minute
+
+        # 07:00 - 08:30 CET Slot (einmalig im Slot abrufen wenn älter als 2h)
+        if 7 <= cet_hour <= 8 and age_hours >= 2.0:
+            return True
+
+        # 14:00 - 15:30 CET Slot (einmalig im Slot abrufen wenn älter als 2h)
+        if 14 <= cet_hour <= 15 and age_hours >= 2.0:
+            return True
+
+        return False
+    except Exception:
+        return True
+
+
+def load_live_watchlists(refresh_from_mcp=True, force=False):
     """
     Lädt Watchlists direkt live von TradingView via MCP.
+    Beachtet die 2x tägliche Taktung (07:30 & 14:30 CET), um TV-Quotas zu schonen.
     Falls der API-Aufruf fehlschlägt, wird nahtlos der lokale Cache verwendet.
     """
-    if refresh_from_mcp:
+    should_refresh = refresh_from_mcp and (force or is_tv_sync_due(force=force))
+
+    if should_refresh:
         try:
             from fetch_real_ohlcv_cache import refresh_access_token
             from batch_analyzer import fetch_live_watchlists
@@ -289,6 +337,14 @@ def sync_watchlists(live_wls=None, rebuild=False):
 
         pruned_assets.append(new_entry)
         added_count += 1
+
+    # 5.1 Automatische historische Evaluierung aller neu hinzugefügten Assets
+    if added_syms:
+        try:
+            from asset_onboarding_evaluator import evaluate_new_symbols
+            evaluate_new_symbols(list(added_syms))
+        except Exception as e:
+            print(f"Hinweis bei automatischer Asset-Evaluierung: {e}", file=sys.stderr)
 
     # 6. Aktualisiere Datenbank
     pruned_assets.sort(key=lambda x: x.get("score", 0), reverse=True)
