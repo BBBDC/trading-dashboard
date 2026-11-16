@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-16T08:13:25.085713+00:00",
-  "total_experience_records": 115,
+  "updated_at": "2026-11-16T08:31:55.223283+00:00",
+  "total_experience_records": 118,
   "learnings": [
+    {
+      "timestamp": "2026-11-16T08:31:50.891222+00:00",
+      "trade_id": "cross_rule_1794817910",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Struktur und Liquidität dominieren Indikatoren: Oszillatoren und Bandüberdehnungen (Chaos > RFE) erfordern zwingend Volumenabnahme im Retest und einen Break of Structure zur Validierung.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Reine Extremwerte in Bandindikatoren führen in trending Märkten zu fortgesetzten Stop-Runs über offensichtlichen Chart-Levels, wenn kein institutioneller Supply-Beweis durch VSA vorliegt.",
+        "actionable_rule": "Struktur und Liquidität dominieren Indikatoren: Oszillatoren und Bandüberdehnungen (Chaos > RFE) erfordern zwingend Volumenabnahme im Retest und einen Break of Structure zur Validierung."
+      }
+    },
+    {
+      "timestamp": "2026-11-16T08:31:50.891197+00:00",
+      "trade_id": "cross_rule_1794817910",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "HTF-Momentum-Priorität: Micro-Signale (5m/15m) dürfen niemals gegen das 4h/1D-Trendregime exekutiert werden, es sei denn, ein HTF-Liquiditätsabgriff an einer Major-Supply-Zone ist vollzogen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m wirken vermeintliche 'Institutional Sell Pockets' in starken Aufwärtstrends lediglich als temporäre Liquiditätspausen, die von übergeordneten Algos zur Re-Akkumulation und zum Durchbrechen lokaler Widerstände genutzt werden.",
+        "actionable_rule": "HTF-Momentum-Priorität: Micro-Signale (5m/15m) dürfen niemals gegen das 4h/1D-Trendregime exekutiert werden, es sei denn, ein HTF-Liquiditätsabgriff an einer Major-Supply-Zone ist vollzogen."
+      }
+    },
+    {
+      "timestamp": "2026-11-16T08:31:50.891145+00:00",
+      "trade_id": "inc_RHM.DE_5m_1794587487",
+      "symbol": "RHM.DE",
+      "name": "Rheinmetall",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Micro-Confluence Short",
+      "pnl_leveraged": -1.04,
+      "pnl_raw": -0.52,
+      "text": "Micro-Confluence-Shorts sind strikt verboten, solange kein Sweep des vorherigen Swing-Highs erfolgt ist und kein Kerzenschluss unter dem letzten signifikanten 5m-Tief (Market Structure Shift) vorliegt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RHM.DE_5m_1794587487",
+        "verdict": "LOSS",
+        "driver": "Counter-Trend-Einstieg in eine intakte bullische Mikrostruktur ohne vorangegangenen Sweep der Buy-Side-Liquidität und ohne bärische Marktstrukturbestätigung.",
+        "technical_warning": "Fehlendes Erschöpfungsvolumen (Buying Climax/VSA) an den Chaos-Bändern sowie das Ausbleiben eines bärischen Fair Value Gaps (FVG) nach Signalgenerierung signalisierten ungebrochene Kaufabsorption.",
+        "actionable_rule": "Micro-Confluence-Shorts sind strikt verboten, solange kein Sweep des vorherigen Swing-Highs erfolgt ist und kein Kerzenschluss unter dem letzten signifikanten 5m-Tief (Market Structure Shift) vorliegt."
+      }
+    },
     {
       "timestamp": "2026-11-14T21:01:14.738238+00:00",
       "trade_id": "cross_rule_1794690074",

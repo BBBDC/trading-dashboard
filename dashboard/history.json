@@ -1,5 +1,76 @@
 [
   {
+    "id": "evt_20261116_081332",
+    "timestamp": "2026-11-16T08:13:32.577438+00:00",
+    "timestamp_display": "16.11.2026 08:13 UTC",
+    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 2,
+    "changes": [
+      {
+        "symbol": "XETR:ADS",
+        "name": "Adidas",
+        "category": "Consumer / DAX",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 98,
+        "new_score": 70,
+        "price": 177.65,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          172.0,
+          174.5
+        ],
+        "stop_loss": 167.8,
+        "take_profit_2": 191.0,
+        "reasons": [
+          "HTF-Trend ist auf 1W und 1D intakt bullisch, jedoch zeigt der 1h-Chart eine 'No Trade Zone'.",
+          "Kein aktiver degencoder Reversal-Trigger oder frischer SMC-Order Block auf den Ausführungsebenen vorhanden.",
+          "1D RSI liegt bei 67.27, was auf eine fortgeschrittene Konsolidierungsnotwendigkeit vor einem nachhaltigen Ausbruch hindeutet."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Trend ist auf 1W und 1D intakt bullisch, jedoch zeigt der 1h-Chart eine 'No Trade Zone'.).",
+        "note": "Das vorherige LONG-Signal wird zur Vermeidung von Chasing auf NEUTRAL herabgestuft. Der Makro-Trend ist intakt, aber der untergeordnete Markt bietet aktuell kein asymmetrisches Chance-Risiko-Verhältnis für Neueinstiege. Wir warten auf einen Rücksetzer in eine valide Support-Zone mit neuem Trigger.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "TRADEGATE:ABEA",
+        "name": "Alphabet A (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 78,
+        "new_score": 62,
+        "price": 266.8,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          272.0,
+          275.0
+        ],
+        "stop_loss": 279.5,
+        "take_profit_2": 235.0,
+        "reasons": [
+          "HTF-Makrotrend auf 1W und 1D ist intakt bärisch unter der 233 EMA; 1D bestätigt Trendfortsetzung über versteckte bärische Divergenz.",
+          "Kurs notiert innerhalb der aktiven Bearish FVG (254.00 - 289.85), konsolidiert nahe der Midline (271.93), zeigt jedoch noch keine Reversal-Bestätigung.",
+          "VSA signalisiert 'Very Low Volume' auf 4h und 1h ohne degencoder-Trigger; striktes Einhalten der Risikoregeln verbietet aktiven Short ohne relative Volumenvalidierung (min. 1.3x)."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Makrotrend auf 1W und 1D ist intakt bärisch unter der 233 EMA; 1D bestätigt Trendfortsetzung über versteckte bärische Divergenz.).",
+        "note": "Obwohl das übergeordnete Makro-Regime klar bärisch ist und Alphabet innerhalb einer massiven Bearish FVG notiert, verbietet das 'Very Low Volume' auf 4h und 1h jegliche voreilige Short-Allokation. Die untergeordnete 1h-Aufwärtsbewegung stellt im Bärenmarkt lediglich eine volumenarme Bärenmarktrallye dar, kein Long-Signal. Ein Short-Einstieg wird erst bei einem validierten Reversal-Trigger an der FVG-Midline (ca. 272-275 EUR) mit dynamischer Volumenexpansion (>1.3x MA) in Betracht gezogen.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n⚪ Adidas (ADS):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 70%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Trend ist auf 1W und 1D intakt bullisch, jedoch zeigt der 1h-Chart eine 'No Trade Zone'.).\n   📝 KI-Rationale: Das vorherige LONG-Signal wird zur Vermeidung von Chasing auf NEUTRAL herabgestuft. Der Makro-Trend ist intakt, aber der untergeor...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n⚪ Alphabet A (Tradegate) (ABEA):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 62%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Makrotrend auf 1W und 1D ist intakt bärisch unter der 233 EMA; 1D bestätigt Trendfortsetzung über versteckte bärische Divergenz.).\n   📝 KI-Rationale: Obwohl das übergeordnete Makro-Regime klar bärisch ist und Alphabet innerhalb einer massiven Bearish FVG notiert, verbietet das 'V...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261116_065838",
     "timestamp": "2026-11-16T06:58:38.825986+00:00",
     "timestamp_display": "16.11.2026 06:58 UTC",
@@ -24283,44 +24354,5 @@
     "notification_sent": false,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n⚪ NDX (NDX):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 50%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Makrotrend ist zwar bärisch, weist jedoch widersprüchliche Divergenzen auf (versteckt bärisch vs. versteckt bullisch).).\n   📝 KI-Rationale: Trotz übergeordnetem Bärenregime verbietet das Risikomanagement eine aktive Short-Positionierung aufgrund der 4h-Bullen-Divergenz ...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261101_021043",
-    "timestamp": "2026-11-01T02:10:43.053165+00:00",
-    "timestamp_display": "01.11.2026 02:10 UTC",
-    "title": "🔔 TV-Signaländerung: 1 Asset aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 1,
-    "changes": [
-      {
-        "symbol": "BINANCE:ZECUSDT",
-        "name": "Zcash",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 93,
-        "new_score": 50,
-        "price": 1255.44,
-        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
-        "entry_range": [
-          1180.0,
-          1215.0
-        ],
-        "stop_loss": 1115.0,
-        "take_profit_2": 1620.0,
-        "reasons": [
-          "Makro-Trend (1W, 3D, 1D) bullisch über 233 EMA, jedoch scheiterte der Ausbruchsversuch am lokalen Widerstand bei 1288.",
-          "1h-Marktstruktur ist mit Ultra-High Climax-Volumen bärisch abgekippt, was auf Liquiditätsabgriff und Erschöpfung hindeutet.",
-          "Verbindliche ZEC-Fehlerlektion verbietet Zukäufe in unbestätigte Zonen; Krypto-Sektor-Cap erfordert Score >= 92% (Ist: 85%)."
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W, 3D, 1D) bullisch über 233 EMA, jedoch scheiterte der Ausbruchsversuch am lokalen Widerstand bei 1288.).",
-        "note": "Nach der erneuten Ablehnung am Schlüsselwiderstand 1.288 unter Climax-Volumen drehte das 1h-Momentum bärisch, was exakt der gelernten Fehlerhypothese entspricht. Zur Vermeidung von Whipsaws wird das vormalige Long-Signal neutralisiert, da die Mindestschwelle von 92% nicht erreicht wird. Ein neuer Einstieg wird erst nach einer sauberen Konsolidierung und Wyckoff-Absorption im Supportbereich um 1.180–1.215 evaluiert.",
-        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
-      }
-    ],
-    "notification_sent": false,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n⚪ Zcash (ZECUSDT):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 50%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W, 3D, 1D) bullisch über 233 EMA, jedoch scheiterte der Ausbruchsversuch am lokalen Widerstand bei 1288.).\n   📝 KI-Rationale: Nach der erneuten Ablehnung am Schlüsselwiderstand 1.288 unter Climax-Volumen drehte das 1h-Momentum bärisch, was exakt der gelern...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
