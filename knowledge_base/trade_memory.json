@@ -1,7 +1,28 @@
 {
-  "updated_at": "2026-11-17T07:01:50.465525+00:00",
-  "total_experience_records": 63,
+  "updated_at": "2026-11-17T08:01:07.358688+00:00",
+  "total_experience_records": 64,
   "learnings": [
+    {
+      "timestamp": "2026-11-17T08:01:07.356125+00:00",
+      "trade_id": "trade_TVC_UKX_20261106_0711",
+      "symbol": "TVC:UKX",
+      "name": "UKX",
+      "category": "Aktien",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "Hypothese 1: degencoder Institutional Buy Pocket Reversal",
+      "pnl_leveraged": 1.36,
+      "pnl_raw": 0.27,
+      "text": "Ein glücklicher Mikro-Gewinn kaschiert kein fatales Trade-Management: Wer 245 Punkte Drawdown aussitzt, um 29 Punkte mitzunehmen, betreibt kein Risikomanagement, sondern russisches Roulette.",
+      "ai_post_mortem": {
+        "verdict": "WIN",
+        "driver": "Zufallsgewinn durch nachträglichen Trailing-Stop nach massivem, inakzeptablem Drawdown (-2,28% MAE gegenüber nur +1,66% MFE).",
+        "technical_warning": "Fehlende Volumen-Kapitulation und mangelnder Liquiditäts-Sweep an der Support-Zone führten zum voreiligen Einstieg in ein fallendes Messer, bevor der eigentliche Boden bei 10.536 Punkten ausgebildet war.",
+        "actionable_rule": "Reversal-Setups dürfen nur nach bestätigter Strukturbildung (Sweep + bullischer H1/H4-Close) gehandelt werden, wobei der maximale Initial-Stop-Loss zwingend auf 1,0% des Einstiegskurses begrenzt ist.",
+        "recommended_leverage_adjustment": -2,
+        "summary_text": "Ein glücklicher Mikro-Gewinn kaschiert kein fatales Trade-Management: Wer 245 Punkte Drawdown aussitzt, um 29 Punkte mitzunehmen, betreibt kein Risikomanagement, sondern russisches Roulette."
+      }
+    },
     {
       "timestamp": "2026-11-16T15:28:08.214579+00:00",
       "trade_id": "cross_rule_1794842888",
@@ -1116,88 +1137,21 @@
         "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
         "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
       }
-    },
-    {
-      "timestamp": "2026-11-13T21:32:27.222468+00:00",
-      "trade_id": "inc_ADAUSDT_15m_1794603682",
-      "symbol": "ADAUSDT",
-      "name": "Cardano",
-      "category": "Micro-Incubator (15m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder 15m Micro-Confluence Long",
-      "pnl_leveraged": -1.4,
-      "pnl_raw": -0.7,
-      "text": "Bei ADAUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "ai_post_mortem": {
-        "trade_id": "inc_ADAUSDT_15m_1794603682",
-        "verdict": "LOSS",
-        "driver": "Trade ADAUSDT schloss mit CLOSED_SL (-1.0R).",
-        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
-        "actionable_rule": "Bei ADAUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
-      }
-    },
-    {
-      "timestamp": "2026-11-13T21:32:27.222422+00:00",
-      "trade_id": "inc_XRPUSDT_5m_1794598462",
-      "symbol": "XRPUSDT",
-      "name": "Ripple",
-      "category": "Micro-Incubator (5m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "pnl_leveraged": -1.98,
-      "pnl_raw": -0.99,
-      "text": "Bei XRPUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "ai_post_mortem": {
-        "trade_id": "inc_XRPUSDT_5m_1794598462",
-        "verdict": "LOSS",
-        "driver": "Trade XRPUSDT schloss mit CLOSED_SL (-1.0R).",
-        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
-        "actionable_rule": "Bei XRPUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
-      }
-    },
-    {
-      "timestamp": "2026-11-13T21:02:54.999366+00:00",
-      "trade_id": "cross_rule_1794603774",
-      "symbol": "MULTI-ASSET",
-      "name": "Cross-Market Confluence",
-      "category": "Global Heuristic (4h/1D Transfer)",
-      "direction": "NEUTRAL",
-      "result": "WIN",
-      "setup_name": "Synthesized Multi-Timeframe Heuristic",
-      "pnl_leveraged": 0.0,
-      "pnl_raw": 0.0,
-      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
-      "ai_post_mortem": {
-        "verdict": "RULE",
-        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
-        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
-      }
-    },
-    {
-      "timestamp": "2026-11-13T21:02:54.999330+00:00",
-      "trade_id": "inc_SUIUSDT_5m_1794600214",
-      "symbol": "SUIUSDT",
-      "name": "Sui",
-      "category": "Micro-Incubator (5m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "pnl_leveraged": -1.06,
-      "pnl_raw": -0.53,
-      "text": "Bei SUIUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen.",
-      "ai_post_mortem": {
-        "trade_id": "inc_SUIUSDT_5m_1794600214",
-        "verdict": "LOSS",
-        "driver": "Trade SUIUSDT schloss mit CLOSED_SL (-1.0R).",
-        "technical_warning": "Im 5m/15m Bereich vor Einstieg Bestätigung durch Volumen-Ratio >= 1.5 abwarten.",
-        "actionable_rule": "Bei SUIUSDT Trailing-Stop nach TP1 konsequent auf Breakeven setzen."
-      }
     }
   ],
   "setup_statistics": {},
   "setup_performance": {
+    "Hypothese 1: degencoder Institutional Buy Pocket Reversal": {
+      "trades": 10,
+      "wins": 3,
+      "losses": 7,
+      "win_rate": 30.0,
+      "total_lev_pnl": -23.6,
+      "profit_factor": 0.65,
+      "status": "UNDERPERFORMING",
+      "min_score": 92,
+      "leverage_adjustment": -2
+    },
     "Hypothese 1: degencoder Institutional Sell Pocket Reversal": {
       "trades": 4,
       "wins": 1,
@@ -1252,17 +1206,6 @@
       "status": "BALANCED",
       "min_score": 88,
       "leverage_adjustment": 0
-    },
-    "Hypothese 1: degencoder Institutional Buy Pocket Reversal": {
-      "trades": 9,
-      "wins": 2,
-      "losses": 7,
-      "win_rate": 22.2,
-      "total_lev_pnl": -24.9,
-      "profit_factor": 0.63,
-      "status": "UNDERPERFORMING",
-      "min_score": 92,
-      "leverage_adjustment": -2
     },
     "Hypothese 2: Trend Continuation & Hidden Div": {
       "trades": 16,
@@ -1431,6 +1374,17 @@
     }
   },
   "category_performance": {
+    "Aktien": {
+      "trades": 4,
+      "wins": 2,
+      "losses": 2,
+      "win_rate": 50.0,
+      "total_lev_pnl": 1.9,
+      "profit_factor": 1.24,
+      "status": "STANDARD",
+      "min_score": 88,
+      "leverage_cap": 5
+    },
     "Crypto": {
       "trades": 41,
       "wins": 4,
@@ -1496,17 +1450,6 @@
       "status": "STANDARD",
       "min_score": 88,
       "leverage_cap": 5
-    },
-    "Aktien": {
-      "trades": 3,
-      "wins": 1,
-      "losses": 2,
-      "win_rate": 33.3,
-      "total_lev_pnl": 0.5,
-      "profit_factor": 1.07,
-      "status": "CAUTION",
-      "min_score": 90,
-      "leverage_cap": 3
     },
     "Krypto-Makro": {
       "trades": 3,
