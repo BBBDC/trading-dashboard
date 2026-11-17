@@ -1,5 +1,192 @@
 [
   {
+    "id": "evt_20261117_124245",
+    "timestamp": "2026-11-17T12:42:45.427590+00:00",
+    "timestamp_display": "17.11.2026 12:42 UTC",
+    "title": "🔔 TV-Signaländerung: 6 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 6,
+    "changes": [
+      {
+        "symbol": "BINANCE:BATUSD",
+        "name": "BATUSD",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 54,
+        "new_score": 85,
+        "price": 0.1006,
+        "setup_name": "Hypothese 1: SMC Bearish FVG Confluence",
+        "entry_range": [
+          0.0995,
+          0.101
+        ],
+        "stop_loss": 0.1035,
+        "take_profit_2": 0.091,
+        "reasons": [
+          "Strikter Bärischer Makro-Trend auf 1W, 3D und 1D im Einklang mit der übergeordneten Struktur",
+          "Kurs befindet sich exakt im bärischen 4h FVG (0.098 - 0.103) mit versteckter bärischer Trendfolge-Divergenz auf 4h",
+          "Sehr geringes Volumen (Very Low Volume) bei der kurzfristigen 1h Erholung signalisiert fehlendes Kaufinteresse"
+        ],
+        "primary_timeframe": "1W",
+        "timeframe_label": "3D/1W Makro",
+        "holding_period": "Mehrere Wochen",
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (Strikter Bärischer Makro-Trend auf 1W, 3D und 1D im Einklang mit der übergeordneten Struktur).",
+        "note": "Der übergeordnete Makro-Trend für BATUSD bleibt auf allen höheren Zeitebenen strikt bärisch. Die untergeordnete 1h-Erholung weist sehr geringes Volumen auf und läuft direkt in ein aktives bärisches FVG hinein, das durch eine versteckte bärische Divergenz auf 4h verstärkt wird. Das bärische Signal wird daher beibehalten.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "COINBASE:AAVEUSD",
+        "name": "Aave",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 85,
+        "new_score": 65,
+        "price": 113.74,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          112.5,
+          113.5
+        ],
+        "stop_loss": 115.2,
+        "take_profit_2": 98.0,
+        "reasons": [
+          "1D Makro-Trend ist bärisch, jedoch zeigt 1D eine reguläre bullische Reversal-Divergenz",
+          "Bärischer Order Block auf 4h ist mit Grad B/R3 bereits 3-mal retestet und mitigated",
+          "Fehlen eines klaren degencoder Reversal-Triggers auf 4h/1h verhindert eine Direktplatzierung"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Makro-Trend ist bärisch, jedoch zeigt 1D eine reguläre bullische Reversal-Divergenz).",
+        "note": "Aave befindet sich übergeordnet in einem Bärenmarkt, nähert sich aber einem bereits mehrfach getesteten und geschwächten (mitigated) bärischen Order Block. Zudem zeigt der Tageschart eine bullische Divergenz. Da im Krypto-Sektor gemäß Regelwerk strikte Mindest-Scores (>=92%) gefordert sind und ein frischer Trigger fehlt, wird das Signal auf NEUTRAL herabstudiert.",
+        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
+      },
+      {
+        "symbol": "TRADEGATE:1YD",
+        "name": "Eli Lilly (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 88,
+        "new_score": 64,
+        "price": 306.65,
+        "setup_name": "Beobachten / Lauerstellung am Support (Golden Pocket)",
+        "entry_range": [
+          300.0,
+          306.5
+        ],
+        "stop_loss": 291.5,
+        "take_profit_2": 360.0,
+        "reasons": [
+          "1D-Makrotrend ist über der 233 EMA intakt bullisch und konsolidiert mustergültig im 1D Fibonacci Golden Pocket (in_gp: true) – kein Short-Umfeld.",
+          "Unmittelbare Barriere: Kurs stößt exakt an die Unterkante eines bärischen FVG (306.55 - 312.55) bei bärischem 1h-Trend und Climax-Volumen.",
+          "Konfluenz-Gate greift strikt: Ein Retest des Golden Pockets ohne 1h/4h degencoder Reversal-Trigger (blaues Dreieck oder grünes Kreuz) erzielt empirisch unzureichende Win-Rates und rechtfertigt maximal Score 68% (NEUTRAL)."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Makrotrend ist über der 233 EMA intakt bullisch und konsolidiert mustergültig im 1D Fibonacci Golden Pocket (in_gp: true) – kein Short-Umfeld.).",
+        "note": "Eli Lilly liefert mit dem 1D-Bullenregime im Fibonacci Golden Pocket eine vielversprechende übergeordnete Ausgangslage, konsolidiert jedoch direkt unterhalb eines 4h/1h-FVG. Als institutioneller Risk-Manager verweigern wir den Einstieg, solange der FVG nicht per 4h-Schlusskurs zurückerobert oder ein valider 1h/4h-Kauftrigger generiert wurde. Bis zur Erfüllung des 92%-Gates im EU-Sektor verbleibt die Position auf der Watchlist.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      },
+      {
+        "symbol": "TRADEGATE:APC",
+        "name": "Apple (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 88,
+        "new_score": 58,
+        "price": 320.15,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "entry_range": [
+          316.5,
+          318.5
+        ],
+        "stop_loss": 313.8,
+        "take_profit_2": 338.0,
+        "reasons": [
+          "1W RSI steht bei 71.83 (überkauft) und reguläre Bärendivergenzen auf 1D/4h mahnen zur Vorsicht trotz intaktem 1D-Bullenregime.",
+          "Der Kurs fällt in das 1h Bullish FVG (316.00 - 320.10) zurück, während auf 1h Climax-Volumen bei abwärts gerichtetem Trend dominiert.",
+          "1h markiert 'No Trade Zone' sowie 'Bull Alignment Ends'; ein institutioneller degencoder Buy-Trigger ist nicht vorhanden."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1W RSI steht bei 71.83 (überkauft) und reguläre Bärendivergenzen auf 1D/4h mahnen zur Vorsicht trotz intaktem 1D-Bullenregime.).",
+        "note": "Apple zeigt eine scharfe untergeordnete Korrektur mit Climax-Verkaufsvolumen auf 1h, die direkt in das FVG eintaucht, während der 1W-RSI mit 71.83 überhitzt ist. In ein fallendes Messer ohne 'No Supply' oder Trendwende-Trigger zu greifen, widerspricht unserem Kapitalerhaltungs-Dogma diametral. Wir parken den Titel auf der Watchlist und beobachten, ob an der FVG-Unterkante (316.00) institutionelle Absorption stattfindet.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      },
+      {
+        "symbol": "TRADEGATE:SPX",
+        "name": "S&P 500 (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 88,
+        "new_score": 48,
+        "price": 126.32,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          128.5,
+          131.0
+        ],
+        "stop_loss": 133.5,
+        "take_profit_2": 116.0,
+        "reasons": [
+          "Inkonsistente Makro-Marktstruktur: 1W bullisch (RSI 45.52), 1D bärisch im neutralen Kanal, 4h bullisch – kein stabiles Trend-Alignment vorhanden.",
+          "Der bärische SMC Order Block (124.78 - 132.74, Grad B) ist mit Retest-Count 7 (R7) bereits vollständig mitigiert und bietet kein unberührtes institutionelles Edge mehr.",
+          "Empirisches Konfluenz-Gate: 4h und 1h stehen in der 'No Trade Zone'; ohne bestätigten degencoder Sell-Trigger bleibt das Setup gemäß Risikomanagement zwingend NEUTRAL (Sektor-Hürde >= 92% weit verfehlt)."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Inkonsistente Makro-Marktstruktur: 1W bullisch (RSI 45.52), 1D bärisch im neutralen Kanal, 4h bullisch – kein stabiles Trend-Alignment vorhanden.).",
+        "note": "Nach vorangegangenem Short-Bias mahnt die vollständige Mitigation des R7-Order-Blocks sowie die 4h/1h 'No Trade Zone' zu striktem Kapitalerhalt. Solange kein neuer, unberührter Widerstand mit klarem degencoder Good-Sell-Trigger ausgebildet wird, verbietet sich jedes Neueingehen einer Position im schwachen Tradegate-Sektor. Wir verharren diszipliniert an der Seitenlinie und warten auf eine Bereinigung der gegenläufigen Zeiteinheiten.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      },
+      {
+        "symbol": "KUCOIN:EWTUSDT",
+        "name": "EWTUSDT",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 88,
+        "new_score": 48,
+        "price": 0.23413,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          0.258,
+          0.266
+        ],
+        "stop_loss": 0.278,
+        "take_profit_2": 0.198,
+        "reasons": [
+          "HTF-Marktstruktur auf 1W, 3D und 1D ausnahmslos bärisch unterhalb des 233 EMA; kein struktureller CHoCH nach oben vorhanden.",
+          "Keine institutionelle Konfluenz: Weder 1D Buy/Sell Pocket noch aktiver Order Block oder FVG aktiv; 1h indiziert explizit eine 'No Trade Zone'.",
+          "VSA zeigt 1h Climax Volume mit dem Signal 'Bull Alignment Ends', was reines Rauschen darstellt; ohne verifizierten Reversal-Trigger am Widerstand verbietet das Risikomanagement jeden voreiligen Einstieg."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Marktstruktur auf 1W, 3D und 1D ausnahmslos bärisch unterhalb des 233 EMA; kein struktureller CHoCH nach oben vorhanden.).",
+        "note": "EWTUSDT verbleibt in einem übergeordnet intakten Bärenmarkt. Das kurzfristige 1h Climax Volume deutet zwar auf eine temporäre Verkaufsausöpfung hin, liefert jedoch keinerlei institutionellen Long-Trigger. Zudem gebietet die aktive 1h 'No Trade Zone' strikte Zurückhaltung. Erst eine Erholung in die Widerstandszone um 0.26 USDT mit bestätigtem degencoder Short-Trigger bietet ein regelkonformes Setup.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 6 Einstufungen haben sich geändert:\n\n🔴 BATUSD (BATUSD):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 85%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (Strikter Bärischer Makro-Trend auf 1W, 3D und 1D im Einklang mit der übergeordneten Struktur).\n   📝 KI-Rationale: Der übergeordnete Makro-Trend für BATUSD bleibt auf allen höheren Zeitebenen strikt bärisch. Die untergeordnete 1h-Erholung weist ...\n   Setup: Hypothese 1: SMC Bearish FVG Confluence\n   ⏱️ Handlungs-Chart: 1W Chart · 3D/1W Makro (Mehrere Wochen)\n   Entry: 0.10 | SL: 0.10 | TP2: 0.09\n\n⚪ Aave (AAVEUSD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 65%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Makro-Trend ist bärisch, jedoch zeigt 1D eine reguläre bullische Reversal-Divergenz).\n   📝 KI-Rationale: Aave befindet sich übergeordnet in einem Bärenmarkt, nähert sich aber einem bereits mehrfach getesteten und geschwächten (mitigate...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n⚪ Eli Lilly (Tradegate) (1YD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 64%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Makrotrend ist über der 233 EMA intakt bullisch und konsolidiert mustergültig im 1D Fibonacci Golden Pocket (in_gp: true) – kein Short-Umfeld.).\n   📝 KI-Rationale: Eli Lilly liefert mit dem 1D-Bullenregime im Fibonacci Golden Pocket eine vielversprechende übergeordnete Ausgangslage, konsolidie...\n   Setup: Beobachten / Lauerstellung am Support (Golden Pocket)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n⚪ Apple (Tradegate) (APC):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 58%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1W RSI steht bei 71.83 (überkauft) und reguläre Bärendivergenzen auf 1D/4h mahnen zur Vorsicht trotz intaktem 1D-Bullenregime.).\n   📝 KI-Rationale: Apple zeigt eine scharfe untergeordnete Korrektur mit Climax-Verkaufsvolumen auf 1h, die direkt in das FVG eintaucht, während der ...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n⚪ S&P 500 (Tradegate) (SPX):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Inkonsistente Makro-Marktstruktur: 1W bullisch (RSI 45.52), 1D bärisch im neutralen Kanal, 4h bullisch – kein stabiles Trend-Alignment vorhanden.).\n   📝 KI-Rationale: Nach vorangegangenem Short-Bias mahnt die vollständige Mitigation des R7-Order-Blocks sowie die 4h/1h 'No Trade Zone' zu striktem ...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n⚪ EWTUSDT (EWTUSDT):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Marktstruktur auf 1W, 3D und 1D ausnahmslos bärisch unterhalb des 233 EMA; kein struktureller CHoCH nach oben vorhanden.).\n   📝 KI-Rationale: EWTUSDT verbleibt in einem übergeordnet intakten Bärenmarkt. Das kurzfristige 1h Climax Volume deutet zwar auf eine temporäre Verk...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261117_124108",
     "timestamp": "2026-11-17T12:41:08.512540+00:00",
     "timestamp_display": "17.11.2026 12:41 UTC",
@@ -24117,72 +24304,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n🔴 Novartis (NOV):\n   Score-Sprung: 95% ➔ 86% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 86% (Makro-Trend (1D/1W) ist klar bärisch (untergeordnet Bärenmarktrallye auf 4h/1h).).\n   📝 KI-Rationale: Novartis läuft auf 4h/1h in eine klassische Bärenmarktrallye innerhalb eines übergeordneten Abwärtstrends. Der RSI auf Stundenbasi...\n   Setup: Hypothese 1: SMC Order Block Exhaustion\n   Entry: 36.16 | SL: 37.80 | TP2: 33.20\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261103_063056",
-    "timestamp": "2026-11-03T06:30:56.729409+00:00",
-    "timestamp_display": "03.11.2026 06:30 UTC",
-    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 2,
-    "changes": [
-      {
-        "symbol": "COINBASE:ETHBTC",
-        "name": "ETHBTC",
-        "category": "Crypto",
-        "change_type": "SCORE_JUMP",
-        "old_signal": "SHORT",
-        "new_signal": "SHORT",
-        "old_score": 86,
-        "new_score": 95,
-        "price": 0.02936,
-        "setup_name": "Hypothese 1: degencoder Institutional Sell Pocket Reversal",
-        "entry_range": [
-          0.03,
-          0.03
-        ],
-        "stop_loss": 0.03,
-        "take_profit_2": 0.03,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "degencoder: 4h Institutional SELL Pocket (Upper Chaos Band über RFE 233)",
-          "degencoder: 1h Sell Area (Rotes Kreuz)"
-        ],
-        "change_reason": "Konfluenz-Veränderung: Score springt von 86% auf 95% (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "BINANCE:GLMRUSDT",
-        "name": "GLMRUSDT",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 50,
-        "new_score": 95,
-        "price": 0.007749,
-        "setup_name": "Hypothese 2: degencoder Indicator Sell Signal",
-        "entry_range": [
-          0.01,
-          0.01
-        ],
-        "stop_loss": 0.01,
-        "take_profit_2": 0.0,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "degencoder: 4h Institutional BUY Pocket (Lower Chaos Band unter RFE 233)",
-          "degencoder: 1h Buy Area (Grünes Kreuz)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n🔴 ETHBTC (ETHBTC):\n   Score-Sprung: 86% ➔ 95% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 86% auf 95% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: degencoder Institutional Sell Pocket Reversal\n   Entry: 0.03 | SL: 0.03 | TP2: 0.03\n\n🔴 GLMRUSDT (GLMRUSDT):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 2: degencoder Indicator Sell Signal\n   Entry: 0.01 | SL: 0.01 | TP2: 0.00\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
