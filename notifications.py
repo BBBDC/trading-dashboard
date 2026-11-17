@@ -390,7 +390,14 @@ def format_telegram_change_notification(changes, click_url):
                 else:
                     ev_badge = "📐 Quantitative Engine"
 
-            lines.append(f"🏆 <b>KI-Score:</b> <b>{score}%</b> ({score_badge}) · <code>{ev_badge}</code>")
+            consensus = c.get("consensus_label")
+            if consensus:
+                lines.append(f"📊 <b>Triade-Konsens:</b> {consensus}")
+            badges = c.get("evaluator_badges")
+            if badges:
+                lines.append(f"🤖 <b>KI-Council:</b> {' · '.join([f'<code>{b}</code>' for b in badges])}")
+            else:
+                lines.append(f"🏆 <b>KI-Score:</b> <b>{score}%</b> ({score_badge}) · <code>{ev_badge}</code>")
             if c.get("macro_headwind"):
                 lines.append(f"🛡️ <b>Makro-Status:</b> <i>{c.get('headwind_label')}</i> (Hebel defensiv gedämpft)")
             lines.append("")

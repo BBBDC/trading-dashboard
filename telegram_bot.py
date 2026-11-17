@@ -1186,7 +1186,7 @@ def get_admin_quota_details_text_and_markup():
     filled_blocks = int(round(five_h_rem / 10.0))
     bar = "█" * filled_blocks + "░" * (10 - filled_blocks)
 
-    lines = [
+    lines.extend([
         f"⚡ <b>Google Pro-Abo · View Usage (Gemini 3.8 Flash High)</b>",
         f"👤 <b>Account:</b> {acc_name}",
         f"📧 <b>E-Mail:</b> <code>{acc_email}</code> (Dediziert für Trading)",
@@ -1202,7 +1202,7 @@ def get_admin_quota_details_text_and_markup():
         f"🔑 <b>Google Gemini Multi-Key Quota Pool (Failover-Reserve)</b>",
         f"<b>Pool-Verbrauch:</b> {used} / {limit} Requests ({pct:.1f}%)\n",
         f"<b>Einzel-Key Status:</b>"
-    ]
+    ])
 
     for idx, kd in enumerate(keys_detail, 1):
         name = kd.get("name", f"Key {idx}")
