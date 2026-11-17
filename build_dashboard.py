@@ -5173,7 +5173,11 @@ html_content = f"""<!DOCTYPE html>
                     ${{tp1Badge}}
                     ${{(t.tranches && t.tranches > 1) ? `<span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30" title="Position bei Signalverstärkung aufgestockt">Tranche ${{t.tranches}}/3</span>` : ''}}
                     ${{t.macro_headwind ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30" title="${{t.headwind_label || 'Makro-Gegenwind gedämpft'}}">🛡️ Makro-Dämpfer (${{t.leverage}}x)</span>` : ''}}
-                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-500/15 text-purple-300 border border-purple-500/30">${{t.evaluator_badge || '🤖 Gemini'}}</span>
+                    ${{(t.evaluator_badges && t.evaluator_badges.length > 0)
+                      ? t.evaluator_badges.map(b => `<span class="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-500/15 text-purple-300 border border-purple-500/30">${{b}}</span>`).join(' ')
+                      : `<span class="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-500/15 text-purple-300 border border-purple-500/30">${{t.evaluator_badge || '🤖 Gemini'}}</span>`
+                    }}
+                    ${{t.consensus_label ? `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">${{t.consensus_label}}</span>` : ''}}
                     <span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-${{sigColor}}-500/10 text-${{sigColor}}-400 border border-${{sigColor}}-500/30">
                       ${{t.direction}}
                     </span>
