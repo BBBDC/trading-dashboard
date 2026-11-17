@@ -1,5 +1,77 @@
 [
   {
+    "id": "evt_20261117_150048",
+    "timestamp": "2026-11-17T15:00:48.104719+00:00",
+    "timestamp_display": "17.11.2026 15:00 UTC",
+    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 2,
+    "changes": [
+      {
+        "symbol": "TRADEGATE:2PP",
+        "name": "PayPal (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "LONG",
+        "old_score": 52,
+        "new_score": 95,
+        "price": 53.27,
+        "setup_name": "Hypothese 1: SMC Order Block [R4] Confirmed Retest",
+        "entry_range": [
+          52.83,
+          53.37
+        ],
+        "stop_loss": 52.54,
+        "take_profit_2": 55.78,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "1W Makro-Trend bullisch bestätigt",
+          "SMC OB: 4h Bullish Order Block [R4] Retest",
+          "SMC FVG: 4h Bullish Imbalance (53.0 - 53.72)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Core Swing",
+        "holding_period": "2–5 Tage",
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
+        "note": "3-Säulen-Konfluenz (95%): Makro-Trend intakt, Zone bestätigt, Reversal-Trigger aktiv (1D Trend über EMA 233 bullisch).",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "TRADEGATE:SPX",
+        "name": "S&P 500 (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 88,
+        "new_score": 52,
+        "price": 128.0,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          127.5,
+          129.5
+        ],
+        "stop_loss": 133.5,
+        "take_profit_2": 114.5,
+        "reasons": [
+          "1D-Trend ist strukturell bärisch unter 233 EMA mit aktiver versteckter bärischer Divergenz; 4h-Erholungen sind reine Bärenmarktrallyes und schließen Longs aus.",
+          "Der aktive Bearish Order Block (124.78–132.74) ist mit Grad B, 7 Retests (R7) und Status 'mitigated' institutionell stark abgenutzt und bietet isoliert kein Edge.",
+          "Sowohl 4h als auch 1h melden eine 'No Trade Zone'; Rausch-Signale ('Bear Alignment Ends') werden ignoriert und ohne 'Good Sell Signal' greift das Confluence-Gate mit Score-Deckelung."
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Trend ist strukturell bärisch unter 233 EMA mit aktiver versteckter bärischer Divergenz; 4h-Erholungen sind reine Bärenmarktrallyes und schließen Longs aus.).",
+        "note": "Der S&P 500 verharrt im übergeordneten 1D-Bärenregime, befindet sich jedoch in einer zerfahrenen Konsolidierung innerhalb eines bereits 7-fach getesteten Grade-B Order Blocks. Weder auf 4h noch auf 1h liegt ein valider degencoder-Verkaufstrigger vor (beide Zeiteinheiten melden 'No Trade Zone'). Wir bleiben diszipliniert an der Seitenlinie und warten auf eine klare Ablehnung an der OB-Midline (128.76) mit verifiziertem Short-Trigger.",
+        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n🟢 PayPal (Tradegate) (2PP):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: 3-Säulen-Konfluenz (95%): Makro-Trend intakt, Zone bestätigt, Reversal-Trigger aktiv (1D Trend über EMA 233 bullisch)....\n   Setup: Hypothese 1: SMC Order Block [R4] Confirmed Retest\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Core Swing (2–5 Tage)\n   Entry: 52.83 | SL: 52.54 | TP2: 55.78\n\n⚪ S&P 500 (Tradegate) (SPX):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D-Trend ist strukturell bärisch unter 233 EMA mit aktiver versteckter bärischer Divergenz; 4h-Erholungen sind reine Bärenmarktrallyes und schließen Longs aus.).\n   📝 KI-Rationale: Der S&P 500 verharrt im übergeordneten 1D-Bärenregime, befindet sich jedoch in einer zerfahrenen Konsolidierung innerhalb eines be...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261117_143410",
     "timestamp": "2026-11-17T14:34:10.821848+00:00",
     "timestamp_display": "17.11.2026 14:34 UTC",
@@ -24142,44 +24214,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 5 Einstufungen haben sich geändert:\n\n🟢 Zcash (ZECUSDT):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: degencoder Institutional Buy Pocket Reversal\n   Entry: 1,180.02 | SL: 1,130.06 | TP2: 1,379.88\n\n🔴 Novartis (NOV):\n   Score-Sprung: 86% ➔ 95% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 86% auf 95% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R11] Exhaustion\n   Entry: 35.95 | SL: 37.28 | TP2: 31.99\n\n🔴 ETHUSD (ETHUSD):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R1] Exhaustion\n   Entry: 2,274.54 | SL: 2,393.05 | TP2: 1,914.46\n\n🔴 RPLUSD (RPLUSD):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R1] Exhaustion\n   Entry: 1.50 | SL: 1.58 | TP2: 1.24\n\n⚪ Bitcoin Cash (BCHUSD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 58%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Makro-Bärenmarkt aktiv: Temporäre Erholungen auf 1h/4h stellen Bärenmarktrallyes dar. Kein Long-Trade; Abwarten von Erschöpfungs-S...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261103_122204",
-    "timestamp": "2026-11-03T12:22:04.604603+00:00",
-    "timestamp_display": "03.11.2026 12:22 UTC",
-    "title": "🔔 TV-Signaländerung: 1 Asset aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 1,
-    "changes": [
-      {
-        "symbol": "TRADEGATE:CSA",
-        "name": "Cisco Systems (Tradegate)",
-        "category": "Tradegate / EU",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 96,
-        "new_score": 48,
-        "price": 229.6,
-        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
-        "entry_range": [
-          218.0,
-          224.0
-        ],
-        "stop_loss": 213.5,
-        "take_profit_2": 248.0,
-        "reasons": [
-          "Makro-Trend auf 1W und 1D ist bullisch intakt, jedoch signalisieren das aktive 1D Sell Pocket sowie ein 1W-RSI von 75.01 eine deutliche Überhitzung.",
-          "Der aktive bullische Order Block [227.0 - 234.2] ist qualitativ minderwertig (Grad C, Score 75, bereits mitigated); Long-Chasing an den Hochs ist strikt untersagt.",
-          "Aktive 'Good Sell Signals' auf 4h und 1h bei extrem niedrigem Volumen (Very Low Volume) und mehrfache bärische Divergenzen erfordern das Schließen alter Longs und Warten auf einen gesunden Pullback."
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend auf 1W und 1D ist bullisch intakt, jedoch signalisieren das aktive 1D Sell Pocket sowie ein 1W-RSI von 75.01 eine deutliche Überhitzung.).",
-        "note": "Cisco befindet sich im übergeordneten Bullenmarkt, zeigt jedoch mit dem aktiven 1D Sell Pocket und synchronen 4h/1h Sell-Signalen klare Erschöpfungsanzeichen. Ein Halten oder Neuaufbau von Long-Positionen auf aktuellem Niveau (230.5) birgt ein asymmetrisch schlechtes Risikoprofil, weshalb die vorherige Long-Einstufung konsequent auf NEUTRAL korrigiert wird. Kapitalerhalt hat oberste Priorität: Wir warten diszipliniert auf eine tiefere Konsolidierung in die Support-Zone (218.0 - 224.0), bevor neue Einstiege geprüft werden.",
-        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
-      }
-    ],
-    "notification_sent": false,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n⚪ Cisco Systems (Tradegate) (CSA):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend auf 1W und 1D ist bullisch intakt, jedoch signalisieren das aktive 1D Sell Pocket sowie ein 1W-RSI von 75.01 eine deutliche Überhitzung.).\n   📝 KI-Rationale: Cisco befindet sich im übergeordneten Bullenmarkt, zeigt jedoch mit dem aktiven 1D Sell Pocket und synchronen 4h/1h Sell-Signalen ...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
