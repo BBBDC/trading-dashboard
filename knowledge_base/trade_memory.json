@@ -1,7 +1,28 @@
 {
-  "updated_at": "2026-11-17T09:21:32.628941+00:00",
-  "total_experience_records": 64,
+  "updated_at": "2026-11-17T09:32:15.604102+00:00",
+  "total_experience_records": 61,
   "learnings": [
+    {
+      "timestamp": "2026-11-17T09:30:58.570171+00:00",
+      "trade_id": "trade_XETR_ADS_20261113_2030",
+      "symbol": "XETR:ADS",
+      "name": "Adidas",
+      "category": "Consumer / DAX",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "🌟 A+ Konfluenz: degencoder Pocket/Trigger & Trendfolge",
+      "pnl_leveraged": -11.43,
+      "pnl_raw": -1.63,
+      "text": "Wer mit 7-fachem Hebel gegen eine institutionelle Angebotszone anläuft und einen zwischenzeitlichen Buchgewinn von knapp +9% ungebremst in einen zweistelligen Verlust laufen lässt, missachtet elementare Execution-Regeln. HTF-Widerstände schlagen Indikator-Konfluenzen ausnahmslos.",
+      "ai_post_mortem": {
+        "verdict": "LOSS",
+        "driver": "Der Long-Einstieg erfolgte grob fehlerhaft direkt in eine übergeordnete 4h-Bearish-Order-Block-Angebotszone ('Long in Resistance'), an der institutioneller Verkaufsdruck den Kurs prompt abwies.",
+        "technical_warning": "Ein 4h Bearish Order Block markiert ein HTF-Supply-Level; die Ablehnung an der R1-Marke bei 179.90 und das anschließende Verfehlen eines höheren Hochs hätten das Setup sofort invalidieren und ein Schließen bei Break-Even erzwingen müssen.",
+        "actionable_rule": "Keine Pro-Trend-Longs bei gleichzeitigem Retest übergeordneter Bearish Order Blocks; bei Einzeltitel-Hebelungen von >= 5x ist nach Erreichen von +1% Buchgewinn der Stop zwingend auf Break-Even nachzuziehen.",
+        "recommended_leverage_adjustment": -2,
+        "summary_text": "Wer mit 7-fachem Hebel gegen eine institutionelle Angebotszone anläuft und einen zwischenzeitlichen Buchgewinn von knapp +9% ungebremst in einen zweistelligen Verlust laufen lässt, missachtet elementare Execution-Regeln. HTF-Widerstände schlagen Indikator-Konfluenzen ausnahmslos."
+      }
+    },
     {
       "timestamp": "2026-11-17T08:01:07.356125+00:00",
       "trade_id": "trade_TVC_UKX_20261106_0711",
@@ -1119,28 +1140,21 @@
         "technical_warning": "Mangelnde volumetrische Abweisung (kein VSA-Buying-Climax/Absorption-Delta) sowie das Ausbleiben eines impulsiven Reclaims nach dem Sweep signalisierten echten Verkaufsdruck statt eines Fehlausbruchs.",
         "actionable_rule": "Keine blinden Retest-Entries in 15m-Order-Blocks nach einem Sweep ohne vorherigen Market Structure Shift (MSS) und Kerzenschluss zurück über das Sweep-Level."
       }
-    },
-    {
-      "timestamp": "2026-11-13T21:32:27.222484+00:00",
-      "trade_id": "cross_rule_1794605547",
-      "symbol": "MULTI-ASSET",
-      "name": "Cross-Market Confluence",
-      "category": "Global Heuristic (4h/1D Transfer)",
-      "direction": "NEUTRAL",
-      "result": "WIN",
-      "setup_name": "Synthesized Multi-Timeframe Heuristic",
-      "pnl_leveraged": 0.0,
-      "pnl_raw": 0.0,
-      "text": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen.",
-      "ai_post_mortem": {
-        "verdict": "RULE",
-        "driver": "Statischer Schutz vor Counter-Trend Whipsaws.",
-        "actionable_rule": "Trades nur in Richtung der 4h RFE 233 Basislinie eingehen."
-      }
     }
   ],
   "setup_statistics": {},
   "setup_performance": {
+    "🌟 A+ Konfluenz: degencoder Pocket/Trigger & Trendfolge": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate": 0.0,
+      "total_lev_pnl": -11.4,
+      "profit_factor": 0.0,
+      "status": "BALANCED",
+      "min_score": 88,
+      "leverage_adjustment": 0
+    },
     "Hypothese 1: degencoder Institutional Buy Pocket Reversal": {
       "trades": 10,
       "wins": 3,
@@ -1374,6 +1388,17 @@
     }
   },
   "category_performance": {
+    "Consumer / DAX": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate": 0.0,
+      "total_lev_pnl": -11.4,
+      "profit_factor": 0.0,
+      "status": "STANDARD",
+      "min_score": 88,
+      "leverage_cap": 5
+    },
     "Aktien": {
       "trades": 4,
       "wins": 2,
