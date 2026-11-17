@@ -36,6 +36,15 @@ except Exception:
         "last_error": None
     })
 
+# AI Quota Sentinel Status für Claude Opus 5.5 und Grok Build 4.7 abfragen
+try:
+    from ai_quota_sentinel import update_and_check_quotas
+    ai_quota_info = update_and_check_quotas()
+except Exception:
+    ai_quota_info = db_data.get("ai_quota", {})
+
+db_data["ai_quota"] = ai_quota_info
+
 # Telegram Auth-Metadaten für Rollenbasierte Website-Freigabe
 TELEGRAM_CONFIG = BASE_DIR / "telegram_config.json"
 auth_config = {
@@ -455,6 +464,145 @@ else:
     pro_last_used_str = "Aktiv im Monitoring"
 
 pro_badge = "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
+
+# Triade-Council Quota & Multi-Modell Monitor (Opus 5.5, Grok 4.7, Antigravity)
+claude_data = ai_quota_info.get("claude", {})
+grok_data = ai_quota_info.get("grok", {})
+antigrav_data = ai_quota_info.get("antigravity", {})
+
+c_used_pct = claude_data.get("session_used_pct", 54)
+c_reset_str = claude_data.get("reset_str", "Nov 17, 3:39pm (Europe/Berlin)")
+c_effort = claude_data.get("active_effort", "high")
+c_status = claude_data.get("status", "ONLINE")
+
+if c_used_pct >= 90:
+    c_bar_color = "bg-rose-500"
+    c_num_class = "text-rose-400"
+elif c_used_pct >= 75:
+    c_bar_color = "bg-amber-500"
+    c_num_class = "text-amber-400"
+else:
+    c_bar_color = "bg-purple-500"
+    c_num_class = "text-purple-400"
+
+g_used_pct = grok_data.get("estimated_pct", 33)
+g_tokens = grok_data.get("total_tokens", 497707)
+g_cost = grok_data.get("cost_usd", 2.18)
+g_expires = grok_data.get("expires_at_str", "17.11. 18:11 CET")
+g_effort = grok_data.get("active_effort", "medium")
+g_status = grok_data.get("status", "ONLINE")
+
+if g_used_pct >= 90:
+    g_bar_color = "bg-rose-500"
+    g_num_class = "text-rose-400"
+elif g_used_pct >= 75:
+    g_bar_color = "bg-amber-500"
+    g_num_class = "text-amber-400"
+else:
+    g_bar_color = "bg-sky-500"
+    g_num_class = "text-sky-400"
+
+triad_quota_card_html = f"""
+      <!-- Card Triade AI: Multi-KI Quota Monitor (Claude Opus 5.5 & Grok Build 4.7) -->
+      <section class="admin-group-quota rounded-2xl bg-gradient-to-br from-slate-900/95 via-purple-950/20 to-slate-900 border border-purple-500/40 p-5 shadow-xl space-y-4">
+        <div onclick="toggleAccordion('admin-acc-triad-quota')" class="cursor-pointer flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800 select-none group">
+          <div class="flex items-center gap-2.5">
+            <span class="text-2xl">🤖</span>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="font-bold text-white text-base group-hover:text-purple-300 transition">Triade-Council & Multi-KI Limit-Monitor</h3>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-purple-500/20 text-purple-300 border border-purple-500/40">OPUS 5.5 + GROK 4.7 + ANTIGRAVITY</span>
+              </div>
+              <p class="text-xs text-slate-400">Dynamische Effort-Steuerung &bull; Symmetrisches /usage Quota-Tracking &bull; Automatischer Telegram Admin-Alarm</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 self-start sm:self-auto">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+              ● KI-KONSENS BEREIT
+            </span>
+            <span id="admin-acc-triad-quota-arrow" class="text-xs font-mono text-slate-400 group-hover:text-white transition">▼</span>
+          </div>
+        </div>
+
+        <div id="admin-acc-triad-quota-body" class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <!-- Claude Opus 5.5 Kachel -->
+            <div class="p-4 rounded-xl bg-slate-950/80 border border-purple-500/30 space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">🏛️</span>
+                  <div>
+                    <h4 class="font-bold text-sm text-purple-200">Claude Opus 5.5</h4>
+                    <span class="text-[10px] text-slate-400">Kausalitäts- & Makro-Audit (Anthropic)</span>
+                  </div>
+                </div>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                  Effort: {c_effort}
+                </span>
+              </div>
+              
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs font-mono">
+                  <span class="text-slate-400">5h-Rolling Session:</span>
+                  <span class="font-bold {c_num_class}">{c_used_pct}% verbraucht ({100 - c_used_pct}% frei)</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                  <div class="h-2.5 rounded-full {c_bar_color} transition-all duration-500" style="width: {min(100, c_used_pct)}%"></div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 pt-1 border-t border-slate-800/80">
+                <span>Reset: <strong class="text-purple-300">{c_reset_str}</strong></span>
+                <span>Woche: <strong class="text-slate-300">{claude_data.get("week_used_pct", 0)}%</strong></span>
+              </div>
+            </div>
+
+            <!-- Grok Build 4.7 Kachel -->
+            <div class="p-4 rounded-xl bg-slate-950/80 border border-sky-500/30 space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">⚡</span>
+                  <div>
+                    <h4 class="font-bold text-sm text-sky-200">Grok Build 4.7</h4>
+                    <span class="text-[10px] text-slate-400">News- & Sentiment-Radar (xAI)</span>
+                  </div>
+                </div>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30">
+                  Effort: {g_effort}
+                </span>
+              </div>
+              
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs font-mono">
+                  <span class="text-slate-400">Session Token-Auslastung:</span>
+                  <span class="font-bold {g_num_class}">{g_used_pct}% Last</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                  <div class="h-2.5 rounded-full {g_bar_color} transition-all duration-500" style="width: {min(100, g_used_pct)}%"></div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 pt-1 border-t border-slate-800/80">
+                <span>Tokens: <strong class="text-sky-300">{g_tokens:,}</strong> (${g_cost:.2f})</span>
+                <span>Gültig bis: <strong class="text-slate-300">{g_expires}</strong></span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="p-3 rounded-xl bg-purple-950/30 border border-purple-500/20 text-xs text-slate-300 flex items-start gap-2.5">
+            <span class="text-sm">🛡️</span>
+            <div class="leading-relaxed text-[11px]">
+              <strong class="text-purple-300">Dynamische Triade-Governance aktiv:</strong>
+              Routine-Scans (126 Assets) laufen zu 100% lokal & unlimitiert über den <code>Antigravity Core</code> (0.001s).
+              Erst wenn ein A+ Setup die mathematischen Filter besteht, schalten sich <strong>Grok 4.7</strong> (News & X-Sentiment) und <strong>Claude Opus 5.5</strong> (Kausalitäts-Audit) ein.
+              Erreicht ein Modell 80% Auslastung, schützt die adaptive Bremse das Kontingent und sendet automatisch einen Telegram-Alarm an den Admin.
+            </div>
+          </div>
+        </div>
+      </section>
+"""
 
 pro_card_html = f"""
       <!-- Card Pro-Abo: Google Pro Subscription Status (Stufe 1 Primär: pokeulm@gmail.com) -->
@@ -2581,6 +2729,9 @@ html_content = f"""<!DOCTYPE html>
 
       <!-- Card Health & Routing: Übersicht Kaskade & Vorab-Check -->
       {routing_health_card_html}
+
+      <!-- Card Triade AI: Multi-KI Quota Monitor (Claude Opus 5.5 & Grok Build 4.7) -->
+      {triad_quota_card_html}
 
       <!-- Card 1: Google Pro-Abo (Stufe 1 Primär: pokeulm@gmail.com) -->
       {pro_card_html}

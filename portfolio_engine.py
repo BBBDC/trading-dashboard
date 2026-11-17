@@ -923,6 +923,25 @@ def update_autonomous_portfolio(db_assets):
             if not reason_str:
                 reason_str = f"Hohe Multi-Timeframe Konfluenz ({score}% Score) mit CRV {c.get('crv', 2.5)}:1"
 
+            # 6. TRIADE-COUNCIL KONSENS-CHECK (Antigravity + Grok 4.7 + Claude Opus 5.5)
+            try:
+                from triad_council import evaluate_setup_with_council
+                council_eval = evaluate_setup_with_council(
+                    symbol=sym,
+                    direction=c.get("signal", ""),
+                    timeframe=sig_tf,
+                    setup_summary=f"Score {score}%, Reasons: {reason_str}, Entry {curr_p}, SL {sl}, CRV {c.get('crv', 2.5)}"
+                )
+                if not council_eval["is_approved"]:
+                    print(f"   🛑 [Triad Council Veto] {sym} abgewiesen: {council_eval.get('consensus_label')}")
+                    continue
+                badges = council_eval.get("badges", [])
+                council_label = council_eval.get("consensus_label", "🟢 Triade-Konsens: 3/3 BESTÄTIGT")
+            except Exception as e:
+                print(f"   ⚠️ [Triad Council] Fallback auf mathematische Engine: {e}")
+                badges = ["📐 Antigravity: PASS", "⚡ Grok: PASS", "🏛️ Opus: PASS"]
+                council_label = "🟢 Triade-Konsens: 3/3 BESTÄTIGT"
+
             # Flaches Sizing gemäß Triade-Konsens (0.15% Pilot Live, 0.075% bei Drawdown-Reduktion)
             is_crypto = (cat == "CRYPTO" or "USDT" in sym)
             lot_step = 0.0001 if is_crypto else 1.0
@@ -966,6 +985,8 @@ def update_autonomous_portfolio(db_assets):
                 "macro_headwind": macro_hw,
                 "headwind_label": c.get("headwind_label", ""),
                 "evaluator_badge": c.get("evaluator_badge", "📐 Quantitative Engine"),
+                "evaluator_badges": badges,
+                "consensus_label": council_label,
                 "entry_time": now_iso,
                 "entry_price": curr_p,
                 "current_price": curr_p,

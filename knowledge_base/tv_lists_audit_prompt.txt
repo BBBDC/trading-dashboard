@@ -1,0 +1,40 @@
+Du bist Claude Opus 5.5, der quantitative Chef-Auditor unseres Trading-Systems (High Effort Reasoning).
+
+Der Nutzer bittet dich um eine saubere, exakte Übersicht für ALLE seine TradingView-Listen:
+1. Wie sehen die Listen AKTUELL aus?
+2. Welche Ticker MÜSSEN / SOLLTEN entfernt werden (mit klarer Begründung: z.B. insolvente Börsen wie FTX, delistete Werte wie SNDK/SPCX, untradbare Makro-Indikatoren wie Shiller-PE, illiquide DEX-Pools, exotische Devisen mit Riesen-Spreads, unnötige Ticker-Duplikate)?
+3. Welche Ticker SOLLTEN in welcher Liste hinzugefügt werden (z.B. echte unkorrelierte Sektor-Diversifikation: Healthcare LLY, Energy XOM, Consumer WMT/PG, Finance JPM, saubere Krypto-Assets)?
+4. Wie sieht der finale, saubere Ziel-Zustand für jede einzelne Liste aus?
+
+Hier sind die exakten Daten der 7 Live-Watchlists direkt aus der TradingView-Synchronisation (live_watchlists.json):
+
+### Liste 1: "Aktien" (ID: 210838470) - 39 Ticker
+Symbole: ['NASDAQ:PYPL', 'NASDAQ:AMZN', 'NASDAQ:GOOG', 'XETR:ADS', 'NASDAQ:TSLA', 'NASDAQ:AVGO', 'NASDAQ:NVDA', 'NASDAQ:PLTR', 'NASDAQ:NFLX', 'NASDAQ:MSFT', 'NASDAQ:AMD', 'SP:SPX', 'TVC:DJI', 'XETR:DAX', 'MULTPL:SHILLER_PE_RATIO_MONTH', 'NASDAQ:AAPL', 'NASDAQ:META', 'NASDAQ:HOOD', 'NYSE:ORCL', 'NYSE:KO', 'XETR:BAYN', 'XETR:NOV', 'NYSE:UBER', 'ECONOMICS:USMNO', 'NYSE:AG', 'NYSE:UAA', 'NYSE:IBM', 'NYSE:CAG', 'NASDAQ:SNDK', 'NYSE:DELL', 'NASDAQ:PANW', 'NASDAQ:MU', 'OTC:LIFFF', 'NASDAQ:INTC', 'NASDAQ:MRVL', 'NYSE:XYZ', 'NASDAQ:SPCX', 'NASDAQ:CRWD', 'NYSE:ACN']
+
+### Liste 2: "Commodities" (ID: 211182381) - 9 Ticker
+Symbole: ['TVC:SILVER', 'TVC:GOLD', 'RUS:BR1!', 'TVC:PLATINUM', 'TVC:PALLADIUM', 'CAPITALCOM:COPPER', 'CAPITALCOM:ALUMINUM', 'CAPITALCOM:CORN', 'NYMEX:NG1!']
+
+### Liste 3: "Devisen" (ID: 211182519) - 5 Ticker
+Symbole: ['FX_IDC:EURINR', 'TVC:DXY', 'FX_IDC:EURCRC', 'FX_IDC:EURIDR', 'FX_IDC:EURLKR']
+
+### Liste 4: "Rohstoffe" (ID: 318230601) - 0 Ticker
+Symbole: []
+
+### Liste 5: "Tradegate Werte" (ID: 352764127) - 27 Ticker
+Symbole: ['TRADEGATE:MTE', 'TRADEGATE:TL0', 'TRADEGATE:NVD', 'TRADEGATE:RHM', 'TRADEGATE:AMD', 'TRADEGATE:AMZ', 'TRADEGATE:SIE', 'TRADEGATE:YDX', 'TRADEGATE:SPX', 'TRADEGATE:MSF', 'TRADEGATE:ABEA', 'TRADEGATE:PTX', 'TRADEGATE:2PP', 'TRADEGATE:FB2A', 'TRADEGATE:APC', 'TRADEGATE:1YD', 'TRADEGATE:INL', 'TRADEGATE:NFC', 'TRADEGATE:9MW', 'TRADEGATE:CSA', 'TRADEGATE:45C', 'TRADEGATE:IBM', 'TRADEGATE:IFX', 'TRADEGATE:34Q0', 'TRADEGATE:SAP', 'TRADEGATE:BW9', 'TRADEGATE:FMV']
+
+### Liste 6: "Watchlist" (ID: 24978044) - 32 Ticker
+Symbole: ['OANDA:SPX500USD', 'AMEX:SPY', 'TVC:NDX', 'TVC:UKX', 'TVC:NI225', 'BITSTAMP:BTCUSD', 'BITSTAMP:XRPUSD', 'COINBASE:EOSUSD', 'COINBASE:LTCUSD', 'FX_IDC:XAUUSD', 'AMEX:DIA', 'AMEX:GLD', 'AMEX:FXE', 'KRAKEN:DAIEUR', 'COINBASE:ETHUSD', 'COINBASE:BTCUSD', 'NASDAQ:TSLA', 'BINANCE:BATUSD', 'CME:BTC1!', 'NASDAQ:AAPL', 'KRAKEN:DOTUSD', 'KRAKEN:LINKUSD', 'KUCOIN:EWTUSDT', 'KUCOIN:EWTBTC', 'KUCOIN:LYXEUSDT', 'FTX:UNIUSD', 'POLONIEX:SWAPUSD', 'COINBASE:ETHBTC', 'POLONIEX:POLSUSDT', 'CRYPTOCAP:BTC.D', 'BITTREX:OCEANUSDT', 'FTX:TRUMP']
+
+### Liste 7: "Crypto" (ID: 26061514) - 24 Ticker
+Symbole: ['BITSTAMP:BTCUSD', 'COINBASE:BTCUSD', 'INDEX:BTCUSD', 'BINANCE:BTCUSD', 'CRYPTOCAP:BTC.D', 'BITSTAMP:ETHUSD', 'COINBASE:ETHUSD', 'COINBASE:ETHBTC', 'BINANCE:DOTUSDT', 'KRAKEN:KSMUSD', 'UNISWAP3ETH:SAMAWETH_854B57.USD', 'KRAKEN:RPLUSD', 'KRAKEN:EWTUSD', 'CRYPTOCAP:TOTAL', 'BINANCE:ETHFIUSDT', 'COINBASE:SOLUSD', 'BINANCE:GMXUSDT', 'AERODROME:KVCMUSDC_5C0D76', 'BINANCE:ZECUSDT', 'COINBASE:AAVEUSD', 'BINANCE:AVAXUSDT', 'COINBASE:BCHUSD', 'COINBASE:CRVUSD', 'BINANCE:HYPEUSDT.P']
+
+
+Erstelle eine extrem übersichtliche, strukturierte, professionelle und lückenlose Aufstellung für den Nutzer. 
+Unterteile die Analyse pro Liste in:
+- Ist-Zustand
+- Rauswurf-Kandidaten (Streichen) mit Begründung
+- Aufnahme-Kandidaten (Hinzufügen) mit Begründung
+- Bereinigter Soll-Zustand (Empfohlene finale Liste)
+
+Gib am Ende ein kurzes Fazit über die gewonnene Datenqualität und Effizienz des Scanners.

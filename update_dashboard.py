@@ -34,6 +34,17 @@ def run_pipeline(force_download=False, skip_download=False, git_push=False, forc
     start_time = time.time()
     stage_banner("🚀 STARTE TRADINGVIEW SUPER-ANALYST MASTER PIPELINE")
 
+    # STAGE 0.5: AI Quota & Triade-Council Limit-Sentinel
+    stage_banner("STUFE 0.5: AI Quota Sentinel & Triade-Council Limit-Check")
+    try:
+        from ai_quota_sentinel import update_and_check_quotas
+        print("🤖 [AI Quota Sentinel] Prüfe Claude Opus 5.5 & Grok Build 4.7 Limits...")
+        ai_state = update_and_check_quotas()
+        print(f"   🏛️ Claude Opus 5.5: {ai_state['claude']['session_used_pct']}% verbraucht (Status: {ai_state['claude']['status']}, Effort: {ai_state['claude']['active_effort']})")
+        print(f"   ⚡ Grok Build 4.7: {ai_state['grok']['estimated_pct']}% Last (Status: {ai_state['grok']['status']}, Effort: {ai_state['grok']['active_effort']})")
+    except Exception as e:
+        print(f"⚠️ Warnung beim AI Quota Sentinel Check: {e}")
+
     # STAGE 1: Watchlist Synchronisation
     stage_banner("STUFE 1: Watchlists mit TradingView synchronisieren")
     from sync_watchlists import sync_watchlists

@@ -1121,12 +1121,49 @@ def get_user_management_text_and_markup():
 
 
 def get_admin_quota_details_text_and_markup():
-    """Detaillierte Aufschlüsselung aller API-Keys und des Pro-Abos (View Usage)."""
+    """Detaillierte Aufschlüsselung aller KI-Modelle (Opus 5.5, Grok 4.7, Gemini Multi-Key & Pro)."""
+    try:
+        from ai_quota_sentinel import update_and_check_quotas
+        ai_state = update_and_check_quotas()
+    except Exception:
+        ai_state = {}
+
     try:
         from gemini_quota_tracker import get_quota_summary_for_dashboard
         quota = get_quota_summary_for_dashboard()
     except Exception:
         quota = {}
+
+    lines = []
+    
+    # 1. Claude Opus 5.5 & Grok Build 4.7 (Triade-Council)
+    if ai_state:
+        c = ai_state.get("claude", {})
+        g = ai_state.get("grok", {})
+        
+        def make_bar(pct: int, length: int = 10) -> str:
+            filled = min(length, max(0, int(round((pct / 100.0) * length))))
+            return "█" * filled + "░" * (length - filled)
+
+        c_bar = make_bar(c.get("session_used_pct", 0))
+        g_bar = make_bar(g.get("estimated_pct", 0))
+
+        c_icon = "🟢" if c.get("status") == "ONLINE" else ("🟡" if c.get("status") == "THROTTLED" else "🔴")
+        g_icon = "🟢" if g.get("status") == "ONLINE" else ("🟡" if g.get("status") == "THROTTLED" else "🔴")
+
+        lines.extend([
+            "🤖 <b>Triade-Council Quota &amp; Limit-Monitor</b>",
+            f"🏛️ <b>Claude Opus 5.5 (Kausalitäts-Audit):</b>",
+            f"• Status: {c_icon} <b>{c.get('status')}</b> | Effort: <code>{c.get('active_effort')}</code>",
+            f"• 5h-Session: <code>[{c_bar}]</code> <b>{c.get('session_used_pct')}%</b>",
+            f"• Reset um: <b>{c.get('reset_str')}</b>\n",
+            f"⚡ <b>Grok Build 4.7 (News- &amp; Sentiment-Radar):</b>",
+            f"• Status: {g_icon} <b>{g.get('status')}</b> | Effort: <code>{g.get('active_effort')}</code>",
+            f"• Session-Last: <code>[{g_bar}]</code> <b>{g.get('estimated_pct')}%</b>",
+            f"• Tokens / Kosten: <b>{g.get('total_tokens', 0):,}</b> (${g.get('cost_usd', 0.0):.2f})",
+            f"• Session-Gültigkeit: <b>{g.get('expires_at_str')}</b>\n",
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        ])
 
     keys_detail = quota.get("keys_detail", [])
     used = quota.get("requests_used_today", 0)
@@ -1985,6 +2022,18 @@ def handle_update(api, update):
                 return
             t, kb = get_admin_learnings_text_and_markup()
             api.send_message(chat_id, t, reply_markup=kb)
+            return
+
+        if text.startswith("/quota") or text.startswith("/limits") or text.startswith("/ki"):
+            from ai_quota_sentinel import format_telegram_quota_summary
+            qtext = format_telegram_quota_summary()
+            qkb = {
+                "inline_keyboard": [
+                    [{"text": "🔄 Quota aktualisieren", "callback_data": "admin_quota_details"}],
+                    [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
+                ]
+            }
+            api.send_message(chat_id, qtext, reply_markup=qkb)
             return
 
         if text.startswith("/health") or text.startswith("/status"):
