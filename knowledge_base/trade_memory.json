@@ -1,7 +1,28 @@
 {
-  "updated_at": "2026-11-17T11:01:23.684231+00:00",
+  "updated_at": "2026-11-17T12:10:35.740866+00:00",
   "total_experience_records": 61,
   "learnings": [
+    {
+      "timestamp": "2026-11-17T12:00:48.042821+00:00",
+      "trade_id": "trade_TRADEGATE_9MW_20261113_2001",
+      "symbol": "TRADEGATE:9MW",
+      "name": "Super Micro Computer",
+      "category": "Tradegate / EU",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "Hypothese 1: SMC Order Block [R3] Confirmed Exhaustion",
+      "pnl_leveraged": 3.31,
+      "pnl_raw": 3.31,
+      "text": "Lehrbuch-Einstieg mit nahezu null Drawdown, aber amateurhaftes Trade-Management im Gewinnbereich. Wer einen Buchgewinn von 8,4% auf 3,3% abschmelzen lässt, sabotiert langfristig die Portfolio-Rendite.",
+      "ai_post_mortem": {
+        "verdict": "WIN",
+        "driver": "Exzellentes Einstiegstiming am Erschöpfungshoch im übergeordneten Abwärtstrend, jedoch massives Verschenken von Buchgewinnen durch fehlendes Teil-Profit-Taking an der 130er-Kernunterstützung.",
+        "technical_warning": "Der Rebound an der psychologischen Marke von 130,00 sowie nachlassendes Abwärtsmomentum auf den unteren Zeiteinheiten (MFE von +8,40%) verlangten eine aktive Gewinnsicherung, anstatt passiv über 60% des Maximalprofits wieder abzugeben.",
+        "actionable_rule": "Erreicht ein Trade >8% MFE oder testet eine runde HTF-Schlüsselmarke, müssen mindestens 50% der Position glattgestellt und der Trailing-Stop so arretiert werden, dass maximal 25% des Buchgewinns zurückgegeben werden.",
+        "recommended_leverage_adjustment": 0,
+        "summary_text": "Lehrbuch-Einstieg mit nahezu null Drawdown, aber amateurhaftes Trade-Management im Gewinnbereich. Wer einen Buchgewinn von 8,4% auf 3,3% abschmelzen lässt, sabotiert langfristig die Portfolio-Rendite."
+      }
+    },
     {
       "timestamp": "2026-11-17T09:30:58.570171+00:00",
       "trade_id": "trade_XETR_ADS_20261113_2030",
@@ -1120,30 +1141,21 @@
         "driver": "Auf 5m/15m generierte Signale (wie 'Good Buy' oder lokale OB-Retests) weisen eine hohe Ausfallquote auf, wenn sie als isolierte Counter-Trend-Trades gegen die übergeordnete 4h/1D-Marktstruktur gehandelt werden.",
         "actionable_rule": "Kein Antizipieren von Umkehrmustern auf Sub-Stunden-Ebene ohne strikte Übereinstimmung mit dem 4h-Trendregime."
       }
-    },
-    {
-      "timestamp": "2026-11-13T22:01:44.354302+00:00",
-      "trade_id": "inc_SOLUSDT_15m_1794605456",
-      "symbol": "SOLUSDT",
-      "name": "Solana",
-      "category": "Micro-Incubator (15m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder 15m Micro-Confluence Long",
-      "pnl_leveraged": -1.3,
-      "pnl_raw": -0.65,
-      "text": "Keine blinden Retest-Entries in 15m-Order-Blocks nach einem Sweep ohne vorherigen Market Structure Shift (MSS) und Kerzenschluss zurück über das Sweep-Level.",
-      "ai_post_mortem": {
-        "trade_id": "inc_SOLUSDT_15m_1794605456",
-        "verdict": "LOSS",
-        "driver": "Kauf in eine ungebremste Abwärtsbewegung, da der Order-Block-Retest (R3) keine sofortige bullische Expansion zeigte und der Support liquidiert wurde.",
-        "technical_warning": "Mangelnde volumetrische Abweisung (kein VSA-Buying-Climax/Absorption-Delta) sowie das Ausbleiben eines impulsiven Reclaims nach dem Sweep signalisierten echten Verkaufsdruck statt eines Fehlausbruchs.",
-        "actionable_rule": "Keine blinden Retest-Entries in 15m-Order-Blocks nach einem Sweep ohne vorherigen Market Structure Shift (MSS) und Kerzenschluss zurück über das Sweep-Level."
-      }
     }
   ],
   "setup_statistics": {},
   "setup_performance": {
+    "Hypothese 1: SMC Order Block [R3] Confirmed Exhaustion": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate": 100.0,
+      "total_lev_pnl": 3.3,
+      "profit_factor": 9.99,
+      "status": "BALANCED",
+      "min_score": 88,
+      "leverage_adjustment": 0
+    },
     "🌟 A+ Konfluenz: degencoder Pocket/Trigger & Trendfolge": {
       "trades": 1,
       "wins": 0,
@@ -1388,6 +1400,17 @@
     }
   },
   "category_performance": {
+    "Tradegate / EU": {
+      "trades": 6,
+      "wins": 2,
+      "losses": 4,
+      "win_rate": 33.3,
+      "total_lev_pnl": -53.7,
+      "profit_factor": 0.31,
+      "status": "UNDERPERFORMING",
+      "min_score": 92,
+      "leverage_cap": 2
+    },
     "Consumer / DAX": {
       "trades": 1,
       "wins": 0,
@@ -1486,17 +1509,6 @@
       "status": "CAUTION",
       "min_score": 90,
       "leverage_cap": 3
-    },
-    "Tradegate / EU": {
-      "trades": 5,
-      "wins": 1,
-      "losses": 4,
-      "win_rate": 20.0,
-      "total_lev_pnl": -57.0,
-      "profit_factor": 0.27,
-      "status": "UNDERPERFORMING",
-      "min_score": 92,
-      "leverage_cap": 2
     },
     "Enterprise Tech": {
       "trades": 1,
