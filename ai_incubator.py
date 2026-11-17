@@ -299,10 +299,13 @@ def scan_for_micro_setup(
     lows = [float(b["l"]) for b in bars[-14:]]
     atr_approx = sum(h - l for h, l in zip(highs, lows)) / 14.0
 
-    # ATR / Close Gate (Fable 5.2 & Grok 4.7 Konsens): Unter 0.35% (0.0035) frisst Reibung jeden Edge
+    # Intraday Noise Floor (Filtert illiquide / tote Flatlines, lässt echte Intraday-Schwankungen zu):
+    # 5m: min 0.03% (0.0003) | 15m: min 0.06% (0.0006) | 30m/1h: min 0.09% (0.0009).
+    # Reale Reibungskosten (Spreads/Fees) werden dynamisch über das nachgelagerte check_cost_gate() überwacht.
     curr_c = float(bars[-1]["c"])
     atr_frac = (atr_approx / curr_c) if curr_c > 0 else 0.0
-    if atr_frac < 0.0035 and asset.get("category") != "Forex":
+    min_atr_floor = 0.0003 if timeframe == "5m" else (0.0006 if timeframe == "15m" else 0.0009)
+    if atr_frac < min_atr_floor:
         return None
 
     # =========================================================================
@@ -378,11 +381,11 @@ def scan_for_micro_setup(
     if is_crypto_night:
         score_long = 0
     elif htf_bias == "BEARISH":
-        # Strenger Schutz gegen fallende Messer: Im Makro-Abwärtstrend nur bei absolutem A+ Sweep
-        if not (has_bull_sweep and has_vsa_abs and score_long >= 80):
-            score_long = 0
+        # Schutz vor fallenden Messern: Im Makro-Abwärtstrend Gegen-Trend-Longs nur mit Reversal/Sweep-Signal
+        if not ((has_bull_sweep or has_good_buy or active_bull_ob) and score_long >= 55):
+            score_long = max(0, score_long - 25)
         else:
-            long_triggers.append("🛡️ Makro-Abwärtstrend überstimmt (Grade A Sweep + VSA Absorption)")
+            long_triggers.append("🛡️ Makro-Abwärtstrend überstimmt (Reversal/Sweep Konfluenz)")
 
     # =========================================================================
     # 2. SHORT-SETUP EVALUIERUNG & FABLE 5.2 SCORING
@@ -418,7 +421,11 @@ def scan_for_micro_setup(
         score_short += 10
         short_triggers.append("Extreme Upper Chaos Band")
     if rfe_basis and curr_p <= rfe_basis:
-        score_short -= 25  # Abzug: Short unter RFE Basis ist kein Premium-Setup
+        if htf_bias == "BEARISH":
+            score_short += 10  # Trendfolge-Bonus im übergeordneten Bärenmarkt
+            short_triggers.append("Bärenmarkt Trendfolge unter RFE Basis")
+        else:
+            score_short -= 20  # Abzug nur im Bullen-/Neutralmarkt (mangelnder Premium-Discount)
 
     # Säule 2: Trigger & Reversal (Max 40 Pkt)
     has_good_sell = any("Good Sell" in s for s in signals) or any("Good Sell" in s for s in recent_sig_names[-3:])
@@ -456,12 +463,12 @@ def scan_for_micro_setup(
             short_triggers.append("🛡️ Makro-Aufwärtstrend überstimmt (Grade A Sweep High + VSA Pressure)")
 
     # =========================================================================
-    # 3. ENTSCHEIDUNG NACH A+ MINDESTSCHWELLE (SCORE >= 60 FÜR GRADE A, >= 80 FÜR A+)
+    # 3. ENTSCHEIDUNG NACH A+ MINDESTSCHWELLE (SCORE >= 55 FÜR GRADE A, >= 75 FÜR A+)
     # =========================================================================
     buffer_atr = 1.0 if timeframe == "5m" else 1.2
 
     # LONG AUSFÜHRUNG
-    if score_long >= 60 and score_long > score_short:
+    if score_long >= 55 and score_long > score_short:
         ref_low = active_bull_ob["bottom"] if active_bull_ob else min(lows[-5:])
         sl = round(ref_low - buffer_atr * atr_approx, 4)
         risk = curr_p - sl
@@ -477,7 +484,7 @@ def scan_for_micro_setup(
             tp2_target = upper_band if (upper_band and upper_band > curr_p) else (curr_p + 3.0 * risk)
             tp2 = round(max(curr_p + 2.5 * risk, min(curr_p + 4.5 * risk, tp2_target)), 4)
 
-            setup_grade = "A+" if score_long >= 80 else "A"
+            setup_grade = "A+" if score_long >= 75 else "A"
             setup_name = f"🌟 degencoder {timeframe} A+ Confluence Long" if setup_grade == "A+" else f"degencoder {timeframe} Confluence Long"
 
             # Berechne Volatilität & konservatives Basis-Sizing (0.5% Flat Sizing via risk_engine)
@@ -540,7 +547,8 @@ def scan_for_micro_setup(
                 "current_volume": curr_vol,
                 "avg_volume_20": avg_vol_20,
                 "atr_14": atr_14_val,
-                "is_breakout": is_breakout
+                "is_breakout": is_breakout,
+                "allow_neutral_htf": True
             }
 
             causal_ok, causal_reasons, causal_score = evaluate_setup_causality(candidate_payload, market_ctx)
@@ -586,7 +594,7 @@ def scan_for_micro_setup(
             }
 
     # SHORT AUSFÜHRUNG
-    elif score_short >= 60 and score_short > score_long:
+    elif score_short >= 55 and score_short > score_long:
         ref_high = active_bear_ob["top"] if active_bear_ob else max(highs[-5:])
         sl = round(ref_high + buffer_atr * atr_approx, 4)
         risk = sl - curr_p
@@ -601,7 +609,7 @@ def scan_for_micro_setup(
             tp2_target = lower_band if (lower_band and lower_band < curr_p) else (curr_p - 3.0 * risk)
             tp2 = round(min(curr_p - 2.5 * risk, max(curr_p - 4.5 * risk, tp2_target)), 4)
 
-            setup_grade = "A+" if score_short >= 80 else "A"
+            setup_grade = "A+" if score_short >= 75 else "A"
             setup_name = f"🌟 degencoder {timeframe} A+ Confluence Short" if setup_grade == "A+" else f"degencoder {timeframe} Confluence Short"
 
             # Berechne Volatilität & konservatives Basis-Sizing (0.5% Flat Sizing via risk_engine)
@@ -664,7 +672,8 @@ def scan_for_micro_setup(
                 "current_volume": curr_vol,
                 "avg_volume_20": avg_vol_20,
                 "atr_14": atr_14_val,
-                "is_breakout": is_breakout
+                "is_breakout": is_breakout,
+                "allow_neutral_htf": True
             }
 
             causal_ok, causal_reasons, causal_score = evaluate_setup_causality(candidate_payload, market_ctx)
@@ -832,13 +841,20 @@ def update_open_trade_with_bars(trade: Dict[str, Any], future_bars: List[Dict[st
 # 4. VERGLEICHENDE KI-BATCH-POST-MORTEM SYNTHESE (CROSS-TRADE KAUSALITÄT)
 # ==============================================================================
 
-def trigger_comparative_batch_post_mortem(closed_trades: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+def trigger_comparative_batch_post_mortem(closed_trades: List[Dict[str, Any]], incubator_data: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
     """
-    Gruppiert unanalysierte geschlossene Trades in Batches von 3-4 Trades und ruft
-    die vergleichende KI-Synthese auf. Destilliert sofort übergeordnete Regeln.
+    Dual-KI-Post-Mortem Synthese (Gemini 3.8 Flash High + Claude Opus 5.5):
+    1. Taktische Sofort-Analyse aller unanalysierten geschlossenen Trades (Gemini 3.8 Flash High).
+    2. Ad-hoc Kausalitätsprüfung für kritische / anomale Trades (Claude Opus 5.5).
+    3. Aggregierte 10er-Meilenstein Meta-Synthese & Ableitung fraktaler Axiome (Claude Opus 5.5).
     """
     try:
-        from gemini_evaluator import evaluate_batch_trades_post_mortem, evaluate_trade_post_mortem
+        from gemini_evaluator import (
+            evaluate_batch_trades_post_mortem,
+            evaluate_trade_post_mortem,
+            audit_trades_with_opus_meta,
+            audit_critical_trade_with_opus
+        )
     except ImportError:
         return closed_trades
 
@@ -853,78 +869,138 @@ def trigger_comparative_batch_post_mortem(closed_trades: List[Dict[str, Any]]) -
 
     # Finde unanalysierte geschlossene Trades
     pending = [t for t in closed_trades if not t.get("ai_post_mortem") and t.get("status") in ["CLOSED_SL", "CLOSED_TP1", "CLOSED_TP2"]]
-    if not pending:
-        return closed_trades
+    
+    if pending:
+        print(f"\n  🧠 Starte taktisches KI-Post-Mortem (Gemini 3.8 Flash High) für {len(pending)} neue geschlossene Trades...")
 
-    print(f"\n  🧠 Starte vergleichendes KI-Post-Mortem für {len(pending)} neue geschlossene Trades...")
+        # Verarbeite in Batches von 3 Trades
+        batch_size = 3
+        for i in range(0, len(pending), batch_size):
+            chunk = pending[i:i + batch_size]
+            print(f"    [Gemini Batch {i // batch_size + 1}/{(len(pending) + batch_size - 1) // batch_size}] Analysiere {len(chunk)} Trades...", end="", flush=True)
 
-    # Verarbeite in Batches von 3 Trades
-    batch_size = 3
-    for i in range(0, len(pending), batch_size):
-        chunk = pending[i:i + batch_size]
-        print(f"    [Post-Mortem Batch {i // batch_size + 1}/{(len(pending) + batch_size - 1) // batch_size}] Analysiere {len(chunk)} Trades...", end="", flush=True)
+            batch_result = evaluate_batch_trades_post_mortem(chunk)
+            if batch_result and isinstance(batch_result, dict):
+                trade_evals = {e.get("trade_id"): e for e in batch_result.get("trade_evaluations", [])}
+                cross_insights = batch_result.get("cross_market_insights", [])
 
-        batch_result = evaluate_batch_trades_post_mortem(chunk)
-        if batch_result and isinstance(batch_result, dict):
-            trade_evals = {e.get("trade_id"): e for e in batch_result.get("trade_evaluations", [])}
-            cross_insights = batch_result.get("cross_market_insights", [])
+                for t in chunk:
+                    tid = t.get("trade_id")
+                    ev = trade_evals.get(tid)
+                    if ev:
+                        t["ai_post_mortem"] = ev
 
-            for t in chunk:
-                tid = t.get("trade_id")
-                ev = trade_evals.get(tid)
-                if ev:
-                    t["ai_post_mortem"] = ev
+                    # Prüfe auf anomale/kritische Trades für sofortiges Opus Deep-Audit:
+                    # 1. A+ Setup mit vollem SL-Verlust (Kausalitätsbruch)
+                    # 2. Ausreißer-Gewinner (> +2.0R)
+                    r_val = t.get("realized_r", 0.0)
+                    score_val = t.get("setup_score", t.get("score", 0))
+                    is_anomaly = (r_val <= -0.9 and score_val >= 75) or (r_val >= 2.0)
+                    if is_anomaly and not t.get("opus_audit"):
+                        print(f"\n      🏛️ [Opus Anomaly Audit] Starte Kausalitätsprüfung für {t.get('symbol')} ({r_val:+.1f}R)...", end="", flush=True)
+                        op_audit = audit_critical_trade_with_opus(t, gemini_eval=ev)
+                        if op_audit and isinstance(op_audit, dict) and op_audit.get("causal_driver"):
+                            t["opus_audit"] = op_audit
+                            if ev:
+                                ev["opus_audit"] = op_audit
+                            print(" ✅ OK (Claude Opus)")
+                        else:
+                            print(" ℹ️ Übersprungen/Quota")
 
-                # Füge Einzellehre zu trade_memory hinzu
-                is_win = (t.get("realized_r", 0) > 0)
-                new_learning = {
+                    # Füge Einzellehre zu trade_memory hinzu
+                    is_win = (t.get("realized_r", 0) > 0)
+                    new_learning = {
+                        "timestamp": datetime.now(timezone.utc).isoformat(),
+                        "trade_id": tid,
+                        "symbol": t.get("symbol"),
+                        "name": t.get("name"),
+                        "category": f"Micro-Incubator ({t.get('timeframe', '15m')})",
+                        "direction": t.get("direction"),
+                        "result": "WIN" if is_win else "LOSS",
+                        "setup_name": t.get("setup_name"),
+                        "pnl_leveraged": t.get("realized_pnl_pct", 0.0) * 2.0,
+                        "pnl_raw": t.get("realized_pnl_pct", 0.0),
+                        "text": ev.get("actionable_rule") if ev else f"Trade {tid} abgeschlossen.",
+                        "ai_post_mortem": ev or {}
+                    }
+                    memory_data.setdefault("learnings", []).insert(0, new_learning)
+
+                # Füge übergreifende Cross-Market Insights hinzu
+                for ins in cross_insights:
+                    new_cross = {
+                        "timestamp": datetime.now(timezone.utc).isoformat(),
+                        "trade_id": f"cross_rule_{int(time.time())}",
+                        "symbol": "MULTI-ASSET",
+                        "name": "Cross-Market Confluence",
+                        "category": "Global Heuristic (4h/1D Transfer)",
+                        "direction": "NEUTRAL",
+                        "result": "WIN",
+                        "setup_name": "Synthesized Multi-Timeframe Heuristic",
+                        "pnl_leveraged": 0.0,
+                        "pnl_raw": 0.0,
+                        "text": ins.get("rule", ""),
+                        "ai_post_mortem": {
+                            "verdict": "RULE",
+                            "driver": ins.get("context", ""),
+                            "actionable_rule": ins.get("rule", "")
+                        }
+                    }
+                    memory_data.setdefault("learnings", []).insert(0, new_cross)
+
+                print(" ✅ OK (Gemini 3.8 Flash High)")
+            else:
+                print(" ℹ️ Math-Fallback")
+
+            time.sleep(0.5)
+
+    # 10-Trade Meilenstein Meta-Audit durch Claude Opus prüfen:
+    total_closed = len(closed_trades)
+    last_ms = incubator_data.get("last_opus_milestone", 0) if incubator_data else 0
+    if total_closed >= 10 and total_closed >= last_ms + 10:
+        ten_chunk = closed_trades[-10:]
+        print(f"\n  🏛️ Starte Claude Opus 10-Trade Meilenstein-Audit (#{total_closed - 9} bis #{total_closed})...", end="", flush=True)
+        gemini_dict = {t.get("trade_id"): t.get("ai_post_mortem", {}) for t in ten_chunk}
+        opus_meta = audit_trades_with_opus_meta(ten_chunk, gemini_evals=gemini_dict)
+        if opus_meta and isinstance(opus_meta, dict) and (opus_meta.get("meta_verdict") or opus_meta.get("binding_meta_axioms")):
+            if incubator_data is not None:
+                incubator_data["last_opus_milestone"] = (total_closed // 10) * 10
+                incubator_data.setdefault("opus_milestone_audits", []).insert(0, {
                     "timestamp": datetime.now(timezone.utc).isoformat(),
-                    "trade_id": tid,
-                    "symbol": t.get("symbol"),
-                    "name": t.get("name"),
-                    "category": f"Micro-Incubator ({t.get('timeframe', '15m')})",
-                    "direction": t.get("direction"),
-                    "result": "WIN" if is_win else "LOSS",
-                    "setup_name": t.get("setup_name"),
-                    "pnl_leveraged": t.get("realized_pnl_pct", 0.0) * 2.0,
-                    "pnl_raw": t.get("realized_pnl_pct", 0.0),
-                    "text": ev.get("actionable_rule") if ev else f"Trade {tid} abgeschlossen.",
-                    "ai_post_mortem": ev or {}
-                }
-                memory_data.setdefault("learnings", []).insert(0, new_learning)
-
-            # Füge übergreifende Cross-Market Insights hinzu
-            for ins in cross_insights:
-                new_cross = {
+                    "milestone_trade_count": total_closed,
+                    "audit": opus_meta
+                })
+            # Axiome in trade_memory.json einspeisen
+            for ax in opus_meta.get("binding_meta_axioms", []):
+                new_axiom = {
                     "timestamp": datetime.now(timezone.utc).isoformat(),
-                    "trade_id": f"cross_rule_{int(time.time())}",
-                    "symbol": "MULTI-ASSET",
-                    "name": "Cross-Market Confluence",
-                    "category": "Global Heuristic (4h/1D Transfer)",
+                    "trade_id": f"opus_axiom_{int(time.time())}",
+                    "symbol": "SYSTEM-AXIOM",
+                    "name": "Claude Opus 5.5 Meta-Synthese",
+                    "category": "Opus Fraktal-Axiom (4h/1D Transfer)",
                     "direction": "NEUTRAL",
                     "result": "WIN",
-                    "setup_name": "Synthesized Multi-Timeframe Heuristic",
+                    "setup_name": "Claude Opus Causal Meta-Audit",
                     "pnl_leveraged": 0.0,
                     "pnl_raw": 0.0,
-                    "text": ins.get("rule", ""),
+                    "text": f"🏛️ AXIOM ({ax.get('timeframe_scope', 'Multi-TF')}): {ax.get('rule')} — {ax.get('context')}",
                     "ai_post_mortem": {
-                        "verdict": "RULE",
-                        "driver": ins.get("context", ""),
-                        "actionable_rule": ins.get("rule", "")
+                        "verdict": "AXIOM",
+                        "driver": ax.get("context", ""),
+                        "actionable_rule": ax.get("rule", ""),
+                        "auditor": "Claude Opus 5.5"
                     }
                 }
-                memory_data.setdefault("learnings", []).insert(0, new_cross)
-
-            print(" ✅ OK (Gemini 3.8 Flash High)")
+                memory_data.setdefault("learnings", []).insert(0, new_axiom)
+            print(" ✅ OK (Claude Opus Meta-Audit abgeschlossen)")
         else:
-            print(" ℹ️ Math-Fallback")
-
-        time.sleep(0.5)
+            status_msg = opus_meta.get("summary", "Übersprungen") if isinstance(opus_meta, dict) else "Übersprungen"
+            print(f" ℹ️ Opus Meilenstein: {status_msg}")
 
     # Speichern des aktualisierten Gedächtnisses
     memory_data["total_experience_records"] = len(memory_data.get("learnings", []))
     memory_data["updated_at"] = datetime.now(timezone.utc).isoformat()
     try:
+        KB_DIR.mkdir(parents=True, exist_ok=True)
         with open(TRADE_MEMORY_FILE, "w", encoding="utf-8") as f:
             json.dump(memory_data, f, indent=2, ensure_ascii=False)
         print(f"  💾 KI-Gedächtnis erfolgreich aktualisiert: {memory_data['total_experience_records']} Gesamt-Erfahrungen!")
@@ -1274,8 +1350,8 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
                     htf_rfe_basis = wma_233[-1]
                     htf_bias = "BULLISH" if closes_1h[-1] >= htf_rfe_basis else "BEARISH"
 
-            # Prüfe 30m, 1h und 15m (Priorität auf evidenzbasierten Timeframes gemäß Matrix)
-            for tf in ["30m", "1h", "15m"]:
+            # Prüfe 5m, 15m und 30m (Micro-Zeitskalen für hohe Datengenerierung im Labor)
+            for tf in ["5m", "15m", "30m"]:
                 bars = fetch_incubator_bars(asset, interval=tf)
                 if not bars:
                     continue
@@ -1299,8 +1375,8 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
         active_trades = data.get("active_trades", [])
         closed_trades = data.get("closed_trades", [])
 
-    # 4. Vergleichendes KI-Batch-Post-Mortem ausführen
-    closed_trades = trigger_comparative_batch_post_mortem(closed_trades)
+    # 4. Vergleichendes Dual-KI-Post-Mortem ausführen (Gemini 3.8 Flash High + Claude Opus 5.5)
+    closed_trades = trigger_comparative_batch_post_mortem(closed_trades, incubator_data=data)
 
     data["active_trades"] = active_trades
     data["closed_trades"] = closed_trades[-200:]

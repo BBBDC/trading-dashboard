@@ -119,7 +119,8 @@ def classify_htf_regime(current_price: Any, htf_wma233: Any, htf_rsi: Any) -> st
 
 
 def check_htf_alignment(direction: str, current_price: float, htf_wma233: float,
-                        htf_rsi: float) -> FilterResult:
+                        htf_rsi: float,
+                        allow_neutral: Optional[bool] = None) -> FilterResult:
     """
     Striktes Trendfolge-Filter.
 
@@ -127,7 +128,9 @@ def check_htf_alignment(direction: str, current_price: float, htf_wma233: float,
       SHORT erlaubt  <=>  HTF-Regime BEARISH
       NEUTRAL: Ablehnung (ALLOW_NEUTRAL_HTF=False) — kein Long gegen bearishen HTF,
                kein Short gegen bullishen HTF gilt in jedem Fall.
+               allow_neutral kann z.B. für Micro-Paper-Trading-Laboratorien aktiviert werden.
     """
+    effective_allow_neutral = ALLOW_NEUTRAL_HTF if allow_neutral is None else bool(allow_neutral)
     name = "htf_alignment"
     d = str(direction or "").strip().upper()
     if d not in ("LONG", "SHORT"):
@@ -148,7 +151,7 @@ def check_htf_alignment(direction: str, current_price: float, htf_wma233: float,
         return FilterResult(name, True, score=score, metrics=metrics)
 
     if regime == "NEUTRAL":
-        if ALLOW_NEUTRAL_HTF:
+        if effective_allow_neutral:
             return FilterResult(name, True, score=0.25, metrics=metrics)
         return FilterResult(
             name, False,
@@ -227,8 +230,9 @@ def run_filters(setup_candidate: Dict[str, Any], market_context: Dict[str, Any])
     entry = setup.get("entry_price")
     price = ctx.get("current_price", entry)
     is_breakout = bool(setup.get("is_breakout", ctx.get("is_breakout", False)))
+    allow_neutral = ctx.get("allow_neutral_htf", None)
     return [
-        check_htf_alignment(direction, price, ctx.get("htf_wma233"), ctx.get("htf_rsi")),
+        check_htf_alignment(direction, price, ctx.get("htf_wma233"), ctx.get("htf_rsi"), allow_neutral=allow_neutral),
         check_vsa_volume_expansion(ctx.get("current_volume"), ctx.get("avg_volume_20"), is_breakout),
         check_atr_noise_floor(entry, _initial_stop(setup), ctx.get("atr_14")),
     ]

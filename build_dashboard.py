@@ -2947,9 +2947,9 @@ html_content = f"""<!DOCTYPE html>
             <div class="space-y-2">
               <div class="flex items-center justify-between">
                 <span class="text-[11px] font-bold text-slate-300 flex items-center gap-1.5">
-                  <span>🔬</span> Tiefgehende KI-Post-Mortem Analysen (Gemini 3.8 Flash):
+                  <span>🔬</span> Tiefgehende Dual-KI Post-Mortem Analysen (Gemini 3.8 Flash & Claude Opus 5.5):
                 </span>
-                <span class="text-[9px] text-slate-400 font-mono">Ursachen, Frühwarnungen & Handlungsregeln</span>
+                <span class="text-[9px] text-slate-400 font-mono">Ursachen, Kausalitäts-Audits & Handlungsregeln</span>
               </div>
               <div id="memory-learnings-list" class="space-y-2.5">
                 <!-- Dynamisch via JS -->
@@ -5689,7 +5689,7 @@ html_content = f"""<!DOCTYPE html>
                   </div>
                   <div class="flex items-center gap-2">
                     <span class="font-mono text-xs font-bold ${{isWin ? 'text-emerald-400' : 'text-rose-400'}}">${{pnlStr}}</span>
-                    ${{pm ? `<button onclick="toggleIncubatorPm(${{idx}})" class="px-2.5 py-1 rounded-lg bg-purple-900/40 hover:bg-purple-800/60 text-purple-200 border border-purple-500/40 text-[11px] font-bold cursor-pointer transition flex items-center gap-1 shadow-sm"><span>🧠</span> KI-Bericht</button>` : ''}}
+                    ${{pm ? `<button onclick="toggleIncubatorPm(${{idx}})" class="px-2.5 py-1 rounded-lg bg-purple-900/40 hover:bg-purple-800/60 text-purple-200 border border-purple-500/40 text-[11px] font-bold cursor-pointer transition flex items-center gap-1 shadow-sm">${{(pm.opus_audit || t.opus_audit) ? '<span>🏛️</span> Dual-KI Bericht' : '<span>🧠</span> KI-Bericht'}}</button>` : ''}}
                   </div>
                 </div>
 
@@ -5707,7 +5707,7 @@ html_content = f"""<!DOCTYPE html>
                   <div id="inc-pm-box-${{idx}}" class="hidden p-3.5 rounded-xl bg-slate-950/95 border border-purple-500/40 space-y-2.5 text-xs mt-3 shadow-lg">
                     <div class="flex items-center justify-between border-b border-purple-500/20 pb-2">
                       <span class="font-bold text-purple-200 text-xs flex items-center gap-1.5">
-                        <span>🧠</span> Vergleichende KI-Post-Mortem Analyse (Gemini 3.8 Flash High):
+                        <span>🧠</span> Taktische Post-Mortem Analyse (Gemini 3.8 Flash High):
                       </span>
                       <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono border ${{pm.verdict === 'WIN' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' : 'bg-rose-500/10 text-rose-400 border-rose-500/30'}}">${{pm.verdict || 'ANALYSE'}}</span>
                     </div>
@@ -5737,6 +5737,23 @@ html_content = f"""<!DOCTYPE html>
                         </span>
                         <p class="text-white font-sans font-medium text-xs leading-relaxed">${{pm.actionable_rule}}</p>
                       </div>` : ''}}
+
+                    ${{(pm.opus_audit || t.opus_audit) ? `
+                      <div class="p-3 rounded-xl bg-purple-950/50 border border-purple-400/50 space-y-2 mt-2 shadow-md">
+                        <div class="flex items-center justify-between border-b border-purple-400/30 pb-1.5">
+                          <span class="text-[11px] font-bold text-purple-200 flex items-center gap-1.5">
+                            <span>🏛️</span> Claude Opus 5.5 Kausalitäts-Audit
+                          </span>
+                          <span class="px-2 py-0.5 rounded text-[9px] font-bold font-mono bg-purple-500/20 text-purple-300 border border-purple-500/40">${{(pm.opus_audit || t.opus_audit).anomaly_type || 'DEEP-AUDIT'}}</span>
+                        </div>
+                        <p class="text-purple-100 font-sans text-xs leading-relaxed"><span class="font-bold text-amber-300">Kausale Ursache:</span> ${{(pm.opus_audit || t.opus_audit).causal_driver || ''}}</p>
+                        ${{(pm.opus_audit || t.opus_audit).structural_breakdown ? `<p class="text-slate-300 font-sans text-[11px] leading-relaxed">${{(pm.opus_audit || t.opus_audit).structural_breakdown}}</p>` : ''}}
+                        ${{(pm.opus_audit || t.opus_audit).opus_actionable_rule ? `
+                          <div class="p-2 rounded-lg bg-slate-900/90 border border-purple-500/30 text-[11px] text-purple-200">
+                            <span class="font-bold text-purple-300">🏛️ Bindendes Opus-Axiom:</span> ${{(pm.opus_audit || t.opus_audit).opus_actionable_rule}}
+                          </div>` : ''}}
+                      </div>
+                    ` : ''}}
                   </div>
                 ` : ''}}
               </div>

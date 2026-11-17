@@ -459,6 +459,170 @@ Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
     }
 
 
+CLAUDE_BIN = Path("/home/admin/.local/bin/claude")
+
+
+def audit_trades_with_opus_meta(trades_list, gemini_evals=None):
+    """
+    Stufe 2 der Dual-KI-Synthese:
+    Ruft Claude Opus für ein übergeordnetes 10-Trade Meta-Audit auf.
+    Analysiert Kausalitäten, validiert/schärft die Gemini 3.8 Flash Voranalysen
+    und destilliert fundamentale Fraktal-Regeln (Axiome) für trade_memory.json.
+    """
+    if not CLAUDE_BIN.exists():
+        return {
+            "status": "SKIPPED_NOT_INSTALLED",
+            "model": "Claude Opus 5.5",
+            "summary": "Claude CLI nicht installiert."
+        }
+
+    trades_lines = []
+    for idx, t in enumerate(trades_list, 1):
+        tid = t.get("trade_id", f"trade_{idx}")
+        sym = t.get("symbol", "")
+        name = t.get("name", sym)
+        tf = t.get("timeframe", "5m")
+        direction = t.get("direction", "LONG")
+        score = t.get("setup_score", t.get("score", 0))
+        r_pnl = t.get("realized_r", 0.0)
+        pnl_pct = t.get("realized_pnl_pct", 0.0)
+        status = t.get("status", "CLOSED")
+        exit_reason = t.get("exit_reason", "")
+        tags = ", ".join(t.get("setup_tags", []))
+        
+        gem_str = ""
+        if gemini_evals and tid in gemini_evals:
+            g = gemini_evals[tid]
+            gem_str = f" | Gemini: {g.get('driver', '')} -> Regel: {g.get('actionable_rule', '')}"
+        elif t.get("ai_post_mortem"):
+            g = t.get("ai_post_mortem")
+            gem_str = f" | Gemini: {g.get('driver', '')} -> Regel: {g.get('actionable_rule', '')}"
+
+        trades_lines.append(
+            f"Trade {idx} [{tid}]: {name} ({sym}) | {tf} {direction} | Score: {score}P | "
+            f"Triggers: {tags} | Status: {status} | PnL: {pnl_pct:+.2f}% ({r_pnl:+.1f}R) | "
+            f"Exit: {exit_reason}{gem_str}"
+        )
+
+    trades_block = "\n".join(trades_lines)
+
+    prompt = f"""Du bist Claude Opus 5.5, der quantitative Chef-Auditor für Risiko und stochastische Kausalität unseres Handelslabors.
+Vor dir liegt ein aggregierter Meilenstein-Batch von {len(trades_list)} abgeschlossenen Trades (Mikro-Zeitskalen 5m/15m/30m).
+Gemini 3.8 Flash hat für die Trades bereits eine taktische Erstauswertung vorgenommen.
+
+DEINE AUFGABE ALS META-SYNTHESIZER:
+1. Analysiere das übergeordnete Makro-Regime und die Kausalitätsmuster: Welche gemeinsamen Marktbedingungen (Session-Liquidität, Trendstärke, Volatilität) trennten Gewinner von Verlierern?
+2. Begutachte die taktischen Gemini-Regeln: Sind sie stochastisch valide oder leidet Gemini unter Scheinkorrelation / Recency Bias?
+3. Destilliere genau 1 bis 2 fundamentale, bindende Meta-Axiome für unser Gedächtnis (trade_memory.json), die fraktal auch auf höheren Zeitebenen (4h/1D) gelten müssen.
+
+ABGESCHLOSSENE TRADES:
+{trades_block}
+
+Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
+{{
+  "model": "Claude Opus 5.5",
+  "batch_size": {len(trades_list)},
+  "meta_verdict": "Kurzes, schonungsloses Gesamtfazit dieses Zyklus (1-2 Sätze)",
+  "regime_synthesis": "Analyse der übergreifenden Marktmechanik und Kausalität",
+  "gemini_review": "Kritische Würdigung der Gemini-Hypothesen (Bestätigung oder Korrektur)",
+  "binding_meta_axioms": [
+    {{
+      "rule": "Prägnante, unmissverständliche Handlungsregel für künftige Trades",
+      "context": "Kausale Begründung aus den aggregierten Daten",
+      "timeframe_scope": "5m/15m/30m/4h/1D",
+      "conviction": "HIGH"
+    }}
+  ]
+}}
+"""
+    try:
+        cmd = [str(CLAUDE_BIN), "-p", "--model", "opus", "--effort", "medium", prompt]
+        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+        out = proc.stdout.strip()
+
+        if "5-hour limit" in out or "rate limit" in out.lower() or "5-hour limit" in proc.stderr:
+            return {
+                "status": "SKIPPED_QUOTA",
+                "model": "Claude Opus 5.5",
+                "summary": "Claude Quota / 5-Stunden-Limit erreicht. Überspringe Opus-Audit ohne Systemabbruch."
+            }
+
+        import re
+        m_json = re.search(r"\{.*\}", out, re.DOTALL)
+        if m_json:
+            return json.loads(m_json.group(0))
+        return {
+            "status": "RAW_TEXT",
+            "model": "Claude Opus 5.5",
+            "meta_verdict": out[:300]
+        }
+    except subprocess.TimeoutExpired:
+        return {"status": "TIMEOUT", "model": "Claude Opus 5.5", "summary": "Claude Opus Timeout (60s)."}
+    except Exception as e:
+        return {"status": "ERROR", "model": "Claude Opus 5.5", "error": str(e)}
+
+
+def audit_critical_trade_with_opus(trade, gemini_eval=None):
+    """
+    Ad-hoc Deep-Audit durch Claude Opus bei anomalen/kritischen Trades:
+    - Fehlgeschlagene A+ Setups (Score >= 80 mit vollem SL-Verlust)
+    - Ausreißer-Gewinner (> +2.0R)
+    """
+    if not CLAUDE_BIN.exists():
+        return None
+
+    tid = trade.get("trade_id", "")
+    sym = trade.get("symbol", "")
+    name = trade.get("name", sym)
+    direction = trade.get("direction", "")
+    tf = trade.get("timeframe", "5m")
+    score = trade.get("setup_score", trade.get("score", 0))
+    r_pnl = trade.get("realized_r", 0.0)
+    pnl_pct = trade.get("realized_pnl_pct", 0.0)
+    reason = trade.get("exit_reason", "")
+    triggers = ", ".join(trade.get("setup_tags", []))
+    
+    gem_driver = gemini_eval.get("driver", "") if gemini_eval else ""
+    gem_rule = gemini_eval.get("actionable_rule", "") if gemini_eval else ""
+
+    prompt = f"""Du bist Claude Opus 5.5, der quantitative Chef-Auditor unseres Handelslabors.
+Hier ist ein KRITISCHER ANOMALIE-TRADE zur tiefen Kausalitätsprüfung:
+
+Trade: {name} ({sym}) | {tf} {direction} | Score: {score}P (Grade A+)
+Einstieg: {trade.get('entry_price')} | Ausstieg: {trade.get('exit_price')}
+Realisierter PnL: {pnl_pct:+.2f}% ({r_pnl:+.1f}R) | Status: {trade.get('status')}
+Ausstiegs-Grund: {reason}
+Setup-Trigger: {triggers}
+Gemini 3.8 Flash Voranalyse: Driver: {gem_driver} | Regel: {gem_rule}
+
+PRÜFUNGSAUFTRAG:
+Warum hat dieses statistisch hochgradige Setup versagt (bzw. warum lief der Ausreißer so weit)?
+Lag ein verdeckter Liquiditäts-Sweep, ein HTF-Strukturbruch oder ein Volumen-Absorptionsfehler vor?
+
+Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
+{{
+  "model": "Claude Opus 5.5",
+  "anomaly_type": "CRITICAL_A_PLUS_FAILURE" oder "EXTREME_RUNNER",
+  "causal_driver": "Präzise 1-Satz Ursache für das unerwartete Ergebnis",
+  "structural_breakdown": "Tiefgehende Kausalitätsbegründung",
+  "opus_actionable_rule": "Genaue Anpassung für den Filterkatalog"
+}}
+"""
+    try:
+        cmd = [str(CLAUDE_BIN), "-p", "--model", "opus", "--effort", "medium", prompt]
+        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=50)
+        out = proc.stdout.strip()
+        if "5-hour limit" in out or "rate limit" in out.lower() or "5-hour limit" in proc.stderr:
+            return None
+        import re
+        m_json = re.search(r"\{.*\}", out, re.DOTALL)
+        if m_json:
+            return json.loads(m_json.group(0))
+        return None
+    except Exception:
+        return None
+
+
 def build_analysis_prompt(assets_batch):
     try:
         from portfolio_engine import get_memory_summary_for_ai_prompt
