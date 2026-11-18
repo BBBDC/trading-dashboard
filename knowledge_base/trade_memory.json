@@ -1,7 +1,70 @@
 {
-  "updated_at": "2026-11-18T15:01:55.639545+00:00",
-  "total_experience_records": 69,
+  "updated_at": "2026-11-18T16:26:54.768712+00:00",
+  "total_experience_records": 72,
   "learnings": [
+    {
+      "timestamp": "2026-11-18T16:26:47.544245+00:00",
+      "trade_id": "cross_rule_1795019207",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Asymmetrisches R:R-Management durch starre TP2-Mitnahme an gegenüberliegenden Liquiditätspools.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Wie bei SUI gezeigt (+2.2R), schützt das konsequente Schließen am vordefinierten Range-Ziel vor fraktalen Gegenreaktionen, die Gewinne auf Mikro- und Makro-Zeitskalen gleichermaßen vernichten.",
+        "actionable_rule": "Asymmetrisches R:R-Management durch starre TP2-Mitnahme an gegenüberliegenden Liquiditätspools."
+      }
+    },
+    {
+      "timestamp": "2026-11-18T16:26:47.544220+00:00",
+      "trade_id": "cross_rule_1795019207",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Mean-Reversion-Einstieg an extremen Bändern ohne mindestens 1.5x VSA-Volumenbestätigung in Trendumkehrrichtung.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl im 15m- als auch im 4h/1D-Chart führt reine Preisüberdehnung in starken Trendphasen oft zu Liquidationskaskaden; erst aggressiver institutioneller Gegenfluss transformiert ein Erschöpfungsmuster in nachhaltiges Umkehrmomentum.",
+        "actionable_rule": "Kein Mean-Reversion-Einstieg an extremen Bändern ohne mindestens 1.5x VSA-Volumenbestätigung in Trendumkehrrichtung."
+      }
+    },
+    {
+      "timestamp": "2026-11-18T16:26:47.544166+00:00",
+      "trade_id": "inc_SUIUSDT_15m_1794959868",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (15m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 15m Confluence Short",
+      "pnl_leveraged": 8.62,
+      "pnl_raw": 4.31,
+      "text": "Short-Einstiege an oberen Bandextremen sind strikt zu verwerfen, wenn der anschließende Impuls nicht mindestens 1.5x relatives VSA-Abgabevolumen aufweist.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_15m_1794959868",
+        "verdict": "WIN",
+        "driver": "Perfekte Konfluenz aus statischer/dynamischer Überdehnung am RFE-Upper-Band, Erschöpfungssignal und sofortigem VSA-Verkaufsdruck (1.6x Volume Surge).",
+        "technical_warning": "Als prophylaktische Frühabreiß-Bedingung: Ein Verharren der Kerzenkörper oberhalb des RFE-Bands bei gleichzeitig fallendem VSA-Verkaufsvolumen hätte vor einem Short-Squeeze gewarnt.",
+        "actionable_rule": "Short-Einstiege an oberen Bandextremen sind strikt zu verwerfen, wenn der anschließende Impuls nicht mindestens 1.5x relatives VSA-Abgabevolumen aufweist.",
+        "opus_audit": {
+          "model": "Claude Opus 5.5",
+          "anomaly_type": "EXTREME_RUNNER",
+          "causal_driver": "Das Setup hat nicht versagt: Der Short lief planmäßig von 0.7384 auf 0.7066 (−4.31 % Kursbewegung, also +4.31 % PnL) und schloss am TP2 mit +2.2R. Das ist das erwartete Ergebnis eines A+-Setups und kein Ausreißer, also gibt es keinen Fehler, dessen Ursache man suchen müsste.",
+          "structural_breakdown": "1) Die Prämisse stimmt nicht. Bei Status CLOSED_TP2 und +2.2R ist weder ein CRITICAL_A_PLUS_FAILURE noch ein echter EXTREME_RUNNER belegt. Ich habe EXTREME_RUNNER nur gewählt, weil das Schema nur diese beiden Werte zulässt. Richtig wäre eine Klasse wie NOMINAL_TP_HIT. Aus +2.2R folgt ein Risiko von etwa 1.96 %, der Stop lag also bei etwa 0.753. Ein Gewinn von 2.2R ist bei einem festen TP2 eine gewöhnliche Größe. Ein Runner läge deutlich über dem geplanten Ziel, ein Versagen wäre ein Stop oder ein BE nach MFE. 2) Liquiditäts-Sweep, HTF-Strukturbruch und Absorptionsfehler lassen sich mit den gelieferten Daten nicht bestätigen. Dafür fehlen OHLCV der Bars um Einstieg und Ausstieg, die 1h/4h-Struktur, MAE/MFE und die Order-Flow-Daten. Jede Aussage dazu wäre erfunden. Plausibel und zu den Triggern passend ist ein gewöhnlicher Ablauf: Überdehnung am RFE-Upper, Erschöpfung, dann Abgabevolumen und Mean-Reversion. 3) Die Gemini-Regel hat zwei methodische Probleme. a) Lookahead-Bias: Sie verlangt 1.5x VSA-Volumen im 'anschließenden Impuls'. Das ist beim Einstieg noch nicht bekannt, und die Regel filtert so nachträglich nach dem Ergebnis. b) Overfitting: Die Schwelle von 1.5x liegt knapp unter den beobachteten 1.6x und stammt aus einem einzigen Gewinner-Trade (n=1). Ohne Vergleich mit verlorenen A+-Shorts hat sie keine statistische Aussagekraft.",
+          "opus_actionable_rule": "Keine neue Filterregel aus diesem Trade ableiten. Stattdessen: (1) Den VSA-Filter nur auf den Signal-Bar oder geschlossene Bars vor dem Einstieg anwenden (z. B. Volumen des Trigger-Bars ≥ X-fach SMA20-Volumen) und nie auf spätere Bars. (2) X durch einen Backtest über alle 15m-RFE-Upper-Shorts bestimmen, mit mindestens etwa 100 Trades, getrennt nach Gewinnern und Verlierern und auf Out-of-Sample-Daten geprüft, nicht durch Anpassen an einen Einzelfall. (3) In die Anomalie-Pipeline eine Vorprüfung einbauen: Trades mit Status TP1/TP2 und R im erwarteten Bereich gar nicht erst als 'Failure' an den Audit schicken. Als EXTREME_RUNNER nur Trades markieren, deren MFE deutlich über dem TP2 liegt (z. B. ≥ 1.5x TP2-Distanz)."
+        }
+      }
+    },
     {
       "timestamp": "2026-11-17T23:58:26.458803+00:00",
       "trade_id": "cross_rule_1794959906",
