@@ -1,7 +1,139 @@
 {
-  "updated_at": "2026-11-17T18:31:44.447351+00:00",
-  "total_experience_records": 62,
+  "updated_at": "2026-11-18T09:28:05.119439+00:00",
+  "total_experience_records": 69,
   "learnings": [
+    {
+      "timestamp": "2026-11-17T23:58:26.458803+00:00",
+      "trade_id": "cross_rule_1794959906",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "VSA Effort vs. Result: Hohes Volumen an einer Schlüsselzone ohne Kursfortschritt in die erwartete Richtung ist als Absorption der Gegenseite zu werten.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Wenn 2.4x Volumen am Widerstand den Kurs nicht nach unten drückt, fressen institutionelle Käufer die Limit-Verkaufsaufträge auf, was fraktal auf allen Zeitebenen zum Squeeze führt.",
+        "actionable_rule": "VSA Effort vs. Result: Hohes Volumen an einer Schlüsselzone ohne Kursfortschritt in die erwartete Richtung ist als Absorption der Gegenseite zu werten."
+      }
+    },
+    {
+      "timestamp": "2026-11-17T23:58:26.458757+00:00",
+      "trade_id": "cross_rule_1794959906",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Counter-Trend-Einstieg ohne Displacement und Kerzenschlussbestätigung unterhalb der Liquiditätszone.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 15m/30m wie auch auf 4h/1D werden einfache 'Erschöpfungsindikatoren' bei Trendmärkten überrollt; Liquiditäts-Sweeps und Orderblöcke erfordern zwingend eine impulsiv abweisende Marktreaktion (Displacement) vor der Orderausführung.",
+        "actionable_rule": "Kein Counter-Trend-Einstieg ohne Displacement und Kerzenschlussbestätigung unterhalb der Liquiditätszone."
+      }
+    },
+    {
+      "timestamp": "2026-11-17T23:58:26.458717+00:00",
+      "trade_id": "inc_RENDERUSDT_15m_1794956448",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (15m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Confluence Short",
+      "pnl_leveraged": -4.2,
+      "pnl_raw": -2.1,
+      "text": "Hohes VSA-Volumen an Widerstandszonen verbietet Soforteinstiege; ein Short ist erst zulässig, wenn eine Nachfolgekerze unter das Tief der Volumenkerze bricht (Beweis für tatsächliche Supply-Dominanz).",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_15m_1794956448",
+        "verdict": "LOSS",
+        "driver": "Klassische Fehlinterpretation von VSA-Volumen: Der 2.4x Volumenspike an der oberen Widerstandszone war kein Verkaufsdruck, sondern aggressive Absorption von Verkaufsliquidität durch Käufer.",
+        "technical_warning": "VSA 'Effort vs. Result'-Diskrepanz: Extrem hohes Volumen an der RFE-Grenze ohne unmittelbare Abwärtsbewegung offenbart Kaufüberhang und kündigt den Short Squeeze an.",
+        "actionable_rule": "Hohes VSA-Volumen an Widerstandszonen verbietet Soforteinstiege; ein Short ist erst zulässig, wenn eine Nachfolgekerze unter das Tief der Volumenkerze bricht (Beweis für tatsächliche Supply-Dominanz)."
+      }
+    },
+    {
+      "timestamp": "2026-11-17T23:58:26.458618+00:00",
+      "trade_id": "inc_XRPUSDT_30m_1794952864",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (30m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 30m Confluence Short",
+      "pnl_leveraged": -4.18,
+      "pnl_raw": -2.09,
+      "text": "Nach einem Sweep des Hochs darf der Short erst ausgelöst werden, wenn die Trigger-Kerze wieder unterhalb des Sweep-Niveaus schließt und auf dem 5m-Chart ein Strukturbruch (MSS) vorliegt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_30m_1794952864",
+        "verdict": "LOSS",
+        "driver": "Der angebliche Liquidity Sweep entpuppte sich als Trendfortsetzung, da der Short ohne Bestätigung eines bärischen Market Structure Shifts (MSS) direkt in die Rest-Liquidität des Orderblocks hineingelegt wurde.",
+        "technical_warning": "Fehlende Rejection-Dochtbildung auf 30m-Schlusskursbasis sowie Kerzenschluss über dem lokalen Hoch zeigten an, dass der Sweep kein Fakeout, sondern ein echter Breakout war.",
+        "actionable_rule": "Nach einem Sweep des Hochs darf der Short erst ausgelöst werden, wenn die Trigger-Kerze wieder unterhalb des Sweep-Niveaus schließt und auf dem 5m-Chart ein Strukturbruch (MSS) vorliegt."
+      }
+    },
+    {
+      "timestamp": "2026-11-17T22:31:33.646199+00:00",
+      "trade_id": "cross_rule_1794954693",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "HTF-Momentum-Priorität vor LTF-Erschöpfungssignalen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Mikro-Überdehnungen (RFE Upper / Chaos-Bänder) auf 5m/15m lösen in einem intakten 4h-Trend oft nur flache Seitwärtskonsolidierungen aus, anstatt die geforderte Trendumkehr einzuleiten.",
+        "actionable_rule": "HTF-Momentum-Priorität vor LTF-Erschöpfungssignalen."
+      }
+    },
+    {
+      "timestamp": "2026-11-17T22:31:33.646174+00:00",
+      "trade_id": "cross_rule_1794954693",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Struktur-Qualitätsfilter: Reversal-Setups erfordern zwingend Klasse-[A]-Liquiditäts-Sweeps auf allen Zeitebenen (15m bis 1D).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sekundäre Zonen ([B]) und bloße Erschöpfungsindikatoren (Kreise/Bänder) reichen ohne Sweep lokaler Hochs nicht aus, um einen Trend zu brechen; auf 4h/1D führt das Handeln von B-Zonen unweigerlich zu systematischen Durchbrüchen.",
+        "actionable_rule": "Struktur-Qualitätsfilter: Reversal-Setups erfordern zwingend Klasse-[A]-Liquiditäts-Sweeps auf allen Zeitebenen (15m bis 1D)."
+      }
+    },
+    {
+      "timestamp": "2026-11-17T22:31:33.646123+00:00",
+      "trade_id": "inc_RENDERUSDT_15m_1794952847",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (15m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Confluence Short",
+      "pnl_leveraged": -3.68,
+      "pnl_raw": -1.84,
+      "text": "Kein isolierter Short-Einstieg an [B]-Qualitäts-Order-Blocks ohne bestätigten Buy-Side-Liquidity-Sweep ([A]) und anschließendes VSA-Schwächesignal (No Demand).",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_15m_1794952847",
+        "verdict": "LOSS",
+        "driver": "Der Short wurde an einem zweitklassigen Bearish Order Block [B] eröffnet, dem es an vorheriger Buy-Side-Liquiditätsabschirmung fehlte, sodass das Erschöpfungssignal lediglich eine temporäre Konsolidierung vor der Trendfortsetzung darstellte.",
+        "technical_warning": "Die Herabstufung des Order Blocks auf Qualität [B] sowie das Fehlen eines deutlichen VSA-Absorptionsvolumens am RFE-Upper-Band warnten vor unzureichendem institutionellem Verkaufsdruck.",
+        "actionable_rule": "Kein isolierter Short-Einstieg an [B]-Qualitäts-Order-Blocks ohne bestätigten Buy-Side-Liquidity-Sweep ([A]) und anschließendes VSA-Schwächesignal (No Demand)."
+      }
+    },
     {
       "timestamp": "2026-11-17T13:50:42.751740+00:00",
       "trade_id": "opus_axiom_1794923442",
