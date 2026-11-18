@@ -1,5 +1,78 @@
 [
   {
+    "id": "evt_20261118_213218",
+    "timestamp": "2026-11-18T21:32:18.104830+00:00",
+    "timestamp_display": "18.11.2026 21:32 UTC",
+    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 2,
+    "changes": [
+      {
+        "symbol": "NASDAQ:TSLA",
+        "name": "Tesla",
+        "category": "EV / Auto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "LONG",
+        "old_score": 52,
+        "new_score": 88,
+        "price": 383.72,
+        "setup_name": "Hypothese 1: SMC Support Reversal",
+        "entry_range": [
+          380.65,
+          384.49
+        ],
+        "stop_loss": 370.29,
+        "take_profit_2": 430.73,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "1W Makro-Trend bullisch bestätigt",
+          "SMC: Kurs im 1D Golden Pocket (385.17 - 387.6)",
+          "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)"
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Position",
+        "holding_period": "1–3 Wochen",
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
+        "note": "3-Säulen-Konfluenz (88%): Makro-Trend intakt, Zone bestätigt, Reversal-Trigger aktiv (1D Trend über EMA 233 bullisch).",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NYSE:XYZ",
+        "name": "XYZ",
+        "category": "Aktien",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 88,
+        "new_score": 68,
+        "price": 79.01,
+        "setup_name": "Beobachten / Lauerstellung am Support (Warten auf Trigger)",
+        "entry_range": [
+          79.01,
+          79.01
+        ],
+        "stop_loss": 76.64,
+        "take_profit_2": 83.75,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "SMC: Kurs im 1D Golden Pocket (78.27 - 78.82)",
+          "SMC FVG: 4h Bullish Imbalance (77.35 - 87.16)",
+          "SMC FVG: 1D Bullish Imbalance (77.35 - 81.82)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
+        "note": "Unterstützungszone erreicht: Der Kurs sitzt in einer validen Zone, wartet jedoch auf einen bestätigenden Reversal-Trigger (Trigger-Sperre aktiv, Score auf 68% gedeckelt).",
+        "evaluated_by": "quantitative_engine"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n🟢 Tesla (TSLA):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 88%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: 3-Säulen-Konfluenz (88%): Makro-Trend intakt, Zone bestätigt, Reversal-Trigger aktiv (1D Trend über EMA 233 bullisch)....\n   Setup: Hypothese 1: SMC Support Reversal\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Position (1–3 Wochen)\n   Entry: 380.65 | SL: 370.29 | TP2: 430.73\n\n⚪ XYZ (XYZ):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 68%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Unterstützungszone erreicht: Der Kurs sitzt in einer validen Zone, wartet jedoch auf einen bestätigenden Reversal-Trigger (Trigger...\n   Setup: Beobachten / Lauerstellung am Support (Warten auf Trigger)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261118_205541",
     "timestamp": "2026-11-18T20:55:41.661876+00:00",
     "timestamp_display": "18.11.2026 20:55 UTC",
@@ -23967,148 +24040,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🟢 Apple (Tradegate) (APC):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: degencoder Institutional Buy Pocket Reversal\n   Entry: 309.55 | SL: 301.13 | TP2: 346.99\n\n🟢 Broadcom (Tradegate) (45C):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: degencoder Institutional Buy Pocket Reversal\n   Entry: 207.58 | SL: 201.93 | TP2: 232.67\n\n🟢 DAIEUR (DAIEUR):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Order Block [R4] Confluence\n   Entry: 0.88 | SL: 0.84 | TP2: 1.05\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261105_063147",
-    "timestamp": "2026-11-05T06:31:47.451535+00:00",
-    "timestamp_display": "05.11.2026 06:31 UTC",
-    "title": "🔔 TV-Signaländerung: 5 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 5,
-    "changes": [
-      {
-        "symbol": "BINANCE:HYPEUSDT.P",
-        "name": "HYPEUSDT.P",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 96,
-        "new_score": 54,
-        "price": 83.398,
-        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
-        "entry_range": [
-          80.85,
-          82.5
-        ],
-        "stop_loss": 78.4,
-        "take_profit_2": 94.5,
-        "reasons": [
-          "HTF-Trend auf 1W, 3D und 1D voll intakt bullisch, jedoch zeigt der 1D-Status ein Sell Pocket sowie 1h/4h reguläre bärische Divergenzen.",
-          "VSA signalisiert 'Very Low Volume' auf 4h und 1h; gemäß strikter Portfolio-Regel ist vor dem 88.00-Widerstand ohne Volumen und MSS kein Neueinstieg/Aufstocken gestattet.",
-          "Der aktive bullische OB (Grad B, R1) ist mitigiert; Rücksetzer zur Demand-Zone (80.85 - 82.50) muss abgewartet werden."
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Trend auf 1W, 3D und 1D voll intakt bullisch, jedoch zeigt der 1D-Status ein Sell Pocket sowie 1h/4h reguläre bärische Divergenzen.).",
-        "note": "Trotz übergeordnet bullischer Marktstruktur befindet sich das Asset im 1D Sell Pocket mit deutlicher Volumenausdünnung und LTF-Erschöpfung. Gemäß historischer Trade-Lektionen verbietet sich das Chasen von Kursen ohne bestätigtes Higher-Low und Begleitvolumen. Wir verharren diszipliniert in Lauerstellung am Supportbereich.",
-        "evaluated_by": "gemini-3.8-flash High [AQ.Ab8...kcWw]"
-      },
-      {
-        "symbol": "CRYPTOCAP:TOTAL",
-        "name": "Total Crypto Market Cap",
-        "category": "Krypto-Makro",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 96,
-        "new_score": 52,
-        "price": 2667522151490.0,
-        "setup_name": "Beobachten / Warten auf Struktur-Klärung am HTF-Widerstand",
-        "entry_range": [
-          2560000000000.0,
-          2590000000000.0
-        ],
-        "stop_loss": 2490000000000.0,
-        "take_profit_2": 2920000000000.0,
-        "reasons": [
-          "1W Makro-Trend ist bärisch, während 1D und 3D Erholungsansätze zeigen, womit kein klares bullisches Alignment vorliegt.",
-          "Kurs notiert im oberen Bereich eines massiven bärischen Order Blocks (R12 bis 2.677T) mit versteckter bärischer Divergenz auf 4h.",
-          "1h RSI überdehnt (>62) bei gleichzeitigem Vorstoß in dichte Angebotsliquidität, was Long-Chasing verbietet."
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1W Makro-Trend ist bärisch, während 1D und 3D Erholungsansätze zeigen, womit kein klares bullisches Alignment vorliegt.).",
-        "note": "Der Gesamtkryptomarkt testet das obere Band eines bereits 12-mal angetesteten bärischen Blocks, während der 1h-RSI überhitzt ist. Zwar liefert das 4h Golden Pocket temporäre Unterstützung, doch ohne sauberen Makro-Bruch der 1W-Bärenstruktur bleibt das CRV unzureichend. Geduldige Beobachterposition ist geboten.",
-        "evaluated_by": "gemini-3.8-flash High [AQ.Ab8...kcWw]"
-      },
-      {
-        "symbol": "BINANCE:DOTUSDT",
-        "name": "Polkadot",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 95,
-        "new_score": 50,
-        "price": 0.947,
-        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
-        "entry_range": [
-          0.985,
-          1.015
-        ],
-        "stop_loss": 1.045,
-        "take_profit_2": 0.85,
-        "reasons": [
-          "Makro-Trend (1W, 3D, 1D) bleibt eindeutig bärisch, untermauert durch eine aktive versteckte bärische Trendfolgedivergenz auf Tagesbasis.",
-          "Der Kurs hat die bisherige Short-Zielzone erreicht und testet nun direkt einen bullischen SMC Order Block (0.92 - 0.95 USD, Grad B, R2) im institutionellen 1D Buy Pocket.",
-          "Prozyklisches Shorten in ein aktives 1D Buy Pocket mit 1h 'Good Buy Signal' missachtet elementares Risikomanagement; Krypto-Leitregeln verlangen Score >= 92% für Neu-Einstiege."
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W, 3D, 1D) bleibt eindeutig bärisch, untermauert durch eine aktive versteckte bärische Trendfolgedivergenz auf Tagesbasis.).",
-        "note": "Polkadot hat nach dem vorangegangenen Abwärtsimpuls die Zielzone erreicht und läuft nun exakt in ein 1D Buy Pocket sowie einen bullischen Order Block (0.92–0.95 USD). Ein weiteres Nach-Shorten auf aktuellem Niveau wäre grobes Chasing am Tiefpunkt, während Long-Countertrend-Positionen gegen die intakte 1D-Bärenstruktur strikt untersagt sind. Wir drehen das Signal diszipliniert von SHORT auf NEUTRAL, nehmen Gewinne vom Tisch und warten auf eine Bärenmarktrallye in Richtung 0.99–1.01 USD zur risikoarmen Neu-Positionierung.",
-        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
-      },
-      {
-        "symbol": "COINBASE:CRVUSD",
-        "name": "Curve DAO",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 92,
-        "new_score": 48,
-        "price": 0.2766,
-        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
-        "entry_range": [
-          0.285,
-          0.295
-        ],
-        "stop_loss": 0.308,
-        "take_profit_2": 0.22,
-        "reasons": [
-          "HTF-Trend auf 1W, 1D und 3D klar bärisch, womit Long-Setups im Bärenmarktumfeld gemäß Risikofilter strikt verboten sind.",
-          "Kurs notiert direkt im 1D Buy Pocket und an einem bereits 7-fach getesteten, stark mitigierten Support-Block (Grade B, R7), was Short-Einstiege zu ungünstigen Tiefstkursen verbietet.",
-          "Extreme Konfluenz-Kollision zwischen LTF-Sell-Signalen und 1D-Bodenbildungsversuchen (1D RSI 33.76 mit bullischer Divergenz); strikter Kapitalerhalt verlangt Abwarten an der Seitenlinie."
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Trend auf 1W, 1D und 3D klar bärisch, womit Long-Setups im Bärenmarktumfeld gemäß Risikofilter strikt verboten sind.).",
-        "note": "CRVUSD befindet sich in einem zerrütteten Marktumfeld mit widersprüchlichen Signalen: Während der übergeordnete Trend intakt bärisch ist, verbietet das aktive 1D Buy Pocket bei tiefem RSI das Eingehen neuer Short-Positionen auf aktuellem Niveau. Long-Positionen sind im Bärenregime ohnehin ausgeschlossen. Wir verharren diszipliniert an der Seitenlinie, bis sich an der oberen Widerstandszone (0.285–0.295) ein klarer Rejection-Trigger für einen Trendfolge-Short formiert.",
-        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
-      },
-      {
-        "symbol": "COINBASE:BCHUSD",
-        "name": "Bitcoin Cash",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 96,
-        "new_score": 46,
-        "price": 282.24,
-        "setup_name": "Beobachten / Warten auf Richtungsentscheid",
-        "entry_range": [
-          268.0,
-          272.5
-        ],
-        "stop_loss": 258.0,
-        "take_profit_2": 315.0,
-        "reasons": [
-          "Konfliktäre Makro-Lage: 1W und 3D sind bärisch, während 1D bullisch notiert und 4h bärisch abwärts tendiert.",
-          "Der Kurs prallt direkt in einen bärischen Order Block (278.70 - 286.30) mit bereits 6 Retests (R6) ohne institutionelles Momentum.",
-          "Krypto-Sektor befindet sich im Underperforming-Status (Win-Rate 6.5%), weshalb Mindest-Score von 92% für Einstiege nicht ansatzweise erfüllt wird."
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Konfliktäre Makro-Lage: 1W und 3D sind bärisch, während 1D bullisch notiert und 4h bärisch abwärts tendiert.).",
-        "note": "BCH ist zwischen einem übergeordneten Bärenregime (1W/3D) und einem mitigierten bärischen 4h-Orderblock eingeklemmt. Das 'Bull Alignment Ends'-Signal auf 4h mahnt zur Vorsicht. Kapitalerhalt verlangt das strikte Ausbleiben von Long-Einstiegen mitten im Overhead-Widerstand.",
-        "evaluated_by": "gemini-3.8-flash High [AQ.Ab8...kcWw]"
-      }
-    ],
-    "notification_sent": false,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 5 Einstufungen haben sich geändert:\n\n⚪ HYPEUSDT.P (HYPEUSDT.P):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 54%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Trend auf 1W, 3D und 1D voll intakt bullisch, jedoch zeigt der 1D-Status ein Sell Pocket sowie 1h/4h reguläre bärische Divergenzen.).\n   📝 KI-Rationale: Trotz übergeordnet bullischer Marktstruktur befindet sich das Asset im 1D Sell Pocket mit deutlicher Volumenausdünnung und LTF-Ers...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n⚪ Total Crypto Market Cap (TOTAL):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1W Makro-Trend ist bärisch, während 1D und 3D Erholungsansätze zeigen, womit kein klares bullisches Alignment vorliegt.).\n   📝 KI-Rationale: Der Gesamtkryptomarkt testet das obere Band eines bereits 12-mal angetesteten bärischen Blocks, während der 1h-RSI überhitzt ist. ...\n   Setup: Beobachten / Warten auf Struktur-Klärung am HTF-Widerstand\n\n⚪ Polkadot (DOTUSDT):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 50%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W, 3D, 1D) bleibt eindeutig bärisch, untermauert durch eine aktive versteckte bärische Trendfolgedivergenz auf Tagesbasis.).\n   📝 KI-Rationale: Polkadot hat nach dem vorangegangenen Abwärtsimpuls die Zielzone erreicht und läuft nun exakt in ein 1D Buy Pocket sowie einen bul...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ Curve DAO (CRVUSD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Trend auf 1W, 1D und 3D klar bärisch, womit Long-Setups im Bärenmarktumfeld gemäß Risikofilter strikt verboten sind.).\n   📝 KI-Rationale: CRVUSD befindet sich in einem zerrütteten Marktumfeld mit widersprüchlichen Signalen: Während der übergeordnete Trend intakt bäris...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ Bitcoin Cash (BCHUSD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 46%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Konfliktäre Makro-Lage: 1W und 3D sind bärisch, während 1D bullisch notiert und 4h bärisch abwärts tendiert.).\n   📝 KI-Rationale: BCH ist zwischen einem übergeordneten Bärenregime (1W/3D) und einem mitigierten bärischen 4h-Orderblock eingeklemmt. Das 'Bull Ali...\n   Setup: Beobachten / Warten auf Richtungsentscheid\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
