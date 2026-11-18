@@ -1,5 +1,108 @@
 [
   {
+    "id": "evt_20261118_162705",
+    "timestamp": "2026-11-18T16:27:05.846551+00:00",
+    "timestamp_display": "18.11.2026 16:27 UTC",
+    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 3,
+    "changes": [
+      {
+        "symbol": "TRADEGATE:CSA",
+        "name": "Cisco Systems (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "LONG",
+        "old_score": 62,
+        "new_score": 98,
+        "price": 213.0,
+        "setup_name": "🌟 A+ Konfluenz: degencoder Pocket/Trigger & Trendfolge",
+        "entry_range": [
+          209.91,
+          212.02
+        ],
+        "stop_loss": 194.62,
+        "take_profit_2": 271.03,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "1W Makro-Trend bullisch bestätigt",
+          "degencoder: 4h Institutional BUY Pocket (Lower Chaos < RFE 233)",
+          "degencoder: 1h Potential Buy Signal"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Core Swing",
+        "holding_period": "2–5 Tage",
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
+        "note": "3-Säulen-Konfluenz (98%): Makro-Trend intakt, Zone bestätigt, Reversal-Trigger aktiv (1D Trend über EMA 233 bullisch).",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "TRADEGATE:SPX",
+        "name": "S&P 500 (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "SHORT",
+        "new_signal": "NEUTRAL",
+        "old_score": 88,
+        "new_score": 68,
+        "price": 132.0,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "entry_range": [
+          131.66,
+          131.66
+        ],
+        "stop_loss": 127.71,
+        "take_profit_2": 139.56,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "1W Makro-Trend bullisch bestätigt",
+          "SMC OB: 4h Bearish Order Block [R13] Retest",
+          "SMC FVG: 4h Bearish Imbalance (130.48 - 134.28)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend über EMA 233 bullisch).",
+        "note": "Widerstandszone erreicht: Keine vorzeitige Positionierung ohne Reversal-Bestätigung (Trigger-Sperre aktiv).",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NYSE:XYZ",
+        "name": "XYZ",
+        "category": "Aktien",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "LONG",
+        "new_signal": "NEUTRAL",
+        "old_score": 88,
+        "new_score": 68,
+        "price": 78.57,
+        "setup_name": "Beobachten / Lauerstellung am Support (Warten auf Trigger)",
+        "entry_range": [
+          78.82,
+          78.82
+        ],
+        "stop_loss": 76.46,
+        "take_profit_2": 83.55,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "SMC: Kurs im 1D Golden Pocket (78.27 - 78.82)",
+          "SMC FVG: 4h Bullish Imbalance (77.35 - 86.41)",
+          "SMC FVG: 1D Bullish Imbalance (77.35 - 81.82)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).",
+        "note": "Unterstützungszone erreicht: Der Kurs sitzt in einer validen Zone, wartet jedoch auf einen bestätigenden Reversal-Trigger (Trigger-Sperre aktiv, Score auf 68% gedeckelt).",
+        "evaluated_by": "quantitative_engine"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🟢 Cisco Systems (Tradegate) (CSA):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 98%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: 3-Säulen-Konfluenz (98%): Makro-Trend intakt, Zone bestätigt, Reversal-Trigger aktiv (1D Trend über EMA 233 bullisch)....\n   Setup: 🌟 A+ Konfluenz: degencoder Pocket/Trigger & Trendfolge\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Core Swing (2–5 Tage)\n   Entry: 209.91 | SL: 194.62 | TP2: 271.03\n\n⚪ S&P 500 (Tradegate) (SPX):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 68%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Widerstandszone erreicht: Keine vorzeitige Positionierung ohne Reversal-Bestätigung (Trigger-Sperre aktiv)....\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n⚪ XYZ (XYZ):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 68%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Unterstützungszone erreicht: Der Kurs sitzt in einer validen Zone, wartet jedoch auf einen bestätigenden Reversal-Trigger (Trigger...\n   Setup: Beobachten / Lauerstellung am Support (Warten auf Trigger)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261118_142939",
     "timestamp": "2026-11-18T14:29:39.210170+00:00",
     "timestamp_display": "18.11.2026 14:29 UTC",
@@ -24277,148 +24380,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 10 Einstufungen haben sich geändert:\n\n🟢 CrowdStrike (CRWD):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Order Block [R4] Confluence\n   Entry: 241.16 | SL: 234.59 | TP2: 270.33\n\n🟢 Bitcoin Cash (BCHUSD):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: degencoder Institutional Buy Pocket Reversal\n   Entry: 281.23 | SL: 269.32 | TP2: 328.88\n\n🟢 BTC Dominanz (BTC.D):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: degencoder Institutional Buy Pocket Reversal\n   Entry: 60.15 | SL: 58.52 | TP2: 67.42\n\n🟢 Tesla (TSLA):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Order Block [R1] Confluence\n   Entry: 386.98 | SL: 376.45 | TP2: 433.78\n\n🟢 DAIEUR (DAIEUR):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Order Block [R3] Confluence\n   Entry: 0.88 | SL: 0.84 | TP2: 1.05\n\n🔴 XRPUSD (XRPUSD):\n   Score-Sprung: 88% ➔ 95% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 88% auf 95% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: degencoder Institutional Sell Pocket Reversal\n   Entry: 1.32 | SL: 1.39 | TP2: 1.10\n\n... und 4 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261104_163730",
-    "timestamp": "2026-11-04T16:37:30.342879+00:00",
-    "timestamp_display": "04.11.2026 16:37 UTC",
-    "title": "🔔 TV-Signaländerung: 5 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 5,
-    "changes": [
-      {
-        "symbol": "AMEX:SPY",
-        "name": "SPY",
-        "category": "Aktien",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 58,
-        "new_score": 89,
-        "price": 764.88,
-        "setup_name": "Hypothese 1: SMC Golden Confluence Reversal",
-        "entry_range": [
-          760.8,
-          765.3
-        ],
-        "stop_loss": 755.2,
-        "take_profit_2": 788.0,
-        "reasons": [
-          "Perfekte HTF-Konfluenz: 1W/1D bullisch, Kurs befindet sich exakt im 1D Golden Pocket und in der 1D Buy Pocket",
-          "Hochklassiger SMC Order Block Grad A (Score 95) mit durchgeführtem Liquiditäts-Sweep sowie aktivem bullischen 4h FVG",
-          "1h zeigt bullisches Signal mit 'Good Buy Signal' / Dreieck und bullischer Divergenz bei intakter Struktur"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (Perfekte HTF-Konfluenz: 1W/1D bullisch, Kurs befindet sich exakt im 1D Golden Pocket und in der 1D Buy Pocket).",
-        "note": "SPY bietet eine makellose institutionelle Konfluenz: Der Kurs testet das 1D Golden Pocket in Kombination mit einem Grad-A Order Block und einem frischen bullischen FVG. Das CRV übersteigt 2.8:1 deutlich. Trotz des niedrigen Volumens auf 4h/1h ist die technische Struktur extrem stark für den Fortsetzungs-Trade im übergeordneten Bullentrend.",
-        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...pOzg]"
-      },
-      {
-        "symbol": "BITSTAMP:XRPUSD",
-        "name": "XRPUSD",
-        "category": "Crypto",
-        "change_type": "SCORE_JUMP",
-        "old_signal": "SHORT",
-        "new_signal": "SHORT",
-        "old_score": 95,
-        "new_score": 88,
-        "price": 1.31198,
-        "setup_name": "Hypothese 1: SMC Order Block Exhaustion",
-        "entry_range": [
-          1.312,
-          1.32
-        ],
-        "stop_loss": 1.332,
-        "take_profit_2": 1.23,
-        "reasons": [
-          "Makro-Trend (1D/1W) ist vollkommen bärisch strukturiert, 4h-Erholung stellt eine Bärenmarktrallye dar.",
-          "Kollision mit einem Grade A Bärischen Order Block [R8] bei 1.28-1.32 USD inklusive Sweep und 'Good Sell Signals' auf 4h/1h.",
-          "LTF zeigt Erschöpfung (Very Low Volume im Anstieg) sowie eine bärische Divergenz auf 4h und 1h."
-        ],
-        "change_reason": "Konfluenz-Veränderung: Score springt von 95% auf 88% (Makro-Trend (1D/1W) ist vollkommen bärisch strukturiert, 4h-Erholung stellt eine Bärenmarktrallye dar.).",
-        "note": "XRP testet mit schwachem Volumen eine schwere HTF-Widerstandszone (Grade A Bärischer OB bei 1.32 USD) innerhalb eines intakten 1D/1W-Bärenmarktes. Die Ausrichtung ist klar bärisch. Unter Berücksichtigung der Krypto-Sektorregeln wird ein enges Stop-Management oberhalb des OB-Tops bei 1.3320 USD gewählt, um einen sauberen Trendfortsetzungs-Trade einzugehen.",
-        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...pOzg]"
-      },
-      {
-        "symbol": "NYSE:IBM",
-        "name": "IBM",
-        "category": "Enterprise Tech",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 96,
-        "new_score": 52,
-        "price": 256.15,
-        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
-        "entry_range": [
-          250.95,
-          254.05
-        ],
-        "stop_loss": 248.8,
-        "take_profit_2": 268.0,
-        "reasons": [
-          "Makro-Trend (1D/1W) ist eindeutig bullisch, weshalb trotz Überhitzung im LTF kein Short-Signal erlaubt ist.",
-          "Preis befindet sich im 1D Sell Pocket mit bärischen 4h/1h 'Good Sell'-Signalen und überkaufte RSI-Werten (4h RSI > 62).",
-          "Konsolidierung erfordert geduldiges Warten auf einen kontrollierten Pullback in das unberührte 1D FVG (250.95 - 254.05 USD)."
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1D/1W) ist eindeutig bullisch, weshalb trotz Überhitzung im LTF kein Short-Signal erlaubt ist.).",
-        "note": "Obwohl der Makro-Trend extrem stark ist, verbietet sich ein Pro-Cyclical Long auf aktuellem Niveau (258.21 USD), da der Kurs im Sell-Pocket feststeckt und der 4h-RSI überkauft ist. Gemäß Regelwerk dürfen wir den Trend keinesfalls shorten, sondern warten diszipliniert auf einen Rücksetzer in die unterlagerte FVG-Support-Zone um 254.00 USD mit Bestätigung.",
-        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...pOzg]"
-      },
-      {
-        "symbol": "TRADEGATE:45C",
-        "name": "Broadcom (Tradegate)",
-        "category": "Tradegate / EU",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 96,
-        "new_score": 52,
-        "price": 215.0,
-        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
-        "entry_range": [
-          213.8,
-          215.0
-        ],
-        "stop_loss": 211.5,
-        "take_profit_2": 228.0,
-        "reasons": [
-          "HTF-Makrotrend (1W/1D) ist intakt bullisch, 4h/1h konsolidieren in einer gesunden Korrektur",
-          "1D im Sell Pocket Signal sowie Order Block Grad D (mitigiert) erfordern Zurückhaltung und Bestätigung am Support",
-          "1h bietet zwar reguläre bullische Divergenz mit hohem Volumen, aber Sektor-Historie (0% Win-Rate) erzwingt striktes Dämpfen des Scores"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Makrotrend (1W/1D) ist intakt bullisch, 4h/1h konsolidieren in einer gesunden Korrektur).",
-        "note": "Der Makro-Trend auf Tages- und Wochenbasis bleibt eindeutig bullisch, weshalb Short-Positionen ausgeschlossen sind. Da der 4h-Trend bärisch ist und der vorliegende Order Block nur Grade D aufweist, ist ein direkter Long-Einstieg unklug. Wir verbleiben neutral und warten auf eine klare Konsolidierung an der Unterkante des Supports bei ca. 213.80-215.00 Euro inkl. Market Structure Shift auf LTF.",
-        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...pOzg]"
-      },
-      {
-        "symbol": "TRADEGATE:MSF",
-        "name": "Microsoft (Tradegate)",
-        "category": "Tradegate / EU",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 96,
-        "new_score": 50,
-        "price": 493.25,
-        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
-        "entry_range": [
-          466.5,
-          475.0
-        ],
-        "stop_loss": 458.0,
-        "take_profit_2": 515.0,
-        "reasons": [
-          "Makro-Trend (1W & 1D) ist bullisch, Kurs befindet sich jedoch im 1D Sell Pocket und ist auf 1h mit RSI 83.03 massiv überdehnt (Chasing-Verbot).",
-          "Ein Long an der Oberkante des bärischen Grade A Order Blocks (R8) verletzt alle institutionellen Einstiegsregeln; Shorten gegen den 1D-Trend ist verboten.",
-          "Historischer Sektor-Dämpfer (Tradegate / EU Win-Rate 0%) erfordert höchste Vorsicht und keinen überstürzten Markteintritt."
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W & 1D) ist bullisch, Kurs befindet sich jedoch im 1D Sell Pocket und ist auf 1h mit RSI 83.03 massiv überdehnt (Chasing-Verbot).).",
-        "note": "Microsoft weist zwar starke bullische Makro-Dynamik auf, notiert jedoch direkt im institutional Sell Pocket und ist kurzfristig extrem überhitzt. Gemäß unseren Leitregeln jagen wir parabolischen Kursen keinesfalls hinterher und shorten nicht gegen den 1D-Trend. Die Einstufung wechselt konsequent auf Neutral, um einen tiefen Pullback in Richtung Support abzuwarten.",
-        "evaluated_by": "gemini-3.8-flash High [AQ.Ab8...oFUw]"
-      }
-    ],
-    "notification_sent": false,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 5 Einstufungen haben sich geändert:\n\n🟢 SPY (SPY):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 89%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (Perfekte HTF-Konfluenz: 1W/1D bullisch, Kurs befindet sich exakt im 1D Golden Pocket und in der 1D Buy Pocket).\n   📝 KI-Rationale: SPY bietet eine makellose institutionelle Konfluenz: Der Kurs testet das 1D Golden Pocket in Kombination mit einem Grad-A Order Bl...\n   Setup: Hypothese 1: SMC Golden Confluence Reversal\n   Entry: 760.80 | SL: 755.20 | TP2: 788.00\n\n🔴 XRPUSD (XRPUSD):\n   Score-Sprung: 95% ➔ 88% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 88% (Makro-Trend (1D/1W) ist vollkommen bärisch strukturiert, 4h-Erholung stellt eine Bärenmarktrallye dar.).\n   📝 KI-Rationale: XRP testet mit schwachem Volumen eine schwere HTF-Widerstandszone (Grade A Bärischer OB bei 1.32 USD) innerhalb eines intakten 1D/...\n   Setup: Hypothese 1: SMC Order Block Exhaustion\n   Entry: 1.31 | SL: 1.33 | TP2: 1.23\n\n⚪ IBM (IBM):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1D/1W) ist eindeutig bullisch, weshalb trotz Überhitzung im LTF kein Short-Signal erlaubt ist.).\n   📝 KI-Rationale: Obwohl der Makro-Trend extrem stark ist, verbietet sich ein Pro-Cyclical Long auf aktuellem Niveau (258.21 USD), da der Kurs im Se...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n⚪ Broadcom (Tradegate) (45C):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Makrotrend (1W/1D) ist intakt bullisch, 4h/1h konsolidieren in einer gesunden Korrektur).\n   📝 KI-Rationale: Der Makro-Trend auf Tages- und Wochenbasis bleibt eindeutig bullisch, weshalb Short-Positionen ausgeschlossen sind. Da der 4h-Tren...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n⚪ Microsoft (Tradegate) (MSF):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 50%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W & 1D) ist bullisch, Kurs befindet sich jedoch im 1D Sell Pocket und ist auf 1h mit RSI 83.03 massiv überdehnt (Chasing-Verbot).).\n   📝 KI-Rationale: Microsoft weist zwar starke bullische Makro-Dynamik auf, notiert jedoch direkt im institutional Sell Pocket und ist kurzfristig ex...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
