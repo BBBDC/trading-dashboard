@@ -1,5 +1,78 @@
 [
   {
+    "id": "evt_20261118_123353",
+    "timestamp": "2026-11-18T12:33:53.778977+00:00",
+    "timestamp_display": "18.11.2026 12:33 UTC",
+    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 2,
+    "changes": [
+      {
+        "symbol": "KUCOIN:EWTUSDT",
+        "name": "EWTUSDT",
+        "category": "Crypto",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 52,
+        "new_score": 88,
+        "price": 0.24769,
+        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
+        "entry_range": [
+          0.25,
+          0.25
+        ],
+        "stop_loss": 0.25,
+        "take_profit_2": 0.24,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "SMC OB: 4h Bearish Order Block [R6] Retest",
+          "Aktiv: 1h Versteckte Bärische Divergenz (Trendfolge)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Core Swing",
+        "holding_period": "2–5 Tage",
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
+        "note": "3-Säulen-Erschöpfung (88%): Makro-Bärenmarkt aktiv, Widerstandszone bestätigt, Sell-Trigger aktiv.",
+        "evaluated_by": "quantitative_engine"
+      },
+      {
+        "symbol": "NYMEX:NG1!",
+        "name": "Erdgas Future",
+        "category": "Energie",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "LONG",
+        "old_score": 62,
+        "new_score": 85,
+        "price": 3.243,
+        "setup_name": "Hypothese 1: SMC Support Reversal",
+        "entry_range": [
+          3.18,
+          3.22
+        ],
+        "stop_loss": 3.1,
+        "take_profit_2": 3.59,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "1W Makro-Trend bullisch bestätigt",
+          "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)",
+          "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)"
+        ],
+        "primary_timeframe": "1W",
+        "timeframe_label": "3D/1W Makro",
+        "holding_period": "Mehrere Wochen",
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
+        "note": "3-Säulen-Konfluenz (85%): Makro-Trend intakt, Zone bestätigt, Reversal-Trigger aktiv (1D Trend über EMA 233 bullisch).",
+        "evaluated_by": "quantitative_engine"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n🔴 EWTUSDT (EWTUSDT):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 88%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: 3-Säulen-Erschöpfung (88%): Makro-Bärenmarkt aktiv, Widerstandszone bestätigt, Sell-Trigger aktiv....\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Core Swing (2–5 Tage)\n   Entry: 0.25 | SL: 0.25 | TP2: 0.24\n\n🟢 Erdgas Future (NG1!):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 85%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: 3-Säulen-Konfluenz (85%): Makro-Trend intakt, Zone bestätigt, Reversal-Trigger aktiv (1D Trend über EMA 233 bullisch)....\n   Setup: Hypothese 1: SMC Support Reversal\n   ⏱️ Handlungs-Chart: 1W Chart · 3D/1W Makro (Mehrere Wochen)\n   Entry: 3.18 | SL: 3.10 | TP2: 3.59\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261118_120510",
     "timestamp": "2026-11-18T12:05:10.234369+00:00",
     "timestamp_display": "18.11.2026 12:05 UTC",
@@ -24263,44 +24336,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "BTCUSD (BINANCE:BTCUSDT) geschlossen mit +25.17% (🛑 Stop-Loss ausgelöst (80,409.45 >= 79,950.00 $))"
-  },
-  {
-    "id": "evt_20261104_151638",
-    "timestamp": "2026-11-04T15:16:38.073118+00:00",
-    "timestamp_display": "04.11.2026 15:16 UTC",
-    "title": "🔔 TV-Signaländerung: 1 Asset aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 1,
-    "changes": [
-      {
-        "symbol": "TVC:DXY",
-        "name": "US Dollar Index",
-        "category": "Forex / Makro",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 86,
-        "new_score": 75,
-        "price": 101.487,
-        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
-        "entry_range": [
-          101.446,
-          101.576
-        ],
-        "stop_loss": 101.15,
-        "take_profit_2": 102.95,
-        "reasons": [
-          "Makro-Trend (1D/1W) ist intakt bullisch über dem 233 EMA, 4h/1h Konsolidierung stellt lediglich eine Korrektur dar.",
-          "Kurs liegt in der 4h Golden Pocket Zone am bullischen Order Block (101.446 - 101.707).",
-          "Mehrfache Kauf-Trigger (Good Buy Signals auf 4h/1h und bullische RSI-Divergenz auf 4h) vorhanden, jedoch bremst die 1D bärische Divergenz übergeordnet."
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1D/1W) ist intakt bullisch über dem 233 EMA, 4h/1h Konsolidierung stellt lediglich eine Korrektur dar.).",
-        "note": "Der Makro-Trend für den US-Dollar bleibt auf Tages- und Wochenbasis klar bullisch. Die Korrektur auf den untergeordneten Zeitebenen trifft nun im Bereich von 101.45 auf soliden Support und das 4h Golden Pocket. Aufgrund des bestehenden Hysterese-Prinzips und der Verfeinerung des Timings verbleiben wir zunächst auf NEUTRAL mit striktem Kauflimit in der Support-Zone, um ein asymmetrisches CRV von > 2.5:1 abzusichern.",
-        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...pOzg]"
-      }
-    ],
-    "notification_sent": false,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n⚪ US Dollar Index (DXY):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 75%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1D/1W) ist intakt bullisch über dem 233 EMA, 4h/1h Konsolidierung stellt lediglich eine Korrektur dar.).\n   📝 KI-Rationale: Der Makro-Trend für den US-Dollar bleibt auf Tages- und Wochenbasis klar bullisch. Die Korrektur auf den untergeordneten Zeitebene...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
