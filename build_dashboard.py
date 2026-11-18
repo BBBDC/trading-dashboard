@@ -505,7 +505,8 @@ else:
             badge = '<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">● SUCCESS</span>'
             dur_color = "text-emerald-400"
         elif outcome == "TIMEOUT":
-            badge = '<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30">⏱️ TIMEOUT (90s)</span>'
+            dur_int = int(round(dur)) if dur else 135
+            badge = f'<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30">⏱️ TIMEOUT ({dur_int}s)</span>'
             dur_color = "text-rose-400"
         elif outcome == "HTTP_503":
             badge = '<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">⚠️ 503 SPIKE</span>'
@@ -726,7 +727,7 @@ pro_card_html = f"""
                 <span class="text-lg">📊</span>
                 <div>
                   <h4 class="font-bold text-sm text-sky-200">Gemini 3.8 Flash High · 24h Zuverlässigkeit & Ausfall-Monitor</h4>
-                  <span class="text-[10px] text-slate-400">Echtzeit-Tracking von Google Reasoning-Latenzen, Timeouts (90s) und Kaskaden-Failover</span>
+                  <span class="text-[10px] text-slate-400">Echtzeit-Tracking von Google Reasoning-Latenzen, Timeouts (&gt;135s) und Kaskaden-Failover</span>
                 </div>
               </div>
               <span id="gemini-perf-status-badge" class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold {perf_status_badge_class}">
@@ -744,7 +745,7 @@ pro_card_html = f"""
               <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80">
                 <span class="text-[10px] text-slate-400 block uppercase">Timeouts & Spitzen</span>
                 <span id="gemini-perf-timeouts" class="font-bold text-sm {perf_timeout_color}">{perf_timeouts} Ausfälle</span>
-                <span class="block text-[10px] text-slate-500 mt-0.5">Schwelle &gt;90s (Google Last)</span>
+                <span class="block text-[10px] text-slate-500 mt-0.5">Schwelle &gt;135s (Google Last)</span>
               </div>
               <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80">
                 <span class="text-[10px] text-slate-400 block uppercase">Ø Antwortzeit</span>

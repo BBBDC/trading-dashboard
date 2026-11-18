@@ -1315,7 +1315,7 @@ def get_gemini_failures_text_and_markup():
             )
 
     lines.extend([
-        "\n💡 <i>Erklärung: Bei Google Cloud Server-Lastspitzen oder Thinking-Verzögerungen greift nach 90s der automatische Kaskaden-Schutz. Kein Signal geht verloren!</i>"
+        "\n💡 <i>Erklärung: Bei Google Cloud Server-Lastspitzen oder Thinking-Verzögerungen greift nach 135s der automatische Kaskaden-Schutz. Kein Signal geht verloren!</i>"
     ])
 
     kb = {

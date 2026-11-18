@@ -853,7 +853,8 @@ def trigger_comparative_batch_post_mortem(closed_trades: List[Dict[str, Any]], i
             evaluate_batch_trades_post_mortem,
             evaluate_trade_post_mortem,
             audit_trades_with_opus_meta,
-            audit_critical_trade_with_opus
+            audit_critical_trade_with_opus,
+            load_config as load_gemini_config
         )
     except ImportError:
         return closed_trades
@@ -873,8 +874,9 @@ def trigger_comparative_batch_post_mortem(closed_trades: List[Dict[str, Any]], i
     if pending:
         print(f"\n  🧠 Starte taktisches KI-Post-Mortem (Gemini 3.8 Flash High) für {len(pending)} neue geschlossene Trades...")
 
-        # Verarbeite in Batches von 3 Trades
-        batch_size = 3
+        # Verarbeite in Batches (dynamisch aus gemini_config.json, z.B. 2 Trades)
+        gemini_conf = load_gemini_config()
+        batch_size = gemini_conf.get("batch_size", 2)
         for i in range(0, len(pending), batch_size):
             chunk = pending[i:i + batch_size]
             print(f"    [Gemini Batch {i // batch_size + 1}/{(len(pending) + batch_size - 1) // batch_size}] Analysiere {len(chunk)} Trades...", end="", flush=True)

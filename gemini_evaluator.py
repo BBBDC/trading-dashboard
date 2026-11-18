@@ -30,8 +30,8 @@ DEFAULT_CONFIG = {
     "use_pro_subscription": True,
     "api_key": "",
     "temperature": 0.2,
-    "batch_size": 8,
-    "timeout_seconds": 45,
+    "batch_size": 2,
+    "timeout_seconds": 135,
     "comment": "primary_model: 'gemini-3.8-flash-high' oder 'gemini-4'. use_pro_subscription: nutzt automatisch dein angemeldetes Google Pro-Abo via CLI. api_key: optional falls du einen Google AI Studio Key nutzen möchtest."
 }
 
@@ -114,7 +114,7 @@ def extract_json_from_text(raw_text):
         return None
 
 
-def call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=120):
+def call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=135):
     """
     Ruft das Google Gemini Modell direkt über das angemeldete Google Pro-Abo (agy CLI) auf.
     Prüft prioritär, ob das dedizierte 2. Google-Konto (/home/admin/.gemini_trading) autorisiert ist.
@@ -320,7 +320,7 @@ Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
 """
     # 1. Google Pro-Abo CLI mit 3.8 Flash High (Account 2: pokeulm@gmail.com)
     try:
-        res, err = call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=90)
+        res, err = call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=135)
         if res and isinstance(res, dict) and "driver" in res:
             return res
     except Exception:
@@ -420,7 +420,7 @@ Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
 """
     # 1. Pro CLI
     try:
-        res, err = call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=90)
+        res, err = call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=135)
         if res and isinstance(res, dict) and "trade_evaluations" in res:
             return res
     except Exception:
@@ -795,7 +795,7 @@ def evaluate_batch_with_cascade(assets_batch):
 
     primary_model = "gemini-3.8-flash-high"
     fallback_model = conf.get("fallback_model", "gemini-3.5-flash")
-    timeout = conf.get("timeout_seconds", 120)
+    timeout = conf.get("timeout_seconds", 135)
     use_pro_sub = conf.get("use_pro_subscription", True)
 
     prompt = build_analysis_prompt(assets_batch)
