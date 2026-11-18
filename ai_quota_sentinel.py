@@ -89,7 +89,7 @@ def get_claude_usage() -> Dict[str, Any]:
 def get_grok_usage() -> Dict[str, Any]:
     """
     Fragt Grok CLI und lokale Session-Daten nach Verbrauch ab.
-    Liest Token-Verbrauch, Modell-Aufrufe, Kosten und Token-Ablaufdatum.
+    Liest Token-Verbrauch, Modell-Aufrufe, Kosten und Auth-Status.
     """
     res = {
         "status": "ONLINE",
@@ -100,74 +100,65 @@ def get_grok_usage() -> Dict[str, Any]:
         "total_tokens": 0,
         "model_calls": 0,
         "cost_usd": 0.0,
-        "expires_at_str": "Unbekannt",
+        "expires_at_str": "OAuth 2.0 (Dauerhaft aktiv)",
+        "last_active_str": "Unbekannt",
         "primary_model": "grok-4.7",
         "error": None
     }
     
-    # 1. Auth-Info lesen für Expiry & Account
+    # 1. Auth-Info lesen für Status
     auth_file = Path("/home/admin/.grok/auth.json")
     if auth_file.exists():
         try:
             with open(auth_file, "r") as f:
                 adata = json.load(f)
+            has_refresh = False
             for v in adata.values():
-                if isinstance(v, dict) and "expires_at" in v:
-                    exp = v["expires_at"]
-                    # Format e.g. 2026-11-17T17:11:41...
-                    try:
-                        dt = datetime.fromisoformat(exp.replace("Z", "+00:00"))
-                        dt_cet = dt.astimezone(timezone(timedelta(hours=1)))
-                        res["expires_at_str"] = dt_cet.strftime("%d.%m. %H:%M CET")
-                    except Exception:
-                        res["expires_at_str"] = exp[:16]
-                    break
+                if isinstance(v, dict):
+                    if v.get("refresh_token"):
+                        has_refresh = True
+            if has_refresh:
+                res["expires_at_str"] = "OAuth 2.0 (Dauerhaft aktiv)"
         except Exception as e:
             res["error"] = f"Auth read error: {e}"
 
-    # 2. Session Usage lesen via `grok usage <session-id>`
-    # Finde die jüngste Session
-    sessions_dir = Path("/home/admin/.grok/sessions/%2Fhome%2Fadmin%2Ftrading")
-    if not sessions_dir.exists():
-        # Fallback auf generelles Sessions-Verzeichnis
-        sessions_dir = Path("/home/admin/.grok/sessions")
+    # 2. Rekursiv alle Sessions nach der jüngsten usage.json durchsuchen
+    sessions_root = Path("/home/admin/.grok/sessions")
+    latest_usage_file = None
+    if sessions_root.exists():
+        usage_files = list(sessions_root.rglob("usage.json"))
+        if usage_files:
+            usage_files.sort(key=lambda p: p.stat().st_mtime, reverse=True)
+            latest_usage_file = usage_files[0]
 
-    latest_session_id = None
-    if sessions_dir.exists():
-        session_dirs = [d for d in sessions_dir.iterdir() if d.is_dir() and not d.name.startswith("%")]
-        if not session_dirs:
-            # Suche rekursiv
-            session_dirs = [d for d in sessions_dir.glob("*/*") if d.is_dir() and len(d.name) > 30]
-        if session_dirs:
-            session_dirs.sort(key=lambda x: x.stat().st_mtime, reverse=True)
-            latest_session_id = session_dirs[0].name
-
-    if latest_session_id and os.path.exists(GROK_BIN):
+    if latest_usage_file and latest_usage_file.exists():
         try:
-            proc = subprocess.run([GROK_BIN, "usage", latest_session_id], capture_output=True, text=True, timeout=8)
-            if proc.returncode == 0 and proc.stdout.strip().startswith("{"):
-                udata = json.loads(proc.stdout)
-                s = udata.get("session", {})
-                res["input_tokens"] = s.get("inputTokens", 0)
-                res["output_tokens"] = s.get("outputTokens", 0)
-                res["reasoning_tokens"] = s.get("reasoningTokens", 0)
-                res["total_tokens"] = s.get("totalTokens", 0)
-                res["model_calls"] = s.get("modelCalls", 0)
-                res["primary_model"] = s.get("primaryModelId", "grok-4.7")
-                
-                # costUsdTicks (1 USD = 1,000,000,000 ticks)
-                ticks = s.get("costUsdTicks", 0)
-                res["cost_usd"] = round(ticks / 1_000_000_000, 2)
-                
-                # Schätze Auslastung relativ zur typischen Session-Norm (z.B. 1.5M Tokens)
-                pct = min(100, int((res["total_tokens"] / 1_500_000) * 100))
-                res["estimated_pct"] = pct
-                if pct >= 100:
-                    res["status"] = "EXHAUSTED"
-                elif pct >= 80:
-                    res["status"] = "THROTTLED"
-                else:
-                    res["status"] = "ONLINE"
+            with open(latest_usage_file, "r", encoding="utf-8") as f:
+                udata = json.load(f)
+            s = udata.get("session", {})
+            res["input_tokens"] = s.get("inputTokens", 0)
+            res["output_tokens"] = s.get("outputTokens", 0)
+            res["reasoning_tokens"] = s.get("reasoningTokens", 0)
+            res["total_tokens"] = s.get("totalTokens", 0)
+            res["model_calls"] = s.get("modelCalls", 0)
+            res["primary_model"] = s.get("primaryModelId", "grok-4.7")
+            
+            ticks = s.get("costUsdTicks", 0)
+            res["cost_usd"] = round(ticks / 1_000_000_000, 2)
+            
+            mtime = latest_usage_file.stat().st_mtime
+            dt_cet = datetime.fromtimestamp(mtime, tz=timezone(timedelta(hours=1)))
+            res["last_active_str"] = dt_cet.strftime("%d.%m. %H:%M CET")
+            
+            # Schätze Auslastung relativ zur typischen Session-Norm (z.B. 1.5M Tokens)
+            pct = min(100, int((res["total_tokens"] / 1_500_000) * 100))
+            res["estimated_pct"] = max(1, pct) if res["total_tokens"] > 0 else 0
+            if pct >= 100:
+                res["status"] = "EXHAUSTED"
+            elif pct >= 80:
+                res["status"] = "THROTTLED"
+            else:
+                res["status"] = "ONLINE"
         except Exception as e:
             res["error"] = f"Usage parse error: {e}"
 
@@ -237,7 +228,8 @@ def update_and_check_quotas() -> Dict[str, Any]:
             "reasoning_tokens": grok_info.get("reasoning_tokens", 0),
             "model_calls": grok_info.get("model_calls", 0),
             "cost_usd": grok_info.get("cost_usd", 0.0),
-            "expires_at_str": grok_info.get("expires_at_str", "Unbekannt"),
+            "expires_at_str": grok_info.get("expires_at_str", "OAuth 2.0 (Dauerhaft aktiv)"),
+            "last_active_str": grok_info.get("last_active_str", "Unbekannt"),
             "active_effort": efforts["grok_effort"],
             "error": grok_info.get("error")
         },
@@ -250,10 +242,18 @@ def update_and_check_quotas() -> Dict[str, Any]:
         }
     }
 
-    # Speichern
+    # Speichern in knowledge_base und dashboard
     KB_DIR.mkdir(parents=True, exist_ok=True)
     with open(AI_QUOTA_FILE, "w", encoding="utf-8") as f:
         json.dump(full_state, f, indent=2, ensure_ascii=False)
+
+    dash_quota_file = BASE_DIR / "dashboard" / "ai_quota_state.json"
+    try:
+        dash_quota_file.parent.mkdir(parents=True, exist_ok=True)
+        with open(dash_quota_file, "w", encoding="utf-8") as f:
+            json.dump(full_state, f, indent=2, ensure_ascii=False)
+    except Exception as e:
+        print(f"Warnung beim Speichern von dashboard/ai_quota_state.json: {e}")
 
     # Prüfe auf Schwellenwert-Events für Telegram-Admin
     check_and_dispatch_quota_alerts(full_state)

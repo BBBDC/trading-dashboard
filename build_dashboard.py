@@ -537,7 +537,7 @@ triad_quota_card_html = f"""
                     <span class="text-[10px] text-slate-400">Kausalitäts- & Makro-Audit (Anthropic)</span>
                   </div>
                 </div>
-                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                <span id="triad-claude-effort" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">
                   Effort: {c_effort}
                 </span>
               </div>
@@ -545,16 +545,16 @@ triad_quota_card_html = f"""
               <div class="space-y-1">
                 <div class="flex justify-between text-xs font-mono">
                   <span class="text-slate-400">5h-Rolling Session:</span>
-                  <span class="font-bold {c_num_class}">{c_used_pct}% verbraucht ({100 - c_used_pct}% frei)</span>
+                  <span id="triad-claude-pct-text" class="font-bold {c_num_class}">{c_used_pct}% verbraucht ({100 - c_used_pct}% frei)</span>
                 </div>
                 <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
-                  <div class="h-2.5 rounded-full {c_bar_color} transition-all duration-500" style="width: {min(100, c_used_pct)}%"></div>
+                  <div id="triad-claude-bar" class="h-2.5 rounded-full {c_bar_color} transition-all duration-500" style="width: {min(100, c_used_pct)}%"></div>
                 </div>
               </div>
 
               <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 pt-1 border-t border-slate-800/80">
-                <span>Reset: <strong class="text-purple-300">{c_reset_str}</strong></span>
-                <span>Woche: <strong class="text-slate-300">{claude_data.get("week_used_pct", 0)}%</strong></span>
+                <span>Reset: <strong id="triad-claude-reset" class="text-purple-300">{c_reset_str}</strong></span>
+                <span>Woche: <strong id="triad-claude-week" class="text-slate-300">{claude_data.get("week_used_pct", 0)}%</strong></span>
               </div>
             </div>
 
@@ -568,7 +568,7 @@ triad_quota_card_html = f"""
                     <span class="text-[10px] text-slate-400">News- & Sentiment-Radar (xAI)</span>
                   </div>
                 </div>
-                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30">
+                <span id="triad-grok-effort" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30">
                   Effort: {g_effort}
                 </span>
               </div>
@@ -576,16 +576,16 @@ triad_quota_card_html = f"""
               <div class="space-y-1">
                 <div class="flex justify-between text-xs font-mono">
                   <span class="text-slate-400">Session Token-Auslastung:</span>
-                  <span class="font-bold {g_num_class}">{g_used_pct}% Last</span>
+                  <span id="triad-grok-pct-text" class="font-bold {g_num_class}">{g_used_pct}% Last</span>
                 </div>
                 <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
-                  <div class="h-2.5 rounded-full {g_bar_color} transition-all duration-500" style="width: {min(100, g_used_pct)}%"></div>
+                  <div id="triad-grok-bar" class="h-2.5 rounded-full {g_bar_color} transition-all duration-500" style="width: {min(100, g_used_pct)}%"></div>
                 </div>
               </div>
 
               <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 pt-1 border-t border-slate-800/80">
-                <span>Tokens: <strong class="text-sky-300">{g_tokens:,}</strong> (${g_cost:.2f})</span>
-                <span>Gültig bis: <strong class="text-slate-300">{g_expires}</strong></span>
+                <span>Tokens: <strong id="triad-grok-tokens" class="text-sky-300">{g_tokens:,}</strong> (${g_cost:.2f})</span>
+                <span>Status: <strong id="triad-grok-status" class="text-slate-300">{g_expires}</strong></span>
               </div>
             </div>
 
@@ -4488,6 +4488,7 @@ html_content = f"""<!DOCTYPE html>
           }}
           updateStats();
           applyFilters();
+          refreshTriadQuotaLive();
           showToast('Dashboard erfolgreich aktualisiert!');
         }})
         .catch(err => {{
@@ -4502,6 +4503,64 @@ html_content = f"""<!DOCTYPE html>
           }}, 600);
         }});
     }}
+
+    // ==========================================
+    // 🤖 Live-Refresh für Triade-Council Quota
+    // ==========================================
+    function refreshTriadQuotaLive() {{
+      fetch('ai_quota_state.json?nocache=' + Date.now())
+        .then(res => res.json())
+        .then(q => {{
+          if (!q) return;
+          // Claude Opus 5.5
+          if (q.claude) {{
+            const cpct = q.claude.session_used_pct || 0;
+            const cEffort = document.getElementById('triad-claude-effort');
+            if (cEffort) cEffort.innerText = 'Effort: ' + (q.claude.active_effort || 'medium');
+            const cText = document.getElementById('triad-claude-pct-text');
+            if (cText) {{
+              cText.innerText = `${{cpct}}% verbraucht (${{100 - cpct}}% frei)`;
+              cText.className = cpct >= 90 ? 'font-bold text-rose-400' : (cpct >= 75 ? 'font-bold text-amber-400' : 'font-bold text-purple-400');
+            }}
+            const cBar = document.getElementById('triad-claude-bar');
+            if (cBar) {{
+              cBar.style.width = Math.min(100, cpct) + '%';
+              cBar.className = `h-2.5 rounded-full transition-all duration-500 ${{cpct >= 90 ? 'bg-rose-500' : (cpct >= 75 ? 'bg-amber-500' : 'bg-purple-500')}}`;
+            }}
+            const cReset = document.getElementById('triad-claude-reset');
+            if (cReset) cReset.innerText = q.claude.reset_str || 'Unbekannt';
+            const cWeek = document.getElementById('triad-claude-week');
+            if (cWeek) cWeek.innerText = (q.claude.week_used_pct || 0) + '%';
+          }}
+          // Grok Build 4.7
+          if (q.grok) {{
+            const gpct = q.grok.estimated_pct || 0;
+            const gEffort = document.getElementById('triad-grok-effort');
+            if (gEffort) gEffort.innerText = 'Effort: ' + (q.grok.active_effort || 'medium');
+            const gText = document.getElementById('triad-grok-pct-text');
+            if (gText) {{
+              gText.innerText = `${{gpct}}% Last`;
+              gText.className = gpct >= 90 ? 'font-bold text-rose-400' : (gpct >= 75 ? 'font-bold text-amber-400' : 'font-bold text-sky-400');
+            }}
+            const gBar = document.getElementById('triad-grok-bar');
+            if (gBar) {{
+              gBar.style.width = Math.min(100, gpct) + '%';
+              gBar.className = `h-2.5 rounded-full transition-all duration-500 ${{gpct >= 90 ? 'bg-rose-500' : (gpct >= 75 ? 'bg-amber-500' : 'bg-sky-500')}}`;
+            }}
+            const gTokens = document.getElementById('triad-grok-tokens');
+            if (gTokens) {{
+              const toks = (q.grok.total_tokens || 0).toLocaleString('de-DE');
+              const cost = Number(q.grok.cost_usd || 0).toFixed(2);
+              gTokens.innerText = `${{toks}} ($${{cost}})`;
+            }}
+            const gStatus = document.getElementById('triad-grok-status');
+            if (gStatus) gStatus.innerText = q.grok.expires_at_str || 'OAuth 2.0 (Dauerhaft aktiv)';
+          }}
+        }})
+        .catch(err => console.debug('AI Quota Live Fetch übersprungen:', err));
+    }}
+    setInterval(refreshTriadQuotaLive, 20000);
+    setTimeout(refreshTriadQuotaLive, 1000);
 
     // ==========================================
     // 📱 Pull-down to Refresh (Touch / iOS)
