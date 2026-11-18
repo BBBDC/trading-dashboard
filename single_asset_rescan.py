@@ -178,6 +178,11 @@ def rescan_and_evaluate_asset(symbol, user_pos=None):
             updated = False
             for i, a in enumerate(assets):
                 if a.get("symbol") == symbol:
+                    # Bestehende Watchlist-Zugehörigkeiten bewahren
+                    if a.get("watchlists") and not asset_entry.get("watchlists"):
+                        asset_entry["watchlists"] = a["watchlists"]
+                    if a.get("source_watchlist") and not asset_entry.get("source_watchlist"):
+                        asset_entry["source_watchlist"] = a["source_watchlist"]
                     assets[i] = asset_entry
                     updated = True
                     break

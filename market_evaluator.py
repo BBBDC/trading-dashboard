@@ -757,6 +757,21 @@ def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):
     gemini_batch = []
     now_utc = datetime.now(timezone.utc)
 
+    # Symbol-zu-Watchlists Lookup aus live_watchlists.json vorbereiten (Sicherheitsanker)
+    symbol_wl_map = {}
+    lwl_file = BASE_DIR / "knowledge_base" / "live_watchlists.json"
+    if lwl_file.exists():
+        try:
+            with open(lwl_file, "r", encoding="utf-8") as f:
+                lwl_data = json.load(f)
+                for wl in lwl_data.get("watchlists", []):
+                    wl_name = wl.get("name")
+                    if wl_name:
+                        for s in wl.get("symbols", []):
+                            symbol_wl_map.setdefault(s, set()).add(wl_name)
+        except Exception:
+            pass
+
     # Frische TradingView Live-Quotes für alle Assets abrufen & Cache vorab synchronisieren
     try:
         from tv_live_quotes import fetch_tradingview_live_quotes, update_ohlcv_cache_with_live_quotes, SYMBOL_ALIASES
@@ -783,6 +798,13 @@ def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):
         # Wenn Asset nicht fällig ist: Vorherige Analyse beibehalten
         if due_set is not None and sym not in due_set:
             cached_asset = dict(asset)
+            if not cached_asset.get("watchlists") and sym in symbol_wl_map:
+                cached_asset["watchlists"] = sorted(list(symbol_wl_map[sym]))
+            if not cached_asset.get("source_watchlist") and cached_asset.get("watchlists"):
+                cached_asset["source_watchlist"] = cached_asset["watchlists"][0]
+            if not cached_asset.get("currency"):
+                from sync_watchlists import infer_currency
+                cached_asset["currency"] = infer_currency(sym, cached_asset.get("category", ""))
             cached_asset["market_state"] = m_state
             # Wenn Live-Kurs vorliegt: Preis & Zeitstempel immer sofort aktualisieren
             if lq and "price" in lq:
@@ -840,11 +862,25 @@ def analyze_all_markets(due_symbols=None, use_gemini=True, force_all=False):
         if is_crypto and d_3d:
             tf_map["3D"] = d_3d
 
+        # Watchlists & Metadaten dauerhaft beibehalten
+        wls = list(asset.get("watchlists") or [])
+        if not wls and sym in symbol_wl_map:
+            wls = sorted(list(symbol_wl_map[sym]))
+        if not wls and asset.get("source_watchlist"):
+            wls = [asset["source_watchlist"]]
+
+        from sync_watchlists import infer_currency
+        currency = asset.get("currency") or infer_currency(sym, asset.get("category", ""))
+        src_wl = asset.get("source_watchlist") or (wls[0] if wls else "Watchlist")
+
         asset_snapshot = {
             "symbol": sym,
             "name": name,
             "category": asset.get("category", "Allgemein"),
             "asset_type": asset.get("asset_type", "Stock"),
+            "currency": currency,
+            "source_watchlist": src_wl,
+            "watchlists": wls,
             "price": current_price,
             "change_pct": change_pct,
             "last_price_update": last_price_update,

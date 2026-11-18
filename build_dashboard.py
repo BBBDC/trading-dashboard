@@ -879,23 +879,47 @@ for a in raw_assets:
     for w in a.get("watchlists", []):
         wl_counts[w] = wl_counts.get(w, 0) + 1
 
-preferred_order = ["Tradegate Werte", "Aktien", "Crypto", "Commodities", "Devisen", "Watchlist"]
-ordered_wls = [w for w in preferred_order if w in wl_counts]
+# Auch aus live_watchlists.json alle existierenden Watchlists berücksichtigen,
+# damit auch dynamisch neu hinzugefügte Listen aus TradingView sofort erscheinen!
+LIVE_WL_FILE = BASE_DIR / "knowledge_base" / "live_watchlists.json"
+if LIVE_WL_FILE.exists():
+    try:
+        with open(LIVE_WL_FILE, "r", encoding="utf-8") as f:
+            lwl_data = json.load(f)
+            for wl in lwl_data.get("watchlists", []):
+                wl_name = wl.get("name")
+                if wl_name and (wl_name not in wl_counts or wl_counts[wl_name] == 0):
+                    syms_in_wl = set(wl.get("symbols", []))
+                    cnt = sum(1 for a in raw_assets if a.get("symbol") in syms_in_wl or wl_name in a.get("watchlists", []))
+                    if cnt > 0 or wl_name not in ["Rohstoffe"]:
+                        wl_counts[wl_name] = max(cnt, wl_counts.get(wl_name, 0))
+    except Exception:
+        pass
+
+preferred_order = ["Tradegate Werte", "Aktien", "Crypto", "Commodities", "Devisen", "Watchlist", "Eigene Trades"]
+ordered_wls = [w for w in preferred_order if w in wl_counts and (wl_counts[w] > 0 or w in preferred_order[:6])]
 for w in sorted(wl_counts.keys()):
-    if w not in ordered_wls:
+    if w not in ordered_wls and (wl_counts[w] > 0 or w not in ["Rohstoffe"]):
         ordered_wls.append(w)
 
 def get_wl_icon(w):
-    if "Tradegate" in w:
+    w_low = w.lower()
+    if "tradegate" in w_low:
         return "🏛️ "
-    elif "Aktien" in w:
+    elif "aktien" in w_low or "stock" in w_low:
         return "📈 "
-    elif "Crypto" in w:
+    elif "crypto" in w_low or "krypto" in w_low:
         return "🪙 "
-    elif "Commodities" in w or "Rohstoffe" in w:
+    elif "commodit" in w_low or "rohstoff" in w_low or "gold" in w_low or "oil" in w_low:
         return "🛢️ "
-    elif "Devisen" in w:
+    elif "devisen" in w_low or "forex" in w_low or "fx" in w_low:
         return "💱 "
+    elif "eigen" in w_low or "user" in w_low:
+        return "⭐ "
+    elif "index" in w_low or "indizes" in w_low:
+        return "📊 "
+    elif "tech" in w_low:
+        return "💻 "
     return "📋 "
 
 tab2_watchlist_pills_html = f"""
