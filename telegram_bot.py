@@ -111,8 +111,15 @@ def save_all_user_preferences(prefs):
 def get_user_preferences(user_id):
     all_prefs = load_all_user_preferences()
     uid = str(user_id)
+    cfg = load_config()
+    is_admin = uid in [str(c) for c in cfg.get("admin_chat_ids", [])] or any(
+        str(u.get("chat_id")) == uid and u.get("role") == "admin"
+        for u in cfg.get("authorized_users", {}).values() if isinstance(u, dict)
+    )
+
     if uid not in all_prefs:
         all_prefs[uid] = dict(DEFAULT_ALERT_PREFS)
+        all_prefs[uid]["notify_ki_portfolio"] = is_admin
         save_all_user_preferences(all_prefs)
     else:
         updated = False
@@ -120,6 +127,9 @@ def get_user_preferences(user_id):
             if k not in all_prefs[uid]:
                 all_prefs[uid][k] = v
                 updated = True
+        if "notify_ki_portfolio" not in all_prefs[uid]:
+            all_prefs[uid]["notify_ki_portfolio"] = is_admin
+            updated = True
         if updated:
             save_all_user_preferences(all_prefs)
     return all_prefs[uid]
@@ -292,6 +302,7 @@ def get_alert_settings_text_and_markup(user_id):
     cats = prefs.get("categories", ["cat_crypto", "cat_ustech", "cat_dax", "cat_commodities"])
     min_score = prefs.get("min_score", 85)
     my_trades = prefs.get("only_my_trades", False)
+    ki_portfolio_alert = prefs.get("notify_ki_portfolio", False)
     all_wls = get_available_tv_watchlists()
     user_wls = prefs.get("watchlists", list(all_wls))
 
@@ -303,7 +314,8 @@ def get_alert_settings_text_and_markup(user_id):
         f"• <b>Status:</b> {status_str}\n"
         f"• <b>Min. Setup-Score:</b> <b>{min_score}%</b>\n"
         f"• <b>TradingView-Listen:</b> <b>{wl_active_count} von {len(all_wls)} aktiv</b>\n"
-        f"• <b>Filter-Modus:</b> {'⭐ Nur eigene Trades' if my_trades else '🌐 Alle überwachten Märkte'}\n\n"
+        f"• <b>Filter-Modus:</b> {'⭐ Nur eigene Trades' if my_trades else '🌐 Alle überwachten Märkte'}\n"
+        f"• <b>KI-Portfolio Live-Alerts:</b> {'🟢 <b>AKTIV</b> (Echtzeit-Events)' if ki_portfolio_alert else '⚪ Inaktiv (Opt-In)'}\n\n"
         "<i>Wähle deine bevorzugten Asset-Klassen und TradingView-Listen (Tippen schaltet um):</i>"
     )
 
@@ -321,6 +333,9 @@ def get_alert_settings_text_and_markup(user_id):
         ],
         [
             {"text": f"📋 TradingView-Listen filtern ({wl_active_count}/{len(all_wls)}) »", "callback_data": "menu_alert_tv_lists"}
+        ],
+        [
+            {"text": f"{'✅' if ki_portfolio_alert else '❌'} 🤖 Autonomes KI-Portfolio Trades", "callback_data": "toggle_alert_ki_portfolio"}
         ],
         [
             {"text": f"🎯 Min-Score: {min_score}% ▾", "callback_data": "cycle_alert_score"},
@@ -1186,6 +1201,30 @@ def get_admin_quota_details_text_and_markup():
     filled_blocks = int(round(five_h_rem / 10.0))
     bar = "█" * filled_blocks + "░" * (10 - filled_blocks)
 
+    perf = quota.get("performance_metrics", {})
+    p_status = perf.get("status", "STABIL")
+    p_icon = perf.get("status_icon", "🟢")
+    p_rate = perf.get("success_rate_pct", 100.0)
+    p_timeouts = perf.get("timeout_count_24h", 0)
+    p_total = perf.get("total_batches_24h", 0)
+    p_avg_lat = perf.get("avg_latency_seconds", 0.0)
+    recent_runs = perf.get("recent_runs", [])[:4]
+
+    recent_parts = []
+    for r in reversed(recent_runs):
+        t_str = r.get("time_short", "")
+        dur = int(round(r.get("duration_seconds", 0)))
+        out = r.get("outcome", "")
+        if out == "SUCCESS":
+            recent_parts.append(f"🟢 {t_str} ({dur}s)")
+        elif out == "TIMEOUT":
+            recent_parts.append(f"🔴 {t_str} ({dur}s ⏱️)")
+        elif out == "HTTP_503":
+            recent_parts.append(f"🟡 {t_str} (503 ⚠️)")
+        else:
+            recent_parts.append(f"⚪ {t_str} ({out})")
+    recent_str = " · ".join(recent_parts) if recent_parts else "Noch keine Läufe erfasst"
+
     lines.extend([
         f"⚡ <b>Google Pro-Abo · View Usage (Gemini 3.8 Flash High)</b>",
         f"👤 <b>Account:</b> {acc_name}",
@@ -1199,6 +1238,11 @@ def get_admin_quota_details_text_and_markup():
         f"• Anfragen heute: <b>{req_today} Requests</b>",
         f"• Anfragen 7-Tage (Woche): <b>{req_week} Requests</b>",
         f"• Status: 🟢 <b>Unbegrenzter Monitoring-Modus aktiv</b>\n",
+        f"📊 <b>Zuverlässigkeit &amp; Latenz (24h-Fenster):</b>",
+        f"• Stabilität: {p_icon} <b>{p_status}</b> ({p_rate:.1f}% Erfolgsquote)",
+        f"• Batches: <b>{p_total - p_timeouts}/{p_total} OK</b> ({p_timeouts} Timeouts / Lastspitzen)",
+        f"• Ø Antwortzeit: <b>{p_avg_lat:.1f}s</b>",
+        f"• Letzte Batches: {recent_str}\n",
         f"🔑 <b>Google Gemini Multi-Key Quota Pool (Failover-Reserve)</b>",
         f"<b>Pool-Verbrauch:</b> {used} / {limit} Requests ({pct:.1f}%)\n",
         f"<b>Einzel-Key Status:</b>"
@@ -1223,7 +1267,62 @@ def get_admin_quota_details_text_and_markup():
 
     kb = {
         "inline_keyboard": [
+            [{"text": "⚡ Gemini 3.8 Ausfall-Historie", "callback_data": "menu_gemini_failures"}],
             [{"text": "🔙 Zurück zur Admin-Zentrale", "callback_data": "menu_admin_hub"}]
+        ]
+    }
+    return "\n".join(lines), kb
+
+
+def get_gemini_failures_text_and_markup():
+    """Zeigt die Ausfall- und Timeout-Historie von Gemini 3.8 Flash High mit Fallback-Pfaden."""
+    try:
+        from gemini_quota_tracker import get_gemini_performance_metrics
+        perf = get_gemini_performance_metrics(hours=24)
+    except Exception:
+        perf = {}
+
+    status_icon = perf.get("status_icon", "🟢")
+    status = perf.get("status", "STABIL")
+    rate = perf.get("success_rate_pct", 100.0)
+    timeouts = perf.get("timeout_count_24h", 0)
+    total = perf.get("total_batches_24h", 0)
+    avg_lat = perf.get("avg_latency_seconds", 0.0)
+    failures = perf.get("recent_failures", [])
+
+    lines = [
+        "⚡ <b>Gemini 3.8 Flash High – Ausfall- &amp; Fallback-Historie</b>\n",
+        f"• Status (24h): {status_icon} <b>{status}</b>",
+        f"• Erfolgsrate: <b>{rate:.1f}%</b> ({total - timeouts}/{total} Batches)",
+        f"• Ø Antwortzeit: <b>{avg_lat:.1f} Sekunden</b>",
+        f"• Timeouts / Lastspitzen: <b>{timeouts}</b>\n",
+        "📋 <b>Letzte registrierte Engpässe &amp; Failover-Pfade:</b>"
+    ]
+
+    if not failures:
+        lines.append("<i>Keine Ausfälle oder Timeouts in den letzten 24 Stunden! Alle Batches liefen regulär über Stufe 1 Pro CLI.</i>")
+    else:
+        for f in failures[:6]:
+            t_short = f.get("time_short", "")
+            assets = f.get("assets_str", "")
+            dur = int(round(f.get("duration_seconds", 0)))
+            fallback = f.get("fallback_used", "Math-Core")
+            err = f.get("error_message", "Timeout")
+            lines.append(
+                f"• <b>{t_short} CET</b> ({dur}s): <code>{assets}</code>\n"
+                f"   Grund: <i>{err}</i>\n"
+                f"   🛡️ Aktivierter Fallback: <b>{fallback}</b>"
+            )
+
+    lines.extend([
+        "\n💡 <i>Erklärung: Bei Google Cloud Server-Lastspitzen oder Thinking-Verzögerungen greift nach 90s der automatische Kaskaden-Schutz. Kein Signal geht verloren!</i>"
+    ])
+
+    kb = {
+        "inline_keyboard": [
+            [{"text": "🔄 Aktualisieren", "callback_data": "menu_gemini_failures"}],
+            [{"text": "◀️ Quotas & Limits", "callback_data": "admin_quota_details"}],
+            [{"text": "🔙 Admin-Zentrale", "callback_data": "menu_admin_hub"}]
         ]
     }
     return "\n".join(lines), kb
@@ -2029,7 +2128,8 @@ def handle_update(api, update):
             qtext = format_telegram_quota_summary()
             qkb = {
                 "inline_keyboard": [
-                    [{"text": "🔄 Quota aktualisieren", "callback_data": "admin_quota_details"}],
+                    [{"text": "📊 Detaillierte Quotas & Kaskade", "callback_data": "admin_quota_details"}],
+                    [{"text": "⚡ Gemini 3.8 Ausfall-Historie", "callback_data": "menu_gemini_failures"}],
                     [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
                 ]
             }
@@ -2180,6 +2280,14 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
         api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
         return
 
+    if data == "toggle_alert_ki_portfolio":
+        prefs = get_user_preferences(user_id)
+        curr = prefs.get("notify_ki_portfolio", False)
+        update_user_preference(user_id, "notify_ki_portfolio", not curr)
+        text, kb = get_alert_settings_text_and_markup(user_id)
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
+
     if data == "menu_new_trade":
         USER_SESSIONS[chat_id] = {
             "wizard": "new_trade",
@@ -2242,6 +2350,14 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
             api.edit_message_text(chat_id, message_id, "⚠️ Diese Funktion ist dem Master-Admin vorbehalten.", reply_markup=get_main_menu_keyboard(role))
             return
         text, kb = get_admin_quota_details_text_and_markup()
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
+        return
+
+    if data == "menu_gemini_failures":
+        if role != "admin":
+            api.edit_message_text(chat_id, message_id, "⚠️ Diese Funktion ist dem Master-Admin vorbehalten.", reply_markup=get_main_menu_keyboard(role))
+            return
+        text, kb = get_gemini_failures_text_and_markup()
         api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
         return
 

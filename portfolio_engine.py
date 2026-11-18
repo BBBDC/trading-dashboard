@@ -629,6 +629,11 @@ def update_autonomous_portfolio(db_assets):
                 t.setdefault("in_flight_warnings", []).append(
                     f"🎯 TP1 Teilgewinn (50% Tranche, +{part_raw:.2f}%) gesichert! Restposition läuft risikofrei mit Trailing-SL."
                 )
+                try:
+                    from notifications import send_ki_portfolio_alert
+                    send_ki_portfolio_alert("TRADE_PARTIAL_CLOSE", t)
+                except Exception as e:
+                    print(f"Warnung beim KI-Portfolio Alert (TP1): {e}")
             elif direction == "SHORT" and tp1 > 0 and curr_price <= tp1 and not t.get("tp1_partial_closed"):
                 t["tp1_partial_closed"] = True
                 t["tp1_reached"] = True
@@ -645,6 +650,11 @@ def update_autonomous_portfolio(db_assets):
                 t.setdefault("in_flight_warnings", []).append(
                     f"🎯 TP1 Teilgewinn (50% Tranche, +{part_raw:.2f}%) gesichert! Restposition läuft risikofrei mit Trailing-SL."
                 )
+                try:
+                    from notifications import send_ki_portfolio_alert
+                    send_ki_portfolio_alert("TRADE_PARTIAL_CLOSE", t)
+                except Exception as e:
+                    print(f"Warnung beim KI-Portfolio Alert (TP1): {e}")
 
         # D) AUTONOME POSITIONSERWEITERUNG (PYRAMIDING) BEI VERSTÄRKTEN SIGNALEN
         if not exit_triggered:
@@ -695,6 +705,11 @@ def update_autonomous_portfolio(db_assets):
                     })
                     t["entry_reason"] += f" | {exp_note}"
                     print(f"   📈 [PYRAMIDING] Position {t['name']} ({sym}) erweitert: Tranche {new_tranches} @ {curr_price:,.2f} | Neuer Mischkurs: {blended_entry:,.2f} | SL nachgezogen: {new_sl:,.2f}")
+                    try:
+                        from notifications import send_ki_portfolio_alert
+                        send_ki_portfolio_alert("TRADE_EXPANDED", t)
+                    except Exception as e:
+                        print(f"Warnung beim KI-Portfolio Alert (EXPANDED): {e}")
 
         if exit_triggered:
             # Trade abschließen (unter Berücksichtigung von 50% Teilgewinnmitnahmen)
@@ -779,6 +794,12 @@ def update_autonomous_portfolio(db_assets):
 
             # Gedächtnis updaten
             record_learning_in_memory(memory, closed_entry)
+
+            try:
+                from notifications import send_ki_portfolio_alert
+                send_ki_portfolio_alert("TRADE_CLOSED", closed_entry)
+            except Exception as e:
+                print(f"Warnung beim KI-Portfolio Alert (CLOSED): {e}")
         else:
             remaining_active.append(t)
 
@@ -1020,6 +1041,12 @@ def update_autonomous_portfolio(db_assets):
             remaining_active.append(new_trade)
             active_symbols[sym] = new_trade
             horizon_counts[horizon] = horizon_counts.get(horizon, 0) + 1
+
+            try:
+                from notifications import send_ki_portfolio_alert
+                send_ki_portfolio_alert("TRADE_OPENED", new_trade)
+            except Exception as e:
+                print(f"Warnung beim KI-Portfolio Alert (OPENED): {e}")
 
     # 4. Metriken neu berechnen
     all_closed = closed_trades

@@ -799,30 +799,53 @@ def evaluate_batch_with_cascade(assets_batch):
     use_pro_sub = conf.get("use_pro_subscription", True)
 
     prompt = build_analysis_prompt(assets_batch)
+    assets_symbols = [a.get("symbol", "") for a in assets_batch if isinstance(a, dict)]
+    outcome1 = "ERROR"
+    dur1 = 0.0
+    err1 = None
 
     # =========================================================================
     # STUFE 1: Google Pro-Abo CLI mit gemini-3.8-flash-high (Account 2: pokeulm@gmail.com)
     # =========================================================================
     if use_pro_sub:
         try:
-            from gemini_quota_tracker import is_pro_quota_available, record_pro_cli_request
+            from gemini_quota_tracker import is_pro_quota_available, record_pro_cli_request, record_gemini_execution_event
             pro_allowed = is_pro_quota_available()
         except Exception:
             pro_allowed = True
+            record_gemini_execution_event = None
 
         if pro_allowed:
             print(f" (Stufe 1: Google Pro-Abo CLI {primary_model} [pokeulm@gmail.com])...", end="", flush=True)
+            t0 = time.time()
             res, err = call_gemini_via_pro_cli(prompt, model=primary_model, timeout=timeout)
+            dur1 = time.time() - t0
             if res and isinstance(res, list) and len(res) > 0:
                 try:
                     record_pro_cli_request()
                 except Exception:
                     pass
+                if record_gemini_execution_event:
+                    try:
+                        record_gemini_execution_event(
+                            tier="Stufe 1 (Pro CLI)",
+                            model=primary_model,
+                            outcome="SUCCESS",
+                            duration_seconds=dur1,
+                            assets=assets_symbols
+                        )
+                    except Exception:
+                        pass
                 t_token = Path("/home/admin/.gemini_trading/.gemini/antigravity-cli/antigravity-oauth-token")
                 acc_label = "Account 2 Pro (pokeulm@gmail.com)" if t_token.exists() else "Account 1 Pro (mayer.max.1994@gmail.com)"
                 return res, None, f"{primary_model} [{acc_label}]"
+            
+            err1 = err
+            outcome1 = "TIMEOUT" if "Timeout" in str(err) else ("HTTP_503_OVERLOAD" if "503" in str(err) else "ERROR")
             print(f" [Stufe 1 Pro-Abo CLI ({err}) -> Failover auf Stufe 2 Keys]...", end="", flush=True)
         else:
+            outcome1 = "5H_LIMIT_HIT"
+            err1 = "Google 5h-Limit erreicht"
             print(f" [Stufe 1 Google 5h-Limit erreicht -> Failover auf Stufe 2 Keys]...", end="", flush=True)
 
     # =========================================================================
@@ -831,6 +854,19 @@ def evaluate_batch_with_cascade(assets_batch):
     print(f" (Stufe 2: Multi-Key Pool REST gemini-3.8-flash High)...", end="", flush=True)
     res, err, used_key_info = call_gemini_via_key_pool(prompt, model="gemini-3.8-flash", timeout=45)
     if res and isinstance(res, list) and len(res) > 0:
+        try:
+            from gemini_quota_tracker import record_gemini_execution_event
+            record_gemini_execution_event(
+                tier="Stufe 1 (Pro CLI)",
+                model=primary_model,
+                outcome=outcome1,
+                duration_seconds=dur1,
+                assets=assets_symbols,
+                fallback_used=f"Stufe 2 (gemini-3.8-flash [{used_key_info}])",
+                error_message=err1
+            )
+        except Exception:
+            pass
         return res, None, f"gemini-3.8-flash High [{used_key_info}]"
 
     # =========================================================================
@@ -839,11 +875,37 @@ def evaluate_batch_with_cascade(assets_batch):
     print(f" (Stufe 3: Multi-Key Pool Fallback {fallback_model})...", end="", flush=True)
     res, err, used_key_info = call_gemini_via_key_pool(prompt, model=fallback_model, timeout=30)
     if res and isinstance(res, list) and len(res) > 0:
+        try:
+            from gemini_quota_tracker import record_gemini_execution_event
+            record_gemini_execution_event(
+                tier="Stufe 1 (Pro CLI)",
+                model=primary_model,
+                outcome=outcome1,
+                duration_seconds=dur1,
+                assets=assets_symbols,
+                fallback_used=f"Stufe 3 ({fallback_model} [{used_key_info}])",
+                error_message=err1
+            )
+        except Exception:
+            pass
         return res, None, f"{fallback_model} [{used_key_info}]"
 
     # =========================================================================
     # STUFE 4: Fallback auf quantitative Confluence-Engine
     # =========================================================================
+    try:
+        from gemini_quota_tracker import record_gemini_execution_event
+        record_gemini_execution_event(
+            tier="Stufe 1 (Pro CLI)",
+            model=primary_model,
+            outcome=outcome1,
+            duration_seconds=dur1,
+            assets=assets_symbols,
+            fallback_used="Stufe 4 (Quantitative Math-Core)",
+            error_message=err1 or err
+        )
+    except Exception:
+        pass
     print(f"\n      ⚠️ KI-Auswertung nicht verfügbar ({err}) -> Aktiviere Stufe 4 (Mathematische Confluence-Engine)...", end="", flush=True)
     return None, err, "quantitative_confluence [Math Core]"
 

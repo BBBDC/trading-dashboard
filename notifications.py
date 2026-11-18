@@ -1048,6 +1048,189 @@ def send_scan_summary_notification(db_data, force_send=False):
     return success
 
 
+def get_ki_portfolio_recipients():
+    """
+    Ermittelt alle Telegram chat_ids, die Benachrichtigungen für das KI-Portfolio aktiviert haben.
+    Admin (deine ID): Default True (AN).
+    Trader: Default False (AUS) - Opt-In.
+    """
+    recipients = []
+    if not TELEGRAM_CONFIG_FILE.exists():
+        return recipients
+
+    try:
+        with open(TELEGRAM_CONFIG_FILE, "r", encoding="utf-8") as f:
+            tconf = json.load(f)
+    except Exception:
+        return recipients
+
+    admin_chat_ids = set(str(c) for c in tconf.get("admin_chat_ids", []))
+    auth_users = tconf.get("authorized_users", {})
+
+    prefs_file = BASE_DIR / "knowledge_base" / "user_alert_preferences.json"
+    prefs = {}
+    if prefs_file.exists():
+        try:
+            with open(prefs_file, "r", encoding="utf-8") as f:
+                prefs = json.load(f)
+        except Exception:
+            prefs = {}
+
+    for uname, udata in auth_users.items():
+        if not isinstance(udata, dict) or not udata.get("chat_id"):
+            continue
+        cid = str(udata.get("chat_id"))
+        is_admin = cid in admin_chat_ids or udata.get("role") == "admin"
+
+        user_pref = prefs.get(cid, {})
+        if "notify_ki_portfolio" in user_pref:
+            if user_pref["notify_ki_portfolio"]:
+                recipients.append(cid)
+        else:
+            # Standard: Admin -> AN, Trader -> AUS
+            if is_admin:
+                recipients.append(cid)
+
+    for acid in admin_chat_ids:
+        if acid not in recipients:
+            user_pref = prefs.get(acid, {})
+            if user_pref.get("notify_ki_portfolio", True):
+                recipients.append(acid)
+
+    return list(set(recipients))
+
+
+def send_ki_portfolio_alert(event_type: str, trade: dict, detail: str = ""):
+    """
+    Versendet formatierte Telegram-Push-Benachrichtigungen für Ereignisse im KI-Portfolio.
+    Prüft pro Nutzer dessen Präferenz `notify_ki_portfolio`.
+    """
+    recipients = get_ki_portfolio_recipients()
+    if not recipients:
+        return False
+
+    sym = trade.get("symbol", "")
+    name = trade.get("name", sym)
+    direction = trade.get("direction", "LONG")
+    lev = trade.get("leverage", 1)
+    entry_p = trade.get("entry_price", 0.0)
+    curr_p = trade.get("current_price", entry_p)
+    sl = trade.get("stop_loss", 0.0)
+    tp1 = trade.get("take_profit_1", 0.0)
+    tp2 = trade.get("take_profit_2", 0.0)
+    crv = trade.get("crv", 2.5)
+    score = trade.get("score", 0)
+    horizon_lbl = trade.get("horizon_label", "🎯 Core Swing")
+    setup = trade.get("setup_name", "Quantitative Confluence")
+    risk_pct = trade.get("risk_pct", 0.5)
+    risk_cash = trade.get("risk_cash", 50.0)
+    cap = trade.get("allocated_capital", 1000.0)
+
+    badges = trade.get("evaluator_badges", [])
+    if not badges and trade.get("evaluator_badge"):
+        badges = [trade.get("evaluator_badge")]
+    badges_str = " · ".join([f"<code>{b}</code>" for b in badges]) if badges else "<code>📐 Antigravity: PASS</code>"
+
+    msg = ""
+
+    if event_type == "TRADE_OPENED":
+        dir_icon = "🟢" if direction == "LONG" else "🔴"
+        msg = (
+            f"🤖 <b>KI-PORTFOLIO: NEUER TRADE ERÖFFNET</b>\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"{dir_icon} <b>{name} ({sym})</b> · <code>{direction}</code>\n"
+            f"• <b>Hebel:</b> <b>{lev}x</b> | <b>Horizont:</b> {horizon_lbl}\n"
+            f"• <b>Einstiegskurs:</b> <code>{entry_p:,.2f}</code>\n"
+            f"• <b>Stop-Loss:</b> <code>{sl:,.2f}</code>\n"
+            f"• <b>Take-Profit 1:</b> <code>{tp1:,.2f}</code> (Teilgewinn 50%)\n"
+            f"• <b>Take-Profit 2:</b> <code>{tp2:,.2f}</code> (CRV {crv}:1)\n"
+            f"• <b>Setup:</b> <i>{setup}</i> (Score: <b>{score}%</b>)\n"
+            f"• <b>Risiko:</b> <code>{risk_pct}%</code> (~${risk_cash:.2f}) | <b>Kapital:</b> ${cap:,.2f}\n\n"
+            f"🏛️ <b>Triade-Konsens &amp; Prüfsiegel:</b>\n"
+            f"{badges_str}\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"<i>Automatisch überwacht im KI-Portfolio</i>"
+        )
+
+    elif event_type == "TRADE_PARTIAL_CLOSE":
+        part_raw = trade.get("partial_tp_realized_raw_pct", 0.0)
+        part_lev = round(part_raw * lev, 2)
+        msg = (
+            f"🎯 <b>KI-PORTFOLIO: TP1 ERREICHT (TEILGEWINN)</b>\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"💰 <b>{name} ({sym})</b> · <code>{direction}</code>\n"
+            f"• <b>Ausführungskurs:</b> <code>{tp1:,.2f}</code>\n"
+            f"• <b>Gesicherter Teilgewinn (50%):</b> <b>+{part_raw:.2f}%</b> (gehebelt <b>+{part_lev:.2f}%</b>)\n"
+            f"• <b>Schutz-Aktion:</b> 🛡️ <b>Stop-Loss auf Break-Even ({entry_p:,.2f}) nachgezogen</b>\n"
+            f"• <b>Restposition:</b> Läuft risikofrei bis TP2 ({tp2:,.2f}) mit Trailing-SL.\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"<i>Kapitalschutz aktiv · Keine Verlustgefahr mehr</i>"
+        )
+
+    elif event_type == "TRADE_EXPANDED":
+        tranches = trade.get("tranches", 2)
+        msg = (
+            f"📈 <b>KI-PORTFOLIO: POSITION AUFGESTOCKT</b>\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"🚀 <b>{name} ({sym})</b> · <code>{direction}</code>\n"
+            f"• <b>Status:</b> <b>Tranche {tranches}/3 hinzugefügt</b>\n"
+            f"• <b>Ausführungskurs:</b> <code>{curr_p:,.2f}</code> (Score: <b>{score}%</b>)\n"
+            f"• <b>Neuer Mischkurs:</b> <code>{entry_p:,.2f}</code>\n"
+            f"• <b>Neuer Stop-Loss:</b> <code>{sl:,.2f}</code> (Gewinnschutz angehoben)\n"
+            f"• <b>Gesamtkapital:</b> ${cap:,.2f}\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"<i>Pyramiding aktiv bei Signalverstärkung</i>"
+        )
+
+    elif event_type == "TRADE_TRAILING_UPDATE":
+        msg = (
+            f"🛡️ <b>KI-PORTFOLIO: TRAILING-STOP NACHGEZOGEN</b>\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"💎 <b>{name} ({sym})</b> · <code>{direction}</code>\n"
+            f"• <b>Neuer Stop-Loss:</b> <code>{sl:,.2f}</code>\n"
+            f"• <b>Aktueller Kurs:</b> <code>{curr_p:,.2f}</code>\n"
+            f"• <b>Info:</b> {detail}\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"<i>Gewinne dynamisch abgesichert</i>"
+        )
+
+    elif event_type == "TRADE_CLOSED":
+        res = trade.get("result", "CLOSED")
+        is_win = res == "WIN"
+        is_be = res == "BREAKEVEN"
+        icon = "✅" if is_win else ("⚖️" if is_be else "🛑")
+        raw_pnl = trade.get("realized_pnl_pct", 0.0)
+        lev_pnl = trade.get("realized_pnl_leveraged_pct", 0.0)
+        cash_pnl = trade.get("realized_pnl_cash", 0.0)
+        r_val = trade.get("realized_r", 0.0)
+        days = trade.get("holding_days", 0.0)
+        exit_r = trade.get("exit_reason", detail or "Ausstieg gemäß Strategie")
+        exit_p = trade.get("exit_price", curr_p)
+        learning = trade.get("post_mortem_learning") or (trade.get("ai_post_mortem", {}).get("summary_text", ""))
+
+        learning_block = f"\n\n🧠 <b>AI Post-Mortem Learning:</b>\n<i>{learning}</i>" if learning else ""
+
+        msg = (
+            f"{icon} <b>KI-PORTFOLIO: TRADE GESCHLOSSEN</b>\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"📊 <b>{name} ({sym})</b> · <code>{direction}</code>\n"
+            f"• <b>Ergebnis:</b> <b>{res}</b> (<b>{r_val:+.2f}R</b>)\n"
+            f"• <b>Realisierter PnL:</b> <b>{raw_pnl:+.2f}%</b> (gehebelt <b>{lev_pnl:+.2f}%</b>)\n"
+            f"• <b>Cash PnL:</b> <b>${cash_pnl:+.2f} USD</b>\n"
+            f"• <b>Einstieg ➔ Ausstieg:</b> <code>{entry_p:,.2f}</code> ➔ <code>{exit_p:,.2f}</code>\n"
+            f"• <b>Haltedauer:</b> <b>{days:.1f} Tage</b>\n"
+            f"• <b>Grund:</b> <i>{exit_r}</i>{learning_block}\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"<i>In Historie archiviert &amp; ins Trade-Gedächtnis übernommen</i>"
+        )
+
+    if msg:
+        print(f"📢 [KI-Portfolio Alert] Sende {event_type} an {len(recipients)} Empfänger: {recipients}")
+        send_telegram_alert(msg, parse_mode="HTML", target_chat_ids=recipients)
+        return True
+    return False
+
+
 if __name__ == "__main__":
     print("Prüfe Benachrichtigungs-System & Historie...")
     if HISTORY_FILE.exists():

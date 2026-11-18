@@ -19,6 +19,8 @@ from datetime import datetime, timezone, timedelta
 
 BASE_DIR = Path(__file__).resolve().parent
 QUOTA_FILE = BASE_DIR / "knowledge_base" / "gemini_quota.json"
+EXECUTION_LOG_FILE = BASE_DIR / "knowledge_base" / "gemini_execution_log.json"
+DASH_EXECUTION_LOG_FILE = BASE_DIR / "dashboard" / "gemini_execution_log.json"
 CONFIG_FILE = BASE_DIR / "gemini_config.json"
 
 
@@ -394,6 +396,118 @@ def record_pro_cli_request(tokens=0):
     return pro
 
 
+def record_gemini_execution_event(tier, model, outcome, duration_seconds, assets=None, fallback_used=None, error_message=None):
+    """
+    Protokolliert eine Batch-Ausführung der Gemini-Kaskade rollierend (letzte 50 Ereignisse).
+    outcome: 'SUCCESS', 'TIMEOUT', 'HTTP_503_OVERLOAD', 'ERROR'
+    """
+    now_dt = datetime.now(timezone.utc)
+    now_iso = now_dt.isoformat()
+    now_cet = now_dt.astimezone(timezone(timedelta(hours=1)))
+
+    event = {
+        "id": f"run_{now_dt.strftime('%Y%m%d_%H%M%S')}_{int(duration_seconds*10)}",
+        "timestamp": now_iso,
+        "timestamp_str": now_cet.strftime("%d.%m. %H:%M:%S CET"),
+        "time_short": now_cet.strftime("%H:%M"),
+        "tier": tier,
+        "model": model,
+        "outcome": outcome,
+        "duration_seconds": round(duration_seconds, 1),
+        "assets": assets or [],
+        "assets_str": ", ".join(assets) if assets else "",
+        "fallback_used": fallback_used,
+        "error_message": error_message[:150] if error_message else None
+    }
+
+    events = []
+    if EXECUTION_LOG_FILE.exists():
+        try:
+            with open(EXECUTION_LOG_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, list):
+                    events = data
+        except Exception:
+            events = []
+
+    # Rolling Window von 50 Events pflegen
+    events.insert(0, event)
+    events = events[:50]
+
+    # In knowledge_base und dashboard speichern
+    try:
+        EXECUTION_LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
+        with open(EXECUTION_LOG_FILE, "w", encoding="utf-8") as f:
+            json.dump(events, f, indent=2, ensure_ascii=False)
+    except Exception as e:
+        print(f"Warnung beim Speichern von {EXECUTION_LOG_FILE}: {e}")
+
+    try:
+        DASH_EXECUTION_LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
+        with open(DASH_EXECUTION_LOG_FILE, "w", encoding="utf-8") as f:
+            json.dump(events, f, indent=2, ensure_ascii=False)
+    except Exception as e:
+        pass
+
+    return event
+
+
+def get_gemini_performance_metrics(hours=24):
+    """
+    Berechnet die Zuverlässigkeits-Metriken der letzten `hours` Stunden aus gemini_execution_log.json.
+    """
+    events = []
+    if EXECUTION_LOG_FILE.exists():
+        try:
+            with open(EXECUTION_LOG_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, list):
+                    events = data
+        except Exception:
+            events = []
+
+    now_dt = datetime.now(timezone.utc)
+    cutoff = (now_dt - timedelta(hours=hours)).isoformat()
+    recent_24h = [e for e in events if e.get("timestamp", "") >= cutoff]
+
+    total = len(recent_24h)
+    success = sum(1 for e in recent_24h if e.get("outcome") == "SUCCESS")
+    timeouts = sum(1 for e in recent_24h if e.get("outcome") == "TIMEOUT")
+    http503 = sum(1 for e in recent_24h if e.get("outcome") == "HTTP_503_OVERLOAD")
+    errors = total - success - timeouts - http503
+
+    rate_pct = round((success / total * 100.0), 1) if total > 0 else 100.0
+    latencies = [e.get("duration_seconds", 0) for e in recent_24h if e.get("duration_seconds")]
+    avg_lat = round(sum(latencies) / len(latencies), 1) if latencies else 0.0
+
+    if total == 0:
+        status_label = "BEREIT"
+        status_icon = "🟢"
+    elif rate_pct >= 85:
+        status_label = "STABIL"
+        status_icon = "🟢"
+    elif rate_pct >= 60:
+        status_label = "LASTSPITZEN"
+        status_icon = "🟡"
+    else:
+        status_label = "EINGESCHRÄNKT"
+        status_icon = "🔴"
+
+    return {
+        "status": status_label,
+        "status_icon": status_icon,
+        "total_batches_24h": total,
+        "success_count_24h": success,
+        "timeout_count_24h": timeouts,
+        "http503_count_24h": http503,
+        "error_count_24h": max(0, errors),
+        "success_rate_pct": rate_pct,
+        "avg_latency_seconds": avg_lat,
+        "recent_runs": events[:10],
+        "recent_failures": [e for e in events if e.get("outcome") != "SUCCESS"][:5]
+    }
+
+
 def is_pro_quota_available():
     """
     Prüft, ob das Pro-Abo verfügbar ist.
@@ -574,7 +688,8 @@ def get_quota_summary_for_dashboard():
             "active_tier": "Google Pro-Abo CLI (pokeulm@gmail.com · gemini-3.8-flash-high)",
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "routing_priority": "1. Google Pro-Abo (pokeulm@gmail.com · 3.8 Flash High) -> 2. Multi-Key Pool (3.8 Flash High) -> 3. Multi-Key Pool (3.5 Flash) -> 4. Math-Core"
-        })
+        }),
+        "performance_metrics": get_gemini_performance_metrics(hours=24)
     }
 
 
