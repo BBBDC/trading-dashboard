@@ -1,5 +1,48 @@
 [
   {
+    "id": "evt_20261118_142939",
+    "timestamp": "2026-11-18T14:29:39.210170+00:00",
+    "timestamp_display": "18.11.2026 14:29 UTC",
+    "title": "🔔 TV-Signaländerung: 1 Asset aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 1,
+    "changes": [
+      {
+        "symbol": "TRADEGATE:SPX",
+        "name": "S&P 500 (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SETUP_UPDATE",
+        "old_signal": "SHORT",
+        "new_signal": "SHORT",
+        "old_score": 91,
+        "new_score": 88,
+        "price": 130.02,
+        "setup_name": "Hypothese 1: Bearish Confluence Reversal",
+        "entry_range": [
+          129.64,
+          130.94
+        ],
+        "stop_loss": 133.4,
+        "take_profit_2": 117.65,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "SMC OB: 4h Bearish Order Block [R13] Retest",
+          "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)",
+          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Core Swing",
+        "holding_period": "2–5 Tage",
+        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 1: Bearish Confluence Reversal' (1D Trend unter EMA 233 bärisch).",
+        "note": "3-Säulen-Erschöpfung (88%): Makro-Bärenmarkt aktiv, Widerstandszone bestätigt, Sell-Trigger aktiv.",
+        "evaluated_by": "quantitative_engine"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n🔴 S&P 500 (Tradegate) (SPX):\n   Score-Sprung: 91% ➔ 88% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: Bearish Confluence Reversal' (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: 3-Säulen-Erschöpfung (88%): Makro-Bärenmarkt aktiv, Widerstandszone bestätigt, Sell-Trigger aktiv....\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Core Swing (2–5 Tage)\n   Entry: 129.64 | SL: 133.40 | TP2: 117.65\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261118_124532",
     "timestamp": "2026-11-18T12:45:32.630999+00:00",
     "timestamp_display": "18.11.2026 12:45 UTC",
@@ -24377,35 +24420,5 @@
     "notification_sent": false,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 5 Einstufungen haben sich geändert:\n\n🟢 SPY (SPY):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 89%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (Perfekte HTF-Konfluenz: 1W/1D bullisch, Kurs befindet sich exakt im 1D Golden Pocket und in der 1D Buy Pocket).\n   📝 KI-Rationale: SPY bietet eine makellose institutionelle Konfluenz: Der Kurs testet das 1D Golden Pocket in Kombination mit einem Grad-A Order Bl...\n   Setup: Hypothese 1: SMC Golden Confluence Reversal\n   Entry: 760.80 | SL: 755.20 | TP2: 788.00\n\n🔴 XRPUSD (XRPUSD):\n   Score-Sprung: 95% ➔ 88% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 88% (Makro-Trend (1D/1W) ist vollkommen bärisch strukturiert, 4h-Erholung stellt eine Bärenmarktrallye dar.).\n   📝 KI-Rationale: XRP testet mit schwachem Volumen eine schwere HTF-Widerstandszone (Grade A Bärischer OB bei 1.32 USD) innerhalb eines intakten 1D/...\n   Setup: Hypothese 1: SMC Order Block Exhaustion\n   Entry: 1.31 | SL: 1.33 | TP2: 1.23\n\n⚪ IBM (IBM):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1D/1W) ist eindeutig bullisch, weshalb trotz Überhitzung im LTF kein Short-Signal erlaubt ist.).\n   📝 KI-Rationale: Obwohl der Makro-Trend extrem stark ist, verbietet sich ein Pro-Cyclical Long auf aktuellem Niveau (258.21 USD), da der Kurs im Se...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n⚪ Broadcom (Tradegate) (45C):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Makrotrend (1W/1D) ist intakt bullisch, 4h/1h konsolidieren in einer gesunden Korrektur).\n   📝 KI-Rationale: Der Makro-Trend auf Tages- und Wochenbasis bleibt eindeutig bullisch, weshalb Short-Positionen ausgeschlossen sind. Da der 4h-Tren...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n⚪ Microsoft (Tradegate) (MSF):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 50%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W & 1D) ist bullisch, Kurs befindet sich jedoch im 1D Sell Pocket und ist auf 1h mit RSI 83.03 massiv überdehnt (Chasing-Verbot).).\n   📝 KI-Rationale: Microsoft weist zwar starke bullische Makro-Dynamik auf, notiert jedoch direkt im institutional Sell Pocket und ist kurzfristig ex...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_trade_20261104_152714_ETHUSDT",
-    "timestamp": "2026-11-04T15:27:14.873253+00:00",
-    "timestamp_display": "04.11.2026 15:27 UTC",
-    "title": "🛑 Stop-Loss ausgelöst – BINANCE:ETHUSDT geschlossen",
-    "type": "USER_TRADE_CLOSED",
-    "change_count": 1,
-    "changes": [
-      {
-        "symbol": "BINANCE:ETHUSDT",
-        "name": "ETHUSD",
-        "category": "UserTrade",
-        "change_type": "STOP_LOSS_TRIGGERED",
-        "old_signal": "SHORT",
-        "new_signal": "CLOSED",
-        "old_score": 0,
-        "new_score": 0,
-        "price": 2433.89,
-        "reasons": [
-          "Realisierter PnL: -74.68% (Basis: -6.22%)",
-          "🛑 Stop-Loss ausgelöst (2,433.89 >= 2,393.00 $)"
-        ],
-        "change_reason": "🛑 Stop-Loss ausgelöst (2,433.89 >= 2,393.00 $)",
-        "note": "Einstieg: 2.291,30 $, Ausstieg: 2.433,89 $, Hebel: 12x, Dauer: 1T"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "ETHUSD (BINANCE:ETHUSDT) geschlossen mit -74.68% (🛑 Stop-Loss ausgelöst (2,433.89 >= 2,393.00 $))"
   }
 ]
