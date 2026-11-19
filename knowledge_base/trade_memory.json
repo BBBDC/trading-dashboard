@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-19T21:02:20.753031+00:00",
-  "total_experience_records": 60,
+  "updated_at": "2026-11-19T21:39:09.097948+00:00",
+  "total_experience_records": 63,
   "learnings": [
+    {
+      "timestamp": "2026-11-19T21:39:02.023400+00:00",
+      "trade_id": "cross_rule_1795124342",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Strengere VSA-Absorptionsschwelle gegen den Trend: Gegen die Haupttrendrichtung gilt moderates Volumen (<2.0x Durchschnitt) als Durchgangs-Liquidität und nicht als Akkumulation; valide Reversal-Absorption erfordert extremes Klimax-Volumen (>=2.5x) plus Bestätigungskerze.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Im AVAX-Trade wurde ein 1.6x-Volumenanstieg fälschlicherweise als Boden-Absorption gewertet, obwohl der Verkaufsdruck den Support unmittelbar durchschlug – ein Muster, das sich auf 4h/1D als klassische Distribution vor dem Breakdown wiederholt.",
+        "actionable_rule": "Strengere VSA-Absorptionsschwelle gegen den Trend: Gegen die Haupttrendrichtung gilt moderates Volumen (<2.0x Durchschnitt) als Durchgangs-Liquidität und nicht als Akkumulation; valide Reversal-Absorption erfordert extremes Klimax-Volumen (>=2.5x) plus Bestätigungskerze."
+      }
+    },
+    {
+      "timestamp": "2026-11-19T21:39:02.023375+00:00",
+      "trade_id": "cross_rule_1795124342",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Macro-Override-Sperre: Ein übergeordneter Abwärtstrend darf niemals allein durch Indikator-Konfluenz (Buy-Signale, untere Bänder) überstimmt werden, sondern erfordert zwingend einen bestätigten Marktstrukturbruch (CHoCH/BOS) nach dem Sweep.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die 15m-Beobachtung bei AVAXUSDT zeigt fraktal, dass Support-Zonen in dominanten Abwärtstrends primär als Liquiditätsziele für Stop-Runs dienen; auf 4h/1D führt verfrühtes Counter-Trend-Positionieren gegen den Trendfluss zu denselben systematischen Ausstoppern.",
+        "actionable_rule": "Macro-Override-Sperre: Ein übergeordneter Abwärtstrend darf niemals allein durch Indikator-Konfluenz (Buy-Signale, untere Bänder) überstimmt werden, sondern erfordert zwingend einen bestätigten Marktstrukturbruch (CHoCH/BOS) nach dem Sweep."
+      }
+    },
+    {
+      "timestamp": "2026-11-19T21:39:02.023322+00:00",
+      "trade_id": "inc_AVAXUSDT_15m_1795060880",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (15m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Confluence Long",
+      "pnl_leveraged": -5.06,
+      "pnl_raw": -2.53,
+      "text": "Counter-Trend-Longs gegen den Makro-Abwärtstrend sind bei diesem Setup strikt zu blockieren, solange kein vollständiger Liquidity-Sweep mit anschließendem strukturellem Reclaim (CHoCH) und mindestens 2.5x Klimax-Volumen bestätigt wurde.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_15m_1795060880",
+        "verdict": "LOSS",
+        "driver": "Der Trade scheiterte an einem verfrühten Counter-Trend-Long gegen den intakten Makro-Abwärtstrend, bei dem der vermeintliche 15m-Support unter anhaltendem Angebotsdruck brach.",
+        "technical_warning": "Der aktive Makro-Abwärtstrend in Kombination mit einem nur moderaten VSA-Volumenfaktor von 1.6x (zu schwach für echte institutionelle Klimax-Absorption in einem Altcoin) ohne bestätigten Marktstrukturbruch (CHoCH/BOS) war das entscheidende Warnsignal.",
+        "actionable_rule": "Counter-Trend-Longs gegen den Makro-Abwärtstrend sind bei diesem Setup strikt zu blockieren, solange kein vollständiger Liquidity-Sweep mit anschließendem strukturellem Reclaim (CHoCH) und mindestens 2.5x Klimax-Volumen bestätigt wurde."
+      }
+    },
     {
       "timestamp": "2026-11-19T21:01:42.739418+00:00",
       "trade_id": "trade_TVC_GOLD_20261109_1511",
