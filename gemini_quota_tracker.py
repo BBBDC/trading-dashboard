@@ -88,8 +88,9 @@ def load_quota_state():
             with open(QUOTA_FILE, "r", encoding="utf-8") as f:
                 saved = json.load(f)
                 if saved.get("date") == today_str and isinstance(saved.get("keys"), dict):
-                    state["keys"] = saved.get("keys", {})
-                    state["model"] = saved.get("model", "gemini-3.8-flash")
+                    valid_masks = {mask_key(k) for k in configured_keys}
+                    state["keys"] = {k: v for k, v in saved.get("keys", {}).items() if k in valid_masks}
+                    state["model"] = "gemini-4-hydrogen"
                     if isinstance(saved.get("pro_subscription"), dict):
                         state["pro_subscription"] = saved["pro_subscription"]
                     if isinstance(saved.get("health_check"), dict):
@@ -600,12 +601,17 @@ def get_quota_summary_for_dashboard():
             "last_error": info.get("last_error")
         })
 
-    pool_pct = round((total_used / total_limit * 100.0), 1) if total_limit > 0 else 100.0
-    pool_exhausted = (total_remaining == 0)
+    pool_pct = round((total_used / total_limit * 100.0), 1) if total_limit > 0 else 0.0
+    pool_exhausted = (total_remaining == 0) and (total_limit > 0)
     current_active_key, current_active_masked = get_active_api_key()
 
     reset_countdowns = [kd["reset_countdown"] for kd in keys_detail if kd["is_exhausted"]]
     pool_countdown = reset_countdowns[0] if reset_countdowns else "aktiv (24/7)"
+    if not keys_detail:
+        pool_countdown = "Google AI Pro unbegrenzt"
+        status_val = "PRO_UNLIMITED_ACTIVE"
+    else:
+        status_val = "EXHAUSTED" if pool_exhausted else "ACTIVE"
 
     acc_info = get_connected_account_info()
     live_q = get_google_pro_live_quota() or {}
@@ -621,8 +627,8 @@ def get_quota_summary_for_dashboard():
     pro_used_week = len(req_history) if req_history else pro_used_today
 
     return {
-        "model": "gemini-3.8-flash-high",
-        "pool_mode": "MULTI_KEY_FAILOVER",
+        "model": "gemini-4-hydrogen",
+        "pool_mode": "GOOGLE_AI_PRO_UNLIMITED",
         "total_keys_count": len(keys_detail),
         "active_keys_count": active_count,
         "daily_limit": total_limit,
@@ -630,14 +636,14 @@ def get_quota_summary_for_dashboard():
         "requests_remaining": total_remaining,
         "percent_used": pool_pct,
         "tokens_used_today": total_tokens,
-        "status": "EXHAUSTED" if pool_exhausted else "ACTIVE",
+        "status": status_val,
         "is_exhausted": pool_exhausted,
         "reset_countdown": pool_countdown,
-        "active_key_masked": current_active_masked,
+        "active_key_masked": current_active_masked or "Google AI Pro CLI",
         "keys_detail": keys_detail,
         "pro_subscription": {
             "enabled": True,
-            "model": "gemini-3.8-flash-high (Google Pro Thinking)",
+            "model": "gemini-4-hydrogen (Google AI Pro Low)",
             "account_info": acc_info,
             "monitoring_mode": True,
             "daily_limit_type": "UNLIMITED_MONITORING",

@@ -353,7 +353,7 @@ def evaluate_batch_trades_post_mortem(trades_list):
     """
     Führt eine vergleichende Multi-Trade Post-Mortem-Analyse für 2 bis 5 abgeschlossene Trades durch.
     Analysiert Kausalitäten (Cross-Trade-Synthese): Was unterschied Gewinner von Verlierern?
-    Nutzt prioritär Gemini 3.8 Flash High via Pro-Abo CLI (pokeulm@gmail.com).
+    Nutzt prioritär Gemini 4 via Google AI Pro CLI (mayer.max.1994@gmail.com).
     """
     if not trades_list:
         return None

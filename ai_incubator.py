@@ -10,7 +10,7 @@ Autonomes 5m / 15m / 30m Micro-Trading & High-Throughput Post-Mortem Labor:
    - 5m: Micro-Liquidity-Sweeps, Stop-Hunts & Scharfschützen-Einstiege
    - 15m / 30m: Zonen-Struktur, FVGs (1-Tick-Rule) & Chaos-Band-Rebounds
    - 4h / 1D: RFE 233 Trendfilter (Top-Down Governance)
-3. Vergleichende KI-Batch-Post-Mortem Synthese (Gemini 3.8 Flash High via Pro-Abo CLI pokeulm@gmail.com):
+3. Vergleichende KI-Batch-Post-Mortem Synthese (Gemini 4 via Google AI Pro CLI mayer.max.1994@gmail.com):
    - Analysiert 3-4 Trades gleichzeitig (Cross-Trade-Kausalität)
    - Direkter Rückfluss der Lehren in 'knowledge_base/trade_memory.json'
 4. Historisches Walk-Forward Replay-Training:
@@ -872,7 +872,7 @@ def trigger_comparative_batch_post_mortem(closed_trades: List[Dict[str, Any]], i
     pending = [t for t in closed_trades if not t.get("ai_post_mortem") and t.get("status") in ["CLOSED_SL", "CLOSED_TP1", "CLOSED_TP2"]]
     
     if pending:
-        print(f"\n  🧠 Starte taktisches KI-Post-Mortem (Gemini 3.8 Flash High) für {len(pending)} neue geschlossene Trades...")
+        print(f"\n  🧠 Starte taktisches KI-Post-Mortem (Gemini 4 via Google AI Pro) für {len(pending)} neue geschlossene Trades...")
 
         # Verarbeite in Batches (dynamisch aus gemini_config.json, z.B. 2 Trades)
         gemini_conf = load_gemini_config()

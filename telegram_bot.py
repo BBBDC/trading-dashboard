@@ -1167,24 +1167,24 @@ def get_admin_hub_text_and_markup():
     except Exception:
         pass
 
-    used = quota.get("requests_used_today", 0)
-    limit = quota.get("daily_limit", 80)
-    pct = quota.get("percent_used", 0.0)
-    rem = quota.get("requests_remaining", 80)
-    act_cnt = quota.get("active_keys_count", 4)
-    tot_cnt = quota.get("total_keys_count", 4)
-    masked = quota.get("active_key_masked", "AQ.***")
-    reset_cd = quota.get("reset_countdown", "in wenigen Stunden")
+    pro = quota.get("pro_subscription", {})
+    five_h = pro.get("five_hour_window", {})
+    five_h_rem = float(five_h.get("remaining_pct", pro.get("percent_remaining", 100.0)))
+    five_h_reset = five_h.get("reset_countdown", "Rolling 5h")
+    req_today = pro.get("requests_used_today", 0)
+    acc_info = pro.get("account_info", {})
+    acc_mail = acc_info.get("email", "mayer.max.1994@gmail.com")
 
     text = (
         f"⚙️ <b>Master-Admin Kontrollzentrum</b>\n"
         f"<i>Raspberry Pi 24/7 Trading Engine</i>\n\n"
         f"🏥 <b>System-Gesundheit:</b> <b>{sys_status_str}</b>\n"
         f"⚡ <b>Hintergrund-Dienst:</b> Systemd 24/7 aktiv\n\n"
-        f"🔑 <b>Google Gemini API-Key Pool:</b>\n"
-        f"• Keys aktiv: <b>{act_cnt} von {tot_cnt} Keys</b> ({masked})\n"
-        f"• Verbrauch: <b>{used} / {limit} Anfragen</b> ({pct:.1f}%)\n"
-        f"• Frei: <b>{rem} Anfragen</b> | Reset: <code>{reset_cd}</code>\n\n"
+        f"⚡ <b>Google AI Pro (Jahresabo):</b>\n"
+        f"• Account: <code>{acc_mail}</code> (Aktiv)\n"
+        f"• Scan-Modell: <code>gemini-4-hydrogen</code> (Low Effort)\n"
+        f"• 5h-Limit: <b>{five_h_rem:.1f}% frei</b> | Reset: <code>{five_h_reset}</code>\n"
+        f"• Heute verarbeitet: <b>{req_today} Batches</b> (Unbegrenzt)\n\n"
         f"🏛️ <b>Autonomes KI-Portfolio:</b>\n"
         f"• Win-Rate: <b>{win_rate}%</b> | Offene Trades: <b>{port_active}</b>\n"
         f"• Gehebelter Gesamt-PnL: <b>{lev_pnl:+.1f}%</b>\n\n"
@@ -1197,7 +1197,7 @@ def get_admin_hub_text_and_markup():
                 {"text": "🏥 System-Gesundheit & Diagnose", "callback_data": "admin_health_check"}
             ],
             [
-                {"text": "🔑 API-Quota Details", "callback_data": "admin_quota_details"},
+                {"text": "⚡ Google AI Pro & Quotas", "callback_data": "admin_quota_details"},
                 {"text": "🏛️ Modell-Portfolio", "callback_data": "admin_model_portfolio"}
             ],
             [
@@ -1294,22 +1294,17 @@ def get_admin_quota_details_text_and_markup():
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
         ])
 
-    keys_detail = quota.get("keys_detail", [])
-    used = quota.get("requests_used_today", 0)
-    limit = quota.get("daily_limit", 80)
-    pct = quota.get("percent_used", 0.0)
-
     pro = quota.get("pro_subscription", {})
     five_h = pro.get("five_hour_window", {})
-    five_h_rem = five_h.get("remaining_pct", pro.get("percent_remaining", 98.9))
-    five_h_used = five_h.get("used_pct", 1.1)
+    five_h_rem = float(five_h.get("remaining_pct", pro.get("percent_remaining", 100.0)))
+    five_h_used = float(five_h.get("used_pct", 0.0))
     five_h_reset = five_h.get("reset_countdown", "in wenigen Stunden")
 
     req_today = pro.get("requests_used_today", 0)
     req_week = pro.get("requests_used_this_week", req_today)
     acc_info = pro.get("account_info", {})
-    acc_name = acc_info.get("account_name", "Account 2 (Dediziert für Trading)")
-    acc_email = acc_info.get("email", "pokeulm@gmail.com")
+    acc_name = acc_info.get("account_name", "Google AI Pro (Hauptaccount)")
+    acc_email = acc_info.get("email", "mayer.max.1994@gmail.com")
 
     # Fortschrittsbalken für Google 5h Rolling Limit (10 Blöcke)
     filled_blocks = int(round(five_h_rem / 10.0))
@@ -1340,48 +1335,34 @@ def get_admin_quota_details_text_and_markup():
     recent_str = " · ".join(recent_parts) if recent_parts else "Noch keine Läufe erfasst"
 
     lines.extend([
-        f"⚡ <b>Google Pro-Abo · View Usage (Gemini 3.8 Flash High)</b>",
+        f"⚡ <b>Google AI Pro Abo · View Usage (Gemini 4)</b>",
         f"👤 <b>Account:</b> {acc_name}",
-        f"📧 <b>E-Mail:</b> <code>{acc_email}</code> (Dediziert für Trading)",
-        f"🧠 <b>Modell:</b> <code>gemini-3.8-flash-high</code> (Pro Thinking aktiv)\n",
-        f"⏳ <b>Echtes Google 5-Stunden-Limit:</b>",
-        f"• Restvolumen: <b>{five_h_rem}% frei</b> ({five_h_used}% verbraucht)",
+        f"📧 <b>E-Mail:</b> <code>{acc_email}</code> (Aktiv)",
+        f"🧠 <b>Scan-Modell:</b> <code>gemini-4-hydrogen</code> (Low Effort)",
+        f"🔬 <b>Deep-Dive:</b> <code>gemini-4-neon</code> (Medium Effort)\n",
+        f"⏳ <b>Echtes Google 5-Stunden-Limit (Compute Pool):</b>",
+        f"• Restvolumen: <b>{five_h_rem:.1f}% frei</b> ({five_h_used:.1f}% verbraucht)",
         f"• Reset-Zeitfenster: <code>{five_h_reset}</code>",
         f"• <code>[{bar}]</code> {five_h_rem:.1f}% verfügbar\n",
-        f"📈 <b>Nutzungs-Monitoring (50er-Limit aufgehoben):</b>",
+        f"📈 <b>Nutzungs-Monitoring (Unbegrenztes Pro-Abo):</b>",
         f"• Anfragen heute: <b>{req_today} Requests</b>",
         f"• Anfragen 7-Tage (Woche): <b>{req_week} Requests</b>",
         f"• Status: 🟢 <b>Unbegrenzter Monitoring-Modus aktiv</b>\n",
         f"📊 <b>Zuverlässigkeit &amp; Latenz (24h-Fenster):</b>",
         f"• Stabilität: {p_icon} <b>{p_status}</b> ({p_rate:.1f}% Erfolgsquote)",
         f"• Batches: <b>{p_total - p_timeouts}/{p_total} OK</b> ({p_timeouts} Timeouts / Lastspitzen)",
-        f"• Ø Antwortzeit: <b>{p_avg_lat:.1f}s</b>",
+        f"• Ø Antwortzeit: <b>{p_avg_lat:.1f}s</b> (Batch-Scan ca. 9-13s)",
         f"• Letzte Batches: {recent_str}\n",
-        f"🔑 <b>Google Gemini Multi-Key Quota Pool (Failover-Reserve)</b>",
-        f"<b>Pool-Verbrauch:</b> {used} / {limit} Requests ({pct:.1f}%)\n",
-        f"<b>Einzel-Key Status:</b>"
+        f"🛡️ <b>Aktive 3-Stufen Ausführungs-Kaskade:</b>",
+        f"1. <b>Primär:</b> <code>gemini-4-hydrogen (low)</code> via Google AI Pro",
+        f"2. <b>Failover:</b> <code>gemini-4-hydrogen (low)</code> Sofort-Retry (Pro CLI)",
+        f"3. <b>Safety Net:</b> SMC / Orderblock Math-Core (100% lokal, latenzfrei)\n",
+        f"💡 <i>Alte API-Key Pools (AQ.***) wurden vollständig durch das zentrale Google AI Pro Jahresabo abgelöst.</i>"
     ])
-
-    for idx, kd in enumerate(keys_detail, 1):
-        name = kd.get("name", f"Key {idx}")
-        masked = kd.get("masked", "AQ.***")
-        k_used = kd.get("requests_used", 0)
-        k_lim = kd.get("daily_limit", 20)
-        k_pct = kd.get("percent_used", 0.0)
-        k_rem = kd.get("requests_remaining", 0)
-        k_exh = kd.get("is_exhausted", False)
-        status_sym = "🔴 Erschöpft" if k_exh else f"🟢 Aktiv ({k_rem} frei)"
-
-        lines.append(
-            f"• <b>{name}</b> (<code>{masked}</code>):\n"
-            f"   Status: {status_sym} | {k_used}/{k_lim} ({k_pct:.0f}%)\n"
-        )
-
-    lines.append("🛡️ <i>Kaskade: 1. Google Pro-Abo (pokeulm@gmail.com · 3.8 Flash High) -> 2. Multi-Key Pool (3.8 Flash High) -> 3. Multi-Key Pool (3.5 Flash) -> 4. SMC Math-Core.</i>")
 
     kb = {
         "inline_keyboard": [
-            [{"text": "⚡ Gemini 3.8 Ausfall-Historie", "callback_data": "menu_gemini_failures"}],
+            [{"text": "⚡ Batch Ausführungs-Historie", "callback_data": "menu_gemini_failures"}],
             [{"text": "🔙 Zurück zur Admin-Zentrale", "callback_data": "menu_admin_hub"}]
         ]
     }
@@ -1389,7 +1370,7 @@ def get_admin_quota_details_text_and_markup():
 
 
 def get_gemini_failures_text_and_markup():
-    """Zeigt die Ausfall- und Timeout-Historie von Gemini 3.8 Flash High mit Fallback-Pfaden."""
+    """Zeigt die Ausfall- und Timeout-Historie von Gemini 4 Hydrogen mit Fallback-Pfaden."""
     try:
         from gemini_quota_tracker import get_gemini_performance_metrics
         perf = get_gemini_performance_metrics(hours=24)
@@ -1405,7 +1386,7 @@ def get_gemini_failures_text_and_markup():
     failures = perf.get("recent_failures", [])
 
     lines = [
-        "⚡ <b>Gemini 3.8 Flash High – Ausfall- &amp; Fallback-Historie</b>\n",
+        "⚡ <b>Gemini 4 Hydrogen – Ausfall- &amp; Fallback-Historie</b>\n",
         f"• Status (24h): {status_icon} <b>{status}</b>",
         f"• Erfolgsrate: <b>{rate:.1f}%</b> ({total - timeouts}/{total} Batches)",
         f"• Ø Antwortzeit: <b>{avg_lat:.1f} Sekunden</b>",
@@ -1414,7 +1395,7 @@ def get_gemini_failures_text_and_markup():
     ]
 
     if not failures:
-        lines.append("<i>Keine Ausfälle oder Timeouts in den letzten 24 Stunden! Alle Batches liefen regulär über Stufe 1 Pro CLI.</i>")
+        lines.append("<i>Keine Ausfälle oder Timeouts in den letzten 24 Stunden! Alle Batches liefen regulär über Stufe 1 Gemini 4 Hydrogen.</i>")
     else:
         for f in failures[:6]:
             t_short = f.get("time_short", "")
@@ -1429,7 +1410,7 @@ def get_gemini_failures_text_and_markup():
             )
 
     lines.extend([
-        "\n💡 <i>Erklärung: Bei Google Cloud Server-Lastspitzen oder Thinking-Verzögerungen greift nach 135s der automatische Kaskaden-Schutz. Kein Signal geht verloren!</i>"
+        "\n💡 <i>Erklärung: Bei Google Cloud Server-Lastspitzen greift nach Timeout der automatische Kaskaden-Schutz. Kein Signal geht verloren!</i>"
     ])
 
     kb = {
@@ -1515,7 +1496,7 @@ def get_admin_learnings_text_and_markup():
     lines = [
         "🧠 <b>KI-Trade-Lernsystem & Closed-Loop Scorecard</b>\n",
         f"• <b>Gespeicherte Lerneinheiten:</b> {len(learnings)}",
-        f"• <b>Gemini 3.8 Flash Engine:</b> Account 2 (pokeulm@gmail.com)\n",
+        f"• <b>Gemini 4 KI-Engine:</b> Google AI Pro (mayer.max.1994@gmail.com)\n",
         "📊 <b>Setup-Performance & Mindest-Scores:</b>"
     ]
 
@@ -2243,7 +2224,7 @@ def handle_update(api, update):
             qkb = {
                 "inline_keyboard": [
                     [{"text": "📊 Detaillierte Quotas & Kaskade", "callback_data": "admin_quota_details"}],
-                    [{"text": "⚡ Gemini 3.8 Ausfall-Historie", "callback_data": "menu_gemini_failures"}],
+                    [{"text": "⚡ Batch Ausführungs-Historie", "callback_data": "menu_gemini_failures"}],
                     [{"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
                 ]
             }

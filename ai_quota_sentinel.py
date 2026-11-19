@@ -373,6 +373,27 @@ def format_telegram_quota_summary() -> str:
     c_status_icon = "🟢" if c["status"] == "ONLINE" else ("🟡" if c["status"] == "THROTTLED" else "🔴")
     g_status_icon = "🟢" if g["status"] == "ONLINE" else ("🟡" if g["status"] == "THROTTLED" else "🔴")
 
+    gemini_block = ""
+    try:
+        from gemini_quota_tracker import get_quota_summary_for_dashboard
+        g_quota = get_quota_summary_for_dashboard()
+        pro = g_quota.get("pro_subscription", {})
+        five_h = pro.get("five_hour_window", {})
+        g_rem = float(five_h.get("remaining_pct", 100.0))
+        g_used = float(five_h.get("used_pct", 0.0))
+        g_reset = five_h.get("reset_countdown", "Rolling 5h")
+        g_today = pro.get("requests_used_today", 0)
+        g_bar = make_bar(int(round(g_used)))
+        gemini_block = (
+            f"⚡ <b>Gemini 4 Generation (Google AI Pro)</b>\n"
+            f"• Status: 🟢 <b>ONLINE</b>\n"
+            f"• Scan-Modell: <code>gemini-4-hydrogen</code> (low)\n"
+            f"• 5h-Session: <code>[{g_bar}]</code> <b>{g_used:.1f}%</b> ({g_rem:.1f}% frei)\n"
+            f"• Reset um: <b>{g_reset}</b> | Heute: <b>{g_today} Batches</b>\n\n"
+        )
+    except Exception:
+        gemini_block = ""
+
     msg = (
         f"🤖 <b>KI-SYSTEM STATUS &amp; QUOTA REPORT</b>\n"
         f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
@@ -382,6 +403,7 @@ def format_telegram_quota_summary() -> str:
         f"• Reset um: <b>{c['reset_str']}</b>\n"
         f"• Wochen-Quota: <b>{c['week_used_pct']}%</b> genutzt\n"
         f"• Aktiver Effort: <code>{c['active_effort']}</code>\n\n"
+        f"{gemini_block}"
         f"⚡ <b>Grok Build 4.7 (News- &amp; Sentiment-Radar)</b>\n"
         f"• Status: {g_status_icon} <b>{g['status']}</b>\n"
         f"• Session-Last: <code>[{g_bar}]</code> <b>{g['estimated_pct']}%</b>\n"

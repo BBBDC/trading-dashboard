@@ -23,16 +23,16 @@ try:
     quota_info = get_quota_summary_for_dashboard()
 except Exception:
     quota_info = db_data.get("gemini_quota", {
-        "api_key_masked": "AQ.Ab8...Ww",
-        "model": "gemini-3.8-flash",
-        "daily_limit": 20,
+        "api_key_masked": "Google AI Pro CLI",
+        "model": "gemini-4-hydrogen",
+        "daily_limit": 0,
         "requests_used_today": 0,
-        "requests_remaining": 20,
+        "requests_remaining": 0,
         "percent_used": 0.0,
         "tokens_used_today": 0,
-        "status": "ACTIVE",
+        "status": "PRO_UNLIMITED_ACTIVE",
         "is_exhausted": False,
-        "reset_countdown": "00:00 UTC",
+        "reset_countdown": "Google AI Pro unbegrenzt",
         "last_error": None
     })
 
@@ -297,7 +297,7 @@ if last_quotes_iso:
 else:
     last_quotes_update_display = "Live"
 
-engine_display = f"Gemini 3.8 Flash · {total_keys_count}x Key Pool"
+engine_display = "Gemini 4 Hydrogen · Google AI Pro"
 
 quota_used = quota_info.get("requests_used_today", 0)
 quota_limit = quota_info.get("daily_limit", 40)
@@ -316,11 +316,11 @@ five_h_countdown = five_h_win.get("reset_countdown", "in 4h 30m")
 pro_req_today = pro_sub.get("requests_used_today", 28)
 pro_req_week = pro_sub.get("requests_used_this_week", pro_req_today)
 acc_info = pro_sub.get("account_info", {})
-acc_name = acc_info.get("account_name", "Account 2 (Dediziert für Trading)")
-acc_email = acc_info.get("email", "pokeulm@gmail.com")
-acc_status = acc_info.get("status", "VERKNÜPFT & AKTIV")
+acc_name = acc_info.get("account_name", "Google AI Pro (Hauptaccount)")
+acc_email = acc_info.get("email", "mayer.max.1994@gmail.com")
+acc_status = acc_info.get("status", "VERKNÜPFT & AKTIV (Google AI Pro)")
 is_dedicated_acc = acc_info.get("is_dedicated", True)
-pro_model_display = "Gemini 3.8 Flash High"
+pro_model_display = "Gemini 4 Hydrogen (Low Effort)"
 
 if five_h_rem_pct <= 15:
     pro_bar_color = "bg-rose-500"
@@ -391,9 +391,9 @@ for kd in keys_detail:
 health_info = quota_info.get("health_check", {})
 health_is_ok = health_info.get("is_healthy", True)
 health_badge_class = "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40" if health_is_ok else "bg-amber-500/20 text-amber-300 border border-amber-500/40"
-health_badge_text = "🟢 ROUTING: POKEULM PRO 3.8 HIGH AKTIV" if health_is_ok else "🛡️ DYNAMISCHER SCHUTZ AKTIV"
-health_active_tier = health_info.get("active_tier", "Google Pro-Abo CLI (pokeulm@gmail.com · gemini-3.8-flash-high)")
-health_msg = health_info.get("message", "Google Pro-Abo Account 2 (pokeulm) aktiv · Key-Pool Reserve einsatzbereit")
+health_badge_text = "🟢 ROUTING: GOOGLE AI PRO AKTIV" if health_is_ok else "🛡️ DYNAMISCHER SCHUTZ AKTIV"
+health_active_tier = health_info.get("active_tier", "Google AI Pro CLI (mayer.max.1994@gmail.com · gemini-4-hydrogen)")
+health_msg = health_info.get("message", "Google AI Pro aktiv · gemini-4-hydrogen (mayer.max.1994@gmail.com)")
 health_dot = "bg-emerald-400 animate-pulse" if health_is_ok else "bg-amber-400 animate-pulse"
 
 routing_health_card_html = f"""
@@ -407,7 +407,7 @@ routing_health_card_html = f"""
                 <h3 class="font-bold text-white text-base group-hover:text-sky-300 transition">KI-Routing & Kaskaden-Status</h3>
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono {health_badge_class}">{health_badge_text}</span>
               </div>
-              <p class="text-xs text-slate-400">Automatische 4-Stufen Kaskade: 1. pokeulm (Pro 3.8 High) &bull; 2. Key-Pool (3.8 Flash High) &bull; 3. Key-Pool Fallback (3.5) &bull; 4. SMC Math-Core</p>
+              <p class="text-xs text-slate-400">Automatische 3-Stufen Kaskade: 1. gemini-4-hydrogen (Low Effort) &bull; 2. Failover Pro-Retry &bull; 3. SMC Math-Core</p>
             </div>
           </div>
           <div class="flex items-center gap-3 self-start sm:self-auto">
@@ -422,18 +422,18 @@ routing_health_card_html = f"""
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
             <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
               <span class="text-[10px] text-slate-400 block uppercase">1. Primär (Stufe 1)</span>
-              <span class="font-bold text-base text-emerald-400">Google Pro (pokeulm)</span>
-              <span class="block text-[10px] text-slate-400 mt-0.5">gemini-3.8-flash-high &bull; Unbegrenzt</span>
+              <span class="font-bold text-base text-emerald-400">Google AI Pro</span>
+              <span class="block text-[10px] text-slate-400 mt-0.5">gemini-4-hydrogen (Low) &bull; Unbegrenzt</span>
             </div>
             <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
               <span class="text-[10px] text-slate-400 block uppercase">2. Failover (Stufe 2)</span>
-              <span class="font-bold text-base text-indigo-300">Free Multi-Key Pool</span>
-              <span class="block text-[10px] text-slate-400 mt-0.5">4x Keys &bull; gemini-3.8-flash High (80 Req/Tag)</span>
+              <span class="font-bold text-base text-indigo-300">Pro-CLI Retry</span>
+              <span class="block text-[10px] text-slate-400 mt-0.5">gemini-4-hydrogen (Low) &bull; Sofort-Failover</span>
             </div>
             <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-              <span class="text-[10px] text-slate-400 block uppercase">3. & 4. Fallback (Stufe 3/4)</span>
-              <span class="font-bold text-base text-sky-300">Gemini 3.5 & Math-Core</span>
-              <span class="block text-[10px] text-slate-400 mt-0.5">3.5 Flash Fallback &bull; SMC/Wyckoff Core</span>
+              <span class="text-[10px] text-slate-400 block uppercase">3. Safety Net (Stufe 3)</span>
+              <span class="font-bold text-base text-sky-300">SMC Math-Core</span>
+              <span class="block text-[10px] text-slate-400 mt-0.5">100% Lokal &bull; Latenzfrei &bull; Ausfallsicher</span>
             </div>
           </div>
 
@@ -451,7 +451,7 @@ routing_health_card_html = f"""
 # Pro-Abo Quota Informationen für Admin-Bereich (Stufe 1 Primär: Google AI Pro)
 pro_info = quota_info.get("pro_subscription", {})
 pro_enabled = pro_info.get("enabled", True)
-pro_model = "gemini-4-hydrogen (Google AI Pro Medium)"
+pro_model = "gemini-4-hydrogen (Google AI Pro Low)"
 pro_status = pro_info.get("status", "ACTIVE")
 pro_last_used = pro_info.get("last_used")
 if pro_last_used:
@@ -465,7 +465,7 @@ else:
 
 pro_badge = "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
 
-# Gemini 3.8 Flash High Performance & Failure Monitor (24h)
+# Gemini 4 Hydrogen Performance & Failure Monitor (24h)
 perf_data = quota_info.get("performance_metrics", {})
 perf_status = perf_data.get("status", "STABIL")
 perf_status_icon = perf_data.get("status_icon", "🟢")
@@ -491,7 +491,7 @@ else:
 
 perf_rows_html = ""
 if not perf_runs:
-    perf_rows_html = '<tr><td colspan="5" class="py-3 px-3 text-center text-slate-500 text-xs italic">Noch keine Gemini 3.8 Batches protokolliert.</td></tr>'
+    perf_rows_html = '<tr><td colspan="5" class="py-3 px-3 text-center text-slate-500 text-xs italic">Noch keine Gemini 4 Batches protokolliert.</td></tr>'
 else:
     for run in perf_runs[:7]:
         outcome = run.get("outcome", "UNKNOWN")
@@ -665,7 +665,7 @@ triad_quota_card_html = f"""
 """
 
 pro_card_html = f"""
-      <!-- Card Pro-Abo: Google Pro Subscription Status (Stufe 1 Primär: pokeulm@gmail.com) -->
+      <!-- Card Pro-Abo: Google Pro Subscription Status (Stufe 1 Primär: mayer.max.1994@gmail.com) -->
       <section class="admin-group-quota rounded-2xl bg-gradient-to-br from-slate-900/95 via-indigo-950/30 to-slate-900 border border-indigo-500/40 p-5 shadow-xl space-y-4">
         <div onclick="toggleAccordion('admin-acc-pro')" class="cursor-pointer flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800 select-none group">
           <div class="flex items-center gap-2.5">
@@ -675,7 +675,7 @@ pro_card_html = f"""
                 <h3 class="font-bold text-white text-base group-hover:text-indigo-300 transition">Google AI Pro ({acc_email})</h3>
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">STUFE 1: PRIMÄR-ROUTING (100% TRADING)</span>
               </div>
-              <p class="text-xs text-slate-400">Google AI Pro (Paid) &bull; gemini-4-hydrogen (Medium Effort) &bull; Native Google 5h/Wochen-Limits</p>
+              <p class="text-xs text-slate-400">Google AI Pro (Paid) &bull; gemini-4-hydrogen (Low Effort) &bull; Native Google 5h/Wochen-Limits</p>
             </div>
           </div>
           <div class="flex items-center gap-3 self-start sm:self-auto">
@@ -720,14 +720,14 @@ pro_card_html = f"""
             </div>
           </div>
 
-          <!-- 📊 Gemini 3.8 Flash High: Zuverlässigkeits- & Ausfall-Monitor -->
+          <!-- 📊 Gemini 4 Hydrogen: Zuverlässigkeits- & Ausfall-Monitor -->
           <div class="mt-4 pt-4 border-t border-slate-800/80 space-y-3">
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <div class="flex items-center gap-2">
                 <span class="text-lg">📊</span>
                 <div>
-                  <h4 class="font-bold text-sm text-sky-200">Gemini 3.8 Flash High · 24h Zuverlässigkeit & Ausfall-Monitor</h4>
-                  <span class="text-[10px] text-slate-400">Echtzeit-Tracking von Google Reasoning-Latenzen, Timeouts (&gt;135s) und Kaskaden-Failover</span>
+                  <h4 class="font-bold text-sm text-sky-200">Gemini 4 Hydrogen · 24h Zuverlässigkeit & Ausfall-Monitor</h4>
+                  <span class="text-[10px] text-slate-400">Echtzeit-Tracking von Google AI Pro Latenzen, Timeouts und Kaskaden-Failover</span>
                 </div>
               </div>
               <span id="gemini-perf-status-badge" class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold {perf_status_badge_class}">
@@ -745,12 +745,12 @@ pro_card_html = f"""
               <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80">
                 <span class="text-[10px] text-slate-400 block uppercase">Timeouts & Spitzen</span>
                 <span id="gemini-perf-timeouts" class="font-bold text-sm {perf_timeout_color}">{perf_timeouts} Ausfälle</span>
-                <span class="block text-[10px] text-slate-500 mt-0.5">Schwelle &gt;135s (Google Last)</span>
+                <span class="block text-[10px] text-slate-500 mt-0.5">Schwelle &gt;45s (Sofort-Failover)</span>
               </div>
               <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80">
                 <span class="text-[10px] text-slate-400 block uppercase">Ø Antwortzeit</span>
                 <span id="gemini-perf-avg-lat" class="font-bold text-sm text-indigo-300">{perf_avg_lat:.1f}s</span>
-                <span class="block text-[10px] text-slate-500 mt-0.5">Normal: 25-35s &bull; Last: &gt;80s</span>
+                <span class="block text-[10px] text-slate-500 mt-0.5">Normal: 8-15s &bull; Last: &gt;35s</span>
               </div>
               <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80">
                 <span class="text-[10px] text-slate-400 block uppercase">Signal-Integrität</span>
@@ -790,8 +790,8 @@ pro_card_html = f"""
             <span class="text-sm">🛡️</span>
             <div class="leading-relaxed text-[11px]">
               <strong class="text-indigo-300">Dauerhaft als Primärstufe verankert:</strong>
-              Alle Marktanalysen, Chartbewertungen und Trade-Learnings laufen prioritär über das dedizierte Google-Konto <code>pokeulm@gmail.com</code> mit dem High-Reasoning-Modell <code>gemini-3.8-flash-high</code>.
-              Erst bei Erschöpfung des Google 5h-Limits oder Verbindungsstörungen übernimmt automatisch Stufe 2 (Multi-Key Pool mit <code>gemini-3.8-flash High</code>).
+              Alle Marktanalysen, Batch-Scans und Trade-Learnings laufen prioritär über das Google AI Pro Jahreskonto <code>mayer.max.1994@gmail.com</code> mit dem schnellen Modell <code>gemini-4-hydrogen (Low Effort)</code>.
+              Deep-Dive Detailrecherchen werden auf <code>gemini-4-neon (Medium Effort)</code> ausgeführt.
             </div>
           </div>
         </div>
@@ -2301,8 +2301,8 @@ html_content = f"""<!DOCTYPE html>
                 <span class="font-bold text-white">{engine_display}</span>
               </span>
               <button id="header-quota-badge" onclick="openQuotaModal()" class="inline-flex px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold {quota_badge_class} items-center gap-1 shadow-sm cursor-pointer transition active:scale-95 shrink-0" title="Google Gemini Pro Restvolumen & Quota-Details (Account: {acc_email})">
-                <span>🔑</span>
-                <span>Pro 3.8 High: <strong class="{pro_num_class}">{five_h_rem_pct}% frei</strong> ({pro_req_today} Req)</span>
+                <span>⚡</span>
+                <span>Gemini 4: <strong class="{pro_num_class}">{five_h_rem_pct}% frei</strong> ({pro_req_today} Req)</span>
                 <span class="hidden sm:inline text-[9px] opacity-80">· 5h-Reset {five_h_countdown}</span>
               </button>
               <span id="header-trader-badge" class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 items-center gap-1.5" title="TradingView Live-Feed Status">
@@ -2883,25 +2883,25 @@ html_content = f"""<!DOCTYPE html>
       <!-- Card Triade AI: Multi-KI Quota Monitor (Claude Opus 5.5 & Grok Build 4.7) -->
       {triad_quota_card_html}
 
-      <!-- Card 1: Google Pro-Abo (Stufe 1 Primär: pokeulm@gmail.com) -->
+      <!-- Card 1: Google Pro-Abo (Stufe 1 Primär: mayer.max.1994@gmail.com) -->
       {pro_card_html}
 
-      <!-- Card 2: Google Gemini API-Key Pool (Stufe 2 Failover-Reserve) -->
+      <!-- Card 2: Google AI Pro Modell-Architektur & Quota-Pools -->
       <section class="admin-group-quota rounded-2xl bg-gradient-to-br from-slate-900/95 via-[#0d1322] to-slate-900 border border-indigo-500/30 p-5 shadow-xl space-y-4">
         <div onclick="toggleAccordion('admin-acc-quota')" class="cursor-pointer flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800 select-none group">
           <div class="flex items-center gap-2.5">
-            <span class="text-xl">🔑</span>
+            <span class="text-xl">🏛️</span>
             <div>
               <div class="flex items-center gap-2 flex-wrap">
-                <h3 class="font-bold text-white text-base group-hover:text-indigo-300 transition">Google Gemini API-Key Quota Pool</h3>
-                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">STUFE 2: FAILOVER-RESERVE (4x KEYS)</span>
+                <h3 class="font-bold text-white text-base group-hover:text-indigo-300 transition">Google AI Pro &amp; Triade Modell-Architektur</h3>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">DUALE QUOTA-POOLS &amp; EFFORT-STUFEN</span>
               </div>
-              <p class="text-xs text-slate-400">Automatischer Failover-Pool: 4x Keys à 20 Req = 80 Req/Tag frei (mit 3.5 Not-Fallback)</p>
+              <p class="text-xs text-slate-400">Dedizierte Compute-Pools: Gemini 4 Compute Pool &bull; Antigravity Claude 5.5 Pool &bull; Grok 4.7 News</p>
             </div>
           </div>
           <div class="flex items-center gap-3 self-start sm:self-auto">
             <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-              Modell: gemini-3.8-flash High
+              Pro-Jahresabo Aktiv
             </span>
             <span id="admin-acc-quota-arrow" class="text-xs font-mono text-slate-400 group-hover:text-white transition">▼</span>
           </div>
@@ -2909,32 +2909,49 @@ html_content = f"""<!DOCTYPE html>
 
         <div id="admin-acc-quota-body" class="space-y-4">
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
-            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-              <span class="text-[10px] text-slate-400 block uppercase">Gesamt-Verbrauch</span>
-              <span class="font-bold text-base {quota_num_class}">{quota_used} / {quota_limit} Requests</span>
-              <span class="block text-[10px] text-slate-500 mt-0.5">{quota_pct}% des Tageslimits</span>
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
+              <span class="text-[10px] text-slate-400 block uppercase">1. Gemini 4 Compute Pool</span>
+              <span class="font-bold text-sm text-emerald-400">gemini-4-hydrogen (Low)</span>
+              <span class="block text-[10px] text-slate-400">Batch-Scans (9-13s) &bull; gemini-4-neon (Medium) Deep-Dives</span>
+              <span class="block text-[10px] text-emerald-500 font-semibold">{five_h_rem_pct}% frei (5h-Fenster)</span>
             </div>
-            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-              <span class="text-[10px] text-slate-400 block uppercase">Verbleibend</span>
-              <span class="font-bold text-base text-emerald-400">{quota_remaining} Requests</span>
-              <span class="block text-[10px] text-slate-500 mt-0.5">{active_keys_count} von {total_keys_count} Keys aktiv</span>
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
+              <span class="text-[10px] text-slate-400 block uppercase">2. Claude 5.5 Rate Pool</span>
+              <span class="font-bold text-sm text-purple-300">claude-sonnet-5-5 (Med)</span>
+              <span class="block text-[10px] text-slate-400">Chat &amp; Dev &bull; claude-opus-5-5 für tiefgreifende Architektur</span>
+              <span class="block text-[10px] text-purple-400 font-semibold">Separater Rate-Limit Topf</span>
             </div>
-            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-              <span class="text-[10px] text-slate-400 block uppercase">Tages-Reset</span>
-              <span class="font-bold text-base text-indigo-300">{quota_countdown}</span>
-              <span class="block text-[10px] text-slate-500 mt-0.5">00:00 UTC</span>
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
+              <span class="text-[10px] text-slate-400 block uppercase">3. Grok &amp; Lokal Core</span>
+              <span class="font-bold text-sm text-sky-300">Grok Build 4.7 &amp; SMC</span>
+              <span class="block text-[10px] text-slate-400">News-Radar &amp; Sentiment &bull; Math-Core (100% lokal)</span>
+              <span class="block text-[10px] text-sky-400 font-semibold">Latenzfreie Safety-Net Absicherung</span>
             </div>
           </div>
 
-          <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
-            <div class="h-2 rounded-full {quota_bar_color}" style="width: {min(100.0, quota_pct)}%"></div>
-          </div>
-
-          <!-- Einzel-Keys Breakdown Grid -->
-          <div class="space-y-2 pt-2">
-            <span class="text-xs font-bold text-slate-300 uppercase tracking-wider block">Einzel-Key Status & Kontingente:</span>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {keys_cards_html}
+          <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-xs text-slate-300 space-y-2">
+            <span class="text-xs font-bold text-slate-200 block uppercase tracking-wider">Effort-Matrix &amp; Rollenverteilung im System:</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] font-mono">
+              <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800/80">
+                <span class="text-emerald-400 font-bold block">⚡ 24/7 Trading Batch-Scans:</span>
+                <span class="text-slate-300">Modell: <code>gemini-4-hydrogen</code> | Effort: <code>low</code></span>
+                <span class="block text-slate-500 text-[10px] mt-0.5">Schnelle Auswertung alle 5/30 Min, minimale Compute-Last</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800/80">
+                <span class="text-sky-400 font-bold block">🔬 Deep-Dive &amp; Post-Mortem:</span>
+                <span class="text-slate-300">Modell: <code>gemini-4-neon</code> | Effort: <code>medium</code></span>
+                <span class="block text-slate-500 text-[10px] mt-0.5">Tiefgehende Trade-Analysen, Ursachenforschung, Chartprüfung</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800/80">
+                <span class="text-purple-400 font-bold block">💬 Interaktiver Chat &amp; Coding:</span>
+                <span class="text-slate-300">Modell: <code>claude-sonnet-5-5</code> | Effort: <code>medium</code></span>
+                <span class="block text-slate-500 text-[10px] mt-0.5">Antigravity Default, agile Code-Pflege, System-Verwaltung</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800/80">
+                <span class="text-amber-400 font-bold block">🏛️ Schwere Architektur &amp; Security:</span>
+                <span class="text-slate-300">Modell: <code>claude-opus-5-5</code> (High) / <code>gemini-4-neon</code> (xhigh)</span>
+                <span class="block text-slate-500 text-[10px] mt-0.5">Komplexe Refactorings, Audits und mathematische Proofs</span>
+              </div>
             </div>
           </div>
         </div>
@@ -3057,7 +3074,7 @@ html_content = f"""<!DOCTYPE html>
               <div>
                 <div class="flex items-center gap-2">
                   <span class="text-xs font-bold text-slate-100">KI-Trade-Gedächtnis & Selbstverbesserungs-Hub</span>
-                  <span class="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Gemini 3.8 Flash Pro</span>
+                  <span class="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Gemini 4 Pro Engine</span>
                 </div>
                 <span class="block text-[10px] text-slate-400 mt-0.5" id="memory-status-summary">Lade Erfahrungsspeicher...</span>
               </div>
@@ -3097,7 +3114,7 @@ html_content = f"""<!DOCTYPE html>
             <div class="space-y-2">
               <div class="flex items-center justify-between">
                 <span class="text-[11px] font-bold text-slate-300 flex items-center gap-1.5">
-                  <span>🔬</span> Tiefgehende Dual-KI Post-Mortem Analysen (Gemini 3.8 Flash & Claude Opus 5.5):
+                  <span>🔬</span> Tiefgehende Dual-KI Post-Mortem Analysen (Gemini 4 Neon & Claude Opus 5.5):
                 </span>
                 <span class="text-[9px] text-slate-400 font-mono">Ursachen, Kausalitäts-Audits & Handlungsregeln</span>
               </div>
@@ -3253,7 +3270,7 @@ html_content = f"""<!DOCTYPE html>
               <div>
                 <div class="flex items-center gap-2">
                   <span class="text-xs font-bold text-slate-100">Trainings-Historie & Vergleichende KI-Post-Mortem Berichte</span>
-                  <span class="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">Gemini 3.8 Flash High</span>
+                  <span class="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">Gemini 4 Neon / Pro</span>
                 </div>
                 <span class="block text-[10px] text-slate-400 mt-0.5" id="inc-history-summary">Lade Trade-Historie...</span>
               </div>
@@ -4944,7 +4961,7 @@ html_content = f"""<!DOCTYPE html>
     setTimeout(refreshTriadQuotaLive, 1000);
 
     // ==========================================
-    // ⚡ Live-Refresh für Gemini 3.8 Performance & Failover Log
+    // ⚡ Live-Refresh für Gemini 4 Performance & Failover Log
     // ==========================================
     function refreshGeminiPerfLive() {{
       fetch('gemini_execution_log.json?nocache=' + Date.now())
@@ -6213,7 +6230,7 @@ html_content = f"""<!DOCTYPE html>
                   <div id="inc-pm-box-${{idx}}" class="hidden p-3.5 rounded-xl bg-slate-950/95 border border-purple-500/40 space-y-2.5 text-xs mt-3 shadow-lg">
                     <div class="flex items-center justify-between border-b border-purple-500/20 pb-2">
                       <span class="font-bold text-purple-200 text-xs flex items-center gap-1.5">
-                        <span>🧠</span> Taktische Post-Mortem Analyse (Gemini 3.8 Flash High):
+                        <span>🧠</span> Taktische Post-Mortem Analyse (Gemini 4 Neon):
                       </span>
                       <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono border ${{pm.verdict === 'WIN' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' : 'bg-rose-500/10 text-rose-400 border-rose-500/30'}}">${{pm.verdict || 'ANALYSE'}}</span>
                     </div>
@@ -8692,59 +8709,51 @@ html_content = f"""<!DOCTYPE html>
               <span class="text-[9px] text-emerald-400 block">50er-Limit aufgehoben</span>
             </div>
             <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/70">
-              <span class="text-[9px] text-slate-400 block uppercase font-bold">🧠 KI-Modell:</span>
-              <span class="text-white font-bold text-xs truncate" title="gemini-3.8-flash-high">3.8 Flash High</span>
-              <span class="text-[9px] text-indigo-400 block">Pro High Thinking aktiv</span>
+              <span class="text-[9px] text-slate-400 block uppercase font-bold">🧠 Scan-Modell:</span>
+              <span class="text-white font-bold text-xs truncate" title="gemini-4-hydrogen">Gemini 4 Hydrogen</span>
+              <span class="text-[9px] text-indigo-400 block">Low Effort (High Speed)</span>
             </div>
             <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/70">
               <span class="text-[9px] text-slate-400 block uppercase font-bold">📧 Google Account:</span>
-              <span class="text-emerald-400 font-bold text-xs truncate" title="{acc_email}">{acc_email.split('@')[0]}</span>
-              <span class="text-[9px] text-slate-500 block">100% Trading-Fokus</span>
+              <span class="text-emerald-400 font-bold text-xs truncate" title="{acc_email}">mayer.max.1994</span>
+              <span class="text-[9px] text-slate-500 block">Google AI Pro (Jahresabo)</span>
             </div>
             <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/70">
               <span class="text-[9px] text-slate-400 block uppercase font-bold">🛡️ Kaskaden-Status:</span>
               <span class="text-emerald-400 font-bold text-xs">Stufe 1 (Immer Pro)</span>
-              <span class="text-[9px] text-slate-500 block">Free Pool als Backup</span>
+              <span class="text-[9px] text-slate-500 block">Pro Retry &amp; Math Safety Net</span>
             </div>
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-2.5">
           <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block font-semibold">1. Primär-Modell (pokeulm)</span>
-            <span class="text-white font-mono font-bold text-sm block mt-0.5">gemini-3.8-flash-high</span>
-            <span class="text-[10px] text-emerald-400">Pro Thinking (Unbegrenzt)</span>
+            <span class="text-[10px] text-slate-400 block font-semibold">1. Primär: Batch-Scan (Pro)</span>
+            <span class="text-white font-mono font-bold text-sm block mt-0.5">gemini-4-hydrogen</span>
+            <span class="text-[10px] text-emerald-400">Low Effort &bull; Unbegrenzt</span>
           </div>
           <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
-            <span class="text-[10px] text-slate-400 block font-semibold">2. Failover Key-Pool</span>
-            <span class="text-white font-mono font-bold text-sm block mt-0.5">gemini-3.8-flash High</span>
-            <span class="text-[10px] text-indigo-300">{active_keys_count} von {total_keys_count} Keys aktiv (80 Req/Tag)</span>
+            <span class="text-[10px] text-slate-400 block font-semibold">2. Deep-Dive &amp; Analysen (Pro)</span>
+            <span class="text-white font-mono font-bold text-sm block mt-0.5">gemini-4-neon</span>
+            <span class="text-[10px] text-indigo-300">Medium Effort &bull; Shared Compute Pool</span>
           </div>
         </div>
 
-        <!-- Gesamt-Pool Übersicht -->
-        <div class="p-4 rounded-xl bg-slate-900/90 border border-indigo-500/30 space-y-2">
+        <!-- Google AI Pro Pool Status -->
+        <div class="p-4 rounded-xl bg-slate-900/90 border border-emerald-500/30 space-y-2">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-1.5">
-              <span class="text-xs font-bold text-white">Stufe 2: Multi-Key Reserve Kontingent</span>
-              <span class="px-1.5 py-0.2 rounded text-[10px] bg-indigo-500/20 text-indigo-300 font-mono">{total_keys_count}x Keys</span>
+              <span class="text-xs font-bold text-white">Google AI Pro Compute Pool (Rolling 5h)</span>
+              <span class="px-1.5 py-0.2 rounded text-[10px] bg-emerald-500/20 text-emerald-300 font-mono">Unbegrenztes Abo</span>
             </div>
-            <span class="font-mono font-bold text-xs {quota_num_class}">{quota_used} / {quota_limit} Requests ({quota_pct}%)</span>
+            <span class="font-mono font-bold text-xs {pro_num_class}">{five_h_rem_pct}% frei ({pro_req_today} Batches heute)</span>
           </div>
           <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
-            <div class="h-2 rounded-full {quota_bar_color}" style="width: {min(100.0, quota_pct)}%"></div>
+            <div class="h-2 rounded-full {pro_bar_color}" style="width: {min(100.0, five_h_rem_pct)}%"></div>
           </div>
           <div class="flex items-center justify-between text-[11px] text-slate-400 pt-0.5">
-            <span>Verbleibend: <strong class="text-white font-mono">{quota_remaining} Requests</strong></span>
-            <span>Status: <strong class="text-emerald-400 font-mono">Reserve Aktiv (24/7)</strong></span>
-          </div>
-        </div>
-
-        <!-- Einzel-Keys Aufschlüsselung -->
-        <div class="space-y-2">
-          <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Einzel-Key Status & Kontingente:</span>
-          <div class="space-y-2">
-            {keys_cards_html}
+            <span>Verbleibend: <strong class="text-white font-mono">{five_h_rem_pct}%</strong> (Reset {five_h_countdown})</span>
+            <span>Status: <strong class="text-emerald-400 font-mono">Aktiv ({acc_email})</strong></span>
           </div>
         </div>
 
@@ -8754,9 +8763,9 @@ html_content = f"""<!DOCTYPE html>
             <span>Garantierte Kaskaden-Hierarchie (3 Stufen)</span>
           </div>
           <ol class="list-decimal list-inside space-y-1 text-slate-300">
-            <li><strong>Stufe 1 (Primär):</strong> Google AI Pro CLI mit <code>gemini-4-hydrogen</code> (Medium Effort). Verarbeitet Marktanalysen und Trade-Learnings in Rekordzeit.</li>
-            <li><strong>Stufe 2 (Failover):</strong> Google AI Pro CLI mit <code>gemini-4-hydrogen</code> (Low Effort) bei Lastspitzen.</li>
-            <li><strong>Stufe 3 (Safety Net):</strong> Mathematische 3-Timeframe Confluence-Engine (SMC & Wyckoff VSA) &ndash; 100% lokal und ausfallsicher.</li>
+            <li><strong>Stufe 1 (Primär):</strong> Google AI Pro CLI mit <code>gemini-4-hydrogen</code> (Low Effort). Verarbeitet Marktanalysen und Batch-Scans in ca. 9-13s.</li>
+            <li><strong>Stufe 2 (Failover):</strong> Google AI Pro CLI mit <code>gemini-4-hydrogen</code> (Low Effort) Sofort-Retry bei Lastspitzen.</li>
+            <li><strong>Stufe 3 (Safety Net):</strong> Mathematische 3-Timeframe Confluence-Engine (SMC &amp; Wyckoff VSA) &ndash; 100% lokal, latenzfrei und ausfallsicher.</li>
           </ol>
         </div>
       </div>
