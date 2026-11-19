@@ -1,5 +1,39 @@
 [
   {
+    "id": "run_20261119_080534_339",
+    "timestamp": "2026-11-19T08:05:34.580516+00:00",
+    "timestamp_str": "19.11. 09:05:34 CET",
+    "time_short": "09:05",
+    "tier": "Stufe 1 (Pro CLI)",
+    "model": "gemini-3.8-flash-high",
+    "outcome": "SUCCESS",
+    "duration_seconds": 33.9,
+    "assets": [
+      "XETR:ADS",
+      "XETR:NOV"
+    ],
+    "assets_str": "XETR:ADS, XETR:NOV",
+    "fallback_used": null,
+    "error_message": null
+  },
+  {
+    "id": "run_20261119_080500_1351",
+    "timestamp": "2026-11-19T08:05:00.035394+00:00",
+    "timestamp_str": "19.11. 09:05:00 CET",
+    "time_short": "09:05",
+    "tier": "Stufe 1 (Pro CLI)",
+    "model": "gemini-3.8-flash-high",
+    "outcome": "TIMEOUT",
+    "duration_seconds": 135.1,
+    "assets": [
+      "XETR:DAX",
+      "XETR:BAYN"
+    ],
+    "assets_str": "XETR:DAX, XETR:BAYN",
+    "fallback_used": "Stufe 4 (Quantitative Math-Core)",
+    "error_message": "Pro CLI Timeout (135s) bei gemini-3.8-flash-high (Account 2 (Trading Pro))."
+  },
+  {
     "id": "run_20261119_074843_295",
     "timestamp": "2026-11-19T07:48:43.532566+00:00",
     "timestamp_str": "19.11. 08:48:43 CET",
@@ -812,39 +846,5 @@
     "assets_str": "TVC:NDX, TVC:GOLD",
     "fallback_used": "Stufe 4 (Quantitative Math-Core)",
     "error_message": "Pro CLI Timeout (135s) bei gemini-3.8-flash-high (Account 2 (Trading Pro))."
-  },
-  {
-    "id": "run_20261119_050558_739",
-    "timestamp": "2026-11-19T05:05:58.460616+00:00",
-    "timestamp_str": "19.11. 06:05:58 CET",
-    "time_short": "06:05",
-    "tier": "Stufe 1 (Pro CLI)",
-    "model": "gemini-3.8-flash-high",
-    "outcome": "SUCCESS",
-    "duration_seconds": 73.9,
-    "assets": [
-      "TVC:UKX",
-      "COINBASE:ETHUSD"
-    ],
-    "assets_str": "TVC:UKX, COINBASE:ETHUSD",
-    "fallback_used": null,
-    "error_message": null
-  },
-  {
-    "id": "run_20261119_012414_521",
-    "timestamp": "2026-11-19T01:24:14.693529+00:00",
-    "timestamp_str": "19.11. 02:24:14 CET",
-    "time_short": "02:24",
-    "tier": "Stufe 1 (Pro CLI)",
-    "model": "gemini-3.8-flash-high",
-    "outcome": "SUCCESS",
-    "duration_seconds": 52.1,
-    "assets": [
-      "COINBASE:BCHUSD",
-      "COINBASE:CRVUSD"
-    ],
-    "assets_str": "COINBASE:BCHUSD, COINBASE:CRVUSD",
-    "fallback_used": null,
-    "error_message": null
   }
 ]
