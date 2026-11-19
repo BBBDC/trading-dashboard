@@ -19,7 +19,7 @@
     TOXIC_BLEED: 'Verlustbringend', NO_TRADES: 'Keine Trades'
   };
 
-  var state = { data: null, tier: 'ALL', search: '', sort: 'tier', lowOnly: false };
+  var state = { data: null, tier: 'ALL', cat: 'ALL', search: '', sort: 'tier', lowOnly: false };
 
   function esc(v) {
     return String(v === null || v === undefined ? '' : v)
@@ -47,9 +47,10 @@
   function tierBadge(a) {
     var m = TIER_META[a.tier] || TIER_META.INFORMATIV;
     var derived = a.source === 'matrix'
-      ? '<span class="ml-1 text-[9px] text-slate-500" title="Tier aus Matrix-Daten nach den Onboarding-Regeln abgeleitet">abgeleitet</span>' : '';
-    return '<span class="px-2 py-0.5 rounded border text-[10px] font-mono font-bold ' + m.cls + '">' +
-      esc(m.label) + '</span>' + derived;
+      ? '<span class="ml-1 text-[9px] text-slate-500" title="Tier aus Matrix-Daten nach den Onboarding-Regeln abgeleitet">abgeleitet</span>'
+      : '';
+    return '<span class="px-2 py-0.5 rounded border text-[10px] font-mono font-bold ' + m.cls + '" title="Quelle: ' +
+      esc(a.source || 'unbekannt') + '">' + esc(m.label) + '</span>' + derived;
   }
 
   function strip(a) {
@@ -77,6 +78,7 @@
     var q = state.search.trim().toLowerCase();
     list = list.filter(function (a) {
       if (state.tier !== 'ALL' && a.tier !== state.tier) return false;
+      if (state.cat !== 'ALL' && (a.category || '') !== state.cat) return false;
       if (state.lowOnly && !a.low_data) return false;
       if (q) {
         var hay = (a.symbol + ' ' + a.name + ' ' + a.category).toLowerCase();
@@ -107,17 +109,59 @@
 
   function renderKpis() {
     var t = state.data.totals || {};
+    var untestCount = t.untestable !== undefined ? t.untestable : ((state.data.untestable || []).length);
     $('bt-kpis').innerHTML =
       kpi('Getestete Assets', t.assets, 'text-white') +
       kpi('PILOT_LIVE', t.pilot_live, 'text-emerald-300') +
       kpi('SHADOW_PAPER', t.shadow_paper, 'text-amber-300') +
       kpi('INFORMATIV', t.informativ, 'text-slate-300') +
       kpi('Neu (7 Tage)', t.new, 'text-sky-300') +
-      kpi('Geringe Datenbasis', t.low_data, 'text-orange-300');
+      kpi('Geringe Datenbasis', t.low_data, 'text-orange-300') +
+      kpi('Nicht testbar', untestCount, 'text-slate-400');
     var badge = $('bt-count-badge');
     if (badge) badge.textContent = (t.assets || 0) + ' Assets';
     var gen = $('bt-generated');
     if (gen) gen.textContent = 'Stand: ' + fmtDate(state.data.generated_at);
+  }
+
+  function renderCategories() {
+    var sel = $('bt-cat');
+    if (!sel) return;
+    var seen = {};
+    var cats = [];
+    (state.data.assets || []).forEach(function (a) {
+      var c = a.category || '';
+      if (c && !seen[c]) {
+        seen[c] = true;
+        cats.push(c);
+      }
+    });
+    cats.sort(function (a, b) { return a.localeCompare(b, 'de'); });
+    sel.innerHTML = '<option value="ALL">Alle Kategorien</option>' +
+      cats.map(function (c) { return '<option value="' + esc(c) + '">' + esc(c) + '</option>'; }).join('');
+    if (seen[state.cat]) sel.value = state.cat;
+    else { state.cat = 'ALL'; sel.value = 'ALL'; }
+  }
+
+  function renderUntestable() {
+    var box = $('bt-untestable-box');
+    var sum = $('bt-untestable-summary');
+    var listEl = $('bt-untestable-list');
+    if (!box || !listEl) return;
+    var items = state.data.untestable || [];
+    if (!items.length) {
+      box.classList.add('hidden');
+      return;
+    }
+    box.classList.remove('hidden');
+    if (sum) {
+      sum.textContent = 'Nicht testbare Assets (' + items.length + ') – keine Kursdaten / kein handelbares Instrument';
+    }
+    listEl.innerHTML = items.map(function (u) {
+      return '<div class="rounded-lg border border-slate-800/80 bg-slate-900/50 px-2.5 py-1.5">' +
+        '<span class="font-mono font-semibold text-slate-200">' + esc(u.raw_symbol) + '</span>' +
+        '<span class="text-slate-400"> – ' + esc(u.reason || 'Keine Datenquelle') + '</span></div>';
+    }).join('');
   }
 
   function renderTable() {
@@ -155,6 +199,8 @@
   function bindControls() {
     var s = $('bt-search');
     if (s) s.addEventListener('input', function () { state.search = s.value; renderTable(); });
+    var catSel = $('bt-cat');
+    if (catSel) catSel.addEventListener('change', function () { state.cat = catSel.value; renderTable(); });
     var so = $('bt-sort');
     if (so) so.addEventListener('change', function () { state.sort = so.value; renderTable(); });
     var lo = $('bt-low');
@@ -188,7 +234,9 @@
         if (!d || !Array.isArray(d.assets)) throw new Error('Ungültiges Datenformat');
         state.data = d;
         renderKpis();
+        renderCategories();
         renderTable();
+        renderUntestable();
       })
       .catch(function (e) { showError('Backtest-Daten konnten nicht geladen werden: ' + e.message); });
   }
