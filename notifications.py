@@ -23,6 +23,20 @@ DEFAULT_CONFIG = {
     "provider": "ntfy",
     "only_on_change": True,
     "min_score_filter": 85,
+    "alert_filters": {
+        "cooldown_hours_by_timeframe": {
+            "1h": 2,
+            "4h": 4,
+            "1D": 12,
+            "3D": 18,
+            "1W": 24
+        },
+        "default_cooldown_hours": 4,
+        "min_score_jump_for_alert": 10,
+        "notify_on_setup_text_change": False,
+        "notify_on_setup_family_change": True,
+        "suppress_cascade_pingpong": True
+    },
     "ntfy": {
         "topic": "bbbdc-trading-alerts",
         "server": "https://ntfy.sh",
@@ -216,44 +230,122 @@ def record_history_event(event):
         pass
 
 
+def normalize_setup_family(setup_name: str) -> str:
+    """
+    Normalisiert freie oder variierende Setup-Namen in standardisierte Setup-Familien.
+    Verhindert Schein-Änderungen durch LLM-Synonyme (z.B. 'SMC FVG' vs 'Bullish FVG')
+    oder wandernde Order-Block Indizes (z.B. [R1] vs [R5]).
+    """
+    if not setup_name:
+        return "UNKNOWN"
+    s = setup_name.lower().strip()
+    if any(k in s for k in ("beobachten", "lauerstellung", "warten", "no trade", "keine daten", "konsolidierung", "re-evaluation")):
+        return "WAITING_OBSERVATION"
+    if "fvg" in s or "fair value gap" in s or "imbalance" in s:
+        return "FVG_CONTINUATION"
+    if any(k in s for k in ("pocket", "degencoder", "chaos band")):
+        return "POCKET_TRIGGER"
+    if any(k in s for k in ("order block", "support reversal", "golden confluence", "golden pocket", "rejection", "sweep")):
+        return "ORDER_BLOCK_REVERSAL"
+    if any(k in s for k in ("trendfolge", "trend continuation", "breakout", "hidden div")):
+        return "TREND_CONTINUATION"
+    if any(k in s for k in ("exhaustion", "erschöpfung", "divergence", "divergenz", "climax")):
+        return "EXHAUSTION_REVERSAL"
+    return "GENERIC_CONFLUENCE"
+
+
 def detect_signal_changes(current_assets):
     """
     Vergleicht den aktuellen Scan mit dem vorherigen Scan-Zustand.
-    Erkennt:
-    - Signal-Änderungen (z.B. NEUTRAL -> LONG, LONG -> NEUTRAL, etc.)
-    - Signifikante Score-Sprünge (>= 6 Punkte oder Über-/Unterschreiten von 85%)
-    - Setup-Wechsel bei aktiven Setups
+    Erkennt echte Signal-Änderungen unter Berücksichtigung von:
+    - Säule 1: Semantische Setup-Normalisierung (Setup-Familien statt reiner Text-Drift)
+    - Säule 2: Zeitskalen-adaptiver Cooldown-Filter (1h: 2h, 4h: 4h, 1D: 12h, 1W: 24h)
+    - Säule 3: Kaskaden-Hysterese (Schutz vor Math-Engine vs. KI Ping-Pong bei Timeouts)
     """
+    conf = load_config()
+    alert_filters = conf.get("alert_filters", {})
+    cooldown_map = alert_filters.get("cooldown_hours_by_timeframe", {
+        "1h": 2,
+        "4h": 4,
+        "1D": 12,
+        "3D": 18,
+        "1W": 24
+    })
+    default_cooldown = alert_filters.get("default_cooldown_hours", 4)
+    min_score_jump = alert_filters.get("min_score_jump_for_alert", 10)
+    notify_text_change = alert_filters.get("notify_on_setup_text_change", False)
+    notify_family_change = alert_filters.get("notify_on_setup_family_change", True)
+    suppress_cascade_pingpong = alert_filters.get("suppress_cascade_pingpong", True)
+
     prev_state = load_signal_state()
     is_initial_run = (len(prev_state) == 0)
 
     changes = []
     new_state = {}
+    now_dt = datetime.now(timezone.utc)
+    now_iso = now_dt.isoformat()
 
     for a in current_assets:
         sym = a["symbol"]
         curr_sig = a.get("signal", "NEUTRAL")
         curr_score = a.get("score", 50)
         curr_setup = a.get("setup_name", "")
+        curr_family = normalize_setup_family(curr_setup)
         curr_price = a.get("price", 0.0)
+        curr_sl = float(a.get("stop_loss", 0.0))
+        curr_tp2 = float(a.get("take_profit_2", 0.0))
+        primary_tf = a.get("primary_timeframe", "4h")
+        eval_by = str(a.get("evaluated_by", "Confluence"))
 
-        new_state[sym] = {
-            "symbol": sym,
-            "name": a["name"],
-            "signal": curr_sig,
-            "score": curr_score,
-            "setup_name": curr_setup,
-            "price": curr_price,
-            "entry_range": a.get("entry_range", [curr_price, curr_price]),
-            "stop_loss": a.get("stop_loss", 0.0),
-            "take_profit_2": a.get("take_profit_2", 0.0),
-            "primary_timeframe": a.get("primary_timeframe", "4h"),
-            "timeframe_label": a.get("timeframe_label", "4h Core Swing"),
-            "holding_period": a.get("holding_period", "2–5 Tage"),
-            "updated_at": datetime.now(timezone.utc).isoformat()
-        }
+        p_entry = prev_state.get(sym, {})
+        old_sig = p_entry.get("signal", "NEUTRAL")
+        old_score = p_entry.get("score", 50)
+        old_setup = p_entry.get("setup_name", "")
+        old_family = p_entry.get("setup_family") or normalize_setup_family(old_setup)
+        old_sl = float(p_entry.get("stop_loss", 0.0))
+        old_tp2 = float(p_entry.get("take_profit_2", 0.0))
+        prev_eval = str(p_entry.get("evaluated_by", ""))
+
+        last_notified_at_str = p_entry.get("last_notified_at")
+        last_notified_sig = p_entry.get("last_notified_signal", old_sig)
+        last_notified_score = p_entry.get("last_notified_score", old_score)
+        last_notified_family = p_entry.get("last_notified_family", old_family)
+
+        hours_since_alert = 999.0
+        if last_notified_at_str:
+            try:
+                last_dt = datetime.fromisoformat(last_notified_at_str)
+                if last_dt.tzinfo is None:
+                    last_dt = last_dt.replace(tzinfo=timezone.utc)
+                hours_since_alert = max(0.0, (now_dt - last_dt).total_seconds() / 3600.0)
+            except Exception:
+                pass
+
+        cooldown_hours = cooldown_map.get(primary_tf, default_cooldown)
+        in_cooldown = (hours_since_alert < cooldown_hours)
 
         if is_initial_run:
+            new_state[sym] = {
+                "symbol": sym,
+                "name": a["name"],
+                "signal": curr_sig,
+                "score": curr_score,
+                "setup_name": curr_setup,
+                "setup_family": curr_family,
+                "price": curr_price,
+                "entry_range": a.get("entry_range", [curr_price, curr_price]),
+                "stop_loss": curr_sl,
+                "take_profit_2": curr_tp2,
+                "primary_timeframe": primary_tf,
+                "timeframe_label": a.get("timeframe_label", "4h Core Swing"),
+                "holding_period": a.get("holding_period", "2–5 Tage"),
+                "evaluated_by": eval_by,
+                "updated_at": now_iso,
+                "last_notified_at": None,
+                "last_notified_signal": None,
+                "last_notified_score": None,
+                "last_notified_family": None
+            }
             continue
 
         if sym not in prev_state:
@@ -271,31 +363,143 @@ def detect_signal_changes(current_assets):
                     "price": curr_price,
                     "setup_name": curr_setup,
                     "entry_range": a.get("entry_range", []),
-                    "stop_loss": a.get("stop_loss", 0),
-                    "take_profit_2": a.get("take_profit_2", 0),
+                    "stop_loss": curr_sl,
+                    "take_profit_2": curr_tp2,
                     "reasons": a.get("reasons", []),
-                    "primary_timeframe": a.get("primary_timeframe", "4h"),
+                    "primary_timeframe": primary_tf,
                     "timeframe_label": a.get("timeframe_label", "4h Core Swing"),
                     "holding_period": a.get("holding_period", "2–5 Tage"),
                     "change_reason": f"Neues aktives Setup ({curr_sig}) mit {curr_score}% Konfluenz.",
                     "note": a.get("analyst_note", ""),
-                    "evaluated_by": a.get("evaluated_by", "Confluence")
+                    "evaluated_by": eval_by
                 })
+                new_state[sym] = {
+                    "symbol": sym,
+                    "name": a["name"],
+                    "signal": curr_sig,
+                    "score": curr_score,
+                    "setup_name": curr_setup,
+                    "setup_family": curr_family,
+                    "price": curr_price,
+                    "entry_range": a.get("entry_range", [curr_price, curr_price]),
+                    "stop_loss": curr_sl,
+                    "take_profit_2": curr_tp2,
+                    "primary_timeframe": primary_tf,
+                    "timeframe_label": a.get("timeframe_label", "4h Core Swing"),
+                    "holding_period": a.get("holding_period", "2–5 Tage"),
+                    "evaluated_by": eval_by,
+                    "updated_at": now_iso,
+                    "last_notified_at": now_iso,
+                    "last_notified_signal": curr_sig,
+                    "last_notified_score": curr_score,
+                    "last_notified_family": curr_family
+                }
+            else:
+                new_state[sym] = {
+                    "symbol": sym,
+                    "name": a["name"],
+                    "signal": curr_sig,
+                    "score": curr_score,
+                    "setup_name": curr_setup,
+                    "setup_family": curr_family,
+                    "price": curr_price,
+                    "entry_range": a.get("entry_range", [curr_price, curr_price]),
+                    "stop_loss": curr_sl,
+                    "take_profit_2": curr_tp2,
+                    "primary_timeframe": primary_tf,
+                    "timeframe_label": a.get("timeframe_label", "4h Core Swing"),
+                    "holding_period": a.get("holding_period", "2–5 Tage"),
+                    "evaluated_by": eval_by,
+                    "updated_at": now_iso,
+                    "last_notified_at": None,
+                    "last_notified_signal": None,
+                    "last_notified_score": None,
+                    "last_notified_family": None
+                }
             continue
 
-        p_entry = prev_state[sym]
-        old_sig = p_entry.get("signal", "NEUTRAL")
-        old_score = p_entry.get("score", 50)
-        old_setup = p_entry.get("setup_name", "")
+        # 1. Kaskaden-Ping-Pong-Schutz (Säule 3):
+        # Wenn Asset zuvor durch KI auf NEUTRAL gesetzt wurde (z.B. Lauerstellung),
+        # und nun ein Math-Fallback-Lauf 'LONG' meldet:
+        is_cascade_bounce = False
+        if suppress_cascade_pingpong:
+            if old_sig == "NEUTRAL" and curr_sig in ("LONG", "SHORT"):
+                if ("gemini" in prev_eval.lower() or "pro" in prev_eval.lower()) and ("quantitative" in eval_by.lower() or "math" in eval_by.lower()):
+                    if curr_score < 96:
+                        is_cascade_bounce = True
 
-        signal_changed = (curr_sig != old_sig)
-        score_jump = abs(curr_score - old_score) >= 6
-        crossed_threshold = (old_score < 85 and curr_score >= 85) or (old_score >= 85 and curr_score < 85)
-        setup_changed = (old_sig != "NEUTRAL" and curr_sig != "NEUTRAL" and old_setup != curr_setup)
+        signal_changed = (curr_sig != old_sig) and not is_cascade_bounce
 
-        if signal_changed or (curr_sig != "NEUTRAL" and (score_jump or crossed_threshold or setup_changed)):
-            change_type = "SIGNAL_CHANGE" if signal_changed else ("SCORE_JUMP" if score_jump else "SETUP_UPDATE")
-            
+        # Setup- und Score-Kriterien prüfen
+        score_diff = abs(curr_score - last_notified_score)
+        score_jump = score_diff >= min_score_jump
+        family_changed = (curr_family != old_family) and curr_family not in ("UNKNOWN", "WAITING_OBSERVATION")
+        text_changed = (curr_setup != old_setup)
+
+        # Signifikante SL/TP Verschiebung prüfen (z.B. Trailing Stop)
+        sl_shifted = (old_sl > 0 and abs(curr_sl - old_sl) / old_sl >= 0.035)
+        tp_shifted = (old_tp2 > 0 and abs(curr_tp2 - old_tp2) / old_tp2 >= 0.06)
+
+        # 85% A+ Schwellenwert-Übertritt
+        threshold_crossed = (last_notified_score < 85 and curr_score >= 85)
+
+        notify_this_asset = False
+        change_type = None
+
+        if signal_changed:
+            # Echte Signalwechsel (LONG/SHORT/NEUTRAL) brechen Cooldown IMMER
+            notify_this_asset = True
+            change_type = "SIGNAL_CHANGE"
+        elif curr_sig != "NEUTRAL":
+            if in_cooldown:
+                # Innerhalb des Cooldowns: Nur bei gravierender SL/TP Änderung oder massivem Score-Sprung
+                if sl_shifted or tp_shifted:
+                    notify_this_asset = True
+                    change_type = "SETUP_UPDATE"
+                elif score_jump and curr_score >= 85:
+                    notify_this_asset = True
+                    change_type = "SCORE_JUMP"
+            else:
+                # Außerhalb des Cooldowns:
+                if threshold_crossed:
+                    notify_this_asset = True
+                    change_type = "SCORE_JUMP"
+                elif family_changed and notify_family_change:
+                    notify_this_asset = True
+                    change_type = "SETUP_UPDATE"
+                elif text_changed and notify_text_change:
+                    notify_this_asset = True
+                    change_type = "SETUP_UPDATE"
+                elif score_jump:
+                    notify_this_asset = True
+                    change_type = "SCORE_JUMP"
+
+        if is_cascade_bounce:
+            notify_this_asset = False
+
+        new_state[sym] = {
+            "symbol": sym,
+            "name": a["name"],
+            "signal": curr_sig,
+            "score": curr_score,
+            "setup_name": curr_setup,
+            "setup_family": curr_family,
+            "price": curr_price,
+            "entry_range": a.get("entry_range", [curr_price, curr_price]),
+            "stop_loss": curr_sl,
+            "take_profit_2": curr_tp2,
+            "primary_timeframe": primary_tf,
+            "timeframe_label": a.get("timeframe_label", "4h Core Swing"),
+            "holding_period": a.get("holding_period", "2–5 Tage"),
+            "evaluated_by": eval_by,
+            "updated_at": now_iso,
+            "last_notified_at": now_iso if notify_this_asset else last_notified_at_str,
+            "last_notified_signal": curr_sig if notify_this_asset else last_notified_sig,
+            "last_notified_score": curr_score if notify_this_asset else last_notified_score,
+            "last_notified_family": curr_family if notify_this_asset else last_notified_family
+        }
+
+        if notify_this_asset:
             # Konkrete Begründung ermitteln
             reasons = a.get("reasons", [])
             primary_reason = reasons[0] if reasons else a.get("analyst_note", "")
@@ -306,8 +510,10 @@ def detect_signal_changes(current_assets):
                     change_reason = f"Ausstieg/Invalidierung: Setup nicht mehr aktiv ({primary_reason or 'Struktur verloren'})."
                 else:
                     change_reason = f"Signal-Drehung ({old_sig} ➔ {curr_sig}): Marktstruktur hat gedreht ({primary_reason})."
-            elif score_jump:
-                change_reason = f"Konfluenz-Veränderung: Score springt von {old_score}% auf {curr_score}% ({primary_reason})."
+            elif sl_shifted or tp_shifted:
+                change_reason = f"Risiko-Update: SL/TP angepasst (SL: {curr_sl:.2f}, TP2: {curr_tp2:.2f})."
+            elif change_type == "SCORE_JUMP":
+                change_reason = f"Konfluenz-Veränderung: Score springt von {last_notified_score}% auf {curr_score}% ({primary_reason})."
             else:
                 change_reason = f"Setup-Update: Wechsel auf '{curr_setup}' ({primary_reason})."
 
@@ -322,16 +528,17 @@ def detect_signal_changes(current_assets):
                 "new_score": curr_score,
                 "price": curr_price,
                 "setup_name": curr_setup,
+                "setup_family": curr_family,
                 "entry_range": a.get("entry_range", []),
-                "stop_loss": a.get("stop_loss", 0),
-                "take_profit_2": a.get("take_profit_2", 0),
+                "stop_loss": curr_sl,
+                "take_profit_2": curr_tp2,
                 "reasons": reasons,
-                "primary_timeframe": a.get("primary_timeframe", "4h"),
+                "primary_timeframe": primary_tf,
                 "timeframe_label": a.get("timeframe_label", "4h Core Swing"),
                 "holding_period": a.get("holding_period", "2–5 Tage"),
                 "change_reason": change_reason,
                 "note": a.get("analyst_note", ""),
-                "evaluated_by": a.get("evaluated_by", "Confluence")
+                "evaluated_by": eval_by
             })
 
     return changes, new_state, is_initial_run
@@ -440,6 +647,13 @@ def format_telegram_change_notification(changes, click_url):
 
             lines.append("")
 
+            # Multi-Timeframe Detail-Buttons
+            action_buttons.append([
+                {"text": "⏱️ 1h", "callback_data": f"view_tf:{sym}:1h"},
+                {"text": "⏱️ 4h", "callback_data": f"view_tf:{sym}:4h"},
+                {"text": "⏱️ 1D", "callback_data": f"view_tf:{sym}:1D"},
+                {"text": "⏱️ 1W", "callback_data": f"view_tf:{sym}:1W"},
+            ])
             # 1-Klick Action Button vorbereiten
             action_buttons.append([
                 {"text": f"➕ {ticker} Trade mit 1 Klick anlegen", "callback_data": f"wiz_adopt:{sym}"}

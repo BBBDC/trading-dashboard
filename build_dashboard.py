@@ -4274,6 +4274,18 @@ html_content = f"""<!DOCTYPE html>
       img.src = chartPath;
       img.alt = `${{currentModalAsset.name}} (${{tf}}) Chart`;
 
+      // Matrix-Spalte hervorheben
+      ['1W', '3D', '1D', '4h', '1h'].forEach(t => {{
+        const col = document.getElementById('modal-tf-col-' + t);
+        if (col) {{
+          if (t === tf) {{
+            col.className = 'p-3.5 rounded-xl bg-indigo-950/60 border-2 border-indigo-500 shadow-lg shadow-indigo-950/50 space-y-2.5 font-mono text-xs transition-all ring-1 ring-indigo-400/30';
+          }} else {{
+            col.className = 'p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-2.5 font-mono text-xs opacity-75 hover:opacity-100 transition-all cursor-pointer';
+          }}
+        }}
+      }});
+
       if (currentModalView === 'tvwidget') {{
         renderTradingViewWidget();
       }}
@@ -4447,7 +4459,13 @@ html_content = f"""<!DOCTYPE html>
       ['1W', '3D', '1D', '4h', '1h'].filter(tf => a.timeframes && a.timeframes[tf]).forEach(tf => {{
         const d = a.timeframes[tf];
         const tfCol = document.createElement('div');
-        tfCol.className = 'p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-2.5 font-mono text-xs';
+        tfCol.id = 'modal-tf-col-' + tf;
+        tfCol.onclick = () => selectModalTimeframe(tf);
+        tfCol.title = `Klicken, um ${{tf}}-Chart und Details zu aktivieren`;
+        const isActiveTf = (tf === (currentModalTf || a.primary_timeframe || '4h'));
+        tfCol.className = isActiveTf 
+          ? 'p-3.5 rounded-xl bg-indigo-950/60 border-2 border-indigo-500 shadow-lg shadow-indigo-950/50 space-y-2.5 font-mono text-xs transition-all ring-1 ring-indigo-400/30'
+          : 'p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-2.5 font-mono text-xs opacity-75 hover:opacity-100 transition-all cursor-pointer';
         
         if (!d) {{
           tfCol.innerHTML = `<span class="font-bold text-white block pb-1 border-b border-slate-800">${{tf}} Chart</span><span class="text-slate-500">Keine Daten</span>`;

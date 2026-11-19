@@ -419,8 +419,11 @@ def evaluate_quantitative_confluence(timeframes, asset_info, prev_asset=None):
     bull_points = round(base_bull_points * mult_bull)
     bear_points = round(base_bear_points * mult_bear)
 
-    # HYSTERESE / ANTI-WHIPSAW:
+    # HYSTERESE / ANTI-WHIPSAW / KASKADEN-SCHUTZ:
     prev_sig = (prev_asset or {}).get("signal", "NEUTRAL")
+    prev_ev = str((prev_asset or {}).get("evaluated_by", ""))
+    prev_setup = str((prev_asset or {}).get("setup_name", "")).lower()
+    recent_ai_neutral = (prev_sig == "NEUTRAL" and ("gemini" in prev_ev.lower() or "pro" in prev_ev.lower()) and any(k in prev_setup for k in ("beobachten", "lauerstellung", "warten", "dip")))
 
     # TRIGGER-SPERRE:
     # Ohne Reversal-Trigger (t_bull < 15) darf NIEMALS ein Kauf-Signal generiert werden!
@@ -438,6 +441,11 @@ def evaluate_quantitative_confluence(timeframes, asset_info, prev_asset=None):
         (z_bull >= 15 or in_buy_pocket or active_bull_ob is not None)
     )
 
+    # Kaskaden-Schutz: Wenn KI das Asset fundiert in Lauerstellung hielt, darf die Math-Engine
+    # nicht bei reinen Standard-Indikatoren sofort Long auslösen, außer es liegt ein frischer High-Conviction Trigger vor
+    if long_cand_valid and recent_ai_neutral and not has_buy_trigger and bull_points < 80:
+        long_cand_valid = False
+
     # Wenn zuvor schon LONG war, Trägheit wahren solange Makro intakt und kein Verkaufsdruck
     if not long_cand_valid and prev_sig == "LONG" and macro_bullish and bull_points >= 50 and curr_rsi_4h <= 65:
         long_cand_valid = True
@@ -452,6 +460,10 @@ def evaluate_quantitative_confluence(timeframes, asset_info, prev_asset=None):
         not (d_1d and "Oversold" in d_1d.get("channel_position", "")) and
         (z_bear >= 15 or in_sell_pocket or active_bear_ob is not None)
     )
+
+    # Kaskaden-Schutz für Shorts
+    if short_cand_valid and recent_ai_neutral and not has_sell_trigger and bear_points < 80:
+        short_cand_valid = False
 
     if not short_cand_valid and prev_sig == "SHORT" and macro_bearish and bear_points >= 50 and curr_rsi_4h >= 35:
         short_cand_valid = True

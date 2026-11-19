@@ -3,6 +3,20 @@
   "provider": "telegram",
   "only_on_change": true,
   "min_score_filter": 85,
+  "alert_filters": {
+    "cooldown_hours_by_timeframe": {
+      "1h": 2,
+      "4h": 4,
+      "1D": 12,
+      "3D": 18,
+      "1W": 24
+    },
+    "default_cooldown_hours": 4,
+    "min_score_jump_for_alert": 10,
+    "notify_on_setup_text_change": false,
+    "notify_on_setup_family_change": true,
+    "suppress_cascade_pingpong": true
+  },
   "ntfy": {
     "topic": "bbbdc-trading-alerts",
     "server": "https://ntfy.sh",

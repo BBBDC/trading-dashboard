@@ -999,6 +999,13 @@ def get_top_setups_text_and_markup():
                 lines.append(f"📊 <b>Auslöser:</b> {reasons[0][:110]}")
             lines.append("")
 
+            # Multi-Timeframe Schnellansicht Buttons
+            buttons.append([
+                {"text": "⏱️ 1h", "callback_data": f"view_tf:{sym}:1h"},
+                {"text": "⏱️ 4h", "callback_data": f"view_tf:{sym}:4h"},
+                {"text": "⏱️ 1D", "callback_data": f"view_tf:{sym}:1D"},
+                {"text": "⏱️ 1W", "callback_data": f"view_tf:{sym}:1W"},
+            ])
             buttons.append([
                 {"text": f"➕ {ticker} Trade mit 1 Klick anlegen", "callback_data": f"wiz_adopt:{sym}"}
             ])
@@ -1011,6 +1018,113 @@ def get_top_setups_text_and_markup():
         return "\n".join(lines), kb
     except Exception as e:
         return f"Fehler bei Top-Setups: {e}", None
+
+
+def get_asset_timeframe_detail_text_and_markup(symbol: str, target_tf: str = "4h"):
+    """
+    Erstellt eine formatierte Multi-Timeframe Detailansicht für ein Asset im Telegram Bot.
+    Ermöglicht das interaktive Durchschalten aller Zeitebenen (1h, 4h, 1D, 1W) mit
+    Trend, RSI, Wyckoff VSA, Zonen (Golden Pocket/FVG/OB) und Triggern.
+    """
+    if not DB_FILE.exists():
+        return "⚠️ Marktdatenbank nicht gefunden.", None
+
+    try:
+        with open(DB_FILE, "r", encoding="utf-8") as f:
+            db = json.load(f)
+
+        target_asset = None
+        for a in db.get("assets", []):
+            if a.get("symbol") == symbol:
+                target_asset = a
+                break
+
+        if not target_asset:
+            return f"⚠️ Asset <code>{symbol}</code> nicht in der Datenbank gefunden.", None
+
+        name = target_asset.get("name", symbol)
+        ticker = symbol.split(":")[-1]
+        sig = target_asset.get("signal", "NEUTRAL")
+        score = target_asset.get("score", 50)
+        curr = "€" if "TRADEGATE" in symbol or "XETR" in symbol else "$"
+        price = float(target_asset.get("price", 0.0))
+        p_tf = target_asset.get("primary_timeframe", "4h")
+        holding = target_asset.get("holding_period", "2–5 Tage")
+        setup = target_asset.get("setup_name", "Konfluenz-Setup")
+
+        tfs = target_asset.get("timeframes", {})
+        d = tfs.get(target_tf)
+
+        sig_icon = "🟢" if sig == "LONG" else ("🔴" if sig == "SHORT" else "⚪")
+
+        lines = [
+            f"⏱️ <b>Multi-Timeframe Röntgenblick</b>",
+            f"📈 <b>{name}</b> (<code>{ticker}</code>) · <i>{target_asset.get('category', 'Asset')}</i>",
+            f"Live-Kurs: <code>{price:,.2f} {curr}</code>\n",
+            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+            f"🔍 <b>FOKUS-ZEITSKALA: <code>{target_tf} Chart</code></b>",
+            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        ]
+
+        if not d:
+            lines.append(f"<i>Keine detaillierten Indikator-Daten für {target_tf} vorhanden.</i>\n")
+        else:
+            t_trend = d.get("trend", "NEUTRAL")
+            t_icon = "🟢" if t_trend == "BULLISH" else ("🔴" if t_trend == "BEARISH" else "⚪")
+            rsi_val = float(d.get("rsi", 50))
+            rsi_desc = "Stark überkauft (>70)" if rsi_val >= 70 else ("Stark überverkauft (<30)" if rsi_val <= 30 else "Neutral")
+            vsa_val = d.get("vsa_class", "Normal")
+            chan_pos = d.get("channel_position", "Neutral")
+            gp = d.get("golden_pocket", [0, 0])
+            in_gp = d.get("in_golden_pocket", False)
+
+            lines.append(f"• <b>Trend:</b> {t_icon} <b>{t_trend}</b>")
+            lines.append(f"• <b>RSI (14):</b> <b>{rsi_val:.1f}</b> ({rsi_desc})")
+            lines.append(f"• <b>Wyckoff VSA:</b> <code>{vsa_val}</code>")
+            lines.append(f"• <b>Kanal-Position:</b> {chan_pos}")
+            if gp and len(gp) == 2 and gp[0] > 0:
+                gp_txt = f"{gp[0]:,.2f} - {gp[1]:,.2f} {curr}"
+                lines.append(f"• <b>Golden Pocket (0.618):</b> <code>{gp_txt}</code> ({'✅ AKTIV' if in_gp else 'Inaktiv'})")
+
+            divs = d.get("divergences", [])
+            if divs:
+                lines.append(f"• ⚡ <b>Divergenzen:</b> {', '.join(divs)}")
+
+            ob = d.get("active_order_block")
+            if ob:
+                lines.append(f"• 🧱 <b>Order Block:</b> {ob.get('type', 'OB')} [{ob.get('badge', 'A')}] ({ob.get('bottom', 0):,.2f} - {ob.get('top', 0):,.2f})")
+            fvg = d.get("active_fvg")
+            if fvg:
+                lines.append(f"• ⚡ <b>Fair Value Gap:</b> {fvg.get('type', 'FVG')} ({fvg.get('bottom', 0):,.2f} - {fvg.get('top', 0):,.2f})")
+            if d.get("in_buy_pocket"):
+                lines.append("• 📥 <b>degencoder:</b> Im Institutional BUY-Pocket")
+            if d.get("in_sell_pocket"):
+                lines.append("• 📤 <b>degencoder:</b> Im Institutional SELL-Pocket")
+
+            lines.append("")
+
+        lines.append(f"💡 <b>Primär-Setup ({p_tf} Chart · {holding}):</b>")
+        lines.append(f"{sig_icon} <b>{sig} (Score: {score}%)</b> · {setup}")
+
+        # Buttons erstellen
+        avail_tfs = ["1h", "4h", "1D", "1W"]
+        if "3D" in tfs:
+            avail_tfs = ["1h", "4h", "1D", "3D", "1W"]
+
+        tf_buttons = []
+        for t in avail_tfs:
+            star = " •" if t == target_tf else (" *" if t == p_tf else "")
+            tf_buttons.append({"text": f"{t}{star}", "callback_data": f"view_tf:{symbol}:{t}"})
+
+        keyboard = [
+            tf_buttons,
+            [{"text": f"➕ {ticker} Trade anlegen", "callback_data": f"wiz_adopt:{symbol}"}],
+            [{"text": "🎯 Zu den Top-Setups", "callback_data": "menu_top_setups"}, {"text": "🔙 Hauptmenü", "callback_data": "menu_main"}]
+        ]
+
+        return "\n".join(lines), {"inline_keyboard": keyboard}
+    except Exception as e:
+        return f"Fehler bei Zeitskalen-Ansicht: {e}", None
 
 
 def get_admin_hub_text_and_markup():
@@ -2202,6 +2316,15 @@ def process_callback(api, chat_id, message_id, user_id, username, role, data):
             f"Wähle eine Aktion:"
         )
         api.edit_message_text(chat_id, message_id, text, reply_markup=get_main_menu_keyboard(role))
+        return
+
+    # Multi-Timeframe Röntgenblick
+    if data.startswith("view_tf:"):
+        parts = data.split(":")
+        tf = parts[-1]
+        sym = ":".join(parts[1:-1])
+        text, kb = get_asset_timeframe_detail_text_and_markup(sym, tf)
+        api.edit_message_text(chat_id, message_id, text, reply_markup=kb)
         return
 
     # Benachrichtigungseinstellungen
