@@ -448,10 +448,10 @@ routing_health_card_html = f"""
       </section>
 """
 
-# Pro-Abo Quota Informationen für Admin-Bereich (Stufe 1 Primär: pokeulm@gmail.com)
+# Pro-Abo Quota Informationen für Admin-Bereich (Stufe 1 Primär: Google AI Pro)
 pro_info = quota_info.get("pro_subscription", {})
 pro_enabled = pro_info.get("enabled", True)
-pro_model = "gemini-3.8-flash-high (Pro Thinking)"
+pro_model = "gemini-4-hydrogen (Google AI Pro Medium)"
 pro_status = pro_info.get("status", "ACTIVE")
 pro_last_used = pro_info.get("last_used")
 if pro_last_used:
@@ -672,10 +672,10 @@ pro_card_html = f"""
             <span class="text-2xl">⚡</span>
             <div>
               <div class="flex items-center gap-2 flex-wrap">
-                <h3 class="font-bold text-white text-base group-hover:text-indigo-300 transition">Google Pro-Abo (Account 2: {acc_email})</h3>
+                <h3 class="font-bold text-white text-base group-hover:text-indigo-300 transition">Google AI Pro ({acc_email})</h3>
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">STUFE 1: PRIMÄR-ROUTING (100% TRADING)</span>
               </div>
-              <p class="text-xs text-slate-400">Dediziertes Trading-Konto &bull; Unbegrenztes Monitoring (50er-Limit aufgehoben) &bull; Native Google 5h/Wochen-Limits</p>
+              <p class="text-xs text-slate-400">Google AI Pro (Paid) &bull; gemini-4-hydrogen (Medium Effort) &bull; Native Google 5h/Wochen-Limits</p>
             </div>
           </div>
           <div class="flex items-center gap-3 self-start sm:self-auto">
@@ -8751,13 +8751,12 @@ html_content = f"""<!DOCTYPE html>
         <div class="p-3.5 rounded-xl bg-indigo-950/30 border border-indigo-500/30 space-y-1.5 text-[11px] leading-relaxed text-slate-300">
           <div class="font-bold text-indigo-300 flex items-center gap-1.5">
             <span>🛡️</span>
-            <span>Garantierte Kaskaden-Hierarchie (4 Stufen)</span>
+            <span>Garantierte Kaskaden-Hierarchie (3 Stufen)</span>
           </div>
           <ol class="list-decimal list-inside space-y-1 text-slate-300">
-            <li><strong>Stufe 1 (Primär):</strong> Google Pro-Abo via CLI mit <code>pokeulm@gmail.com</code> und <code>gemini-3.8-flash-high</code>. Verarbeitet alle regulären Marktanalysen und Trade-Learnings ohne künstliche 50er-Drossel.</li>
-            <li><strong>Stufe 2 (Failover 1):</strong> Multi-Key Pool (4x Google AI Studio Keys) auf <code>gemini-3.8-flash High</code> mit 80 Requests/Tag Puffer.</li>
-            <li><strong>Stufe 3 (Failover 2):</strong> Multi-Key Pool auf <code>gemini-3.5-flash</code> (sofortige Übernahme bei 503-Spitzen auf 3.8).</li>
-            <li><strong>Stufe 4 (Safety Net):</strong> Mathematische 3-Timeframe Confluence-Engine (SMC & Wyckoff VSA) &ndash; 100% lokal und ausfallsicher.</li>
+            <li><strong>Stufe 1 (Primär):</strong> Google AI Pro CLI mit <code>gemini-4-hydrogen</code> (Medium Effort). Verarbeitet Marktanalysen und Trade-Learnings in Rekordzeit.</li>
+            <li><strong>Stufe 2 (Failover):</strong> Google AI Pro CLI mit <code>gemini-4-hydrogen</code> (Low Effort) bei Lastspitzen.</li>
+            <li><strong>Stufe 3 (Safety Net):</strong> Mathematische 3-Timeframe Confluence-Engine (SMC & Wyckoff VSA) &ndash; 100% lokal und ausfallsicher.</li>
           </ol>
         </div>
       </div>

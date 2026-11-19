@@ -134,28 +134,11 @@ Gib die Antwort AUSSCHLIESSLICH als gültiges JSON-Objekt ohne Markdown-Codeblö
 }}
 """
     try:
-        from gemini_evaluator import get_api_key, extract_json_from_text
-        import urllib.request
-        api_key = get_api_key()
-        if api_key:
-            payload = {
-                "contents": [{"parts": [{"text": prompt}]}],
-                "generationConfig": {"responseMimeType": "application/json", "temperature": 0.1}
-            }
-            # Ultra-schnelle Modelle priorisieren
-            for mod in ["gemini-3.5-flash-lite", "gemini-3.8-flash", "gemini-3.5-flash"]:
-                url = f"https://generativelanguage.googleapis.com/v1beta/models/{mod}:generateContent?key={api_key}"
-                req = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers={"Content-Type": "application/json"})
-                try:
-                    with urllib.request.urlopen(req, timeout=5) as resp:
-                        res = json.loads(resp.read().decode("utf-8"))
-                        txt = res["candidates"][0]["content"]["parts"][0]["text"]
-                        parsed = extract_json_from_text(txt)
-                        if isinstance(parsed, dict) and "action" in parsed and "message" in parsed:
-                            parsed["source"] = f"{mod} (AI)"
-                            return parsed
-                except Exception:
-                    continue
+        from gemini_evaluator import call_gemini_via_pro_cli
+        parsed, err = call_gemini_via_pro_cli(prompt, model="gemini-4-hydrogen", effort="low", timeout=12)
+        if isinstance(parsed, dict) and "action" in parsed and "message" in parsed:
+            parsed["source"] = "gemini-4-hydrogen (AI Pro)"
+            return parsed
     except Exception as e:
         logger.debug(f"Gemini Position Guard Anfrage übersprungen ({e}), nutze mathematische Fallback-Regel.")
 

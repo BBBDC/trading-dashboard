@@ -1,5 +1,37 @@
 [
   {
+    "id": "run_20261119_113613_97",
+    "timestamp": "2026-11-19T11:36:13.326082+00:00",
+    "timestamp_str": "19.11. 12:36:13 CET",
+    "time_short": "12:36",
+    "tier": "Stufe 1 (Pro CLI)",
+    "model": "gemini-4-hydrogen (low)",
+    "outcome": "SUCCESS",
+    "duration_seconds": 9.7,
+    "assets": [
+      "NASDAQ:MU"
+    ],
+    "assets_str": "NASDAQ:MU",
+    "fallback_used": null,
+    "error_message": null
+  },
+  {
+    "id": "run_20261119_113422_30",
+    "timestamp": "2026-11-19T11:34:22.691402+00:00",
+    "timestamp_str": "19.11. 12:34:22 CET",
+    "time_short": "12:34",
+    "tier": "Stufe 1 (Pro CLI)",
+    "model": "gemini-4-hydrogen (medium)",
+    "outcome": "ERROR",
+    "duration_seconds": 3.0,
+    "assets": [
+      "NASDAQ:MU"
+    ],
+    "assets_str": "NASDAQ:MU",
+    "fallback_used": "Stufe 2 (gemini-4-hydrogen [low])",
+    "error_message": "Pro CLI Fehler (gemini-4-hydrogen [medium] via Google AI Pro (mayer.max.1994@gmail.com)): error: NOT_FOUND (code 404): Requested entity was not found."
+  },
+  {
     "id": "run_20261119_111302_279",
     "timestamp": "2026-11-19T11:13:02.977004+00:00",
     "timestamp_str": "19.11. 12:13:02 CET",
@@ -811,40 +843,6 @@
       "KRAKEN:KSMUSD"
     ],
     "assets_str": "COINBASE:BCHUSD, KRAKEN:KSMUSD",
-    "fallback_used": null,
-    "error_message": null
-  },
-  {
-    "id": "run_20261119_092604_516",
-    "timestamp": "2026-11-19T09:26:04.263006+00:00",
-    "timestamp_str": "19.11. 10:26:04 CET",
-    "time_short": "10:26",
-    "tier": "Stufe 1 (Pro CLI)",
-    "model": "gemini-3.8-flash-high",
-    "outcome": "SUCCESS",
-    "duration_seconds": 51.7,
-    "assets": [
-      "COINBASE:EOSUSD",
-      "OANDA:SPX500USD"
-    ],
-    "assets_str": "COINBASE:EOSUSD, OANDA:SPX500USD",
-    "fallback_used": null,
-    "error_message": null
-  },
-  {
-    "id": "run_20261119_092511_534",
-    "timestamp": "2026-11-19T09:25:11.809103+00:00",
-    "timestamp_str": "19.11. 10:25:11 CET",
-    "time_short": "10:25",
-    "tier": "Stufe 1 (Pro CLI)",
-    "model": "gemini-3.8-flash-high",
-    "outcome": "SUCCESS",
-    "duration_seconds": 53.4,
-    "assets": [
-      "TRADEGATE:YDX",
-      "TRADEGATE:TL0"
-    ],
-    "assets_str": "TRADEGATE:YDX, TRADEGATE:TL0",
     "fallback_used": null,
     "error_message": null
   }

@@ -231,7 +231,7 @@ def record_quota_exhausted(key, err_message, retry_seconds=None):
     return state
 
 
-def record_health_check(is_healthy: bool, message: str, tested_key_masked: str, active_tier: str = "Google Pro-Abo CLI (pokeulm@gmail.com · gemini-3.8-flash-high)"):
+def record_health_check(is_healthy: bool, message: str, tested_key_masked: str, active_tier: str = "Google AI Pro CLI (mayer.max.1994@gmail.com · gemini-4-hydrogen)"):
     """Speichert das Ergebnis des vorangehenden Health-Checks im Quota-State."""
     state = load_quota_state()
     state["health_check"] = {
@@ -241,7 +241,7 @@ def record_health_check(is_healthy: bool, message: str, tested_key_masked: str, 
         "tested_key_masked": tested_key_masked,
         "active_tier": active_tier,
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "routing_priority": "1. Google Pro-Abo (pokeulm@gmail.com · 3.8 Flash High) -> 2. Multi-Key Pool (3.8 Flash High) -> 3. Multi-Key Pool (3.5 Flash) -> 4. Math-Core"
+        "routing_priority": "1. Google AI Pro (gemini-4-hydrogen Medium) -> 2. Failover (Hydrogen Low) -> 3. Math-Core"
     }
     save_quota_state(state)
 
@@ -522,23 +522,7 @@ def is_pro_quota_available():
 
 
 def get_connected_account_info():
-    """Prüft, ob das dedizierte 2. Google-Konto verknüpft ist oder Account 1 genutzt wird."""
-    t_token = Path("/home/admin/.gemini_trading/.gemini/antigravity-cli/antigravity-oauth-token")
-    if t_token.exists():
-        try:
-            with open(t_token, "r", encoding="utf-8") as f:
-                d = json.load(f)
-                email = d.get("id_token_email", "Unbekannt")
-                return {
-                    "account_name": "Account 2 (Dediziert für Trading)",
-                    "email": email,
-                    "is_dedicated": True,
-                    "status": "VERKNÜPFT & AKTIV (100% Trading-Fokus)"
-                }
-        except Exception:
-            pass
-
-    # Fallback zu Account 1
+    """Gibt Informationen über das verknüpfte Google AI Pro Konto zurück."""
     c_token = Path("/home/admin/.gemini/antigravity-cli/antigravity-oauth-token")
     email = "mayer.max.1994@gmail.com"
     if c_token.exists():
@@ -546,19 +530,13 @@ def get_connected_account_info():
             with open(c_token, "r", encoding="utf-8") as f:
                 d = json.load(f)
                 email = d.get("id_token_email", email)
-            return {
-                "account_name": "Account 1 (Coding-Assistent / Fallback)",
-                "email": email,
-                "is_dedicated": False,
-                "status": "Wartet auf Verknüpfung von Account 2"
-            }
         except Exception:
             pass
     return {
-        "account_name": "Account 1",
+        "account_name": "Google AI Pro (Hauptaccount)",
         "email": email,
-        "is_dedicated": False,
-        "status": "Aktiv"
+        "is_dedicated": True,
+        "status": "VERKNÜPFT & AKTIV (Google AI Pro)"
     }
 
 
@@ -683,11 +661,11 @@ def get_quota_summary_for_dashboard():
         "health_check": state.get("health_check", {
             "is_healthy": True,
             "status": "PRO_PRIMARY_ACTIVE",
-            "message": "Google Pro-Abo mit Account 2 (pokeulm@gmail.com) aktiv · gemini-3.8-flash-high",
-            "tested_key_masked": current_active_masked,
-            "active_tier": "Google Pro-Abo CLI (pokeulm@gmail.com · gemini-3.8-flash-high)",
+            "message": "Google AI Pro aktiv · gemini-4-hydrogen (mayer.max.1994@gmail.com)",
+            "tested_key_masked": "Google Pro CLI",
+            "active_tier": "Google AI Pro CLI (gemini-4-hydrogen Medium)",
             "timestamp": datetime.now(timezone.utc).isoformat(),
-            "routing_priority": "1. Google Pro-Abo (pokeulm@gmail.com · 3.8 Flash High) -> 2. Multi-Key Pool (3.8 Flash High) -> 3. Multi-Key Pool (3.5 Flash) -> 4. Math-Core"
+            "routing_priority": "1. Google AI Pro (Hydrogen Medium) -> 2. Failover (Hydrogen Low) -> 3. Math-Core"
         }),
         "performance_metrics": get_gemini_performance_metrics(hours=24)
     }

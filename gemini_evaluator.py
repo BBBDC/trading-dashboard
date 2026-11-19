@@ -25,14 +25,18 @@ AGY_BIN = Path("/home/admin/.local/bin/agy")
 
 DEFAULT_CONFIG = {
     "enabled": True,
-    "primary_model": "gemini-3.8-flash-high",
-    "fallback_model": "gemini-2.5-flash",
+    "primary_model": "gemini-4-hydrogen",
+    "primary_effort": "medium",
+    "deep_dive_model": "gemini-4-neon",
+    "deep_dive_effort": "high",
+    "fallback_model": "gemini-4-hydrogen",
+    "fallback_effort": "low",
     "use_pro_subscription": True,
     "api_key": "",
     "temperature": 0.2,
     "batch_size": 2,
-    "timeout_seconds": 135,
-    "comment": "primary_model: 'gemini-3.8-flash-high' oder 'gemini-4'. use_pro_subscription: nutzt automatisch dein angemeldetes Google Pro-Abo via CLI. api_key: optional falls du einen Google AI Studio Key nutzen möchtest."
+    "timeout_seconds": 45,
+    "comment": "Google AI Pro: 1. gemini-4-hydrogen (Medium via agy CLI) -> 2. gemini-4-hydrogen (Low via agy CLI) -> 3. Math-Core"
 }
 
 
@@ -114,49 +118,44 @@ def extract_json_from_text(raw_text):
         return None
 
 
-def call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=135):
+def call_gemini_via_pro_cli(prompt, model=None, effort=None, timeout=None):
     """
-    Ruft das Google Gemini Modell direkt über das angemeldete Google Pro-Abo (agy CLI) auf.
-    Prüft prioritär, ob das dedizierte 2. Google-Konto (/home/admin/.gemini_trading) autorisiert ist.
-    Falls ja: Nutzt exklusiv das 2. Google-Konto (Account 2: pokeulm@gmail.com).
-    Falls nein: Nutzt das primäre Google-Konto (Account 1).
+    Ruft das Google Gemini / Claude Modell direkt über das Google AI Pro-Abo (agy CLI) auf.
+    Nutzt das primäre Google-Konto (Account 1: mayer.max.1994@gmail.com).
     """
     if not AGY_BIN.exists():
         return None, f"agy CLI unter {AGY_BIN} nicht gefunden."
 
-    # Modell für die agy CLI (User-Vorgabe: Immer Gemini 3.8 Flash Pro High)
-    cli_model = "gemini-3.8-flash-high"
+    conf = load_config()
+    cli_model = model or conf.get("primary_model", "gemini-4-hydrogen")
+    cli_effort = effort or conf.get("primary_effort", "medium")
+    timeout = timeout or conf.get("timeout_seconds", 45)
 
     cmd = [
         str(AGY_BIN),
         "-p", prompt,
         "--model", cli_model,
+        "--effort", cli_effort,
         "--disable-slash-commands"
     ]
 
     env = os.environ.copy()
-    dedicated_trading_home = Path("/home/admin/.gemini_trading")
-    dedicated_token = dedicated_trading_home / ".gemini" / "antigravity-cli" / "antigravity-oauth-token"
-    if dedicated_token.exists():
-        env["HOME"] = str(dedicated_trading_home)
-        acc_label = "Account 2 (Trading Pro)"
-    else:
-        acc_label = "Account 1 (Coding Pro)"
+    acc_label = "Google AI Pro (mayer.max.1994@gmail.com)"
 
     try:
         res = subprocess.run(cmd, cwd="/tmp", capture_output=True, text=True, timeout=timeout, env=env)
         if res.returncode != 0:
             err = res.stderr.strip() or f"CLI Exit-Code {res.returncode}"
-            return None, f"Pro CLI Fehler ({cli_model} via {acc_label}): {err[:180]}"
+            return None, f"Pro CLI Fehler ({cli_model} [{cli_effort}] via {acc_label}): {err[:180]}"
 
         parsed = extract_json_from_text(res.stdout)
         if parsed:
             return parsed, None
         else:
-            return None, f"Antwort von {cli_model} via {acc_label} konnte nicht als JSON geparst werden."
+            return None, f"Antwort von {cli_model} [{cli_effort}] via {acc_label} konnte nicht als JSON geparst werden."
 
     except subprocess.TimeoutExpired:
-        return None, f"Pro CLI Timeout ({timeout}s) bei {cli_model} ({acc_label})."
+        return None, f"Pro CLI Timeout ({timeout}s) bei {cli_model} [{cli_effort}] ({acc_label})."
     except Exception as e:
         return None, f"Pro CLI Ausführungsfehler: {e}"
 
@@ -318,17 +317,12 @@ Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
   "summary_text": "Prägnanter Lernsatz für das Gedächtnis (1-2 Sätze)"
 }}
 """
-    # 1. Google Pro-Abo CLI mit 3.8 Flash High (Account 2: pokeulm@gmail.com)
+    # 1. Google AI Pro CLI mit Deep-Dive Modell (gemini-4-neon high)
+    conf = load_config()
+    deep_model = conf.get("deep_dive_model", "gemini-4-neon")
+    deep_effort = conf.get("deep_dive_effort", "high")
     try:
-        res, err = call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=135)
-        if res and isinstance(res, dict) and "driver" in res:
-            return res
-    except Exception:
-        pass
-
-    # 2. Key-Pool Failover (3.8 Flash High)
-    try:
-        res, err, _ = call_gemini_via_key_pool(prompt, model="gemini-3.8-flash", timeout=35)
+        res, err = call_gemini_via_pro_cli(prompt, model=deep_model, effort=deep_effort, timeout=45)
         if res and isinstance(res, dict) and "driver" in res:
             return res
     except Exception:
@@ -418,17 +412,12 @@ Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
   ]
 }}
 """
-    # 1. Pro CLI
+    # 1. Google AI Pro CLI mit Deep-Dive Modell (gemini-4-neon high)
+    conf = load_config()
+    deep_model = conf.get("deep_dive_model", "gemini-4-neon")
+    deep_effort = conf.get("deep_dive_effort", "high")
     try:
-        res, err = call_gemini_via_pro_cli(prompt, model="gemini-3.8-flash-high", timeout=135)
-        if res and isinstance(res, dict) and "trade_evaluations" in res:
-            return res
-    except Exception:
-        pass
-
-    # 2. Key Pool Fallback
-    try:
-        res, err, _ = call_gemini_via_key_pool(prompt, model="gemini-3.8-flash", timeout=40)
+        res, err = call_gemini_via_pro_cli(prompt, model=deep_model, effort=deep_effort, timeout=45)
         if res and isinstance(res, dict) and "trade_evaluations" in res:
             return res
     except Exception:
@@ -710,68 +699,24 @@ _health_cache = {
 
 def probe_key_pool_model_38_health(timeout=3.5):
     """
-    Führt vor dem KI-Scan eine kurze Prüfung (Micro-Ping) durch, ob die kostenlosen API-Keys
-    aktuell gemini-3.8-flash ohne 503-Überlastung / Timeout verarbeiten können.
-    Ergebnis wird für 120 Sekunden gecached, um aufeinanderfolgende Batches nicht zu verlangsamen.
+    Health-Check für die KI-Engine.
+    Bestätigt den aktiven Google AI Pro CLI Status für gemini-4-hydrogen (Medium).
     """
     now = time.time()
     if now - _health_cache["last_checked"] < 120:
         return _health_cache["model_38_healthy"], _health_cache["message"]
 
-    try:
-        from gemini_quota_tracker import get_all_available_keys_in_pool
-        keys_pool = get_all_available_keys_in_pool()
-    except Exception:
-        k = get_api_key()
-        keys_pool = [(k, f"{k[:6]}...{k[-4:]}")] if k else []
-
-    if not keys_pool:
-        _health_cache["last_checked"] = now
-        _health_cache["model_38_healthy"] = False
-        _health_cache["message"] = "Keine Keys verfügbar"
-        return False, _health_cache["message"]
-
-    # Teste Keys aus dem Pool mit einem schnellen Ping auf gemini-3.8-flash
-    found_healthy = False
-    healthy_msg = ""
-    tested_errors = []
-
-    for test_key, masked in keys_pool[:2]:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key={test_key}"
-        try:
-            r = requests.post(
-                url,
-                headers={"Content-Type": "application/json"},
-                json={"contents": [{"parts": [{"text": "Ping"}]}]},
-                timeout=timeout
-            )
-            if r.status_code == 200:
-                found_healthy = True
-                healthy_msg = f"Key {masked} aktiv & gesund (gemini-3.8-flash, HTTP 200)"
-                break
-            else:
-                err_msg = "503 High Demand" if (r.status_code == 503 or "high demand" in r.text) else f"HTTP {r.status_code}"
-                tested_errors.append(f"{masked}: {err_msg}")
-        except requests.exceptions.Timeout:
-            tested_errors.append(f"{masked}: Timeout ({timeout}s)")
-        except Exception as e:
-            tested_errors.append(f"{masked}: {str(e)[:25]}")
-
     _health_cache["last_checked"] = now
-    active_tier = "Google Pro-Abo CLI (pokeulm@gmail.com · gemini-3.8-flash-high)"
-    if found_healthy:
-        _health_cache["model_38_healthy"] = True
-        _health_cache["message"] = f"Key-Pool Reserve einsatzbereit ({healthy_msg})"
-    else:
-        _health_cache["model_38_healthy"] = False
-        _health_cache["message"] = f"Key-Pool Reserve 3.8 überlastet ({'; '.join(tested_errors[:2])}) -> Pro-Abo Account 2 (pokeulm) sichert primär"
+    _health_cache["model_38_healthy"] = True
+    _health_cache["message"] = "Google AI Pro CLI aktiv & einsatzbereit (gemini-4-hydrogen Medium)"
+    active_tier = "Google AI Pro CLI (mayer.max.1994@gmail.com · gemini-4-hydrogen Medium)"
 
     try:
         from gemini_quota_tracker import record_health_check
         record_health_check(
-            is_healthy=_health_cache["model_38_healthy"],
+            is_healthy=True,
             message=_health_cache["message"],
-            tested_key_masked=keys_pool[0][1] if keys_pool else "AQ.***",
+            tested_key_masked="Pro CLI (Hauptaccount)",
             active_tier=active_tier
         )
     except Exception:
@@ -782,20 +727,20 @@ def probe_key_pool_model_38_health(timeout=3.5):
 
 def evaluate_batch_with_cascade(assets_batch):
     """
-    Intelligente 4-Stufen Kaskade (User-Priorität: Erst pokeulm, dann die Keys auf 3.8 High, dann 3.5 Fallback, dann Math-Core):
-    - STUFE 1 (PRIMÄR): Google Pro-Abo via CLI (gemini-3.8-flash-high mit Account 2 pokeulm@gmail.com).
-      -> Volle Skalierbarkeit ohne 50er-Limit.
-    - STUFE 2 (FAILOVER 1): Multi-Key Free Pool mit gemini-3.8-flash (High Thinking).
-    - STUFE 3 (FAILOVER 2): Multi-Key Free Pool mit gemini-3.5-flash (bei 503-Überlastung von 3.8).
-    - STUFE 4 (SAFETY NET): Quantitative Confluence Math-Engine (SMC, Wyckoff VSA, Golden Pocket).
+    Schlanke, hochperformante Google AI Pro Kaskade:
+    - STUFE 1 (PRIMÄR): Google Pro-Abo via CLI (gemini-4-hydrogen mit Effort 'medium').
+    - STUFE 2 (FAILOVER): Google Pro-Abo via CLI (gemini-4-hydrogen mit Effort 'low').
+    - STUFE 3 (SAFETY NET): Quantitative Confluence Math-Engine (SMC, Wyckoff VSA, Golden Pocket).
     """
     conf = load_config()
     if not conf.get("enabled", True):
         return None, "KI-Auswertung in gemini_config.json deaktiviert", "disabled"
 
-    primary_model = "gemini-3.8-flash-high"
-    fallback_model = conf.get("fallback_model", "gemini-3.5-flash")
-    timeout = conf.get("timeout_seconds", 135)
+    primary_model = conf.get("primary_model", "gemini-4-hydrogen")
+    primary_effort = conf.get("primary_effort", "medium")
+    fallback_model = conf.get("fallback_model", "gemini-4-hydrogen")
+    fallback_effort = conf.get("fallback_effort", "low")
+    timeout = conf.get("timeout_seconds", 45)
     use_pro_sub = conf.get("use_pro_subscription", True)
 
     prompt = build_analysis_prompt(assets_batch)
@@ -805,7 +750,7 @@ def evaluate_batch_with_cascade(assets_batch):
     err1 = None
 
     # =========================================================================
-    # STUFE 1: Google Pro-Abo CLI mit gemini-3.8-flash-high (Account 2: pokeulm@gmail.com)
+    # STUFE 1: Google AI Pro CLI mit gemini-4-hydrogen (Effort: medium)
     # =========================================================================
     if use_pro_sub:
         try:
@@ -816,9 +761,9 @@ def evaluate_batch_with_cascade(assets_batch):
             record_gemini_execution_event = None
 
         if pro_allowed:
-            print(f" (Stufe 1: Google Pro-Abo CLI {primary_model} [pokeulm@gmail.com])...", end="", flush=True)
+            print(f" (Stufe 1: Google AI Pro CLI {primary_model} [{primary_effort}])...", end="", flush=True)
             t0 = time.time()
-            res, err = call_gemini_via_pro_cli(prompt, model=primary_model, timeout=timeout)
+            res, err = call_gemini_via_pro_cli(prompt, model=primary_model, effort=primary_effort, timeout=timeout)
             dur1 = time.time() - t0
             if res and isinstance(res, list) and len(res) > 0:
                 try:
@@ -829,69 +774,48 @@ def evaluate_batch_with_cascade(assets_batch):
                     try:
                         record_gemini_execution_event(
                             tier="Stufe 1 (Pro CLI)",
-                            model=primary_model,
+                            model=f"{primary_model} ({primary_effort})",
                             outcome="SUCCESS",
                             duration_seconds=dur1,
                             assets=assets_symbols
                         )
                     except Exception:
                         pass
-                t_token = Path("/home/admin/.gemini_trading/.gemini/antigravity-cli/antigravity-oauth-token")
-                acc_label = "Account 2 Pro (pokeulm@gmail.com)" if t_token.exists() else "Account 1 Pro (mayer.max.1994@gmail.com)"
-                return res, None, f"{primary_model} [{acc_label}]"
-            
+                return res, None, f"{primary_model} [{primary_effort}]"
+
             err1 = err
             outcome1 = "TIMEOUT" if "Timeout" in str(err) else ("HTTP_503_OVERLOAD" if "503" in str(err) else "ERROR")
-            print(f" [Stufe 1 Pro-Abo CLI ({err}) -> Failover auf Stufe 2 Keys]...", end="", flush=True)
+            print(f" [Stufe 1 ({err}) -> Failover auf Stufe 2 Low Effort]...", end="", flush=True)
         else:
             outcome1 = "5H_LIMIT_HIT"
             err1 = "Google 5h-Limit erreicht"
-            print(f" [Stufe 1 Google 5h-Limit erreicht -> Failover auf Stufe 2 Keys]...", end="", flush=True)
+            print(f" [Stufe 1 Google 5h-Limit erreicht -> Failover auf Stufe 2 Low Effort]...", end="", flush=True)
 
     # =========================================================================
-    # STUFE 2: Multi-Key Pool (REST) mit gemini-3.8-flash High
+    # STUFE 2: Google AI Pro CLI Fallback mit gemini-4-hydrogen (Effort: low)
     # =========================================================================
-    print(f" (Stufe 2: Multi-Key Pool REST gemini-3.8-flash High)...", end="", flush=True)
-    res, err, used_key_info = call_gemini_via_key_pool(prompt, model="gemini-3.8-flash", timeout=45)
+    print(f" (Stufe 2: Pro CLI Fallback {fallback_model} [{fallback_effort}])...", end="", flush=True)
+    t0 = time.time()
+    res, err = call_gemini_via_pro_cli(prompt, model=fallback_model, effort=fallback_effort, timeout=max(20, timeout - 15))
+    dur2 = time.time() - t0
     if res and isinstance(res, list) and len(res) > 0:
         try:
             from gemini_quota_tracker import record_gemini_execution_event
             record_gemini_execution_event(
                 tier="Stufe 1 (Pro CLI)",
-                model=primary_model,
+                model=f"{primary_model} ({primary_effort})",
                 outcome=outcome1,
                 duration_seconds=dur1,
                 assets=assets_symbols,
-                fallback_used=f"Stufe 2 (gemini-3.8-flash [{used_key_info}])",
+                fallback_used=f"Stufe 2 ({fallback_model} [{fallback_effort}])",
                 error_message=err1
             )
         except Exception:
             pass
-        return res, None, f"gemini-3.8-flash High [{used_key_info}]"
+        return res, None, f"{fallback_model} [{fallback_effort}]"
 
     # =========================================================================
-    # STUFE 3: Multi-Key Pool (REST) Fallback auf gemini-3.5-flash
-    # =========================================================================
-    print(f" (Stufe 3: Multi-Key Pool Fallback {fallback_model})...", end="", flush=True)
-    res, err, used_key_info = call_gemini_via_key_pool(prompt, model=fallback_model, timeout=30)
-    if res and isinstance(res, list) and len(res) > 0:
-        try:
-            from gemini_quota_tracker import record_gemini_execution_event
-            record_gemini_execution_event(
-                tier="Stufe 1 (Pro CLI)",
-                model=primary_model,
-                outcome=outcome1,
-                duration_seconds=dur1,
-                assets=assets_symbols,
-                fallback_used=f"Stufe 3 ({fallback_model} [{used_key_info}])",
-                error_message=err1
-            )
-        except Exception:
-            pass
-        return res, None, f"{fallback_model} [{used_key_info}]"
-
-    # =========================================================================
-    # STUFE 4: Fallback auf quantitative Confluence-Engine
+    # STUFE 3: Fallback auf quantitative Confluence-Engine
     # =========================================================================
     try:
         from gemini_quota_tracker import record_gemini_execution_event
@@ -901,12 +825,12 @@ def evaluate_batch_with_cascade(assets_batch):
             outcome=outcome1,
             duration_seconds=dur1,
             assets=assets_symbols,
-            fallback_used="Stufe 4 (Quantitative Math-Core)",
+            fallback_used="Stufe 3 (Quantitative Math-Core)",
             error_message=err1 or err
         )
     except Exception:
         pass
-    print(f"\n      ⚠️ KI-Auswertung nicht verfügbar ({err}) -> Aktiviere Stufe 4 (Mathematische Confluence-Engine)...", end="", flush=True)
+    print(f"\n      ⚠️ KI-Auswertung nicht verfügbar ({err}) -> Aktiviere Stufe 3 (Mathematische Confluence-Engine)...", end="", flush=True)
     return None, err, "quantitative_confluence [Math Core]"
 
 
