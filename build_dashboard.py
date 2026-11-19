@@ -3552,6 +3552,11 @@ html_content = f"""<!DOCTYPE html>
         <!-- Dynamisch -->
       </div>
 
+      <!-- Dynamischer Zeitskalen-Röntgenblick Banner (Synchron zum gewählten Timeframe) -->
+      <div id="modal-tf-focus-banner" class="p-3.5 rounded-xl bg-slate-900/90 border border-indigo-500/40 space-y-2.5 font-mono text-xs shadow-lg shadow-indigo-950/30">
+        <!-- Dynamisch gefüllt bei selectModalTimeframe(tf) -->
+      </div>
+
       <!-- Visuelle Chart-Analyse mit Indikatoren & TradingView Live-Widget -->
       <div class="rounded-xl bg-slate-900/90 border border-slate-800 p-4 space-y-3">
         <!-- Switcher: Vektor-Chart vs. TradingView Live Widget -->
@@ -4253,38 +4258,243 @@ html_content = f"""<!DOCTYPE html>
       currentModalTf = tf;
       if (!currentModalAsset) return;
 
+      const a = currentModalAsset;
+      const tfs = a.timeframes || {{}};
+      const d = tfs[tf] || null;
+      const modalCurrSym = getAssetCurrencySymbol(a);
+      const isPrimary = (tf === (a.primary_timeframe || '4h'));
+
+      // 1. Timeframe Buttons umschalten
       ['1h', '4h', '1D', '3D', '1W'].forEach(t => {{
         const btn = document.getElementById('btn-chart-tf-' + t);
         if (btn) {{
           if (t === tf) {{
-            btn.className = 'px-2.5 py-1 rounded text-xs font-mono font-bold bg-indigo-600 text-white shadow-sm shadow-indigo-500/30';
+            btn.className = 'px-2.5 py-1 rounded text-xs font-mono font-bold bg-indigo-600 text-white shadow-sm shadow-indigo-500/30 ring-1 ring-indigo-400';
           }} else {{
             btn.className = 'px-2.5 py-1 rounded text-xs font-mono font-semibold bg-transparent text-slate-400 hover:text-white hover:bg-slate-800' + (btn.classList.contains('hidden') ? ' hidden' : '');
           }}
         }}
       }});
 
+      // 2. Chart-Bild umschalten
       const img = document.getElementById('modal-chart-img');
-      const charts = currentModalAsset.charts || {{}};
+      const charts = a.charts || {{}};
       let chartPath = charts[tf];
       if (!chartPath) {{
-        const safe = currentModalAsset.symbol.replace(/:/g, '_').replace(/!/g, '_').replace(/\\./g, '_').replace(/\\//g, '_');
+        const safe = a.symbol.replace(/:/g, '_').replace(/!/g, '_').replace(/\\./g, '_').replace(/\\//g, '_');
         chartPath = `charts/${{safe}}_${{tf}}.svg`;
       }}
       img.src = chartPath;
-      img.alt = `${{currentModalAsset.name}} (${{tf}}) Chart`;
+      img.alt = `${{a.name}} (${{tf}}) Chart`;
 
-      // Matrix-Spalte hervorheben
+      // 3. Matrix-Spalte hervorheben
       ['1W', '3D', '1D', '4h', '1h'].forEach(t => {{
         const col = document.getElementById('modal-tf-col-' + t);
         if (col) {{
           if (t === tf) {{
-            col.className = 'p-3.5 rounded-xl bg-indigo-950/60 border-2 border-indigo-500 shadow-lg shadow-indigo-950/50 space-y-2.5 font-mono text-xs transition-all ring-1 ring-indigo-400/30';
+            col.className = 'p-3.5 rounded-xl bg-indigo-950/70 border-2 border-indigo-500 shadow-lg shadow-indigo-950/60 space-y-2.5 font-mono text-xs transition-all ring-2 ring-indigo-400/40';
           }} else {{
             col.className = 'p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-2.5 font-mono text-xs opacity-75 hover:opacity-100 transition-all cursor-pointer';
           }}
         }}
       }});
+
+      // 4. Timeframe-spezifische Kennzahlen ermitteln
+      const tTrend = d ? (d.trend || 'NEUTRAL') : 'NEUTRAL';
+      const rsiNum = d && typeof d.rsi === 'number' ? d.rsi : parseFloat(d && d.rsi ? d.rsi : '50');
+      const rsiVal = d && !isNaN(rsiNum) ? rsiNum.toFixed(1) : '-';
+      let rsiStatus = 'Neutral';
+      let rsiCol = 'text-slate-300';
+      if (!isNaN(rsiNum)) {{
+        if (rsiNum <= 25) {{
+          rsiStatus = 'Extrem überverkauft';
+          rsiCol = 'text-rose-400 font-bold';
+        }} else if (rsiNum <= 32) {{
+          rsiStatus = 'Überverkauft';
+          rsiCol = 'text-amber-400 font-bold';
+        }} else if (rsiNum >= 75) {{
+          rsiStatus = 'Extrem überkauft';
+          rsiCol = 'text-rose-400 font-bold';
+        }} else if (rsiNum >= 68) {{
+          rsiStatus = 'Überkauft';
+          rsiCol = 'text-amber-400 font-bold';
+        }} else if (rsiNum > 50) {{
+          rsiStatus = 'Bullischer Schwung';
+          rsiCol = 'text-emerald-400';
+        }} else {{
+          rsiStatus = 'Bärischer Druck';
+          rsiCol = 'text-rose-300';
+        }}
+      }}
+
+      // Timeframe Label & Haltedauer
+      let tfLabel = 'Core Swing';
+      let holding = '2–5 Tage';
+      if (tf === '1h') {{ tfLabel = 'Fast Swing'; holding = '1–2 Tage'; }}
+      else if (tf === '4h') {{ tfLabel = 'Core Swing'; holding = '2–5 Tage'; }}
+      else if (tf === '1D') {{ tfLabel = 'Position'; holding = '1–3 Wochen'; }}
+      else if (tf === '3D') {{ tfLabel = 'Makro Swing'; holding = '2–4 Wochen'; }}
+      else if (tf === '1W') {{ tfLabel = 'Makro Trend'; holding = 'Mehrere Wochen'; }}
+
+      // 5. Header-Badges synchronisieren
+      const badge = document.getElementById('modal-signal-badge');
+      if (badge) {{
+        if (tTrend === 'BULLISH') {{
+          badge.className = 'px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center gap-1';
+          badge.innerHTML = `🟢 ${{tf}}: BULLISH`;
+        }} else if (tTrend === 'BEARISH') {{
+          badge.className = 'px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-rose-500/20 text-rose-400 border border-rose-500/40 flex items-center gap-1';
+          badge.innerHTML = `🔴 ${{tf}}: BEARISH`;
+        }} else {{
+          badge.className = 'px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-slate-800 text-slate-300 border border-slate-700 flex items-center gap-1';
+          badge.innerHTML = `⚪ ${{tf}}: NEUTRAL`;
+        }}
+      }}
+
+      const mTfElem = document.getElementById('modal-timeframe-badge');
+      if (mTfElem) {{
+        mTfElem.className = isPrimary
+          ? 'px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 flex items-center gap-1 ring-1 ring-indigo-400/30'
+          : 'px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-slate-800 text-slate-300 border border-slate-700 flex items-center gap-1';
+        mTfElem.innerHTML = `⏱️ <b>${{tf}} Chart</b> · ${{tfLabel}} (${{holding}}) ${{isPrimary ? '· ★ Primär-Setup' : ''}}`;
+      }}
+
+      const setupTitleElem = document.getElementById('modal-setup-title');
+      if (setupTitleElem) {{
+        if (isPrimary) {{
+          setupTitleElem.innerText = a.setup_name + ` (${{a.score}}% Score · Primär-Setup)`;
+        }} else {{
+          setupTitleElem.innerText = `${{tf}}-Perspektive: ${{tTrend === 'BULLISH' ? 'Bullische Marktstruktur' : (tTrend === 'BEARISH' ? 'Bärische Korrektur/Regime' : 'Neutrale Konsolidierung')}} (Konfluenz zu ${{a.primary_timeframe || '4h'}})`;
+        }}
+      }}
+
+      // 6. Dynamischer Röntgenblick-Banner (HUD)
+      const focusBanner = document.getElementById('modal-tf-focus-banner');
+      if (focusBanner) {{
+        const vsaTxt = d ? (d.vsa_class || 'Normal') : '-';
+        const vsaCol = d ? (d.vsa_color || '#94a3b8') : '#94a3b8';
+        const inGp = d ? d.in_golden_pocket : false;
+        const gpRange = d && d.golden_pocket && d.golden_pocket[0] ? `${{d.golden_pocket[0]}} - ${{d.golden_pocket[1]}} ${{modalCurrSym}}` : '-';
+        const inBuyP = d ? d.in_buy_pocket : false;
+        const inSellP = d ? d.in_sell_pocket : false;
+        const divs = d && d.divergences && d.divergences.length > 0 ? d.divergences : [];
+        const actSig = d && d.active_signals && d.active_signals.length > 0 ? d.active_signals : [];
+        const actFvg = d && d.active_fvg ? d.active_fvg : null;
+        const actOb = d && d.active_order_block ? d.active_order_block : null;
+        const emaTrend = d && d.ema_trend ? d.ema_trend.toLocaleString('de-DE', {{minimumFractionDigits: 2, maximumFractionDigits: 2}}) : '-';
+
+        let zoneHighlight = 'Keine aktive Zone';
+        let zoneClass = 'text-slate-400';
+        if (actFvg) {{
+          zoneHighlight = `⚡ ${{actFvg.type || 'FVG'}}: ${{actFvg.bottom || 0}} - ${{actFvg.top || 0}} ${{modalCurrSym}}`;
+          zoneClass = 'text-emerald-400 font-bold';
+        }} else if (actOb) {{
+          zoneHighlight = `🧱 OB [${{actOb.badge || 'A'}}]: ${{actOb.bottom || 0}} - ${{actOb.top || 0}} ${{modalCurrSym}}`;
+          zoneClass = 'text-cyan-400 font-bold';
+        }} else if (inBuyP) {{
+          zoneHighlight = '📥 Im Institutional BUY-Pocket';
+          zoneClass = 'text-emerald-400 font-bold';
+        }} else if (inSellP) {{
+          zoneHighlight = '📤 Im Institutional SELL-Pocket';
+          zoneClass = 'text-rose-400 font-bold';
+        }} else if (inGp) {{
+          zoneHighlight = `🎯 In Golden Pocket (${{gpRange}})`;
+          zoneClass = 'text-amber-300 font-bold';
+        }}
+
+        let triggerHighlight = 'Kein aktiver Trigger';
+        let triggerClass = 'text-slate-500';
+        if (actSig.length > 0) {{
+          triggerHighlight = '🔥 ' + actSig.join(', ');
+          triggerClass = 'text-emerald-400 font-bold';
+        }} else if (divs.length > 0) {{
+          triggerHighlight = '⚡ ' + divs[0];
+          triggerClass = divs[0].toLowerCase().includes('bull') ? 'text-emerald-400 font-semibold' : 'text-rose-400 font-semibold';
+        }}
+
+        focusBanner.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-slate-800">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                <span>🔍</span>
+                <span>FOKUS-ZEITSKALA: <code class="text-indigo-300 bg-indigo-950/70 px-1.5 py-0.5 rounded border border-indigo-500/40">${{tf}} Chart</code></span>
+              </span>
+              <span class="text-[11px] text-slate-300">· ${{tfLabel}} (${{holding}})</span>
+              ${{isPrimary ? '<span class="text-[10px] px-2 py-0.5 rounded font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">★ Primär-Handlungs-Setup</span>' : '<span class="text-[10px] px-1.5 py-0.2 rounded text-slate-400 bg-slate-800 border border-slate-700">Konfluenz-Ebene</span>'}}
+            </div>
+            <div class="flex items-center gap-2 text-[11px]">
+              <span class="text-slate-400">233 WMA Basis: <b class="text-slate-200">${{emaTrend}} ${{modalCurrSym}}</b></span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold ${{tTrend === 'BULLISH' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : (tTrend === 'BEARISH' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-slate-800 text-slate-300')}}">
+                ${{tTrend === 'BULLISH' ? '▲ Über 233 EMA' : (tTrend === 'BEARISH' ? '▼ Unter 233 EMA' : '● Am 233 EMA')}}
+              </span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1 text-[11px]">
+            <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80">
+              <span class="text-slate-400 block text-[10px] mb-0.5">RSI (14) Momentum</span>
+              <span class="block text-xs ${{rsiCol}}">${{rsiVal}} · ${{rsiStatus}}</span>
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80">
+              <span class="text-slate-400 block text-[10px] mb-0.5">Wyckoff Volumen (VSA)</span>
+              <span class="block text-xs font-semibold text-slate-200" style="color: ${{vsaCol}}">${{vsaTxt}}</span>
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80">
+              <span class="text-slate-400 block text-[10px] mb-0.5">SMC Zonen / Pocket</span>
+              <span class="block text-xs truncate ${{zoneClass}}" title="${{zoneHighlight}}">${{zoneHighlight}}</span>
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80">
+              <span class="text-slate-400 block text-[10px] mb-0.5">Trigger & Divergenzen</span>
+              <span class="block text-xs truncate ${{triggerClass}}" title="${{triggerHighlight}}">${{triggerHighlight}}</span>
+            </div>
+          </div>
+        `;
+      }}
+
+      // 7. Rationale & Auslöser-Liste synchronisieren
+      const noteElem = document.getElementById('modal-analyst-note');
+      const reasonsList = document.getElementById('modal-reasons-list');
+      if (noteElem && reasonsList) {{
+        if (isPrimary) {{
+          noteElem.innerText = a.analyst_note || 'Keine Notiz vorhanden.';
+          reasonsList.innerHTML = '';
+          (a.reasons || []).forEach(r => {{
+            const li = document.createElement('li');
+            li.innerText = r;
+            reasonsList.appendChild(li);
+          }});
+        }} else {{
+          let tfSummary = `Spezifische ${{tf}}-Analyse für ${{a.name}}: Auf dem ${{tf}}-Chart liegt ein ${{tTrend === 'BULLISH' ? 'intakter bullischer Trend über dem 233 EMA vor' : (tTrend === 'BEARISH' ? 'bärischer Zustand unter dem 233 EMA (Korrekturphase) vor' : 'neutraler Konsolidierungszustand vor')}}. `;
+          if (rsiNum <= 30) {{
+            tfSummary += `Das Momentum ist mit RSI ${{rsiVal}} stark überverkauft, was eine zyklische Erholungsbewegung begünstigt. `;
+          }} else if (rsiNum >= 70) {{
+            tfSummary += `Das Momentum ist mit RSI ${{rsiVal}} stark überdehnt (überkauft). `;
+          }} else {{
+            tfSummary += `Der RSI notiert bei ${{rsiVal}} in einer gesunden Mittelzone. `;
+          }}
+          if (d && d.vsa_class) {{
+            tfSummary += `Das Wyckoff-Volumen zeigt '${{d.vsa_class}}'. `;
+          }}
+          noteElem.innerText = tfSummary;
+
+          reasonsList.innerHTML = '';
+          const tfReasons = [];
+          tfReasons.push(`Trend (${{tf}}): ${{tTrend}} (Basis 233 WMA: ${{d && d.ema_trend ? d.ema_trend.toFixed(2) : '-'}} ${{modalCurrSym}})`);
+          tfReasons.push(`Momentum (${{tf}}): RSI (14) = ${{rsiVal}} (${{rsiStatus}})`);
+          if (d && d.vsa_class) tfReasons.push(`Wyckoff VSA (${{tf}}): ${{d.vsa_class}}`);
+          if (d && d.in_golden_pocket) tfReasons.push(`Golden Pocket (${{tf}}): AKTIV (${{d.golden_pocket[0]}} - ${{d.golden_pocket[1]}} ${{modalCurrSym}})`);
+          if (d && d.divergences && d.divergences.length > 0) tfReasons.push(`Divergenzen (${{tf}}): ${{d.divergences.join(' · ')}}`);
+          if (d && d.active_signals && d.active_signals.length > 0) tfReasons.push(`Trigger (${{tf}}): ${{d.active_signals.join(' · ')}}`);
+          if (d && d.active_fvg) tfReasons.push(`Fair Value Gap (${{tf}}): ${{d.active_fvg.type}} (${{d.active_fvg.bottom}} - ${{d.active_fvg.top}} ${{modalCurrSym}})`);
+          tfReasons.push(`Übergeordnete Ausrichtung: Teil des Gesamt-Setups '${{a.setup_name}}' (Primär: ${{a.primary_timeframe || '4h'}})`);
+
+          tfReasons.forEach(r => {{
+            const li = document.createElement('li');
+            li.innerText = r;
+            reasonsList.appendChild(li);
+          }});
+        }}
+      }}
 
       if (currentModalView === 'tvwidget') {{
         renderTradingViewWidget();
@@ -4313,7 +4523,6 @@ html_content = f"""<!DOCTYPE html>
       }}
       switchModalView('vector');
       const defaultTf = (a.primary_timeframe && a.timeframes && a.timeframes[a.primary_timeframe]) ? a.primary_timeframe : '4h';
-      selectModalTimeframe(defaultTf);
 
       document.getElementById('modal-asset-name').innerText = a.name;
       document.getElementById('modal-asset-ticker').innerText = a.symbol;
@@ -4502,6 +4711,9 @@ html_content = f"""<!DOCTYPE html>
       }});
 
       document.getElementById('modal-tv-link').href = `https://www.tradingview.com/chart/?symbol=${{encodeURIComponent(a.symbol)}}`;
+
+      // Synchronisiere initial auf den Default-Timeframe
+      selectModalTimeframe(defaultTf);
 
       document.getElementById('detail-modal').classList.remove('hidden');
       document.body.style.overflow = 'hidden';
