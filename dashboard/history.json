@@ -1,5 +1,48 @@
 [
   {
+    "id": "evt_20261119_153933",
+    "timestamp": "2026-11-19T15:39:33.566900+00:00",
+    "timestamp_display": "19.11.2026 15:39 UTC",
+    "title": "🔔 TV-Signaländerung: 1 Asset aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 1,
+    "changes": [
+      {
+        "symbol": "TRADEGATE:ABEA",
+        "name": "Alphabet A (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "SIGNAL_CHANGE",
+        "old_signal": "NEUTRAL",
+        "new_signal": "SHORT",
+        "old_score": 55,
+        "new_score": 92,
+        "price": 265.1,
+        "setup_name": "Hypothese 1: Bearish FVG & Trendfolge Short",
+        "setup_family": "FVG_CONTINUATION",
+        "entry_range": [
+          265.5,
+          276.93
+        ],
+        "stop_loss": 291.0,
+        "take_profit_2": 205.0,
+        "reasons": [
+          "HTF Struktur: 1W (RSI 39.67) und 1D (RSI 45.81) sind klar BEARISH mit versteckter bärischer Divergenz auf 1D.",
+          "SMC / FVG Level: Kurs (265.5) notiert direkt an der Unterkante des aktiven Bearish FVG (264.0 - 289.85, Midline 276.925).",
+          "Trigger & Divergenz: Bestätigtes degencoder 'Good Sell Signal (Kreis)' auf 4h inklusive versteckter bärischer Divergenz bei High Volume."
+        ],
+        "primary_timeframe": "1W",
+        "timeframe_label": "3D/1W Makro",
+        "holding_period": "Mehrere Wochen",
+        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (HTF Struktur: 1W (RSI 39.67) und 1D (RSI 45.81) sind klar BEARISH mit versteckter bärischer Divergenz auf 1D.).",
+        "note": "Strikte Trendfolge-Short-Konfluenz im intakten 1W/1D-Bärenmarkt direkt am Bearish FVG mit 4h Good Sell Signal. Wegen 'No Trade Zone' auf 4h sowie der schwachen Sektor-Historie (Tradegate / EU) gilt striktes Risiko-Management: maximal 2x Hebel, Stop-Loss konsequent über dem FVG-Top (291.0) und aktive Teilgewinnmitnahme (mind. 50%) bei >8% MFE.",
+        "evaluated_by": "gemini-4-hydrogen [low]"
+      }
+    ],
+    "notification_sent": true,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n🔴 Alphabet A (Tradegate) (ABEA):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 92%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (HTF Struktur: 1W (RSI 39.67) und 1D (RSI 45.81) sind klar BEARISH mit versteckter bärischer Divergenz auf 1D.).\n   📝 KI-Rationale: Strikte Trendfolge-Short-Konfluenz im intakten 1W/1D-Bärenmarkt direkt am Bearish FVG mit 4h Good Sell Signal. Wegen 'No Trade Zon...\n   Setup: Hypothese 1: Bearish FVG & Trendfolge Short\n   ⏱️ Handlungs-Chart: 1W Chart · 3D/1W Makro (Mehrere Wochen)\n   Entry: 265.50 | SL: 291.00 | TP2: 205.00\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261119_141000",
     "timestamp": "2026-11-19T14:10:00.614722+00:00",
     "timestamp_display": "19.11.2026 14:10 UTC",
@@ -23781,35 +23824,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🔴 GLD (GLD):\n   Score-Sprung: 89% ➔ 90% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: Bearish Confluence Reversal' ( HTF-Makrotrend (1W/1D) ist klar bärisch strukturiert, 1h degencoder liefert ein bestätigtes 'Good Sell Signal'.).\n   📝 KI-Rationale: Gemäß den gelernten Regeln erfordert dieser Trade Geduld: Der Short-Einstieg setzt voraus, dass auf den kleineren Zeitebenen (1m/5...\n   Setup: Hypothese 1: Bearish Confluence Reversal\n   Entry: 375.50 | SL: 378.20 | TP2: 368.50\n\n🔴 Netflix (NFLX):\n   Score-Sprung: 87% ➔ 89% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R4] Exhaustion' (1W/1D Makrotrend ist bärisch, der Kurs prallt an einem stark getesteten Bearish Order Block (Grade A, R4, Top 67.48) ab.).\n   📝 KI-Rationale: Der Wert reagiert präzise am Bearish Order Block und zeigt klare Erschöpfungszeichen im Volumen. Trotz der historischen Schwäche d...\n   Setup: Hypothese 1: SMC Order Block [R4] Exhaustion\n   Entry: 65.46 | SL: 67.55 | TP2: 60.20\n\n⚪ CrowdStrike (CRWD):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W und 1D) ist strikt BEARISH – Long-Signale entgegen dem Trend sind verboten.).\n   📝 KI-Rationale: CRWD befindet sich im übergeordneten Abwärtstrend. Das vorherige LONG-Signal wird aufgrund fehlender LTF-Bestätigung und schwacher...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_trade_20261105_151515_GOOGL",
-    "timestamp": "2026-11-05T15:15:15.882958+00:00",
-    "timestamp_display": "05.11.2026 15:15 UTC",
-    "title": "🎯 Take-Profit erreicht – NASDAQ:GOOGL geschlossen (+31.7%)",
-    "type": "USER_TRADE_CLOSED",
-    "change_count": 1,
-    "changes": [
-      {
-        "symbol": "NASDAQ:GOOGL",
-        "name": "Alphabet Inc. Class A",
-        "category": "UserTrade",
-        "change_type": "TAKE_PROFIT_TRIGGERED",
-        "old_signal": "LONG",
-        "new_signal": "CLOSED",
-        "old_score": 0,
-        "new_score": 0,
-        "price": 286.75,
-        "reasons": [
-          "Realisierter PnL: +31.67% (Basis: +1.58%)",
-          "🎯 Take-Profit erreicht (286.75 >= 284.01 $)"
-        ],
-        "change_reason": "🎯 Take-Profit erreicht (286.75 >= 284.01 $)",
-        "note": "Einstieg: 282,28 $, Ausstieg: 286,75 $, Hebel: 20x, Dauer: 5T 23Std."
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "Alphabet Inc. Class A (NASDAQ:GOOGL) geschlossen mit +31.67% (🎯 Take-Profit erreicht (286.75 >= 284.01 $))"
   }
 ]
