@@ -1,7 +1,28 @@
 {
-  "updated_at": "2026-11-20T15:37:54.395275+00:00",
+  "updated_at": "2026-11-20T16:01:31.873001+00:00",
   "total_experience_records": 60,
   "learnings": [
+    {
+      "timestamp": "2026-11-20T16:00:32.390211+00:00",
+      "trade_id": "trade_TVC_NDX_20261113_0007",
+      "symbol": "TVC:NDX",
+      "name": "NDX",
+      "category": "Indizes / Devisen",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "Hypothese 1: SMC Order Block [R3] Confirmed Exhaustion",
+      "pnl_leveraged": 32.8,
+      "pnl_raw": 5.47,
+      "text": "Sauber exekutierter Trendfolge-Short mit hervorragender Zielerreichung und kontrolliertem Drawdown. Der 6x-Hebel bleibt für den volatilen NDX das Maximum, da bereits normale Liquidity Sweeps über Order-Blocks zweistellige Hebelrisiken erzeugen würden.",
+      "ai_post_mortem": {
+        "verdict": "WIN",
+        "driver": "Die strikte Ausrichtung am bärischen 1D-Trend unterhalb des EMA 233 in Kombination mit dem Retest des 4h-Bearish-Order-Blocks, diszipliniertem Pyramiding in die Schwäche und sauberem Teilgewinn-Management ermöglichte die vollständige Realisierung bis TP2.",
+        "technical_warning": "Der zwischenzeitliche Anstieg auf 28,289.19 (+1.10% gegen den Einstieg, entspricht ~6.6% Drawdown bei 6x Hebel) zeigt einen klassischen Liquidity Sweep über dem 4h-Order-Block; das Abwarten eines LTF-Strukturbruchs (15m/1h CHoCH) nach dem Sweep hätte den Einstieg präzisiert und den initialen Drawdown vermieden.",
+        "actionable_rule": "Bei NDX-Shorts an 4h-Order-Blocks unter dem 1D-EMA-233 nur noch mit einer reduzierten Initial-Tranche vor dem Liquidity Sweep einsteigen und volle Positionsgröße sowie Pyramiding-Tranchen erst nach bestätigter LTF-Ablehnung und Strukturbruch skalieren.",
+        "recommended_leverage_adjustment": 0,
+        "summary_text": "Sauber exekutierter Trendfolge-Short mit hervorragender Zielerreichung und kontrolliertem Drawdown. Der 6x-Hebel bleibt für den volatilen NDX das Maximum, da bereits normale Liquidity Sweeps über Order-Blocks zweistellige Hebelrisiken erzeugen würden."
+      }
+    },
     {
       "timestamp": "2026-11-20T15:00:38.756713+00:00",
       "trade_id": "trade_AMEX_GLD_20261109_1447",
@@ -1128,30 +1149,21 @@
         "driver": "Die Micro-Timeframe-Verluste bei SOL (OB-B) und AVAX (OB-D) belegen, dass Rauschen auf 5m/15m ohne HTF-Volumenstützung selbst bei multiplen Indikator-Triggern sofort überrollt wird.",
         "actionable_rule": "Order Blocks sekundärer Güte (Klassen B bis D) besitzen ohne strikte Konfluenz mit dem übergeordneten 4h/1D-Trend keine Schutzkraft und sind als Trade-Location unzulässig."
       }
-    },
-    {
-      "timestamp": "2026-11-14T02:32:08.174188+00:00",
-      "trade_id": "inc_AVAXUSDT_15m_1794614451",
-      "symbol": "AVAXUSDT",
-      "name": "Avalanche",
-      "category": "Micro-Incubator (15m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder 15m Micro-Confluence Long",
-      "pnl_leveraged": -2.72,
-      "pnl_raw": -1.36,
-      "text": "Ein Liquidity Sweep [A] darf erst dann als Einstiegssignal gewertet werden, wenn die Trigger-Kerze per Schlusskurs zwingend wieder ÜBER das gesweepte Liquiditätslevel zurückkehrt (Re-Acceptance).",
-      "ai_post_mortem": {
-        "trade_id": "inc_AVAXUSDT_15m_1794614451",
-        "verdict": "LOSS",
-        "driver": "Einstieg an einem minderwertigen Order Block [D] nach einem scheinbaren Stop-Hunt, der sich in Wahrheit als dynamischer Trendfortsetzungs-Breakdown ohne Reclaiming des Niveaus entpuppte.",
-        "technical_warning": "Die Sweep-Kerze bildete kein klassisches Swing Failure Pattern (SFP) aus, sondern schloss als expansive Sell-Bar mit darunterliegendem Bearish Fair Value Gap (FVG).",
-        "actionable_rule": "Ein Liquidity Sweep [A] darf erst dann als Einstiegssignal gewertet werden, wenn die Trigger-Kerze per Schlusskurs zwingend wieder ÜBER das gesweepte Liquiditätslevel zurückkehrt (Re-Acceptance)."
-      }
     }
   ],
   "setup_statistics": {},
   "setup_performance": {
+    "Hypothese 1: SMC Order Block [R3] Confirmed Exhaustion": {
+      "trades": 2,
+      "wins": 2,
+      "losses": 0,
+      "win_rate": 100.0,
+      "total_lev_pnl": 36.1,
+      "profit_factor": 9.99,
+      "status": "BALANCED",
+      "min_score": 88,
+      "leverage_adjustment": 0
+    },
     "Hypothese 1: SMC Order Block [R10] Exhaustion": {
       "trades": 2,
       "wins": 1,
@@ -1173,17 +1185,6 @@
       "status": "CAUTION",
       "min_score": 90,
       "leverage_adjustment": -1
-    },
-    "Hypothese 1: SMC Order Block [R3] Confirmed Exhaustion": {
-      "trades": 1,
-      "wins": 1,
-      "losses": 0,
-      "win_rate": 100.0,
-      "total_lev_pnl": 3.3,
-      "profit_factor": 9.99,
-      "status": "BALANCED",
-      "min_score": 88,
-      "leverage_adjustment": 0
     },
     "🌟 A+ Konfluenz: degencoder Pocket/Trigger & Trendfolge": {
       "trades": 1,
@@ -1407,6 +1408,17 @@
     }
   },
   "category_performance": {
+    "Indizes / Devisen": {
+      "trades": 3,
+      "wins": 2,
+      "losses": 1,
+      "win_rate": 66.7,
+      "total_lev_pnl": 26.4,
+      "profit_factor": 3.18,
+      "status": "STRONG",
+      "min_score": 88,
+      "leverage_cap": 6
+    },
     "Aktien": {
       "trades": 5,
       "wins": 3,
@@ -1535,17 +1547,6 @@
       "win_rate": 0.0,
       "total_lev_pnl": -8.9,
       "profit_factor": 0.0,
-      "status": "STANDARD",
-      "min_score": 88,
-      "leverage_cap": 5
-    },
-    "Indizes / Devisen": {
-      "trades": 2,
-      "wins": 1,
-      "losses": 1,
-      "win_rate": 50.0,
-      "total_lev_pnl": -6.3,
-      "profit_factor": 0.48,
       "status": "STANDARD",
       "min_score": 88,
       "leverage_cap": 5
