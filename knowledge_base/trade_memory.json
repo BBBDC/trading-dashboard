@@ -1,7 +1,28 @@
 {
-  "updated_at": "2026-11-20T14:31:38.110106+00:00",
-  "total_experience_records": 63,
+  "updated_at": "2026-11-20T15:05:56.777583+00:00",
+  "total_experience_records": 60,
   "learnings": [
+    {
+      "timestamp": "2026-11-20T15:00:38.756713+00:00",
+      "trade_id": "trade_AMEX_GLD_20261109_1447",
+      "symbol": "AMEX:GLD",
+      "name": "GLD",
+      "category": "Aktien",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "Hypothese 1: SMC Order Block [R10] Exhaustion",
+      "pnl_leveraged": 18.74,
+      "pnl_raw": 9.37,
+      "text": "HTF-bärische Konfluenz (1W + 1D unter EMA 233) liefert bei GLD hochqualitative Trend-Shorts mit präzisem Zielerreichungsgrad (+9.37% ungehebelt). Künftig enges Nachkaufen vor dem finalen Liquidity-Sweep vermeiden, um die Maximum Adverse Excursion bei 2x Hebel noch strikter zu begrenzen.",
+      "ai_post_mortem": {
+        "verdict": "WIN",
+        "driver": "Die strikte Multi-Timeframe-Konfluenz aus bärischem 1W-Makrotrend und 1D-Struktur unter dem EMA 233 trieb einen sauberen Abwärtsimpuls, den das zweistufige Take-Profit-Management bis exakt zum Tiefstkurs bei 326.62 voll ausschöpfte.",
+        "technical_warning": "Der Rücklauf auf 379.80 (+1.88% über Durchschnittseinstieg bzw. +2.67% über Tranche 3 bei 369.93) signalisierte einen klassischen Liquidity-Sweep über dem SMC Order Block [R10]; ein Abwarten auf den abgeschlossenen Sweep mit anschließendem 1H/4H-Break-of-Structure (BOS) oder bärischer RSI-Divergenz hätte das Timing geschärft und den frühen Drawdown vermieden.",
+        "actionable_rule": "Bei SMC-Order-Block-Exhaustion-Shorts in GLD dürfen Pyramiden-Tranchen (Tranche 2 & 3) erst nach bestätigtem Liquidity-Sweep über dem OB-Hoch oder einem klaren LTF-Strukturbruch mit mindestens 1 ATR Abstand zur Erstposition aufgebaut werden, um gehebelte Stop-Runs abzufedern.",
+        "recommended_leverage_adjustment": 0,
+        "summary_text": "HTF-bärische Konfluenz (1W + 1D unter EMA 233) liefert bei GLD hochqualitative Trend-Shorts mit präzisem Zielerreichungsgrad (+9.37% ungehebelt). Künftig enges Nachkaufen vor dem finalen Liquidity-Sweep vermeiden, um die Maximum Adverse Excursion bei 2x Hebel noch strikter zu begrenzen."
+      }
+    },
     {
       "timestamp": "2026-11-19T21:39:02.023400+00:00",
       "trade_id": "cross_rule_1795124342",
@@ -1127,86 +1148,21 @@
         "technical_warning": "Die Sweep-Kerze bildete kein klassisches Swing Failure Pattern (SFP) aus, sondern schloss als expansive Sell-Bar mit darunterliegendem Bearish Fair Value Gap (FVG).",
         "actionable_rule": "Ein Liquidity Sweep [A] darf erst dann als Einstiegssignal gewertet werden, wenn die Trigger-Kerze per Schlusskurs zwingend wieder ÜBER das gesweepte Liquiditätslevel zurückkehrt (Re-Acceptance)."
       }
-    },
-    {
-      "timestamp": "2026-11-14T02:32:08.174133+00:00",
-      "trade_id": "inc_SOLUSDT_5m_1794612649",
-      "symbol": "SOLUSDT",
-      "name": "Solana",
-      "category": "Micro-Incubator (5m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "pnl_leveraged": -2.3,
-      "pnl_raw": -1.15,
-      "text": "Kein Long-Entry in ein 'Buy Pocket' allein aufgrund von Oszillator- oder Chaos-Band-Überdehnung ohne vorherigen 5m Market Structure Shift (MSS) mit Schlusskurs über dem letzten Swing-High.",
-      "ai_post_mortem": {
-        "trade_id": "inc_SOLUSDT_5m_1794612649",
-        "verdict": "LOSS",
-        "driver": "Der Trade versuchte auf der 5m-Ebene ein fallendes Messer via Mean-Reversion ('Institutional Buy Pocket') zu fangen, bevor eine VSA-Absorptionskerze den impulsiven Abwärtsdruck stoppen konnte.",
-        "technical_warning": "Fehlendes VSA-Stopping-Volume und hohes negatives Delta direkt in den sekundären OB [B], flankiert durch das Ausbleiben einer bullischen Rejection-Lunte vor Bar-Close.",
-        "actionable_rule": "Kein Long-Entry in ein 'Buy Pocket' allein aufgrund von Oszillator- oder Chaos-Band-Überdehnung ohne vorherigen 5m Market Structure Shift (MSS) mit Schlusskurs über dem letzten Swing-High."
-      }
-    },
-    {
-      "timestamp": "2026-11-14T02:31:36.990332+00:00",
-      "trade_id": "cross_rule_1794623496",
-      "symbol": "MULTI-ASSET",
-      "name": "Cross-Market Confluence",
-      "category": "Global Heuristic (4h/1D Transfer)",
-      "direction": "NEUTRAL",
-      "result": "WIN",
-      "setup_name": "Synthesized Multi-Timeframe Heuristic",
-      "pnl_leveraged": 0.0,
-      "pnl_raw": 0.0,
-      "text": "Keine Liquiditätsvalidierung ohne Rejection-Schlusskurs: Ein Liquidity Sweep [A] ist erst dann als bullische Umkehr gültig, wenn die Folgekerze mit deutlichem Buy-Volumen über dem Sweep-Niveau schließt; minderwertige Zonen (Grading < [B]) werden im Gegentrend vollständig ignoriert.",
-      "ai_post_mortem": {
-        "verdict": "RULE",
-        "driver": "Der BTC-Trade verlor trotz formell erkanntem 'Sweep [A]', weil in starken Abwärtstrends Tiefs kontinuierlich nach unten expandieren ('Run on Liquidity'), anstatt als Support zu fungieren – ein Fehlermuster, das auf 4h/1D zu verheerenden Kontoverlちsten führt.",
-        "actionable_rule": "Keine Liquiditätsvalidierung ohne Rejection-Schlusskurs: Ein Liquidity Sweep [A] ist erst dann als bullische Umkehr gültig, wenn die Folgekerze mit deutlichem Buy-Volumen über dem Sweep-Niveau schließt; minderwertige Zonen (Grading < [B]) werden im Gegentrend vollständig ignoriert."
-      }
-    },
-    {
-      "timestamp": "2026-11-14T02:31:36.990310+00:00",
-      "trade_id": "cross_rule_1794623496",
-      "symbol": "MULTI-ASSET",
-      "name": "Cross-Market Confluence",
-      "category": "Global Heuristic (4h/1D Transfer)",
-      "direction": "NEUTRAL",
-      "result": "WIN",
-      "setup_name": "Synthesized Multi-Timeframe Heuristic",
-      "pnl_leveraged": 0.0,
-      "pnl_raw": 0.0,
-      "text": "Fraktales Trend-Diktat: Counter-Trend- und Mean-Reversion-Setups (Institutional Buy Pockets) sind auf Sub-Zeitebenen (5m/15m) solange systemweit blockiert, wie die übergeordnete Zeitebene (1h/4h) in einer aktiven, impulsiven Abwärts-Expansionskerze notiert.",
-      "ai_post_mortem": {
-        "verdict": "RULE",
-        "driver": "Die BNB- und BTC-Verluste traten sequenziell unmittelbar nach dem erfolgreichen ETH-Short auf; isolierte Reversionstrades gegen ein marktweites Sell-Off-Momentum ignorieren die Kaskadenwirkung institutioneller Liquidationen.",
-        "actionable_rule": "Fraktales Trend-Diktat: Counter-Trend- und Mean-Reversion-Setups (Institutional Buy Pockets) sind auf Sub-Zeitebenen (5m/15m) solange systemweit blockiert, wie die übergeordnete Zeitebene (1h/4h) in einer aktiven, impulsiven Abwärts-Expansionskerze notiert."
-      }
-    },
-    {
-      "timestamp": "2026-11-14T02:31:36.990298+00:00",
-      "trade_id": "inc_BTCUSDT_5m_1794612649",
-      "symbol": "BTCUSDT",
-      "name": "Bitcoin",
-      "category": "Micro-Incubator (5m)",
-      "direction": "LONG",
-      "result": "LOSS",
-      "setup_name": "degencoder 5m Micro-Confluence Long",
-      "pnl_leveraged": -1.16,
-      "pnl_raw": -0.58,
-      "text": "Orderblöcke der Güteklasse [C] sind bei übergeordnetem Abwärtsdruck für Long-Entries strikt gesperrt; Sweeps [A] erfordern eine signifikante Delta-Absorption vor Markteintritt.",
-      "ai_post_mortem": {
-        "trade_id": "inc_BTCUSDT_5m_1794612649",
-        "verdict": "LOSS",
-        "driver": "Fehlschlag an einem minderwertigen Bullish Orderblock [C], da der vermeintliche Liquidity Sweep [A] lediglich interne Liquidität abgriff und sofort von Folgeverkäufen überrollt wurde.",
-        "technical_warning": "Das Qualitäts-Downgrade des Orderblocks auf Stufe [C] in Kombination mit einer fehlenden V-förmigen Rejection-Kerze nach dem Sweep signalisierte dominantes Verkäuferinteresse.",
-        "actionable_rule": "Orderblöcke der Güteklasse [C] sind bei übergeordnetem Abwärtsdruck für Long-Entries strikt gesperrt; Sweeps [A] erfordern eine signifikante Delta-Absorption vor Markteintritt."
-      }
     }
   ],
   "setup_statistics": {},
   "setup_performance": {
+    "Hypothese 1: SMC Order Block [R10] Exhaustion": {
+      "trades": 2,
+      "wins": 1,
+      "losses": 1,
+      "win_rate": 50.0,
+      "total_lev_pnl": -7.9,
+      "profit_factor": 0.7,
+      "status": "BALANCED",
+      "min_score": 88,
+      "leverage_adjustment": 0
+    },
     "Hypothese 1: degencoder Institutional Sell Pocket Reversal": {
       "trades": 5,
       "wins": 2,
@@ -1405,17 +1361,6 @@
       "min_score": 88,
       "leverage_adjustment": 0
     },
-    "Hypothese 1: SMC Order Block [R10] Exhaustion": {
-      "trades": 1,
-      "wins": 0,
-      "losses": 1,
-      "win_rate": 0.0,
-      "total_lev_pnl": -26.6,
-      "profit_factor": 0.0,
-      "status": "BALANCED",
-      "min_score": 88,
-      "leverage_adjustment": 0
-    },
     "Hypothese 1: SMC Order Block [R7] Confluence": {
       "trades": 1,
       "wins": 0,
@@ -1462,6 +1407,17 @@
     }
   },
   "category_performance": {
+    "Aktien": {
+      "trades": 5,
+      "wins": 3,
+      "losses": 2,
+      "win_rate": 60.0,
+      "total_lev_pnl": 20.6,
+      "profit_factor": 3.56,
+      "status": "STANDARD",
+      "min_score": 88,
+      "leverage_cap": 5
+    },
     "Edelmetalle": {
       "trades": 2,
       "wins": 1,
@@ -1491,17 +1447,6 @@
       "win_rate": 0.0,
       "total_lev_pnl": -11.4,
       "profit_factor": 0.0,
-      "status": "STANDARD",
-      "min_score": 88,
-      "leverage_cap": 5
-    },
-    "Aktien": {
-      "trades": 4,
-      "wins": 2,
-      "losses": 2,
-      "win_rate": 50.0,
-      "total_lev_pnl": 1.9,
-      "profit_factor": 1.24,
       "status": "STANDARD",
       "min_score": 88,
       "leverage_cap": 5
