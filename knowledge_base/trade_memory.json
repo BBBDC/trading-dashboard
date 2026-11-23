@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-23T06:05:43.149910+00:00",
-  "total_experience_records": 67,
+  "updated_at": "2026-11-23T06:30:59.447244+00:00",
+  "total_experience_records": 70,
   "learnings": [
+    {
+      "timestamp": "2026-11-23T06:30:50.781081+00:00",
+      "trade_id": "cross_rule_1795415450",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kontratrend-Filter und Stop-Platzierung jenseits der Invalidation-Struktur: Gegen einen intakten übergeordneten Trend (4h/1D) wird das Risiko halbiert oder der Trade komplett verworfen, bis der höhere Zeitrahmen ein klares Nachlassen der Kaufaggression und eine Rückkehr in die vorherige Range bestätigt.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Im fehlgeschlagenen XRPUSDT-Short führte das Stapeln von drei Konfluenz-Triggern in eine bullische Expansion zu einem glatten -1.0R Stop-Out direkt über dem Widerstand; auf höheren Zeitebenen (4h/1D) erzeugen identische Fehl-Entries gegen den Haupttrend noch kostspieligere Drawdowns.",
+        "actionable_rule": "Kontratrend-Filter und Stop-Platzierung jenseits der Invalidation-Struktur: Gegen einen intakten übergeordneten Trend (4h/1D) wird das Risiko halbiert oder der Trade komplett verworfen, bis der höhere Zeitrahmen ein klares Nachlassen der Kaufaggression und eine Rückkehr in die vorherige Range bestätigt."
+      }
+    },
+    {
+      "timestamp": "2026-11-23T06:30:50.781037+00:00",
+      "trade_id": "cross_rule_1795415450",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Reversal-Entry ohne Displacement und Struktur-Bruch (Sweep ≠ Reversal): Ein Liquidity Sweep [A] kombiniert mit einem Erschöpfungs-Indikator ist auf 30m, 4h und 1D lediglich ein Alarm-Setup, niemals ein eigenständiger Ausführungstrigger.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der Verlust in XRPUSDT (30m) zeigt fraktal dasselbe Risiko wie auf 5m/15m: Ohne kraftvolle Gegenbewegung (FVG-Bildung nach unten) und VSA-Bestätigung entpuppt sich ein vermeintlicher Stop-Hunt häufig als institutionelle Akkumulation vor dem Ausbruch über den Bearish OB.",
+        "actionable_rule": "Kein Reversal-Entry ohne Displacement und Struktur-Bruch (Sweep ≠ Reversal): Ein Liquidity Sweep [A] kombiniert mit einem Erschöpfungs-Indikator ist auf 30m, 4h und 1D lediglich ein Alarm-Setup, niemals ein eigenständiger Ausführungstrigger."
+      }
+    },
+    {
+      "timestamp": "2026-11-23T06:30:50.780959+00:00",
+      "trade_id": "inc_XRPUSDT_30m_1795408247",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (30m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 30m Confluence Short",
+      "pnl_leveraged": -2.32,
+      "pnl_raw": -1.16,
+      "text": "Ein 'degencoder 30m Confluence Short' nach OB-Retest und Liquidity Sweep [A] darf erst nach einem bestätigten bärischen Market Structure Shift (MSS) auf dem Einstiegs- oder Unter-Timeframe (5m/15m) mit sichtbarem Verkaufs-Volumen (VSA-Bestätigung) ausgeführt werden – niemals direkt in das erste Erschöpfungssignal hinein.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_30m_1795408247",
+        "verdict": "LOSS",
+        "driver": "Der Short-Einstieg bei 0.9357 antizipierte eine Trendwende nach einem Liquidity Sweep und einem Erschöpfungssignal, ohne ein reales bärisches Displacement (Market Structure Shift) oder abnehmende Kaufkraft abzuwarten, wodurch das bullische Momentum den Widerstand und den Stop-Loss bei 0.9466 sauber abräumte.",
+        "technical_warning": "Fehlender impulsiver Kerzenschluss zurück unter das gesweepte Hoch, ausbleibende VSA-Volumen-Divergenz (kein dominantes Verkaufs-Volumen bzw. keine lange obere Ablehnungsdocht-Absorption) sowie ein intakter übergeordneter 4h-Aufwärtsdruck, bei dem Top-Erschöpfungssignale notorisch zu früh feuern.",
+        "actionable_rule": "Ein 'degencoder 30m Confluence Short' nach OB-Retest und Liquidity Sweep [A] darf erst nach einem bestätigten bärischen Market Structure Shift (MSS) auf dem Einstiegs- oder Unter-Timeframe (5m/15m) mit sichtbarem Verkaufs-Volumen (VSA-Bestätigung) ausgeführt werden – niemals direkt in das erste Erschöpfungssignal hinein."
+      }
+    },
     {
       "timestamp": "2026-11-23T06:05:34.622277+00:00",
       "trade_id": "cross_rule_1795413934",
