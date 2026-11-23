@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-23T09:05:32.889214+00:00",
-  "total_experience_records": 70,
+  "updated_at": "2026-11-23T09:34:30.662696+00:00",
+  "total_experience_records": 73,
   "learnings": [
+    {
+      "timestamp": "2026-11-23T09:34:21.905554+00:00",
+      "trade_id": "cross_rule_1795426461",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Time-Stops für Mean-Reversion- und Erschöpfungs-Setups strikt auf den fraktalen Edge-Zerfall (maximal 12 bis 15 Kerzen der Signal-Zeitebene) kalibrieren.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Das 6h-Halten eines 5m-Erschöpfungstrades (72 Kerzen) blockierte Kapital und Slots weit über die Halbwertszeit des Signals hinaus; auch auf 4h/1D verliert ein Top-/Bottom-Signal seinen statistischen Vorteil, wenn innerhalb von 12–15 Kerzen keine klare Impulsbewegung in Zielrichtung einsetzt.",
+        "actionable_rule": "Time-Stops für Mean-Reversion- und Erschöpfungs-Setups strikt auf den fraktalen Edge-Zerfall (maximal 12 bis 15 Kerzen der Signal-Zeitebene) kalibrieren."
+      }
+    },
+    {
+      "timestamp": "2026-11-23T09:34:21.905508+00:00",
+      "trade_id": "cross_rule_1795426461",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "VSA-Volumenspitzen an Extrembändern ohne sofortigen Strukturbruch als Absorption und nicht als Distribution werten (Filter für 4h/1D Reversal-Setups).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 5m führte ein 1.6x Selling-Pressure-Spike an der RFE-Upper-Zone ohne nachfolgenden Bruch der Mikrostruktur zu einem sechsstündigen Gegen-Grind; fraktal auf 4h/1D ist fehlender Follow-Through nach einem Erschöpfungssignal ebenfalls das stärkste Indiz für institutionelle Absorption im intakten Trend.",
+        "actionable_rule": "VSA-Volumenspitzen an Extrembändern ohne sofortigen Strukturbruch als Absorption und nicht als Distribution werten (Filter für 4h/1D Reversal-Setups)."
+      }
+    },
+    {
+      "timestamp": "2026-11-23T09:34:21.905430+00:00",
+      "trade_id": "inc_BTCUSDT_5m_1795404633",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Confluence Short",
+      "pnl_leveraged": -0.8,
+      "pnl_raw": -0.4,
+      "text": "Bei degencoder 5m Confluence Shorts an der RFE Upper ist der Einstieg erst nach einer bestätigten bärischen Bestätigungskerze mit Strukturbruch (Lower Low) zulässig; bleibt die Abwärtsexpansion nach maximal 12 Kerzen (1h) aus, wird die Position ohne Warten auf den 6h-Time-Stop sofort glattgestellt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_5m_1795404633",
+        "verdict": "LOSS",
+        "driver": "Der 1.6x VSA-Volumensprung an der RFE-Upper-Zone wurde vollständig von passiver Käufernachfrage absorbiert, sodass statt einer Top-Umkehr ein langsamer Aufwärts-Grind gegen die Short-Position entstand.",
+        "technical_warning": "Ausbleibende sofortige bärische Expansion (kein Market Structure Shift und kein bärisches FVG innerhalb der ersten 3–5 Kerzen nach dem 1.6x VSA-Spike) sowie ein zu moderates Volumenverhältnis (<2.0x) für eine echte klimatische Erschöpfung.",
+        "actionable_rule": "Bei degencoder 5m Confluence Shorts an der RFE Upper ist der Einstieg erst nach einer bestätigten bärischen Bestätigungskerze mit Strukturbruch (Lower Low) zulässig; bleibt die Abwärtsexpansion nach maximal 12 Kerzen (1h) aus, wird die Position ohne Warten auf den 6h-Time-Stop sofort glattgestellt."
+      }
+    },
     {
       "timestamp": "2026-11-23T06:30:50.781081+00:00",
       "trade_id": "cross_rule_1795415450",
