@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-23T03:02:58.992518+00:00",
-  "total_experience_records": 60,
+  "updated_at": "2026-11-23T03:31:16.578131+00:00",
+  "total_experience_records": 63,
   "learnings": [
+    {
+      "timestamp": "2026-11-23T03:31:08.002758+00:00",
+      "trade_id": "cross_rule_1795404668",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Erschöpfungs-Indikatoren und isolierte Orderblocks dürfen niemals isoliert gegen intaktes HTF-Momentum gehandelt werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "In trendstarken Phasen werden lokale Widerstands-Level (wie R5) und Oszillator-Tops systematisch überrannt; Counter-Trend-Setups auf 4h/1D benötigen zwingend eine bestätigte Momentum-Brechung und VSA-Divergenz, bevor volles Risiko (1.0R) allokiert wird.",
+        "actionable_rule": "Erschöpfungs-Indikatoren und isolierte Orderblocks dürfen niemals isoliert gegen intaktes HTF-Momentum gehandelt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-23T03:31:08.002708+00:00",
+      "trade_id": "cross_rule_1795404668",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Ein Liquidity Sweep ohne sofortige Rejection und strukturelles Displacement (CHoCH/MSS) ist kein Reversal-Signal, sondern ein Breakout-Vorläufer.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Wie im ETHUSDT-Trade zu sehen, reichen gestapelte LTF-Signale (OB-Retest + Sweep + Top-Erschöpfung) nicht aus; wenn der Markt nach dem Sweep nicht sofort mit Volumen abverkauft wird, dient die geräumte Liquidität fraktal auf allen Zeitebenen (5m/15m/30m bis 4h/1D) als Treibstoff für die Trendfortsetzung.",
+        "actionable_rule": "Ein Liquidity Sweep ohne sofortige Rejection und strukturelles Displacement (CHoCH/MSS) ist kein Reversal-Signal, sondern ein Breakout-Vorläufer."
+      }
+    },
+    {
+      "timestamp": "2026-11-23T03:31:08.002623+00:00",
+      "trade_id": "inc_ETHUSDT_30m_1795359631",
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "category": "Micro-Incubator (30m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 30m Confluence Short",
+      "pnl_leveraged": -3.4,
+      "pnl_raw": -1.7,
+      "text": "Short-Entries nach einem Liquidity Sweep am Bearish OB [A] nur noch nach bestätigtem Kerzenschluss zurück unter dem Sweep-Hoch und anschließendem bearishen Displacement (CHoCH) freigeben – niemals direkt auf das bloße Indikator-Erschöpfungssignal.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ETHUSDT_30m_1795359631",
+        "verdict": "LOSS",
+        "driver": "Das Short-Setup setzte blind auf ein Top-Reversal nach einem Liquidity Sweep am Bearish OB [A] (R5), ohne abzuwarten, ob die Käufer-Liquidität tatsächlich absorbiert wurde oder der Markt gegen den übergeordneten Trend einfach weiter durchzieht.",
+        "technical_warning": "Fehlende bearishe VSA-Bestätigung (kein markantes Verkaufsvolumen bzw. keine scharfe Rejection-Lunte zurück unter das Sweep-Level) sowie ausbleibender Market Structure Shift (CHoCH/Displacement) bei anhaltender Preisakzeptanz am oberen Rand des OB [A].",
+        "actionable_rule": "Short-Entries nach einem Liquidity Sweep am Bearish OB [A] nur noch nach bestätigtem Kerzenschluss zurück unter dem Sweep-Hoch und anschließendem bearishen Displacement (CHoCH) freigeben – niemals direkt auf das bloße Indikator-Erschöpfungssignal."
+      }
+    },
     {
       "timestamp": "2026-11-22T14:16:18.986849+00:00",
       "trade_id": "cross_rule_1795356978",
