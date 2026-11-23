@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-23T05:34:19.433203+00:00",
-  "total_experience_records": 63,
+  "updated_at": "2026-11-23T06:05:43.149910+00:00",
+  "total_experience_records": 67,
   "learnings": [
+    {
+      "timestamp": "2026-11-23T06:05:34.622277+00:00",
+      "trade_id": "cross_rule_1795413934",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein blindes Top-Picking gegen Momentum: Reversal-Signale an Extremzonen (RFE Upper / Chaos-Bänder) erfordern zwingend einen abgeschlossenen Liquidity-Sweep plus Bestätigung gegen den übergeordneten Trend (HTF-Alignment).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf dem 5m-Chart führten enge Stops (-0.97%) knapp über dem Widerstand trotz Erschöpfungs-Indikatoren und VSA-Spikes direkt in die Liquiditätsjagd der Käufer; auf 4h/1D ist dieses Muster der Hauptgrund für ausgestoppte Swing-Shorts vor der eigentlichen Trendwende.",
+        "actionable_rule": "Kein blindes Top-Picking gegen Momentum: Reversal-Signale an Extremzonen (RFE Upper / Chaos-Bänder) erfordern zwingend einen abgeschlossenen Liquidity-Sweep plus Bestätigung gegen den übergeordneten Trend (HTF-Alignment)."
+      }
+    },
+    {
+      "timestamp": "2026-11-23T06:05:34.622254+00:00",
+      "trade_id": "cross_rule_1795413934",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Korrelations-Gate & Risiko-Budgetierung: Maximal ein aktiver Counter-Trend-Trade pro korreliertem Markt-Cluster (z.B. Altcoin-Beta zu BTC) innerhalb desselben Impulses.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die beiden 5m-Shorts auf SOL und ADA wurden im Abstand von einer Sekunde mit identischem Setup ausgelöst und vernichteten simultan -2.0R auf exakt dieselbe Marktbewegung; fraktal verhindert diese Regel auf 4h/1D fatale Portfolio-Drawdowns bei Makro-Squeezes.",
+        "actionable_rule": "Korrelations-Gate & Risiko-Budgetierung: Maximal ein aktiver Counter-Trend-Trade pro korreliertem Markt-Cluster (z.B. Altcoin-Beta zu BTC) innerhalb desselben Impulses."
+      }
+    },
+    {
+      "timestamp": "2026-11-23T06:05:34.622237+00:00",
+      "trade_id": "inc_ADAUSDT_5m_1795404636",
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Confluence Short",
+      "pnl_leveraged": -1.94,
+      "pnl_raw": -0.97,
+      "text": "VSA-Short-Trigger unter einem Volumen-Multiplikator von 2.0x strikt verwerfen und zeitgleiche Shorts auf hochkorrelierten Altcoins durch ein Portfolio-Korrelationslimit auf maximal 1 Position pro Sektor-Impuls begrenzen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ADAUSDT_5m_1795404636",
+        "verdict": "LOSS",
+        "driver": "Redundanter Korrelations-Short eine Sekunde nach dem SOL-Entry mit viel zu schwachem Volumen-Trigger (1.3x), der vom breiten Altcoin-Beta direkt durch den knappen Stop-Loss gezogen wurde.",
+        "technical_warning": "Ein VSA-Faktor von lediglich 1.3x stellt keinen signifikanten Verkaufsdruck dar und hätte in Kombination mit dem zeitgleichen SOL-Short-Signal als akutes Klumpenrisiko (Beta-Exposure) geblockt werden müssen.",
+        "actionable_rule": "VSA-Short-Trigger unter einem Volumen-Multiplikator von 2.0x strikt verwerfen und zeitgleiche Shorts auf hochkorrelierten Altcoins durch ein Portfolio-Korrelationslimit auf maximal 1 Position pro Sektor-Impuls begrenzen."
+      }
+    },
+    {
+      "timestamp": "2026-11-23T06:05:34.622176+00:00",
+      "trade_id": "inc_SOLUSDT_5m_1795404635",
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Confluence Short",
+      "pnl_leveraged": -1.94,
+      "pnl_raw": -0.97,
+      "text": "Bei 5m Confluence Shorts an RFE Upper niemals allein auf das Erschöpfungs-Signal einsteigen, sondern zwingend einen bestätigten Liquidity-Sweep mit anschließendem Kerzenschluss zurück in die Range (Rejection + BOS) abwarten.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SOLUSDT_5m_1795404635",
+        "verdict": "LOSS",
+        "driver": "Aggressives Shorten direkt in eine dynamische Ausbruchsbewegung (Absorption am RFE Upper), bei der das 2.3x Volumen kein Verteilungsdruck, sondern Käufer-Dominanz und Stop-Run-Treibstoff war.",
+        "technical_warning": "Ein 2.3x VSA-Volumenanstieg an einer Widerstandszone ohne anschließenden bearishen Struktur-Bruch (CHoCH) oder Schlusskurs unterhalb der Ausbruchskerze warnt vor Absorption und bevorstehendem Breakout.",
+        "actionable_rule": "Bei 5m Confluence Shorts an RFE Upper niemals allein auf das Erschöpfungs-Signal einsteigen, sondern zwingend einen bestätigten Liquidity-Sweep mit anschließendem Kerzenschluss zurück in die Range (Rejection + BOS) abwarten."
+      }
+    },
     {
       "timestamp": "2026-11-23T03:31:08.002758+00:00",
       "trade_id": "cross_rule_1795404668",
