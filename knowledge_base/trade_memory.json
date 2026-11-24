@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-24T23:02:52.007959+00:00",
-  "total_experience_records": 82,
+  "updated_at": "2026-11-24T23:31:20.397992+00:00",
+  "total_experience_records": 85,
   "learnings": [
+    {
+      "timestamp": "2026-11-24T23:31:11.435998+00:00",
+      "trade_id": "cross_rule_1795563071",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Time-Stops konsequent am Ausführungs-Timeframe kalibrieren, um Opportunitätskosten und Slot-Blockaden durch Seitwärtsphasen zu eliminieren.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der 6h-Time-Stop begrenzte den Schaden auf -0.1R, ließ ein 5m-Setup jedoch 72 Kerzen lang Kapital binden; auf 4h/1D muss ein Setup ebenfalls nach einer festen Anzahl von Kerzen ohne signifikante Bewegung in Trade-Richtung (z.B. 10–15 Kerzen) rigoros geräumt werden.",
+        "actionable_rule": "Time-Stops konsequent am Ausführungs-Timeframe kalibrieren, um Opportunitätskosten und Slot-Blockaden durch Seitwärtsphasen zu eliminieren."
+      }
+    },
+    {
+      "timestamp": "2026-11-24T23:31:11.435974+00:00",
+      "trade_id": "cross_rule_1795563071",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volumen-Absorption ohne zeitnahes Preis-Displacement ist kein Einstiegssignal, sondern ein Warnzeichen für totes Kapital oder Redistribution.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Im 5m-Trade auf LINKUSDT führte ein 2.4x VSA-Spike an der Buy Area über 6 Stunden zu keiner Aufwärtsbewegung; fraktal gilt auf 4h/1D analog, dass hohe Volumenspitzen an Support-Zonen erst durch eine nachfolgende Impulskerze mit bullischem Close validiert werden müssen.",
+        "actionable_rule": "Volumen-Absorption ohne zeitnahes Preis-Displacement ist kein Einstiegssignal, sondern ein Warnzeichen für totes Kapital oder Redistribution."
+      }
+    },
+    {
+      "timestamp": "2026-11-24T23:31:11.435922+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1795541659",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Confluence Long",
+      "pnl_leveraged": -0.42,
+      "pnl_raw": -0.21,
+      "text": "Bei degencoder 5m Confluence Longs mit VSA-Volumen-Surge erst nach bestätigtem bullischem Displacement (Schlusskurs über dem Hoch der Absorptionskerze) einsteigen oder den Trade nach spätestens 12 Kerzen ohne Fortschritt in Richtung +0.5R vorzeitig schließen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1795541659",
+        "verdict": "LOSS",
+        "driver": "Trotz 2.4x VSA-Volumen-Surge an der RFE-Lower-Zone fehlte jegliche bullische Anschlussdynamik (Displacement), sodass der Trade über 72 5m-Kerzen als totes Kapital unter dem Entry stagnierte.",
+        "technical_warning": "Ausbleibender unmittelbarer Strukturbruch (5m BOS/FVG-Bildung) innerhalb der ersten 3 bis 6 Kerzen nach dem 2.4x Volumen-Spike signalisierte, dass das Volumen eher auf passives Angebot/Distribution als auf echte institutionelle Absorption hindeutete.",
+        "actionable_rule": "Bei degencoder 5m Confluence Longs mit VSA-Volumen-Surge erst nach bestätigtem bullischem Displacement (Schlusskurs über dem Hoch der Absorptionskerze) einsteigen oder den Trade nach spätestens 12 Kerzen ohne Fortschritt in Richtung +0.5R vorzeitig schließen."
+      }
+    },
     {
       "timestamp": "2026-11-24T15:37:36.246290+00:00",
       "trade_id": "cross_rule_1795534656",
