@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-24T15:07:01.646722+00:00",
-  "total_experience_records": 79,
+  "updated_at": "2026-11-24T15:37:45.674582+00:00",
+  "total_experience_records": 82,
   "learnings": [
+    {
+      "timestamp": "2026-11-24T15:37:36.246290+00:00",
+      "trade_id": "cross_rule_1795534656",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Stop-Losses niemals unmittelbar unter offensichtlichen Retail-Support-Linien ohne vorherigen Liquidity-Sweep platzieren — erst nach dem Sweep einsteigen oder das Risiko über HTF-Trend-Filter (4h/1D Bias) blockieren.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der Exit bei 8.8082 (-1.08%) unter dem Support zeigt, dass frühe Confluence-Signale ohne übergeordneten Trend-Filter und ohne vorheriges Abgreifen der Stop-Liquidität auf allen Zeitebenen (5m bis 1D) systematisch als Ausstiegsliquidität für Gegenseiten-Orderflow dienen.",
+        "actionable_rule": "Stop-Losses niemals unmittelbar unter offensichtlichen Retail-Support-Linien ohne vorherigen Liquidity-Sweep platzieren — erst nach dem Sweep einsteigen oder das Risiko über HTF-Trend-Filter (4h/1D Bias) blockieren."
+      }
+    },
+    {
+      "timestamp": "2026-11-24T15:37:36.246267+00:00",
+      "trade_id": "cross_rule_1795534656",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine statischen Support-Longs auf Basis schwacher Volumen-Spikes (< 2.0x RVol): Echte institutionelle Absorption erfordert überdurchschnittliche Klimax-Liquidität plus zwingende Preisbestätigung (Sweep & Reclaim).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Im 5m-Trade auf LINKUSDT führte ein marginaler 1.4x-Volumenanstieg an der RFE-Lower-Zone zu einem sofortigen -1.0R-Ausstopper; fraktal gilt auf 4h/1D noch stärker, dass moderates Volumen an Support-Zonen häufiger auf Durchbruch (Initiative Selling) als auf Bodenbildung hindeutet.",
+        "actionable_rule": "Keine statischen Support-Longs auf Basis schwacher Volumen-Spikes (< 2.0x RVol): Echte institutionelle Absorption erfordert überdurchschnittliche Klimax-Liquidität plus zwingende Preisbestätigung (Sweep & Reclaim)."
+      }
+    },
+    {
+      "timestamp": "2026-11-24T15:37:36.246215+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1795529240",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Confluence Long",
+      "pnl_leveraged": -2.16,
+      "pnl_raw": -1.08,
+      "text": "Bei degencoder-Confluence-Longs an RFE-Lower darf erst eingestiegen werden, wenn das VSA-Absorptionsvolumen mindestens 2.0x des Durchschnitts erreicht UND die Folgekerze einen bullischen Close über dem Signal-Hoch (Bestätigung der Nachfrage) liefert.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1795529240",
+        "verdict": "LOSS",
+        "driver": "Der Long-Einstieg an der RFE-Lower-Zone interpretierte einen schwachen 1.4x-Volumenanstieg fälschlicherweise als bullische Absorption, während tatsächlich anhaltender Verkaufsdruck das Support-Level und den darunterliegenden Stop-Loss durchbrach.",
+        "technical_warning": "Ein relatives VSA-Volumen von lediglich 1.4x liegt im 5m-Rauschen deutlich unter der Schwelle echter Klimax-Absorption (>= 2.0x–2.5x), und das Fehlen eines bestätigten Liquidity-Sweeps mit anschließender Struktur-Rückeroberung (Reclaim) warnte vor einem Support-Bruch.",
+        "actionable_rule": "Bei degencoder-Confluence-Longs an RFE-Lower darf erst eingestiegen werden, wenn das VSA-Absorptionsvolumen mindestens 2.0x des Durchschnitts erreicht UND die Folgekerze einen bullischen Close über dem Signal-Hoch (Bestätigung der Nachfrage) liefert."
+      }
+    },
     {
       "timestamp": "2026-11-24T13:37:37.444223+00:00",
       "trade_id": "cross_rule_1795527457",
