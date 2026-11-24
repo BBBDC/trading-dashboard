@@ -1,7 +1,70 @@
 {
-  "updated_at": "2026-11-24T10:36:23.690265+00:00",
-  "total_experience_records": 73,
+  "updated_at": "2026-11-24T11:03:47.499662+00:00",
+  "total_experience_records": 76,
   "learnings": [
+    {
+      "timestamp": "2026-11-24T11:03:37.195431+00:00",
+      "trade_id": "cross_rule_1795518217",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Asymmetrische Exekutionsdisziplin ohne Recency-Bias: Gewinner in A-Grade-Setups müssen strikt bis zum finalen Strukturziel (TP2) gehalten werden, während nach Einzelgewinnen weder Risiko noch Trigger-Toleranz gelockert werden dürfen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein einzelner +2.2R-Treffer auf 15m liefert noch keine statistische Aussagekraft (N=1); auf 4h/1D-Ebene sichern nur das volle Ausreizen des R-Multiples und das kompromisslose Weglassen von B-/C-Setups den langfristigen Erwartungswert.",
+        "actionable_rule": "Asymmetrische Exekutionsdisziplin ohne Recency-Bias: Gewinner in A-Grade-Setups müssen strikt bis zum finalen Strukturziel (TP2) gehalten werden, während nach Einzelgewinnen weder Risiko noch Trigger-Toleranz gelockert werden dürfen."
+      }
+    },
+    {
+      "timestamp": "2026-11-24T11:03:37.195406+00:00",
+      "trade_id": "cross_rule_1795518217",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Liquiditäts-Absorptions-Pflicht: Auf 4h/1D-Zeitebenen dürfen Reversal-Shorts nur eröffnet werden, wenn ein deutlicher Liquidity Sweep über ein relevantes Swing-High direkt in einen unmitigierten Bearish Order Block [A] mit erkennbarer Erschöpfung oder VSA-Volumenabsorption läuft.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die 15m-Beobachtung auf SUIUSDT zeigt, dass erst das systematische Abräumen von Buy-Side-Liquidität vor dem OB-Retest (R2) die Gegenpartei für einen sauberen, ungestörten Abverkauf bis zum maximalen Take-Profit (+2.2R) bereitstellt.",
+        "actionable_rule": "Fraktale Liquiditäts-Absorptions-Pflicht: Auf 4h/1D-Zeitebenen dürfen Reversal-Shorts nur eröffnet werden, wenn ein deutlicher Liquidity Sweep über ein relevantes Swing-High direkt in einen unmitigierten Bearish Order Block [A] mit erkennbarer Erschöpfung oder VSA-Volumenabsorption läuft."
+      }
+    },
+    {
+      "timestamp": "2026-11-24T11:03:37.195355+00:00",
+      "trade_id": "inc_SUIUSDT_15m_1795500326",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (15m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 15m Confluence Short",
+      "pnl_leveraged": 7.46,
+      "pnl_raw": 3.73,
+      "text": "Das degencoder-Confluence-Short-Setup darf ausschließlich bei gleichzeitiger Präsenz eines [A]-Liquidity-Sweeps, eines [A]-Order-Block-Retests und eines Erschöpfungssignals gehandelt werden; nach Bestätigung des Abwärtsimpulses ist das Ziel konsequent bis TP2 auszureizen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_15m_1795500326",
+        "verdict": "WIN",
+        "driver": "Die präzise Synchronisation aus Stop-Hunt Liquidity Sweep [A] über dem Hoch, unmittelbarem Retest des Bearish OB [A] am Widerstand R2 und dem Top-Erschöpfungssignal absorbierte die Käuferliquidität vollständig und löste den direkten Abwärtsimpuls bis TP2 (+2.2R) aus.",
+        "technical_warning": "Ein 15m-Kerzenschluss über dem Sweep-High bei expandierendem Kaufvolumen (fehlende VSA-Absorption) oder das Ausbleiben sofortigen Abwärts-Displacements nach dem OB-Retest hätte das Short-Setup frühzeitig als Bull-Flag-Ausbruch statt Top-Bildung entlarvt.",
+        "actionable_rule": "Das degencoder-Confluence-Short-Setup darf ausschließlich bei gleichzeitiger Präsenz eines [A]-Liquidity-Sweeps, eines [A]-Order-Block-Retests und eines Erschöpfungssignals gehandelt werden; nach Bestätigung des Abwärtsimpulses ist das Ziel konsequent bis TP2 auszureizen.",
+        "opus_audit": {
+          "model": "Claude Opus 5.5",
+          "anomaly_type": "EXTREME_RUNNER",
+          "causal_driver": "Hier hat nichts versagt und nichts ist ausgerissen: Der Short hat sein vorab geplantes Ziel TP2 erreicht, also das normale Ergebnis eines A+-Setups, und wurde nur durch eine falsche Klassifizierung im Anomalie-Detektor als kritisch markiert.",
+          "structural_breakdown": "1) Die Zahlen stimmen: (0.6785 − 0.6532) / 0.6785 = 3.73 %. Aus 2.2R folgt ein Risiko von etwa 0.0115 pro Einheit, der Stop lag also bei ungefähr 0.6900 (rund 1.7 % über dem Einstieg). Ein Gewinn von 2.2R bei TP2 ist kein Ausreißer, sondern genau das Auszahlungsprofil, mit dem das Setup geplant war. 2) Die Wahl zwischen den beiden Kategorien ist erzwungen. 'CRITICAL_A_PLUS_FAILURE' ist sachlich falsch. 'EXTREME_RUNNER' passt nur als nächstliegende Kategorie, denn der Trade ist bei TP2 geschlossen worden und gar nicht weitergelaufen. 3) Ein verdeckter Liquiditäts-Sweep, ein HTF-Strukturbruch oder ein Fehler bei der Volumen-Absorption lässt sich mit den vorhandenen Daten weder belegen noch ausschließen. Es fehlen die OHLCV-Daten, das Volumen bzw. Delta, der MAE/MFE-Verlauf und die HTF-Struktur (1h/4h) zum Zeitpunkt des Einstiegs. Jede Behauptung dazu wäre ausgedacht. 4) Die Gemini-Voranalyse ist ein Rückschaufehler: Aus einem einzigen Gewinn-Trade leitet sie eine Ausschließlichkeits-Regel ab ('darf ausschließlich ... gehandelt werden'). Das ist Überanpassung an einen Einzelfall ohne Kontrollgruppe, also ohne Trades mit derselben Kombination, die verloren haben. 5) Das eigentliche Problem im System ist der Auslöser der Anomalie-Prüfung. Er schlägt bei planmäßigen TP2-Treffern an und erzeugt so Fehlalarme. Diese verbrauchen KI-Kontingent und schreiben falsche Kausalregeln in die Wissensbasis.",
+          "opus_actionable_rule": "1) Anomalie-Auslöser neu definieren: Als 'EXTREME_RUNNER' gilt ein Trade nur, wenn er mehr als 1.5 × das geplante Ziel-R erreicht oder sein MFE über dem 95. Perzentil der Setup-Klasse liegt. Als 'CRITICAL_A_PLUS_FAILURE' gilt nur ein A+-Trade, der mit −1R am Stop schließt. Ein CLOSED_TP2 innerhalb von ±0.3R um das geplante R bekommt den Status NORMAL_OUTCOME und wird nicht an die Prüfung weitergegeben. 2) Keine Aufnahme in den Filterkatalog bei n=1: Eine KI-Regel aus einer Einzelfallanalyse kommt in den Katalog erst nach einem Backtest mit mindestens 30 Trades derselben Trigger-Kombination (OB[A]-Retest + Sweep[A] + Erschöpfungssignal). Gemessen werden Trefferquote, Erwartungswert in R und Profit-Faktor im Vergleich zu Setups ohne einen der drei Trigger. 3) Der Prüf-Payload muss künftig OHLCV inklusive Volumen (±50 Kerzen um den Einstieg), MAE/MFE, den Stop-Kurs und den HTF-Trend (1h/4h) enthalten. Ohne diese Daten bekommt der Trade das Kausal-Urteil 'INSUFFICIENT_DATA'."
+        }
+      }
+    },
     {
       "timestamp": "2026-11-23T09:34:21.905554+00:00",
       "trade_id": "cross_rule_1795426461",
