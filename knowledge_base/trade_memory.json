@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-24T13:01:48.659155+00:00",
-  "total_experience_records": 76,
+  "updated_at": "2026-11-24T13:37:46.408125+00:00",
+  "total_experience_records": 79,
   "learnings": [
+    {
+      "timestamp": "2026-11-24T13:37:37.444223+00:00",
+      "trade_id": "cross_rule_1795527457",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine Counter-Trend-Einstiege bei expandierender Gegen-Volatilität: Wenn die notwendige Stop-Loss-Distanz unter Support unverhältnismäßig weit über der normalen Zeitebenen-ATR liegt, ist der Markt im Impuls- statt im Reversal-Modus – Setup zwingend überspringen oder auf HTF-Bestätigung warten.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die 1.56% SL-Distanz auf dem 5m-Timeframe bei LINKUSDT signalisierte bereits massiven Verkaufsdruck und Volatilitätsexpansion; auf 4h/1D-Ebene schützt diese Regel vor dem Fangen fallender Messer in makroökonomischen oder News-getriebenen Trendbewegungen.",
+        "actionable_rule": "Keine Counter-Trend-Einstiege bei expandierender Gegen-Volatilität: Wenn die notwendige Stop-Loss-Distanz unter Support unverhältnismäßig weit über der normalen Zeitebenen-ATR liegt, ist der Markt im Impuls- statt im Reversal-Modus – Setup zwingend überspringen oder auf HTF-Bestätigung warten."
+      }
+    },
+    {
+      "timestamp": "2026-11-24T13:37:37.444198+00:00",
+      "trade_id": "cross_rule_1795527457",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Ein Liquidity Sweep [A] an einem Order Block ist erst dann ein gültiger Long-Trigger, wenn ein bestätigtes bullisches Displacement (Reclaim-Close + Mikro-Strukturbruch) mit VSA-Absorptionsvolumen folgt – ohne diese Bestätigung ist der OB lediglich Exit-Liquidität für Verkäufer.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Im 5m-Trade auf LINKUSDT scheiterte eine hochgradige Dreifach-Konfluenz sofort am Support-Durchbruch; fraktal gilt auf 4h/1D exakt dasselbe Prinzip, dass Order Blocks in einem aktiven Abwärtsimpuls ohne strukturelle Umkehrbestätigung schlicht überrannt werden.",
+        "actionable_rule": "Ein Liquidity Sweep [A] an einem Order Block ist erst dann ein gültiger Long-Trigger, wenn ein bestätigtes bullisches Displacement (Reclaim-Close + Mikro-Strukturbruch) mit VSA-Absorptionsvolumen folgt – ohne diese Bestätigung ist der OB lediglich Exit-Liquidität für Verkäufer."
+      }
+    },
+    {
+      "timestamp": "2026-11-24T13:37:37.444144+00:00",
+      "trade_id": "inc_LINKUSDT_5m_1795514444",
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "Micro-Incubator (5m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Confluence Long",
+      "pnl_leveraged": -3.12,
+      "pnl_raw": -1.56,
+      "text": "Bei 'degencoder 5m Confluence Long'-Setups niemals blind auf den ersten OB-Retest und das Indikator-Signal einsteigen, sondern zwingend einen bestätigten Kerzenschluss oberhalb des gesweepten Liquiditätslevels mit überdurchschnittlichem VSA-Kaufvolumen und mindestens neutraler 1h/4h-Struktur abwarten.",
+      "ai_post_mortem": {
+        "trade_id": "inc_LINKUSDT_5m_1795514444",
+        "verdict": "LOSS",
+        "driver": "Der vermeintliche Liquidity Sweep am Bullish Order Block [A] war kein institutioneller Stop-Hunt mit anschließender Akkumulation, sondern ein echter struktureller Abverkauf (Breakdown), der das Support-Level und den Stop-Loss bei 8.8544 sauber durchschlug.",
+        "technical_warning": "Fehlende VSA-Volumenbestätigung (kein Stopping Volume bzw. keine bullische Absorption nach dem Sweep), ausbleibendes bullisches Displacement (kein sauberer Reclaim-Close über dem gesweepten Tief) sowie eine für den 5m-Chart ungewöhnlich weite Stop-Loss-Distanz von 1.56%, die bereits auf erhöhte Abwärtsvolatilität und eine Überdehnung gegen den übergeordneten 1h/4h-Trend hindeutete.",
+        "actionable_rule": "Bei 'degencoder 5m Confluence Long'-Setups niemals blind auf den ersten OB-Retest und das Indikator-Signal einsteigen, sondern zwingend einen bestätigten Kerzenschluss oberhalb des gesweepten Liquiditätslevels mit überdurchschnittlichem VSA-Kaufvolumen und mindestens neutraler 1h/4h-Struktur abwarten."
+      }
+    },
     {
       "timestamp": "2026-11-24T11:03:37.195431+00:00",
       "trade_id": "cross_rule_1795518217",
