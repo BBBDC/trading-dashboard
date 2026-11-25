@@ -1,0 +1,104 @@
+{
+  "holdout_2022_2026": {
+    "s2_primary": {
+      "days": 1227,
+      "ann_excess_ret_pct": -0.03,
+      "ann_vol_pct": 1.43,
+      "excess_sharpe": -0.024,
+      "max_dd_pct": 3.3,
+      "trades": 113,
+      "episodes": 78,
+      "win_rate_pct": 61.1,
+      "profit_factor": 1.075,
+      "expectancy_r": 0.013,
+      "total_r": 1.45
+    },
+    "s2_cost_2x": {
+      "days": 1227,
+      "ann_excess_ret_pct": -0.37,
+      "ann_vol_pct": 1.44,
+      "excess_sharpe": -0.259,
+      "max_dd_pct": 3.96,
+      "trades": 113,
+      "episodes": 78,
+      "win_rate_pct": 56.6,
+      "profit_factor": 0.91,
+      "expectancy_r": -0.016,
+      "total_r": -1.85
+    },
+    "s2_neg_control_tlt_gld": {
+      "days": 1227,
+      "ann_excess_ret_pct": 0.07,
+      "ann_vol_pct": 0.7,
+      "excess_sharpe": 0.103,
+      "max_dd_pct": 1.07,
+      "trades": 50,
+      "episodes": 45,
+      "win_rate_pct": 62.0,
+      "profit_factor": 1.241,
+      "expectancy_r": 0.031,
+      "total_r": 1.55
+    },
+    "bench_sma200_hold": {
+      "days": 1227,
+      "ann_excess_ret_pct": 3.79,
+      "ann_vol_pct": 10.54,
+      "excess_sharpe": 0.359,
+      "max_dd_pct": 13.57,
+      "trades": 0,
+      "episodes": 0,
+      "win_rate_pct": 0.0,
+      "profit_factor": 0.0,
+      "expectancy_r": 0.0,
+      "total_r": 0
+    }
+  },
+  "full_2008_2026": {
+    "s2_primary": {
+      "days": 4712,
+      "ann_excess_ret_pct": 0.57,
+      "ann_vol_pct": 1.56,
+      "excess_sharpe": 0.367,
+      "max_dd_pct": 3.3,
+      "trades": 390,
+      "episodes": 267,
+      "win_rate_pct": 65.9,
+      "profit_factor": 1.381,
+      "expectancy_r": 0.06,
+      "total_r": 23.46
+    },
+    "s2_cost_2x": {
+      "days": 4712,
+      "ann_excess_ret_pct": 0.26,
+      "ann_vol_pct": 1.56,
+      "excess_sharpe": 0.166,
+      "max_dd_pct": 4.24,
+      "trades": 390,
+      "episodes": 267,
+      "win_rate_pct": 62.8,
+      "profit_factor": 1.18,
+      "expectancy_r": 0.03,
+      "total_r": 11.79
+    },
+    "bench_sma200_hold": {
+      "days": 4712,
+      "ann_excess_ret_pct": 6.19,
+      "ann_vol_pct": 11.07,
+      "excess_sharpe": 0.559,
+      "max_dd_pct": 18.45,
+      "trades": 0,
+      "episodes": 0,
+      "win_rate_pct": 0.0,
+      "profit_factor": 0.0,
+      "expectancy_r": 0.0,
+      "total_r": 0
+    },
+    "regime_monte_carlo": {
+      "n_mc": 1000,
+      "actual_sharpe": 0.367,
+      "mc_median_sharpe": -0.016,
+      "mc_p95_sharpe": 0.336,
+      "p_value_vs_regime_mc": 0.034
+    }
+  }
+}
