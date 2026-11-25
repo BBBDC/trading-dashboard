@@ -1,7 +1,146 @@
 {
-  "updated_at": "2026-11-25T19:02:26.488912+00:00",
-  "total_experience_records": 94,
+  "updated_at": "2026-11-25T19:35:28.954306+00:00",
+  "total_experience_records": 101,
   "learnings": [
+    {
+      "timestamp": "2026-11-25T19:35:19.473206+00:00",
+      "trade_id": "cross_rule_1795635319",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Strukturelle Bestätigung (Liquidity-Sweep [A] + VSA-Ablehnung + Market Structure Shift) hat strikten Vorrang vor statischer Indikator-Konfluenz, besonders bei Setups gegen den übergeordneten Orderflow.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf der 5m-Ebene reichte der bloße Retest des Bearish OB [B] ohne vorherige Liquiditätsaufnahme nicht aus, um das Kaufmomentum zu brechen; auf 4h/1D-Setups dient dieser Filter als zwingende Absicherung gegen verfrühte Umkehr-Einstiege.",
+        "actionable_rule": "Strukturelle Bestätigung (Liquidity-Sweep [A] + VSA-Ablehnung + Market Structure Shift) hat strikten Vorrang vor statischer Indikator-Konfluenz, besonders bei Setups gegen den übergeordneten Orderflow."
+      }
+    },
+    {
+      "timestamp": "2026-11-25T19:35:19.473185+00:00",
+      "trade_id": "cross_rule_1795635319",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Exhaustion-Signale und extreme Widerstands-Pivots (z. B. R5 / RFE Upper) sind in laufenden Trendimpulsen niemals eigenständige Counter-Trend-Trigger, sondern primär Liquiditätsziele für einen Stop-Run.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der NEARUSDT-5m-Trade wurde trotz dreifacher Sell-Konfluenz direkt über dem Widerstand ausgestoppt; fraktal auf 4h/1D übertragen verhindert diese Regel das wiederholte Gegenhandeln starker Trendphasen, bevor institutionelle Distribution sichtbar wird.",
+        "actionable_rule": "Exhaustion-Signale und extreme Widerstands-Pivots (z. B. R5 / RFE Upper) sind in laufenden Trendimpulsen niemals eigenständige Counter-Trend-Trigger, sondern primär Liquiditätsziele für einen Stop-Run."
+      }
+    },
+    {
+      "timestamp": "2026-11-25T19:35:19.473135+00:00",
+      "trade_id": "inc_NEARUSDT_5m_1795631651",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Confluence Short",
+      "pnl_leveraged": -2.96,
+      "pnl_raw": -1.48,
+      "text": "Bei Confluence-Shorts an Bearish OBs [B] und RFE-Upper-Zonen erst nach einem abgeschlossenen Liquidity-Sweep [A] über dem Widerstandslevel und anschließender bärischer Abschlusskerze mit VSA-Volumenbestätigung oder 5m-MSS einsteigen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_5m_1795631651",
+        "verdict": "LOSS",
+        "driver": "Verfrühter Short-Einstieg in intaktes Aufwärtsmomentum am Extremwiderstand (R5) allein auf Basis von Indikator-Erschöpfung und OB-Retest [B], ohne bestätigten Liquidity-Sweep [A] oder strukturellen Trendbruch.",
+        "technical_warning": "Das Erreichen von R5 signalisiert bereits eine starke Trendexpansion, in der Exhaustion-Oszillatoren (RFE Upper / Good Sell Signal) regelmäßig überrannt werden; das Fehlen eines klaren Liquidity-Sweeps [A] über dem Widerstand, einer VSA-Absorptionskerze (hohes Volumen mit markanter oberer Ablehnung) sowie eines Market Structure Shifts (MSS) hätte vor dem Stop-Run über dem Bearish OB gewarnt.",
+        "actionable_rule": "Bei Confluence-Shorts an Bearish OBs [B] und RFE-Upper-Zonen erst nach einem abgeschlossenen Liquidity-Sweep [A] über dem Widerstandslevel und anschließender bärischer Abschlusskerze mit VSA-Volumenbestätigung oder 5m-MSS einsteigen."
+      }
+    },
+    {
+      "timestamp": "2026-11-25T19:34:54.801331+00:00",
+      "trade_id": "cross_rule_1795635294",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Sweep-Bestätigungspflicht statt blindem Top-/Bottom-Picking (HTF-Regime-Filter): Erschöpfungssignale an Chaos-/RFE-Bändern und Orderblocks (auch Grad [A]) dürfen gegen den übergeordneten Impuls ausschließlich nach strukturellem Bestätigungs-Close (Reclaim/MSS) und VSA-Volumen-Erschöpfung gehandelt werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf der 5m-Ebene scheiterten sowohl das B-Setup (BNB) als auch das A+-Setup mit Stop-Hunt (AVAX) unmittelbar am Stop-Loss über dem Widerstand; fraktal gilt für 4h/1D exakt dasselbe Prinzip: In starken Trendphasen werden erste Erschöpfungs- und Sweep-Signale als Liquidität für den Ausbruch überrannt, solange kein bestätigter Strukturwechsel erfolgt.",
+        "actionable_rule": "Sweep-Bestätigungspflicht statt blindem Top-/Bottom-Picking (HTF-Regime-Filter): Erschöpfungssignale an Chaos-/RFE-Bändern und Orderblocks (auch Grad [A]) dürfen gegen den übergeordneten Impuls ausschließlich nach strukturellem Bestätigungs-Close (Reclaim/MSS) und VSA-Volumen-Erschöpfung gehandelt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-25T19:34:54.801308+00:00",
+      "trade_id": "cross_rule_1795635294",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Korrelations- & Sektor-Cluster-Sperre (Max-1-Beta-Regel): Bei synchronen Gegen-Trend-Signalen auf hochkorrelierten Krypto-Assets darf maximal eine Position (das qualitativ höchste Setup) eröffnet werden, bis der erste Trade risikofrei (Breakeven) ist oder eine 4h/1D-Trendkonfluenz vorliegt.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "BNBUSDT und AVAXUSDT triggerten innerhalb von 1 Sekunde (Timestamps ...797 und ...798) identische 5m-Short-Fades und verdoppelten das Risiko (-2.0R) auf dieselbe fehlgeschlagene Marktwette gegen einen breiten Aufwärtsimpuls; auf 4h/1D führt identisches Cluster-Overexposure zu verheerenden Portfolio-Drawdowns.",
+        "actionable_rule": "Korrelations- & Sektor-Cluster-Sperre (Max-1-Beta-Regel): Bei synchronen Gegen-Trend-Signalen auf hochkorrelierten Krypto-Assets darf maximal eine Position (das qualitativ höchste Setup) eröffnet werden, bis der erste Trade risikofrei (Breakeven) ist oder eine 4h/1D-Trendkonfluenz vorliegt."
+      }
+    },
+    {
+      "timestamp": "2026-11-25T19:34:54.801255+00:00",
+      "trade_id": "inc_AVAXUSDT_5m_1795629798",
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "🌟 degencoder 5m A+ Confluence Short",
+      "pnl_leveraged": -2.46,
+      "pnl_raw": -1.23,
+      "text": "Ein Liquidity Sweep [A] ist niemals ein sofortiger Entry-Trigger, sondern nur eine Vorbedingung: Erst nach einem bestätigten Kerzenschluss zurück unter das gesweepte High (Reclaim) und klarem Rejection-Volumen darf der Short ausgelöst werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_AVAXUSDT_5m_1795629798",
+        "verdict": "LOSS",
+        "driver": "Trotz A+-Konfluenz aus Bearish OB [A] (R3) und Liquidity Sweep [A] entpuppte sich der vermeintliche Stop-Hunt als bullische Absorption und Breakout-Fortsetzung, da der Short ohne bestätigte Ablehnung im übergeordneten Aufwärtsimpuls eröffnet wurde.",
+        "technical_warning": "Ein Liquidity Sweep High [A] ohne anschließenden impulsiven Displacement-Close zurück in die Range (Rejection-Kerze mit VSA-Divergenz) und gleichzeitige Korrelations-Eskalation im Sektor (BNB-Short-Trigger 1 Sekunde zuvor) warnten vor einer breiten Markt-Aufwärtswelle.",
+        "actionable_rule": "Ein Liquidity Sweep [A] ist niemals ein sofortiger Entry-Trigger, sondern nur eine Vorbedingung: Erst nach einem bestätigten Kerzenschluss zurück unter das gesweepte High (Reclaim) und klarem Rejection-Volumen darf der Short ausgelöst werden.",
+        "opus_audit": {
+          "model": "Claude Opus 5.5",
+          "anomaly_type": "CRITICAL_A_PLUS_FAILURE",
+          "causal_driver": "Der Short wurde in den dritten Retest (R3) eines schon aufgebrauchten Bearish OB eröffnet, und zwar gegen einen intakten Aufwärtsimpuls, ohne bestätigte Ablehnung: Das vermeintliche Stop-Hunt-High war kein Sweep, sondern Teil eines Ausbruchs, der vom Markt absorbiert wurde. Der Stop lag knapp über dem offensichtlichen Widerstand und damit selbst in der Liquiditätszone.",
+          "structural_breakdown": "Wichtiger Vorbehalt: Ich hatte keine OHLCV-, Orderflow- oder HTF-Daten zu diesem Trade, nur die Kennzahlen aus dem Prompt. Die Kausalkette unten ist deshalb eine begründete Hypothese und keine nachgewiesene Ursache. (1) Verbrauchtes Angebot: Ein Order Block beim dritten Retest hat bei den ersten beiden Tests schon einen großen Teil seiner Verkaufsorders abgegeben. Mit jedem Test sinkt die Wahrscheinlichkeit, dass er hält, und die Wahrscheinlichkeit eines Durchbruchs steigt. Dass 'Bearish OB [A] (R3)' trotzdem als A-Qualität bewertet wird, ist ein Bewertungsfehler. (2) Die Signale hängen zusammen statt unabhängig zu sein: OB-Retest, Sweep-High, Sell Area (RFE Upper) und die Kreis-Erschöpfung messen im Kern alle dasselbe, nämlich 'Preis ist oben überdehnt'. Der 80P-Score zählt also vier Mal dieselbe Information und täuscht eine hohe Konfluenz vor, die es nicht gibt. In einem Aufwärtsimpuls schlagen alle vier gleichzeitig an, weil der Trend steigt, nicht weil er erschöpft ist. (3) Absorption statt Erschöpfung: Wenn der Preis nach dem Sweep nicht unter das gesweepte High zurückfällt, haben aggressive Käufer das Angebot am Widerstand aufgenommen. Das ist das Gegenteil eines Stop-Hunts. Prüfen kann man das am Delta und Volumen der Sweep-Kerze: hohes Volumen und positives Delta ohne Docht-Rückweisung sprechen für Absorption. (4) Stop-Platzierung: Ein Risiko von 0,08 (1,23 %) direkt über dem sichtbaren Widerstand liegt genau dort, wo die Gegenseite Liquidität sucht. Der eigene Stop war das Ziel des Sweeps. (5) Einordnung: Der Verlust wurde sauber bei -1,0R begrenzt, das Risikomanagement hat also funktioniert. Ein einzelner A+-Verlust ist erst dann eine Anomalie, wenn die Trefferquote der A+-Kohorte deutlich unter ihrem Erwartungswert liegt. Das sollte man über die Stichprobe prüfen, bevor man Filter ändert. Ein verdeckter HTF-Strukturbruch ist denkbar (5m-Short gegen ein bullisches BOS im 1h/4h), lässt sich aber ohne HTF-Daten nicht belegen.",
+          "opus_actionable_rule": "1) Retest-Abwertung: Bei einem OB-Retest gibt R1 die volle Punktzahl, R2 nur 50 %, und ab R3 gibt es 0 Punkte. Ab R3 zählt der OB als Breakout-Kandidat statt als Widerstand. 2) Korrelierte Signale zusammenfassen: Sweep-High, Sell Area/RFE Upper und Kreis-Erschöpfung bilden eine gemeinsame Gruppe 'Überdehnung' und zählen höchstens einmal mit dem höchsten Einzelwert. Grade A+ braucht mindestens eine unabhängige Bestätigung aus einer anderen Gruppe, etwa HTF-Struktur oder Orderflow. 3) HTF-Gate: Ein 5m-Short ist nur erlaubt, wenn 1h und 4h kein bullisches BOS in den letzten N Kerzen haben und der Preis unter dem 1h-EMA bzw. VWAP-Mittelwert liegt. Andernfalls wird das Grade um mindestens zwei Stufen abgewertet. 4) Sweep-Bestätigung: Einstieg erst, wenn eine 5m-Kerze zurück unter das gesweepte High schließt und das Delta der Sweep-Kerze negativ ist bzw. ein Docht-Anteil von mindestens 50 % die Rückweisung zeigt. Bei positivem Delta mit hohem Volumen wird der Setup sofort verworfen (Absorption). 5) Stop-Platzierung: Der SL liegt über dem Extrem des Sweeps plus 0,5×ATR(14, 5m) und nicht nur über dem Widerstands-Level. Wenn das daraus entstehende R:R unter 2 fällt, wird der Trade nicht eröffnet. 6) Validierung: Vor dem Rollout alle A+-Shorts mit OB-Retest ≥ R3 aus backtest_results.json gegen die Kohorte R1/R2 testen. Die Regel wird nur übernommen, wenn die Trefferquoten signifikant auseinanderliegen."
+        }
+      }
+    },
+    {
+      "timestamp": "2026-11-25T19:34:26.489738+00:00",
+      "trade_id": "inc_BNBUSDT_5m_1795629797",
+      "symbol": "BNBUSDT",
+      "name": "BNB",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 5m Confluence Short",
+      "pnl_leveraged": -1.76,
+      "pnl_raw": -0.88,
+      "text": "Keine Short-Entries auf [B]-Orderblocks ohne vorherigen Liquidity Sweep [A] und expliziten Market Structure Shift (CHOCH/BOS nach unten) mit erhöhtem Verkaufsvolumen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BNBUSDT_5m_1795629797",
+        "verdict": "LOSS",
+        "driver": "Vorzeitiges Gegen-den-Trend-Shorten in einen zweitklassigen, gealterten Bearish Orderblock [B] (R18) ohne Liquidity Sweep und ohne bestätigten Struktur- oder Volumenbruch führte direkt in einen Trendfortsetzungs-Ausbruch.",
+        "technical_warning": "Fehlender Liquidity Sweep über dem Vorhoch, lediglich OB-Qualität [B] (R18) sowie fehlende VSA-Volumenbestätigung (Stopping/Climax Volume) und fehlender 5m-Close zurück unter die RFE-Upper-Zone – das Erschöpfungssignal feuerte klassisch verfrüht in ein laufendes Band-Walking hinein.",
+        "actionable_rule": "Keine Short-Entries auf [B]-Orderblocks ohne vorherigen Liquidity Sweep [A] und expliziten Market Structure Shift (CHOCH/BOS nach unten) mit erhöhtem Verkaufsvolumen."
+      }
+    },
     {
       "timestamp": "2026-11-25T18:04:19.904741+00:00",
       "trade_id": "cross_rule_1795629859",
