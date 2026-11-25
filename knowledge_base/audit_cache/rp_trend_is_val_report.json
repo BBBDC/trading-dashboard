@@ -1,0 +1,170 @@
+{
+  "preregistration_version": "v2.1",
+  "ffill_counts": {
+    "SPY": 0,
+    "QQQ": 0,
+    "EWG": 0,
+    "EWJ": 0,
+    "TLT": 0,
+    "IEF": 0,
+    "FXE": 0,
+    "FXY": 0,
+    "GLD": 0,
+    "DBC": 0
+  },
+  "rp_trend": {
+    "is": {
+      "days": 2226,
+      "ann_excess_ret_pct": 2.55,
+      "ann_vol_pct": 5.38,
+      "excess_sharpe": 0.474,
+      "max_dd_pct": 6.86
+    },
+    "val": {
+      "days": 1259,
+      "ann_excess_ret_pct": 2.79,
+      "ann_vol_pct": 4.54,
+      "excess_sharpe": 0.615,
+      "max_dd_pct": 9.03
+    },
+    "is_val": {
+      "days": 3485,
+      "ann_excess_ret_pct": 2.64,
+      "ann_vol_pct": 5.09,
+      "excess_sharpe": 0.518,
+      "max_dd_pct": 9.03
+    },
+    "is_val_scaled_to_rp_vol": {
+      "days": 3485,
+      "ann_excess_ret_pct": 2.64,
+      "ann_vol_pct": 5.09,
+      "excess_sharpe": 0.518,
+      "max_dd_pct": 11.52
+    },
+    "k_scale_frozen": 1.2868,
+    "cost_2x": {
+      "days": 3485,
+      "ann_excess_ret_pct": 2.54,
+      "ann_vol_pct": 5.09,
+      "excess_sharpe": 0.5,
+      "max_dd_pct": 9.04
+    },
+    "ann_turnover_pct": 186.6,
+    "ann_cost_drag_bp": 9.33,
+    "cash_months": 0
+  },
+  "bench_rp_lo": {
+    "days": 3485,
+    "ann_excess_ret_pct": 3.56,
+    "ann_vol_pct": 6.55,
+    "excess_sharpe": 0.544,
+    "max_dd_pct": 16.66
+  },
+  "bench_60_40": {
+    "days": 3485,
+    "ann_excess_ret_pct": 8.88,
+    "ann_vol_pct": 11.11,
+    "excess_sharpe": 0.8,
+    "max_dd_pct": 31.77
+  },
+  "bootstrap_p_10k": 0.0203,
+  "ols_nw21_alpha_vs_rp": {
+    "alpha_ann_pct": 0.59,
+    "beta": 0.575,
+    "t_stat_nw": 0.7,
+    "p_value_nw": 0.24313
+  },
+  "deflated_sharpe_n12": 0.2961,
+  "plateau_pass": true,
+  "plateau": [
+    {
+      "L": 189,
+      "S": 0,
+      "V": 40,
+      "sharpe": 0.54,
+      "scaled_dd": 9.97,
+      "rp_dd": 16.91,
+      "ok": true
+    },
+    {
+      "L": 189,
+      "S": 0,
+      "V": 60,
+      "sharpe": 0.541,
+      "scaled_dd": 10.15,
+      "rp_dd": 16.66,
+      "ok": true
+    },
+    {
+      "L": 189,
+      "S": 0,
+      "V": 90,
+      "sharpe": 0.551,
+      "scaled_dd": 9.57,
+      "rp_dd": 16.88,
+      "ok": true
+    },
+    {
+      "L": 252,
+      "S": 0,
+      "V": 40,
+      "sharpe": 0.587,
+      "scaled_dd": 9.53,
+      "rp_dd": 16.91,
+      "ok": true
+    },
+    {
+      "L": 252,
+      "S": 0,
+      "V": 60,
+      "sharpe": 0.593,
+      "scaled_dd": 9.92,
+      "rp_dd": 16.66,
+      "ok": true
+    },
+    {
+      "L": 252,
+      "S": 0,
+      "V": 90,
+      "sharpe": 0.6,
+      "scaled_dd": 9.7,
+      "rp_dd": 16.88,
+      "ok": true
+    },
+    {
+      "L": 252,
+      "S": 21,
+      "V": 40,
+      "sharpe": 0.518,
+      "scaled_dd": 10.78,
+      "rp_dd": 16.91,
+      "ok": true
+    },
+    {
+      "L": 252,
+      "S": 21,
+      "V": 60,
+      "sharpe": 0.518,
+      "scaled_dd": 11.52,
+      "rp_dd": 16.66,
+      "ok": true
+    },
+    {
+      "L": 252,
+      "S": 21,
+      "V": 90,
+      "sharpe": 0.524,
+      "scaled_dd": 11.65,
+      "rp_dd": 16.88,
+      "ok": true
+    }
+  ],
+  "gate_checks": {
+    "g1_sr": false,
+    "g2_alpha": false,
+    "g3_dd": true,
+    "g4_2x": true,
+    "g5_plateau": true
+  },
+  "holdout_gate_open": false
+}

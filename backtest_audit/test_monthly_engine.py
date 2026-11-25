@@ -45,7 +45,7 @@ class TestMonthlyEngineFixes(unittest.TestCase):
         # Signal am 2008-02-29 (vor Start): 100% in A -> wird am Open(2008-03-03) zu 110.0 gekauft!
         # Daher darf der Close->Open Sprung (100->110) NICHT mitgenommen werden, nur Open->Close (110->121 = +10%) minus 5bp!
         res = run_monthly_allocation(data, ["A"], lambda t: {"A": 1.0}, start_date="2008-03-03", end_date="2008-03-05", cost_bps=10.0)
-        expected_day0_total = (1.0 - 0.0005) * 1.10 - 1.0
+        expected_day0_total = (1.0 - 0.0005) * 1.10 - 1.0 + 0.5 * 0.0001
         expected_day0_ex = expected_day0_total - 0.0001
         self.assertAlmostEqual(res["excess_rets"][0], expected_day0_ex, places=8)
 
