@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-25T08:01:49.165580+00:00",
-  "total_experience_records": 85,
+  "updated_at": "2026-11-25T08:31:44.185707+00:00",
+  "total_experience_records": 88,
   "learnings": [
+    {
+      "timestamp": "2026-11-25T08:31:32.924167+00:00",
+      "trade_id": "cross_rule_1795595492",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Time-Stops müssen fraktal an den Ausführungs-Timeframe und die Börsen-Session-Struktur gekoppelt sein (frühe Momentum-Invalidierung nach 3–6 Kerzen ohne Follow-Through).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein 12h-Time-Stop für ein 15m-Reversal-Setup (entspricht 48 Kerzen bzw. einer gesamten XETRA-Handelssession inklusive Overnight-Risiko) lässt fehlgeschlagene Thesen unnötig bis fast zum vollen Stop-Loss (-0,8R) ausbluten – auf 4h/1D gilt dasselbe Prinzip: Funktioniert ein Reversal nicht in den ersten Kerzen, ist die Kausalität invalidiert.",
+        "actionable_rule": "Time-Stops müssen fraktal an den Ausführungs-Timeframe und die Börsen-Session-Struktur gekoppelt sein (frühe Momentum-Invalidierung nach 3–6 Kerzen ohne Follow-Through)."
+      }
+    },
+    {
+      "timestamp": "2026-11-25T08:31:32.924139+00:00",
+      "trade_id": "cross_rule_1795595492",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Kein Counter-Trend-Short allein auf Sweep- und Erschöpfungssignalen ohne bestätigten Market Structure Shift (MSS) und bärische VSA-Volumenexpansion.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der RHM.DE-15m-Trade zeigt fraktal, was auch auf 4h/1D regelmäßig Kapital verbrennt: In starken Trendmärkten sind Liquidity Sweeps [A] und Bearish OB Retests ohne sofortiges bärisches Displacement keine Umkehrsignale, sondern Absorptionszonen vor dem nächsten Aufwärtsschub.",
+        "actionable_rule": "Kein Counter-Trend-Short allein auf Sweep- und Erschöpfungssignalen ohne bestätigten Market Structure Shift (MSS) und bärische VSA-Volumenexpansion."
+      }
+    },
+    {
+      "timestamp": "2026-11-25T08:31:32.924057+00:00",
+      "trade_id": "inc_RHM.DE_15m_1795512878",
+      "symbol": "RHM.DE",
+      "name": "Rheinmetall",
+      "category": "Micro-Incubator (15m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Confluence Short",
+      "pnl_leveraged": -2.6,
+      "pnl_raw": -1.3,
+      "text": "Bei 'degencoder 15m Confluence Short'-Setups auf trendstarken XETRA-Werten darf erst nach bestätigtem bärischem Displacement-Close mit VSA-Volumenbestätigung eingestiegen werden; bleibt die Abwärtsbewegung innerhalb von 4–6 Kerzen (60–90 Min.) aus, wird die Position vorzeitig glattgestellt statt bis zum 12h-Time-Stop mitgezogen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RHM.DE_15m_1795512878",
+        "verdict": "LOSS",
+        "driver": "Der Short setzte rein auf eine Top-Erschöpfungs-Confluence gegen einen intakten Aufwärtsdruck, ohne dass der Liquidity Sweep [A] echtes institutionelles Angebot und bärisches Displacement auslöste – der Markt absorbierte den Verkaufsdruck und driftete über 12 Stunden sukzessive höher.",
+        "technical_warning": "Ausbleibende VSA-Volumenexpansion auf der Verkaufsseite sowie fehlender bärischer Market Structure Shift (MSS) innerhalb der ersten 2–4 15m-Kerzen nach dem OB-Retest hätten sofort signalisiert, dass der Sweep als Liquidität für eine Trendfortsetzung und nicht als Umkehr fungierte.",
+        "actionable_rule": "Bei 'degencoder 15m Confluence Short'-Setups auf trendstarken XETRA-Werten darf erst nach bestätigtem bärischem Displacement-Close mit VSA-Volumenbestätigung eingestiegen werden; bleibt die Abwärtsbewegung innerhalb von 4–6 Kerzen (60–90 Min.) aus, wird die Position vorzeitig glattgestellt statt bis zum 12h-Time-Stop mitgezogen."
+      }
+    },
     {
       "timestamp": "2026-11-24T23:31:11.435998+00:00",
       "trade_id": "cross_rule_1795563071",
