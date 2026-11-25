@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-25T15:05:23.512041+00:00",
-  "total_experience_records": 88,
+  "updated_at": "2026-11-25T15:36:34.896458+00:00",
+  "total_experience_records": 91,
   "learnings": [
+    {
+      "timestamp": "2026-11-25T15:36:25.858726+00:00",
+      "trade_id": "cross_rule_1795620985",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Orderblock-Retests (OB [A]) an Widerstandsclustern (R2) dürfen nur mit eindeutiger VSA-Volumenbestätigung (Supply-Dominanz / Ablehnungsvolumen) gehandelt werden, da reine Preis-Confluence gegen institutionellen Orderflow keinen Edge bietet.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der direkte Durchmarsch von 189,32 EUR auf 191,49 EUR auf einem liquiden XETRA-Blue-Chip belegt, dass statische Widerstände und OBs ohne nachgewiesene Verkäufer-Aggression im Volumen lediglich als Liquiditätspool für höhere Kurse dienen.",
+        "actionable_rule": "Orderblock-Retests (OB [A]) an Widerstandsclustern (R2) dürfen nur mit eindeutiger VSA-Volumenbestätigung (Supply-Dominanz / Ablehnungsvolumen) gehandelt werden, da reine Preis-Confluence gegen institutionellen Orderflow keinen Edge bietet."
+      }
+    },
+    {
+      "timestamp": "2026-11-25T15:36:25.858674+00:00",
+      "trade_id": "cross_rule_1795620985",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine Counter-Trend-Shorts auf Basis von Liquidity Sweeps und Erschöpfungssignalen ohne vorherigen Market Structure Shift (MSS) und impulsives Gegen-Displacement – insbesondere gegen einen intakten 4h/1D-Aufwärtstrend.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der 15m-Stop-Out bei SAP.DE (-1,15%) zeigt fraktal, dass Top-Erschöpfungsindikatoren in starken Expansionsphasen verfrüht auslösen; ein Sweep ohne sofortige bärische Impuls-Antwort ist auf 4h/1D ebenso häufig der Auftakt einer Trendfortsetzung statt einer Umkehr.",
+        "actionable_rule": "Keine Counter-Trend-Shorts auf Basis von Liquidity Sweeps und Erschöpfungssignalen ohne vorherigen Market Structure Shift (MSS) und impulsives Gegen-Displacement – insbesondere gegen einen intakten 4h/1D-Aufwärtstrend."
+      }
+    },
+    {
+      "timestamp": "2026-11-25T15:36:25.858591+00:00",
+      "trade_id": "inc_SAP.DE_15m_1795619112",
+      "symbol": "SAP.DE",
+      "name": "SAP SE",
+      "category": "Micro-Incubator (15m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Confluence Short",
+      "pnl_leveraged": -2.3,
+      "pnl_raw": -1.15,
+      "text": "Bei Confluence-Shorts an R2 und Bearish OB [A] niemals direkt auf das Erschöpfungssignal oder den Sweep-Wick einsteigen, sondern zwingend einen bestätigten 15m-Strukturbruch (MSS) mit impulsivem Kerzenschluss unter dem Sweep-Level und steigendem Abwärtsvolumen abwarten.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SAP.DE_15m_1795619112",
+        "verdict": "LOSS",
+        "driver": "Der vermeintliche Liquidity Sweep am R2-Widerstand war keine Ablehnung, sondern institutionelle Kauf-Absorption, die den Bearish OB [A] überrannte und den Short bei 191,49 EUR ausstoppte.",
+        "technical_warning": "Fehlendes bärisches Displacement (kräftiger Kerzenschluss zurück unter das gesweepte Hoch) sowie mangelnde VSA-Verkaufsvolumen-Bestätigung trotz Erschöpfungssignal deuteten auf einen echten Breakout statt einer Distribution hin.",
+        "actionable_rule": "Bei Confluence-Shorts an R2 und Bearish OB [A] niemals direkt auf das Erschöpfungssignal oder den Sweep-Wick einsteigen, sondern zwingend einen bestätigten 15m-Strukturbruch (MSS) mit impulsivem Kerzenschluss unter dem Sweep-Level und steigendem Abwärtsvolumen abwarten."
+      }
+    },
     {
       "timestamp": "2026-11-25T08:31:32.924167+00:00",
       "trade_id": "cross_rule_1795595492",
