@@ -1,7 +1,159 @@
 {
-  "updated_at": "2026-11-26T10:34:43.006866+00:00",
-  "total_experience_records": 104,
+  "updated_at": "2026-11-26T11:02:10.077950+00:00",
+  "total_experience_records": 112,
   "learnings": [
+    {
+      "timestamp": "2026-11-26T11:02:00.446462+00:00",
+      "trade_id": "cross_rule_1795690920",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Korrelations-Cluster-Cap auf Portfolio-Ebene: Synchron ausgelöste Counter-Trend-Signale auf hochkorrelierten Krypto-Assets (z.B. BTC + Major Alts) dürfen zusammen maximal 1.0R Gesamtrisiko belegen – bevorzugt wird ausschließlich das Asset mit der stärksten Volumen-Absorption.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die parallele Ausführung auf BTCUSDT und SOLUSDT binnen drei Sekunden erzeugte ein verdecktes Klumpenrisiko ohne Diversifikations- oder R-Multiplikator-Vorteil (+0.6R auf beiden Positionen); auf 4h/1D-Ebene potenziert dieses Muster Drawdowns in Trendfortsetzungsphasen erheblich.",
+        "actionable_rule": "Korrelations-Cluster-Cap auf Portfolio-Ebene: Synchron ausgelöste Counter-Trend-Signale auf hochkorrelierten Krypto-Assets (z.B. BTC + Major Alts) dürfen zusammen maximal 1.0R Gesamtrisiko belegen – bevorzugt wird ausschließlich das Asset mit der stärksten Volumen-Absorption."
+      }
+    },
+    {
+      "timestamp": "2026-11-26T11:02:00.446443+00:00",
+      "trade_id": "cross_rule_1795690920",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Counter-Trend-Überstimmungen (Makro-Trend gegen Entry) unterliegen einer strengen R-Erwartungs- und Zeit-Kappung: Ohne rasche Impuls-Expansion (>1.0R innerhalb der ersten 6 bis 8 Kerzen des jeweiligen Timeframes) wird das Risiko aktiv abgebaut statt volle Trend-Targets auszusitzen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf den kleineren Zeitskalen zeigt sich fraktal, dass moderate VSA-Absorptionen (1.6x) gegen den übergeordneten Trend zwar zuverlässig Böden stabilisieren, aber nach 36 Kerzen im +0.6R-Stau verhungern und das Kapital unnötig lange dem Fortsetzungsrisiko des Makro-Trends aussetzen.",
+        "actionable_rule": "Counter-Trend-Überstimmungen (Makro-Trend gegen Entry) unterliegen einer strengen R-Erwartungs- und Zeit-Kappung: Ohne rasche Impuls-Expansion (>1.0R innerhalb der ersten 6 bis 8 Kerzen des jeweiligen Timeframes) wird das Risiko aktiv abgebaut statt volle Trend-Targets auszusitzen."
+      }
+    },
+    {
+      "timestamp": "2026-11-26T11:02:00.446428+00:00",
+      "trade_id": "inc_SOLUSDT_30m_1795627942",
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "category": "Micro-Incubator (30m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 30m Confluence Long",
+      "pnl_leveraged": 5.36,
+      "pnl_raw": 2.68,
+      "text": "Altcoin-Longs gegen den Makro-Trend nur noch freigeben, wenn die VSA-Absorption signifikant über dem BTC-Referenzwert (>2.0x) liegt oder BTC nicht zeitgleich im selben Konfluenz-Cluster gehandelt wird.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SOLUSDT_30m_1795627942",
+        "verdict": "WIN",
+        "driver": "SOL profitierte ausschließlich vom synchronen BTC-Rebound und lieferte trotz höherem Beta identische +0.6R, was auf fehlende eigenständige Relative Stärke hinweist.",
+        "technical_warning": "Die nahezu zeitgleiche Auslösung mit BTC (+3 Sekunden) bei identischem 1.6x-Volumenprofil signalisierte reine Markt-Beta-Korrelation statt eines isolierten SOL-Liquidity-Sweeps mit eigenem Nachfrageüberhang.",
+        "actionable_rule": "Altcoin-Longs gegen den Makro-Trend nur noch freigeben, wenn die VSA-Absorption signifikant über dem BTC-Referenzwert (>2.0x) liegt oder BTC nicht zeitgleich im selben Konfluenz-Cluster gehandelt wird."
+      }
+    },
+    {
+      "timestamp": "2026-11-26T11:02:00.446363+00:00",
+      "trade_id": "inc_BTCUSDT_30m_1795627939",
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "Micro-Incubator (30m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 30m Confluence Long",
+      "pnl_leveraged": 4.62,
+      "pnl_raw": 2.31,
+      "text": "Bei Counter-Trend-Longs mit überstimmtem Makro-Trend den Stopp nach +0.5R zwingend auf Breakeven nachziehen und mindestens 50% der Position vor Ablauf der halben Time-Stop-Dauer (9h) teilrealisieren.",
+      "ai_post_mortem": {
+        "trade_id": "inc_BTCUSDT_30m_1795627939",
+        "verdict": "WIN",
+        "driver": "Die 1.6x VSA-Absorption am RFE Lower stoppte den Abverkauf zuverlässig für einen technischen Rebound, doch der übergeordnete Makro-Abwärtstrend deckelte das Aufwärtspotenzial vor dem eigentlichen Ziel.",
+        "technical_warning": "Eine VSA-Absorption von lediglich 1.6x reicht gegen einen intakten Makro-Abwärtstrend oft nur für kurzfristige Deckungskäufe; das Ausbleiben von impulsiver Volumen-Expansion in den ersten 4 bis 6 Kerzen nach dem Entry warnte früh vor einem zähen Seitwärts-Drift.",
+        "actionable_rule": "Bei Counter-Trend-Longs mit überstimmtem Makro-Trend den Stopp nach +0.5R zwingend auf Breakeven nachziehen und mindestens 50% der Position vor Ablauf der halben Time-Stop-Dauer (9h) teilrealisieren."
+      }
+    },
+    {
+      "timestamp": "2026-11-26T11:01:30.290978+00:00",
+      "trade_id": "cross_rule_1795690890",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Portfolioweites Korrelations-Cap für Counter-Trend-Setups einführen: Maximal 1R Gesamtrisiko über alle gleichzeitig offenen Altcoin-Positionen derselben Richtung gegen den Makro-Trend.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die synchrone Eröffnung von DOGEUSDT und XRPUSDT binnen weniger Sekunden dokumentiert ein verstecktes Klumpenrisiko; im Verlustfall bei plötzlicher Makro-Trendfortsetzung hätte ein einzelner Markt-Impuls zwei scheinbar unabhängige Setups gleichzeitig ausgestoppt.",
+        "actionable_rule": "Portfolioweites Korrelations-Cap für Counter-Trend-Setups einführen: Maximal 1R Gesamtrisiko über alle gleichzeitig offenen Altcoin-Positionen derselben Richtung gegen den Makro-Trend."
+      }
+    },
+    {
+      "timestamp": "2026-11-26T11:01:30.290933+00:00",
+      "trade_id": "cross_rule_1795690890",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Counter-Trend-Reversals gegen den Makro-Trend erfordern zwingend eine VSA-Volumen-Absorption >= 1.8x am Liquidity-Sweep und müssen mit konservativeren Take-Profit-Zielen (1.0R–1.5R) sowie striktem Time-Stop gehandelt werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Beide Trades zeigten, dass starke VSA-Absorption zwar verlässliche Relief-Bounces generiert, das Momentum gegen den dominanten Makro-Trend jedoch zeitlich begrenzt ist und ohne Time-Stop bzw. frühe Gewinnmitnahme droht, wieder in die Trendrichtung abzudrehen.",
+        "actionable_rule": "Counter-Trend-Reversals gegen den Makro-Trend erfordern zwingend eine VSA-Volumen-Absorption >= 1.8x am Liquidity-Sweep und müssen mit konservativeren Take-Profit-Zielen (1.0R–1.5R) sowie striktem Time-Stop gehandelt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-26T11:01:30.290893+00:00",
+      "trade_id": "inc_XRPUSDT_30m_1795627935",
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "Micro-Incubator (30m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 30m Confluence Long",
+      "pnl_leveraged": 8.46,
+      "pnl_raw": 4.23,
+      "text": "Bei simultanen Counter-Trend-Signalen in hochkorrelierten Altcoins maximal eine Position (das stärkste VSA-Absorptionssignal) handeln oder die Positionsgröße strikt halbieren.",
+      "ai_post_mortem": {
+        "trade_id": "inc_XRPUSDT_30m_1795627935",
+        "verdict": "WIN",
+        "driver": "Hochvolumige VSA-Absorption (1.9x) in Konfluenz mit dem Buy-Area-Sweep trieb den technischen Gegenbewegungsimpuls auf +1.2R, bevor der 18h-Time-Stop das Kapital effizient freigab.",
+        "technical_warning": "Die nahezu zeitgleiche Auslösung (4 Sekunden nach DOGEUSDT) bei identischem Altcoin-Beta-Profil war ein klares Korrelations-Warnsignal für doppeltes Marktrisiko gegen den Makro-Trend.",
+        "actionable_rule": "Bei simultanen Counter-Trend-Signalen in hochkorrelierten Altcoins maximal eine Position (das stärkste VSA-Absorptionssignal) handeln oder die Positionsgröße strikt halbieren."
+      }
+    },
+    {
+      "timestamp": "2026-11-26T11:01:30.290791+00:00",
+      "trade_id": "inc_DOGEUSDT_30m_1795627931",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (30m)",
+      "direction": "LONG",
+      "result": "WIN",
+      "setup_name": "degencoder 30m Confluence Long",
+      "pnl_leveraged": 8.94,
+      "pnl_raw": 4.47,
+      "text": "Bei Counter-Trend-Setups mit überstimmtem Makro-Abwärtstrend spätestens bei +1.0R Teilgewinne (50%) sichern und den Stop auf Breakeven nachziehen, statt auf volle Trendfortsetzung zu hoffen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_30m_1795627931",
+        "verdict": "WIN",
+        "driver": "Starke VSA-Absorption (1.8x Volumen-Surge) an der RFE-Lower-Zone erzeugte einen sauberen Counter-Trend-Rebound, dessen +1.2R durch den 18h-Time-Stop rechtzeitig vor dem Versanden gesichert wurden.",
+        "technical_warning": "Ausbleibender Durchbruch zum regulären TP innerhalb von 36 Kerzen (18h) auf dem 30m-Chart signalisiert nachlassendes Kaufmomentum gegen den übergeordneten Makro-Abwärtstrend.",
+        "actionable_rule": "Bei Counter-Trend-Setups mit überstimmtem Makro-Abwärtstrend spätestens bei +1.0R Teilgewinne (50%) sichern und den Stop auf Breakeven nachziehen, statt auf volle Trendfortsetzung zu hoffen."
+      }
+    },
     {
       "timestamp": "2026-11-26T08:31:28.493916+00:00",
       "trade_id": "cross_rule_1795681888",
