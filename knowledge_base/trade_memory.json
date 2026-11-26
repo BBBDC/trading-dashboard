@@ -1,7 +1,63 @@
 {
-  "updated_at": "2026-11-26T08:01:02.579791+00:00",
-  "total_experience_records": 101,
+  "updated_at": "2026-11-26T08:31:38.120833+00:00",
+  "total_experience_records": 104,
   "learnings": [
+    {
+      "timestamp": "2026-11-26T08:31:28.493916+00:00",
+      "trade_id": "cross_rule_1795681888",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Konfluenz legitimiert den Entry, aber nur Volumen-Follow-Through legitimiert den Runner: Bleibt nach dem initialen Impuls die Volumen- und Strukturbestätigung aus, darf keine Restposition auf weite Ziele ohne engen Schutz gehalten werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die Rückkehr von RHM.DE exakt an das Entry-Niveau (745.5) nach TP1 zeigt, dass ein Stop-Hunt allein keinen nachhaltigen Angebotsüberhang garantiert – auf 4h/1D trennt genau dieses Kriterium kurzlebige Liquiditäts-Sweeps von echten Distributionsphasen.",
+        "actionable_rule": "Konfluenz legitimiert den Entry, aber nur Volumen-Follow-Through legitimiert den Runner: Bleibt nach dem initialen Impuls die Volumen- und Strukturbestätigung aus, darf keine Restposition auf weite Ziele ohne engen Schutz gehalten werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-26T08:31:28.493872+00:00",
+      "trade_id": "cross_rule_1795681888",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Teilgewinn-Sicherung vor Trendwende-Annahme: Bei Reversal-Setups nach A-Grade Liquidity Sweeps gegen starken übergeordneten Orderflow sind Teilprofite am ersten Liquiditätsziel (TP1) und sofortige Break-Even-Absicherung zwingend.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der 5m-Short auf RHM.DE bewies, dass selbst hochqualitative Konfluenz-Trigger (Sweep + Bearish OB + Erschöpfungssignal) häufig nur einen scharfen +1.5R-Korrekturimpuls statt einer nachhaltigen Trendumkehr auslösen; fraktal auf 4h/1D verhindert diese Regel, dass laufende Gegenbewegungs-Gewinne bei Wiederaufnahme des Primärtrends in Verluste drehen.",
+        "actionable_rule": "Teilgewinn-Sicherung vor Trendwende-Annahme: Bei Reversal-Setups nach A-Grade Liquidity Sweeps gegen starken übergeordneten Orderflow sind Teilprofite am ersten Liquiditätsziel (TP1) und sofortige Break-Even-Absicherung zwingend."
+      }
+    },
+    {
+      "timestamp": "2026-11-26T08:31:28.493792+00:00",
+      "trade_id": "inc_RHM.DE_5m_1795622445",
+      "symbol": "RHM.DE",
+      "name": "Rheinmetall",
+      "category": "Micro-Incubator (5m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 5m Confluence Short",
+      "pnl_leveraged": 0.86,
+      "pnl_raw": 0.43,
+      "text": "Bei 5m-Shorts nach Liquidity-Sweep- und Bearish-OB-Konfluenz in trendstarken Aktien stets zwingend Teilgewinne an TP1 (+1.5R) sichern und den Stopp unmittelbar auf Break-Even nachziehen, solange kein impulsiver Strukturbruch mit Volumenexpansion die Trendwende bestätigt.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RHM.DE_5m_1795622445",
+        "verdict": "WIN",
+        "driver": "Die präzise Konfluenz aus Liquidity Sweep am High [A], Bearish OB [A] Retest und Top-Erschöpfung erzeugte den sauberen initialen Abverkauf bis TP1 (+1.5R), während die konsequente Teilgewinnmitnahme und Break-Even-Absicherung das positive Nettoergebnis (+0.8R) vor dem Rebound schützten.",
+        "technical_warning": "Ausbleibendes Folgevolumen (VSA-Bestätigung) sowie fehlende strukturelle Anschlussverkäufe nach Erreichen von TP1 signalisierten frühzeitig eine Absorption des Angebots durch den übergeordneten Käuferdruck im momentumstarken XETRA-Wert RHM.DE.",
+        "actionable_rule": "Bei 5m-Shorts nach Liquidity-Sweep- und Bearish-OB-Konfluenz in trendstarken Aktien stets zwingend Teilgewinne an TP1 (+1.5R) sichern und den Stopp unmittelbar auf Break-Even nachziehen, solange kein impulsiver Strukturbruch mit Volumenexpansion die Trendwende bestätigt."
+      }
+    },
     {
       "timestamp": "2026-11-25T19:35:19.473206+00:00",
       "trade_id": "cross_rule_1795635319",
