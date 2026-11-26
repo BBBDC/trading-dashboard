@@ -39,6 +39,36 @@ DB_FILE = BASE_DIR / "dashboard" / "market_analysis_db.json"
 PORTFOLIO_FILE = BASE_DIR / "knowledge_base" / "autonomous_portfolio.json"
 TRADE_MEMORY_FILE = BASE_DIR / "knowledge_base" / "trade_memory.json"
 USER_POSITIONS_FILE = BASE_DIR / "knowledge_base" / "user_positions.json"
+GOVERNOR_PARAMS_FILE = BASE_DIR / "knowledge_base" / "opus_governor_params.json"
+
+DEFAULT_OPUS_GOVERNOR_PARAMS = {
+    "min_score_default": 88,
+    "min_score_counter_trend": 94,
+    "min_vsa_ratio_reversal": 1.20,
+    "max_rsi_long_entry": 64.0,
+    "min_rsi_short_entry": 36.0,
+    "max_holding_days_fast_swing": 4.0,
+    "max_holding_days_core_swing": 14.0,
+    "max_holding_days_macro_trend": 45.0,
+    "stagnation_profit_lock_days": 12.0,
+    "incubator_time_stop_hours": {"5m": 12.0, "15m": 18.0, "30m": 24.0},
+    "sector_score_adjustments": {},
+}
+
+
+def load_opus_governor_params():
+    """Lädt wöchentlich von Claude Opus 5.5 kalibrierte quantitative Steuerparameter."""
+    params = dict(DEFAULT_OPUS_GOVERNOR_PARAMS)
+    try:
+        if GOVERNOR_PARAMS_FILE.exists():
+            raw = load_json_file(GOVERNOR_PARAMS_FILE, {})
+            if isinstance(raw, dict):
+                for k, v in raw.items():
+                    if k in params and v is not None:
+                        params[k] = v
+    except Exception:
+        pass
+    return params
 
 
 def load_json_file(file_path, default_val=None):
@@ -295,10 +325,11 @@ def monitor_in_flight_trades(active_trades, db_map):
         horizon = t.get("horizon", "CORE_SWING")
 
         # 1. Divergenz- & Gegen-Signal Früherkennung
+        tfs_dict = live_asset.get("timeframes") or {}
+        tf_4h = tfs_dict.get("4h") if isinstance(tfs_dict, dict) and tfs_dict.get("4h") else live_asset.get("4h", {})
         divs_4h = []
-        tf_4h = live_asset.get("4h", {})
         if isinstance(tf_4h, dict):
-            divs_4h = tf_4h.get("divs", [])
+            divs_4h = tf_4h.get("divergences") or tf_4h.get("divs") or []
 
         if direction == "LONG":
             has_adverse_div = any("bärisch" in str(d).lower() or "bearish" in str(d).lower() for d in divs_4h)
@@ -398,37 +429,53 @@ def monitor_in_flight_trades(active_trades, db_map):
 
 def evaluate_candidate_against_post_mortem_rules(candidate, memory):
     """
-    Validiert ein Kandidaten-Setup gegen die im Post-Mortem Lab destillierten Regeln:
+    Validiert ein Kandidaten-Setup gegen die im Post-Mortem Lab destillierten Regeln
+    sowie die wöchentlich durch Claude Opus 5.5 kalibrierten Governor-Parameter:
     1. Verhindert Einstiege bei gegenläufiger 4h-Divergenz (Top-Verlustursache)
-    2. Prüft Mindest-Score für unterdurchschnittliche Setup-Kategorien (Scorecard Guard)
-    3. Blockiert Reversals ohne VSA-Volumenbestätigung
+    2. Prüft VSA-Volumenbestätigung bei Reversals (Opus min_vsa_ratio_reversal)
+    3. Prüft Kausalitäts-HTF-Trend sowie Overbought/Oversold Chasing Limits
+    4. Blockiert Makro-Gegenwind unterhalb von min_score_counter_trend
     """
+    gov = load_opus_governor_params()
     direction = candidate.get("signal", "LONG")
     setup_name = candidate.get("setup_name", "")
     score = candidate.get("score", 0)
 
-    # 1. 4h-Divergenz-Filter (Gegen-Divergenzen)
-    tf_4h = candidate.get("4h", {})
-    if isinstance(tf_4h, dict):
-        divs = tf_4h.get("divs", [])
+    tfs = candidate.get("timeframes") if isinstance(candidate.get("timeframes"), dict) else {}
+    tf_4h = tfs.get("4h") or candidate.get("4h", {})
+
+    # 1. 4h-Divergenz-Filter & RSI Overextension Chasing-Schutz
+    if isinstance(tf_4h, dict) and tf_4h:
+        divs = tf_4h.get("divergences") or tf_4h.get("divs") or []
         if direction == "LONG":
             has_adverse = any("bärisch" in str(d).lower() or "bearish" in str(d).lower() for d in divs)
             if has_adverse:
                 return False, "Bärische 4h-Divergenz aktiv (Post-Mortem Regel: Reversal-Gefahr)"
+            rsi_4h = tf_4h.get("rsi")
+            max_rsi_long = float(gov.get("max_rsi_long_entry", 64.0))
+            if isinstance(rsi_4h, (int, float)) and rsi_4h > max_rsi_long and score < 95:
+                return False, f"4h RSI ({rsi_4h:.1f} > {max_rsi_long:.0f}) überhitzt (Opus Chasing-Schutz)"
         elif direction == "SHORT":
             has_adverse = any("bullisch" in str(d).lower() or "bullish" in str(d).lower() for d in divs)
             if has_adverse:
                 return False, "Bullische 4h-Divergenz aktiv (Post-Mortem Regel: Bärenrallye-Gefahr)"
+            rsi_4h = tf_4h.get("rsi")
+            min_rsi_short = float(gov.get("min_rsi_short_entry", 36.0))
+            if isinstance(rsi_4h, (int, float)) and rsi_4h < min_rsi_short and score < 95:
+                return False, f"4h RSI ({rsi_4h:.1f} < {min_rsi_short:.0f}) überverkauft (Opus Short-Chasing-Schutz)"
 
-    # 2. VSA-Volumen-Check bei Reversals
+    # 2. VSA-Volumen-Check bei Reversals (Opus kalibrierte Schwelle)
+    min_vsa_rev = float(gov.get("min_vsa_ratio_reversal", 1.20))
     if "reversal" in setup_name.lower():
-        vsa_ratio = candidate.get("vsa", {}).get("ratio", 1.0) if isinstance(candidate.get("vsa"), dict) else 1.0
-        if vsa_ratio < 1.15 and score < 92:
-            return False, f"Reversal ohne VSA-Volumenspitze ({vsa_ratio:.1f}x < 1.15x)"
+        vsa_ratio = (
+            tf_4h.get("vsa_ratio") if isinstance(tf_4h, dict) and tf_4h.get("vsa_ratio") is not None
+            else (candidate.get("vsa", {}).get("ratio", 1.0) if isinstance(candidate.get("vsa"), dict) else 1.0)
+        )
+        if float(vsa_ratio) < min_vsa_rev and score < 92:
+            return False, f"Reversal ohne VSA-Volumenspitze ({float(vsa_ratio):.2f}x < {min_vsa_rev:.2f}x)"
 
     # 3. Kausalitäts-Trend-Governance (Fable 5.2 Kausalitäts-Regel):
-    # Verhindert Trades gegen den übergeordneten Trend (Hauptverlusttreiber: Longs im Bärenregime)
-    tf_1h = candidate.get("timeframes", {}).get("1h", {}) if isinstance(candidate.get("timeframes"), dict) else candidate.get("1h", {})
+    tf_1h = tfs.get("1h") or candidate.get("1h", {})
     if isinstance(tf_1h, dict) and tf_1h:
         htf_trend = tf_1h.get("trend")
         htf_rsi = tf_1h.get("rsi")
@@ -439,9 +486,10 @@ def evaluate_candidate_against_post_mortem_rules(candidate, memory):
             rsi_str = f" (RSI {htf_rsi:.1f})" if isinstance(htf_rsi, (int, float)) else ""
             return False, f"HTF 1h ist BULLISH{rsi_str} — Kausalitäts-Filter blockiert Short gegen Trend"
 
-    # 4. Makro-Gegenwind Schutz: Longs bei aktivem macro_headwind nur bei absolutem Ausnahme-Score (>= 94)
-    if candidate.get("macro_headwind", False) and direction == "LONG" and score < 94:
-        return False, "Makro-Gegenwind aktiv (Kausalitäts-Regel: Long im Abwärtstrend verboten)"
+    # 4. Makro-Gegenwind Schutz (Opus min_score_counter_trend)
+    min_ct_score = int(gov.get("min_score_counter_trend", 94))
+    if candidate.get("macro_headwind", False) and direction == "LONG" and score < min_ct_score:
+        return False, f"Makro-Gegenwind aktiv (Opus Kausalitäts-Regel: Counter-Trend erfordert Score >= {min_ct_score}%)"
 
     return True, "OK"
 
@@ -504,12 +552,67 @@ def update_autonomous_portfolio(db_assets):
 
     now_iso = datetime.now(timezone.utc).isoformat()
     now_dt = datetime.now(timezone.utc)
+    gov_params = load_opus_governor_params()
+
+    # Prospektives Stufe-2 Schattenbuch (SHADOW_PAPER) synchron aktualisieren (lautes Fehler-Logging!)
+    import traceback
+    try:
+        from shadow_paper_book import update_shadow_paper_book
+        update_shadow_paper_book(db_assets, now_dt)
+    except Exception:
+        print("   ❌ [Shadow-Paper Update FEHLER]:")
+        traceback.print_exc()
+
+    # Unabhaengiger SHADOW_PAPER Signal-Durchlauf (entkoppelt von Live is_halted, Live-Slots & trade_memory)
+    shadow_cands = [
+        a for a in db_assets
+        if a.get("signal") in ("LONG", "SHORT")
+        and a.get("score", 0) >= 88
+    ]
+    for sc in shadow_cands:
+        try:
+            s_sym = sc["symbol"]
+            s_cat = sc.get("category", "")
+            s_p = float(sc.get("price") or 0.0)
+            if s_p <= 0.0:
+                continue
+            s_horizon, _, s_htf = determine_trade_horizon(sc)
+            s_tf = str(sc.get("primary_timeframe") or sc.get("timeframe") or "").strip().lower()
+            if not s_tf:
+                s_tf = s_htf
+                st_txt = (str(sc.get("setup_name", "")) + " " + " ".join(sc.get("reasons", []))).lower()
+                for tf_tok in ("30m", "15m", "4h", "1h", "1d", "daily"):
+                    if tf_tok in st_txt:
+                        s_tf = "1d" if tf_tok == "daily" else tf_tok
+                        break
+            s_wl = check_triad_whitelist(symbol=s_sym, timeframe=s_tf, direction=sc.get("signal", ""), category=s_cat)
+            if not s_wl["is_approved"] or s_wl["tier"] != "SHADOW_PAPER":
+                continue
+            if not sc.get("stop_loss") or not sc.get("take_profit_1") or not sc.get("take_profit_2"):
+                continue
+            s_sl = float(sc["stop_loss"])
+            s_tp1 = float(sc["take_profit_1"])
+            s_tp2 = float(sc["take_profit_2"])
+            s_cost = check_cost_gate(entry_price=s_p, stop_loss=s_sl, symbol=s_sym, cluster=s_cat, config=TRIAD_PILOT_CONFIG)
+            if not s_cost["is_allowed"]:
+                continue
+            from shadow_paper_book import try_open_shadow_paper_trade
+            try_open_shadow_paper_trade(
+                candidate=sc, wl_check=s_wl, sig_tf=s_tf,
+                sl=s_sl, tp1=s_tp1, tp2=s_tp2, score=int(sc.get("score", 88)),
+                setup_name=sc.get("setup_name", "High-Conviction Confluence"),
+                cat=s_cat, horizon=s_horizon, now_dt=now_dt, gov_params=gov_params,
+            )
+        except Exception:
+            print(f"   ❌ [Shadow-Paper Open FEHLER ({sc.get('symbol')})]:")
+            traceback.print_exc()
 
     db_map = {a["symbol"]: a for a in db_assets}
 
-    # 1. Bestehende offene Trades prüfen & aktualisieren
+    # 1. Bestehende offene Trades vorab mit Live-Kursen & Haltedauer aktualisieren
     remaining_active = []
     newly_closed = []
+    matched_pairs = []
 
     for t in active_trades:
         sym = t["symbol"]
@@ -543,32 +646,25 @@ def update_autonomous_portfolio(db_assets):
             remaining_active.append(t)
             continue
 
-        curr_price = a.get("price", t.get("current_price", t["entry_price"]))
+        curr_price = float(a.get("price", t.get("current_price", t["entry_price"])))
         direction = t["direction"]
-        entry_price = t["entry_price"]
+        entry_price = float(t["entry_price"])
         lev = t.get("leverage", 1)
-        sl = t.get("stop_loss", 0.0)
-        tp1 = t.get("take_profit_1", 0.0)
-        tp2 = t.get("take_profit_2", 0.0)
 
-        # Zeitberechnung
         try:
-            entry_dt = datetime.fromisoformat(t["entry_time"])
+            entry_dt = datetime.fromisoformat(str(t["entry_time"]).replace("Z", "+00:00"))
             holding_hours = round((now_dt - entry_dt).total_seconds() / 3600.0, 1)
             holding_days = round(holding_hours / 24.0, 1)
         except Exception:
             holding_hours = 0.0
             holding_days = 0.0
 
-        # PnL Berechnung
         if direction == "LONG":
             raw_pnl_pct = ((curr_price - entry_price) / entry_price) * 100.0
         else:
             raw_pnl_pct = ((entry_price - curr_price) / entry_price) * 100.0
-
         leveraged_pnl_pct = raw_pnl_pct * lev
 
-        # Höchst- und Tiefststand updaten
         t["highest_price"] = max(t.get("highest_price", curr_price), curr_price)
         t["lowest_price"] = min(t.get("lowest_price", curr_price), curr_price)
         t["current_price"] = curr_price
@@ -578,8 +674,63 @@ def update_autonomous_portfolio(db_assets):
         t["unrealized_pnl_leveraged_pct"] = round(leveraged_pnl_pct, 2)
         t["holding_hours"] = holding_hours
         t["holding_days"] = holding_days
+        matched_pairs.append((t, a))
 
-        # AUSSTIEGS-LOGIK (DYMANISCH & MULTI-DAY)
+    # 1a. Vorschlag C: Täglicher Claude Opus 5.5 In-Flight Exit-Doctor (12h-gedrosselt)
+    if matched_pairs:
+        try:
+            from gemini_evaluator import audit_open_positions_with_opus
+            opus_doc_map = audit_open_positions_with_opus(
+                [p[0] for p in matched_pairs],
+                db_map,
+                portfolio_context="KI_PORTFOLIO",
+            )
+            for t, _ in matched_pairs:
+                tid = str(t.get("trade_id") or "")
+                sym = str(t.get("symbol") or "")
+                aud = opus_doc_map.get(tid) or opus_doc_map.get(sym)
+                if not aud:
+                    continue
+                t["opus_inflight_audit"] = aud
+                verdict = aud.get("verdict", "HOLD")
+                rec_sl = aud.get("recommended_sl")
+                rec_tp1 = aud.get("recommended_tp1")
+                d_str = t.get("direction", "LONG")
+                cp = float(t.get("current_price", t.get("entry_price", 0.0)))
+                cur_sl = float(t.get("stop_loss", 0.0))
+                if verdict == "TIGHTEN_SL" and rec_sl is not None:
+                    if (d_str == "LONG" and rec_sl > cur_sl and rec_sl < cp) or (
+                        d_str == "SHORT" and (cur_sl == 0 or rec_sl < cur_sl) and rec_sl > cp
+                    ):
+                        t["stop_loss"] = round(rec_sl, 4)
+                        t["trailing_active"] = True
+                        t.setdefault("in_flight_warnings", []).append(
+                            f"🏛️ Opus Exit-Doctor SL nachgezogen auf {round(rec_sl, 4)}."
+                        )
+                elif verdict == "ADJUST_TP1" and rec_tp1 is not None:
+                    if (d_str == "LONG" and rec_tp1 > cp) or (d_str == "SHORT" and rec_tp1 < cp):
+                        t["take_profit_1"] = round(rec_tp1, 4)
+                        t.setdefault("in_flight_warnings", []).append(
+                            f"🏛️ Opus Exit-Doctor TP1 angepasst auf {round(rec_tp1, 4)}."
+                        )
+        except Exception as od_err:
+            print(f"   ℹ️ Opus In-Flight Exit-Doctor übersprungen: {od_err}")
+
+    for t, a in matched_pairs:
+        sym = t["symbol"]
+        curr_price = t["current_price"]
+        direction = t["direction"]
+        entry_price = t["entry_price"]
+        lev = t.get("leverage", 1)
+        sl = t.get("stop_loss", 0.0)
+        tp1 = t.get("take_profit_1", 0.0)
+        tp2 = t.get("take_profit_2", 0.0)
+        holding_hours = t["holding_hours"]
+        holding_days = t["holding_days"]
+        raw_pnl_pct = ((curr_price - entry_price) / entry_price) * 100.0 if direction == "LONG" else ((entry_price - curr_price) / entry_price) * 100.0
+        leveraged_pnl_pct = raw_pnl_pct * lev
+
+        # AUSSTIEGS-LOGIK (DYNAMISCH, MULTI-DAY, OPUS EXIT-DOCTOR & TIME-STOP)
         exit_triggered = False
         exit_reason = ""
         exit_price = curr_price
@@ -604,7 +755,7 @@ def update_autonomous_portfolio(db_assets):
         else:
             curr_sig = a.get("signal", "NEUTRAL")
             opposite_sig = "SHORT" if direction == "LONG" else "LONG"
-            
+
             # Wenn das Signal komplett auf die Gegenseite gedreht hat
             if curr_sig == opposite_sig:
                 exit_triggered = True
@@ -655,6 +806,35 @@ def update_autonomous_portfolio(db_assets):
                     send_ki_portfolio_alert("TRADE_PARTIAL_CLOSE", t)
                 except Exception as e:
                     print(f"Warnung beim KI-Portfolio Alert (TP1): {e}")
+
+            # D) Opus Exit-Doctor Close ODER Quantitativer Stagnations- & Max-Holding Time-Stop
+            if not exit_triggered:
+                opus_aud = t.get("opus_inflight_audit") or {}
+                opus_verdict = str(opus_aud.get("verdict") or "HOLD").upper()
+                horizon = t.get("horizon", "CORE_SWING")
+                max_days_map = {
+                    "FAST_SWING": float(gov_params.get("max_holding_days_fast_swing", 4.0)),
+                    "CORE_SWING": float(gov_params.get("max_holding_days_core_swing", 14.0)),
+                    "MACRO_TREND": float(gov_params.get("max_holding_days_macro_trend", 45.0)),
+                }
+                max_days = max_days_map.get(horizon, float(gov_params.get("max_holding_days_core_swing", 14.0)))
+                stag_days = float(gov_params.get("stagnation_profit_lock_days", 12.0))
+
+                if opus_verdict in ("CLOSE_TIME_DECAY", "CLOSE_STRUCTURE_BREAK"):
+                    exit_triggered = True
+                    exit_reason = f"🏛️ Opus 5.5 Exit-Doctor ({opus_verdict}): {opus_aud.get('diagnosis', 'Ausstieg empfohlen.')}"
+                elif holding_days >= stag_days and not t.get("tp1_partial_closed") and raw_pnl_pct > 0.5:
+                    exit_triggered = True
+                    exit_reason = (
+                        f"⏳ Stagnations-Gewinnsicherung nach {holding_days:.1f} Tagen "
+                        f"(über {stag_days:.0f}d ohne TP1): +{raw_pnl_pct:.2f}% Basis / +{leveraged_pnl_pct:.2f}% Hebel gesichert."
+                    )
+                elif holding_days >= max_days:
+                    exit_triggered = True
+                    exit_reason = (
+                        f"⏳ Max-Holding Time-Stop ({horizon}: {holding_days:.1f}d ≥ {max_days:.0f}d) "
+                        "— Kapital & Cluster-Slot freigegeben."
+                    )
 
         # D) AUTONOME POSITIONSERWEITERUNG (PYRAMIDING) BEI VERSTÄRKTEN SIGNALEN
         if not exit_triggered:
@@ -772,22 +952,32 @@ def update_autonomous_portfolio(db_assets):
                 "risk_cash": risk_cash,
                 "realized_pnl_cash": realized_pnl_cash,
                 "regime": "PROTECTIVE",
+                "opus_inflight_audit": t.get("opus_inflight_audit"),
                 "result": "WIN" if is_win else ("LOSS" if final_raw_pnl < 0 else "BREAKEVEN"),
             }
 
-            # Tiefgehende KI-Post-Mortem-Analyse via Gemini 3.8 Flash (Account 2)
+            # Tiefgehende KI-Post-Mortem-Analyse via Gemini 4 Neon + Claude Opus 5.5 (Vorschlag D)
             try:
-                from gemini_evaluator import evaluate_trade_post_mortem
+                from gemini_evaluator import evaluate_trade_post_mortem, audit_portfolio_trade_post_mortem_with_opus
                 ai_post_mortem = evaluate_trade_post_mortem(closed_entry)
+                opus_post_mortem = audit_portfolio_trade_post_mortem_with_opus(closed_entry, gemini_eval=ai_post_mortem)
             except Exception:
                 ai_post_mortem = None
+                opus_post_mortem = None
 
             if ai_post_mortem and isinstance(ai_post_mortem, dict):
+                if opus_post_mortem and isinstance(opus_post_mortem, dict):
+                    ai_post_mortem["opus_audit"] = opus_post_mortem
                 closed_entry["ai_post_mortem"] = ai_post_mortem
                 closed_entry["post_mortem_learning"] = ai_post_mortem.get("summary_text", generate_trade_learning(t, exit_reason, final_raw_pnl, final_lev_pnl))
             else:
                 learning_note = generate_trade_learning(t, exit_reason, final_raw_pnl, final_lev_pnl)
                 closed_entry["post_mortem_learning"] = learning_note
+
+            if opus_post_mortem and isinstance(opus_post_mortem, dict):
+                closed_entry["opus_audit"] = opus_post_mortem
+                if opus_post_mortem.get("opus_actionable_rule"):
+                    closed_entry["post_mortem_learning"] += f" | 🏛️ Opus Axiom: {opus_post_mortem['opus_actionable_rule']}"
 
             closed_trades.insert(0, closed_entry)
             newly_closed.append(closed_entry)
@@ -814,6 +1004,7 @@ def update_autonomous_portfolio(db_assets):
         if t.get("regime") == "PROTECTIVE" or t.get("exit_time", "").startswith(today_str)
     ]
     cb_res = check_drawdown_circuit_breaker(protective_closed)
+    action = cb_res.get("action", "ALLOW")
     is_halted = cb_res.get("is_halted", False)
     sizing_mult = cb_res.get("sizing_multiplier", 1.0)
     effective_risk_pct = 0.5 * sizing_mult
@@ -860,16 +1051,14 @@ def update_autonomous_portfolio(db_assets):
 
             # 0. TRIADE-KONSENS WHITELIST & DIRECTION-LOCK GUARD (Antigravity + Grok 4.7 + Claude Fable 5.2)
             horizon, horizon_label, horizon_tf = determine_trade_horizon(c)
-            sig_tf = c.get("timeframe", horizon_tf)
-            setup_text = (str(c.get("setup_name", "")) + " " + " ".join(c.get("reasons", []))).lower()
-            if "30m" in setup_text:
-                sig_tf = "30m"
-            elif "4h" in setup_text:
-                sig_tf = "4h"
-            elif "1h" in setup_text:
-                sig_tf = "1h"
-            elif "1d" in setup_text or "daily" in setup_text:
-                sig_tf = "1d"
+            sig_tf = str(c.get("primary_timeframe") or c.get("timeframe") or "").strip().lower()
+            if not sig_tf:
+                sig_tf = horizon_tf
+                setup_text = (str(c.get("setup_name", "")) + " " + " ".join(c.get("reasons", []))).lower()
+                for tf_tok in ("30m", "15m", "4h", "1h", "1d", "daily"):
+                    if tf_tok in setup_text:
+                        sig_tf = "1d" if tf_tok == "daily" else tf_tok
+                        break
 
             wl_check = check_triad_whitelist(
                 symbol=sym,
@@ -880,6 +1069,7 @@ def update_autonomous_portfolio(db_assets):
             if not wl_check["is_approved"]:
                 print(f"   🛡️ [Triad Whitelist Guard] {sym} ({sig_tf} {c.get('signal')}) abgewiesen: {wl_check['rejection_reason']}")
                 continue
+
             if wl_check["tier"] != "PILOT_LIVE":
                 print(f"   🛡️ [Triad Tier Guard] {sym} ({sig_tf}) befindet sich auf Stufe '{wl_check['tier']}' (nicht PILOT_LIVE) -> Kein Live-Trade.")
                 continue
@@ -896,10 +1086,12 @@ def update_autonomous_portfolio(db_assets):
                 print(f"   🛡️ [Post-Mortem Guard] {sym} abgewiesen: {rule_reason}")
                 continue
 
-            # 2. CLOSED-LOOP SCORECARD FILTER: Dynamischer Mindest-Score
+            # 2. CLOSED-LOOP SCORECARD FILTER & OPUS GOVERNOR PARAMETER
             setup_perf = memory.get("setup_performance", {}).get(setup_name, {})
             cat_perf = memory.get("category_performance", {}).get(cat, {})
-            min_score_req = max(88, setup_perf.get("min_score", 88), cat_perf.get("min_score", 88))
+            sector_adj = int((gov_params.get("sector_score_adjustments") or {}).get(cat, 0) or 0)
+            base_min_score = max(int(gov_params.get("min_score_default", 88)), 88 + sector_adj)
+            min_score_req = max(base_min_score, setup_perf.get("min_score", 88), cat_perf.get("min_score", 88))
 
             if score < min_score_req:
                 print(f"   🛡️ [Scorecard Guard] {sym} ({setup_name} in {cat}) übersprungen: Score {score}% < Mindestanforderung von {min_score_req}%")
@@ -1022,7 +1214,6 @@ def update_autonomous_portfolio(db_assets):
                 "allocated_capital": round(allocated_cap, 2),
                 "position_qty": qty,
                 "risk_cash": risk_cash,
-                "risk_pct": effective_risk_pct,
                 "kelly_multiplier": pos_size.get("kelly_multiplier", 1.0),
                 "volatility_regime": pos_size.get("regime", "NORMAL"),
                 "regime": "PROTECTIVE",
@@ -1168,6 +1359,8 @@ def record_learning_in_memory(memory, closed_entry):
     }
     if "ai_post_mortem" in closed_entry:
         entry_learning["ai_post_mortem"] = closed_entry["ai_post_mortem"]
+    if "opus_audit" in closed_entry:
+        entry_learning["opus_audit"] = closed_entry["opus_audit"]
 
     learnings.insert(0, entry_learning)
     memory["learnings"] = learnings[:60]  # Letzte 60 Learnings im Gedächtnis
@@ -1179,20 +1372,33 @@ def get_memory_summary_for_ai_prompt(assets_batch=None):
     """
     Gibt eine kontextuelle, maßgeschneiderte Zusammenfassung des Erfahrungsspeichers für den Gemini-Prompt zurück.
     Analysiert die im aktuellen Batch enthaltenen Kategorien und Setups und injiziert
-    präzise Erfahrungswerte, Sektor-Winrates und bindende Handlungsregeln aus vergangenen Trades.
+    Opus Master-Constitution Axiome, Erfahrungswerte, Sektor-Winrates und bindende Handlungsregeln.
     """
     portfolio = load_json_file(PORTFOLIO_FILE, {})
     memory = load_json_file(TRADE_MEMORY_FILE, {})
+    gov_params = load_opus_governor_params()
 
     metrics = portfolio.get("metrics", {})
-    learnings = memory.get("learnings", [])
+    learnings = [
+        l for l in (memory.get("learnings") or [])
+        if str(l.get("scope", "")).upper() != "INCUBATOR"
+        and str(l.get("source_book", "")).upper() != "INCUBATOR_RESEARCH"
+    ]
     setup_perf = memory.get("setup_performance", {})
     cat_perf = memory.get("category_performance", {})
+    constitution = memory.get("master_constitution", [])
 
     lines = [
         "HISTORISCHES TRADE-GEDÄCHTNIS & SELBSTVERBESSERUNGS-SCORECARD:",
-        f"- Bisher geschlossene Trades: {metrics.get('total_trades', 0)} | Gesamt-Win-Rate: {metrics.get('win_rate_pct', 0.0)}% | PnL (gehebelt): {metrics.get('total_leveraged_pnl_pct', 0.0):+,.1f}%"
+        f"- Bisher geschlossene Trades: {metrics.get('total_trades', 0)} | Gesamt-Win-Rate: {metrics.get('win_rate_pct', 0.0)}% | PnL (gehebelt): {metrics.get('total_leveraged_pnl_pct', 0.0):+,.1f}%",
+        f"- Aktive Opus Quant-Governor Grenzen: Min-Score={gov_params.get('min_score_default', 88)}% | Counter-Trend Min-Score={gov_params.get('min_score_counter_trend', 94)}% | Max 4h RSI Long={gov_params.get('max_rsi_long_entry', 64.0)} | Min VSA Reversal={gov_params.get('min_vsa_ratio_reversal', 1.20)}x"
     ]
+
+    if constitution:
+        lines.append("- OPUS 5.5 MASTER-CONSTITUTION (BINDENDE KERN-AXIOME):")
+        for ax in constitution[:8]:
+            if isinstance(ax, dict) and ax.get("rule"):
+                lines.append(f"  🏛️ [{ax.get('id', 'AX')}] {ax['rule']}")
 
     # Batch-spezifische Kategorien ermitteln
     batch_cats = set()
@@ -1450,6 +1656,24 @@ def evaluate_user_positions(db_assets):
 
     data["positions"] = evaluated_positions
     data["updated_at"] = datetime.now(timezone.utc).isoformat()
+
+    # Vorschlag C: Opus 5.5 In-Flight Exit-Doctor auch für Nutzer-Positionen (24h-gedrosselt)
+    if evaluated_positions:
+        try:
+            from gemini_evaluator import audit_open_positions_with_opus
+            opus_user_map = audit_open_positions_with_opus(
+                evaluated_positions,
+                db_map,
+                portfolio_context="USER_POSITIONS",
+            )
+            for p_eval in evaluated_positions:
+                pid = str(p_eval.get("id") or p_eval.get("trade_id") or p_eval.get("symbol") or "")
+                psym = str(p_eval.get("symbol") or "")
+                uaud = opus_user_map.get(pid) or opus_user_map.get(psym)
+                if uaud:
+                    p_eval["opus_inflight_audit"] = uaud
+        except Exception:
+            pass
 
     save_json_file(USER_POSITIONS_FILE, data)
 

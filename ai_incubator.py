@@ -61,6 +61,41 @@ BASE_DIR = Path(__file__).resolve().parent
 KB_DIR = BASE_DIR / "knowledge_base"
 INCUBATOR_FILE = KB_DIR / "incubator_trades.json"
 TRADE_MEMORY_FILE = KB_DIR / "trade_memory.json"
+GOVERNOR_PARAMS_FILE = KB_DIR / "opus_governor_params.json"
+
+INCUBATOR_COST_CONFIG = CircuitBreakerConfig(
+    max_cost_r_ratio=0.25,
+    max_total_heat_r=8.0,
+    max_cluster_heat_r=4.0,
+    flat_risk_pct=0.15,
+)
+
+
+def load_incubator_governor_params() -> Dict[str, Any]:
+    """Lädt Opus-gesteuerte Time-Stop- & Schwellenparameter mit sicheren Fallbacks."""
+    defaults = {
+        "incubator_time_stop_hours": {"5m": 12.0, "15m": 18.0, "30m": 24.0},
+    }
+    try:
+        if GOVERNOR_PARAMS_FILE.exists():
+            with open(GOVERNOR_PARAMS_FILE, "r", encoding="utf-8") as f:
+                raw = json.load(f)
+            if isinstance(raw, dict):
+                ts_map = raw.get("incubator_time_stop_hours")
+                if isinstance(ts_map, dict):
+                    merged_ts = dict(defaults["incubator_time_stop_hours"])
+                    for tf_k in ("5m", "15m", "30m"):
+                        if tf_k in ts_map:
+                            try:
+                                val = float(ts_map[tf_k])
+                                if 4.0 <= val <= 72.0:
+                                    merged_ts[tf_k] = val
+                            except (TypeError, ValueError):
+                                pass
+                    defaults["incubator_time_stop_hours"] = merged_ts
+    except Exception:
+        pass
+    return defaults
 
 # ==============================================================================
 # 1. 24-ASSET-MATRIX (24/7 KRYPTO + DEUTSCHE 08:00–22:00 MEZ BÖRSEN)
@@ -473,8 +508,14 @@ def scan_for_micro_setup(
         sl = round(ref_low - buffer_atr * atr_approx, 4)
         risk = curr_p - sl
         if risk > 0 and (risk / curr_p) <= 0.05:
-            # Kosten-Gate prüfen (maximal 20% des Stop-Abstands darf an Reibung verloren gehen)
-            cost_check = check_cost_gate(entry_price=curr_p, stop_loss=sl, symbol=asset.get("symbol"), cluster=asset.get("category"))
+            # Kosten-Gate prüfen (maximal 25% des Stop-Abstands im Micro-Inkubator als Reibung)
+            cost_check = check_cost_gate(
+                entry_price=curr_p,
+                stop_loss=sl,
+                symbol=asset.get("symbol"),
+                cluster=asset.get("category"),
+                config=INCUBATOR_COST_CONFIG,
+            )
             if not cost_check["is_allowed"]:
                 return None
 
@@ -568,8 +609,11 @@ def scan_for_micro_setup(
                 "entry_timestamp": curr_t,
                 "entry_price": curr_p,
                 "sl": sl,
+                "stop_loss": sl,
+                "initial_stop_loss": sl,
                 "tp1": tp1,
                 "tp2": tp2,
+                "open_risk_r": 0.5,
                 "risk_amount": round(risk, 4),
                 "qty": pos_size["qty"],
                 "notional_capital": pos_size["notional_capital"],
@@ -599,8 +643,14 @@ def scan_for_micro_setup(
         sl = round(ref_high + buffer_atr * atr_approx, 4)
         risk = sl - curr_p
         if risk > 0 and (risk / curr_p) <= 0.05:
-            # Kosten-Gate prüfen (maximal 20% des Stop-Abstands darf an Reibung verloren gehen)
-            cost_check = check_cost_gate(entry_price=curr_p, stop_loss=sl, symbol=asset.get("symbol"), cluster=asset.get("category"))
+            # Kosten-Gate prüfen (maximal 25% des Stop-Abstands im Micro-Inkubator als Reibung)
+            cost_check = check_cost_gate(
+                entry_price=curr_p,
+                stop_loss=sl,
+                symbol=asset.get("symbol"),
+                cluster=asset.get("category"),
+                config=INCUBATOR_COST_CONFIG,
+            )
             if not cost_check["is_allowed"]:
                 return None
 
@@ -693,8 +743,11 @@ def scan_for_micro_setup(
                 "entry_timestamp": curr_t,
                 "entry_price": curr_p,
                 "sl": sl,
+                "stop_loss": sl,
+                "initial_stop_loss": sl,
                 "tp1": tp1,
                 "tp2": tp2,
+                "open_risk_r": 0.5,
                 "risk_amount": round(risk, 4),
                 "qty": pos_size["qty"],
                 "notional_capital": pos_size["notional_capital"],
@@ -721,34 +774,155 @@ def scan_for_micro_setup(
     return None
 
 
+def _simulate_parallel_exit_variants(
+    entry_p: float,
+    init_sl: float,
+    tp1: float,
+    tp2: float,
+    direction: str,
+    future_bars: List[Dict[str, Any]],
+    risk_amt: float,
+    entry_ts: int = 0,
+    max_hold_sec: float = 0.0,
+) -> Dict[str, Any]:
+    """Simuliert parallel (be_after_tp1 vs trail_05r_floor) konservativ SL-vor-TP inkl. Time-Stop."""
+    if risk_amt <= 0 or not future_bars:
+        return {}
+
+    def _run_var(trail_mode: str) -> float:
+        cur_sl = init_sl
+        tp1_hit = False
+        tp1_bar_ts = 0
+        best_p = entry_p
+        for b in future_bars:
+            o = float(b.get("o", b["c"]))
+            h = float(b["h"])
+            l = float(b["l"])
+            c = float(b["c"])
+            t = int(b["t"])
+            if direction == "LONG":
+                if l <= cur_sl and (not tp1_hit or t > tp1_bar_ts or trail_mode == "trail_05r"):
+                    fill = min(o, cur_sl)
+                    rem_r = ((fill - entry_p) / risk_amt) * (0.5 if tp1_hit else 1.0)
+                    return round((0.75 + rem_r) if tp1_hit else rem_r, 3)
+                if h >= tp2:
+                    return round(2.25 if tp1_hit else 3.0, 3)
+                if h >= tp1 and not tp1_hit:
+                    tp1_hit = True
+                    tp1_bar_ts = t
+                    best_p = max(best_p, h)
+                    if trail_mode == "be":
+                        cur_sl = entry_p
+                    else:
+                        # Lockerer Runner-Stop: Floor -0.5R, Trailing erst ab >+2.5R ueber Entry (best_p - 2.5*R)
+                        cur_sl = max(init_sl, entry_p - 0.5 * risk_amt, best_p - 2.5 * risk_amt)
+                elif tp1_hit and trail_mode == "trail_05r":
+                    best_p = max(best_p, h)
+                    cur_sl = max(cur_sl, entry_p - 0.5 * risk_amt, best_p - 2.5 * risk_amt)
+            else:
+                if h >= cur_sl and (not tp1_hit or t > tp1_bar_ts or trail_mode == "trail_05r"):
+                    fill = max(o, cur_sl)
+                    rem_r = ((entry_p - fill) / risk_amt) * (0.5 if tp1_hit else 1.0)
+                    return round((0.75 + rem_r) if tp1_hit else rem_r, 3)
+                if l <= tp2:
+                    return round(2.25 if tp1_hit else 3.0, 3)
+                if l <= tp1 and not tp1_hit:
+                    tp1_hit = True
+                    tp1_bar_ts = t
+                    best_p = min(best_p, l)
+                    if trail_mode == "be":
+                        cur_sl = entry_p
+                    else:
+                        cur_sl = min(init_sl, entry_p + 0.5 * risk_amt, best_p + 2.5 * risk_amt)
+                elif tp1_hit and trail_mode == "trail_05r":
+                    best_p = min(best_p, l)
+                    cur_sl = min(cur_sl, entry_p + 0.5 * risk_amt, best_p + 2.5 * risk_amt)
+
+            if entry_ts > 0 and max_hold_sec > 0 and (t - entry_ts) >= max_hold_sec:
+                mv = (c - entry_p) if direction == "LONG" else (entry_p - c)
+                rem_r = (mv / risk_amt) * (0.5 if tp1_hit else 1.0)
+                return round((0.75 + rem_r) if tp1_hit else rem_r, 2)
+
+        last_c = float(future_bars[-1]["c"])
+        mv = (last_c - entry_p) if direction == "LONG" else (entry_p - last_c)
+        rem_r = (mv / risk_amt) * (0.5 if tp1_hit else 1.0)
+        return round((0.75 + rem_r) if tp1_hit else rem_r, 3)
+
+    return {
+        "be_after_tp1_r": _run_var("be"),
+        "trail_05r_floor_r": _run_var("trail_05r"),
+    }
+
+
 def update_open_trade_with_bars(trade: Dict[str, Any], future_bars: List[Dict[str, Any]]) -> Dict[str, Any]:
-    """Verfolgt einen offenen Trade anhand nachfolgender Kerzen (TP1 1.5R Teilgewinn 50%, TP2 3.0R Vollziel, SL Breakeven/Verlust)."""
+    """Verfolgt einen offenen Trade zustandslos ab entry_ts konservativ (SL vor TP, Gap-Aware, Time-Stop)."""
     if trade.get("status") not in ("OPEN", None):
         return trade
 
-    entry_p = trade["entry_price"]
-    sl = trade["sl"]
-    tp1 = trade["tp1"]
-    tp2 = trade["tp2"]
+    entry_p = float(trade["entry_price"])
+    init_sl = float(trade.get("initial_stop_loss") or trade["sl"])
+    # Zustandsloser Replay ab Einstieg: verhindert rueckwirkendes Break-Even auf frueheren Balken!
+    sl = init_sl
+    tp1 = float(trade["tp1"])
+    tp2 = float(trade["tp2"])
     direction = trade["direction"]
+    trade["tp1_reached"] = False
+    trade["tp1_bar_ts"] = 0
+    trade["sl"] = init_sl
+    trade["stop_loss"] = init_sl
+
+    # Ursprüngliches 1.0R-Risiko vor etwaigem Break-Even-Nachzug bestimmen
+    risk_amt = float(trade.get("risk_amount") or 0.0)
+    if risk_amt <= 0:
+        risk_amt = abs(entry_p - init_sl)
+
+    entry_ts = int(trade.get("entry_timestamp") or 0)
+    if entry_ts <= 0 and trade.get("entry_time"):
+        try:
+            dt_e = datetime.fromisoformat(str(trade["entry_time"]).replace("Z", "+00:00"))
+            entry_ts = int(dt_e.timestamp())
+        except Exception:
+            entry_ts = 0
+
+    tf = str(trade.get("timeframe") or "15m").lower()
+    gov = load_incubator_governor_params()
+    ts_map = gov.get("incubator_time_stop_hours", {})
+    max_hold_hours = float(ts_map.get(tf, 24.0))
+    max_hold_sec = max_hold_hours * 3600.0
 
     for b in future_bars:
-        h = b["h"]
-        l = b["l"]
-        t = b["t"]
+        o = float(b.get("o", b["c"]))
+        h = float(b["h"])
+        l = float(b["l"])
+        c = float(b["c"])
+        t = int(b["t"])
 
-        trade["highest_price"] = max(trade.get("highest_price", entry_p), h)
-        trade["lowest_price"] = min(trade.get("lowest_price", entry_p), l)
+        trade["highest_price"] = max(float(trade.get("highest_price", entry_p)), h)
+        trade["lowest_price"] = min(float(trade.get("lowest_price", entry_p)), l)
 
         if direction == "LONG":
-            # 1. Zuerst prüfen, ob TP1 erreicht wurde
-            if h >= tp1 and not trade.get("tp1_reached"):
-                trade["tp1_reached"] = True
-                trade["tp1_price"] = tp1
-                trade["tp1_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
-                trade["tp1_bar_ts"] = t  # Fable 5.2: Kerzen-Timestamp merken
-                sl = entry_p  # Stop-Loss sofort auf Breakeven nachziehen
-                trade["sl"] = entry_p
+            # 1. Konservativ: Stop-Loss ZUERST pruefen (inkl. Gap-Ausfuehrung zum Open)
+            if l <= sl:
+                fill_sl = min(o, sl)
+                if trade.get("tp1_reached"):
+                    trade["status"] = "CLOSED_BE"
+                    trade["exit_price"] = fill_sl
+                    trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
+                    trade["exit_timestamp"] = t
+                    rem_r = ((fill_sl - entry_p) / risk_amt * 0.5) if risk_amt > 0 else 0.0
+                    trade["realized_r"] = round(0.75 + rem_r, 3)
+                    trade["realized_pnl_pct"] = round(((tp1 - entry_p) / entry_p) * 50.0 + ((fill_sl - entry_p) / entry_p) * 50.0, 2)
+                    trade["exit_reason"] = "Teilgewinn TP1 (+1.5R) realisiert; Restposition bei Break-Even ausgestoppt"
+                    break
+                else:
+                    trade["status"] = "CLOSED_SL"
+                    trade["exit_price"] = fill_sl
+                    trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
+                    trade["exit_timestamp"] = t
+                    trade["realized_r"] = round(((fill_sl - entry_p) / risk_amt), 3) if risk_amt > 0 else -1.0
+                    trade["realized_pnl_pct"] = round(((fill_sl - entry_p) / entry_p) * 100.0, 2)
+                    trade["exit_reason"] = "Stop-Loss unter Support-Level getroffen"
+                    break
 
             # 2. Vollziel TP2 erreicht
             if h >= tp2:
@@ -756,45 +930,44 @@ def update_open_trade_with_bars(trade: Dict[str, Any], future_bars: List[Dict[st
                 trade["exit_price"] = tp2
                 trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
                 trade["exit_timestamp"] = t
-                # 50% bei TP1 (+1.5R * 0.5 = +0.75R) + 50% bei TP2 (+3.0R * 0.5 = +1.5R) = +2.25R
                 trade["realized_r"] = +2.25 if trade.get("tp1_reached") else +3.0
                 trade["realized_pnl_pct"] = round(((tp2 - entry_p) / entry_p) * 100.0, 2)
                 trade["exit_reason"] = "Maximaler Take-Profit 2 (TP2) vollständig erreicht (Gewinn voll realisiert)"
                 break
 
-            # 3. Stop-Loss berührt
-            elif l <= sl:
-                if trade.get("tp1_reached"):
-                    # Fable 5.2 Fix: Break-Even Stop greift erst AB DER FOLGEKERZE nach TP1-Touch!
-                    # Verhindert, dass Intrabar-Dips vor dem TP1-Touch den Trade sofort fälschlich abwürgen.
-                    if t > trade.get("tp1_bar_ts", 0):
-                        trade["status"] = "CLOSED_BE"
-                        trade["exit_price"] = sl  # entry_p
-                        trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
-                        trade["exit_timestamp"] = t
-                        trade["realized_r"] = +0.75  # 50% Tranche TP1 (+1.5R) + 50% Tranche BE (0.0R) = +0.75R Netto-Gewinn
-                        trade["realized_pnl_pct"] = round(((tp1 - entry_p) / entry_p) * 50.0, 2)
-                        trade["exit_reason"] = "Teilgewinn TP1 (+1.5R) realisiert; Restposition bei Break-Even risikofrei ausgestoppt"
-                        break
-                else:
-                    trade["status"] = "CLOSED_SL"
-                    trade["exit_price"] = sl
-                    trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
-                    trade["exit_timestamp"] = t
-                    trade["realized_r"] = -1.0
-                    trade["realized_pnl_pct"] = round(((sl - entry_p) / entry_p) * 100.0, 2)
-                    trade["exit_reason"] = "Stop-Loss unter Support-Level getroffen"
-                    break
-
-        elif direction == "SHORT":
-            # 1. Zuerst prüfen, ob TP1 erreicht wurde
-            if l <= tp1 and not trade.get("tp1_reached"):
+            # 3. Teilziel TP1 -> BE gilt erst ab Folgekerze
+            if h >= tp1 and not trade.get("tp1_reached"):
                 trade["tp1_reached"] = True
                 trade["tp1_price"] = tp1
                 trade["tp1_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
-                trade["tp1_bar_ts"] = t  # Fable 5.2: Kerzen-Timestamp merken
-                sl = entry_p  # Stop-Loss sofort auf Breakeven nachziehen
+                trade["tp1_bar_ts"] = t
+                sl = entry_p
                 trade["sl"] = entry_p
+                trade["stop_loss"] = entry_p
+
+        elif direction == "SHORT":
+            # 1. Konservativ: Stop-Loss ZUERST pruefen (inkl. Gap-Ausfuehrung zum Open)
+            if h >= sl:
+                fill_sl = max(o, sl)
+                if trade.get("tp1_reached"):
+                    trade["status"] = "CLOSED_BE"
+                    trade["exit_price"] = fill_sl
+                    trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
+                    trade["exit_timestamp"] = t
+                    rem_r = ((entry_p - fill_sl) / risk_amt * 0.5) if risk_amt > 0 else 0.0
+                    trade["realized_r"] = round(0.75 + rem_r, 3)
+                    trade["realized_pnl_pct"] = round(((entry_p - tp1) / entry_p) * 50.0 + ((entry_p - fill_sl) / entry_p) * 50.0, 2)
+                    trade["exit_reason"] = "Teilgewinn TP1 (+1.5R) realisiert; Restposition bei Break-Even ausgestoppt"
+                    break
+                else:
+                    trade["status"] = "CLOSED_SL"
+                    trade["exit_price"] = fill_sl
+                    trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
+                    trade["exit_timestamp"] = t
+                    trade["realized_r"] = round(((entry_p - fill_sl) / risk_amt), 3) if risk_amt > 0 else -1.0
+                    trade["realized_pnl_pct"] = round(((entry_p - fill_sl) / entry_p) * 100.0, 2)
+                    trade["exit_reason"] = "Stop-Loss über Widerstands-Level getroffen"
+                    break
 
             # 2. Vollziel TP2 erreicht
             if l <= tp2:
@@ -807,32 +980,48 @@ def update_open_trade_with_bars(trade: Dict[str, Any], future_bars: List[Dict[st
                 trade["exit_reason"] = "Maximaler Take-Profit 2 (TP2) vollständig erreicht (Gewinn voll realisiert)"
                 break
 
-            # 3. Stop-Loss berührt
-            elif h >= sl:
-                if trade.get("tp1_reached"):
-                    # Fable 5.2 Fix: Break-Even Stop greift erst AB DER FOLGEKERZE nach TP1-Touch!
-                    if t > trade.get("tp1_bar_ts", 0):
-                        trade["status"] = "CLOSED_BE"
-                        trade["exit_price"] = sl  # entry_p
-                        trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
-                        trade["exit_timestamp"] = t
-                        trade["realized_r"] = +0.75
-                        trade["realized_pnl_pct"] = round(((entry_p - tp1) / entry_p) * 50.0, 2)
-                        trade["exit_reason"] = "Teilgewinn TP1 (+1.5R) realisiert; Restposition bei Break-Even risikofrei ausgestoppt"
-                        break
-                else:
-                    trade["status"] = "CLOSED_SL"
-                    trade["exit_price"] = sl
-                    trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
-                    trade["exit_timestamp"] = t
-                    trade["realized_r"] = -1.0
-                    trade["realized_pnl_pct"] = round(((entry_p - sl) / entry_p) * 100.0, 2)
-                    trade["exit_reason"] = "Stop-Loss über Widerstands-Level getroffen"
-                    break
+            # 3. Teilziel TP1 -> BE gilt erst ab Folgekerze
+            if l <= tp1 and not trade.get("tp1_reached"):
+                trade["tp1_reached"] = True
+                trade["tp1_price"] = tp1
+                trade["tp1_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
+                trade["tp1_bar_ts"] = t
+                sl = entry_p
+                trade["sl"] = entry_p
+                trade["stop_loss"] = entry_p
 
-    if trade.get("status") in ("CLOSED_TP2", "CLOSED_BE", "CLOSED_SL"):
+        # 4. Max-Holding Time-Stop im Micro-Inkubator (Slot- & Lern-Recycling)
+        if entry_ts > 0 and (t - entry_ts) >= max_hold_sec:
+            move = (c - entry_p) if direction == "LONG" else (entry_p - c)
+            if trade.get("tp1_reached"):
+                tp1_p = float(trade.get("tp1_price") or tp1)
+                rem_r = (move / risk_amt) * 0.5 if risk_amt > 0 else 0.0
+                realized_r = round(0.75 + rem_r, 2)
+                part_pct = (((tp1_p - entry_p) / entry_p) if direction == "LONG" else ((entry_p - tp1_p) / entry_p)) * 50.0
+                rem_pct = (move / entry_p) * 50.0 if entry_p > 0 else 0.0
+                realized_pct = round(part_pct + rem_pct, 2)
+            else:
+                realized_r = round(move / risk_amt, 2) if risk_amt > 0 else 0.0
+                realized_pct = round((move / entry_p) * 100.0, 2) if entry_p > 0 else 0.0
+            trade["status"] = "CLOSED_TIME"
+            trade["exit_price"] = round(c, 6)
+            trade["exit_time"] = datetime.fromtimestamp(t, timezone.utc).isoformat()
+            trade["exit_timestamp"] = t
+            trade["realized_r"] = realized_r
+            trade["realized_pnl_pct"] = realized_pct
+            trade["exit_reason"] = f"Time-Stop ({max_hold_hours:.0f}h) im Micro-Inkubator erreicht — Position zur Kapital- & Slot-Freigabe glattgestellt"
+            break
+
+    if trade.get("status") in ("CLOSED_TP2", "CLOSED_BE", "CLOSED_SL", "CLOSED_TIME"):
         risk_cash = trade.get("risk_cash", 100.0)
         trade["realized_pnl_cash"] = round(trade.get("realized_r", 0.0) * risk_cash, 2)
+        if not trade.get("signal_engine_version"):
+            trade["signal_engine_version"] = "legacy_v1"
+        trade["exit_model_version"] = "conservative_sl_first_v1"
+        trade["exit_variants"] = _simulate_parallel_exit_variants(
+            entry_p, init_sl, tp1, tp2, direction, future_bars, risk_amt,
+            entry_ts=entry_ts, max_hold_sec=max_hold_sec,
+        )
 
     return trade
 
@@ -869,7 +1058,7 @@ def trigger_comparative_batch_post_mortem(closed_trades: List[Dict[str, Any]], i
             pass
 
     # Finde unanalysierte geschlossene Trades
-    pending = [t for t in closed_trades if not t.get("ai_post_mortem") and t.get("status") in ["CLOSED_SL", "CLOSED_TP1", "CLOSED_TP2"]]
+    pending = [t for t in closed_trades if not t.get("ai_post_mortem") and t.get("status") in ["CLOSED_SL", "CLOSED_BE", "CLOSED_TP1", "CLOSED_TP2", "CLOSED_TIME"]]
     
     if pending:
         print(f"\n  🧠 Starte taktisches KI-Post-Mortem (Gemini 4 via Google AI Pro) für {len(pending)} neue geschlossene Trades...")
@@ -914,6 +1103,9 @@ def trigger_comparative_batch_post_mortem(closed_trades: List[Dict[str, Any]], i
                     new_learning = {
                         "timestamp": datetime.now(timezone.utc).isoformat(),
                         "trade_id": tid,
+                        "source_book": "INCUBATOR_RESEARCH",
+                        "scope": "INCUBATOR",
+                        "timeframe": t.get("timeframe", "15m"),
                         "symbol": t.get("symbol"),
                         "name": t.get("name"),
                         "category": f"Micro-Incubator ({t.get('timeframe', '15m')})",
@@ -932,6 +1124,8 @@ def trigger_comparative_batch_post_mortem(closed_trades: List[Dict[str, Any]], i
                     new_cross = {
                         "timestamp": datetime.now(timezone.utc).isoformat(),
                         "trade_id": f"cross_rule_{int(time.time())}",
+                        "source_book": "INCUBATOR_RESEARCH",
+                        "scope": "INCUBATOR",
                         "symbol": "MULTI-ASSET",
                         "name": "Cross-Market Confluence",
                         "category": "Global Heuristic (4h/1D Transfer)",
@@ -976,6 +1170,8 @@ def trigger_comparative_batch_post_mortem(closed_trades: List[Dict[str, Any]], i
                 new_axiom = {
                     "timestamp": datetime.now(timezone.utc).isoformat(),
                     "trade_id": f"opus_axiom_{int(time.time())}",
+                    "source_book": "INCUBATOR_RESEARCH",
+                    "scope": "INCUBATOR",
                     "symbol": "SYSTEM-AXIOM",
                     "name": "Claude Opus 5.5 Meta-Synthese",
                     "category": "Opus Fraktal-Axiom (4h/1D Transfer)",
@@ -1247,9 +1443,10 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
 
     data = load_incubator_state()
     active_assets = data["today_focus_assets"]
-    asset_names = [f"{a['name']} ({a['symbol']})" for a in active_assets]
-    print(f"🔄 Aktive 8-Asset-Fokusgruppe: {', '.join(asset_names[:4])}")
-    print(f"   Aktien (Frankfurt/XETRA): {', '.join(asset_names[4:])}")
+    crypto_names = [f"{a['name']} ({a['symbol']})" for a in active_assets if a.get("source") == "binance"]
+    equity_names = [f"{a['name']} ({a['symbol']})" for a in active_assets if a.get("source") != "binance"]
+    print(f"🔄 Aktive 8-Asset-Fokusgruppe ({len(crypto_names)} Krypto): {', '.join(crypto_names) or '-'}")
+    print(f"   Aktien (Frankfurt/XETRA, {len(equity_names)}): {', '.join(equity_names) or '-'}")
 
     active_trades = data.get("active_trades", [])
     closed_trades = data.get("closed_trades", [])
@@ -1271,7 +1468,7 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
         future_bars = [b for b in bars if b["t"] > entry_ts]
         updated = update_open_trade_with_bars(trade, future_bars)
 
-        if updated.get("status") in ["CLOSED_SL", "CLOSED_BE", "CLOSED_TP1", "CLOSED_TP2"]:
+        if updated.get("status") in ["CLOSED_SL", "CLOSED_BE", "CLOSED_TP1", "CLOSED_TP2", "CLOSED_TIME"]:
             just_closed.append(updated)
             print(f"  🏁 Micro-Trade {sym} ({tf}, {updated['direction']}) geschlossen: {updated['status']} ({updated.get('realized_r', 0):+.1f}R)")
         else:
@@ -1298,7 +1495,7 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
             lt["total_r_profit"] = round(lt.get("total_r_profit", 0.0) + realized_r, 2)
         closed_trades.extend(just_closed)
 
-    # 2. Suche nach neuen 5m & 15m Setups (Research-Sandbox: bis zu 16 parallele Positionen für maximale Datenakquise)
+    # 2. Suche nach neuen 5m, 15m & 30m Setups (Research-Sandbox: bis zu 16 parallele Positionen für maximale Datenakquise)
     max_active = 16
     candidate_assets = list(active_assets)
     # Falls Kapazität frei ist: Restliche Matrix-Assets als Backup prüfen
@@ -1306,16 +1503,8 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
         if not any(ca["symbol"] == a["symbol"] for ca in candidate_assets):
             candidate_assets.append(a)
 
-    # Inkubator-Forschungskonfiguration (Fable 5.2 & Grok 4.7 Konsens: Strenges Schattenbuch)
-    inc_heat_config = CircuitBreakerConfig(
-        max_total_heat_r=4.0,       # 4.0 * 0.15% = 0.60% Gesamt-Heat
-        max_cluster_heat_r=2.0,     # 2.0 * 0.15% = 0.30% Cluster-Heat
-        daily_loss_limit_r=3.0,
-        drawdown_reduce_r=10.0,
-        drawdown_halt_r=15.0,
-        flat_risk_pct=0.15,
-        max_cost_r_ratio=0.20
-    )
+    # Inkubator-Forschungskonfiguration (Schattenbuch 0.5R je Paper-Slot -> max 8 Crypto + 8 Aktien parallel)
+    inc_heat_config = INCUBATOR_COST_CONFIG
 
     # 2. Drawdown Circuit-Breaker vor neuen Einstiegen prüfen (auf kalibrierten Trades)
     calibrated_history = [t for t in closed_trades if t.get("setup_score") is not None]
@@ -1335,8 +1524,14 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
             if len(active_trades) >= max_active:
                 break
 
-            # Cluster Heat-Limit vorab prüfen (Schattenbuch Budget: max 2.0R je Cluster)
-            heat_check = check_cluster_heat_limit(active_trades, candidate_symbol=asset["symbol"], candidate_category=asset.get("category"), config=inc_heat_config)
+            # Cluster Heat-Limit vorab prüfen (Schattenbuch Budget: max 4.0R je Cluster @ 0.5R je Paper-Trade = 8 Slots)
+            heat_check = check_cluster_heat_limit(
+                active_trades,
+                candidate_symbol=asset["symbol"],
+                candidate_category=asset.get("category"),
+                candidate_risk_r=0.5,
+                config=inc_heat_config,
+            )
             if not heat_check["is_allowed"]:
                 print(f"  🛡️ [Cluster Heat Limit] {asset['name']} ({asset['symbol']}) übersprungen: {heat_check['rejection_reason']}")
                 continue
@@ -1352,8 +1547,8 @@ def run_incubator_cycle(force_refresh: bool = False) -> Dict[str, Any]:
                     htf_rfe_basis = wma_233[-1]
                     htf_bias = "BULLISH" if closes_1h[-1] >= htf_rfe_basis else "BEARISH"
 
-            # Prüfe 5m, 15m und 30m (Micro-Zeitskalen für hohe Datengenerierung im Labor)
-            for tf in ["5m", "15m", "30m"]:
+            # 5m im Forschungslabor abgeschaltet (nur 15m und 30m)
+            for tf in ["15m", "30m"]:
                 bars = fetch_incubator_bars(asset, interval=tf)
                 if not bars:
                     continue
