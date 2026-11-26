@@ -1,5 +1,272 @@
 [
   {
+    "id": "evt_20261126_230106",
+    "timestamp": "2026-11-26T23:01:06.096506+00:00",
+    "timestamp_display": "26.11.2026 23:01 UTC",
+    "title": "🔔 TV-Signaländerung: 6 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 6,
+    "changes": [
+      {
+        "symbol": "SP:SPX",
+        "name": "S&P 500",
+        "category": "Indizes",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 68,
+        "new_score": 68,
+        "price": 7182.78,
+        "setup_name": "🔭 HTF Reversal Watch (1D LONG)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          7182.78,
+          7182.78
+        ],
+        "stop_loss": 6967.3,
+        "take_profit_2": 7613.75,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 1D Institutional BUY Pocket (Lower Chaos < RFE 233)",
+          "degencoder: 1D Potential Buy Signal"
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz.",
+        "note": "🔭 HTF REVERSAL WATCH (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz · Abstand zur EMA233: -4.2% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (LONG)",
+          "factors": [
+            "1D degencoder Buy-Signal",
+            "1D Reg. Bullische Divergenz"
+          ],
+          "ema233_distance_pct": -4.2,
+          "invalidation_level": 6532.01
+        }
+      },
+      {
+        "symbol": "TVC:NDX",
+        "name": "NDX",
+        "category": "Indizes / Devisen",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 68,
+        "new_score": 68,
+        "price": 26046.8967,
+        "setup_name": "🔭 HTF Reversal Watch (1D LONG)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          26046.9,
+          26046.9
+        ],
+        "stop_loss": 25265.49,
+        "take_profit_2": 27609.71,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 1D Institutional BUY Pocket (Lower Chaos < RFE 233)",
+          "degencoder: 1D Potential Buy Signal"
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz, 1D VSA Volumen-Spike (2.0x).",
+        "note": "🔭 HTF REVERSAL WATCH (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz, 1D VSA Volumen-Spike (2.0x) · Abstand zur EMA233: -7.8% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (LONG)",
+          "factors": [
+            "1D degencoder Buy-Signal",
+            "1D Reg. Bullische Divergenz",
+            "1D VSA Volumen-Spike (2.0x)"
+          ],
+          "ema233_distance_pct": -7.82,
+          "invalidation_level": 22994.36
+        }
+      },
+      {
+        "symbol": "TVC:DJI",
+        "name": "DJI",
+        "category": "Indizes / Devisen",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 68,
+        "new_score": 68,
+        "price": 50182.95,
+        "setup_name": "🔭 HTF Reversal Watch (1D LONG)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          50182.95,
+          50182.95
+        ],
+        "stop_loss": 48677.46,
+        "take_profit_2": 53193.93,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 1D Institutional BUY Pocket (Lower Chaos < RFE 233)",
+          "degencoder: 1D Potential Buy Signal"
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "HTF Trendwende-Alarm (1D LONG): 1D EMA-Fast zurückerobert, 1D degencoder Buy-Signal, 1D VSA Volumen-Spike (1.9x).",
+        "note": "🔭 HTF REVERSAL WATCH (1D LONG): 1D EMA-Fast zurückerobert, 1D degencoder Buy-Signal, 1D VSA Volumen-Spike (1.9x) · Abstand zur EMA233: -2.1% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (LONG)",
+          "factors": [
+            "1D EMA-Fast zurückerobert",
+            "1D degencoder Buy-Signal",
+            "1D VSA Volumen-Spike (1.9x)"
+          ],
+          "ema233_distance_pct": -2.14,
+          "invalidation_level": 46004.27
+        }
+      },
+      {
+        "symbol": "TVC:SILVER",
+        "name": "Silber (Spot)",
+        "category": "Edelmetalle",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 62,
+        "new_score": 62,
+        "price": 41.473,
+        "setup_name": "🔭 HTF Reversal Watch (1W LONG)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          41.56,
+          41.56
+        ],
+        "stop_loss": 40.31,
+        "take_profit_2": 44.05,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)",
+          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Beobachtung",
+        "holding_period": "Konsolidierung",
+        "change_reason": "HTF Trendwende-Alarm (1W LONG): 1W degencoder Buy-Signal, 1W VSA Volumen-Spike (14.3x).",
+        "note": "🔭 HTF REVERSAL WATCH (1W LONG): 1W degencoder Buy-Signal, 1W VSA Volumen-Spike (14.3x) · Abstand zur EMA233: -32.8% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1W",
+          "label": "🔭 1W Reversal Watch (LONG)",
+          "factors": [
+            "1W degencoder Buy-Signal",
+            "1W VSA Volumen-Spike (14.3x)"
+          ],
+          "ema233_distance_pct": -32.75,
+          "invalidation_level": 28.9
+        }
+      },
+      {
+        "symbol": "TVC:PLATINUM",
+        "name": "Platin (Spot)",
+        "category": "Edelmetalle",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 62,
+        "new_score": 62,
+        "price": 1291.897,
+        "setup_name": "🔭 HTF Reversal Watch (1W LONG)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          1291.9,
+          1291.9
+        ],
+        "stop_loss": 1253.14,
+        "take_profit_2": 1369.41,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)",
+          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Beobachtung",
+        "holding_period": "Konsolidierung",
+        "change_reason": "HTF Trendwende-Alarm (1W LONG): 1W degencoder Buy-Signal, 1W VSA Volumen-Spike (14.7x).",
+        "note": "🔭 HTF REVERSAL WATCH (1W LONG): 1W degencoder Buy-Signal, 1W VSA Volumen-Spike (14.7x) · Abstand zur EMA233: -25.9% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1W",
+          "label": "🔭 1W Reversal Watch (LONG)",
+          "factors": [
+            "1W degencoder Buy-Signal",
+            "1W VSA Volumen-Spike (14.7x)"
+          ],
+          "ema233_distance_pct": -25.85,
+          "invalidation_level": 1009.43
+        }
+      },
+      {
+        "symbol": "TVC:GOLD",
+        "name": "Gold (Spot)",
+        "category": "Edelmetalle",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 62,
+        "new_score": 56,
+        "price": 3565.99,
+        "setup_name": "🔭 HTF Reversal Watch (1W LONG)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          3566.86,
+          3566.86
+        ],
+        "stop_loss": 3459.85,
+        "take_profit_2": 3780.87,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "Aktiv: 1h Versteckte Bullische Divergenz (Trendfolge)",
+          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Beobachtung",
+        "holding_period": "Konsolidierung",
+        "change_reason": "HTF Trendwende-Alarm (1W LONG): 1W degencoder Buy-Signal, 1W Reg. Bullische Divergenz.",
+        "note": "🔭 HTF REVERSAL WATCH (1W LONG): 1W degencoder Buy-Signal, 1W Reg. Bullische Divergenz · Abstand zur EMA233: -15.1% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1W",
+          "label": "🔭 1W Reversal Watch (LONG)",
+          "factors": [
+            "1W degencoder Buy-Signal",
+            "1W Reg. Bullische Divergenz"
+          ],
+          "ema233_distance_pct": -15.06,
+          "invalidation_level": 3038.17
+        }
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 6 Einstufungen haben sich geändert:\n\n⚪ S&P 500 (SPX):\n   Score-Sprung: 68% ➔ 68% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz.\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz · Abstand zur EMA233: -4.2% (Stufe-1-Alarm, ...\n   Setup: 🔭 HTF Reversal Watch (1D LONG)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n⚪ NDX (NDX):\n   Score-Sprung: 68% ➔ 68% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz, 1D VSA Volumen-Spike (2.0x).\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz, 1D VSA Volumen-Spike (2.0x) · Abstand zur E...\n   Setup: 🔭 HTF Reversal Watch (1D LONG)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n⚪ DJI (DJI):\n   Score-Sprung: 68% ➔ 68% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1D LONG): 1D EMA-Fast zurückerobert, 1D degencoder Buy-Signal, 1D VSA Volumen-Spike (1.9x).\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (1D LONG): 1D EMA-Fast zurückerobert, 1D degencoder Buy-Signal, 1D VSA Volumen-Spike (1.9x) · Abstand zur EMA...\n   Setup: 🔭 HTF Reversal Watch (1D LONG)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n⚪ Silber (Spot) (SILVER):\n   Score-Sprung: 62% ➔ 62% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1W LONG): 1W degencoder Buy-Signal, 1W VSA Volumen-Spike (14.3x).\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (1W LONG): 1W degencoder Buy-Signal, 1W VSA Volumen-Spike (14.3x) · Abstand zur EMA233: -32.8% (Stufe-1-Alarm...\n   Setup: 🔭 HTF Reversal Watch (1W LONG)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Beobachtung (Konsolidierung)\n\n⚪ Platin (Spot) (PLATINUM):\n   Score-Sprung: 62% ➔ 62% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1W LONG): 1W degencoder Buy-Signal, 1W VSA Volumen-Spike (14.7x).\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (1W LONG): 1W degencoder Buy-Signal, 1W VSA Volumen-Spike (14.7x) · Abstand zur EMA233: -25.9% (Stufe-1-Alarm...\n   Setup: 🔭 HTF Reversal Watch (1W LONG)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Beobachtung (Konsolidierung)\n\n⚪ Gold (Spot) (GOLD):\n   Score-Sprung: 62% ➔ 56% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1W LONG): 1W degencoder Buy-Signal, 1W Reg. Bullische Divergenz.\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (1W LONG): 1W degencoder Buy-Signal, 1W Reg. Bullische Divergenz · Abstand zur EMA233: -15.1% (Stufe-1-Alarm,...\n   Setup: 🔭 HTF Reversal Watch (1W LONG)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Beobachtung (Konsolidierung)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261126_213429",
     "timestamp": "2026-11-26T21:34:29.191526+00:00",
     "timestamp_display": "26.11.2026 21:34 UTC",
@@ -25071,126 +25338,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 4 Einstufungen haben sich geändert:\n\n🔴 Uber (UBER):\n   Score-Sprung: 95% ➔ 89% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 89% (HTF-Trendkongruenz: 1W und 1D notieren in einer intakten Bärenmarktstruktur unterhalb der 233 EMA, flankiert von einer aktiven versteckten bärischen Divergenz (Trendfortsetzung).).\n   📝 KI-Rationale: Uber bestätigt die übergeordnete 1D/1W-Bärenmarktstruktur durch ein frisches 1h Good Sell Signal direkt an der Unterkante des Grad...\n   Setup: Hypothese 1: SMC Order Block [R4] Exhaustion\n   Entry: 69.25 | SL: 71.85 | TP2: 57.00\n\n🔴 Netflix (NFLX):\n   Score-Sprung: 95% ➔ 88% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 88% (Strikter 1D/1W Makro-Bärenmarkt unter EMA-Struktur mit aktiver versteckter bärischer Divergenz).\n   📝 KI-Rationale: Netflix verbleibt in einem intakten bärischen Makro-Regime. Das 4h Good Sell Signal bietet in Konfluenz mit der versteckten bärisc...\n   Setup: Hypothese 1: SMC Bearish Trend Continuation\n   Entry: 63.88 | SL: 66.85 | TP2: 57.50\n\n🔴 GLD (GLD):\n   Score-Sprung: 95% ➔ 88% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 88% (Abgelehnt am bärischen Grad-A Order Block (Badge R9) bei intaktem 1D/1W Abwärtstrend).\n   📝 KI-Rationale: GLD läuft direkt in die Abverkaufskante des bärischen R9 Order Blocks bei 371.03-375.29 USD. Die Ausrichtung der 1D/1W Trends ist ...\n   Setup: Hypothese 1: SMC Order Block [R9] Exhaustion\n   Entry: 371.03 | SL: 380.60 | TP2: 348.00\n\n⚪ Conagra Brands (CAG):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1W & 1D) ist intakt bullisch über den Trend-EMAs, weshalb kein Short gehandelt wird.).\n   📝 KI-Rationale: Conagra befindet sich im intakten übergeordneten 1D/1W-Aufwärtstrend, signalisiert jedoch im 4h- und 1h-Chart über Sell-Signale un...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261106_163854",
-    "timestamp": "2026-11-06T16:38:54.646549+00:00",
-    "timestamp_display": "06.11.2026 16:38 UTC",
-    "title": "🔔 TV-Signaländerung: 4 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 4,
-    "changes": [
-      {
-        "symbol": "NYSE:CAG",
-        "name": "Conagra Brands",
-        "category": "Consumer",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 42,
-        "new_score": 96,
-        "price": 15.2,
-        "setup_name": "Hypothese 2: degencoder Indicator Reversal Signal",
-        "entry_range": [
-          15.15,
-          15.3
-        ],
-        "stop_loss": 14.74,
-        "take_profit_2": 16.97,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "1W Makro-Trend bullisch bestätigt",
-          "degencoder: 1h Buy Area (Grünes Kreuz)",
-          "degencoder: 4h Good Sell Signal (Kreis Top-Erschöpfung)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NASDAQ:NFLX",
-        "name": "Netflix",
-        "category": "Entertainment",
-        "change_type": "SETUP_UPDATE",
-        "old_signal": "SHORT",
-        "new_signal": "SHORT",
-        "old_score": 90,
-        "new_score": 95,
-        "price": 64.03,
-        "setup_name": "Hypothese 1: SMC Order Block [R3] Exhaustion",
-        "entry_range": [
-          64.15,
-          64.79
-        ],
-        "stop_loss": 66.53,
-        "take_profit_2": 57.08,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "degencoder: 1h Buy Area (Grünes Kreuz)",
-          "degencoder: 4h Good Sell Signal (Kreis Top-Erschöpfung)"
-        ],
-        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R3] Exhaustion' (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "AMEX:GLD",
-        "name": "GLD",
-        "category": "Aktien",
-        "change_type": "SCORE_JUMP",
-        "old_signal": "SHORT",
-        "new_signal": "SHORT",
-        "old_score": 89,
-        "new_score": 95,
-        "price": 372.31,
-        "setup_name": "Hypothese 1: SMC Order Block [R8] Exhaustion",
-        "entry_range": [
-          371.39,
-          375.11
-        ],
-        "stop_loss": 385.15,
-        "take_profit_2": 330.47,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "degencoder: 1h Sell Area (Rotes Kreuz)",
-          "degencoder: 4h Sell Area (Rotes Kreuz)"
-        ],
-        "change_reason": "Konfluenz-Veränderung: Score springt von 89% auf 95% (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NYSE:UBER",
-        "name": "Uber",
-        "category": "Mobility / Tech",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 55,
-        "new_score": 95,
-        "price": 69.7,
-        "setup_name": "Hypothese 1: SMC Order Block [R4] Exhaustion",
-        "entry_range": [
-          69.59,
-          70.29
-        ],
-        "stop_loss": 72.17,
-        "take_profit_2": 61.92,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "degencoder: 1h Good Sell Signal (Kreis Top-Erschöpfung)",
-          "degencoder: 4h Good Sell Signal (Kreis Top-Erschöpfung)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 4 Einstufungen haben sich geändert:\n\n🟢 Conagra Brands (CAG):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 2: degencoder Indicator Reversal Signal\n   Entry: 15.15 | SL: 14.74 | TP2: 16.97\n\n🔴 Netflix (NFLX):\n   Score-Sprung: 90% ➔ 95% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R3] Exhaustion' (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R3] Exhaustion\n   Entry: 64.15 | SL: 66.53 | TP2: 57.08\n\n🔴 GLD (GLD):\n   Score-Sprung: 89% ➔ 95% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 89% auf 95% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R8] Exhaustion\n   Entry: 371.39 | SL: 385.15 | TP2: 330.47\n\n🔴 Uber (UBER):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R4] Exhaustion\n   Entry: 69.59 | SL: 72.17 | TP2: 61.92\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
