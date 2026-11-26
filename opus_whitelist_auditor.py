@@ -39,6 +39,7 @@ AUDIT_REPORT_FILE = KB_DIR / "opus_whitelist_audit_report.json"
 TRADE_MEMORY_FILE = KB_DIR / "trade_memory.json"
 PORTFOLIO_FILE = KB_DIR / "autonomous_portfolio.json"
 SHADOW_PAPER_FILE = KB_DIR / "shadow_paper_portfolio.json"
+SHADOW_ARCHIVE_FILE = KB_DIR / "shadow_paper_archive.json"
 INCUBATOR_FILE = KB_DIR / "incubator_trades.json"
 GOVERNOR_PARAMS_FILE = KB_DIR / "opus_governor_params.json"
 CLAUDE_BIN = "/home/admin/.local/bin/claude"
@@ -203,6 +204,7 @@ def _live_stats_for_symbols(
     norm_ticks = {s.split(":")[-1] for s in norm_syms}
     ck_u = str(cell_key or "").upper()
     p_r, s_r = [], []
+    earliest_shadow_ts = None
     for t in port_closed:
         ts = str(t.get("symbol", "")).upper()
         tt = ts.split(":")[-1]
@@ -210,13 +212,40 @@ def _live_stats_for_symbols(
             p_r.append(float(t.get("realized_r", 0.0) or 0.0))
     for t in (shadow_closed or []):
         t_ck = str(t.get("cell_key", "")).upper()
-        if ck_u and t_ck == ck_u and t.get("exit_model_version") == "backtest_parity_sl_first_v1":
+        if ck_u and t_ck == ck_u and t.get("exit_model_version") == "backtest_parity_sl_first_v2":
             s_r.append(float(t.get("realized_r", 0.0) or 0.0))
+            ets = t.get("entry_timestamp")
+            if ets and (earliest_shadow_ts is None or ets < earliest_shadow_ts):
+                earliest_shadow_ts = ets
+
+    n_s = len(s_r)
+    s_mean = (sum(s_r) / n_s) if n_s > 0 else 0.0
+    if n_s >= 2:
+        s_var = sum((x - s_mean) ** 2 for x in s_r) / (n_s - 1)
+        s_se = math.sqrt(s_var / n_s)
+        ci95_low = round(s_mean - 1.96 * s_se, 3)
+    else:
+        ci95_low = None
+
+    if n_s >= 30 and ci95_low is not None and ci95_low >= 0.0:
+        promo_stage = "ELIGIBLE_PILOT_FULL_1_0X"
+    elif n_s >= 15 and ci95_low is not None and ci95_low >= -0.05:
+        promo_stage = "ELIGIBLE_PILOT_QUARTER_0_25X"
+    else:
+        promo_stage = "COLLECTING_SHADOW"
+
+    days_observed = round((datetime.now(timezone.utc).timestamp() - earliest_shadow_ts) / 86400.0, 1) if earliest_shadow_ts else 0.0
+    stalled_90d = (days_observed >= 90.0 and n_s < 3)
+
     return {
         "live_portfolio_trades": len(p_r),
         "live_portfolio_r": round(sum(p_r), 2),
-        "shadow_paper_trades": len(s_r),
+        "shadow_paper_trades": n_s,
         "shadow_paper_r": round(sum(s_r), 2),
+        "shadow_paper_ci95_low": ci95_low,
+        "promotion_stage": promo_stage,
+        "shadow_days_observed": days_observed,
+        "stalled_90d": stalled_90d,
     }
 
 
@@ -236,7 +265,10 @@ def collect_existing_whitelist_cells() -> Tuple[List[Dict[str, Any]], set]:
     disabled_keys = set(str(k) for k in (dyn_raw.get("disabled_keys") or [])) if isinstance(dyn_raw, dict) else set()
 
     port_closed = (_load(PORTFOLIO_FILE, {}) or {}).get("closed_trades") or []
-    shadow_closed = (_load(SHADOW_PAPER_FILE, {}) or {}).get("closed_trades") or []
+    shadow_closed = list((_load(SHADOW_PAPER_FILE, {}) or {}).get("closed_trades") or [])
+    shadow_arch = _load(SHADOW_ARCHIVE_FILE, [])
+    if isinstance(shadow_arch, list):
+        shadow_closed.extend(shadow_arch)
     inc_closed = (_load(INCUBATOR_FILE, {}) or {}).get("closed_trades") or []
 
     all_cells: Dict[str, Dict[str, Any]] = {k: dict(v) for k, v in _STATIC_WHITELIST_BASE.items()}
@@ -456,7 +488,10 @@ NEUE KANDIDATEN AUS DEM TIEFEN MATRIX-BACKTEST (bereits durch Python-Vorfilter a
 BEWERTUNGSREGELN (STRIKT EINHALTEN):
 1. "PILOT_LIVE" (0.15% Echtgeld-Risiko) darfst du NUR vergeben, wenn für die gewählten `allowed_directions` gilt: `math_pilot_eligible == true` (TR>=30, OOS>=10, PF>=1.35, Exp>=0.15R, OOS_Exp>=0.10R, p<0.05, t>=1.60, DD<=25%) UND die Kausalität überzeugt.
 2. Wenn eine bestehende `PILOT_LIVE`-Zelle auf tiefer Historie `math_pilot_eligible == false` ist, stufe sie auf "SHADOW_PAPER" herunter (oder auf "REJECTED", falls PF < 1.0 / stark negative Expectancy wie NEAR_1H / AVAX_1H).
-3. Wenn eine bestehende `SHADOW_PAPER`-Zelle im tiefen Backtest `math_pilot_eligible == true` erreicht UND hohe Kausalität besitzt -> stufe sie auf "PILOT_LIVE" hoch!
+3. STUFENLEITER FÜR SHADOW -> PILOT BEFÖRDERUNG (verbindlich vorab festgelegt):
+   - Ab >= 15 sauberen `shadow_paper_trades` mit `shadow_paper_ci95_low >= -0.05` (kein Widerspruch zum Backtest) -> Hochstufung auf `PILOT_LIVE` (mit 0.25x Pilot-Größe) prüfen.
+   - Ab >= 30 `shadow_paper_trades` mit `shadow_paper_ci95_low >= 0.0` -> volle 1.0x Pilot-Größe.
+   - `stalled_90d == true` (< 3 Signale nach >= 90 Tagen) -> prüfen, ob Regime-Filter pausiert oder Signal tot ist (ggf. absetzen).
 4. Nutze `modes_alt`: Falls nur eine Richtung stark positiv ist (z.B. Long&Short schwach, Nur Short stark), enge `allowed_directions` gezielt ein!
 5. Bei mehreren Zeitrahmen desselben Symbols nur die stärksten 1-2 Zellen freigeben; auf Diversifikation (Aktien, Rohstoffe, FX, Krypto) achten.
 

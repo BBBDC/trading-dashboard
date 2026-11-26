@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent
 SHADOW_PAPER_FILE = BASE_DIR / "knowledge_base" / "shadow_paper_portfolio.json"
 SHADOW_ARCHIVE_FILE = BASE_DIR / "knowledge_base" / "shadow_paper_archive.json"
 SIGNAL_ENGINE_VERSION = "portfolio_v2"
-EXIT_MODEL_VERSION = "backtest_parity_sl_first_v1"
+EXIT_MODEL_VERSION = "backtest_parity_sl_first_v2"
 
 
 def get_round_turn_friction_frac(symbol: str, category: str = "") -> float:
@@ -189,6 +189,21 @@ def update_shadow_paper_book(db_assets: List[Dict[str, Any]], now_dt: datetime) 
             t["current_price"] = c
 
             if direction == "LONG":
+                # 1. Konservativ SL ZUERST pruefen (vor TP1 und TP2, inkl. Gap)
+                if sl > 0 and l <= sl:
+                    exit_triggered = True
+                    exit_price = min(sl, o)
+                    exit_reason = "SHADOW_TRAIL_BE_EXIT" if t.get("tp1_partial_closed") else "SHADOW_SL_EXIT"
+                    exit_ts = bt
+                    break
+                # 2. TP2 Vollziel
+                if tp2 > 0 and h >= tp2:
+                    exit_triggered = True
+                    exit_price = tp2
+                    exit_reason = "SHADOW_TP2_EXIT"
+                    exit_ts = bt
+                    break
+                # 3. TP1 + Trailing-Stop fuer Folgekerzen
                 if not t.get("tp1_partial_closed") and tp1 > 0 and h >= tp1:
                     t["tp1_partial_closed"] = True
                     t["partial_tp_price"] = tp1
@@ -196,21 +211,22 @@ def update_shadow_paper_book(db_assets: List[Dict[str, Any]], now_dt: datetime) 
                 if t.get("tp1_partial_closed"):
                     sl = max(sl, h - 2.0 * a)
                 t["stop_loss"] = sl
-
-                # Konservativ SL vor TP2 (Backtest-Paritaet)
-                if sl > 0 and l <= sl:
+            else:
+                # 1. Konservativ SL ZUERST pruefen (vor TP1 und TP2, inkl. Gap)
+                if sl > 0 and h >= sl:
                     exit_triggered = True
-                    exit_price = min(sl, o)
+                    exit_price = max(sl, o)
                     exit_reason = "SHADOW_TRAIL_BE_EXIT" if t.get("tp1_partial_closed") else "SHADOW_SL_EXIT"
                     exit_ts = bt
                     break
-                if tp2 > 0 and h >= tp2:
+                # 2. TP2 Vollziel
+                if tp2 > 0 and l <= tp2:
                     exit_triggered = True
                     exit_price = tp2
                     exit_reason = "SHADOW_TP2_EXIT"
                     exit_ts = bt
                     break
-            else:
+                # 3. TP1 + Trailing-Stop fuer Folgekerzen
                 if not t.get("tp1_partial_closed") and tp1 > 0 and l <= tp1:
                     t["tp1_partial_closed"] = True
                     t["partial_tp_price"] = tp1
@@ -218,19 +234,6 @@ def update_shadow_paper_book(db_assets: List[Dict[str, Any]], now_dt: datetime) 
                 if t.get("tp1_partial_closed"):
                     sl = min(sl, l + 2.0 * a) if sl > 0 else (l + 2.0 * a)
                 t["stop_loss"] = sl
-
-                if sl > 0 and h >= sl:
-                    exit_triggered = True
-                    exit_price = max(sl, o)
-                    exit_reason = "SHADOW_TRAIL_BE_EXIT" if t.get("tp1_partial_closed") else "SHADOW_SL_EXIT"
-                    exit_ts = bt
-                    break
-                if tp2 > 0 and l <= tp2:
-                    exit_triggered = True
-                    exit_price = tp2
-                    exit_reason = "SHADOW_TP2_EXIT"
-                    exit_ts = bt
-                    break
 
         if exit_triggered:
             move_rem = (exit_price - entry_p) if direction == "LONG" else (entry_p - exit_price)

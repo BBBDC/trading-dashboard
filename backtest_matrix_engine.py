@@ -106,23 +106,66 @@ def calc_rma(series: List[float], length: int) -> List[Optional[float]]:
     return out
 
 def calc_wma(series: List[float], length: int) -> List[Optional[float]]:
-    out: List[Optional[float]] = [None] * len(series)
-    if len(series) < length:
+    n = len(series)
+    out: List[Optional[float]] = [None] * n
+    if n < length or length <= 0:
         return out
     denom = length * (length + 1) / 2.0
-    for i in range(length - 1, len(series)):
-        win = series[i - length + 1 : i + 1]
-        out[i] = sum(v * (k + 1) for k, v in enumerate(win)) / denom
+
+    def _window_sums(end_idx: int) -> tuple:
+        start = end_idx - length + 1
+        s = 0.0
+        w = 0.0
+        for k in range(length):
+            v = series[start + k]
+            s += v
+            w += v * (k + 1)
+        return w, s
+
+    w, s = _window_sums(length - 1)
+    out[length - 1] = w / denom
+    for i in range(length, n):
+        if (i - (length - 1)) % 2000 == 0:
+            w, s = _window_sums(i)
+        else:
+            x_new = series[i]
+            x_old = series[i - length]
+            w = w - s + length * x_new
+            s = s - x_old + x_new
+        out[i] = w / denom
     return out
 
+
 def calc_stdev(series: List[float], length: int) -> List[Optional[float]]:
-    out: List[Optional[float]] = [None] * len(series)
-    if len(series) < length:
+    n = len(series)
+    out: List[Optional[float]] = [None] * n
+    if n < length or length <= 0:
         return out
-    for i in range(length - 1, len(series)):
-        win = series[i - length + 1 : i + 1]
-        m = sum(win) / length
-        var = sum((x - m) ** 2 for x in win) / length
+
+    def _init_anchor(end_idx: int) -> tuple:
+        anchor = series[end_idx]
+        start = end_idx - length + 1
+        s1 = 0.0
+        s2 = 0.0
+        for k in range(length):
+            d = series[start + k] - anchor
+            s1 += d
+            s2 += d * d
+        return anchor, s1, s2
+
+    anchor, s1, s2 = _init_anchor(length - 1)
+    var = max(0.0, (s2 / length) - (s1 / length) ** 2)
+    out[length - 1] = math.sqrt(var)
+
+    for i in range(length, n):
+        if (i - (length - 1)) % 1000 == 0:
+            anchor, s1, s2 = _init_anchor(i)
+        else:
+            d_new = series[i] - anchor
+            d_old = series[i - length] - anchor
+            s1 += d_new - d_old
+            s2 += d_new * d_new - d_old * d_old
+        var = max(0.0, (s2 / length) - (s1 / length) ** 2)
         out[i] = math.sqrt(var)
     return out
 
@@ -145,18 +188,9 @@ def calc_rsi(closes: List[float], period: int = 14) -> List[Optional[float]]:
         out[i] = 100.0 if al == 0 else (100.0 - 100.0 / (1.0 + ag / al))
     return out
 
-# ==============================================================================
-# 3. EINZELNER BACKTEST-DURCHLAUF
-# ==============================================================================
-def run_single_backtest(
-    bars: List[Dict[str, Any]],
-    mode: str = "Long & Short",
-    timeframe: str = "1d",
-    fee_pct: float = 0.00055, # 0.055% Kommission pro Halfturn
-    slippage_pct: float = 0.0002 # 0.02% Slippage
-) -> Optional[Dict[str, Any]]:
+def precompute_indicators(bars: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+    """Berechnet alle Indikatoren einmalig pro Timeframe für alle 4 Modi vor."""
     n = len(bars)
-    # Mindestens 245 Bars für WMA 233
     if n < 245:
         return None
 
@@ -166,22 +200,60 @@ def run_single_backtest(
     opens = [b["o"] for b in bars]
     vols = [b["v"] for b in bars]
 
-    # True Range & ATR
     tr = [highs[0] - lows[0]]
     for i in range(1, n):
         tr.append(max(highs[i] - lows[i], abs(highs[i] - closes[i - 1]), abs(lows[i] - closes[i - 1])))
     atr14 = calc_rma(tr, 14)
 
-    # RFE WMA 233 & StDev
     wma_len = 233 if n >= 233 else n
     rfe_wma = calc_wma(closes, wma_len)
     rfe_std = calc_stdev(closes, wma_len)
     rsi14 = calc_rsi(closes, 14)
 
-    # VSA SMA20
-    vol_sma = [None] * n
-    for i in range(19, n):
-        vol_sma[i] = sum(vols[i - 19 : i + 1]) / 20.0
+    vol_sma: List[Optional[float]] = [None] * n
+    if n >= 20:
+        vsum = sum(vols[:20])
+        vol_sma[19] = vsum / 20.0
+        for i in range(20, n):
+            vsum += vols[i] - vols[i - 20]
+            vol_sma[i] = vsum / 20.0
+
+    return {
+        "n": n,
+        "closes": closes, "highs": highs, "lows": lows, "opens": opens, "vols": vols,
+        "atr14": atr14, "rfe_wma": rfe_wma, "rfe_std": rfe_std,
+        "rsi14": rsi14, "vol_sma": vol_sma, "wma_len": wma_len,
+    }
+
+
+# ==============================================================================
+# 3. EINZELNER BACKTEST-DURCHLAUF
+# ==============================================================================
+def run_single_backtest(
+    bars: List[Dict[str, Any]],
+    mode: str = "Long & Short",
+    timeframe: str = "1d",
+    fee_pct: float = 0.00055, # 0.055% Kommission pro Halfturn
+    slippage_pct: float = 0.0002, # 0.02% Slippage
+    precomputed: Optional[Dict[str, Any]] = None,
+    return_trades: bool = False
+) -> Optional[Dict[str, Any]]:
+    pre = precomputed if precomputed is not None else precompute_indicators(bars)
+    if pre is None:
+        return None
+
+    n = pre["n"]
+    closes = pre["closes"]
+    highs = pre["highs"]
+    lows = pre["lows"]
+    opens = pre["opens"]
+    vols = pre["vols"]
+    atr14 = pre["atr14"]
+    rfe_wma = pre["rfe_wma"]
+    rfe_std = pre["rfe_std"]
+    rsi14 = pre["rsi14"]
+    vol_sma = pre["vol_sma"]
+    wma_len = pre["wma_len"]
 
     # 70% In-Sample / 30% Out-of-Sample Split-Index
     split_idx = int(n * 0.70)
@@ -222,25 +294,14 @@ def run_single_backtest(
         if a is None or a <= 0:
             continue
 
-        # In-Flight Position Management
+        # In-Flight Position Management (Konservativ: SL vor TP2/TP1 pruefen)
         if pos_dir == 1:
-            # TP1 Touch (50% Tranche realisieren & SL auf Breakeven)
-            if not tp1_done and curr_h >= tp1:
-                tp1_done = True
-                sl = max(sl, entry_price)
-
-            # Trailing-Stop nach TP1
-            if tp1_done:
-                trail_stop = curr_h - 2.0 * a
-                sl = max(sl, trail_stop)
-
-            # Stop-Loss Touch (Konservativer Schutz vor Optimismus-Bias: Stop-Loss VOR TP2 prüfen!)
+            # 1. Stop-Loss Touch ZUERST pruefen + Gap-Adjust
             if curr_l <= sl:
                 actual_exit = min(sl, curr_o)  # Wenn Eröffnungskurs mit Gap unter Stop liegt
                 exit_p = actual_exit * (1.0 - slippage_pct)
                 eff_entry = entry_price * (1.0 + slippage_pct)
                 if tp1_done:
-                    # 50% bei TP1 gesichert, Rest bei Breakeven/Trailing ausgestoppt
                     raw_gain = ((tp1 - eff_entry) * 0.5 + (exit_p - eff_entry) * 0.5)
                 else:
                     raw_gain = exit_p - eff_entry
@@ -256,7 +317,7 @@ def run_single_backtest(
                 pos_dir = 0
                 pos_size = 0.0
 
-            # TP2 Vollziel
+            # 2. TP2 Vollziel
             elif curr_h >= tp2:
                 exit_p = tp2 * (1.0 - slippage_pct)
                 eff_entry = entry_price * (1.0 + slippage_pct)
@@ -273,17 +334,17 @@ def run_single_backtest(
                 pos_dir = 0
                 pos_size = 0.0
 
+            # 3. TP1 Touch & Trailing-Stop fuer Folgekerzen
+            else:
+                if not tp1_done and curr_h >= tp1:
+                    tp1_done = True
+                    sl = max(sl, entry_price)
+                if tp1_done:
+                    trail_stop = curr_h - 2.0 * a
+                    sl = max(sl, trail_stop)
+
         elif pos_dir == -1:
-            # TP1 Touch (Short)
-            if not tp1_done and curr_l <= tp1:
-                tp1_done = True
-                sl = min(sl, entry_price)
-
-            if tp1_done:
-                trail_stop = curr_l + 2.0 * a
-                sl = min(sl, trail_stop)
-
-            # SL Touch (Short: Konservativ vor TP2 prüfen + Gap-Adjust)
+            # 1. Stop-Loss Touch ZUERST pruefen + Gap-Adjust
             if curr_h >= sl:
                 actual_exit = max(sl, curr_o)  # Wenn Eröffnungskurs mit Gap über Stop liegt
                 exit_p = actual_exit * (1.0 + slippage_pct)
@@ -304,7 +365,7 @@ def run_single_backtest(
                 pos_dir = 0
                 pos_size = 0.0
 
-            # TP2 Vollziel
+            # 2. TP2 Vollziel
             elif curr_l <= tp2:
                 exit_p = tp2 * (1.0 + slippage_pct)
                 eff_entry = entry_price * (1.0 - slippage_pct)
@@ -320,6 +381,15 @@ def run_single_backtest(
                 })
                 pos_dir = 0
                 pos_size = 0.0
+
+            # 3. TP1 Touch & Trailing-Stop fuer Folgekerzen
+            else:
+                if not tp1_done and curr_l <= tp1:
+                    tp1_done = True
+                    sl = min(sl, entry_price)
+                if tp1_done:
+                    trail_stop = curr_l + 2.0 * a
+                    sl = min(sl, trail_stop)
 
         # Wenn flat: Setup-Prüfung für neuen Trade
         if pos_dir == 0:
@@ -416,12 +486,16 @@ def run_single_backtest(
     # Metriken auswerten
     total_trades = len(trades)
     if total_trades == 0:
-        return {
+        out_zero = {
             "trades": 0, "win_rate": 0.0, "profit_factor": 0.0,
             "total_return_pct": 0.0, "expectancy_r": 0.0, "total_r": 0.0,
             "max_dd_pct": 0.0, "is_wr": 0.0, "oos_wr": 0.0, "oos_trades": 0,
             "oos_r": 0.0, "verdict": "NO_TRADES"
         }
+        if return_trades:
+            out_zero["trade_r_list"] = []
+            out_zero["oos_r_list"] = []
+        return out_zero
 
     wins = [t for t in trades if t["is_win"]]
     losses = [t for t in trades if not t["is_win"]]
@@ -460,7 +534,7 @@ def run_single_backtest(
     else:
         verdict = "TOXIC_BLEED" # Rot
 
-    return {
+    out_res = {
         "trades": total_trades,
         "win_rate": wr,
         "profit_factor": pf,
@@ -475,6 +549,10 @@ def run_single_backtest(
         "oos_r": oos_r,
         "verdict": verdict
     }
+    if return_trades:
+        out_res["trade_r_list"] = [t["r"] for t in trades]
+        out_res["oos_r_list"] = [t["r"] for t in oos_trades]
+    return out_res
 
 # ==============================================================================
 # 4. GESAMTE MATRIX-AUSFÜHRUNG ÜBER ALLE ASSETS & TIMEFRAMES
