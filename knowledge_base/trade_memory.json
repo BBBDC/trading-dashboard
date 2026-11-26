@@ -1,7 +1,83 @@
 {
-  "updated_at": "2026-11-26T12:04:05.924987+00:00",
-  "total_experience_records": 112,
+  "updated_at": "2026-11-26T12:31:52.816194+00:00",
+  "total_experience_records": 116,
   "learnings": [
+    {
+      "timestamp": "2026-11-26T12:31:43.519925+00:00",
+      "trade_id": "cross_rule_1795696303",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Korrelations- und Relative-Stärke-Filter bei Signal-Clustern: Treten identische Mean-Reversion- oder Exhaustion-Signale zeitgleich über mehrere korrelierte Krypto-Assets auf, ist das Risiko auf maximal einen Slot zu bündeln — und zwar strikt auf das Asset mit der stärksten VSA-Divergenz und schwächsten Preisstruktur, nicht auf High-Beta-Outperformer.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "ETH und RENDER triggerten binnen 12 Sekunden dasselbe Short-Setup; während ETH flach blieb (+0.07%), kostete die unnötige Beta-Duplikation in RENDER (-0.53%) den gesamten Batch-Ertrag und blockierte parallel zwei Inkubator-Slots.",
+        "actionable_rule": "Korrelations- und Relative-Stärke-Filter bei Signal-Clustern: Treten identische Mean-Reversion- oder Exhaustion-Signale zeitgleich über mehrere korrelierte Krypto-Assets auf, ist das Risiko auf maximal einen Slot zu bündeln — und zwar strikt auf das Asset mit der stärksten VSA-Divergenz und schwächsten Preisstruktur, nicht auf High-Beta-Outperformer."
+      }
+    },
+    {
+      "timestamp": "2026-11-26T12:31:43.519902+00:00",
+      "trade_id": "cross_rule_1795696303",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Time-to-Impulse-Decay (Fraktale These-Verfallsregel): Erschöpfungs- und VSA-Surge-Setups müssen innerhalb von 3 bis 5 Kerzen der Einstiegs-Zeiteinheit einen klaren Impuls liefern (15m: 45–75 Min.; 4h: 12–20h; 1D: 3–5 Tage), sonst gilt der Volumen-Spike als absorbiert und der Trade wird aktiv beendet statt bis zum späten Time-Stop mitgeschleift.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Beide 15m-Trades hielten trotz 2.8x–3.1x VSA-Verkaufsdruck 48 Kerzen (12h) lang ohne Breakdown durch; hohes Volumen ohne sofortige Preisreaktion in Signalrichtung ist auf allen Zeitebenen ein Warnsignal für institutionelle Gegenseiten-Absorption.",
+        "actionable_rule": "Time-to-Impulse-Decay (Fraktale These-Verfallsregel): Erschöpfungs- und VSA-Surge-Setups müssen innerhalb von 3 bis 5 Kerzen der Einstiegs-Zeiteinheit einen klaren Impuls liefern (15m: 45–75 Min.; 4h: 12–20h; 1D: 3–5 Tage), sonst gilt der Volumen-Spike als absorbiert und der Trade wird aktiv beendet statt bis zum späten Time-Stop mitgeschleift."
+      }
+    },
+    {
+      "timestamp": "2026-11-26T12:31:43.519885+00:00",
+      "trade_id": "inc_RENDERUSDT_15m_1795653043",
+      "symbol": "RENDERUSDT",
+      "name": "Render",
+      "category": "Micro-Incubator (15m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Confluence Short",
+      "pnl_leveraged": -1.06,
+      "pnl_raw": -0.53,
+      "text": "Keine gleichzeitigen Short-Entries auf korrelierten High-Beta-Altcoins, wenn das Leitinstrument (ETH/BTC) keinen klaren Breakdown liefert; bei Cluster-Signalen darf nur der Markt mit der höchsten relativen Schwäche und stärksten VSA-Bestätigung gehandelt werden.",
+      "ai_post_mortem": {
+        "trade_id": "inc_RENDERUSDT_15m_1795653043",
+        "verdict": "LOSS",
+        "driver": "Der Short-Einstieg erfolgte als korrelierter Doppel-Entry auf einem High-Beta-Altcoin mit schwächerem VSA-Druck (2.8x vs. 3.1x bei ETH), dessen Verkaufsdruck von Käufern vollständig absorbiert wurde und in einen stetigen Aufwärtsdrift (-0.53% / -0.3R) mündete.",
+        "technical_warning": "Die relative Stärke von RENDER gegenüber ETH trotz identischem Top-Erschöpfungssignal sowie das geringere VSA-Verhältnis (2.8x) ohne sofortige Sweep-Ablehnung (Wick-Rejection) warnten früh vor einem Short-Squeeze-Risiko.",
+        "actionable_rule": "Keine gleichzeitigen Short-Entries auf korrelierten High-Beta-Altcoins, wenn das Leitinstrument (ETH/BTC) keinen klaren Breakdown liefert; bei Cluster-Signalen darf nur der Markt mit der höchsten relativen Schwäche und stärksten VSA-Bestätigung gehandelt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-26T12:31:43.519819+00:00",
+      "trade_id": "inc_ETHUSDT_15m_1795653031",
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "category": "Micro-Incubator (15m)",
+      "direction": "SHORT",
+      "result": "WIN",
+      "setup_name": "degencoder 15m Confluence Short",
+      "pnl_leveraged": 0.14,
+      "pnl_raw": 0.07,
+      "text": "Bei 15m-Exhaustion-Shorts muss innerhalb von maximal 4 bis 6 Kerzen (60–90 Min.) eine impulsive Bewegung Richtung mindestens +0.5R erfolgen; bleibt der Markt an der RFE-Upper-Zone kleben, ist die Position sofort auf Einstand oder kleinem Verlust zu schließen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_ETHUSDT_15m_1795653031",
+        "verdict": "WIN",
+        "driver": "Minimaler Nominalgewinn (+0.07% / 0.0R) ist de facto ein verkapptes Versagen der Short-These, da der 3.1x-VSA-Verkaufsdruck an der RFE-Upper-Zone keinen nachhaltigen Abwärtsimpuls auslöste und über 12 Stunden seitwärts absorbiert wurde.",
+        "technical_warning": "Ausbleibender Struktur-Bruch (BOS) und fehlende Folge-Kerzen mit abwärtsgerichtetem Momentum innerhalb der ersten 3 bis 4 Kerzen nach dem 3.1x VSA Volume Surge signalisierten passive Kauf-Absorption am Top.",
+        "actionable_rule": "Bei 15m-Exhaustion-Shorts muss innerhalb von maximal 4 bis 6 Kerzen (60–90 Min.) eine impulsive Bewegung Richtung mindestens +0.5R erfolgen; bleibt der Markt an der RFE-Upper-Zone kleben, ist die Position sofort auf Einstand oder kleinem Verlust zu schließen."
+      }
+    },
     {
       "timestamp": "2026-11-26T11:02:00.446462+00:00",
       "trade_id": "cross_rule_1795690920",
