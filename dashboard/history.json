@@ -1,5 +1,349 @@
 [
   {
+    "id": "evt_20261126_213429",
+    "timestamp": "2026-11-26T21:34:29.191526+00:00",
+    "timestamp_display": "26.11.2026 21:34 UTC",
+    "title": "🔔 TV-Signaländerung: 8 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 8,
+    "changes": [
+      {
+        "symbol": "BINANCE:ZECUSDT",
+        "name": "Zcash",
+        "category": "Crypto",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 68,
+        "new_score": 68,
+        "price": 722.64,
+        "setup_name": "🔭 HTF Reversal Watch (3D LONG)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          718.99,
+          718.99
+        ],
+        "stop_loss": 697.42,
+        "take_profit_2": 762.13,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 1D Institutional BUY Pocket (Lower Chaos < RFE 233)",
+          "degencoder: 1D Potential Buy Signal"
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "HTF Trendwende-Alarm (3D LONG): 3D degencoder Buy-Signal, 3D VSA Volumen-Spike (1.3x).",
+        "note": "🔭 HTF REVERSAL WATCH (3D LONG): 3D degencoder Buy-Signal, 3D VSA Volumen-Spike (1.3x) · Abstand zur EMA233: -28.3% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "3D",
+          "label": "🔭 3D Reversal Watch (LONG)",
+          "factors": [
+            "3D degencoder Buy-Signal",
+            "3D VSA Volumen-Spike (1.3x)"
+          ],
+          "ema233_distance_pct": -28.26,
+          "invalidation_level": 315.07
+        }
+      },
+      {
+        "symbol": "KRAKEN:RPLUSD",
+        "name": "RPLUSD",
+        "category": "Crypto",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 62,
+        "new_score": 59,
+        "price": 1.274,
+        "setup_name": "🔭 HTF Reversal Watch (1W LONG)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          1.27,
+          1.27
+        ],
+        "stop_loss": 1.23,
+        "take_profit_2": 1.35,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "SMC: Kurs im 4h Golden Pocket (1.27 - 1.28)",
+          "🟢 degencoder: 1h Sell Area (Rotes Kreuz am Band-Top)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "HTF Trendwende-Alarm (1W LONG): 1W degencoder Buy-Signal, 1W Reg. Bullische Divergenz, 1W VSA Volumen-Spike (3.0x).",
+        "note": "🔭 HTF REVERSAL WATCH (1W LONG): 1W degencoder Buy-Signal, 1W Reg. Bullische Divergenz, 1W VSA Volumen-Spike (3.0x) · Abstand zur EMA233: -23.3% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1W",
+          "label": "🔭 1W Reversal Watch (LONG)",
+          "factors": [
+            "1W degencoder Buy-Signal",
+            "1W Reg. Bullische Divergenz",
+            "1W VSA Volumen-Spike (3.0x)"
+          ],
+          "ema233_distance_pct": -23.31,
+          "invalidation_level": 0.46
+        }
+      },
+      {
+        "symbol": "COINBASE:BTCUSD",
+        "name": "Bitcoin",
+        "category": "Crypto",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 58,
+        "new_score": 54,
+        "price": 60887.81,
+        "setup_name": "Beobachten / Warten auf Reversal-Trigger im 1D Buy Pocket (No Trade Zone)",
+        "setup_family": "WAITING_OBSERVATION",
+        "entry_range": [
+          59500.0,
+          60200.0
+        ],
+        "stop_loss": 58200.0,
+        "take_profit_2": 68200.0,
+        "reasons": [
+          "HTF-Struktur bärisch trotz Überverkauftheit: 1W (RSI 34.8), 3D (RSI 24.82), 1D (RSI 29.35) und 4h (RSI 54.05) sind alle BÄRISCH; die 1h-Erholung (RSI 59.36) bleibt vorerst eine Gegenbewegung im Makro-Abwärtstrend.",
+          "Fehlender Reversal-Trigger & SMC-Leere: Zwar ist 1D_buy_pocket aktiv, jedoch fehlen sowohl ein Golden Pocket (in_gp: false) als auch ein aktiver Order Block (null) oder FVG (null); 4h weist keine Signale auf und 1h steht in der 'No Trade Zone'.",
+          "VSA-Schwäche & Divergenz-Konflikt: Auf 4h steht der regulären bullischen Divergenz eine versteckte bärische Trendfolge-Divergenz bei lediglich 'Low Volume' gegenüber, wodurch das Governor-Minimum (1.5x VSA) sowie die Krypto- und Gegentrend-Hürden (AX-01 >= 92%, AX-03 >= 95%) verfehlt werden."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz.",
+        "note": "Trotz tiefer Überverkauftheit auf 3D/1D und regulärer bullischer 1D-Divergenz im Buy Pocket fehlt jeder institutionelle Auslöser auf 4h/1h ('No Trade Zone', 4h Low Volume). Ohne bestätigtes degencoder-Signal, aktiven Order Block und einen klaren Strukturwechsel (MSS/BOS) verbietet sich das Greifen ins fallende Messer gegen den 1D-Bärentrend. Das Signal bleibt gemäß Hysterese und Multi-Asset-Korrelationsschutz strikt NEUTRAL; die genannten Preiszonen dienen ausschließlich als vorläufige Orientierung, falls ein valider 4h-Trigger mit starker VSA-Absorption folgt.",
+        "evaluated_by": "gemini-4-hydrogen [high]",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (LONG)",
+          "factors": [
+            "1D degencoder Buy-Signal",
+            "1D Reg. Bullische Divergenz"
+          ],
+          "ema233_distance_pct": -16.09,
+          "invalidation_level": 48304.94
+        }
+      },
+      {
+        "symbol": "BINANCE:HYPEUSDT.P",
+        "name": "HYPEUSDT.P",
+        "category": "Crypto",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 68,
+        "new_score": 52,
+        "price": 63.499,
+        "setup_name": "Beobachten / Lauerstellung am Support (1D Buy Pocket ohne Trigger - No Trade Zone)",
+        "setup_family": "WAITING_OBSERVATION",
+        "entry_range": [
+          61.5,
+          62.5
+        ],
+        "stop_loss": 59.5,
+        "take_profit_2": 74.5,
+        "reasons": [
+          "HTF-Struktur strikt bärisch: 1W (RSI 45.0), 3D (RSI 39.65), 1D (RSI 38.39) und 4h (RSI 55.95) befinden sich geschlossen im Abwärtstrend; nur 1h ist bullisch bei bereits überdehntem RSI von 67.57.",
+          "Fehlende Konfluenz & No Trade Zone: Trotz aktivem 1D_buy_pocket liegen weder ein aktiver Order Block (null), ein FVG (null) noch ein Golden Pocket (in_gp: false) vor; 4h liefert keine Signale und 1h meldet explizit 'No Trade Zone'.",
+          "VSA, Divergenzen & Governor-Sperre: 1D und 4h zeigen neben regulären bullischen Divergenzen jeweils eine versteckte bärische Trendfolge-Divergenz bei nur normalem 4h-Volumen; Krypto-Cluster (AX-01, min. Score 92%) und Gegentrend-Filter (AX-03, min. Score 95%, MSS/BOS, >= 2.5x VSA) sind klar nicht erfüllt."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Risiko-Update: SL/TP angepasst (SL: 59.50, TP2: 74.50).",
+        "note": "Kapitalerhalt hat oberste Priorität: Ein Einstieg gegen den intakten 1W/3D/1D/4h-Bärentrend ohne bestätigten 4h/1h-Trigger und innerhalb der 1h 'No Trade Zone' bei erhöhtem 1h-RSI (67.57) wäre reines Rauschen-Trading. Da weder ein aktiver Order Block noch ein FVG vorliegt und das Setup 'degencoder Institutional Buy Pocket Reversal' historisch unterperformt (30.0% Win-Rate), bleibt der Status strikt NEUTRAL (Hysterese zu previous_signal). Erst ein verifizierter Liquidity Sweep mit MSS/BOS, überdurchschnittlichem VSA-Volumen (>= 2.5x für High-Beta-Altcoins gemäß AX-03) und Score >= 95% außerhalb der No Trade Zone würde die unverbindliche Beobachtungszone validieren.",
+        "evaluated_by": "gemini-4-hydrogen [high]",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (LONG)",
+          "factors": [
+            "1D degencoder Buy-Signal",
+            "1D Reg. Bullische Divergenz"
+          ],
+          "ema233_distance_pct": -14.95,
+          "invalidation_level": 43.97
+        }
+      },
+      {
+        "symbol": "INDEX:BTCUSD",
+        "name": "BTCUSD",
+        "category": "Crypto",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 55,
+        "new_score": 52,
+        "price": 60887.81,
+        "setup_name": "Beobachten / Warten auf strukturellen Trigger (1D Buy Pocket vs. HTF-Bärenmarkt)",
+        "setup_family": "WAITING_OBSERVATION",
+        "entry_range": [
+          0,
+          0
+        ],
+        "stop_loss": 0.0,
+        "take_profit_2": 0.0,
+        "reasons": [
+          "HTF Struktur: 1W (RSI 34.8), 3D (RSI 25.98), 1D (RSI 29.41) und 4h (RSI 53.76) sind geschlossen BEARISH; die 1h-Erholung (BULLISH, RSI 58.54) stellt ohne 1D-Strukturbruch lediglich eine Bärenmarktrallye dar.",
+          "SMC / degencoder / GP: Zwar ist das 1D Buy Pocket aktiv, jedoch stehen weder ein Order Block noch ein FVG zur Verfügung (beide null), in_gp ist false und auf 1h greift explizit die 'No Trade Zone' ohne Trigger auf 4h.",
+          "VSA / Divergenz & Risk-Governor: Widersprüchliche Divergenzen (1D/4h/1h bullische Reversal-Divergenz vs. 4h versteckte bärische Trendfolge-Divergenz und 1h bärische Divergenz) sowie nur 'Normal Volume' auf 4h verfehlen AX-01 (Min-Score 92), AX-03 (Gegentrend Min-Score 95, MSS/BOS) und das VSA-Minimum."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Risiko-Update: SL/TP angepasst (SL: 0.00, TP2: 0.00).",
+        "note": "Trotz des aktiven 1D Buy Pockets und stark überverkaufter HTF-RSIs (1D/3D unter 30) verbietet der intakte Bärenmarkt über 1W, 3D, 1D und 4h einen blinden Long-Einstieg gegen den Trend. Ohne aktiven Order Block, ohne FVG und bei laufender 'No Trade Zone' auf 1h fehlen jegliche Reversal-Trigger sowie das für Krypto-Cluster (AX-01: Min-Score 92, max. 2x Hebel) und Gegentrend-Trades (AX-03: Min-Score 95) zwingende Bestätigungsprofil. Kapitalerhalt hat Priorität: Einstiege bleiben gesperrt, bis ein bestätigter Strukturbruch (MSS/BOS) mit überdurchschnittlichem VSA-Volumen oder ein klares 4h-Trendfolge-Short-Setup außerhalb des Buy Pockets entsteht.",
+        "evaluated_by": "gemini-4-hydrogen [high]",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (LONG)",
+          "factors": [
+            "1D degencoder Buy-Signal",
+            "1D Reg. Bullische Divergenz"
+          ],
+          "ema233_distance_pct": -16.08,
+          "invalidation_level": 50884.85
+        }
+      },
+      {
+        "symbol": "BINANCE:BTCUSD",
+        "name": "BTCUSD",
+        "category": "Crypto",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 52,
+        "new_score": 52,
+        "price": 60657.36,
+        "setup_name": "Beobachten / Warten auf strukturellen Trigger (1D Buy Pocket vs. HTF-Bärenmarkt)",
+        "setup_family": "WAITING_OBSERVATION",
+        "entry_range": [
+          60000.0,
+          60500.0
+        ],
+        "stop_loss": 59000.0,
+        "take_profit_2": 66500.0,
+        "reasons": [
+          "HTF-Struktur strikt bärisch über 1W (RSI 34.8), 3D (RSI 24.82), 1D (RSI 28.28) und 4h (RSI 52.64); 1h-Stärke (BULLISH, RSI 55.3) bleibt vorerst eine Bärenmarkterholung (Hysterese zu previous_signal=NEUTRAL).",
+          "SMC/degencoder ohne ausführbaren Trigger: 1D_buy_pocket ist aktiv, jedoch liegen weder aktives Golden Pocket (1D/4h in_gp=false), noch Order Block (null) oder FVG (null) vor; 4h_signals ist leer und 1h meldet 'No Trade Zone'.",
+          "VSA/Divergenz gemischt & Konstitutions-Gate: 4h zeigt 'Very Low Volume' samt versteckter bärischer Divergenz gegen reguläre bullische Divergenzen auf 1D/4h/1h; Crypto-Cluster (AX-01: Min-Score 92%), Counter-Trend-Gate (AX-03: Min-Score 95% + MSS/BOS) sowie Buy-Pocket-Dämpfer (30.0% Win-Rate) sperren jeden Einstieg."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz.",
+        "note": "Trotz aktivem 1D Buy Pocket und bullischen Divergenzen auf 1D/4h/1h verbietet das geschlossene bärische HTF-Regime (1W/3D/1D/4h BEARISH) bei fehlendem Order Block, fehlendem FVG und leerer 4h-Signallage einen Gegentrend-Long. Zusätzlich blockieren die 1h-'No Trade Zone', geringes 4h-VSA-Volumen ('Very Low Volume') sowie AX-01/AX-03 (Mindest-Score 92% bzw. 95% mit bestätigtem MSS/BOS und Sweep) jede Positionierung. Kapitalerhalt hat Vorrang: Abwarten auf ein klares 4h-Reversal-Signal mit Strukturbruch oder eine bärische Ablehnung am Widerstand; bei Signal-Clustern auf BTCUSD-Märkten gilt strikt ein Einzelslot-Limit.",
+        "evaluated_by": "gemini-4-hydrogen [high]",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (LONG)",
+          "factors": [
+            "1D degencoder Buy-Signal",
+            "1D Reg. Bullische Divergenz"
+          ],
+          "ema233_distance_pct": -16.33,
+          "invalidation_level": 48503.58
+        }
+      },
+      {
+        "symbol": "BITSTAMP:BTCUSD",
+        "name": "BTCUSD",
+        "category": "Crypto",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 50,
+        "new_score": 52,
+        "price": 60897.18,
+        "setup_name": "Beobachten / Warten auf strukturellen Trigger (1D Buy Pocket vs. HTF-Bärenmarkt)",
+        "setup_family": "WAITING_OBSERVATION",
+        "entry_range": [
+          60200.0,
+          60700.0
+        ],
+        "stop_loss": 59200.0,
+        "take_profit_2": 66700.0,
+        "reasons": [
+          "Übergeordnetes Regime vollständig bärisch auf 1W (RSI 34.8), 3D (RSI 25.89), 1D (RSI 29.25) und 4h (RSI 53.97); der bullische 1h-Trend (RSI 59.2) nähert sich der oberen RSI-Grenze und rechtfertigt keinen Bias-Wechsel gegenüber previous_signal=NEUTRAL.",
+          "Fehlende Zone-Trigger-Konfluenz: Trotz 1D_buy_pocket=true sind active_order_block (null), active_fvg (null) und 4h_signals ([]) leer, 1D/4h in_gp sind false und auf 1h greift 'No Trade Zone'.",
+          "VSA/Divergenz & Risikofilter: 4h weist nur 'Normal Volume' sowie eine versteckte bärische Trendfolge-Divergenz auf; gemäß AX-01 (Crypto Min-Score 92%), AX-03 (Counter-Trend Min-Score 95% + MSS/BOS) und Multi-Asset-Korrelationsfilter (identisches Basisasset wie BINANCE:BTCUSD) bleibt das Signal strikt NEUTRAL."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz.",
+        "note": "Die Ausgangslage ist nahezu deckungsgleich mit BINANCE:BTCUSD: Ein 1D Buy Pocket mit bullischen Divergenzen trifft auf einen intakten 1W/3D/1D/4h-Bärenmarkt ohne aktiven Order Block, ohne FVG und ohne bestätigten 4h-Trigger. Die 1h-'No Trade Zone', die versteckte bärische Divergenz auf 4h sowie die strengen Hürden der Constitution (AX-01 >= 92%, AX-03 >= 95% inkl. MSS/BOS, Buy-Pocket-Dämpfer bei 30.0% historischer Win-Rate) schließen einen Long- wie auch einen späten Short-Einstieg im überverkauften 1D-Bereich (RSI 29.25) aus. Beobachtungsstatus beibehalten und im Falle eines späteren validen Triggers aufgrund der 100%-Korrelation zu BINANCE:BTCUSD maximal einen BTC-Slot allokieren.",
+        "evaluated_by": "gemini-4-hydrogen [high]",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (LONG)",
+          "factors": [
+            "1D degencoder Buy-Signal",
+            "1D Reg. Bullische Divergenz"
+          ],
+          "ema233_distance_pct": -16.1,
+          "invalidation_level": 48289.88
+        }
+      },
+      {
+        "symbol": "CRYPTOCAP:BTC.D",
+        "name": "BTC Dominanz",
+        "category": "Krypto-Makro",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 52,
+        "new_score": 48,
+        "price": 59.21598794800049,
+        "setup_name": "Beobachten / Warten auf strukturellen Trigger (No Trade Zone)",
+        "setup_family": "WAITING_OBSERVATION",
+        "entry_range": [
+          0,
+          0
+        ],
+        "stop_loss": 0.0,
+        "take_profit_2": 0.0,
+        "reasons": [
+          "HTF Struktur: Gespaltenes Makrobild mit BULLISH auf 1W (RSI 45.54), aber BEARISH auf 3D (RSI 41.51), 1D (RSI 36.7) und 4h (RSI 53.19); der 1h-Trend (BULLISH, RSI 55.58) ist nur eine untergeordnete Gegenbewegung.",
+          "SMC / degencoder / GP: Trotz aktivem 1D Buy Pocket liegen keine 4h-Signale vor, der 1h-Chart befindet sich in der 'No Trade Zone', und weder Golden Pocket (in_gp: false) noch Order Block oder FVG (beide null) bieten eine valide Zone.",
+          "VSA / Divergenz & Risk-Governor: 1D und 4h zeigen versteckte bärische Trendfolge-Divergenzen (4h zusätzlich reguläre bärische Reversal-Divergenz) bei lediglich 'Normal Volume' auf 4h und 1h; dies verfehlt die strengen Hürden für Krypto-Makro/AX-01 (Min-Score 92) und AX-03 deutlich."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Risiko-Update: SL/TP angepasst (SL: 0.00, TP2: 0.00).",
+        "note": "BTC.D steckt zwischen dem übergeordnet bullischen 1W-Trend samt 1D Buy Pocket und einer intakten bärischen Struktur auf 3D, 1D und 4h mit anhaltenden bärischen Trendfolge-Divergenzen fest. Da auf 1h die 'No Trade Zone' aktiv ist, auf 4h jegliche degencoder-Signale fehlen und das Volumen auf beiden Taktikebenen nur normal ausfällt, existiert aktuell kein handelbares Asymmetrie-Edge. Angesichts der historischen Sektor-Schwäche in 'Krypto-Makro' (0% Win-Rate) und der Hysterese zum vorherigen NEUTRAL-Signal bleiben Long- und Short-Positionen strikt ausgesetzt, bis entweder ein klarer MSS/BOS mit VSA-Bestätigung über dem lokalen Swing oder ein sauberer 4h-Short-Trigger nach Abschluss der 1h-Erholung vorliegt.",
+        "evaluated_by": "gemini-4-hydrogen [high]",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "3D",
+          "label": "🔭 3D Reversal Watch (LONG)",
+          "factors": [
+            "3D degencoder Buy-Signal",
+            "3D Reg. Bullische Divergenz"
+          ],
+          "ema233_distance_pct": -0.87,
+          "invalidation_level": 58.92
+        }
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 8 Einstufungen haben sich geändert:\n\n⚪ Zcash (ZECUSDT):\n   Score-Sprung: 68% ➔ 68% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (3D LONG): 3D degencoder Buy-Signal, 3D VSA Volumen-Spike (1.3x).\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (3D LONG): 3D degencoder Buy-Signal, 3D VSA Volumen-Spike (1.3x) · Abstand zur EMA233: -28.3% (Stufe-1-Alarm,...\n   Setup: 🔭 HTF Reversal Watch (3D LONG)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n⚪ RPLUSD (RPLUSD):\n   Score-Sprung: 62% ➔ 59% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1W LONG): 1W degencoder Buy-Signal, 1W Reg. Bullische Divergenz, 1W VSA Volumen-Spike (3.0x).\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (1W LONG): 1W degencoder Buy-Signal, 1W Reg. Bullische Divergenz, 1W VSA Volumen-Spike (3.0x) · Abstand zur E...\n   Setup: 🔭 HTF Reversal Watch (1W LONG)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n⚪ Bitcoin (BTCUSD):\n   Score-Sprung: 58% ➔ 54% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz.\n   📝 KI-Rationale: Trotz tiefer Überverkauftheit auf 3D/1D und regulärer bullischer 1D-Divergenz im Buy Pocket fehlt jeder institutionelle Auslöser a...\n   Setup: Beobachten / Warten auf Reversal-Trigger im 1D Buy Pocket (No Trade Zone)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n⚪ HYPEUSDT.P (HYPEUSDT.P):\n   Score-Sprung: 68% ➔ 52% (NEUTRAL)\n   💡 Grund: Risiko-Update: SL/TP angepasst (SL: 59.50, TP2: 74.50).\n   📝 KI-Rationale: Kapitalerhalt hat oberste Priorität: Ein Einstieg gegen den intakten 1W/3D/1D/4h-Bärentrend ohne bestätigten 4h/1h-Trigger und inn...\n   Setup: Beobachten / Lauerstellung am Support (1D Buy Pocket ohne Trigger - No Trade Zone)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n⚪ BTCUSD (BTCUSD):\n   Score-Sprung: 55% ➔ 52% (NEUTRAL)\n   💡 Grund: Risiko-Update: SL/TP angepasst (SL: 0.00, TP2: 0.00).\n   📝 KI-Rationale: Trotz des aktiven 1D Buy Pockets und stark überverkaufter HTF-RSIs (1D/3D unter 30) verbietet der intakte Bärenmarkt über 1W, 3D, ...\n   Setup: Beobachten / Warten auf strukturellen Trigger (1D Buy Pocket vs. HTF-Bärenmarkt)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n⚪ BTCUSD (BTCUSD):\n   Score-Sprung: 52% ➔ 52% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz.\n   📝 KI-Rationale: Trotz aktivem 1D Buy Pocket und bullischen Divergenzen auf 1D/4h/1h verbietet das geschlossene bärische HTF-Regime (1W/3D/1D/4h BE...\n   Setup: Beobachten / Warten auf strukturellen Trigger (1D Buy Pocket vs. HTF-Bärenmarkt)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n... und 2 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261126_200538",
     "timestamp": "2026-11-26T20:05:38.380608+00:00",
     "timestamp_display": "26.11.2026 20:05 UTC",
@@ -24848,70 +25192,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 4 Einstufungen haben sich geändert:\n\n🟢 Conagra Brands (CAG):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 2: degencoder Indicator Reversal Signal\n   Entry: 15.15 | SL: 14.74 | TP2: 16.97\n\n🔴 Netflix (NFLX):\n   Score-Sprung: 90% ➔ 95% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R3] Exhaustion' (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R3] Exhaustion\n   Entry: 64.15 | SL: 66.53 | TP2: 57.08\n\n🔴 GLD (GLD):\n   Score-Sprung: 89% ➔ 95% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 89% auf 95% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R8] Exhaustion\n   Entry: 371.39 | SL: 385.15 | TP2: 330.47\n\n🔴 Uber (UBER):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R4] Exhaustion\n   Entry: 69.59 | SL: 72.17 | TP2: 61.92\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261106_144816",
-    "timestamp": "2026-11-06T14:48:16.866360+00:00",
-    "timestamp_display": "06.11.2026 14:48 UTC",
-    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 2,
-    "changes": [
-      {
-        "symbol": "AMEX:GLD",
-        "name": "GLD",
-        "category": "Aktien",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 60,
-        "new_score": 89,
-        "price": 370.15,
-        "setup_name": "Hypothese 1: SMC Order Block Confluence",
-        "entry_range": [
-          375.0,
-          377.5
-        ],
-        "stop_loss": 380.5,
-        "take_profit_2": 365.0,
-        "reasons": [
-          "1W und 1D Trends eindeutig bärisch, 1D zeigt versteckte bärische Divergenz",
-          "Aktiver Bearish Order Block (Grad A, Badge R8) mit durchgeführtem Liquiditäts-Sweep",
-          "4h und 1h Sell Area Signale bestätigen bärische Konfluenz bei nachlassendem Volumen"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1W und 1D Trends eindeutig bärisch, 1D zeigt versteckte bärische Divergenz).",
-        "note": "GLD weist eine exzellente technische Konfluenz auf. Der übergeordnete Bärentrend wird durch den Test eines hochgradigen Bearish OBs (Grad A mit Sweep) bestätigt. Der Einstieg wird mit einem fairen CRV gesichert; ein Ausbruch über 380.5 USD macht die These ungültig.",
-        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...oFUw]"
-      },
-      {
-        "symbol": "NYSE:UBER",
-        "name": "Uber",
-        "category": "Mobility / Tech",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 90,
-        "new_score": 55,
-        "price": 68.3,
-        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
-        "entry_range": [
-          0.0,
-          0.0
-        ],
-        "stop_loss": 0.0,
-        "take_profit_2": 0.0,
-        "reasons": [
-          "Konflikt zwischen 1D Buy Pocket (potenzieller Support) und bärischem Makro-Trend",
-          "Widersprüchliche Divergenzen auf 4h und 1h verhindern ein eindeutiges Edge",
-          "Sektor-Performance im historischen Gedächtnis erfordert strikte Disziplin"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Konflikt zwischen 1D Buy Pocket (potenzieller Support) und bärischem Makro-Trend).",
-        "note": "Obwohl der übergeordnete Trend bärisch ist, befindet sich der Kurs in einer 1D Buy Pocket. Aufgrund der gemischten Signale und der geschätzten geringen Setup-Qualität bleibt die Einstufung gemäß Regel 4 streng NEUTRAL. Kapitalerhalt hat hier absoluten Vorrang.",
-        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...oFUw]"
-      }
-    ],
-    "notification_sent": false,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n🔴 GLD (GLD):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 89%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1W und 1D Trends eindeutig bärisch, 1D zeigt versteckte bärische Divergenz).\n   📝 KI-Rationale: GLD weist eine exzellente technische Konfluenz auf. Der übergeordnete Bärentrend wird durch den Test eines hochgradigen Bearish OB...\n   Setup: Hypothese 1: SMC Order Block Confluence\n   Entry: 375.00 | SL: 380.50 | TP2: 365.00\n\n⚪ Uber (UBER):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 55%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Konflikt zwischen 1D Buy Pocket (potenzieller Support) und bärischem Makro-Trend).\n   📝 KI-Rationale: Obwohl der übergeordnete Trend bärisch ist, befindet sich der Kurs in einer 1D Buy Pocket. Aufgrund der gemischten Signale und der...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
