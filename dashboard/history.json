@@ -1,5 +1,60 @@
 [
   {
+    "id": "evt_20261127_090354",
+    "timestamp": "2026-11-27T09:03:54.301105+00:00",
+    "timestamp_display": "27.11.2026 09:03 UTC",
+    "title": "🔔 TV-Signaländerung: 1 Asset aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 1,
+    "changes": [
+      {
+        "symbol": "TRADEGATE:A1TNDG",
+        "name": "A1TNDG (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 68,
+        "new_score": 68,
+        "price": 97.21,
+        "setup_name": "🔭 HTF Reversal Watch (1D LONG)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          97.21,
+          97.21
+        ],
+        "stop_loss": 94.29,
+        "take_profit_2": 103.04,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "SMC: Kurs im 4h Golden Pocket (97.19 - 97.34)",
+          "SMC FVG: 4h Bullish Imbalance (95.575 - 97.212)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "HTF Trendwende-Alarm (1D LONG): 1D EMA-Fast zurückerobert, 1D degencoder Buy-Signal.",
+        "note": "🔭 HTF REVERSAL WATCH (1D LONG): 1D EMA-Fast zurückerobert, 1D degencoder Buy-Signal · Abstand zur EMA233: -0.2% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (LONG)",
+          "factors": [
+            "1D EMA-Fast zurückerobert",
+            "1D degencoder Buy-Signal"
+          ],
+          "ema233_distance_pct": -0.25,
+          "invalidation_level": 93.92
+        }
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n⚪ A1TNDG (Tradegate) (A1TNDG):\n   Score-Sprung: 68% ➔ 68% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1D LONG): 1D EMA-Fast zurückerobert, 1D degencoder Buy-Signal.\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (1D LONG): 1D EMA-Fast zurückerobert, 1D degencoder Buy-Signal · Abstand zur EMA233: -0.2% (Stufe-1-Alarm, Au...\n   Setup: 🔭 HTF Reversal Watch (1D LONG)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261127_060240",
     "timestamp": "2026-11-27T06:02:40.131482+00:00",
     "timestamp_display": "27.11.2026 06:02 UTC",
@@ -25138,99 +25193,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🔴 GLMRUSDT (GLMRUSDT):\n   Score-Sprung: 95% ➔ 93% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R4] Exhaustion' (Vollständige HTF-Konfluenz im Bärenmarkt: 1W, 3D, 1D und 4h befinden sich im klaren Abwärtstrend).\n   📝 KI-Rationale: GLMRUSDT bietet ein institutionelles A-Setup entlang des übergeordneten Makro-Abwärtstrends. Der Sweep über die jüngsten Hochs in ...\n   Setup: Hypothese 1: SMC Order Block [R4] Exhaustion\n   Entry: 0.01 | SL: 0.01 | TP2: 0.01\n\n⚪ BTC Dominanz (BTC.D):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 62%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1W-, 3D- und 1D-Makrotrends sind intakt bullisch, jedoch zeigt 1D aktuell ein Sell-Pocket-Umfeld an).\n   📝 KI-Rationale: Obwohl der übergeordnete Trend der BTC-Dominanz bullisch bleibt, befindet sich der Kurs direkt an einem bereits 4-fach angetestete...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n⚪ ETHBTC (ETHBTC):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend auf 1W, 3D und 1D ist strikt bärisch, jedoch zeigt 4h kurzfristigen Gegenwind mit bullischer Tendenz und 1h ein Reversal-Signal.).\n   📝 KI-Rationale: Trotz des vorangegangenen Short-Signals und übergeordneter Schwäche bietet das aktuelle Niveau kein asymmetrisches CRV mehr für ne...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261107_222520",
-    "timestamp": "2026-11-07T22:25:20.929881+00:00",
-    "timestamp_display": "07.11.2026 22:25 UTC",
-    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 3,
-    "changes": [
-      {
-        "symbol": "CRYPTOCAP:BTC.D",
-        "name": "BTC Dominanz",
-        "category": "Krypto-Makro",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 52,
-        "new_score": 96,
-        "price": 60.46055322753839,
-        "setup_name": "Hypothese 1: degencoder Institutional Buy Pocket Reversal",
-        "entry_range": [
-          59.99,
-          60.59
-        ],
-        "stop_loss": 58.35,
-        "take_profit_2": 67.25,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "1W Makro-Trend bullisch bestätigt",
-          "degencoder: 4h Institutional BUY Pocket (Lower Chaos Band unter RFE 233)",
-          "degencoder: 1D Institutional SELL Pocket (Upper Chaos Band über RFE 233)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "BINANCE:GLMRUSDT",
-        "name": "GLMRUSDT",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 50,
-        "new_score": 95,
-        "price": 0.007322,
-        "setup_name": "Hypothese 1: SMC Order Block [R3] Exhaustion",
-        "entry_range": [
-          0.01,
-          0.01
-        ],
-        "stop_loss": 0.01,
-        "take_profit_2": -0.0,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "degencoder: 1h Sell Area (Rotes Kreuz)",
-          "degencoder: 4h Good Buy Signal (Blaues Dreieck Umkehrkerze)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "COINBASE:ETHBTC",
-        "name": "ETHBTC",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 48,
-        "new_score": 95,
-        "price": 0.029469,
-        "setup_name": "Hypothese 1: degencoder Institutional Sell Pocket Reversal",
-        "entry_range": [
-          0.03,
-          0.03
-        ],
-        "stop_loss": 0.03,
-        "take_profit_2": 0.03,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "degencoder: 4h Institutional SELL Pocket (Upper Chaos Band über RFE 233)",
-          "degencoder: 1h Potential Buy Signal (Blaues Dreieck)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🟢 BTC Dominanz (BTC.D):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: degencoder Institutional Buy Pocket Reversal\n   Entry: 59.99 | SL: 58.35 | TP2: 67.25\n\n🔴 GLMRUSDT (GLMRUSDT):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R3] Exhaustion\n   Entry: 0.01 | SL: 0.01 | TP2: -0.00\n\n🔴 ETHBTC (ETHBTC):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: degencoder Institutional Sell Pocket Reversal\n   Entry: 0.03 | SL: 0.03 | TP2: 0.03\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
