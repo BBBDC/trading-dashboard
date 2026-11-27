@@ -1,7 +1,70 @@
 {
-  "updated_at": "2026-11-27T08:31:03.150179+00:00",
-  "total_experience_records": 119,
+  "updated_at": "2026-11-27T09:03:47.261845+00:00",
+  "total_experience_records": 122,
   "learnings": [
+    {
+      "timestamp": "2026-11-27T09:03:37.710951+00:00",
+      "trade_id": "cross_rule_1795770217",
+      "source_book": "INCUBATOR_RESEARCH",
+      "scope": "INCUBATOR",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Leitmarkt-Orderflow und Stop-Platzierung beachten: Bei europäisch gehandelten US-Titeln (wie NVD.F in Frankfurt/XETRA) müssen Widerstands-Zonen auf 4h/1D gegen die US-Leitmarkt-Struktur (NASDAQ) validiert und enge Stops unmittelbar über offensichtlichen OB-Levels vermieden werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der direkte Durchbruch über 142.15 zeigt, dass lokale 30m-Orderblocks ohne Rückendeckung des übergeordneten Trends und der primären US-Liquidität keinen tragfähigen Widerstand bieten.",
+        "actionable_rule": "Leitmarkt-Orderflow und Stop-Platzierung beachten: Bei europäisch gehandelten US-Titeln (wie NVD.F in Frankfurt/XETRA) müssen Widerstands-Zonen auf 4h/1D gegen die US-Leitmarkt-Struktur (NASDAQ) validiert und enge Stops unmittelbar über offensichtlichen OB-Levels vermieden werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-27T09:03:37.710916+00:00",
+      "trade_id": "cross_rule_1795770217",
+      "source_book": "INCUBATOR_RESEARCH",
+      "scope": "INCUBATOR",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Fraktale Trend-Dominanz vor Erschöpfungs-Signalen: Auf 4h/1D dürfen 'Sell Area'- und Overextension-Marker (RFE Upper / R5) gegen den übergeordneten Trend niemals als eigenständiger Entry dienen, sondern nur nach bestätigtem Liquidity-Sweep [A] und strukturellem Shift (CHoCH/BOS) gehandelt werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der NVD.F 30m-Verlust bestätigt, dass extreme Ausdehnungszonen bei High-Beta-Momentum-Titeln primär Trendstärke signalisieren und statische Widerstands-Shorts systematisch über den Stops abgeräumt werden.",
+        "actionable_rule": "Fraktale Trend-Dominanz vor Erschöpfungs-Signalen: Auf 4h/1D dürfen 'Sell Area'- und Overextension-Marker (RFE Upper / R5) gegen den übergeordneten Trend niemals als eigenständiger Entry dienen, sondern nur nach bestätigtem Liquidity-Sweep [A] und strukturellem Shift (CHoCH/BOS) gehandelt werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-27T09:03:37.710847+00:00",
+      "trade_id": "inc_NVD.F_30m_1795766478",
+      "source_book": "INCUBATOR_RESEARCH",
+      "scope": "INCUBATOR",
+      "timeframe": "30m",
+      "symbol": "NVD.F",
+      "name": "Nvidia",
+      "category": "Micro-Incubator (30m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 30m Confluence Short",
+      "pnl_leveraged": -2.66,
+      "pnl_raw": -1.33,
+      "text": "Bei Bearish-OB-[B]-Retests an extremen Pivot-/RFE-Bändern (R5) niemals direkt auf das Erschöpfungssignal shorten, sondern zwingend einen Sweep über das Level plus anschließenden Strukturbruch und bearishe VSA-Volumenbestätigung abwarten.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NVD.F_30m_1795766478",
+        "verdict": "LOSS",
+        "driver": "Der Short-Einstieg stellte sich blind gegen starkes Aufwärtsmomentum in einen extrem überdehnten R5-Bereich, sodass der Bearish OB [B] als Liquiditätsmagnet für einen Stop-Run über dem Widerstand diente.",
+        "technical_warning": "Das Erreichen von R5 und RFE Upper ohne vorangegangenen sauberen Liquidity-Sweep [A], ohne VSA-Abweisungsvolumen (Selling Climax mit tiefem Close) und ohne bestätigten Strukturbruch (CHoCH) warnt vor einem Trend-Durchbruch ('Walking the Band') statt einer Top-Bildung.",
+        "actionable_rule": "Bei Bearish-OB-[B]-Retests an extremen Pivot-/RFE-Bändern (R5) niemals direkt auf das Erschöpfungssignal shorten, sondern zwingend einen Sweep über das Level plus anschließenden Strukturbruch und bearishe VSA-Volumenbestätigung abwarten."
+      }
+    },
     {
       "timestamp": "2026-11-26T20:05:21.195860+00:00",
       "trade_id": "cross_rule_1795723521",
