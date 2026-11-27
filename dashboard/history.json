@@ -1,5 +1,60 @@
 [
   {
+    "id": "evt_20261127_110143",
+    "timestamp": "2026-11-27T11:01:43.507269+00:00",
+    "timestamp_display": "27.11.2026 11:01 UTC",
+    "title": "🔔 TV-Signaländerung: 1 Asset aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 1,
+    "changes": [
+      {
+        "symbol": "SP:SPX",
+        "name": "S&P 500",
+        "category": "Indizes",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 68,
+        "new_score": 68,
+        "price": 7182.78,
+        "setup_name": "🔭 HTF Reversal Watch (1D LONG)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          7182.78,
+          7182.78
+        ],
+        "stop_loss": 6967.3,
+        "take_profit_2": 7613.75,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "degencoder: 1D Institutional BUY Pocket (Lower Chaos < RFE 233)",
+          "degencoder: 1D Potential Buy Signal"
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz.",
+        "note": "🔭 HTF REVERSAL WATCH (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz · Abstand zur EMA233: -4.0% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (LONG)",
+          "factors": [
+            "1D degencoder Buy-Signal",
+            "1D Reg. Bullische Divergenz"
+          ],
+          "ema233_distance_pct": -4.05,
+          "invalidation_level": 6527.59
+        }
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n⚪ S&P 500 (SPX):\n   Score-Sprung: 68% ➔ 68% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz.\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz · Abstand zur EMA233: -4.0% (Stufe-1-Alarm, ...\n   Setup: 🔭 HTF Reversal Watch (1D LONG)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261127_103525",
     "timestamp": "2026-11-27T10:35:25.202461+00:00",
     "timestamp_display": "27.11.2026 10:35 UTC",
@@ -25160,44 +25215,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n🔴 GLMRUSDT (GLMRUSDT):\n   Score-Sprung: 88% ➔ 93% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block Confluence' (Strikter HTF-Bärenmarkt auf 1W, 3D und 1D vollkommen intakt.).\n   📝 KI-Rationale: GLMRUSDT bestätigt nach der Bärenmarktrallye erneut die HTF-Abwärtsstruktur. Der Re-Test des Grad-A Bearish OBs mit erfolgtem Swee...\n   Setup: Hypothese 1: SMC Order Block Confluence\n   Entry: 0.01 | SL: 0.01 | TP2: 0.01\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261108_062328",
-    "timestamp": "2026-11-08T06:23:28.011243+00:00",
-    "timestamp_display": "08.11.2026 06:23 UTC",
-    "title": "🔔 TV-Signaländerung: 1 Asset aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 1,
-    "changes": [
-      {
-        "symbol": "BINANCE:GLMRUSDT",
-        "name": "GLMRUSDT",
-        "category": "Crypto",
-        "change_type": "SETUP_UPDATE",
-        "old_signal": "SHORT",
-        "new_signal": "SHORT",
-        "old_score": 93,
-        "new_score": 88,
-        "price": 0.007103,
-        "setup_name": "Hypothese 1: SMC Order Block [R5] Exhaustion",
-        "entry_range": [
-          0.00707,
-          0.0072
-        ],
-        "stop_loss": 0.00735,
-        "take_profit_2": 0.0061,
-        "reasons": [
-          "Makro-Trend (1W, 3D, 1D, 4h) durchgehend stark bärisch, im Einklang mit strikter HTF-Direktion.",
-          "Mehrfache versteckte bärische Divergenzen auf 1D, 4h und 1h signalisieren Fortsetzung der Abwärtsstruktur.",
-          "Bereits abgemilderter Grad-A Bearish OB (R5) mit Liquidity-Sweep bestätigt professionellen Angebotsoberüberhang."
-        ],
-        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R5] Exhaustion' (Makro-Trend (1W, 3D, 1D, 4h) durchgehend stark bärisch, im Einklang mit strikter HTF-Direktion.).",
-        "note": "Der Makro-Trend zeigt eine intakte bärische Marktstruktur. Trotz der kurzfristigen 1h/4h Buy-Signale handelt es sich im Kontext des übergeordneten Abwärtstrends primär um Gegen trend-Fehl-Signale an der Liquidität. Gemäß Historieregel: Sobald der Trade 1R bzw. 3% Buchgewinn erreicht, ist der Stop-Loss zwingend auf Break-Even nachzuziehen.",
-        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...kcWw]"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n🔴 GLMRUSDT (GLMRUSDT):\n   Score-Sprung: 93% ➔ 88% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R5] Exhaustion' (Makro-Trend (1W, 3D, 1D, 4h) durchgehend stark bärisch, im Einklang mit strikter HTF-Direktion.).\n   📝 KI-Rationale: Der Makro-Trend zeigt eine intakte bärische Marktstruktur. Trotz der kurzfristigen 1h/4h Buy-Signale handelt es sich im Kontext de...\n   Setup: Hypothese 1: SMC Order Block [R5] Exhaustion\n   Entry: 0.01 | SL: 0.01 | TP2: 0.01\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
