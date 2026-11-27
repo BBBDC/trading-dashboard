@@ -1,5 +1,143 @@
 [
   {
+    "id": "evt_20261127_183712",
+    "timestamp": "2026-11-27T18:37:12.169491+00:00",
+    "timestamp_display": "27.11.2026 18:37 UTC",
+    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 3,
+    "changes": [
+      {
+        "symbol": "AMEX:XLU",
+        "name": "US Utilities ETF (XLU)",
+        "category": "Aktien",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 62,
+        "new_score": 62,
+        "price": 43.73,
+        "setup_name": "🔭 HTF Reversal Watch (1D SHORT)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          43.73,
+          43.73
+        ],
+        "stop_loss": 42.42,
+        "take_profit_2": 46.35,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "SMC: Kurs im 4h Golden Pocket (43.72 - 43.78)",
+          "SMC FVG: 1D Bearish Imbalance (43.72 - 43.95)",
+          "Aktiv: 1h Versteckte Bärische Divergenz (Trendfolge)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "HTF Trendwende-Alarm (1D SHORT): 1D degencoder Sell-Signal, 1D Reg. Bärische Divergenz.",
+        "note": "🔭 HTF REVERSAL WATCH (1D SHORT): 1D degencoder Sell-Signal, 1D Reg. Bärische Divergenz · Abstand zur EMA233: +2.5% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "SHORT",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (SHORT)",
+          "factors": [
+            "1D degencoder Sell-Signal",
+            "1D Reg. Bärische Divergenz"
+          ],
+          "ema233_distance_pct": 2.53,
+          "invalidation_level": 44.98
+        }
+      },
+      {
+        "symbol": "CAPITALCOM:ALUMINUM",
+        "name": "ALUMINUM",
+        "category": "Rohstoffe & Metalle",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 54,
+        "new_score": 62,
+        "price": 2786.0,
+        "setup_name": "🔭 HTF Reversal Watch (1W LONG)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          2786.0,
+          2786.0
+        ],
+        "stop_loss": 2702.42,
+        "take_profit_2": 2953.16,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "Aktiv: 1h Versteckte Bärische Divergenz (Trendfolge)",
+          "Aktiv: 4h Versteckte Bärische Divergenz (Trendfolge)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Beobachtung",
+        "holding_period": "Konsolidierung",
+        "change_reason": "Risiko-Update: SL/TP angepasst (SL: 2702.42, TP2: 2953.16).",
+        "note": "🔭 HTF REVERSAL WATCH (1W LONG): 1W degencoder Buy-Signal, 1W VSA Volumen-Spike (9.3x) · Abstand zur EMA233: -16.2% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1W",
+          "label": "🔭 1W Reversal Watch (LONG)",
+          "factors": [
+            "1W degencoder Buy-Signal",
+            "1W VSA Volumen-Spike (9.3x)"
+          ],
+          "ema233_distance_pct": -16.24,
+          "invalidation_level": 2478.27
+        }
+      },
+      {
+        "symbol": "NYSE:CAG",
+        "name": "Conagra Brands",
+        "category": "Consumer",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 52,
+        "new_score": 52,
+        "price": 15.52,
+        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
+        "setup_family": "WAITING_OBSERVATION",
+        "entry_range": [
+          0,
+          0
+        ],
+        "stop_loss": 0.0,
+        "take_profit_2": 0.0,
+        "reasons": [
+          "HTF Struktur: 1W (RSI 55.11) und 1D (RSI 59.6) sind zwar BULLISH, jedoch notiert 1D im degencoder Sell Pocket (1D_sell_pocket: true) bei gleichzeitig regulärer und versteckter bärischer Divergenz; ein Short gegen den intakten 1D-Bullenmarkt ist ohne Strukturbruch unzulässig.",
+          "SMC / FVG / GP Level: Weder ein aktiver Order Block (null) noch ein FVG (null) oder Golden Pocket (in_gp: false) liegt vor, und auf 4h sowie 1h fehlen jegliche degencoder Reversal-Trigger (4h_signals: [], 1h_signals: []); ohne Trigger ist maximal NEUTRAL zulässig.",
+          "VSA / Divergenz & Governor: Auf 4h (RSI 57.66) und 1h (RSI 26.49) herrscht 'Very Low Volume', womit das Governor-Minimum von 1.5x VSA klar verfehlt wird; zudem erfordert der Sektor Consumer (CAUTION) mindestens Score 90% bei max. 3x Hebel."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Risiko-Update: SL/TP angepasst (SL: 0.00, TP2: 0.00).",
+        "note": "Bei NYSE:CAG (15.52) prallen ein übergeordnet bullischer 1W/1D-Trend und ein aktives 1D-Sell-Pocket mit bärischen Divergenzen aufeinander, während auf 1h zwar ein überverkaufter RSI (26.49) mit versteckter bullischer Divergenz entsteht, aber jeglicher degencoder-Trigger fehlt. Da im Datenfeed keine konkreten Order-Block- oder FVG-Preiszonen vorliegen und das Volumen auf 4h/1h als 'Very Low Volume' klassifiziert ist, wird Kapitalerhalt priorisiert und das previous_signal NEUTRAL beibehalten. Für ein valides Long-Setup sind ein Abklingen der 1D-Erschöpfung, ein bestätigtes degencoder Buy-Signal ('Good Buy Signal' oder 'Buy Area') an einem validierten Support sowie mindestens 1.5x VSA-Volumen erforderlich.",
+        "evaluated_by": "gemini-4-hydrogen [high]",
+        "htf_reversal_watch": {
+          "direction": "SHORT",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (SHORT)",
+          "factors": [
+            "1D degencoder Sell-Signal",
+            "1D Reg. Bärische Divergenz"
+          ],
+          "ema233_distance_pct": 5.79,
+          "invalidation_level": 16.83
+        }
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n⚪ US Utilities ETF (XLU) (XLU):\n   Score-Sprung: 62% ➔ 62% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1D SHORT): 1D degencoder Sell-Signal, 1D Reg. Bärische Divergenz.\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (1D SHORT): 1D degencoder Sell-Signal, 1D Reg. Bärische Divergenz · Abstand zur EMA233: +2.5% (Stufe-1-Alarm,...\n   Setup: 🔭 HTF Reversal Watch (1D SHORT)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n⚪ ALUMINUM (ALUMINUM):\n   Score-Sprung: 54% ➔ 62% (NEUTRAL)\n   💡 Grund: Risiko-Update: SL/TP angepasst (SL: 2702.42, TP2: 2953.16).\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (1W LONG): 1W degencoder Buy-Signal, 1W VSA Volumen-Spike (9.3x) · Abstand zur EMA233: -16.2% (Stufe-1-Alarm,...\n   Setup: 🔭 HTF Reversal Watch (1W LONG)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Beobachtung (Konsolidierung)\n\n⚪ Conagra Brands (CAG):\n   Score-Sprung: 52% ➔ 52% (NEUTRAL)\n   💡 Grund: Risiko-Update: SL/TP angepasst (SL: 0.00, TP2: 0.00).\n   📝 KI-Rationale: Bei NYSE:CAG (15.52) prallen ein übergeordnet bullischer 1W/1D-Trend und ein aktives 1D-Sell-Pocket mit bärischen Divergenzen aufe...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261127_173315",
     "timestamp": "2026-11-27T17:33:15.548462+00:00",
     "timestamp_display": "27.11.2026 17:33 UTC",
@@ -25513,35 +25651,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 4 Einstufungen haben sich geändert:\n\n🟢 Amazon (AMZN):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: degencoder Institutional Buy Pocket Reversal\n   Entry: 267.97 | SL: 260.68 | TP2: 300.37\n\n🔴 First Majestic Silver (AG):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 91%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (Makro-Trend (1W und 1D) ist bärisch bei übergeordnetem Verkaufsdruck.).\n   📝 KI-Rationale: First Majestic Silver testet den hochwertigen Grad-A Bearish Order Block inklusive erfolgtem Liquiditäts-Sweep. Das 4h 'Good Sell ...\n   Setup: Hypothese 1: SMC Grad A Order Block Retest & Sweep\n   Entry: 15.65 | SL: 16.05 | TP2: 14.20\n\n🟢 SNDK (SNDK):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 89%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (Preis befindet sich exakt in der institutional 1D Buy Pocket bei stark überverkaufter Lage (1D RSI 30.06, 1W RSI 29.85).).\n   📝 KI-Rationale: Obwohl der übergeordnete Trend noch bärisch verläuft, erfüllt SNDK exakt die Ausnahmekriterien der strikten Filterregel 2 für ein ...\n   Setup: Hypothese 1: degencoder Institutional Buy Pocket Reversal\n   Entry: 880.00 | SL: 845.00 | TP2: 1,050.00\n\n🔴 GLD (GLD):\n   Score-Sprung: 95% ➔ 86% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 86% (Makro-Trend auf 1W und 1D ist bärisch; 1h RSI ist mit 67.15 überhitzt und zeigt eine reguläre bärische Divergenz.).\n   📝 KI-Rationale: Der Makrotrend bleibt übergeordnet klar bärisch. Die untergeordnete Erholung auf 1h stößt bei extrem niedrigem Volumen in den über...\n   Setup: Hypothese 1: Bearish Order Block & Trend Continuation\n   Entry: 377.36 | SL: 381.50 | TP2: 362.50\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_trade_20261109_154503_BTCUSDT",
-    "timestamp": "2026-11-09T15:45:03.721700+00:00",
-    "timestamp_display": "09.11.2026 15:45 UTC",
-    "title": "🛑 Stop-Loss ausgelöst – BINANCE:BTCUSDT geschlossen",
-    "type": "USER_TRADE_CLOSED",
-    "change_count": 1,
-    "changes": [
-      {
-        "symbol": "BINANCE:BTCUSDT",
-        "name": "BTCUSD",
-        "category": "UserTrade",
-        "change_type": "STOP_LOSS_TRIGGERED",
-        "old_signal": "SHORT",
-        "new_signal": "CLOSED",
-        "old_score": 0,
-        "new_score": 0,
-        "price": 75420.62,
-        "reasons": [
-          "Realisierter PnL: -12.68% (Basis: -0.60%)",
-          "🛑 Stop-Loss ausgelöst (75,420.62 >= 75,300.00 $)"
-        ],
-        "change_reason": "🛑 Stop-Loss ausgelöst (75,420.62 >= 75,300.00 $)",
-        "note": "Einstieg: 74.968,00 $, Ausstieg: 75.420,62 $, Hebel: 21x, Dauer: 4T 7Std."
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "BTCUSD (BINANCE:BTCUSDT) geschlossen mit -12.68% (🛑 Stop-Loss ausgelöst (75,420.62 >= 75,300.00 $))"
   }
 ]
