@@ -1,5 +1,185 @@
 [
   {
+    "id": "evt_20261127_173315",
+    "timestamp": "2026-11-27T17:33:15.548462+00:00",
+    "timestamp_display": "27.11.2026 17:33 UTC",
+    "title": "🔔 TV-Signaländerung: 4 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 4,
+    "changes": [
+      {
+        "symbol": "KRAKEN:DAIEUR",
+        "name": "DAIEUR",
+        "category": "Crypto",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 58,
+        "new_score": 62,
+        "price": 0.91412,
+        "setup_name": "🔭 HTF Reversal Watch (3D SHORT)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          0.9141,
+          0.9141
+        ],
+        "stop_loss": 0.89,
+        "take_profit_2": 0.97,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "1W Makro-Trend bullisch bestätigt",
+          "Aktiv: 1h Reguläre Bullische Divergenz (Reversal)",
+          "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Beobachtung",
+        "holding_period": "Konsolidierung",
+        "change_reason": "HTF Trendwende-Alarm (3D SHORT): 3D degencoder Sell-Signal, 3D Reg. Bärische Divergenz.",
+        "note": "🔭 HTF REVERSAL WATCH (3D SHORT): 3D degencoder Sell-Signal, 3D Reg. Bärische Divergenz · Abstand zur EMA233: +2.6% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "SHORT",
+          "timeframe": "3D",
+          "label": "🔭 3D Reversal Watch (SHORT)",
+          "factors": [
+            "3D degencoder Sell-Signal",
+            "3D Reg. Bärische Divergenz"
+          ],
+          "ema233_distance_pct": 2.64,
+          "invalidation_level": 0.93
+        }
+      },
+      {
+        "symbol": "COINBASE:EOSUSD",
+        "name": "EOSUSD",
+        "category": "Crypto",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 60,
+        "new_score": 60,
+        "price": 0.0647,
+        "setup_name": "🔭 HTF Reversal Watch (1D LONG)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          0.0647,
+          0.0647
+        ],
+        "stop_loss": 0.06,
+        "take_profit_2": 0.07,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "SMC FVG: 1D Bullish Imbalance (0.061 - 0.065)",
+          "Aktiv: 4h Reguläre Bullische Divergenz (Reversal)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Beobachtung",
+        "holding_period": "Konsolidierung",
+        "change_reason": "HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz.",
+        "note": "🔭 HTF REVERSAL WATCH (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz · Abstand zur EMA233: -19.1% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (LONG)",
+          "factors": [
+            "1D degencoder Buy-Signal",
+            "1D Reg. Bullische Divergenz"
+          ],
+          "ema233_distance_pct": -19.13,
+          "invalidation_level": 0.06
+        }
+      },
+      {
+        "symbol": "KUCOIN:LYXEUSDT",
+        "name": "LYXEUSDT",
+        "category": "Crypto",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 68,
+        "new_score": 52,
+        "price": 0.271,
+        "setup_name": "Beobachten / Lauerstellung am Support (1D Sell Pocket vs. HTF Bullish)",
+        "setup_family": "WAITING_OBSERVATION",
+        "entry_range": [
+          0.245,
+          0.252
+        ],
+        "stop_loss": 0.236,
+        "take_profit_2": 0.315,
+        "reasons": [
+          "HTF-Struktur & Hysterese: 1W (RSI 61.88), 3D (RSI 60.07), 1D (RSI 55.22) und 4h (RSI 47.14) sind weiterhin BULLISH; nur 1h ist BEARISH (RSI 39.84). Ohne bestätigten 1D-Strukturbruch (CHoCH unter 233 EMA) ist ein Short gegen den intakten HTF-Trend gemäß Filterregel 1 & AX-03 strikt unzulässig.",
+          "SMC / FVG / degencoder Level: Obwohl 1D_sell_pocket aktiv ist, befindet sich der 4h-Chart explizit in der 'No Trade Zone' und weist weder auf 4h noch auf 1h ein bestätigtes Verkaufssignal, einen aktiven Order Block (active_order_block: null), ein FVG (active_fvg: null) oder ein Golden Pocket (in_gp: false) auf.",
+          "VSA / Divergenz & Governor: Auf 1D und 4h liegen bärische Divergenzen vor, doch das VSA-Volumen auf 4h und 1h lautet 'Very Low Volume' und verfehlt damit das Governor-Minimum (1.5x VSA bzw. >=2.5x für Gegentrend-Setups nach AX-03) sowie den Krypto-Mindestscore von 92% (AX-01) bzw. 95% (AX-03) deutlich."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Risiko-Update: SL/TP angepasst (SL: 0.24, TP2: 0.32).",
+        "note": "Trotz aktivem 1D Sell Pocket und regulären/versteckten bärischen Divergenzen auf 1D und 4h bleibt das Signal aufgrund des intakten bullischen HTF-Regimes (1W/3D/1D/4h BULLISH) und der 4h 'No Trade Zone' strikt NEUTRAL. Ein Short ohne 1D-CHoCH, bestätigtes MSS/BOS und ausreichendes VSA-Volumen wäre reines Risiko gegen den übergeordneten Trend, während ein Long im Sell Pocket bei Very Low Volume schlechtes Timing wäre. Beobachten Sie einen gesunden Rücksetzer in die Support-Zone 0.245–0.252 mit neuem 4h/1h-Kaufsignal oder erst einen klaren 1D-Strukturbruch vor einer Neupositionierung.",
+        "evaluated_by": "gemini-4-hydrogen [high]",
+        "htf_reversal_watch": {
+          "direction": "SHORT",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (SHORT)",
+          "factors": [
+            "1D degencoder Sell-Signal",
+            "1D Reg. Bärische Divergenz"
+          ],
+          "ema233_distance_pct": 17.83,
+          "invalidation_level": 0.5
+        }
+      },
+      {
+        "symbol": "BINANCE:ETHFIUSDT",
+        "name": "ether.fi",
+        "category": "Crypto",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 62,
+        "new_score": 50,
+        "price": 0.422,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "setup_family": "WAITING_OBSERVATION",
+        "entry_range": [
+          0.455,
+          0.468
+        ],
+        "stop_loss": 0.486,
+        "take_profit_2": 0.345,
+        "reasons": [
+          "HTF-Struktur & Hysterese: Sämtliche Zeiteinheiten (1W RSI 38.89, 3D RSI 40.1, 1D RSI 32.29, 4h RSI 36.92, 1h RSI 28.02) sind einheitlich BEARISH; gemäß Regel 1 sind 1h/4h-Erholungen im 1D-Bärenmarkt Bärenmarktrallyes und niemals ein LONG-Signal (previous_signal: NEUTRAL).",
+          "SMC / FVG / degencoder Level: Zwar ist 1D_buy_pocket aktiv und auf 1h zeigen sich 'Potential Buy Signal (Dreieck)' sowie 'Buy Area (Grünes Kreuz)', jedoch fehlen ein bestätigter Order Block, ein FVG, ein Golden Pocket (in_gp: false) sowie ein bestätigter Strukturwechsel (MSS/BOS) nach AX-03.",
+          "VSA / Divergenz & Konstitution: Trotz regulärer bullischer Divergenzen (1D/4h) und High Volume dominieren auf 1D und 4h versteckte bärische Trendfolge-Divergenzen und auf 1h bereits eine reguläre bärische Divergenz; das Setup 'Hypothese 1: degencoder Institutional Buy Pocket Reversal' performte historisch schwach (30.0% Win-Rate, -23.6% PnL) und verfehlt die zwingenden Krypto-/Counter-Trend-Schwellen von 92% (AX-01) bzw. 95% (AX-03)."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Risiko-Update: SL/TP angepasst (SL: 0.49, TP2: 0.34).",
+        "note": "Obwohl 1D_buy_pocket und 1h-Kaufsignale bei überverkauftem 1h-RSI (28.02) auf eine technische Gegenbewegung hindeuten, verbieten das durchgängig bärische Multi-Timeframe-Regime (1W bis 1h BEARISH) und die fehlende Strukturwende (kein MSS/BOS, kein OB/FVG) ein Gegentrend-Long-Entry. Gleichzeitig wäre ein direkter Short am aktuellen Preis (0.4233) direkt in die 1D Buy Pocket und High-Volume-Divergenz hinein schlechtes Risiko-Management. Das Setup bleibt gemäß previous_setup auf Lauerstellung: Erst nach einem erschöpften Relief-Bounce in den Widerstandsbereich 0.455–0.468 mit sauberem bärischem 4h/1h-Trigger wird ein Short mit maximal 2x Hebel (AX-01) geprüft.",
+        "evaluated_by": "gemini-4-hydrogen [high]",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (LONG)",
+          "factors": [
+            "1D degencoder Buy-Signal",
+            "1D Reg. Bullische Divergenz",
+            "1D VSA Volumen-Spike (1.4x)"
+          ],
+          "ema233_distance_pct": -25.74,
+          "invalidation_level": 0.31
+        }
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 4 Einstufungen haben sich geändert:\n\n⚪ DAIEUR (DAIEUR):\n   Score-Sprung: 58% ➔ 62% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (3D SHORT): 3D degencoder Sell-Signal, 3D Reg. Bärische Divergenz.\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (3D SHORT): 3D degencoder Sell-Signal, 3D Reg. Bärische Divergenz · Abstand zur EMA233: +2.6% (Stufe-1-Alarm,...\n   Setup: 🔭 HTF Reversal Watch (3D SHORT)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Beobachtung (Konsolidierung)\n\n⚪ EOSUSD (EOSUSD):\n   Score-Sprung: 60% ➔ 60% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz.\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz · Abstand zur EMA233: -19.1% (Stufe-1-Alarm,...\n   Setup: 🔭 HTF Reversal Watch (1D LONG)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Beobachtung (Konsolidierung)\n\n⚪ LYXEUSDT (LYXEUSDT):\n   Score-Sprung: 68% ➔ 52% (NEUTRAL)\n   💡 Grund: Risiko-Update: SL/TP angepasst (SL: 0.24, TP2: 0.32).\n   📝 KI-Rationale: Trotz aktivem 1D Sell Pocket und regulären/versteckten bärischen Divergenzen auf 1D und 4h bleibt das Signal aufgrund des intakten...\n   Setup: Beobachten / Lauerstellung am Support (1D Sell Pocket vs. HTF Bullish)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n⚪ ether.fi (ETHFIUSDT):\n   Score-Sprung: 62% ➔ 50% (NEUTRAL)\n   💡 Grund: Risiko-Update: SL/TP angepasst (SL: 0.49, TP2: 0.34).\n   📝 KI-Rationale: Obwohl 1D_buy_pocket und 1h-Kaufsignale bei überverkauftem 1h-RSI (28.02) auf eine technische Gegenbewegung hindeuten, verbieten d...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261127_170720",
     "timestamp": "2026-11-27T17:07:20.835207+00:00",
     "timestamp_display": "27.11.2026 17:07 UTC",
@@ -25363,99 +25543,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "BTCUSD (BINANCE:BTCUSDT) geschlossen mit -12.68% (🛑 Stop-Loss ausgelöst (75,420.62 >= 75,300.00 $))"
-  },
-  {
-    "id": "evt_20261109_151220",
-    "timestamp": "2026-11-09T15:12:20.269579+00:00",
-    "timestamp_display": "09.11.2026 15:12 UTC",
-    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 3,
-    "changes": [
-      {
-        "symbol": "TVC:DXY",
-        "name": "US Dollar Index",
-        "category": "Forex / Makro",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 52,
-        "new_score": 96,
-        "price": 101.901,
-        "setup_name": "Hypothese 1: degencoder Institutional Buy Pocket Reversal",
-        "entry_range": [
-          101.06,
-          102.07
-        ],
-        "stop_loss": 98.3,
-        "take_profit_2": 113.29,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "1W Makro-Trend bullisch bestätigt",
-          "degencoder: 4h Institutional BUY Pocket (Lower Chaos Band unter RFE 233)",
-          "degencoder: 4h Institutional SELL Pocket (Upper Chaos Band über RFE 233)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "TVC:UKX",
-        "name": "UKX",
-        "category": "Aktien",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "LONG",
-        "old_score": 48,
-        "new_score": 96,
-        "price": 10749.14,
-        "setup_name": "Hypothese 1: degencoder Institutional Buy Pocket Reversal",
-        "entry_range": [
-          10658.48,
-          10765.93
-        ],
-        "stop_loss": 10368.38,
-        "take_profit_2": 11947.83,
-        "reasons": [
-          "1D Trend über EMA 233 bullisch",
-          "1W Makro-Trend bullisch bestätigt",
-          "degencoder: 1D Institutional BUY Pocket (Lower Chaos Band unter RFE 233)",
-          "degencoder: 1D Institutional SELL Pocket (Upper Chaos Band über RFE 233)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).",
-        "note": "Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verkaufsdruck an der Support-Zone.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "TVC:GOLD",
-        "name": "Gold (Spot)",
-        "category": "Edelmetalle",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 50,
-        "new_score": 95,
-        "price": 4117.69,
-        "setup_name": "Hypothese 1: degencoder Institutional Sell Pocket Reversal",
-        "entry_range": [
-          4113.32,
-          4154.53
-        ],
-        "stop_loss": 4265.81,
-        "take_profit_2": 3659.96,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "degencoder: 4h Institutional BUY Pocket (Lower Chaos Band unter RFE 233)",
-          "degencoder: 4h Institutional SELL Pocket (Upper Chaos Band über RFE 233)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🟢 US Dollar Index (DXY):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: degencoder Institutional Buy Pocket Reversal\n   Entry: 101.06 | SL: 98.30 | TP2: 113.29\n\n🟢 UKX (UKX):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: degencoder Institutional Buy Pocket Reversal\n   Entry: 10,658.48 | SL: 10,368.38 | TP2: 11,947.83\n\n🔴 Gold (Spot) (GOLD):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: degencoder Institutional Sell Pocket Reversal\n   Entry: 4,113.32 | SL: 4,265.81 | TP2: 3,659.96\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
