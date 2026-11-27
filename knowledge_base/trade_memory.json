@@ -1,7 +1,70 @@
 {
-  "updated_at": "2026-11-27T10:01:01.680577+00:00",
-  "total_experience_records": 122,
+  "updated_at": "2026-11-27T10:35:18.357911+00:00",
+  "total_experience_records": 125,
   "learnings": [
+    {
+      "timestamp": "2026-11-27T10:35:08.819640+00:00",
+      "trade_id": "cross_rule_1795775708",
+      "source_book": "INCUBATOR_RESEARCH",
+      "scope": "INCUBATOR",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Session-kalibrierte Time-Stops statt Wall-Clock-Stunden für TradFi-Märkte: Time-Stops auf XETRA- und Wall-Street-Assets müssen strikt in aktiven Handelskerzen (Trading Bars) statt in 24/7-Echtzeitstunden gezählt werden, und Intraday-Setups ohne Gewinnpuffer dürfen nicht über den Börsenschluss (Overnight-Gap-Risiko) gehalten werden.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Ein 18h-Time-Stop auf einer XETRA-Aktie (8.5h reguläre Handelszeit) zwingt einen 30m-Trade blind durch die nächtliche Handelsunterbrechung, wodurch Slots blockiert und unkontrollierbares Eröffnungs-Gap-Risiko eingegangen werden.",
+        "actionable_rule": "Session-kalibrierte Time-Stops statt Wall-Clock-Stunden für TradFi-Märkte: Time-Stops auf XETRA- und Wall-Street-Assets müssen strikt in aktiven Handelskerzen (Trading Bars) statt in 24/7-Echtzeitstunden gezählt werden, und Intraday-Setups ohne Gewinnpuffer dürfen nicht über den Börsenschluss (Overnight-Gap-Risiko) gehalten werden."
+      }
+    },
+    {
+      "timestamp": "2026-11-27T10:35:08.819612+00:00",
+      "trade_id": "cross_rule_1795775708",
+      "source_book": "INCUBATOR_RESEARCH",
+      "scope": "INCUBATOR",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "VSA-Absorptions-Invalidierung (Effort vs. Result): Jeder Extrem-Volumenspike (>=2.5x) an RFE-/Chaos-Bändern erfordert auf jedem Timeframe (30m bis 4h/1D) zwingend strukturellen Follow-Through innerhalb von 2–3 Folgekerzen – andernfalls gilt das Setup als absorbiert und wird proaktiv vorzeitig geschlossen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der SAP.DE-Trade zeigte trotz 2.6x Selling Pressure und RFE-Upper-Confluence keinerlei Abwärtsdynamik; das passive Warten auf den Time-Stop band unnötig Kapital in einem bereits widerlegten Erschöpfungs-Setup.",
+        "actionable_rule": "VSA-Absorptions-Invalidierung (Effort vs. Result): Jeder Extrem-Volumenspike (>=2.5x) an RFE-/Chaos-Bändern erfordert auf jedem Timeframe (30m bis 4h/1D) zwingend strukturellen Follow-Through innerhalb von 2–3 Folgekerzen – andernfalls gilt das Setup als absorbiert und wird proaktiv vorzeitig geschlossen."
+      }
+    },
+    {
+      "timestamp": "2026-11-27T10:35:08.819551+00:00",
+      "trade_id": "inc_SAP.DE_30m_1795710850",
+      "source_book": "INCUBATOR_RESEARCH",
+      "scope": "INCUBATOR",
+      "timeframe": "30m",
+      "symbol": "SAP.DE",
+      "name": "SAP SE",
+      "category": "Micro-Incubator (30m)",
+      "direction": "SHORT",
+      "result": "LOSS",
+      "setup_name": "degencoder 30m Confluence Short",
+      "pnl_leveraged": -0.18,
+      "pnl_raw": -0.09,
+      "text": "Bei 30m-Top-Erschöpfungs-Shorts mit >2.0x VSA-Volumen muss innerhalb von maximal 3 aktiven Handelskerzen ein Bruch des Signalkerzen-Tiefs erfolgen; bleibt dieses Momentum aus, ist die Position sofort am Markt glattzustellen.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SAP.DE_30m_1795710850",
+        "verdict": "LOSS",
+        "driver": "Trotz scheinbarer Top-Erschöpfung am RFE Upper Band und 2.6x VSA-Volumenspitze blieb der strukturelle Abverkauf aus, da institutionelle Käufer das Angebot absorbierten und den Kurs über 18h leicht über den Einstieg (193.48 vs. 193.30) drückten.",
+        "technical_warning": "VSA 'Effort without Result': Ein 2.6x Selling-Pressure-Surge ohne unmittelbaren Close unter dem Tief der Signalkerze in den nächsten 1–2 Folgekerzen warnt frühzeitig vor bullischer Absorption statt echter Distribution.",
+        "actionable_rule": "Bei 30m-Top-Erschöpfungs-Shorts mit >2.0x VSA-Volumen muss innerhalb von maximal 3 aktiven Handelskerzen ein Bruch des Signalkerzen-Tiefs erfolgen; bleibt dieses Momentum aus, ist die Position sofort am Markt glattzustellen."
+      }
+    },
     {
       "timestamp": "2026-11-27T09:03:37.710951+00:00",
       "trade_id": "cross_rule_1795770217",
