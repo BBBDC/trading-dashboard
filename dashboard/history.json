@@ -1,5 +1,267 @@
 [
   {
+    "id": "evt_20261127_170720",
+    "timestamp": "2026-11-27T17:07:20.835207+00:00",
+    "timestamp_display": "27.11.2026 17:07 UTC",
+    "title": "🔔 TV-Signaländerung: 6 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 6,
+    "changes": [
+      {
+        "symbol": "NYSE:O",
+        "name": "Realty Income",
+        "category": "Aktien",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 62,
+        "new_score": 62,
+        "price": 60.53,
+        "setup_name": "🔭 HTF Reversal Watch (1D SHORT)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          60.51,
+          60.51
+        ],
+        "stop_loss": 58.69,
+        "take_profit_2": 64.14,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "SMC FVG: 1D Bearish Imbalance (60.47 - 60.95)",
+          "Aktiv: 4h Versteckte Bullische Divergenz (Trendfolge)",
+          "Aktiv: 1D Reguläre Bullische Divergenz (Reversal)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Beobachtung",
+        "holding_period": "Konsolidierung",
+        "change_reason": "HTF Trendwende-Alarm (1D SHORT): 1D degencoder Sell-Signal, 1D VSA Volumen-Spike (1.3x).",
+        "note": "🔭 HTF REVERSAL WATCH (1D SHORT): 1D degencoder Sell-Signal, 1D VSA Volumen-Spike (1.3x) · Abstand zur EMA233: +5.0% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "SHORT",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (SHORT)",
+          "factors": [
+            "1D degencoder Sell-Signal",
+            "1D VSA Volumen-Spike (1.3x)"
+          ],
+          "ema233_distance_pct": 5.05,
+          "invalidation_level": 62.47
+        }
+      },
+      {
+        "symbol": "NASDAQ:CRWD",
+        "name": "CrowdStrike",
+        "category": "Cybersecurity",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 55,
+        "new_score": 60,
+        "price": 215.195,
+        "setup_name": "Beobachten / Lauerstellung am Support (1D Buy Pocket & Bullish FVG)",
+        "setup_family": "WAITING_OBSERVATION",
+        "entry_range": [
+          195.0,
+          205.08
+        ],
+        "stop_loss": 186.5,
+        "take_profit_2": 250.0,
+        "reasons": [
+          "HTF-Struktur & Counter-Trend-Hürde: Der 1W-Trend ist BULLISH (RSI 50.63) und 1D zeigt sowohl eine reguläre als auch eine versteckte bullische Divergenz (RSI 41.36), doch 1D, 4h und 1h bleiben BEARISH. Ein Einstieg gegen den 1D/4h-Trend unterliegt der strengen 95%-Counter-Trend-Hürde ([AX-03]) sowie dem Cybersecurity-Sektor-Minimum von 88%.",
+          "Zone ohne Trigger (Empirisches Konfluenz-Gate): Der Kurs (214.64) notiert im 1D degencoder Buy Pocket und innerhalb des aktiven Bullish FVG (189.65–220.50, Midline 205.075), ohne aktiven Order Block. Da 4h_signals und 1h_signals leer sind, gilt die Zone ohne Reversal-Trigger als unbestätigt (max. Score 68%; Hypothese-1-Dämpfer erfordert >= 92%).",
+          "Kein Chasing & fehlendes VSA-Volumen: Auf 1h liegt der RSI bei extrem überkauften 93.13 auf 'Very Low Volume', und der 4h-Chart zeigt neben der bullischen auch eine versteckte bärische Divergenz bei 'Very Low Volume' (Governor Min-VSA 1.5x verfehlt)."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz.",
+        "note": "CrowdStrike weist mit dem 1D Buy Pocket, den bullischen 1D-Divergenzen und dem aktiven Bullish FVG (189.65–220.50) zwar eine konstruktive Unterstützungszone auf, doch bei einem 1h-RSI von 93.13 und 'Very Low Volume' auf 1h/4h wäre ein Einstieg auf aktuellem Niveau (214.64) reines Chasing. Ohne degencoder-Trigger auf 1h/4h sowie bestätigten MSS/BOS mit erhöhtem VSA-Volumen (>= 1.5x) bleibt das Signal zum Schutz vor Bärenmarktrallyes strikt NEUTRAL. Eine Validierung erfolgt erst bei einem geordneten Rücksetzer in Richtung der FVG-Midline (205.08) bzw. unteren FVG-Hälfte mit sauberem Reversal-Trigger und strukturellem Stop unterhalb von 189.65.",
+        "evaluated_by": "gemini-4-hydrogen [high]",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (LONG)",
+          "factors": [
+            "1D degencoder Buy-Signal",
+            "1D Reg. Bullische Divergenz"
+          ],
+          "ema233_distance_pct": -9.46,
+          "invalidation_level": 162.43
+        }
+      },
+      {
+        "symbol": "AMEX:GLD",
+        "name": "GLD",
+        "category": "Aktien",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 54,
+        "new_score": 56,
+        "price": 332.82,
+        "setup_name": "Beobachten / Lauerstellung auf Reversal-Trigger (1D Buy Pocket)",
+        "setup_family": "WAITING_OBSERVATION",
+        "entry_range": [
+          328.0,
+          331.0
+        ],
+        "stop_loss": 323.5,
+        "take_profit_2": 353.5,
+        "reasons": [
+          "HTF Struktur: 1W (RSI 34.64), 1D (RSI 37.83) und 4h (RSI 60.64) sind geschlossen BEARISH; ein Long wäre ein Counter-Trend-Trade gegen den intakten Abwärtstrend (Opus AX-03 erfordert Score >= 95 und bestätigten MSS/BOS).",
+          "SMC / degencoder Level: Zwar ist das 1D Buy Pocket aktiv, jedoch liegen weder ein aktives Golden Pocket (in_gp: false), ein aktiver Order Block (null) noch ein FVG (null) vor; zudem fehlen jegliche 4h- oder 1h-Reversal-Trigger (degencoder Signale leer, max. NEUTRAL-Score <= 68%).",
+          "VSA / Divergenz: Auf 1D und 4h stehen sich Reguläre Bullische und Versteckte Bärische Divergenzen gegenüber, während das VSA auf 4h und 1h lediglich 'Very Low Volume' zeigt (Governor-Minimum >= 1.5x verfehlt) und der 1h-RSI mit 89.47 bereits stark überkauft ist."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz, 1D VSA Volumen-Spike (1.2x).",
+        "note": "Trotz aktivem 1D Buy Pocket und bullischen Divergenzen auf 1D/4h bleibt AMEX:GLD strikt NEUTRAL, da das Makro-Regime auf 1W, 1D und 4h bärisch ist und jeglicher institutioneller Volumen- oder Reversal-Trigger (Good Buy Signal / Buy Area) fehlt. Ein Einstieg auf dem aktuellen Niveau (332.65) bei 1h-RSI 89.47 und Very Low Volume wäre unzulässiges Chasing gegen die übergeordnete Trendrichtung. Für eine Neubewertung (Sektor Aktien: Min-Score 88%, Counter-Trend >= 95%, Hypothese-1-Dämpfer >= 92%) müssen zunächst ein Abkühlen der unteren Zeiteinheiten, mindestens 1.5x VSA-Volumen sowie ein bestätigter 1D/4h-Strukturbruch abgewartet werden.",
+        "evaluated_by": "gemini-4-hydrogen [high]",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (LONG)",
+          "factors": [
+            "1D degencoder Buy-Signal",
+            "1D Reg. Bullische Divergenz",
+            "1D VSA Volumen-Spike (1.2x)"
+          ],
+          "ema233_distance_pct": -7.54,
+          "invalidation_level": 294.9
+        }
+      },
+      {
+        "symbol": "NASDAQ:AMD",
+        "name": "AMD",
+        "category": "Halbleiter",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 48,
+        "new_score": 55,
+        "price": 420.38,
+        "setup_name": "Beobachten / Lauerstellung am Support (Kein Trigger)",
+        "setup_family": "WAITING_OBSERVATION",
+        "entry_range": [
+          402.1,
+          418.6
+        ],
+        "stop_loss": 394.5,
+        "take_profit_2": 480.0,
+        "reasons": [
+          "HTF-Struktur (1W & 1D) ist vollständig BÄRISCH; ein Counter-Trend-Long erfordert zwingend einen bestätigten 1h/4h-Trigger sowie Score >= 95.",
+          "Kurs notiert zwar im 1D degencoder Buy Pocket und am Bullish OB (402.1–452.5), jedoch ist der OB bereits 8-fach getestet (R8, mitigated) und ohne aktiven degencoder-Trigger (4h/1h Signale leer).",
+          "1h-RSI ist mit 85.07 stark überkauft bei gleichzeitig 'Very Low Volume' auf 1h und 4h – fehlendes institutionelles Kaufvolumen."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Risiko-Update: SL/TP angepasst (SL: 394.50, TP2: 480.00).",
+        "note": "AMD befindet sich übergeordnet in einem intakten Abwärtstrend (1W/1D/4h bärisch), weshalb trotz des 1D Buy Pockets und der regulären bullischen Divergenz kein Long-Einstieg erfolgt. Der stark überkaufte 1h-RSI (85.07) auf extrem niedrigem Volumen warnt vor mangelnder Nachfrage und einem potenziellen Bull-Trap. Wir bleiben strikt NEUTRAL und warten entweder auf einen sauberen Struktur-Sweep mit bestätigtem 4h-Buy-Trigger oder eine klare Trendfortsetzung nach unten.",
+        "evaluated_by": "gemini-4-hydrogen [low]",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (LONG)",
+          "factors": [
+            "1D degencoder Buy-Signal",
+            "1D Reg. Bullische Divergenz"
+          ],
+          "ema233_distance_pct": -18.26,
+          "invalidation_level": 402.1
+        }
+      },
+      {
+        "symbol": "NASDAQ:AMZN",
+        "name": "Amazon",
+        "category": "Big Tech",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 54,
+        "new_score": 52,
+        "price": 254.33,
+        "setup_name": "Beobachten / Lauerstellung am Support (No Trade Zone)",
+        "setup_family": "WAITING_OBSERVATION",
+        "entry_range": [
+          246.0,
+          249.0
+        ],
+        "stop_loss": 242.5,
+        "take_profit_2": 267.5,
+        "reasons": [
+          "HTF Struktur: 1W ist zwar BULLISH (RSI 50.56), der 1D-Trend bleibt jedoch BEARISH (RSI 49.56); 4h/1h-Aufwärtsbewegungen gelten im 1D-Bärenmarkt als Erholungsrallyes und liefern kein gültiges Long-Signal (Hysterese ab previous_signal NEUTRAL).",
+          "SMC / degencoder Level: Trotz aktivem 1D Buy Pocket befinden sich sowohl 4h als auch 1h explizit in der 'No Trade Zone' ohne Order Block (null), FVG (null) oder Golden Pocket (in_gp: false); das 4h-Signal 'Bear Alignment Ends (Quadrat)' ist ein reines Rausch-Signal ohne Trigger-Wert.",
+          "VSA / Divergenz: Der 4h-RSI liegt bei 63.55 (Verstoß gegen das Governor-Long-Limit von max. 62.0) und der 1h-RSI bei extrem überkauften 95.0, während das VSA auf 4h und 1h nur 'Very Low Volume' ausweist und auf 4h eine Versteckte Bärische Divergenz vorliegt."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "HTF Trendwende-Alarm (1D LONG): 1D EMA-Fast zurückerobert, 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz.",
+        "note": "Bei NASDAQ:AMZN greifen mehrere harte Ausschlusskriterien gleichzeitig: Der Sektor Big Tech ist als UNDERPERFORMING eingestuft (Min-Score 92%, max. 2x Hebel), der 1D-Trend ist bärisch und sowohl 4h als auch 1h signalisieren eine 'No Trade Zone' bei extrem überkauftem 1h-RSI (95.0) sowie überschrittenem 4h-RSI-Limit (63.55 > 62.0). Aufgrund des fehlenden VSA-Volumens ('Very Low Volume') und des Fehlens eines echten degencoder-Triggers wird ein Einstieg am aktuellen Kurs (253.80) strikt verweigert. Kapitalerhalt erfordert Abwarten eines volumenstarken Rücksetzers in eine Support-Zone mit anschließendem validem Buy-Trigger oder einem bestätigten 1D-Strukturwechsel.",
+        "evaluated_by": "gemini-4-hydrogen [high]",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (LONG)",
+          "factors": [
+            "1D EMA-Fast zurückerobert",
+            "1D degencoder Buy-Signal",
+            "1D Reg. Bullische Divergenz"
+          ],
+          "ema233_distance_pct": -0.45,
+          "invalidation_level": 213.0
+        }
+      },
+      {
+        "symbol": "NASDAQ:AVGO",
+        "name": "Broadcom",
+        "category": "Halbleiter",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 49,
+        "new_score": 52,
+        "price": 312.13,
+        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
+        "setup_family": "WAITING_OBSERVATION",
+        "entry_range": [
+          312.0,
+          316.0
+        ],
+        "stop_loss": 322.0,
+        "take_profit_2": 278.0,
+        "reasons": [
+          "HTF-Struktur strikt bärisch: 1W (RSI 42.2), 1D (RSI 45.35) und 4h (RSI 60.65) stehen geschlossen im Abwärtstrend; gemäß Makro-Regel und Hysterese bleibt der übergeordnete Bias bärisch (previous_signal: NEUTRAL).",
+          "Kein ausführbares SMC/Zone-Setup: Zwar ist degencoder 1D_buy_pocket aktiv, jedoch fehlen Golden Pocket (in_gp: false), Order Block (null) und FVG (null), während 4h keine Signale zeigt und 1h explizit in der 'No Trade Zone' notiert.",
+          "VSA & Divergenz-Konflikt: Der 1h-Anstieg auf extrem überkauften RSI 94.8 erfolgt bei 'Very Low Volume' (klar unter Governor-Minimum 1.5x VSA) und trifft auf eine versteckte bärische 4h-Divergenz gegen reguläre bullische Divergenzen auf 1D/4h."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "Risiko-Update: SL/TP angepasst (SL: 322.00, TP2: 278.00).",
+        "note": "Die aktuelle 1h-Erholung bei 311.81 USD ist auf extrem dünnem Volumen (Very Low Volume, RSI 94.8) heißgelaufen und stellt im intakten 1W/1D/4h-Bärenmarkt kein Long-Setup dar – ein Long im 1D Buy Pocket ist ohne Trigger, ohne VSA-Bestätigung und angesichts der Sektor-Schwäche (Halbleiter 0% Win-Rate, Min-Score 88%) sowie AX-03/Governor-Hürden strikt gesperrt. Die genannten Preiszonen dienen ausschließlich als Beobachtungskorridor für ein mögliches Short-Szenario bei Erschöpfung dieser Bärenmarktrallye. Ein valider Trade erfordert zwingend einen bestätigten 4h/1h-Trigger außerhalb der No Trade Zone mit mindestens 1.5x VSA-Volumen oder einen klaren 1D-Strukturbruch (MSS/BOS).",
+        "evaluated_by": "gemini-4-hydrogen [high]",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (LONG)",
+          "factors": [
+            "1D degencoder Buy-Signal",
+            "1D Reg. Bullische Divergenz"
+          ],
+          "ema233_distance_pct": -6.01,
+          "invalidation_level": 230.12
+        }
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 6 Einstufungen haben sich geändert:\n\n⚪ Realty Income (O):\n   Score-Sprung: 62% ➔ 62% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1D SHORT): 1D degencoder Sell-Signal, 1D VSA Volumen-Spike (1.3x).\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (1D SHORT): 1D degencoder Sell-Signal, 1D VSA Volumen-Spike (1.3x) · Abstand zur EMA233: +5.0% (Stufe-1-Alarm...\n   Setup: 🔭 HTF Reversal Watch (1D SHORT)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Beobachtung (Konsolidierung)\n\n⚪ CrowdStrike (CRWD):\n   Score-Sprung: 55% ➔ 60% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz.\n   📝 KI-Rationale: CrowdStrike weist mit dem 1D Buy Pocket, den bullischen 1D-Divergenzen und dem aktiven Bullish FVG (189.65–220.50) zwar eine konst...\n   Setup: Beobachten / Lauerstellung am Support (1D Buy Pocket & Bullish FVG)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n⚪ GLD (GLD):\n   Score-Sprung: 54% ➔ 56% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz, 1D VSA Volumen-Spike (1.2x).\n   📝 KI-Rationale: Trotz aktivem 1D Buy Pocket und bullischen Divergenzen auf 1D/4h bleibt AMEX:GLD strikt NEUTRAL, da das Makro-Regime auf 1W, 1D un...\n   Setup: Beobachten / Lauerstellung auf Reversal-Trigger (1D Buy Pocket)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n⚪ AMD (AMD):\n   Score-Sprung: 48% ➔ 55% (NEUTRAL)\n   💡 Grund: Risiko-Update: SL/TP angepasst (SL: 394.50, TP2: 480.00).\n   📝 KI-Rationale: AMD befindet sich übergeordnet in einem intakten Abwärtstrend (1W/1D/4h bärisch), weshalb trotz des 1D Buy Pockets und der regulär...\n   Setup: Beobachten / Lauerstellung am Support (Kein Trigger)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n⚪ Amazon (AMZN):\n   Score-Sprung: 54% ➔ 52% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1D LONG): 1D EMA-Fast zurückerobert, 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz.\n   📝 KI-Rationale: Bei NASDAQ:AMZN greifen mehrere harte Ausschlusskriterien gleichzeitig: Der Sektor Big Tech ist als UNDERPERFORMING eingestuft (Mi...\n   Setup: Beobachten / Lauerstellung am Support (No Trade Zone)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n⚪ Broadcom (AVGO):\n   Score-Sprung: 49% ➔ 52% (NEUTRAL)\n   💡 Grund: Risiko-Update: SL/TP angepasst (SL: 322.00, TP2: 278.00).\n   📝 KI-Rationale: Die aktuelle 1h-Erholung bei 311.81 USD ist auf extrem dünnem Volumen (Very Low Volume, RSI 94.8) heißgelaufen und stellt im intak...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261127_153736",
     "timestamp": "2026-11-27T15:37:36.930848+00:00",
     "timestamp_display": "27.11.2026 15:37 UTC",
@@ -25195,99 +25457,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🟢 US Dollar Index (DXY):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: degencoder Institutional Buy Pocket Reversal\n   Entry: 101.06 | SL: 98.30 | TP2: 113.29\n\n🟢 UKX (UKX):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: degencoder Institutional Buy Pocket Reversal\n   Entry: 10,658.48 | SL: 10,368.38 | TP2: 11,947.83\n\n🔴 Gold (Spot) (GOLD):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: degencoder Institutional Sell Pocket Reversal\n   Entry: 4,113.32 | SL: 4,265.81 | TP2: 3,659.96\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261109_144855",
-    "timestamp": "2026-11-09T14:48:55.884643+00:00",
-    "timestamp_display": "09.11.2026 14:48 UTC",
-    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 3,
-    "changes": [
-      {
-        "symbol": "NASDAQ:NFLX",
-        "name": "Netflix",
-        "category": "Entertainment",
-        "change_type": "SETUP_UPDATE",
-        "old_signal": "SHORT",
-        "new_signal": "SHORT",
-        "old_score": 92,
-        "new_score": 95,
-        "price": 63.51,
-        "setup_name": "Hypothese 2: degencoder Indicator Sell Signal",
-        "entry_range": [
-          63.28,
-          63.92
-        ],
-        "stop_loss": 65.63,
-        "take_profit_2": 56.31,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "degencoder: 1h Buy Area (Grünes Kreuz)",
-          "degencoder: 4h Good Sell Signal (Kreis Top-Erschöpfung)"
-        ],
-        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 2: degencoder Indicator Sell Signal' (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NYSE:UBER",
-        "name": "Uber",
-        "category": "Mobility / Tech",
-        "change_type": "SETUP_UPDATE",
-        "old_signal": "SHORT",
-        "new_signal": "SHORT",
-        "old_score": 90,
-        "new_score": 95,
-        "price": 69.43,
-        "setup_name": "Hypothese 2: degencoder Indicator Sell Signal",
-        "entry_range": [
-          68.45,
-          69.14
-        ],
-        "stop_loss": 70.99,
-        "take_profit_2": 60.91,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "degencoder: 1h Good Sell Signal (Kreis Top-Erschöpfung)",
-          "degencoder: 4h Good Sell Signal (Kreis Top-Erschöpfung)"
-        ],
-        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 2: degencoder Indicator Sell Signal' (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "AMEX:GLD",
-        "name": "GLD",
-        "category": "Aktien",
-        "change_type": "SCORE_JUMP",
-        "old_signal": "SHORT",
-        "new_signal": "SHORT",
-        "old_score": 88,
-        "new_score": 95,
-        "price": 377.84,
-        "setup_name": "Hypothese 1: SMC Order Block [R10] Exhaustion",
-        "entry_range": [
-          371.77,
-          375.5
-        ],
-        "stop_loss": 385.56,
-        "take_profit_2": 330.79,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "degencoder: 1h Sell Area (Rotes Kreuz)",
-          "degencoder: 4h Sell Area (Rotes Kreuz)"
-        ],
-        "change_reason": "Konfluenz-Veränderung: Score springt von 88% auf 95% (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🔴 Netflix (NFLX):\n   Score-Sprung: 92% ➔ 95% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 2: degencoder Indicator Sell Signal' (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 2: degencoder Indicator Sell Signal\n   Entry: 63.28 | SL: 65.63 | TP2: 56.31\n\n🔴 Uber (UBER):\n   Score-Sprung: 90% ➔ 95% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 2: degencoder Indicator Sell Signal' (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 2: degencoder Indicator Sell Signal\n   Entry: 68.45 | SL: 70.99 | TP2: 60.91\n\n🔴 GLD (GLD):\n   Score-Sprung: 88% ➔ 95% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 88% auf 95% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R10] Exhaustion\n   Entry: 371.77 | SL: 385.56 | TP2: 330.79\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
