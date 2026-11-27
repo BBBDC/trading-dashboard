@@ -1,5 +1,59 @@
 [
   {
+    "id": "evt_20261127_200731",
+    "timestamp": "2026-11-27T20:07:31.490313+00:00",
+    "timestamp_display": "27.11.2026 20:07 UTC",
+    "title": "🔔 TV-Signaländerung: 1 Asset aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 1,
+    "changes": [
+      {
+        "symbol": "NASDAQ:CRWD",
+        "name": "CrowdStrike",
+        "category": "Cybersecurity",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 48,
+        "new_score": 60,
+        "price": 217.2,
+        "setup_name": "Beobachten / Lauerstellung am Support (1D Buy Pocket & Bullish FVG)",
+        "setup_family": "WAITING_OBSERVATION",
+        "entry_range": [
+          198.0,
+          205.0
+        ],
+        "stop_loss": 186.5,
+        "take_profit_2": 261.5,
+        "reasons": [
+          "HTF-Struktur uneinheitlich: 1W bleibt BULLISH (RSI 50.63), doch 1D (RSI 43.10) und 4h (RSI 58.39) stehen weiter auf BEARISH – ohne bestätigten 1D-Strukturbruch (MSS/BOS) gilt strikte Gegen-Trend-Zurückhaltung (AX-03).",
+          "SMC/FVG-Konfluenz ohne Trigger: Der Kurs (217.20 USD) liegt nahe der Oberkante des Bullish FVG (189.65–220.50 USD, Midline 205.08 USD) bei aktivem 1D_buy_pocket, aber ohne Order Block, mit 4h_signals: [] und 1h in der 'No Trade Zone'.",
+          "VSA & Timing sprechen gegen Sofort-Entry: Sowohl 4h als auch 1h zeigen Low Volume (kein 1.5x VSA-Reversal), der 1h-RSI ist mit 95.31 extrem überkauft und auf 4h wirkt trotz regulärer bullischer auch eine versteckte bärische Trendfolge-Divergenz."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz.",
+        "note": "CrowdStrike bietet durch das aktive 1D Buy Pocket und das Bullish FVG (189.65–220.50 USD) eine konstruktive Watchlist-Zone, darf am aktuellen Kurs (217.20 USD) bei einem extrem überhitzten 1h-RSI von 95.31 und 'No Trade Zone' jedoch keinesfalls gejagt werden. Ohne degencoder-Einstiegssignal auf 4h/1h und ohne >= 1.5x VSA-Volumen bleibt das Setup empirisch unterhalb der notwendigen Konfluenz-Schwelle (Sektor Cybersecurity: Min-Score 88 %; Counter-Trend AX-03: 95 %). Geduldiges Abwarten auf einen volumenschwachen Rücklauf zur FVG-Midline (198.00–205.00 USD) mit bestätigtem Reversal-Trigger und Stop unter dem FVG-Boden bei 186.50 USD schützt das Kapital.",
+        "evaluated_by": "gemini-4-hydrogen [high]",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (LONG)",
+          "factors": [
+            "1D degencoder Buy-Signal",
+            "1D Reg. Bullische Divergenz"
+          ],
+          "ema233_distance_pct": -8.41,
+          "invalidation_level": 162.06
+        }
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n⚪ CrowdStrike (CRWD):\n   Score-Sprung: 48% ➔ 60% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1D LONG): 1D degencoder Buy-Signal, 1D Reg. Bullische Divergenz.\n   📝 KI-Rationale: CrowdStrike bietet durch das aktive 1D Buy Pocket und das Bullish FVG (189.65–220.50 USD) eine konstruktive Watchlist-Zone, darf a...\n   Setup: Beobachten / Lauerstellung am Support (1D Buy Pocket & Bullish FVG)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261127_193344",
     "timestamp": "2026-11-27T19:33:44.527401+00:00",
     "timestamp_display": "27.11.2026 19:33 UTC",
@@ -25353,229 +25407,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "Alphabet (Google) (NASDAQ:GOOG) geschlossen mit +16.71% (Manuell durch Nutzer beendet.)"
-  },
-  {
-    "id": "evt_20261109_163232",
-    "timestamp": "2026-11-09T16:32:32.047304+00:00",
-    "timestamp_display": "09.11.2026 16:32 UTC",
-    "title": "🔔 TV-Signaländerung: 8 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 8,
-    "changes": [
-      {
-        "symbol": "TRADEGATE:ABEA",
-        "name": "Alphabet A (Tradegate)",
-        "category": "Tradegate / EU",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 48,
-        "new_score": 95,
-        "price": 260.3,
-        "setup_name": "Hypothese 1: SMC Order Block [R4] Exhaustion",
-        "entry_range": [
-          261.78,
-          264.4
-        ],
-        "stop_loss": 271.48,
-        "take_profit_2": 232.92,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "degencoder: 1D Institutional BUY Pocket (Lower Chaos Band unter RFE 233)",
-          "degencoder: 1h Potential Buy Signal (Blaues Dreieck)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NYSE:AG",
-        "name": "First Majestic Silver",
-        "category": "Edelmetall-Minen",
-        "change_type": "SETUP_UPDATE",
-        "old_signal": "SHORT",
-        "new_signal": "SHORT",
-        "old_score": 91,
-        "new_score": 95,
-        "price": 15.885,
-        "setup_name": "Hypothese 1: SMC Order Block [R3] Exhaustion",
-        "entry_range": [
-          15.87,
-          16.03
-        ],
-        "stop_loss": 16.46,
-        "take_profit_2": 14.11,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "degencoder: 1h Sell Area (Rotes Kreuz)",
-          "degencoder: 4h Good Sell Signal (Kreis Top-Erschöpfung)"
-        ],
-        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R3] Exhaustion' (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "TRADEGATE:FB2A",
-        "name": "Meta Platforms (Tradegate)",
-        "category": "Tradegate / EU",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "NEUTRAL",
-        "new_signal": "SHORT",
-        "old_score": 46,
-        "new_score": 95,
-        "price": 572.1,
-        "setup_name": "Hypothese 1: SMC Order Block [R4] Exhaustion",
-        "entry_range": [
-          570.16,
-          575.87
-        ],
-        "stop_loss": 591.3,
-        "take_profit_2": 507.3,
-        "reasons": [
-          "1D Trend unter EMA 233 bärisch",
-          "1W Makro-Trend bärisch bestätigt",
-          "degencoder: 1h Potential Buy Signal (Blaues Dreieck)",
-          "degencoder: 4h Potential Buy Signal (Blaues Dreieck)"
-        ],
-        "change_reason": "Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).",
-        "note": "Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Divergenz auf 1h/4h signalisiert Trendwende-Potenzial.",
-        "evaluated_by": "quantitative_engine"
-      },
-      {
-        "symbol": "NASDAQ:NFLX",
-        "name": "Netflix",
-        "category": "Entertainment",
-        "change_type": "SETUP_UPDATE",
-        "old_signal": "SHORT",
-        "new_signal": "SHORT",
-        "old_score": 95,
-        "new_score": 90,
-        "price": 63.505,
-        "setup_name": "Hypothese 2: Trend Continuation & Hidden Div",
-        "entry_range": [
-          63.5,
-          64.5
-        ],
-        "stop_loss": 66.2,
-        "take_profit_2": 55.5,
-        "reasons": [
-          "Bärische Makro-Struktur über 1W, 1D und 4h unter allen wesentlichen Trendfiltern intakt",
-          "Aktive versteckte bärische Divergenz auf 1D und 4h signalisiert Fortsetzung des Abwärtstrends",
-          "4h degencoder Good Sell Signal (Kreis) als valider Trendfolge-Trigger bei sehr geringem Handelsvolumen (VSA)"
-        ],
-        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 2: Trend Continuation & Hidden Div' (Bärische Makro-Struktur über 1W, 1D und 4h unter allen wesentlichen Trendfiltern intakt).",
-        "note": "Netflix befindet sich in einem klaren bärischen Makro-Regime (1W und 1D unter Druck). Das 1h 'Good Buy Signal' stellt lediglich eine untergeordnete Gegenbewegung dar und wird im Sinne der Hysterese nicht als Long-Trigger gewertet. Der Hebel bleibt gemäß Sektor-Vorgabe bei maximal 5x beschränkt.",
-        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...j2vQ]"
-      },
-      {
-        "symbol": "NYSE:UBER",
-        "name": "Uber",
-        "category": "Mobility / Tech",
-        "change_type": "SCORE_JUMP",
-        "old_signal": "SHORT",
-        "new_signal": "SHORT",
-        "old_score": 95,
-        "new_score": 89,
-        "price": 69.66,
-        "setup_name": "Hypothese 1: SMC Order Block Confluence",
-        "entry_range": [
-          69.3,
-          70.7
-        ],
-        "stop_loss": 72.3,
-        "take_profit_2": 60.0,
-        "reasons": [
-          "HTF-Struktur eindeutig bärisch (1W, 1D und 4h im Abwärtstrend)",
-          "Retest der aktivierten Bearish OB Zohne (Grade B, R14 mit Sweep) im Bereich 69.42 - 71.99",
-          "Doppelte Bärische Divergenz (Regulär & Versteckt) auf 1D sowie 4h/1h Sell Signals"
-        ],
-        "change_reason": "Konfluenz-Veränderung: Score springt von 95% auf 89% (HTF-Struktur eindeutig bärisch (1W, 1D und 4h im Abwärtstrend)).",
-        "note": "Der 1h-Bullen-Trend stellt eine untergeordnete Korrektur im übergeordneten bärischen Trend dar. Ein Einstieg erfolgt nahe der Unterkante des Bearish Order Blocks. Wegen des Sektor-Status CAUTION wird das Hebel-Cap auf maximal 3x begrenzt.",
-        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...j2vQ]"
-      },
-      {
-        "symbol": "AMEX:GLD",
-        "name": "GLD",
-        "category": "Aktien",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 86,
-        "new_score": 52,
-        "price": 377.9037,
-        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
-        "entry_range": [
-          0.0,
-          0.0
-        ],
-        "stop_loss": 0.0,
-        "take_profit_2": 0.0,
-        "reasons": [
-          "Preis läuft über die Oberkante des Bearish Order Blocks (379.07) hinaus; Struktur unklar",
-          "1h RSI mit 67.67 stark überhitzt bei sehr geringem Volumen (Very Low Volume)",
-          "Aufgrund der historischen Fehler-Lehre aus vergangenen GLD-Trades ist strikte Disziplin gefordert; kein Risk-Taking ohne einwandfreies Trigger-Muster"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Preis läuft über die Oberkante des Bearish Order Blocks (379.07) hinaus; Struktur unklar).",
-        "note": "GLD zeigt auf 1h einen starken Push nach oben (RSI 67.67) direkt in den mitigated Bearish OB. Da der Stop-Loss der Historie nach konsequent am Break-Even geschützt werden muss und der Kurs aktuell ohne klaren Rejection-Sweep konsolidiert, gilt absolute Kapitalerhaltung. Wir verharren an der Seitenlinie.",
-        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...j2vQ]"
-      },
-      {
-        "symbol": "NASDAQ:SNDK",
-        "name": "SNDK",
-        "category": "Aktien",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 89,
-        "new_score": 52,
-        "price": 897.435,
-        "setup_name": "Beobachten / Lauerstellung am Support",
-        "entry_range": [
-          0.0,
-          0.0
-        ],
-        "stop_loss": 0.0,
-        "take_profit_2": 0.0,
-        "reasons": [
-          "Kurs befindet sich in der 1D Buy Pocket und im 1D Oversold Band bei stark überverkauftem HTF-RSI",
-          "Übergeordneter Trend (1W/1D/4h) stark BEARISH; das Greifen nach einem fallenden Messer ist ohne strukturellen 1D CHoCH verboten",
-          "1h-Volumen ist extrem niedrig ('Very Low Volume'), was auf fehlendes institutionelles Kaufinteresse hindeutet"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Kurs befindet sich in der 1D Buy Pocket und im 1D Oversold Band bei stark überverkauftem HTF-RSI).",
-        "note": "SNDK zeigt zwar ausgeprägte bullische Reversal-Divergenzen und befindet sich in der Buy Pocket, jedoch schützt unser Reglement vor verfrühten Bodenbildungs-Trades in stark bärischen Trends (Sektor-Hebel-Cap max 3x, Win-Rate-Dämpfer). Wir warten auf eine Bodenbildung mit Volumenausbruch und 1D-Strukturbruch.",
-        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...pOzg]"
-      },
-      {
-        "symbol": "NASDAQ:AMZN",
-        "name": "Amazon",
-        "category": "Big Tech",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 96,
-        "new_score": 52,
-        "price": 268.21,
-        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
-        "entry_range": [
-          265.0,
-          267.5
-        ],
-        "stop_loss": 262.5,
-        "take_profit_2": 284.0,
-        "reasons": [
-          "HTF-Struktur: Übergeordneter 1W- und 1D-Trend ist klar bullisch (1D-RSI 60.23), was Short-Setups kategorisch ausschließt, aber taktisches Chasing nach starker Aufwärtsbewegung verbietet.",
-          "SMC & FVG: Der Kurs steht bei 269.56 noch über dem ungetesteten Bullish FVG (264.18 - 268.69, 50% Consequent Encroachment bei 266.44) und dem Grad-C Order Block (263.85 - 269.30).",
-          "Indikatoren & Risikofilter: Aktive 'Sell Area'-Signale auf 4h und 1h sowie ein überhitzter 1h-RSI von 63.60 mahnen zur Vorsicht; Sektor 'Big Tech' erfordert aufgrund historischer Underperformance strikte Selektivität (Mindest-Score 92%)."
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (HTF-Struktur: Übergeordneter 1W- und 1D-Trend ist klar bullisch (1D-RSI 60.23), was Short-Setups kategorisch ausschließt, aber taktisches Chasing nach starker Aufwärtsbewegung verbietet.).",
-        "note": "Amazon weist übergeordnete Stärke auf, befindet sich taktisch auf 1h-Basis mit einem RSI von 63.60 und aktiven 'Sell Area'-Markern jedoch in einer überdehnten Phase. Um Verluste aus verfrühten Trendfolge-Setups zu vermeiden, jagen wir dem Markt nicht hinterher, sondern warten diszipliniert auf einen Pullback in die FVG-Imbalance-Zone (265.00 - 267.50 USD). Dort bietet der Bereich um das 50%-Niveau (266.44 USD) in Konfluenz mit dem Order-Block-Zentrum das notwendige asymmetrische CRV für einen Neu-Einstieg.",
-        "evaluated_by": "gemini-3.8-flash-high [Account 2 Pro (pokeulm@gmail.com)]"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 8 Einstufungen haben sich geändert:\n\n🔴 Alphabet A (Tradegate) (ABEA):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R4] Exhaustion\n   Entry: 261.78 | SL: 271.48 | TP2: 232.92\n\n🔴 First Majestic Silver (AG):\n   Score-Sprung: 91% ➔ 95% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R3] Exhaustion' (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R3] Exhaustion\n   Entry: 15.87 | SL: 16.46 | TP2: 14.11\n\n🔴 Meta Platforms (Tradegate) (FB2A):\n   Signalwechsel: NEUTRAL ➔ SHORT (Score: 95%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R4] Exhaustion\n   Entry: 570.16 | SL: 591.30 | TP2: 507.30\n\n🔴 Netflix (NFLX):\n   Score-Sprung: 95% ➔ 90% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 2: Trend Continuation & Hidden Div' (Bärische Makro-Struktur über 1W, 1D und 4h unter allen wesentlichen Trendfiltern intakt).\n   📝 KI-Rationale: Netflix befindet sich in einem klaren bärischen Makro-Regime (1W und 1D unter Druck). Das 1h 'Good Buy Signal' stellt lediglich ei...\n   Setup: Hypothese 2: Trend Continuation & Hidden Div\n   Entry: 63.50 | SL: 66.20 | TP2: 55.50\n\n🔴 Uber (UBER):\n   Score-Sprung: 95% ➔ 89% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 89% (HTF-Struktur eindeutig bärisch (1W, 1D und 4h im Abwärtstrend)).\n   📝 KI-Rationale: Der 1h-Bullen-Trend stellt eine untergeordnete Korrektur im übergeordneten bärischen Trend dar. Ein Einstieg erfolgt nahe der Unte...\n   Setup: Hypothese 1: SMC Order Block Confluence\n   Entry: 69.30 | SL: 72.30 | TP2: 60.00\n\n⚪ GLD (GLD):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Preis läuft über die Oberkante des Bearish Order Blocks (379.07) hinaus; Struktur unklar).\n   📝 KI-Rationale: GLD zeigt auf 1h einen starken Push nach oben (RSI 67.67) direkt in den mitigated Bearish OB. Da der Stop-Loss der Historie nach k...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n... und 2 weitere Änderungen.\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
