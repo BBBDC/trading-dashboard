@@ -1,5 +1,143 @@
 [
   {
+    "id": "evt_20261127_213307",
+    "timestamp": "2026-11-27T21:33:07.230157+00:00",
+    "timestamp_display": "27.11.2026 21:33 UTC",
+    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 3,
+    "changes": [
+      {
+        "symbol": "COINBASE:BTCUSD",
+        "name": "Bitcoin",
+        "category": "Crypto",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 62,
+        "new_score": 62,
+        "price": 59746.27,
+        "setup_name": "🔭 HTF Reversal Watch (3D LONG)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          59759.37,
+          59759.37
+        ],
+        "stop_loss": 57966.59,
+        "take_profit_2": 63344.93,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)",
+          "Aktiv: 4h Versteckte Bullische Divergenz (Trendfolge)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Beobachtung",
+        "holding_period": "Konsolidierung",
+        "change_reason": "HTF Trendwende-Alarm (3D LONG): 3D degencoder Buy-Signal, 3D VSA Volumen-Spike (1.2x).",
+        "note": "🔭 HTF REVERSAL WATCH (3D LONG): 3D degencoder Buy-Signal, 3D VSA Volumen-Spike (1.2x) · Abstand zur EMA233: -19.0% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "3D",
+          "label": "🔭 3D Reversal Watch (LONG)",
+          "factors": [
+            "3D degencoder Buy-Signal",
+            "3D VSA Volumen-Spike (1.2x)"
+          ],
+          "ema233_distance_pct": -19.01,
+          "invalidation_level": 46738.61
+        }
+      },
+      {
+        "symbol": "BINANCE:BTCUSD",
+        "name": "BTCUSD",
+        "category": "Crypto",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 62,
+        "new_score": 62,
+        "price": 59808.99,
+        "setup_name": "🔭 HTF Reversal Watch (3D LONG)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          59808.99,
+          59808.99
+        ],
+        "stop_loss": 58014.72,
+        "take_profit_2": 63397.53,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "Aktiv: 1h Reguläre Bärische Divergenz (Reversal)",
+          "Aktiv: 4h Versteckte Bullische Divergenz (Trendfolge)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Beobachtung",
+        "holding_period": "Konsolidierung",
+        "change_reason": "HTF Trendwende-Alarm (3D LONG): 3D degencoder Buy-Signal, 3D VSA Volumen-Spike (1.2x).",
+        "note": "🔭 HTF REVERSAL WATCH (3D LONG): 3D degencoder Buy-Signal, 3D VSA Volumen-Spike (1.2x) · Abstand zur EMA233: -19.0% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "3D",
+          "label": "🔭 3D Reversal Watch (LONG)",
+          "factors": [
+            "3D degencoder Buy-Signal",
+            "3D VSA Volumen-Spike (1.2x)"
+          ],
+          "ema233_distance_pct": -19.01,
+          "invalidation_level": 46738.61
+        }
+      },
+      {
+        "symbol": "KUCOIN:LYXEUSDT",
+        "name": "LYXEUSDT",
+        "category": "Crypto",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 52,
+        "new_score": 52,
+        "price": 0.2673,
+        "setup_name": "Beobachten / Lauerstellung am Support (HTF Bullisch vs. 1D Sell Pocket, Kein Trigger)",
+        "setup_family": "WAITING_OBSERVATION",
+        "entry_range": [
+          0.252,
+          0.258
+        ],
+        "stop_loss": 0.244,
+        "take_profit_2": 0.305,
+        "reasons": [
+          "HTF-Struktur (1W RSI 53.83, 3D RSI 55.21, 1D RSI 54.4) ist geschlossen BULLISH im neutralen Kanal, weshalb ein Short gegen den intakten Makro-Trend strikt ausgeschlossen ist; Hysterese stützt Beibehaltung von NEUTRAL.",
+          "Konflikt durch aktives 1D Sell Pocket bei gleichzeitigem Fehlen von SMC-Strukturen (active_order_block: null, active_fvg: null, in_gp: false) sowie aktiver 'No Trade Zone' auf dem 4h-Chart.",
+          "Taktisch sind 4h (RSI 46.42) und 1h (RSI 39.77) bärisch bei 'Very Low Volume' (VSA unter Governor-Minimum von 1.5x) ohne Long-Trigger ('Good Buy Signal'/'Buy Area') – Einstieg verletzt Crypto-Cluster-Schwelle von 92% [AX-01]."
+        ],
+        "primary_timeframe": "1D",
+        "timeframe_label": "1D Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "HTF Trendwende-Alarm (3D SHORT): 3D degencoder Sell-Signal, 3D Reg. Bärische Divergenz.",
+        "note": "LYXEUSDT konsolidiert auf 4h/1h innerhalb eines intakten übergeordneten Aufwärtstrends, stößt jedoch auf das aktive 1D Sell Pocket und befindet sich auf 4h in der 'No Trade Zone' bei sehr geringem Volumen. Da weder Order Block, FVG noch Golden Pocket definiert sind und kein Reversal-Trigger vorliegt, bleibt Kapitalerhalt oberstes Gebot; die angegebenen Kursmarken dienen lediglich als unverbindliche Beobachtungsreferenz unterhalb des aktuellen Kurses (0.2673). Ein Long wird erst nach abgeschlossenem Pullback mit bestätigtem 1h/4h-Trigger und Volumenanstieg (>= 1.5x VSA) bei Score >= 92% [AX-01] relevant.",
+        "evaluated_by": "gemini-4-hydrogen [high]",
+        "htf_reversal_watch": {
+          "direction": "SHORT",
+          "timeframe": "3D",
+          "label": "🔭 3D Reversal Watch (SHORT)",
+          "factors": [
+            "3D degencoder Sell-Signal",
+            "3D Reg. Bärische Divergenz"
+          ],
+          "ema233_distance_pct": 16.22,
+          "invalidation_level": 0.54
+        }
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n⚪ Bitcoin (BTCUSD):\n   Score-Sprung: 62% ➔ 62% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (3D LONG): 3D degencoder Buy-Signal, 3D VSA Volumen-Spike (1.2x).\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (3D LONG): 3D degencoder Buy-Signal, 3D VSA Volumen-Spike (1.2x) · Abstand zur EMA233: -19.0% (Stufe-1-Alarm,...\n   Setup: 🔭 HTF Reversal Watch (3D LONG)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Beobachtung (Konsolidierung)\n\n⚪ BTCUSD (BTCUSD):\n   Score-Sprung: 62% ➔ 62% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (3D LONG): 3D degencoder Buy-Signal, 3D VSA Volumen-Spike (1.2x).\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (3D LONG): 3D degencoder Buy-Signal, 3D VSA Volumen-Spike (1.2x) · Abstand zur EMA233: -19.0% (Stufe-1-Alarm,...\n   Setup: 🔭 HTF Reversal Watch (3D LONG)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Beobachtung (Konsolidierung)\n\n⚪ LYXEUSDT (LYXEUSDT):\n   Score-Sprung: 52% ➔ 52% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (3D SHORT): 3D degencoder Sell-Signal, 3D Reg. Bärische Divergenz.\n   📝 KI-Rationale: LYXEUSDT konsolidiert auf 4h/1h innerhalb eines intakten übergeordneten Aufwärtstrends, stößt jedoch auf das aktive 1D Sell Pocket...\n   Setup: Beobachten / Lauerstellung am Support (HTF Bullisch vs. 1D Sell Pocket, Kein Trigger)\n   ⏱️ Handlungs-Chart: 1D Chart · 1D Lauerstellung (Warten auf Trigger)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261127_210402",
     "timestamp": "2026-11-27T21:04:02.181293+00:00",
     "timestamp_display": "27.11.2026 21:04 UTC",
@@ -25304,122 +25442,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 5 Einstufungen haben sich geändert:\n\n🟢 Amazon (AMZN):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: degencoder Institutional Buy Pocket Reversal\n   Entry: 266.05 | SL: 258.81 | TP2: 298.25\n\n🟢 Accenture (ACN):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 1: SMC Order Block [R1] Confluence\n   Entry: 256.21 | SL: 249.24 | TP2: 287.21\n\n🟢 Under Armour (UAA):\n   Signalwechsel: NEUTRAL ➔ LONG (Score: 96%)\n   💡 Grund: Einstiegssignal: 3-fache Konfluenz bestätigt (1D Trend über EMA 233 bullisch).\n   📝 KI-Rationale: Strikte bullische Konfluenz (96%): Makro-Regime intakt (1D Trend über EMA 233 bullisch). 1h/4h Timing bestätigt nachlassenden Verk...\n   Setup: Hypothese 2: degencoder Indicator Reversal Signal\n   Entry: 5.37 | SL: 5.22 | TP2: 6.02\n\n🔴 First Majestic Silver (AG):\n   Score-Sprung: 89% ➔ 95% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 89% auf 95% (1D Trend unter EMA 233 bärisch).\n   📝 KI-Rationale: Strikte bärische Erschöpfung (95%): Überhitzung an HTF-Widerstandszone (1D Trend unter EMA 233 bärisch). Bärische Momentum-Diverge...\n   Setup: Hypothese 1: SMC Order Block [R3] Exhaustion\n   Entry: 15.83 | SL: 16.42 | TP2: 14.07\n\n⚪ UKX (UKX):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1D/1W) ist intakt bullisch, jedoch ist der 1h RSI mit 85.73 stark überhitzt (Chasing-Verbot)).\n   📝 KI-Rationale: Obwohl der Makro-Trend bullisch ist, verbieten uns die Filterregeln einen Long-Einstieg im überkauften Bereich (1h RSI > 85). Der ...\n   Setup: Beobachten / Konsolidierung im 1D-Bullenmarkt\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261109_180129",
-    "timestamp": "2026-11-09T18:01:29.476298+00:00",
-    "timestamp_display": "09.11.2026 18:01 UTC",
-    "title": "🔔 TV-Signaländerung: 4 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 4,
-    "changes": [
-      {
-        "symbol": "NYSE:AG",
-        "name": "First Majestic Silver",
-        "category": "Edelmetall-Minen",
-        "change_type": "SCORE_JUMP",
-        "old_signal": "SHORT",
-        "new_signal": "SHORT",
-        "old_score": 95,
-        "new_score": 89,
-        "price": 15.765,
-        "setup_name": "Hypothese 1: SMC Order Block Confluence",
-        "entry_range": [
-          15.6,
-          15.85
-        ],
-        "stop_loss": 16.18,
-        "take_profit_2": 14.54,
-        "reasons": [
-          "Makro-Trend ist auf 1D und 1W intakt bärisch, verstärkt durch versteckte bärische Divergenzen auf 1D, 4h und 1h.",
-          "Klassischer Retest eines Grade A Bearish OB (R1 mit Sweep) in Konfluenz mit degencoder 4h und 1h 'Good Sell Signals'.",
-          "VSA zeigt sehr niedriges Kaufvolumen ('Very Low Volume') auf den untergeordneten Zeitebenen – Anzeichen für fehlende Nachfrage an der Widerstandszone."
-        ],
-        "change_reason": "Konfluenz-Veränderung: Score springt von 95% auf 89% (Makro-Trend ist auf 1D und 1W intakt bärisch, verstärkt durch versteckte bärische Divergenzen auf 1D, 4h und 1h.).",
-        "note": "First Majestic Silver liefert ein hervorragendes Short-Setup im Einklang mit dem übergeordneten 1D/1W Bärentrend. Der Anstieg in den Grade A Bearish OB (16.03 Top) erfolgt unter extrem schwachem Volumen (VSA Low Volume) und zeigt Erschöpfung sowie 4h/1h Sell-Signale. Der Stop wird knapp über das Struktur-Hoch bei 16.18 USD gelegt, um ein attraktives CRV von 2.76:1 bis zur nächsten Liquiditätszone (14.54 USD) zu realisieren.",
-        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...pOzg]"
-      },
-      {
-        "symbol": "TRADEGATE:ABEA",
-        "name": "Alphabet A (Tradegate)",
-        "category": "Tradegate / EU",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 95,
-        "new_score": 48,
-        "price": 259.55,
-        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
-        "entry_range": [
-          262.0,
-          263.55
-        ],
-        "stop_loss": 266.5,
-        "take_profit_2": 242.0,
-        "reasons": [
-          "Makro-Trend auf 1D und 1W ist bärisch (unterhalb des 233 EMA), 1h/4h Erholungsversuche stellen reine Bärenmarktrallyes dar.",
-          "1D Buy Pocket signalisiert zwar Erholungspotenzial, aber der übergeordnete Trend verbietet Aggressive Longs nach unseren Filterregeln.",
-          "Unterperformender Sektor Tradegate/EU (20% Winrate) erfordert absolute Disziplin und Verzicht auf unklare Counter-Trend-Trades."
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend auf 1D und 1W ist bärisch (unterhalb des 233 EMA), 1h/4h Erholungsversuche stellen reine Bärenmarktrallyes dar.).",
-        "note": "Alphabet A ist auf den übergeordneten Zeitebenen (1D/1W) bärisch strukturiert. Das 1D Buy Pocket deutet auf kurzfristige Erholung hin, allerdings widerspricht ein Long-Signal dem strikten Makro-Regime. Ein Short-Reentry ist derzeit aufgrund des fehlenden 4h Sell-Triggers nicht attraktiv. Die Position bleibt diszipliniert auf NEUTRAL im Lauerzustand.",
-        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...pOzg]"
-      },
-      {
-        "symbol": "TRADEGATE:FB2A",
-        "name": "Meta Platforms (Tradegate)",
-        "category": "Tradegate / EU",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 95,
-        "new_score": 45,
-        "price": 572.2,
-        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
-        "entry_range": [
-          578.0,
-          582.0
-        ],
-        "stop_loss": 588.5,
-        "take_profit_2": 550.0,
-        "reasons": [
-          "Makro-Trend (1D/1W) ist Bärisch unter key MAs; ein Long-Einstieg gegen den 1D-Trend ist absolut regelwidrig.",
-          "4h RSI überkauft (76.58) und 1h RSI (83.77) stark überhitzt; Chasing in einen geschwächten Bearish Order Block (Grade C, R13).",
-          "Kein klares bärisches Reversal-Signal auf 4h/1h zur Trendfortsetzung vorhanden, daher Abwarten Pflicht."
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1D/1W) ist Bärisch unter key MAs; ein Long-Einstieg gegen den 1D-Trend ist absolut regelwidrig.).",
-        "note": "Meta zeigt eine überhitzte Erholung auf 1h/4h-Ebene innerhalb eines intakten 1D-Bärenmarktes. Da der Kurs in einen stark getesteten Bearish OB (R13) läuft und der RSI überkauft ist, wird keinesfalls Long gegangen. Wir warten ab, bis sich am Widerstand ein valider bärischer Trigger für einen Trendfolge-Short zeigt.",
-        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...oFUw]"
-      },
-      {
-        "symbol": "NYSE:UBER",
-        "name": "Uber",
-        "category": "Mobility / Tech",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 89,
-        "new_score": 45,
-        "price": 70.3,
-        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
-        "entry_range": [
-          0.0,
-          0.0
-        ],
-        "stop_loss": 0.0,
-        "take_profit_2": 0.0,
-        "reasons": [
-          "Widerspruch in den Zeiteinheiten: 1D, 4h und 1h sind im Aufwärtstrend, 1W ist bärisch",
-          "Historisches Versagen beim Setup 'SMC Order Block Confluence' erzwingt höhere Hürden (Score >= 92%)",
-          "Mobility/Tech-Sektor ist im Minus (-11.5% PnL), striktes Risikomanagement erfordert Warten"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Widerspruch in den Zeiteinheiten: 1D, 4h und 1h sind im Aufwärtstrend, 1W ist bärisch).",
-        "note": "Das vorherige SHORT-Signal wird auf NEUTRAL herabgestuft, da der 1D-Trend bullisch bleibt und ein Short-Einstieg gegen den 1D-Trend gegen unsere Makro-Regeln verstößt. Auf 1D und 4h zeigen sich zwar mehrere bärische Divergenzen, ein echter Trendwechsel (CHoCH) liegt jedoch nicht vor. Gemäß unseren Hysterese-Regeln vermeiden wir Whipsaws und halten Abstand.",
-        "evaluated_by": "gemini-3.5-flash [AQ.Ab8...pOzg]"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 4 Einstufungen haben sich geändert:\n\n🔴 First Majestic Silver (AG):\n   Score-Sprung: 95% ➔ 89% (SHORT)\n   💡 Grund: Konfluenz-Veränderung: Score springt von 95% auf 89% (Makro-Trend ist auf 1D und 1W intakt bärisch, verstärkt durch versteckte bärische Divergenzen auf 1D, 4h und 1h.).\n   📝 KI-Rationale: First Majestic Silver liefert ein hervorragendes Short-Setup im Einklang mit dem übergeordneten 1D/1W Bärentrend. Der Anstieg in d...\n   Setup: Hypothese 1: SMC Order Block Confluence\n   Entry: 15.60 | SL: 16.18 | TP2: 14.54\n\n⚪ Alphabet A (Tradegate) (ABEA):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 48%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend auf 1D und 1W ist bärisch (unterhalb des 233 EMA), 1h/4h Erholungsversuche stellen reine Bärenmarktrallyes dar.).\n   📝 KI-Rationale: Alphabet A ist auf den übergeordneten Zeitebenen (1D/1W) bärisch strukturiert. Das 1D Buy Pocket deutet auf kurzfristige Erholung ...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ Meta Platforms (Tradegate) (FB2A):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 45%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend (1D/1W) ist Bärisch unter key MAs; ein Long-Einstieg gegen den 1D-Trend ist absolut regelwidrig.).\n   📝 KI-Rationale: Meta zeigt eine überhitzte Erholung auf 1h/4h-Ebene innerhalb eines intakten 1D-Bärenmarktes. Da der Kurs in einen stark getestete...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n⚪ Uber (UBER):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 45%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Widerspruch in den Zeiteinheiten: 1D, 4h und 1h sind im Aufwärtstrend, 1W ist bärisch).\n   📝 KI-Rationale: Das vorherige SHORT-Signal wird auf NEUTRAL herabgestuft, da der 1D-Trend bullisch bleibt und ein Short-Einstieg gegen den 1D-Tren...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
