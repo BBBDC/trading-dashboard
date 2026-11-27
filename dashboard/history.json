@@ -1,5 +1,102 @@
 [
   {
+    "id": "evt_20261127_103525",
+    "timestamp": "2026-11-27T10:35:25.202461+00:00",
+    "timestamp_display": "27.11.2026 10:35 UTC",
+    "title": "🔔 TV-Signaländerung: 2 Assets aktualisiert",
+    "type": "SIGNAL_UPDATE",
+    "change_count": 2,
+    "changes": [
+      {
+        "symbol": "TRADEGATE:A1TNDG",
+        "name": "A1TNDG (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 68,
+        "new_score": 68,
+        "price": 97.21,
+        "setup_name": "🔭 HTF Reversal Watch (1W LONG)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          97.21,
+          97.21
+        ],
+        "stop_loss": 94.29,
+        "take_profit_2": 103.04,
+        "reasons": [
+          "1D Trend unter EMA 233 bärisch",
+          "1W Makro-Trend bärisch bestätigt",
+          "SMC: Kurs im 4h Golden Pocket (97.19 - 97.34)",
+          "SMC FVG: 4h Bullish Imbalance (95.575 - 97.212)"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "HTF Trendwende-Alarm (1W LONG): 1W degencoder Buy-Signal, 1W Reg. Bullische Divergenz.",
+        "note": "🔭 HTF REVERSAL WATCH (1W LONG): 1W degencoder Buy-Signal, 1W Reg. Bullische Divergenz · Abstand zur EMA233: -0.9% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "LONG",
+          "timeframe": "1W",
+          "label": "🔭 1W Reversal Watch (LONG)",
+          "factors": [
+            "1W degencoder Buy-Signal",
+            "1W Reg. Bullische Divergenz"
+          ],
+          "ema233_distance_pct": -0.88,
+          "invalidation_level": 97.05
+        }
+      },
+      {
+        "symbol": "TRADEGATE:RY6",
+        "name": "Realty Income (Tradegate)",
+        "category": "Tradegate / EU",
+        "change_type": "HTF_REVERSAL_WATCH",
+        "old_signal": "NEUTRAL",
+        "new_signal": "NEUTRAL",
+        "old_score": 68,
+        "new_score": 68,
+        "price": 54.9,
+        "setup_name": "🔭 HTF Reversal Watch (1D SHORT)",
+        "setup_family": "GENERIC_CONFLUENCE",
+        "entry_range": [
+          55.15,
+          55.15
+        ],
+        "stop_loss": 53.5,
+        "take_profit_2": 58.46,
+        "reasons": [
+          "1D Trend über EMA 233 bullisch",
+          "1W Makro-Trend bullisch bestätigt",
+          "degencoder: 1D Institutional SELL Pocket (Upper Chaos > RFE 233)",
+          "SMC OB: 4h Bearish Order Block [R32] Retest"
+        ],
+        "primary_timeframe": "4h",
+        "timeframe_label": "4h Lauerstellung",
+        "holding_period": "Warten auf Trigger",
+        "change_reason": "HTF Trendwende-Alarm (1D SHORT): 1D degencoder Sell-Signal, 1D Reg. Bärische Divergenz.",
+        "note": "🔭 HTF REVERSAL WATCH (1D SHORT): 1D degencoder Sell-Signal, 1D Reg. Bärische Divergenz · Abstand zur EMA233: +6.5% (Stufe-1-Alarm, Auto-Trade wartet auf EMA233/4h-Bestätigung).",
+        "evaluated_by": "quantitative_engine",
+        "htf_reversal_watch": {
+          "direction": "SHORT",
+          "timeframe": "1D",
+          "label": "🔭 1D Reversal Watch (SHORT)",
+          "factors": [
+            "1D degencoder Sell-Signal",
+            "1D Reg. Bärische Divergenz"
+          ],
+          "ema233_distance_pct": 6.55,
+          "invalidation_level": 56.83
+        }
+      }
+    ],
+    "notification_sent": false,
+    "provider": "telegram",
+    "raw_message": "🔄 Folgende 2 Einstufungen haben sich geändert:\n\n⚪ A1TNDG (Tradegate) (A1TNDG):\n   Score-Sprung: 68% ➔ 68% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1W LONG): 1W degencoder Buy-Signal, 1W Reg. Bullische Divergenz.\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (1W LONG): 1W degencoder Buy-Signal, 1W Reg. Bullische Divergenz · Abstand zur EMA233: -0.9% (Stufe-1-Alarm, ...\n   Setup: 🔭 HTF Reversal Watch (1W LONG)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n⚪ Realty Income (Tradegate) (RY6):\n   Score-Sprung: 68% ➔ 68% (NEUTRAL)\n   💡 Grund: HTF Trendwende-Alarm (1D SHORT): 1D degencoder Sell-Signal, 1D Reg. Bärische Divergenz.\n   📝 KI-Rationale: 🔭 HTF REVERSAL WATCH (1D SHORT): 1D degencoder Sell-Signal, 1D Reg. Bärische Divergenz · Abstand zur EMA233: +6.5% (Stufe-1-Alarm,...\n   Setup: 🔭 HTF Reversal Watch (1D SHORT)\n   ⏱️ Handlungs-Chart: 4h Chart · 4h Lauerstellung (Warten auf Trigger)\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
+  },
+  {
     "id": "evt_20261127_090354",
     "timestamp": "2026-11-27T09:03:54.301105+00:00",
     "timestamp_display": "27.11.2026 09:03 UTC",
@@ -25102,96 +25199,5 @@
     "notification_sent": true,
     "provider": "telegram",
     "raw_message": "🔄 Folgende 1 Einstufungen haben sich geändert:\n\n🔴 GLMRUSDT (GLMRUSDT):\n   Score-Sprung: 93% ➔ 88% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R5] Exhaustion' (Makro-Trend (1W, 3D, 1D, 4h) durchgehend stark bärisch, im Einklang mit strikter HTF-Direktion.).\n   📝 KI-Rationale: Der Makro-Trend zeigt eine intakte bärische Marktstruktur. Trotz der kurzfristigen 1h/4h Buy-Signale handelt es sich im Kontext de...\n   Setup: Hypothese 1: SMC Order Block [R5] Exhaustion\n   Entry: 0.01 | SL: 0.01 | TP2: 0.01\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
-  },
-  {
-    "id": "evt_20261108_022731",
-    "timestamp": "2026-11-08T02:27:31.759515+00:00",
-    "timestamp_display": "08.11.2026 02:27 UTC",
-    "title": "🔔 TV-Signaländerung: 3 Assets aktualisiert",
-    "type": "SIGNAL_UPDATE",
-    "change_count": 3,
-    "changes": [
-      {
-        "symbol": "BINANCE:GLMRUSDT",
-        "name": "GLMRUSDT",
-        "category": "Crypto",
-        "change_type": "SETUP_UPDATE",
-        "old_signal": "SHORT",
-        "new_signal": "SHORT",
-        "old_score": 95,
-        "new_score": 93,
-        "price": 0.0073,
-        "setup_name": "Hypothese 1: SMC Order Block [R4] Exhaustion",
-        "entry_range": [
-          0.0073,
-          0.0075
-        ],
-        "stop_loss": 0.00808,
-        "take_profit_2": 0.0064,
-        "reasons": [
-          "Vollständige HTF-Konfluenz im Bärenmarkt: 1W, 3D, 1D und 4h befinden sich im klaren Abwärtstrend",
-          "Bärischer SMC Order Block Grade A mit verifiziertem Liquidity Sweep im Bereich 0.0070–0.0080 USDT bestätigt",
-          "1h liefert degencoder Good Sell Signal (Kreis) und 1D/4h bestätigen versteckte bärische Trendfolge-Divergenzen bei abnehmendem Volumen"
-        ],
-        "change_reason": "Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R4] Exhaustion' (Vollständige HTF-Konfluenz im Bärenmarkt: 1W, 3D, 1D und 4h befinden sich im klaren Abwärtstrend).",
-        "note": "GLMRUSDT bietet ein institutionelles A-Setup entlang des übergeordneten Makro-Abwärtstrends. Der Sweep über die jüngsten Hochs in den Grade-A Bearish OB hinein wurde auf 1h mit einem klaren Sell-Signal quittiert. Gemäß den verbindlichen GLMR-Leitregeln ist der Stop zwingend auf Break-Even zu ziehen, sobald 0.0069 USDT für 50% Teilgewinnmitnahme erreicht werden.",
-        "evaluated_by": "gemini-3.8-flash High [AQ.Ab8...j2vQ]"
-      },
-      {
-        "symbol": "CRYPTOCAP:BTC.D",
-        "name": "BTC Dominanz",
-        "category": "Krypto-Makro",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "LONG",
-        "new_signal": "NEUTRAL",
-        "old_score": 96,
-        "new_score": 62,
-        "price": 60.470771258754496,
-        "setup_name": "Beobachten / Lauerstellung am Support (Buy the Dip)",
-        "entry_range": [
-          60.15,
-          60.35
-        ],
-        "stop_loss": 59.85,
-        "take_profit_2": 61.5,
-        "reasons": [
-          "1W-, 3D- und 1D-Makrotrends sind intakt bullisch, jedoch zeigt 1D aktuell ein Sell-Pocket-Umfeld an",
-          "Auf 1h liegt ein bearisher Trend mit regulärer bärischer Divergenz vor, direkt unter einem mitigierten Bearish OB Grade D",
-          "Krypto-Makro-Sektor verlangt strikte Disziplin (0/2 Win-Rate); kein Chasing nach dem vorherigen Long-Impuls vor einem sauberen 4h/1D-Pullback"
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (1W-, 3D- und 1D-Makrotrends sind intakt bullisch, jedoch zeigt 1D aktuell ein Sell-Pocket-Umfeld an).",
-        "note": "Obwohl der übergeordnete Trend der BTC-Dominanz bullisch bleibt, befindet sich der Kurs direkt an einem bereits 4-fach angetesteten Bearish Order Block und zeigt auf 1h bärische Divergenzen. Um das Kapital nach den bisherigen Drawdowns im Sektor strikt zu schützen, schalten wir auf NEUTRAL und warten auf einen strukturierten Dip in die 60.20-Supportzone.",
-        "evaluated_by": "gemini-3.8-flash High [AQ.Ab8...j2vQ]"
-      },
-      {
-        "symbol": "COINBASE:ETHBTC",
-        "name": "ETHBTC",
-        "category": "Crypto",
-        "change_type": "SIGNAL_CHANGE",
-        "old_signal": "SHORT",
-        "new_signal": "NEUTRAL",
-        "old_score": 95,
-        "new_score": 52,
-        "price": 0.029488,
-        "setup_name": "Beobachten / Warten auf Short-Trigger am Widerstand",
-        "entry_range": [
-          0.0298,
-          0.0301
-        ],
-        "stop_loss": 0.0306,
-        "take_profit_2": 0.0278,
-        "reasons": [
-          "Makro-Trend auf 1W, 3D und 1D ist strikt bärisch, jedoch zeigt 4h kurzfristigen Gegenwind mit bullischer Tendenz und 1h ein Reversal-Signal.",
-          "Der aktive Bearish Order Block besitzt lediglich Grad D und ist mit Retest R1 bereits mitigiert (keine Sweep-Validierung).",
-          "Widersprüchliche Divergenzen auf 1D und 4h bei Very Low Volume mahnen zur strikten Zurückhaltung gemäß Kapitalerhalt-Dogma."
-        ],
-        "change_reason": "Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend auf 1W, 3D und 1D ist strikt bärisch, jedoch zeigt 4h kurzfristigen Gegenwind mit bullischer Tendenz und 1h ein Reversal-Signal.).",
-        "note": "Trotz des vorangegangenen Short-Signals und übergeordneter Schwäche bietet das aktuelle Niveau kein asymmetrisches CRV mehr für neue Short-Positionen. Das 1h 'Potential Buy Signal' und das extrem dünne Volumen deuten auf eine potenzielle Bärenmarkt-Konsolidierung hin. Wir verbleiben neutral an der Seitenlinie und warten auf einen sauberen Retest der 0.030-Widerstandszone für erneute Trendfolge-Entries.",
-        "evaluated_by": "gemini-3.8-flash High [AQ.Ab8...oFUw]"
-      }
-    ],
-    "notification_sent": true,
-    "provider": "telegram",
-    "raw_message": "🔄 Folgende 3 Einstufungen haben sich geändert:\n\n🔴 GLMRUSDT (GLMRUSDT):\n   Score-Sprung: 95% ➔ 93% (SHORT)\n   💡 Grund: Setup-Update: Wechsel auf 'Hypothese 1: SMC Order Block [R4] Exhaustion' (Vollständige HTF-Konfluenz im Bärenmarkt: 1W, 3D, 1D und 4h befinden sich im klaren Abwärtstrend).\n   📝 KI-Rationale: GLMRUSDT bietet ein institutionelles A-Setup entlang des übergeordneten Makro-Abwärtstrends. Der Sweep über die jüngsten Hochs in ...\n   Setup: Hypothese 1: SMC Order Block [R4] Exhaustion\n   Entry: 0.01 | SL: 0.01 | TP2: 0.01\n\n⚪ BTC Dominanz (BTC.D):\n   Signalwechsel: LONG ➔ NEUTRAL (Score: 62%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (1W-, 3D- und 1D-Makrotrends sind intakt bullisch, jedoch zeigt 1D aktuell ein Sell-Pocket-Umfeld an).\n   📝 KI-Rationale: Obwohl der übergeordnete Trend der BTC-Dominanz bullisch bleibt, befindet sich der Kurs direkt an einem bereits 4-fach angetestete...\n   Setup: Beobachten / Lauerstellung am Support (Buy the Dip)\n\n⚪ ETHBTC (ETHBTC):\n   Signalwechsel: SHORT ➔ NEUTRAL (Score: 52%)\n   💡 Grund: Ausstieg/Invalidierung: Setup nicht mehr aktiv (Makro-Trend auf 1W, 3D und 1D ist strikt bärisch, jedoch zeigt 4h kurzfristigen Gegenwind mit bullischer Tendenz und 1h ein Reversal-Signal.).\n   📝 KI-Rationale: Trotz des vorangegangenen Short-Signals und übergeordneter Schwäche bietet das aktuelle Niveau kein asymmetrisches CRV mehr für ne...\n   Setup: Beobachten / Warten auf Short-Trigger am Widerstand\n\n📜 Historie & Charts: https://bbbdc.github.io/trading-dashboard/history.html"
   }
 ]
