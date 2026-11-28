@@ -1,7 +1,156 @@
 {
-  "updated_at": "2026-11-28T13:31:56.181772+00:00",
-  "total_experience_records": 128,
+  "updated_at": "2026-11-28T14:01:22.265138+00:00",
+  "total_experience_records": 135,
   "learnings": [
+    {
+      "timestamp": "2026-11-28T14:01:12.900086+00:00",
+      "trade_id": "cross_rule_1795874472",
+      "source_book": "INCUBATOR_RESEARCH",
+      "scope": "INCUBATOR",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Keine Long-Entries mit engem Stop direkt unter offensichtlichem Support gegen übergeordnetes Momentum.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der -1.13%-Stop unter dem 15m-Support bei NEARUSDT lag exakt im Zielbereich eines Liquidity-Sweeps bzw. Trendbruchs; auf 4h/1D-Ebene müssen Entries entweder nach einem abgeschlossenen Sweep mit Reclaim erfolgen oder strikt im Einklang mit dem dominierenden Trend gefiltert werden.",
+        "actionable_rule": "Keine Long-Entries mit engem Stop direkt unter offensichtlichem Support gegen übergeordnetes Momentum."
+      }
+    },
+    {
+      "timestamp": "2026-11-28T14:01:12.900063+00:00",
+      "trade_id": "cross_rule_1795874472",
+      "source_book": "INCUBATOR_RESEARCH",
+      "scope": "INCUBATOR",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volumen-Spikes sind erst durch Preis-Reaktion valide (Absorption braucht Follow-Through).",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Auf 15m führte die automatische Gleichsetzung eines 2.5x-Volumenschubs mit bullischer Absorption direkt in ein fallendes Messer; fraktal auf 4h/1D muss nach jedem Volumen-Klimax an Support-Zonen zwingend ein bestätigter Kerzenschluss über dem Level oder ein Higher Low abgewartet werden.",
+        "actionable_rule": "Volumen-Spikes sind erst durch Preis-Reaktion valide (Absorption braucht Follow-Through)."
+      }
+    },
+    {
+      "timestamp": "2026-11-28T14:01:12.900000+00:00",
+      "trade_id": "inc_NEARUSDT_15m_1795863632",
+      "source_book": "INCUBATOR_RESEARCH",
+      "scope": "INCUBATOR",
+      "timeframe": "15m",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (15m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Confluence Long",
+      "pnl_leveraged": -2.26,
+      "pnl_raw": -1.13,
+      "text": "Bei einem degencoder Confluence Long mit VSA-Volumen-Surge niemals auf das bloße Indikator-Signal hin einsteigen, sondern zwingend eine bullische Bestätigungskerze (Reclaim über Support / Mikro-Strukturbruch) sowie Alignment mit dem 4h-Trend abwarten.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_15m_1795863632",
+        "verdict": "LOSS",
+        "driver": "Der 2.5x-VSA-Volumenspike an der RFE-Lower-Zone war keine bullische Absorption, sondern dominanter Angebotsdruck (Breaking Volume), der den Support durchschlug und den Stop-Loss bei -1.13% abräumte.",
+        "technical_warning": "Fehlende bullische Folgebestätigung (kein starker 15m-Reclaim bzw. Displacement nach dem Volumenschub), potenzielle Gegenbewegung zum übergeordneten 4h-Trend sowie ein exponierter Stop-Loss direkt in der offensichtlichen Retail-Liquiditätszone unter dem Support.",
+        "actionable_rule": "Bei einem degencoder Confluence Long mit VSA-Volumen-Surge niemals auf das bloße Indikator-Signal hin einsteigen, sondern zwingend eine bullische Bestätigungskerze (Reclaim über Support / Mikro-Strukturbruch) sowie Alignment mit dem 4h-Trend abwarten."
+      }
+    },
+    {
+      "timestamp": "2026-11-28T14:00:46.238577+00:00",
+      "trade_id": "cross_rule_1795874446",
+      "source_book": "INCUBATOR_RESEARCH",
+      "scope": "INCUBATOR",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Korrelierte Cluster-Risiken strikt deckeln: Scheitert ein Confluence-Setup an Support in einem High-Beta-Asset, sind identische Gegen-Trend-Signale in korrelierten Märkten bis zur klaren Marktstruktur-Wende gesperrt.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Die beiden 15m-Verluste bei DOGE und SUI traten binnen einer Stunde im exakt gleichen Long-Setup auf und verdoppelten unnötig den Drawdown (-2.1R kumuliert) gegen denselben zugrunde liegenden Marktdruck.",
+        "actionable_rule": "Korrelierte Cluster-Risiken strikt deckeln: Scheitert ein Confluence-Setup an Support in einem High-Beta-Asset, sind identische Gegen-Trend-Signale in korrelierten Märkten bis zur klaren Marktstruktur-Wende gesperrt."
+      }
+    },
+    {
+      "timestamp": "2026-11-28T14:00:46.238553+00:00",
+      "trade_id": "cross_rule_1795874446",
+      "source_book": "INCUBATOR_RESEARCH",
+      "scope": "INCUBATOR",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Volumen-Spikes an Support-Zonen (RFE Lower / Buy Area) dürfen auf keiner Zeitebene (15m bis 1D) als eigenständiger Long-Trigger gewertet werden, solange kein Bestätigungs-Close über dem Signal-Kerzenhoch und keine übergeordnete Trend- oder Liquidity-Sweep-Bestätigung vorliegen.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Sowohl bei DOGE (1.8x) als auch bei SUI (1.4x) führten vermeintliche VSA-Absorptionssignale ohne strukturellen Gegenbeweis direkt in den Support-Bruch; fraktal gilt auf 4h/1D noch stärker, dass moderate Volumenanstiege an Unterstützung häufig Breakout-Supply statt Käufer-Absorption markieren.",
+        "actionable_rule": "Volumen-Spikes an Support-Zonen (RFE Lower / Buy Area) dürfen auf keiner Zeitebene (15m bis 1D) als eigenständiger Long-Trigger gewertet werden, solange kein Bestätigungs-Close über dem Signal-Kerzenhoch und keine übergeordnete Trend- oder Liquidity-Sweep-Bestätigung vorliegen."
+      }
+    },
+    {
+      "timestamp": "2026-11-28T14:00:46.238534+00:00",
+      "trade_id": "inc_SUIUSDT_15m_1795849223",
+      "source_book": "INCUBATOR_RESEARCH",
+      "scope": "INCUBATOR",
+      "timeframe": "15m",
+      "symbol": "SUIUSDT",
+      "name": "Sui",
+      "category": "Micro-Incubator (15m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Confluence Long",
+      "pnl_leveraged": -3.3,
+      "pnl_raw": -1.65,
+      "text": "VSA-Absorptionssignale unter einem 2.0x-Volumen-Schwellenwert strikt ablehnen und nach einem SL-Treffer im selben Setup-Typ eine korrelationsbasierte Cooldown-Sperre für weitere Altcoin-Longs aktivieren.",
+      "ai_post_mortem": {
+        "trade_id": "inc_SUIUSDT_15m_1795849223",
+        "verdict": "LOSS",
+        "driver": "Trotz eines bereits zuvor ausgestoppten korrelierten Altcoin-Longs (DOGE) wurde erneut ein schwaches 1.4x-Volumensignal blind als Support-Absorption gehandelt und im anhaltenden Abwärtstrend ausgestoppt.",
+        "technical_warning": "Ein VSA-Volumen-Surge von lediglich 1.4x ist statistisch zu schwach für institutionelle Absorption in einem volatilen Asset wie SUI (-1.65% Stop-Distanz), und das zeitnahe Versagen des identischen DOGE-Setups war ein klares marktbreites Warnsignal für übergeordneten 4h-Verkaufsdruck.",
+        "actionable_rule": "VSA-Absorptionssignale unter einem 2.0x-Volumen-Schwellenwert strikt ablehnen und nach einem SL-Treffer im selben Setup-Typ eine korrelationsbasierte Cooldown-Sperre für weitere Altcoin-Longs aktivieren."
+      }
+    },
+    {
+      "timestamp": "2026-11-28T14:00:46.238458+00:00",
+      "trade_id": "inc_DOGEUSDT_15m_1795845637",
+      "source_book": "INCUBATOR_RESEARCH",
+      "scope": "INCUBATOR",
+      "timeframe": "15m",
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "Micro-Incubator (15m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Confluence Long",
+      "pnl_leveraged": -1.94,
+      "pnl_raw": -0.97,
+      "text": "Bei degencoder-Confluence-Longs erst nach einer bestätigenden Reversal-Kerze mit Schlusskurs über dem Hoch der Absorptionskerze einsteigen und den Stop-Loss inklusive Volatilitäts-Puffer jenseits der erwarteten Liquidity-Sweep-Zone platzieren.",
+      "ai_post_mortem": {
+        "trade_id": "inc_DOGEUSDT_15m_1795845637",
+        "verdict": "LOSS",
+        "driver": "Der Einstieg erfolgte in fallendes Momentum auf Basis einer vermeintlichen 1.8x-Volumenabsorption, die tatsächlich Verkaufsdruck war und den eng unter Support platzierten Stop inklusive Slippage (-1.1R) abräumte.",
+        "technical_warning": "Ein VSA-Volumen-Surge von nur 1.8x ohne signifikanten unteren Docht (Reject-Wick) und ohne anschließenden Break of Structure (BOS) signalisiert keine echte Kapitulation, sondern aktive Supply-Dominanz an der RFE-Unterkante; zudem deutet das -1.1R-Ergebnis auf zu enge Stop-Platzierung direkt im offensichtlichen Liquidity-Pool hin.",
+        "actionable_rule": "Bei degencoder-Confluence-Longs erst nach einer bestätigenden Reversal-Kerze mit Schlusskurs über dem Hoch der Absorptionskerze einsteigen und den Stop-Loss inklusive Volatilitäts-Puffer jenseits der erwarteten Liquidity-Sweep-Zone platzieren."
+      }
+    },
     {
       "timestamp": "2026-11-28T11:01:02.569079+00:00",
       "trade_id": "cross_rule_1795863662",
