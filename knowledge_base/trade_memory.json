@@ -1,7 +1,70 @@
 {
-  "updated_at": "2026-11-28T10:30:47.581012+00:00",
-  "total_experience_records": 125,
+  "updated_at": "2026-11-28T11:01:12.351006+00:00",
+  "total_experience_records": 128,
   "learnings": [
+    {
+      "timestamp": "2026-11-28T11:01:02.569079+00:00",
+      "trade_id": "cross_rule_1795863662",
+      "source_book": "INCUBATOR_RESEARCH",
+      "scope": "INCUBATOR",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Platziere keinen Entry knapp oberhalb eines markanten runden Preislevels mit Stop-Loss direkt darunter; warte entweder den Sweep des Liquiditätspools ab oder verwerfe das Setup.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Der Entry bei 3.014 mit SL bei 2.99 (-0.80%) lag exakt im typischen Stop-Hunt-Korridor unter der 3.00-Marke. Auf 4h/1D-Zeitebenen ziehen psychologische Marken noch größere institutionelle Liquidität an, sodass verfrühte Entries vor dem Sweep systematisch ausgestoppt werden.",
+        "actionable_rule": "Platziere keinen Entry knapp oberhalb eines markanten runden Preislevels mit Stop-Loss direkt darunter; warte entweder den Sweep des Liquiditätspools ab oder verwerfe das Setup."
+      }
+    },
+    {
+      "timestamp": "2026-11-28T11:01:02.569050+00:00",
+      "trade_id": "cross_rule_1795863662",
+      "source_book": "INCUBATOR_RESEARCH",
+      "scope": "INCUBATOR",
+      "symbol": "MULTI-ASSET",
+      "name": "Cross-Market Confluence",
+      "category": "Global Heuristic (4h/1D Transfer)",
+      "direction": "NEUTRAL",
+      "result": "WIN",
+      "setup_name": "Synthesized Multi-Timeframe Heuristic",
+      "pnl_leveraged": 0.0,
+      "pnl_raw": 0.0,
+      "text": "Behandle VSA-Volumenspitzen (High Volume Surge) an Support-Zonen niemals als isoliertes Einstiegssignal, sondern fordere zwingend eine Bestätigungskerze (Absorption mit bullischem Close/Wick-Rejection) – insbesondere wenn der Orderblock bereits mehrfach getestet wurde.",
+      "ai_post_mortem": {
+        "verdict": "RULE",
+        "driver": "Im 15m NEARUSDT-Trade führte ein 1.5x-Volumenanstieg an einem R4-Orderblock zu einem sofortigen Stop-Loss (-0.80%), weil hohes Volumen an ausgereizten Zonen ebenso gut ein Durchbruchssignal (Effort vs. Result zugunsten der Verkäufer) wie eine Absorption sein kann – ein fraktales Prinzip, das auf 4h/1D noch gravierendere Fehlausbrüche verhindert.",
+        "actionable_rule": "Behandle VSA-Volumenspitzen (High Volume Surge) an Support-Zonen niemals als isoliertes Einstiegssignal, sondern fordere zwingend eine Bestätigungskerze (Absorption mit bullischem Close/Wick-Rejection) – insbesondere wenn der Orderblock bereits mehrfach getestet wurde."
+      }
+    },
+    {
+      "timestamp": "2026-11-28T11:01:02.568985+00:00",
+      "trade_id": "inc_NEARUSDT_15m_1795845623",
+      "source_book": "INCUBATOR_RESEARCH",
+      "scope": "INCUBATOR",
+      "timeframe": "15m",
+      "symbol": "NEARUSDT",
+      "name": "Near Protocol",
+      "category": "Micro-Incubator (15m)",
+      "direction": "LONG",
+      "result": "LOSS",
+      "setup_name": "degencoder 15m Confluence Long",
+      "pnl_leveraged": -1.6,
+      "pnl_raw": -0.8,
+      "text": "Eröffne bei einem degencoder-Confluence-Setup keinen Long auf einen Orderblock ab dem 3. Retest (R3+) ohne vorherigen bestätigten Liquidity Sweep unter das nächstgelegene psychologische Level (hier 3.00) und eine anschließende bullische Abschlusskerze mit Strukturwechsel.",
+      "ai_post_mortem": {
+        "trade_id": "inc_NEARUSDT_15m_1795845623",
+        "verdict": "LOSS",
+        "driver": "Der Long-Einstieg erfolgte an einem bereits erschöpften Bullish Orderblock (4. Retest / R4) direkt über dem offensichtlichen Liquiditätspool der psychologischen 3.00-Marke, sodass der vermeintliche VSA-Volumen-Surge (1.5x) sich als Verkaufsdruck statt als bullische Absorption entpuppte.",
+        "technical_warning": "Die hohe Retest-Anzahl (R4) signalisierte bereits abgebaute Kauf-Liquidität, während ein echtes Liquidity-Sweep-Muster [A] unterhalb von 3.00 sowie eine bestätigende bullische Folgekerze (Displacement) nach dem 1.5x-Volumenanstieg fehlten.",
+        "actionable_rule": "Eröffne bei einem degencoder-Confluence-Setup keinen Long auf einen Orderblock ab dem 3. Retest (R3+) ohne vorherigen bestätigten Liquidity Sweep unter das nächstgelegene psychologische Level (hier 3.00) und eine anschließende bullische Abschlusskerze mit Strukturwechsel."
+      }
+    },
     {
       "timestamp": "2026-11-27T10:35:08.819640+00:00",
       "trade_id": "cross_rule_1795775708",
